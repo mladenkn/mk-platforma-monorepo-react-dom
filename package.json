@@ -9,6 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
+    "admin": "pnpm --filter @mk-taxi/admin",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
