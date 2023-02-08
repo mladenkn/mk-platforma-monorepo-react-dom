@@ -1,0 +1,14 @@
+{
+  "name": "@mk-taxi/app",
+  "version": "0.0.0",
+  "scripts": {
+    "lint": "eslint *.ts*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "react": "^18.2.0",
+    "@mk-libs/tsconfig": "workspace:*",
+    "@mk-libs/common": "workspace:*",
+    "@mk-libs/react-common": "workspace:*"
+  }
+}

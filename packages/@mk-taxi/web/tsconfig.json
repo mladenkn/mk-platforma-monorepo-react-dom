@@ -1,5 +1,5 @@
 {
-  "extends": "@mk-libs/tsconfig/nextjs.json",
+  "extends": "@mk-libs/tsconfig/react-library.json",
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
