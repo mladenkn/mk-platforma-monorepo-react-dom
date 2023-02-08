@@ -1,5 +1,5 @@
 {
-  "name": "@mk-taxi/admin",
+  "name": "@mk-taxi/admin-web",
   "version": "0.0.0",
   "private": true,
   "scripts": {

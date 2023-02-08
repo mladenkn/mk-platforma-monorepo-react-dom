@@ -82,7 +82,7 @@ importers:
   packages/@mk-libs/tsconfig:
     specifiers: {}
 
-  packages/@mk-taxi/admin:
+  packages/@mk-taxi/admin-web:
     specifiers:
       '@babel/core': ^7.0.0
       '@mk-libs/common': workspace:*
@@ -125,7 +125,7 @@ importers:
       '@types/react': 18.0.27
       react: 18.2.0
 
-  packages/@mk-taxi/web:
+  packages/@mk-taxi/app-web:
     specifiers:
       '@babel/core': ^7.0.0
       '@mk-libs/common': workspace:*

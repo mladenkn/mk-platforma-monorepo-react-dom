@@ -9,7 +9,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "admin": "pnpm --filter @mk-taxi/admin",
+    "admin-web": "pnpm --filter @mk-taxi/admin-web",
     "app-web": "pnpm --filter @mk-taxi/app-web",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
