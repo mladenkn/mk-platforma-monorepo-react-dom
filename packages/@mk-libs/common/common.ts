@@ -57,7 +57,7 @@ export function deepEquals<T = unknown>(a: T, b: T){
   return JSON.stringify(a) === JSON.stringify(b)
 }
 
-export function evaluate<T>(func: () => T){
+export function eva<T>(func: () => T){
   return func()
 }
 
