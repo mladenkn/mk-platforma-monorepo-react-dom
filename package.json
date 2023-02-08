@@ -11,6 +11,7 @@
     "dev": "turbo run dev",
     "admin-web": "pnpm --filter @mk-taxi/admin-web",
     "app-web": "pnpm --filter @mk-taxi/app-web",
+    "app": "pnpm --filter @mk-taxi/app",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
