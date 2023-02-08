@@ -111,6 +111,51 @@ importers:
       eslint: 7.32.0
       typescript: 4.9.5
 
+  packages/@mk-taxi/app:
+    specifiers:
+      '@mk-libs/common': workspace:*
+      '@mk-libs/react-common': workspace:*
+      '@mk-libs/tsconfig': workspace:*
+      '@types/react': ^18.0.21
+      react: ^18.2.0
+    devDependencies:
+      '@mk-libs/common': link:../../@mk-libs/common
+      '@mk-libs/react-common': link:../../@mk-libs/react-common
+      '@mk-libs/tsconfig': link:../../@mk-libs/tsconfig
+      '@types/react': 18.0.27
+      react: 18.2.0
+
+  packages/@mk-taxi/web:
+    specifiers:
+      '@babel/core': ^7.0.0
+      '@mk-libs/common': workspace:*
+      '@mk-libs/react-common': workspace:*
+      '@mk-libs/tsconfig': workspace:*
+      '@mk-taxi/app': workspace:*
+      '@types/node': ^17.0.12
+      '@types/react': ^18.0.22
+      '@types/react-dom': ^18.0.7
+      eslint: 7.32.0
+      next: ^13.1.1
+      react: 18.2.0
+      react-dom: 18.2.0
+      typescript: ^4.5.3
+    dependencies:
+      '@mk-libs/common': link:../../@mk-libs/common
+      '@mk-libs/react-common': link:../../@mk-libs/react-common
+      '@mk-taxi/app': link:../app
+      next: 13.1.6_pjwopsidmaokadturxaafygjp4
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      '@babel/core': 7.20.12
+      '@mk-libs/tsconfig': link:../../@mk-libs/tsconfig
+      '@types/node': 17.0.45
+      '@types/react': 18.0.27
+      '@types/react-dom': 18.0.10
+      eslint: 7.32.0
+      typescript: 4.9.5
+
 packages:
 
   /@ampproject/remapping/2.2.0:
