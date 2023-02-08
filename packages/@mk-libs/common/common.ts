@@ -61,9 +61,9 @@ export function evaluate<T>(func: () => T){
   return func()
 }
 
-export function isElectron(){
-  return navigator.userAgent.toLowerCase().indexOf(' electron/') > -1
-}
+// export function isElectron(){
+//   return navigator.userAgent.toLowerCase().indexOf(' electron/') > -1
+// }
 
 export function difference<T extends object>(object: T, base: T): DeepPartial<T> {
 	function changes(object: T, base: T) {
