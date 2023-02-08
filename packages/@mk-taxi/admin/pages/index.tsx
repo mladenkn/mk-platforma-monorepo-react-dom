@@ -1,10 +1,7 @@
-import { eva } from '@mk-libs/common/common'
-
-export default function Web() {
+export default function Home() {
   return (
     <div>
-      <h1>Web</h1>
-       {eva(() => 'hello fro eva')}
+      <h1>Admin home</h1>
     </div>
   );
 }
