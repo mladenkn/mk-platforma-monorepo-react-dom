@@ -1,0 +1,21 @@
+{
+  "name": "@mk-libs/react-common",
+  "version": "0.0.0",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint *.ts*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.21",
+    "eslint": "^7.32.0",
+    "react": "^18.2.0",
+    "@mk-libs/tsconfig": "*",
+    "@mk-libs/common": "*",
+    "typescript": "^4.9.4"
+  },
+  "dependencies": {
+    "immer": "^9.0.15"
+  }
+}
