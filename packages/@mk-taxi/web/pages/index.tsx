@@ -1,7 +1,5 @@
+import RouteSelection_section from '@mk-taxi/app/RouteSelection.section'
+
 export default function Home() {
-  return (
-    <div>
-      <h1>App web home</h1>
-    </div>
-  );
+  return <RouteSelection_section />
 }
