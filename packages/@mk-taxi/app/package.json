@@ -5,10 +5,14 @@
     "lint": "eslint *.ts*"
   },
   "devDependencies": {
-    "@types/react": "^18.0.21",
-    "react": "^18.2.0",
-    "@mk-libs/tsconfig": "workspace:*",
     "@mk-libs/common": "workspace:*",
-    "@mk-libs/react-common": "workspace:*"
+    "@mk-libs/react-common": "workspace:*",
+    "@mk-libs/tsconfig": "workspace:*",
+    "@types/react": "^18.0.21",
+    "react": "^18.2.0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^4.24.4",
+    "lodash": "^4.17.21"
   }
 }
