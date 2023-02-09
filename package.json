@@ -13,7 +13,7 @@
     "app-web": "pnpm --filter @mk-taxi/app-web",
     "app": "pnpm --filter @mk-taxi/app",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev.reset": "find . -type dir -name node_modules | xargs rm -rf && rm -f pnpm-lock.lock"
+    "dev.reset": "find . -type d -name node_modules | xargs rm -rf && rm -f pnpm-lock.lock"
   },
   "devDependencies": {
     "prettier": "latest",
