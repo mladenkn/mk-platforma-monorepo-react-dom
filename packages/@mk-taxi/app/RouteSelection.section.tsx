@@ -10,10 +10,10 @@ export default function RouteSelection_section(){
           height: '600px'
         }}
         center={ {
-          lat: -3.745,
-          lng: -38.523
+          lat: 43.511227,
+          lng: 16.482284,
         }}
-        zoom={10}
+        zoom={13}
       >
         { /* Child components, such as markers, info windows, etc. */ }
         <Marker position={{ lat: -34.397, lng: 150.644 }} />
