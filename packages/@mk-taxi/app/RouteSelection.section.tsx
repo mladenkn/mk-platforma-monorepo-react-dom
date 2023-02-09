@@ -9,7 +9,7 @@ export default function RouteSelection_section(){
           width: '900px',
           height: '600px'
         }}
-        center={ {
+        center={{
           lat: 43.511227,
           lng: 16.482284,
         }}
