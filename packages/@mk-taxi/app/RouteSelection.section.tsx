@@ -14,6 +14,9 @@ export default function RouteSelection_section(){
           lng: 16.482284,
         }}
         zoom={13}
+        options={{
+          disableDefaultUI: true
+        }}
       >
         { /* Child components, such as markers, info windows, etc. */ }
         <Marker position={{ lat: -34.397, lng: 150.644 }} />
