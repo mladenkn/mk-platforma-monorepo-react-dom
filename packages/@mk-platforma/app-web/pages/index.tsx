@@ -1,5 +1,3 @@
-import RouteSelection_section from '@mk-platforma/app/RouteSelection.section'
+import Home_section from '@mk-platforma/app/Home.section'
 
-export default function Home() {
-  return <RouteSelection_section />
-}
+export default Home_section
