@@ -107,15 +107,11 @@ export default function TabsPageExample() {
             </Typography>
           </TabPanel>
           <TabPanel value={2}>
-            <Typography
-              level="h2"
-              component="div"
-              fontSize="lg"
-              mb={2}
-              textColor="text.primary"
-            >
-              Nudim posao panel
-            </Typography>
+            <Input
+              autoFocus
+              placeholder="Pretraži majstore"
+              startDecorator={<SearchRounded />}
+            />
           </TabPanel>
           <TabPanel value={3}>
           <Typography
