@@ -61,29 +61,10 @@ export default function TabsPageExample() {
             },
           }}
         >
-          <Tab>
-            Deals{' '}
-            <Chip
-              size="sm"
-              variant="soft"
-              color={index === 0 ? 'primary' : 'neutral'}
-              sx={{ ml: 1 }}
-            >
-              14
-            </Chip>
-          </Tab>
-          <Tab>
-            Library{' '}
-            <Chip
-              size="sm"
-              variant="soft"
-              color={index === 1 ? 'primary' : 'neutral'}
-              sx={{ ml: 1 }}
-            >
-              24
-            </Chip>
-          </Tab>
-          <Tab>Search library</Tab>
+          <Tab>Kupujem</Tab>
+          <Tab>Prodajem</Tab>
+          <Tab>Nudim posao</Tab>
+          <Tab>Tražim posao</Tab>
         </TabList>
         <Box
           sx={(theme) => ({
@@ -112,7 +93,7 @@ export default function TabsPageExample() {
               mb={2}
               textColor="text.primary"
             >
-              Deals panel
+              Kupujem panel
             </Typography>
           </TabPanel>
           <TabPanel value={1}>
@@ -123,15 +104,30 @@ export default function TabsPageExample() {
               mb={2}
               textColor="text.primary"
             >
-              Library panel
+              Prodajem panel
             </Typography>
           </TabPanel>
           <TabPanel value={2}>
-            <Input
-              autoFocus
-              placeholder="Type in third panel..."
-              startDecorator={<SearchRounded />}
-            />
+            <Typography
+              level="h2"
+              component="div"
+              fontSize="lg"
+              mb={2}
+              textColor="text.primary"
+            >
+              Nudim posao panel
+            </Typography>
+          </TabPanel>
+          <TabPanel value={3}>
+          <Typography
+              level="h2"
+              component="div"
+              fontSize="lg"
+              mb={2}
+              textColor="text.primary"
+            >
+              Tražim posao panel
+            </Typography>
           </TabPanel>
         </Box>
       </Tabs>
