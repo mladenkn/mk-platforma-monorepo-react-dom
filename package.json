@@ -1,5 +1,5 @@
 {
-  "name": "mk-taxi-pnpm",
+  "name": "mk-platforma-pnpm",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -9,9 +9,9 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "admin-web": "pnpm --filter @mk-taxi/admin-web",
-    "app-web": "pnpm --filter @mk-taxi/app-web",
-    "app": "pnpm --filter @mk-taxi/app",
+    "admin-web": "pnpm --filter @mk-platforma/admin-web",
+    "app-web": "pnpm --filter @mk-platforma/app-web",
+    "app": "pnpm --filter @mk-platforma/app",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "dev.reset": "find . -type d -name node_modules | xargs rm -rf && rm -f pnpm-lock.lock"
   },
