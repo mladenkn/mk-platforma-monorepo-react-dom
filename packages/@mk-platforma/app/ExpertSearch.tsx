@@ -2,7 +2,7 @@ import { Input, Box, Typography, List, ListItem, ListItemButton } from '@mui/joy
 import SearchRounded from '@mui/icons-material/SearchRounded'
 import { ComponentProps, useState } from 'react'
 import LocationIcon from '@mui/icons-material/LocationOn'
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
 
 
 const experts = [

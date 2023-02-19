@@ -80,7 +80,8 @@ export default function TabsPageExample() {
             boxShadow: '0 0 0 100vmax var(--bg)',
             clipPath: 'inset(0 -100vmax)',
             px: 4,
-            py: 2,
+            pt: 4,
+            pb: 2,
           })}
         >
           <TabPanel value={0}>
