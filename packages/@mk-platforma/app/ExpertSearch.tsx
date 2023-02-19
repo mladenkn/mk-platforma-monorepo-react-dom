@@ -1,6 +1,7 @@
 import { Input, Box, Typography } from '@mui/joy'
 import SearchRounded from '@mui/icons-material/SearchRounded'
 import { ComponentProps } from 'react'
+import LocationIcon from '@mui/icons-material/LocationOn'
 
 
 const experts = [
@@ -43,7 +44,10 @@ export default function ExpertSearch(){
         {experts.map(expert => (
           <Box sx={{ mb: 2 }}>
             <Text level="h2" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Text>
-            <Text level="h4">{expert.area}</Text>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <LocationIcon sx={{ mr: 1 }} />
+              <Text level="h4">{expert.area}</Text>
+            </Box>            
           </Box>
         ))}
       </Box>
