@@ -3,7 +3,7 @@ import SearchRounded from '@mui/icons-material/SearchRounded'
 import { ComponentProps, useState } from 'react'
 import LocationIcon from '@mui/icons-material/LocationOn'
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
-import { generateArray } from "@mk-libs/common/common"
+import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { faker } from '@faker-js/faker'
 
 
@@ -16,10 +16,12 @@ const experts = generateArray(() => ({
   lastName: faker.name.lastName(),
   area: faker.address.city(),
   occupations: [faker.helpers.arrayElement(jobs)],
+  description: faker.lorem.text(),
 }), 5)
 
 export default function ExpertSearch(){
-  const [selectedExpert, setSelectedExpert] = useState<number>()
+  const [_selectedExpert, setSelectedExpert] = useState<number>()
+  const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -31,7 +33,7 @@ export default function ExpertSearch(){
         />
         <List sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
           {experts.map(expert => (
-            <ListItemButton sx={{ mb: 2, }} onClick={() => setSelectedExpert(expert.id)}>
+            <ListItemButton selected={expert.id === selectedExpert?.id} sx={{ mb: 2, }} onClick={() => setSelectedExpert(expert.id)}>
               <ListItem sx={{ flexDirection: 'column', alignItems: 'start' }}>
                 <Text level="h2" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
@@ -47,8 +49,8 @@ export default function ExpertSearch(){
           ))}
         </List>
       </Box>
-      <Box>
-        
+      <Box sx={{ mt: 9, ml: 3, }}>
+        {selectedExpert && selectedExpert.description}
       </Box>
     </Box>
   )
