@@ -1,7 +1,10 @@
+import Button from '@mui/joy/Button'
+
+
 export default function Home_section(){
   return (
     <div>
-      Home_section
+      <Button variant="solid">Home_section</Button>
     </div>
   )
 }
