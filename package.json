@@ -13,7 +13,7 @@
     "app-web": "pnpm --filter @mk-platforma/app-web",
     "app": "pnpm --filter @mk-platforma/app",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev.reset": "find . -type d -name node_modules | xargs rm -rf && rm -f pnpm-lock.lock"
+    "dev.wipe": "find . -type d -name node_modules | xargs rm -rf && rm -f pnpm-lock.lock"
   },
   "devDependencies": {
     "prettier": "latest",
