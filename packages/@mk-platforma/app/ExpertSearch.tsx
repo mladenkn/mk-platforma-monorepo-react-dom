@@ -1,5 +1,6 @@
-import { Input, Box } from '@mui/joy'
+import { Input, Box, Typography } from '@mui/joy'
 import SearchRounded from '@mui/icons-material/SearchRounded'
+import { ComponentProps } from 'react'
 
 
 const experts = [
@@ -38,14 +39,25 @@ export default function ExpertSearch(){
         placeholder="Pretraži majstore"
         startDecorator={<SearchRounded />}
       />
-      <Box>
+      <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, }}>
         {experts.map(expert => (
-          <Box>
-            <Box>{expert.firstName}{' '}{expert.lastName}</Box>
-            <Box>{expert.area}</Box>
+          <Box sx={{ mb: 2 }}>
+            <Text level="h2" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Text>
+            <Text level="h4">{expert.area}</Text>
           </Box>
         ))}
       </Box>
     </Box>
+  )
+}
+
+function Text(props: ComponentProps<typeof Typography>){
+  return (
+    <Typography
+      component="div"
+      fontSize="lg"
+      textColor="text.primary"
+      {...props}
+    />
   )
 }
