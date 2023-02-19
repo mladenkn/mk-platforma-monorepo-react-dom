@@ -5,8 +5,7 @@ import TabList from '@mui/joy/TabList'
 import Tab, { tabClasses } from '@mui/joy/Tab'
 import TabPanel from '@mui/joy/TabPanel'
 import Typography from '@mui/joy/Typography'
-import Input from '@mui/joy/Input'
-import SearchRounded from '@mui/icons-material/SearchRounded'
+import ExpertSearch from './ExpertSearch'
 
 
 export default function TabsPageExample() {
@@ -107,11 +106,7 @@ export default function TabsPageExample() {
             </Typography>
           </TabPanel>
           <TabPanel value={2}>
-            <Input
-              autoFocus
-              placeholder="Pretraži majstore"
-              startDecorator={<SearchRounded />}
-            />
+            <ExpertSearch />
           </TabPanel>
           <TabPanel value={3}>
           <Typography
