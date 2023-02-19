@@ -1,4 +1,4 @@
-import { Input, Box, Typography } from '@mui/joy'
+import { Input, Box, Typography, List, ListItem, ListItemButton } from '@mui/joy'
 import SearchRounded from '@mui/icons-material/SearchRounded'
 import { ComponentProps } from 'react'
 import LocationIcon from '@mui/icons-material/LocationOn'
@@ -36,12 +36,12 @@ const experts = [
     area: 'Osijek',
     occupations: ['fasader'],
   },
-  {
-    firstName: 'Stipe',
-    lastName: 'Jurić',
-    area: 'Osijek',
-    occupations: ['keramičar'],
-  },
+  // {
+  //   firstName: 'Stipe',
+  //   lastName: 'Jurić',
+  //   area: 'Osijek',
+  //   occupations: ['keramičar'],
+  // },
 ]
 
 export default function ExpertSearch(){
@@ -52,21 +52,23 @@ export default function ExpertSearch(){
         placeholder="Pretraži majstore"
         startDecorator={<SearchRounded />}
       />
-      <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, }}>
+      <List sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
         {experts.map(expert => (
-          <Box sx={{ mb: 2 }}>
-            <Text level="h2" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Text>
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
-              <LocationIcon sx={{ mr: 1 }} />
-              <Text level="h4">{expert.area}</Text>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', }}>
-              <WorkOutlineIcon sx={{ mr: 1 }} />
-              <Text level="h4">{expert.occupations.join(', ')}</Text>
-            </Box>
-          </Box>
+          <ListItemButton sx={{ mb: 2, }}>
+            <ListItem sx={{ flexDirection: 'column', alignItems: 'start' }}>
+              <Text level="h2" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Text>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
+                <LocationIcon sx={{ mr: 1 }} />
+                <Text level="h4">{expert.area}</Text>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', }}>
+                <WorkOutlineIcon sx={{ mr: 1 }} />
+                <Text level="h4">{expert.occupations.join(', ')}</Text>
+              </Box>
+            </ListItem>
+          </ListItemButton>
         ))}
-      </Box>
+      </List>
     </Box>
   )
 }
