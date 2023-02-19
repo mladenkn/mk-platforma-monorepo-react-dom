@@ -116,7 +116,6 @@ importers:
       '@mk-libs/common': workspace:*
       '@mk-libs/react-common': workspace:*
       '@mk-libs/tsconfig': workspace:*
-      '@react-google-maps/api': ^2.18.1
       '@tanstack/react-query': ^4.24.4
       '@types/lodash': ^4.14.186
       '@types/react': ^18.0.21
@@ -124,7 +123,6 @@ importers:
       react: ^18.2.0
       utility-types: ^3.10.0
     dependencies:
-      '@react-google-maps/api': 2.18.1_react@18.2.0
       '@tanstack/react-query': 4.24.4_react@18.2.0
       lodash: 4.17.21
     devDependencies:
@@ -379,19 +377,6 @@ packages:
       - supports-color
     dev: true
 
-  /@googlemaps/js-api-loader/1.15.1:
-    resolution: {integrity: sha512-AsnEgNsB7S/VdrHGEQUaUM2e5tmjFGKBAfzR/AqO8O7TPq/jQGvoRw5liPBw4EMF38RDsHmKDV89q/X+qiUREQ==}
-    dependencies:
-      fast-deep-equal: 3.1.3
-    dev: false
-
-  /@googlemaps/markerclusterer/2.0.15:
-    resolution: {integrity: sha512-/I6Esi5FtyeVHsezN9Kut8zRJoqe7KkTIJXGVqpKFf6BjC7qQ1xRajLMkOz0s8XKgLevbr+KdYjuvmj+LohOGg==}
-    dependencies:
-      fast-deep-equal: 3.1.3
-      supercluster: 7.1.5
-    dev: false
-
   /@humanwhocodes/config-array/0.5.0:
     resolution: {integrity: sha512-FagtKFz74XrTl7y6HCzQpwDfXP0yhxe9lHLD1UZxjvZIcbyRz8zTFF/yYNfSfzU414eDwZ1SrO0Qvtyf+wFMQg==}
     engines: {node: '>=10.10.0'}
@@ -590,29 +575,6 @@ packages:
     requiresBuild: true
     dev: false
 
-  /@react-google-maps/api/2.18.1_react@18.2.0:
-    resolution: {integrity: sha512-KVlUO/Shh+0g/3egWaKmY0sz6+0QOnYkBGvrBMJbz23519LauA+iJFc4NDCmWNHqD5Vhb/Bkg0kSJgq0Stz3Iw==}
-    peerDependencies:
-      react: ^16.8 || ^17 || ^18
-      react-dom: ^16.8 || ^17 || ^18
-    dependencies:
-      '@googlemaps/js-api-loader': 1.15.1
-      '@googlemaps/markerclusterer': 2.0.15
-      '@react-google-maps/infobox': 2.16.0
-      '@react-google-maps/marker-clusterer': 2.16.1
-      '@types/google.maps': 3.50.5
-      invariant: 2.2.4
-      react: 18.2.0
-    dev: false
-
-  /@react-google-maps/infobox/2.16.0:
-    resolution: {integrity: sha512-ZojiMS25388RcUHQPycUAerSqdHDom+3dHczVcXHdT/i8fka3O8InkHxXwMhvBoM143ips7mv2BPaYOAJ5f4Nw==}
-    dev: false
-
-  /@react-google-maps/marker-clusterer/2.16.1:
-    resolution: {integrity: sha512-jOuyqzWLeXvQcoAu6TCVWHAuko+sDt0JjawNHBGqUNLywMtTCvYP0L0PiqJZOUCUeRYGdUy0AKxQ+30vAkvwag==}
-    dev: false
-
   /@swc/helpers/0.4.14:
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
     dependencies:
@@ -659,10 +621,6 @@ packages:
   /@tsconfig/node16/1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
     dev: true
-
-  /@types/google.maps/3.50.5:
-    resolution: {integrity: sha512-RuZf1MJtctGlpW+Gd4a/eGtAufUDjMf+eyN1l+B3fbe2YLScJbg8KEljJfb+6vnSPFAeM1/48geVIEg3vqOkxw==}
-    dev: false
 
   /@types/lodash/4.14.191:
     resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
@@ -1048,6 +1006,7 @@ packages:
 
   /fast-deep-equal/3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
+    dev: true
 
   /fast-json-stable-stringify/2.1.0:
     resolution: {integrity: sha512-lhd/wF+Lk98HZoTCtlVraHtfh5XYijIjalXck7saUtuanSDyLMxnHhSXEDJqHxD7msR8D0uCmqlkwjCV8xvwHw==}
@@ -1159,12 +1118,6 @@ packages:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
     dev: true
 
-  /invariant/2.2.4:
-    resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
-    dependencies:
-      loose-envify: 1.4.0
-    dev: false
-
   /is-extglob/2.1.1:
     resolution: {integrity: sha512-SbKbANkN603Vi4jEZv49LeVJMn4yGwsbzZworEoyEiutsN3nJYdbO36zfhGJ6QEDpOZIFkDtnq5JRxmvl3jsoQ==}
     engines: {node: '>=0.10.0'}
@@ -1223,10 +1176,6 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
-
-  /kdbush/3.0.0:
-    resolution: {integrity: sha512-hRkd6/XW4HTsA9vjVpY9tuXJYLSlelnkTmVFu4M9/7MIYQtFcHpbugAU7UbOfjOiVSVYl2fqgBuJ32JUmRo5Ew==}
-    dev: false
 
   /levn/0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
@@ -1536,12 +1485,6 @@ packages:
       '@babel/core': 7.20.12
       client-only: 0.0.1
       react: 18.2.0
-    dev: false
-
-  /supercluster/7.1.5:
-    resolution: {integrity: sha512-EulshI3pGUM66o6ZdH3ReiFcvHpM3vAigyK+vcxdjpJyEbIIrtbmBdY23mGgnI24uXiGFvrGq9Gkum/8U7vJWg==}
-    dependencies:
-      kdbush: 3.0.0
     dev: false
 
   /superjson/1.12.2:
