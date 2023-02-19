@@ -3,52 +3,20 @@ import SearchRounded from '@mui/icons-material/SearchRounded'
 import { ComponentProps, useState } from 'react'
 import LocationIcon from '@mui/icons-material/LocationOn'
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
+import { generateArray } from "@mk-libs/common/common"
+import { faker } from '@faker-js/faker'
 
 
-const experts = [
-  {
-    id: 1,
-    firstName: 'Mladen',
-    lastName: 'Knezović',
-    area: 'Split i okolica',
-    occupations: ['računalni programer'],
-  },
-  {
-    id: 2,
-    firstName: 'Ante',
-    lastName: 'Klinčić',
-    area: 'Split i okolica',
-    occupations: ['odvjetnik'],
-  },
-  {
-    id: 3,
-    firstName: 'Tomislav',
-    lastName: 'Horaček',
-    area: 'Zagreb',
-    occupations: ['zidar'],
-  },
-  {
-    id: 4,
-    firstName: 'Ante',
-    lastName: 'Franić',
-    area: 'Osijek',
-    occupations: ['vodoinstalater'],
-  },
-  {
-    id: 5,
-    firstName: 'Jure',
-    lastName: 'Matinović',
-    area: 'Osijek',
-    occupations: ['fasader'],
-  },
-  // {
-  //   id: 6,
-  //   firstName: 'Stipe',
-  //   lastName: 'Jurić',
-  //   area: 'Osijek',
-  //   occupations: ['keramičar'],
-  // },
-]
+const jobs = ['računalni programer', 'odvjetnik', 'zidar', 'vodoinstalater', 'fasader']
+
+let id = 1
+const experts = generateArray(() => ({ 
+  id: id++,
+  firstName: faker.name.firstName(),
+  lastName: faker.name.lastName(),
+  area: faker.address.city(),
+  occupations: [faker.helpers.arrayElement(jobs)],
+}), 5)
 
 export default function ExpertSearch(){
   const [selectedExpert, setSelectedExpert] = useState<number>()
