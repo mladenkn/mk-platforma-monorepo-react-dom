@@ -2,7 +2,7 @@ import { Input, Box, Typography, List, ListItem, ListItemButton } from '@mui/joy
 import SearchRounded from '@mui/icons-material/SearchRounded'
 import { useState } from 'react'
 import LocationIcon from '@mui/icons-material/LocationOn'
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
+import HandymanIcon from '@mui/icons-material/Handyman'
 import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { faker } from '@faker-js/faker'
 
@@ -42,7 +42,7 @@ export default function ExpertSearch(){
                   <Typography>{expert.area}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', }}>
-                  <WorkOutlineIcon sx={{ mr: 1 }} />
+                  <HandymanIcon sx={{ mr: 1 }} />
                   <Typography>{expert.occupations.join(', ')}</Typography>
                 </Box>
               </ListItem>
