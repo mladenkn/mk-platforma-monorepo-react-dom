@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Box from '@mui/joy/Box'
 import Tabs from '@mui/joy/Tabs'
 import TabList from '@mui/joy/TabList'
@@ -6,10 +5,11 @@ import Tab, { tabClasses } from '@mui/joy/Tab'
 import TabPanel from '@mui/joy/TabPanel'
 import Typography from '@mui/joy/Typography'
 import ExpertSearch from './ExpertSearch'
+import { useState } from 'react'
 
 
 export default function TabsPageExample() {
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = useState(2)
   return (
     <Box
       sx={{

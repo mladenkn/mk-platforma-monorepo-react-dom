@@ -17,6 +17,7 @@ const experts = generateArray(() => ({
   area: faker.address.city(),
   occupations: [faker.helpers.arrayElement(jobs)],
   description: faker.lorem.text(),
+  phone: faker.phone.number(),
 }), 5)
 
 export default function ExpertSearch(){
@@ -33,24 +34,31 @@ export default function ExpertSearch(){
         />
         <List sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
           {experts.map(expert => (
-            <ListItemButton selected={expert.id === selectedExpert?.id} sx={{ mb: 2, }} onClick={() => setSelectedExpert(expert.id)}>
+            <ListItemButton sx={{ mb: 2, }} onClick={() => setSelectedExpert(expert.id)}>
               <ListItem sx={{ flexDirection: 'column', alignItems: 'start' }}>
                 <Text level="h2" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Text>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
                   <LocationIcon sx={{ mr: 1 }} />
-                  <Text level="h4">{expert.area}</Text>
+                  <Text level="h4" fontSize="md">{expert.area}</Text>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', }}>
                   <WorkOutlineIcon sx={{ mr: 1 }} />
-                  <Text level="h4">{expert.occupations.join(', ')}</Text>
+                  <Text level="h4" fontSize="md">{expert.occupations.join(', ')}</Text>
                 </Box>
               </ListItem>
             </ListItemButton>
           ))}
         </List>
       </Box>
-      <Box sx={{ mt: 9, ml: 3, }}>
-        {selectedExpert && selectedExpert.description}
+      <Box sx={{ mt: 9, ml: 3, }}>        
+        {selectedExpert ? (
+            <>
+              <Text level="h4" fontSize="md">{selectedExpert.description}</Text>
+              <Text level="h4" fontSize="md" sx={{ mt: 4 }}>Phone: {selectedExpert.phone}</Text>
+            </>
+          ) : 
+          undefined
+        }
       </Box>
     </Box>
   )
