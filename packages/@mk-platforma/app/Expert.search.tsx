@@ -1,4 +1,4 @@
-import { Input, Box, Typography, List, ListItem, ListItemButton, Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
+import { Input, Box, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 import SearchRounded from '@mui/icons-material/SearchRounded'
 import { useState } from 'react'
 import LocationIcon from '@mui/icons-material/LocationOn'
