@@ -50,15 +50,13 @@ export default function ExpertSearch(){
           ))}
         </List>
       </Box>
-      <Box sx={{ mt: 9, ml: 3, }}>        
-        {selectedExpert ? (
-            <>
-              <Text level="h4" fontSize="md">{selectedExpert.description}</Text>
-              <Text level="h4" fontSize="md" sx={{ mt: 4 }}>Phone: {selectedExpert.phone}</Text>
-            </>
-          ) : 
-          undefined
-        }
+      <Box sx={{ mt: 9, ml: 3, }}>
+        {selectedExpert && (
+          <>
+            <Text level="h4" fontSize="md">{selectedExpert.description}</Text>
+            <Text level="h4" fontSize="md" sx={{ mt: 4 }}>Phone: {selectedExpert.phone}</Text>
+          </>
+        )}
       </Box>
     </Box>
   )
