@@ -4,12 +4,12 @@ import { useState } from 'react'
 import LocationIcon from '@mui/icons-material/LocationOn'
 import HandymanIcon from '@mui/icons-material/Handyman'
 import { asNonNil } from "@mk-libs/common/common"
-import { experts } from "./data.json"
+import data from "./data.json"
 
 
 export default function Expert_search(){
   const [_selectedExpert, setSelectedExpert] = useState<number>()
-  const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
+  const selectedExpert = _selectedExpert ? asNonNil(data.experts.find(e => e.id === _selectedExpert)) : undefined
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -21,7 +21,7 @@ export default function Expert_search(){
           startAdornment={<SearchRounded sx={{ mr: 2 }} />}
         />
         <List sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
-          {experts.map(expert => (
+          {data.experts.map(expert => (
             <ListItemButton key={expert.id} sx={{ mb: 2, }} onClick={() => setSelectedExpert(expert.id)}>
               <ListItem sx={{ flexDirection: 'column', alignItems: 'start' }}>
                 <Typography fontWeight={600} fontSize="lg" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Typography>
