@@ -4,7 +4,7 @@ import TabList from '@mui/joy/TabList'
 import Tab, { tabClasses } from '@mui/joy/Tab'
 import TabPanel from '@mui/joy/TabPanel'
 import Typography from '@mui/joy/Typography'
-import ExpertSearch from './ExpertSearch'
+import Expert_search from './Expert.search'
 import { useState } from 'react'
 
 
@@ -107,7 +107,7 @@ export default function TabsPageExample() {
             </Typography>
           </TabPanel>
           <TabPanel value={2}>
-            <ExpertSearch />
+            <Expert_search />
           </TabPanel>
           <TabPanel value={3}>
           <Typography

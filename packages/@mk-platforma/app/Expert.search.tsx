@@ -7,7 +7,7 @@ import { asNonNil } from "@mk-libs/common/common"
 import { experts } from "./data.json"
 
 
-export default function ExpertSearch(){
+export default function Expert_search(){
   const [_selectedExpert, setSelectedExpert] = useState<number>()
   const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
 
