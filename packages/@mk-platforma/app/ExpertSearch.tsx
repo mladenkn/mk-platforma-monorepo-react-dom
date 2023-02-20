@@ -34,7 +34,7 @@ export default function ExpertSearch(){
         />
         <List sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
           {experts.map(expert => (
-            <ListItemButton sx={{ mb: 2, }} onClick={() => setSelectedExpert(expert.id)}>
+            <ListItemButton key={expert.id} sx={{ mb: 2, }} onClick={() => setSelectedExpert(expert.id)}>
               <ListItem sx={{ flexDirection: 'column', alignItems: 'start' }}>
                 <Typography fontWeight={600} fontSize="lg" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
