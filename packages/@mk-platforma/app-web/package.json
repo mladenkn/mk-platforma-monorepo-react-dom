@@ -14,7 +14,6 @@
     "@mk-libs/common": "workspace:*",
     "@mk-libs/react-common": "workspace:*",
     "@mk-platforma/app": "workspace:*",
-    "@mui/joy": "5.0.0-alpha.67",
     "next": "^13.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"

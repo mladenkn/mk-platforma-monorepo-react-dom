@@ -22,12 +22,8 @@
     "@emotion/styled": "^11.10.6",
     "@faker-js/faker": "^7.6.0",
     "@mui/icons-material": "^5.11.9",
-    "@mui/joy": "5.0.0-alpha.67",
-    "@mui/material": "npm:@mui/joy@latest",
+    "@mui/material": "^5.11.10",
     "@tanstack/react-query": "^4.24.4",
     "lodash": "^4.17.21"
-  },
-  "resolutions": {
-    "@mui/material": "npm:@mui/joy@latest"
   }
 }
