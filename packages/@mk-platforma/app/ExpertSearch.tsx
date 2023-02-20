@@ -1,6 +1,6 @@
 import { Input, Box, Typography, List, ListItem, ListItemButton } from '@mui/joy'
 import SearchRounded from '@mui/icons-material/SearchRounded'
-import { ComponentProps, useState } from 'react'
+import { useState } from 'react'
 import LocationIcon from '@mui/icons-material/LocationOn'
 import WorkOutlineIcon from '@mui/icons-material/WorkOutline'
 import { asNonNil, generateArray } from "@mk-libs/common/common"
@@ -36,14 +36,14 @@ export default function ExpertSearch(){
           {experts.map(expert => (
             <ListItemButton sx={{ mb: 2, }} onClick={() => setSelectedExpert(expert.id)}>
               <ListItem sx={{ flexDirection: 'column', alignItems: 'start' }}>
-                <Text level="h2" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Text>
+                <Typography fontWeight={600} fontSize="lg" sx={{ mb: 1 }}>{expert.firstName}{' '}{expert.lastName}</Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
                   <LocationIcon sx={{ mr: 1 }} />
-                  <Text level="h4" fontSize="md">{expert.area}</Text>
+                  <Typography>{expert.area}</Typography>
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', }}>
                   <WorkOutlineIcon sx={{ mr: 1 }} />
-                  <Text level="h4" fontSize="md">{expert.occupations.join(', ')}</Text>
+                  <Typography>{expert.occupations.join(', ')}</Typography>
                 </Box>
               </ListItem>
             </ListItemButton>
@@ -53,22 +53,11 @@ export default function ExpertSearch(){
       <Box sx={{ mt: 9, ml: 3, }}>
         {selectedExpert && (
           <>
-            <Text level="h4" fontSize="md">{selectedExpert.description}</Text>
-            <Text level="h4" fontSize="md" sx={{ mt: 4 }}>Phone: {selectedExpert.phone}</Text>
+            <Typography>{selectedExpert.description}</Typography>
+            <Typography sx={{ mt: 4 }}>Phone: {selectedExpert.phone}</Typography>
           </>
         )}
       </Box>
     </Box>
-  )
-}
-
-function Text(props: ComponentProps<typeof Typography>){
-  return (
-    <Typography
-      component="div"
-      fontSize="lg"
-      textColor="text.primary"
-      {...props}
-    />
   )
 }
