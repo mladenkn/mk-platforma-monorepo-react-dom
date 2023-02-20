@@ -3,22 +3,9 @@ import SearchRounded from '@mui/icons-material/SearchRounded'
 import { useState } from 'react'
 import LocationIcon from '@mui/icons-material/LocationOn'
 import HandymanIcon from '@mui/icons-material/Handyman'
-import { asNonNil, generateArray } from "@mk-libs/common/common"
-import { faker } from '@faker-js/faker'
+import { asNonNil } from "@mk-libs/common/common"
+import { experts } from "./data.json"
 
-
-const jobs = ['računalni programer', 'odvjetnik', 'zidar', 'vodoinstalater', 'fasader']
-
-let id = 1
-const experts = generateArray(() => ({ 
-  id: id++,
-  firstName: faker.name.firstName(),
-  lastName: faker.name.lastName(),
-  area: faker.address.city(),
-  occupations: [faker.helpers.arrayElement(jobs)],
-  description: faker.lorem.text(),
-  phone: faker.phone.number(),
-}), 5)
 
 export default function ExpertSearch(){
   const [_selectedExpert, setSelectedExpert] = useState<number>()
