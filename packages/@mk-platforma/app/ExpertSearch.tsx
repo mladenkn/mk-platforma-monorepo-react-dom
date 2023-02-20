@@ -54,7 +54,7 @@ export default function ExpertSearch(){
         {selectedExpert && (
           <>
             <Typography>{selectedExpert.description}</Typography>
-            <Typography sx={{ mt: 4 }}>Phone: {selectedExpert.phone}</Typography>
+            <Typography sx={{ mt: 4 }}>Mobitel/telefon: {selectedExpert.phone}</Typography>
           </>
         )}
       </Box>
