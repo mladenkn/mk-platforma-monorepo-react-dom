@@ -15,9 +15,10 @@ export default function Expert_search(){
     <Box sx={{ display: 'flex' }}>
       <Box sx={{ minWidth: 500 }}>
         <Input
+          sx={{ ml: 4, pb: 1 }}
           autoFocus
           placeholder="Pretraži majstore"
-          startDecorator={<SearchRounded />}
+          startAdornment={<SearchRounded sx={{ mr: 2 }} />}
         />
         <List sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2 }}>
           {experts.map(expert => (
