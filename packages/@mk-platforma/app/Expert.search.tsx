@@ -13,14 +13,14 @@ export default function Expert_search(){
   const selectedExpert = _selectedExpert ? asNonNil(data.experts.find(e => e.id === _selectedExpert)) : undefined
 
   return (
-    <Box sx={{ px: 4, pt: 4 }}>
+    <Box sx={{ px: 4, pt: 10, display: 'flex', alignItems: 'start' }}>
       <Input
-        sx={{ pb: 0.7, ml: 1, mb: 3 }}
+        sx={{ pb: 0.7, ml: 1, mb: 3, mt: 2, width: 350 }}
         autoFocus
         placeholder="Pretraži majstore"
         startAdornment={<SearchRounded sx={{ mr: 2 }} />}
       />
-      <Box sx={{ mt: 3, display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 450 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, ml: 10 }}>
         {data.experts.map(expert => (
           <Accordion
             expanded={expert.id === selectedExpert?.id}
@@ -32,10 +32,10 @@ export default function Expert_search(){
               id="panel1bh-header"
             >
               <Box>
-                <Typography sx={{ }}>
+                <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
                   {expert.firstName}{' '}{expert.lastName}
                 </Typography>
-                <Box sx={{ mt: 2, ml: 0.5, }}>
+                <Box sx={{ mt: 1.2, ml: 0.5, }}>
                   <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, color: 'text.secondary' }}>
                     <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
                     <Typography>{expert.area}</Typography>
