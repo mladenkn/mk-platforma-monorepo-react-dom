@@ -5,6 +5,8 @@ import HandymanIcon from '@mui/icons-material/Handyman'
 import data from "./data.json"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 
+const { sellableItems } = data
+
 
 export default function Item_sale(){
   return (
@@ -17,28 +19,26 @@ export default function Item_sale(){
           startAdornment={<SearchRounded sx={{ mr: 2 }} />}
         />
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, }}>
-          {data.experts.map(expert => {
+          {sellableItems.map(item => {
             return (
               <Accordion>
                 <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
-                  <Box sx={{ display: 'flex' }}>
-                    <Typography sx={{ fontWeight: 600, fontSize: 16, width: 115 }}>
-                      {expert.firstName}{' '}{expert.lastName}
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
+                      {item.title}
                     </Typography>
-                    <Box sx={{ pl: 1, ml: 10, color: 'text.secondary' }}>
+                    <Box sx={{ color: 'text.secondary', mt: 2 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
                         <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
-                        <Typography>{expert.area}</Typography>
-                      </Box>
-                      <Box sx={{ display: 'flex', alignItems: 'center', }}>
-                        <HandymanIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
-                        <Typography>{expert.occupations.join(', ')}</Typography>
+                        <Typography>{item.area}</Typography>
                       </Box>
                     </Box>
                   </Box>
                 </AccordionSummary>
                 <AccordionDetails sx={{ ml: 25, mt: 3 }}>
-                  details todo
+                  <Typography>
+                    {item.description}
+                  </Typography>
                 </AccordionDetails>
               </Accordion>
             )

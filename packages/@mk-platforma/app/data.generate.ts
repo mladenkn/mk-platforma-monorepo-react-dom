@@ -18,5 +18,19 @@ function generateExpert(){
   }
 }
 
-const experts = generateArray(generateExpert, 5)
-writeFileSync('./data.json', JSON.stringify({ experts }, null, 2))
+let selableItemId = 1
+function generateSellableItem(){
+  return {
+    id: selableItemId++,
+    title: faker.lorem.sentence(7),
+    description: faker.commerce.productDescription(),
+    area: faker.address.city(),
+    imageUrl: '',
+  }
+}
+
+const data = {
+  experts: generateArray(generateExpert, 5),
+  sellableItems: generateArray(generateSellableItem, 5)
+}
+writeFileSync('./data.json', JSON.stringify(data, null, 2))
