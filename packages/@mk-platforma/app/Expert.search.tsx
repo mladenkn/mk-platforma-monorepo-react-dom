@@ -31,7 +31,7 @@ export default function Expert_search(){
               >
                 <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
                   <Box sx={{ display: 'flex' }}>
-                    <Typography sx={{ fontWeight: 600, fontSize: 16, width: 160 }}>
+                    <Typography sx={{ fontWeight: 600, fontSize: 16, width: 115 }}>
                       {expert.firstName}{' '}{expert.lastName}
                     </Typography>
                     <Box sx={{ pl: 1, ml: 10, color: !isExpanded ? 'text.secondary' : undefined }}>
@@ -46,7 +46,7 @@ export default function Expert_search(){
                     </Box>
                   </Box>
                 </AccordionSummary>
-                <AccordionDetails sx={{ color: !isExpanded ? 'text.secondary' : undefined }}>
+                <AccordionDetails sx={{ ml: 25, mt: 3 }}>
                   <Typography>{expert.description}</Typography>
                   <Typography sx={{ mt: 4 }}>Mobitel/telefon: {expert.phone}</Typography>
                 </AccordionDetails>
