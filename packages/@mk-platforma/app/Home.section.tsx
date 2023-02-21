@@ -6,18 +6,18 @@ import { styled, Typography } from '@mui/material'
 import Expert_search from './Expert.search'
 
 
-type Tab = 'buying' | 'selling' | 'lookingForJob' | 'offeringJob'
+type Tab = 'buying' | 'selling' | 'experts' | 'jobs'
 
 export default function CenteredTabs() {
-  const [value, setValue] = useState<Tab>('lookingForJob')
+  const [value, setValue] = useState<Tab>('experts')
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
       <Tabs value={value} onChange={(e, value) => setValue(value)} centered>
         <Tab label="Kupujem" value="buying" />
         <Tab label="Prodajem" value="selling" />
-        <Tab label="Tražim posao" value="lookingForJob" />
-        <Tab label="Nudim posao" value="offeringJob" />
+        <Tab label="Majstori" value="experts" />
+        <Tab label="Poslovi" value="jobs" />
       </Tabs>
       {value === 'buying' && (
         <Box>
@@ -29,12 +29,12 @@ export default function CenteredTabs() {
           <Typography>Selling tab</Typography>
         </Box>
       )}
-      {value === 'lookingForJob' && (
+      {value === 'experts' && (
         <Expert_search />
       )}
-      {value === 'offeringJob' && (
+      {value === 'jobs' && (
         <Box>
-          <Typography>offeringJob tab</Typography>
+          <Typography>jobs tab</Typography>
         </Box>
       )}
     </Box>
