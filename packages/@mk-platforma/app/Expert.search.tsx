@@ -7,10 +7,12 @@ import { asNonNil } from "@mk-libs/common/common"
 import data from "./data.json"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 
+const { experts } = data
+
 
 export default function Expert_search(){
   const [_selectedExpert, setSelectedExpert] = useState<number>()
-  const selectedExpert = _selectedExpert ? asNonNil(data.experts.find(e => e.id === _selectedExpert)) : undefined
+  const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
 
   return (
     <Box sx={{ px: 4, pt: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -22,7 +24,7 @@ export default function Expert_search(){
           startAdornment={<SearchRounded sx={{ mr: 2 }} />}
         />
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, }}>
-          {data.experts.map(expert => {
+          {experts.map(expert => {
             const isExpanded = expert.id === selectedExpert?.id
             return (
               <Accordion
