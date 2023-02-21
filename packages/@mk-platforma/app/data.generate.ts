@@ -25,7 +25,7 @@ function generateSellableItem(){
     title: faker.lorem.sentence(7),
     description: faker.commerce.productDescription(),
     area: faker.address.city(),
-    imageUrl: '',
+    imageUrl: faker.image.technics(),
   }
 }
 

@@ -15,7 +15,7 @@ export default function Item_sale(){
         <Input
           sx={{ pb: 0.7, mb: 6, width: 350 }}
           autoFocus
-          placeholder="Pretraži majstore"
+          placeholder="Pretraži"
           startAdornment={<SearchRounded sx={{ mr: 2 }} />}
         />
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, }}>
@@ -23,19 +23,22 @@ export default function Item_sale(){
             return (
               <Accordion>
                 <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
-                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-                    <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
-                      {item.title}
-                    </Typography>
-                    <Box sx={{ color: 'text.secondary', mt: 2 }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
-                        <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
-                        <Typography>{item.area}</Typography>
+                  <Box sx={{ display: 'flex', flex: 1 }}>
+                    <img src={item.imageUrl} width={100} height={100} />
+                    <Box sx={{ marginLeft: 3 }}>
+                      <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
+                        {item.title}
+                      </Typography>
+                      <Box sx={{ color: 'text.secondary', mt: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
+                          <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
+                          <Typography>{item.area}</Typography>
+                        </Box>
                       </Box>
                     </Box>
                   </Box>
                 </AccordionSummary>
-                <AccordionDetails sx={{ ml: 25, mt: 3 }}>
+                <AccordionDetails sx={{ ml: 16, }}>
                   <Typography>
                     {item.description}
                   </Typography>
