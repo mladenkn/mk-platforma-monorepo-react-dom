@@ -27,17 +27,17 @@ export default function Expert_search(){
               expanded={expert.id === selectedExpert?.id}
               onChange={(e, isExpanded) => setSelectedExpert(isExpanded ? expert.id : undefined)}
             >
-              <AccordionSummary sx={{ p: 0 }} expandIcon={<ExpandMoreIcon />}>
+              <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
                 <Box>
                   <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
                     {expert.firstName}{' '}{expert.lastName}
                   </Typography>
-                  <Box sx={{ mt: 1.2, ml: 0.5, }}>
+                  <Box sx={{ mt: 1.2, pl: 1 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, color: 'text.secondary' }}>
                       <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
                       <Typography>{expert.area}</Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary' }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary', }}>
                       <HandymanIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
                       <Typography>{expert.occupations.join(', ')}</Typography>
                     </Box>
