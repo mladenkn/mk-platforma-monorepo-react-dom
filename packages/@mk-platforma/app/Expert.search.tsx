@@ -27,12 +27,7 @@ export default function Expert_search(){
               expanded={expert.id === selectedExpert?.id}
               onChange={(e, isExpanded) => setSelectedExpert(isExpanded ? expert.id : undefined)}
             >
-              <AccordionSummary
-                sx={{ p: 0 }}
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-              >
+              <AccordionSummary sx={{ p: 0 }} expandIcon={<ExpandMoreIcon />}>
                 <Box>
                   <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
                     {expert.firstName}{' '}{expert.lastName}
