@@ -16,7 +16,7 @@ export default function Expert_search(){
     <Box sx={{ px: 4, pt: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Box>
         <Input
-          sx={{ pb: 0.7, mb: 3, width: 350 }}
+          sx={{ pb: 0.7, mb: 6, width: 350 }}
           autoFocus
           placeholder="Pretraži majstore"
           startAdornment={<SearchRounded sx={{ mr: 2 }} />}
@@ -28,11 +28,11 @@ export default function Expert_search(){
               onChange={(e, isExpanded) => setSelectedExpert(isExpanded ? expert.id : undefined)}
             >
               <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
-                <Box>
-                  <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
+                <Box sx={{ display: 'flex' }}>
+                  <Typography sx={{ fontWeight: 600, fontSize: 16, width: 160 }}>
                     {expert.firstName}{' '}{expert.lastName}
                   </Typography>
-                  <Box sx={{ mt: 1.2, pl: 1 }}>
+                  <Box sx={{ pl: 1, ml: 10 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, color: 'text.secondary' }}>
                       <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
                       <Typography>{expert.area}</Typography>
