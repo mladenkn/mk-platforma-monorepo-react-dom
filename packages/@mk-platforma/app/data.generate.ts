@@ -26,6 +26,9 @@ function generateSellableItem(){
     description: faker.commerce.productDescription(),
     area: faker.address.city(),
     imageUrl: faker.image.technics(),
+    adOwner: {
+      phoneNumber: faker.phone.number(),
+    },
   }
 }
 

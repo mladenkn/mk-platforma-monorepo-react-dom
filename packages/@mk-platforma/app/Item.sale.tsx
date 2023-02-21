@@ -42,6 +42,9 @@ export default function Item_sale(){
                   <Typography>
                     {item.description}
                   </Typography>
+                  <Typography sx={{ mt: 4 }}>
+                    Phone number: {item.adOwner.phoneNumber}
+                  </Typography>
                 </AccordionDetails>
               </Accordion>
             )
