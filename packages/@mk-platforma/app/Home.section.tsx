@@ -42,5 +42,5 @@ export default function CenteredTabs() {
 }
 
 const Tab = styled(Tab_)({
-  textTransform: 'none'
+  textTransform: 'none',
 })
