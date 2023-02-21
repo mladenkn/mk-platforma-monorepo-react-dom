@@ -4,6 +4,7 @@ import Tab_ from '@mui/material/Tab'
 import { useState } from 'react'
 import { styled, Typography } from '@mui/material'
 import Expert_search from './Expert.search'
+import Item_sale from './Item.sale'
 
 
 type Tab = 'buying' | 'selling' | 'experts' | 'jobs'
@@ -24,14 +25,8 @@ export default function CenteredTabs() {
           <Typography>Buying tab</Typography>
         </Box>
       )}
-      {value === 'selling' && (
-        <Box>
-          <Typography>Selling tab</Typography>
-        </Box>
-      )}
-      {value === 'experts' && (
-        <Expert_search />
-      )}
+      {value === 'selling' && <Item_sale />}
+      {value === 'experts' && <Expert_search />}
       {value === 'jobs' && (
         <Box>
           <Typography>jobs tab</Typography>
