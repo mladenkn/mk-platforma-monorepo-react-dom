@@ -4,11 +4,16 @@ import LocationIcon from '@mui/icons-material/LocationOn'
 import HandymanIcon from '@mui/icons-material/Handyman'
 import data from "./data.json"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import { useState } from 'react'
+import { asNonNil } from '@mk-libs/common/common'
 
 const { sellableItems } = data
 
 
 export default function Item_sale(){
+  const [_selectedItem, setSelectedItem] = useState<number>()
+  const selectedItem = _selectedItem ? asNonNil(sellableItems.find(e => e.id === _selectedItem)) : undefined
+
   return (
     <Box sx={{ px: 4, pt: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Box>
@@ -21,7 +26,10 @@ export default function Item_sale(){
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, }}>
           {sellableItems.map(item => {
             return (
-              <Accordion>
+              <Accordion 
+                expanded={item.id === selectedItem?.id}
+                onChange={(e, isExpanded) => setSelectedItem(isExpanded ? item.id : undefined)}
+              >
                 <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
                   <Box sx={{ display: 'flex', flex: 1 }}>
                     <img src={item.imageUrl} width={100} height={100} />
