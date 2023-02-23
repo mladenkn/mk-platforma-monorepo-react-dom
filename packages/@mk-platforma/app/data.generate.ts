@@ -33,7 +33,7 @@ function generateSellableItem(){
 }
 
 const data = {
-  experts: generateArray(generateExpert, 5),
-  sellableItems: generateArray(generateSellableItem, 5)
+  experts: generateArray(generateExpert, 10),
+  sellableItems: generateArray(generateSellableItem, 10)
 }
 writeFileSync('./data.json', JSON.stringify(data, null, 2))
