@@ -23,7 +23,7 @@ export default function Expert_search(){
           placeholder="Pretraži majstore"
           startAdornment={<SearchRounded sx={{ mr: 2 }} />}
         />
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, py: 0.25, px: 1.25, }}>
           {experts.map(expert => {
             const isExpanded = expert.id === selectedExpert?.id
             return (
