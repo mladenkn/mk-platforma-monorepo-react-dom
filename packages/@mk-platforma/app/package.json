@@ -4,7 +4,8 @@
   "scripts": {
     "lint": "eslint *.ts*",
     "data.generate": "ts-node --compilerOptions '{ \"module\": \"commonjs\" }' ./data.generate.ts",
-    "postinstall": "pnpm data.generate"
+    "postinstall": "pnpm data.generate",
+    "ts": "pnpm tsc --noEmit"
   },
   "devDependencies": {
     "@mk-libs/common": "workspace:*",
@@ -15,6 +16,7 @@
     "@types/react": "^18.0.21",
     "react": "^18.2.0",
     "ts-node": "^10.9.1",
+    "typescript": "^4.9.5",
     "utility-types": "^3.10.0"
   },
   "dependencies": {
