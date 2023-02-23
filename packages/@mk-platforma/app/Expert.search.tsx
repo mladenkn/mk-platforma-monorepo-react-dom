@@ -15,7 +15,7 @@ export default function Expert_search(){
   const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
 
   return (
-    <Box sx={{ px: 4, pt: 10, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+    <Box sx={{ px: 4, pt: 9, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
       <Input
         sx={{ pb: 0.7, mb: 6, width: 350 }}
         autoFocus
