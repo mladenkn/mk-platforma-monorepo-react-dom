@@ -15,14 +15,14 @@ export default function Expert_search(){
   const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
 
   return (
-    <Box sx={{ px: 4, pt: 9, display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
+    <Box sx={{ px: 4, pt: 9, display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, minHeight: 0, }}>
       <Input
         sx={{ pb: 0.7, mb: 6, width: 350 }}
         autoFocus
         placeholder="Pretraži majstore"
         startAdornment={<SearchRounded sx={{ mr: 2 }} />}
       />
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, py: 0.25, px: 1.25, maxHeight: 650, overflowY: 'auto' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, py: 0.25, px: 1.25, overflowY: 'auto', flex: 1, minHeight: 0, }}>
         {experts.map(expert => {
           const isExpanded = expert.id === selectedExpert?.id
           return (
