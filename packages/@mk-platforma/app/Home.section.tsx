@@ -13,7 +13,7 @@ export default function CenteredTabs() {
   const [value, setValue] = useState<Tab>('experts')
 
   return (
-    <Box sx={{ width: '100%', bgcolor: 'background.paper', display: 'flex', flexDirection: 'column', flex: 1, }}>
+    <Box sx={{ width: '100%', bgcolor: 'background.paper', display: 'flex', flexDirection: 'column', flex: 1, mb: 4, }}>
       <Tabs value={value} onChange={(e, value) => setValue(value)} centered>
         <Tab label="Kupujem" value="buying" />
         <Tab label="Prodajem" value="selling" />
