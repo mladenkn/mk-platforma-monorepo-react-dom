@@ -6,6 +6,7 @@ import HandymanIcon from '@mui/icons-material/Handyman'
 import { asNonNil } from "@mk-libs/common/common"
 import data from "./data.json"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import { Layout1_root_sx, Layout1_list_sx } from './layout1'
 
 const { experts } = data
 
@@ -15,14 +16,14 @@ export default function Expert_search(){
   const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
 
   return (
-    <Box sx={{ px: 4, pt: 7, display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, minHeight: 0, }}>
+    <Box sx={Layout1_root_sx}>
       <Input
         sx={{ pb: 0.7, mb: 5, width: 350 }}
         autoFocus
         placeholder="Pretraži majstore"
         startAdornment={<SearchRounded sx={{ mr: 2 }} />}
       />
-      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, py: 0.25, px: 1.25, overflowY: 'auto', flex: 1, minHeight: 0, }}>
+      <Box sx={Layout1_list_sx}>
         {experts.map(expert => {
           const isExpanded = expert.id === selectedExpert?.id
           return (
