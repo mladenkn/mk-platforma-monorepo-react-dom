@@ -26,7 +26,8 @@ export default function Item_sale(){
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 700, }}>
           {sellableItems.map(item => {
             return (
-              <Accordion 
+              <Accordion
+                key={item.id}
                 expanded={item.id === selectedItem?.id}
                 onChange={(e, isExpanded) => setSelectedItem(isExpanded ? item.id : undefined)}
               >

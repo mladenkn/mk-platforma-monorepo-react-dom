@@ -28,6 +28,7 @@ export default function Expert_search(){
             const isExpanded = expert.id === selectedExpert?.id
             return (
               <Accordion
+                key={expert.id}
                 expanded={expert.id === selectedExpert?.id}
                 onChange={(e, isExpanded) => setSelectedExpert(isExpanded ? expert.id : undefined)}
               >
