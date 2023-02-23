@@ -7,7 +7,7 @@ import Expert_search from './Expert.search'
 import Item_sale from './Item.sale'
 
 
-type Tab = 'buying' | 'selling' | 'experts' | 'jobs'
+type Tab = 'buying-selling' | 'experts' | 'jobs'
 
 export default function CenteredTabs() {
   const [value, setValue] = useState<Tab>('experts')
@@ -15,17 +15,11 @@ export default function CenteredTabs() {
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper', display: 'flex', flexDirection: 'column', flex: 1, mb: 4, }}>
       <Tabs value={value} onChange={(e, value) => setValue(value)} centered>
-        <Tab label="Kupujem" value="buying" />
-        <Tab label="Prodajem" value="selling" />
+        <Tab label="Kupoprodaja" value="buying-selling" />
         <Tab label="Majstori" value="experts" />
         <Tab label="Poslovi" value="jobs" />
       </Tabs>
-      {value === 'buying' && (
-        <Box>
-          <Typography>Buying tab</Typography>
-        </Box>
-      )}
-      {value === 'selling' && <Item_sale />}
+      {value === 'buying-selling' && <Item_sale />}
       {value === 'experts' && <Expert_search />}
       {value === 'jobs' && (
         <Box>
