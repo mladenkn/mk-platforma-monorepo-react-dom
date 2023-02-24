@@ -18,7 +18,7 @@ function generateExpert() {
     firstName: faker.helpers.arrayElement(cro_dataset.firstNames),
     lastName: faker.helpers.arrayElement(cro_dataset.lastNames),
     location: faker.helpers.arrayElement(cro_dataset.cities),
-    occupations: [faker.helpers.arrayElement(cro_dataset.jobs)],
+    occupations: [faker.helpers.arrayElement(cro_dataset.occupations)],
     description: faker.lorem.text(),
     phoneNumber: faker.phone.number(),
     avatarStyle: faker.helpers.arrayElement(avatar_props),
