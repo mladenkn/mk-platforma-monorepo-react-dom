@@ -45,15 +45,7 @@ export default function Job_offers(){
                     </Box>
                     {!isExpanded && (
                       <Box sx={{ display: 'flex', gap: 1, }}>
-                        {item.photos.map(photo => (
-                          <img
-                            style={{
-                              width: 65,
-                              height: 65
-                            }}
-                            src={photo}
-                          />
-                        ))}
+                        {item.photos.map(photo => <img width={65} height={65} src={photo} />)}
                       </Box>
                     )}
                   </Box>
@@ -67,15 +59,7 @@ export default function Job_offers(){
                   Phone number: {item.adOwner.phoneNumber}
                 </Typography>
                 <Box sx={{ display: 'flex', gap: 1, marginTop: 4, }}>
-                  {item.photos.map(photo => (
-                    <img
-                      style={{
-                        width: 75,
-                        height: 75
-                      }}
-                      src={photo}
-                    />
-                  ))}
+                  {item.photos.map(photo => <img width={75} height={75} src={photo} />)}
                 </Box>
               </AccordionDetails>
             </Accordion>
