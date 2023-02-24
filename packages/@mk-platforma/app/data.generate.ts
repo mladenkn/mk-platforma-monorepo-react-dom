@@ -40,7 +40,7 @@ const data = {
   jobs: faker.helpers.shuffle(cro_dataset.jobs).map(({ label }, index) => ({
     id: index + 1,
     label,
-    description: generateArray(() => 'opis oglasa ', 30),
+    description: generateArray(() => 'opis oglasa ', 30).join(''),
     location: faker.helpers.arrayElement(cro_dataset.cities),
     photos: generateArray(randomJobPhoto, 3),
     adOwner: {
