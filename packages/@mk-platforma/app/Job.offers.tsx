@@ -5,7 +5,8 @@ import data from "./data.json"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useState } from "react"
 import { asNonNil } from "@mk-libs/common/common"
-import { Layout1_list_sx, Layout1_root_sx } from "./layout1"
+import { Layout1_list_sx } from "./layout1"
+import { PageRoot } from "./common"
 
 const { jobs } = data
 
@@ -14,7 +15,7 @@ export default function Job_offers() {
   const selectedItem = _selectedItem ? asNonNil(jobs.find(e => e.id === _selectedItem)) : undefined
 
   return (
-    <Box sx={Layout1_root_sx}>
+    <PageRoot activeTab="jobs">
       <Input
         sx={{ pb: 0.7, mb: 6, width: 350 }}
         autoFocus
@@ -74,6 +75,6 @@ export default function Job_offers() {
           )
         })}
       </Box>
-    </Box>
+    </PageRoot>
   )
 }

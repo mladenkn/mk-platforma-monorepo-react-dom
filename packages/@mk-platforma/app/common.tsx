@@ -1,4 +1,5 @@
 import { Tabs as TabsMui, Tab, Box } from "@mui/material"
+import { Layout1_root_sx } from "./layout1"
 import { ReactNode } from "react"
 
 
@@ -9,7 +10,7 @@ type Props = {
   activeTab: Tab
 }
 
-export default function PageRoot({ activeTab, children }: Props){
+export function PageRoot({ activeTab, children }: Props){
   return (
     <Box
       sx={{
@@ -26,7 +27,9 @@ export default function PageRoot({ activeTab, children }: Props){
         <Tab sx={{ textTransform: "none" }} label="Majstori" value="experts" />
         <Tab sx={{ textTransform: "none" }} label="Poslovi" value="jobs" />
       </TabsMui>
-      {children}
+      <Box sx={Layout1_root_sx}>
+        {children}
+      </Box>      
     </Box>
   )
 }

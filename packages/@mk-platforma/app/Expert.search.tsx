@@ -6,9 +6,9 @@ import HandymanIcon from "@mui/icons-material/Handyman"
 import { asNonNil } from "@mk-libs/common/common"
 import data from "./data.json"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { Layout1_root_sx, Layout1_list_sx } from "./layout1"
+import { Layout1_list_sx } from "./layout1"
 import Avatar from "./avatar"
-import { faker } from "@faker-js/faker"
+import { PageRoot } from "./common"
 
 const { experts } = data
 
@@ -17,7 +17,7 @@ export default function Expert_search() {
   const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
 
   return (
-    <Box sx={Layout1_root_sx}>
+    <PageRoot activeTab="experts">
       <Input
         sx={{ pb: 0.7, mb: 5, width: 350 }}
         autoFocus
@@ -72,6 +72,6 @@ export default function Expert_search() {
           )
         })}
       </Box>
-    </Box>
+    </PageRoot>
   )
 }
