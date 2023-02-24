@@ -7,9 +7,20 @@ import { asNonNil } from "@mk-libs/common/common"
 import data from "./data.json"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { Layout1_root_sx, Layout1_list_sx } from './layout1'
+import Avatar from './avatar'
+import { faker } from '@faker-js/faker'
 
 const { experts } = data
 
+function randomColor(){
+  return faker.helpers.arrayElement([
+    { background: 'green', color: 'white' },
+    { background: 'yellow',  },
+    { background: 'red', color: 'white' },
+    { background: 'blue', color: 'white' },
+    { background: 'orange' },
+  ])
+}
 
 export default function Expert_search(){
   const [_selectedExpert, setSelectedExpert] = useState<number>()
@@ -28,12 +39,23 @@ export default function Expert_search(){
           const isExpanded = expert.id === selectedExpert?.id
           return (
             <Accordion
+              sx={{ width: '100%' }}
               key={expert.id}
               expanded={expert.id === selectedExpert?.id}
               onChange={(e, isExpanded) => setSelectedExpert(isExpanded ? expert.id : undefined)}
             >
               <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
-                <Box sx={{ display: 'flex' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Avatar
+                    sx={{
+                      padding: 3,
+                      width: 15,
+                      height: 15,
+                      marginRight: 4,
+                      ...randomColor()
+                    }}
+                    letter={expert.firstName[0]}
+                  />
                   <Typography sx={{ fontWeight: 600, fontSize: 16, width: 115 }}>
                     {expert.firstName}{' '}{expert.lastName}
                   </Typography>
