@@ -27,6 +27,9 @@ export default function Job_offers() {
           return (
             <Accordion
               key={item.id}
+              sx={{
+                maxWidth: 600,
+              }}
               expanded={item.id === selectedItem?.id}
               onChange={(e, isExpanded) => setSelectedItem(isExpanded ? item.id : undefined)}
             >
