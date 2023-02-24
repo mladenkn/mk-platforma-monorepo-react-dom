@@ -31,9 +31,8 @@ export default function Job_offers(){
               onChange={(e, isExpanded) => setSelectedItem(isExpanded ? item.id : undefined)}
             >
               <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
-                <Box sx={{ display: 'flex', flex: 1 }}>
-                  <img src={item.photos[0]} width={100} height={100} />
-                  <Box sx={{ marginLeft: 3 }}>
+                <Box sx={{ display: 'flex', flex: 1, justifyContent: 'space-between' }}>
+                  <Box>
                     <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
                       {item.title}
                     </Typography>
@@ -43,6 +42,17 @@ export default function Job_offers(){
                         <Typography>{item.location}</Typography>
                       </Box>
                     </Box>
+                  </Box>
+                  <Box sx={{ marginTop: 5, marginRight: 5, display: 'flex', gap: 1, }}>
+                    {item.photos.map(photo => (
+                      <img
+                        style={{
+                          width: 70,
+                          height: 70
+                        }}
+                        src={photo}
+                      />
+                    ))}
                   </Box>
                 </Box>
               </AccordionSummary>
