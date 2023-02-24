@@ -12,15 +12,6 @@ import { faker } from "@faker-js/faker"
 
 const { experts } = data
 
-function randomColor() {
-  return faker.helpers.arrayElement([
-    { background: "green", color: "white" },
-    { background: "yellow" },
-    { background: "red", color: "white" },
-    { background: "blue", color: "white" },
-    { background: "orange" },
-  ])
-}
 
 export default function Expert_search() {
   const [_selectedExpert, setSelectedExpert] = useState<number>()
@@ -49,7 +40,7 @@ export default function Expert_search() {
                   <Avatar
                     sx={{
                       marginRight: 4,
-                      ...randomColor(),
+                      ...expert.avatarStyle,
                     }}
                     letter={expert.firstName[0]}
                   />

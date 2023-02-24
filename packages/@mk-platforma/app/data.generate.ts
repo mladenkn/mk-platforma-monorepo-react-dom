@@ -4,6 +4,14 @@ import { writeFileSync } from "fs"
 import * as cro_dataset from "./data.cro.dataset"
 
 
+const avatar_props = [
+  { background: "green", color: "white" },
+  { background: "yellow" },
+  { background: "red", color: "white" },
+  { background: "blue", color: "white" },
+  { background: "orange" },
+]
+
 let expertId = 1
 function generateExpert() {
   return {
@@ -14,6 +22,7 @@ function generateExpert() {
     occupations: [faker.helpers.arrayElement(cro_dataset.jobs)],
     description: faker.lorem.text(),
     phoneNumber: faker.phone.number(),
+    avatarStyle: faker.helpers.arrayElement(avatar_props)
   }
 }
 
