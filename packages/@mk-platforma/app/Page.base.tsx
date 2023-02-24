@@ -11,13 +11,13 @@ type Item = {
   id: number
 }
 
-type Props = {
+type Props<TItem extends Item> = {
   pageRootProps: OverridableProps<typeof PageRoot, "activeTab">
-  items: Item[]
-  renderItem(items: Item, setSelectedItem: (item?: number) => void, selectedItem?: number): ReactElement
+  items: TItem[]
+  renderItem(items: TItem, setSelectedItem: (item?: number) => void, selectedItem?: number): ReactElement
 }
 
-export default function Page_base({ pageRootProps, items, renderItem }: Props){
+export default function Page_base<TItem extends Item>({ pageRootProps, items, renderItem }: Props<TItem>){
   const [selectedItem, setSelectedItem] = useState<number>()
 
   return (
