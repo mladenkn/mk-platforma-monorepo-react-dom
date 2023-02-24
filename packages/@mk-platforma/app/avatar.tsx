@@ -23,7 +23,9 @@ export default function Avatar({ imageUrl, letter, ...props }: ContactAvatarProp
           alignItems: "center",
           justifyContent: "center",
           borderRadius: "50%",
-          fontSize: 20,
+          width: 52,
+          height: 52,
+          fontSize: 22,
           fontWeight: 600,
           ...(props as any).sx,
         }}

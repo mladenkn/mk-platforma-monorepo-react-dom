@@ -48,9 +48,6 @@ export default function Expert_search() {
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Avatar
                     sx={{
-                      padding: 3,
-                      width: 15,
-                      height: 15,
                       marginRight: 4,
                       ...randomColor(),
                     }}
