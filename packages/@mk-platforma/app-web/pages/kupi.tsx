@@ -1,2 +1,2 @@
-import ExpertSearch from "@mk-platforma/app/Expert.search"
-export default ExpertSearch
+import Item_sale from "@mk-platforma/app/Item.sale"
+export default Item_sale
