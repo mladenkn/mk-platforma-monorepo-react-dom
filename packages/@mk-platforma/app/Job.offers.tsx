@@ -14,16 +14,15 @@ export default function Job_offers() {
         activeTab: 'jobs'
       }}
       items={jobs}
-      renderItem={(item, setSelectedItem, selectedItem,) => {
-        const isExpanded = item.id === selectedItem
+      renderItem={(item, isSelected, setIsSelected,) => {
         return (
           <Accordion
             key={item.id}
             sx={{
               maxWidth: 600,
             }}
-            expanded={isExpanded}
-            onChange={(e, isExpanded) => setSelectedItem(isExpanded ? item.id : undefined)}
+            expanded={isSelected}
+            onChange={(e, isSelected) => setIsSelected(isSelected)}
           >
             <AccordionSummary sx={{ pl: 1.5, pb: 1 }} expandIcon={<ExpandMoreIcon />}>
               <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
@@ -43,7 +42,7 @@ export default function Job_offers() {
                       <Typography>{item.location}</Typography>
                     </Box>
                   </Box>
-                  {!isExpanded && (
+                  {!isSelected && (
                     <Box sx={{ display: "flex", gap: 1 }}>
                       {item.photos.map((photo, index) => (
                         <img key={index} width={65} height={65} src={photo} />

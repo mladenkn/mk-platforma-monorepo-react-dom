@@ -14,7 +14,7 @@ type Item = {
 type Props<TItem extends Item> = {
   pageRootProps: OverridableProps<typeof PageRoot, "activeTab">
   items: TItem[]
-  renderItem(items: TItem, setSelectedItem: (item?: number) => void, selectedItem?: number): ReactElement
+  renderItem(items: TItem, isSelected: boolean, setIsSelected: (a: boolean) => void): ReactElement
 }
 
 export default function Page_base<TItem extends Item>({ pageRootProps, items, renderItem }: Props<TItem>){
@@ -29,7 +29,11 @@ export default function Page_base<TItem extends Item>({ pageRootProps, items, re
         startAdornment={<SearchRoundedIcon sx={{ mr: 2 }} />}
       />
       <Box sx={Layout1_list_sx}>
-        {items.map(item => renderItem(item, setSelectedItem, selectedItem))}
+        {items.map(item => renderItem(
+          item,
+          selectedItem === item.id,
+          (isSelected) => setSelectedItem(isSelected ? item.id : undefined)
+        ))}
       </Box>
     </PageRoot>
   )
