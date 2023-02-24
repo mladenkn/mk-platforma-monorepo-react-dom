@@ -36,11 +36,11 @@ let jobId = 1
 function generateJob(){
   const photoCount = faker.datatype.number({ min: 0, max: 6 })
   const randomPhoto = () => faker.helpers.arrayElement([
-    faker.image.business(),
-    faker.image.food(),
-    faker.image.nature(),
-    faker.image.transport(),
-  ])
+    faker.image.business,
+    faker.image.food,
+    faker.image.nature,
+    faker.image.transport,
+  ])()
   return {
     id: jobId++,
     title: faker.lorem.sentence(7),
