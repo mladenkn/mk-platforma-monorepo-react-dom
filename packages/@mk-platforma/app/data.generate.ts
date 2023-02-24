@@ -11,10 +11,12 @@ function generateExpert(){
     id: expertId++,
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
-    area: faker.address.city(),
+    location: faker.address.city(),
     occupations: [faker.helpers.arrayElement(jobs)],
     description: faker.lorem.text(),
-    phone: faker.phone.number(),
+    adOwner: {
+      phoneNumber: faker.phone.number(),
+    },
   }
 }
 
@@ -24,7 +26,7 @@ function generateSellableItem(){
     id: selableItemId++,
     title: faker.lorem.sentence(7),
     description: faker.commerce.productDescription(),
-    area: faker.address.city(),
+    location: faker.address.city(),
     imageUrl: faker.image.technics(),
     adOwner: {
       phoneNumber: faker.phone.number(),

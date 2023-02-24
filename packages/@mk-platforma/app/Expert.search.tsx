@@ -40,7 +40,7 @@ export default function Expert_search(){
                   <Box sx={{ pl: 1, ml: 10, color: !isExpanded ? 'text.secondary' : undefined }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
                       <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
-                      <Typography>{expert.area}</Typography>
+                      <Typography>{expert.location}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', }}>
                       <HandymanIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
@@ -51,7 +51,7 @@ export default function Expert_search(){
               </AccordionSummary>
               <AccordionDetails sx={{ ml: 25, mt: 3 }}>
                 <Typography>{expert.description}</Typography>
-                <Typography sx={{ mt: 4 }}>Mobitel/telefon: {expert.phone}</Typography>
+                <Typography sx={{ mt: 4 }}>Mobitel/telefon: {expert.adOwner.phoneNumber}</Typography>
               </AccordionDetails>
             </Accordion>
           )

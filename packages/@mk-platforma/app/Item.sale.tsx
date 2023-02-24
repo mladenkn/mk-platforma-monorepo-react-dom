@@ -40,7 +40,7 @@ export default function Item_sale(){
                     <Box sx={{ color: 'text.secondary', mt: 2 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
                         <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
-                        <Typography>{item.area}</Typography>
+                        <Typography>{item.location}</Typography>
                       </Box>
                     </Box>
                   </Box>
