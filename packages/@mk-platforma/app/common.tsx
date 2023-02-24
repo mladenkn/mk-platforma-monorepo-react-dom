@@ -23,9 +23,9 @@ export function PageRoot({ activeTab, children }: Props){
       }}
     >
       <TabsMui value={activeTab} centered>
-        <Tab sx={{ textTransform: "none" }} component="a" label="Kupoprodaja" value="buying-selling" href="kupi" />
-        <Tab sx={{ textTransform: "none" }} component="a" label="Majstori" value="experts" href="majstori" />
         <Tab sx={{ textTransform: "none" }} component="a" label="Poslovi" value="jobs" href="poslovi" />
+        <Tab sx={{ textTransform: "none" }} component="a" label="Majstori" value="experts" href="majstori" />
+        <Tab sx={{ textTransform: "none" }} component="a" label="Kupuj" value="buying-selling" href="kupuj" />
       </TabsMui>
       <Box sx={Layout1_root_sx}>
         {children}
