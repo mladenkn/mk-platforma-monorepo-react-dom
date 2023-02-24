@@ -1,6 +1,8 @@
 import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
 import { writeFileSync } from "fs"
+import Mk_faker_cro from "@mk-libs/faker/cro"
+
 
 const jobs = ["računalni programer", "odvjetnik", "zidar", "vodoinstalater", "fasader"]
 
@@ -8,8 +10,8 @@ let expertId = 1
 function generateExpert() {
   return {
     id: expertId++,
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
+    firstName: Mk_faker_cro.firstName(),
+    lastName: Mk_faker_cro.lastName(),
     location: faker.address.city(),
     occupations: [faker.helpers.arrayElement(jobs)],
     description: faker.lorem.text(),
