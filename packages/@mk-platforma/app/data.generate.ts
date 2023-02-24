@@ -14,9 +14,7 @@ function generateExpert() {
     location: faker.helpers.arrayElement(cro_dataset.cities),
     occupations: [Mk_faker_cro.job()],
     description: faker.lorem.text(),
-    adOwner: {
-      phoneNumber: faker.phone.number(),
-    },
+    phoneNumber: faker.phone.number(),
   }
 }
 

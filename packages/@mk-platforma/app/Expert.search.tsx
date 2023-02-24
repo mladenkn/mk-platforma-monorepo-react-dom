@@ -76,7 +76,7 @@ export default function Expert_search() {
               </AccordionSummary>
               <AccordionDetails sx={{ ml: 25, mt: 3 }}>
                 <Typography>{expert.description}</Typography>
-                <Typography sx={{ mt: 4 }}>Mobitel/telefon: {expert.adOwner.phoneNumber}</Typography>
+                <Typography sx={{ mt: 4 }}>Mobitel/telefon: {expert.phoneNumber}</Typography>
               </AccordionDetails>
             </Accordion>
           )
