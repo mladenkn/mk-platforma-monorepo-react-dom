@@ -37,7 +37,7 @@ export default function Job_offers(){
                     {item.title}
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', flex: 1, marginTop: 3, marginRight: 3, }}>
-                    <Box sx={{ color: 'text.secondary', mt: 2 }}>
+                    <Box sx={{ color: 'text.secondary', mt: 1, ml: 1, }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
                         <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
                         <Typography>{item.location}</Typography>
