@@ -3,7 +3,6 @@ import { generateArray } from "@mk-libs/common/common"
 import { writeFileSync } from "fs"
 import * as cro_dataset from "./data.cro.dataset"
 
-
 const avatar_props = [
   { background: "green", color: "white" },
   { background: "yellow" },
@@ -22,7 +21,7 @@ function generateExpert() {
     occupations: [faker.helpers.arrayElement(cro_dataset.jobs)],
     description: faker.lorem.text(),
     phoneNumber: faker.phone.number(),
-    avatarStyle: faker.helpers.arrayElement(avatar_props)
+    avatarStyle: faker.helpers.arrayElement(avatar_props),
   }
 }
 

@@ -12,7 +12,6 @@ import { faker } from "@faker-js/faker"
 
 const { experts } = data
 
-
 export default function Expert_search() {
   const [_selectedExpert, setSelectedExpert] = useState<number>()
   const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined

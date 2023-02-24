@@ -1,14 +1,42 @@
-export const firstNames = [
-  'Mladen', 'Jure', 'Stipe', 'Mate', 'Frane', 'Lovre', 'Ante', 'Ivan',
-]
+export const firstNames = ["Mladen", "Jure", "Stipe", "Mate", "Frane", "Lovre", "Ante", "Ivan"]
 
 export const lastNames = [
-  'Knezović', 'Jurić', 'Ivanović', 'Škomrlj', 'Cokarić', 'Ivić', 'Katavić', 'Jozičić', 'Lerotić'
+  "Knezović",
+  "Jurić",
+  "Ivanović",
+  "Škomrlj",
+  "Cokarić",
+  "Ivić",
+  "Katavić",
+  "Jozičić",
+  "Lerotić",
 ]
 
-export const jobs = ["računalni programer", "odvjetnik", "zidar", "vodoinstalater", "vodoinstalater", "vrtlar", "stolar", "drvene kuće", "izolacije na kućama"]
+export const jobs = [
+  "računalni programer",
+  "odvjetnik",
+  "zidar",
+  "vodoinstalater",
+  "vodoinstalater",
+  "vrtlar",
+  "stolar",
+  "drvene kuće",
+  "izolacije na kućama",
+]
 
-export const cities = ["Split", "Zagreb", "Rijeka", "Osijek", "Zadar", "Dubrovnik", "šibenik", "Pula", "Sisak", "Karlovac", "Varaždin"]
+export const cities = [
+  "Split",
+  "Zagreb",
+  "Rijeka",
+  "Osijek",
+  "Zadar",
+  "Dubrovnik",
+  "šibenik",
+  "Pula",
+  "Sisak",
+  "Karlovac",
+  "Varaždin",
+]
 
 export const products = [
   {
@@ -20,11 +48,12 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
 
 1kg očišćenih oraha - 8 €
 1kg očišćenih oraha - 3 €
-`
+`,
   },
   {
     label: "KOCHA kućni set za pripremu kombuche",
-    image: "https://www.njuskalo.hr/image-200x150/cajevi/kocha-kucni-set-pripremu-kombuche-slika-188395758.jpg",
+    image:
+      "https://www.njuskalo.hr/image-200x150/cajevi/kocha-kucni-set-pripremu-kombuche-slika-188395758.jpg",
     description: `Kućni set za pripremu kombuche uključuje sve što vam je potrebno da počnete pripremati ukusnu kombuchu bogatu probioticima u vlastitoj kuhinji.
 
     Bez obzira jeste li iskusni konzument kombuche ili ste novi u trendu, ovaj pribor olakšava stvaranje vlastitih jedinstvenih mješavina koristeći vaše omiljene čajeve, začine i voće. Započnite svoju kombucha pustolovinu već danas!
@@ -33,7 +62,8 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
   {
     label: "prašak za točeni sladoled mješavina",
-    image: "https://www.njuskalo.hr/image-200x150/hrana-pice-ostalo/prasak-toceni-sladoled-mjesavina-slika-34994516.jpg",
+    image:
+      "https://www.njuskalo.hr/image-200x150/hrana-pice-ostalo/prasak-toceni-sladoled-mjesavina-slika-34994516.jpg",
     description: `prašak za točeni sladoled mješavina:
     Mješavina pripremlena za uporabo u strojevima za soft sladoled.
     Dozacija 5 l vode na 2 kg smjese
@@ -57,18 +87,20 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
   {
     label: "Protein konoplje (protein 50%+) 400 g - u prahu - 100% hrvatsko",
-    image: "https://www.njuskalo.hr/image-200x150/orasasti-plodovi-sjemenke/protein-konoplje-protein-50-400-g-prahu-100-hr-slika-94315389.jpg",
+    image:
+      "https://www.njuskalo.hr/image-200x150/orasasti-plodovi-sjemenke/protein-konoplje-protein-50-400-g-prahu-100-hr-slika-94315389.jpg",
     description: `Protein konoplje izvrstan je izvor bjelančevina koji sadrži esencijalne aminokiseline (EAA), te je stoga najkompletniji biljni protein.
     Sjeme konoplje ima najveći udio globulina edistina u prirodi (cca. 65%) koji se smatra najlakše probavljivim proteinom, ne napuhava.
     Iznimno bogat izvor lako i brzo probavljivih proteina (svih aminokiselina i svih esencijalnih aminokiselina) i dijetetskih vlakana, izvor Omega-3 i Omega-6 te bogato vitaminima B i E, kalcijem, kalijem, željezom i magnezijem.
     Ne sadrži GLUTEN.
     Redovito konzumiranje osigurava urednu probavu.
     
-    Više informacija o konoplji, proizvodima konoplje i web shop na www.cannabio.hr`
+    Više informacija o konoplji, proizvodima konoplje i web shop na www.cannabio.hr`,
   },
   {
     label: "UKC odvodne cijevi i pribor 110, 125, 160...",
-    image: "https://www.njuskalo.hr/image-200x150/odvodne-cijevi/ukc-odvodne-cijevi-pribor-110-125-160-slika-188733751.jpg",
+    image:
+      "https://www.njuskalo.hr/image-200x150/odvodne-cijevi/ukc-odvodne-cijevi-pribor-110-125-160-slika-188733751.jpg",
     description: `UKC odvodne cijevi i fiting za podzemnu ugradnju.
     Na zalihi dimenzije 110, 125, 160.
     -------------------------------------------------------------------------------
@@ -89,17 +121,20 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
   {
     label: "Ormari za spavaću sobu-očuvano",
-    image: "https://www.njuskalo.hr/image-200x150/spavace-sobe-ormari/ormari-spavacu-sobu-ocuvano-slika-187322925.jpg",
+    image:
+      "https://www.njuskalo.hr/image-200x150/spavace-sobe-ormari/ormari-spavacu-sobu-ocuvano-slika-187322925.jpg",
     description: `Prodajem ormar za spavaću sobu ,očuvan, u dobrom stanju, malo oštećen`,
   },
   {
     label: "ICEPEAK VANCE jakna plava NOVO %OUTLET% RAČUN 36 RATA",
-    image: "https://www.njuskalo.hr/image-200x150/muske-jakne-kaputi/icepeak-vance-muska-skijaska-jakna-plava-outlet-racun-36-rata-slika-181977557.jpg",
+    image:
+      "https://www.njuskalo.hr/image-200x150/muske-jakne-kaputi/icepeak-vance-muska-skijaska-jakna-plava-outlet-racun-36-rata-slika-181977557.jpg",
     description: ``,
   },
   {
     label: "Pliš crna M/L suknja duga skoro do gležnja NOVO Marks& Spencer",
-    image: "https://www.njuskalo.hr/image-200x150/suknje/plis-crna-m-l-suknja-duga-skoro-gleznja-marks-spencer-slika-185069563.jpg",
+    image:
+      "https://www.njuskalo.hr/image-200x150/suknje/plis-crna-m-l-suknja-duga-skoro-gleznja-marks-spencer-slika-185069563.jpg",
     description: `Novo zapakirano, Icepeak Vance muška jakna najnoviji model, tamno plava, najnoviji model 2023g. Obucite se za zimu po %OUTLET% Cijenama!
 
     AKCIJSKE CIJENE RASPRODAJA DO KRAJA 01/2023!
@@ -114,7 +149,8 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
   {
     label: "Skejtbord Skateboard Penny, svjetleci kotaci i daska, NOV, dostava",
-    image: "https://www.njuskalo.hr/image-200x150/skateboard/skejtbord-skateboard-svjetlecim-kotacima-potpuno-nov-slika-127897137.jpg",
+    image:
+      "https://www.njuskalo.hr/image-200x150/skateboard/skejtbord-skateboard-svjetlecim-kotacima-potpuno-nov-slika-127897137.jpg",
     description: `U ponudi su 3 razlicita modela skateboarda. Sve 3 su potpuno nova i nekoristena i razlicitih su boja....
 
     01. Skejt sa obicnim silikonskim kotacima - cijena 16 € / 120,55 kn (zadnja slika)
@@ -127,7 +163,8 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
   {
     label: "BATERIJSKA LAMPA SVJETILJKA profesionalna s 2 baterijska uloška",
-    image: "https://www.njuskalo.hr/image-200x150/sportska-oprema-ostalo/baterijska-lampa-profesionalna-2-baterijska-uloska-slika-147901611.jpg",
+    image:
+      "https://www.njuskalo.hr/image-200x150/sportska-oprema-ostalo/baterijska-lampa-profesionalna-2-baterijska-uloska-slika-147901611.jpg",
     description: `BATERIJSKA LAMPA - SVJETILJKA - profesionalna, kao nova.
 
     Pogodno za razne poslove gdje treba baterijska svjetiljka koja dugo svijetli: noćni čuvari, ophodnja, zaštitari ali i druge namjene: lov, ribolov, kampiranje i sl.
@@ -136,6 +173,6 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
     
     Za punjanje baterije postoje 2 punjača: autopunjač i punjač na 230 V
     
-    Vrlo kvalitetna i jaka svjetiljka - pogodna za profesionalce.`
+    Vrlo kvalitetna i jaka svjetiljka - pogodna za profesionalce.`,
   },
 ]
