@@ -71,6 +71,7 @@ importers:
       immer: ^9.0.15
       react: ^18.2.0
       typescript: ^4.9.5
+      utility-types: ^3.10.0
     dependencies:
       immer: 9.0.19
     devDependencies:
@@ -80,6 +81,7 @@ importers:
       eslint: 7.32.0
       react: 18.2.0
       typescript: 4.9.5
+      utility-types: 3.10.0
 
   packages/@mk-libs/tsconfig:
     specifiers: {}
