@@ -32,8 +32,30 @@ function generateSellableItem(){
   }
 }
 
+let jobId = 1
+function generateJob(){
+  const photoCount = faker.datatype.number({ min: 0, max: 6 })
+  const randomPhoto = () => faker.helpers.arrayElement([
+    faker.image.business(),
+    faker.image.food(),
+    faker.image.nature(),
+    faker.image.transport(),
+  ])
+  return {
+    id: jobId++,
+    title: faker.lorem.sentence(7),
+    description: faker.lorem.paragraph(),
+    location: faker.address.city(),
+    photos: generateArray(randomPhoto, photoCount),
+    adOwner: {
+      phoneNumber: faker.phone.number(),
+    },
+  }
+}
+
 const data = {
-  experts: generateArray(generateExpert, 10),
-  sellableItems: generateArray(generateSellableItem, 10)
+  experts: generateArray(generateExpert, faker.datatype.number({ min: 10, max: 50 })),
+  sellableItems: generateArray(generateSellableItem, faker.datatype.number({ min: 10, max: 50 })),
+  jobs: generateArray(generateJob, faker.datatype.number({ min: 10, max: 50 })),
 }
 writeFileSync('./data.json', JSON.stringify(data, null, 2))
