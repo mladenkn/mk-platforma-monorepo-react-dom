@@ -176,3 +176,36 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
     Vrlo kvalitetna i jaka svjetiljka - pogodna za profesionalce.`,
   },
 ]
+
+export const jobs = [
+  {
+    label: "Prekopavanje vrta",
+  },
+  {
+    label: "Obrezivanje maslina",
+  },
+  {
+    label: "Zidanje zida",
+  },
+  {
+    label: "Kopanje rupa za voćke",
+  },
+  {
+    label: "Gradnja drvene kuće",
+  },
+  {
+    label: "Sadnja povrtnjaka",
+  },
+  {
+    label: "Sadnja voćnjaka",
+  },
+  {
+    label: "Izdrada ograde",
+  },
+  {
+    label: "Šivanje haljine za maturu",
+  },
+  {
+    label: "Izdrada web stranice",
+  },
+]

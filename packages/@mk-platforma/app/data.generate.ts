@@ -3,7 +3,8 @@ import { generateArray } from "@mk-libs/common/common"
 import { writeFileSync } from "fs"
 import * as cro_dataset from "./data.cro.dataset"
 
-const avatar_props = [
+
+const avatarStyles = [
   { background: "green", color: "white" },
   { background: "yellow" },
   { background: "red", color: "white" },
@@ -21,35 +22,31 @@ function generateExpert() {
     occupations: [faker.helpers.arrayElement(cro_dataset.occupations)],
     description: faker.lorem.text(),
     phoneNumber: faker.phone.number(),
-    avatarStyle: faker.helpers.arrayElement(avatar_props),
+    avatarStyle: faker.helpers.arrayElement(avatarStyles),
   }
 }
 
-let jobId = 1
-function generateJob() {
-  const photoCount = faker.datatype.number({ min: 0, max: 6 })
-  const randomPhoto = () =>
-    faker.helpers.arrayElement([
-      faker.image.business,
-      faker.image.food,
-      faker.image.nature,
-      faker.image.transport,
-    ])()
-  return {
-    id: jobId++,
-    title: faker.lorem.sentence(7),
-    description: faker.lorem.paragraph(),
-    location: faker.helpers.arrayElement(cro_dataset.cities),
-    photos: generateArray(randomPhoto, photoCount),
-    adOwner: {
-      phoneNumber: faker.phone.number(),
-    },
-  }
-}
+const randomJobPhoto = () =>
+  faker.helpers.arrayElement([
+    faker.image.business,
+    faker.image.food,
+    faker.image.nature,
+    faker.image.transport,
+  ])()
 
 const data = {
   experts: generateArray(generateExpert, faker.datatype.number({ min: 10, max: 50 })),
-  jobs: generateArray(generateJob, faker.datatype.number({ min: 10, max: 50 })),
+
+  jobs: faker.helpers.shuffle(cro_dataset.jobs).map(({ label }, index) => ({
+    id: index + 1,
+    label,
+    description: faker.lorem.paragraph(),
+    location: faker.helpers.arrayElement(cro_dataset.cities),
+    photos: generateArray(randomJobPhoto, 3),
+    adOwner: {
+      phoneNumber: faker.phone.number(),
+    },
+  })),
 
   sellableItems: cro_dataset.products.map(({ label, image, description }, index) => ({
     id: index + 1,

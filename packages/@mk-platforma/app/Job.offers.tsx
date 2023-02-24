@@ -32,7 +32,7 @@ export default function Job_offers() {
             >
               <AccordionSummary sx={{ pl: 1.5, pb: 1 }} expandIcon={<ExpandMoreIcon />}>
                 <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
-                  <Typography sx={{ fontWeight: 600, fontSize: 16 }}>{item.title}</Typography>
+                  <Typography sx={{ fontWeight: 600, fontSize: 16 }}>{item.label}</Typography>
                   <Box
                     sx={{
                       display: "flex",
