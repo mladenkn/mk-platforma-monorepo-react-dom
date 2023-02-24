@@ -24,7 +24,7 @@ function generateSellableItem() {
     id: selableItemId++,
     title: faker.lorem.sentence(7),
     description: faker.commerce.productDescription(),
-    location: faker.address.city(),
+    location: faker.helpers.arrayElement(cro_dataset.cities),
     imageUrl: faker.image.technics(),
     adOwner: {
       phoneNumber: faker.phone.number(),
@@ -46,7 +46,7 @@ function generateJob() {
     id: jobId++,
     title: faker.lorem.sentence(7),
     description: faker.lorem.paragraph(),
-    location: faker.address.city(),
+    location: faker.helpers.arrayElement(cro_dataset.cities),
     photos: generateArray(randomPhoto, photoCount),
     adOwner: {
       phoneNumber: faker.phone.number(),
