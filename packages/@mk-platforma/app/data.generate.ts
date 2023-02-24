@@ -4,8 +4,6 @@ import { writeFileSync } from "fs"
 import Mk_faker_cro from "@mk-libs/faker/cro"
 
 
-const jobs = ["računalni programer", "odvjetnik", "zidar", "vodoinstalater", "fasader"]
-
 let expertId = 1
 function generateExpert() {
   return {
@@ -13,7 +11,7 @@ function generateExpert() {
     firstName: Mk_faker_cro.firstName(),
     lastName: Mk_faker_cro.lastName(),
     location: faker.address.city(),
-    occupations: [faker.helpers.arrayElement(jobs)],
+    occupations: [Mk_faker_cro.job()],
     description: faker.lorem.text(),
     adOwner: {
       phoneNumber: faker.phone.number(),
