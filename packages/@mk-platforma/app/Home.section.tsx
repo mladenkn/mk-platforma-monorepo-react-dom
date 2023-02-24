@@ -9,7 +9,7 @@ import Item_sale from './Item.sale'
 
 type Tab = 'buying-selling' | 'experts' | 'jobs'
 
-export default function CenteredTabs() {
+export default function Home_section() {
   const [value, setValue] = useState<Tab>('experts')
 
   return (
