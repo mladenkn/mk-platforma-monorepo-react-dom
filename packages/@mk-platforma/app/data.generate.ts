@@ -1,12 +1,11 @@
-import { faker } from '@faker-js/faker'
-import { generateArray } from '@mk-libs/common/common'
-import { writeFileSync } from 'fs'
+import { faker } from "@faker-js/faker"
+import { generateArray } from "@mk-libs/common/common"
+import { writeFileSync } from "fs"
 
-
-const jobs = ['računalni programer', 'odvjetnik', 'zidar', 'vodoinstalater', 'fasader']
+const jobs = ["računalni programer", "odvjetnik", "zidar", "vodoinstalater", "fasader"]
 
 let expertId = 1
-function generateExpert(){
+function generateExpert() {
   return {
     id: expertId++,
     firstName: faker.name.firstName(),
@@ -21,7 +20,7 @@ function generateExpert(){
 }
 
 let selableItemId = 1
-function generateSellableItem(){
+function generateSellableItem() {
   return {
     id: selableItemId++,
     title: faker.lorem.sentence(7),
@@ -35,14 +34,15 @@ function generateSellableItem(){
 }
 
 let jobId = 1
-function generateJob(){
+function generateJob() {
   const photoCount = faker.datatype.number({ min: 0, max: 6 })
-  const randomPhoto = () => faker.helpers.arrayElement([
-    faker.image.business,
-    faker.image.food,
-    faker.image.nature,
-    faker.image.transport,
-  ])()
+  const randomPhoto = () =>
+    faker.helpers.arrayElement([
+      faker.image.business,
+      faker.image.food,
+      faker.image.nature,
+      faker.image.transport,
+    ])()
   return {
     id: jobId++,
     title: faker.lorem.sentence(7),
@@ -60,4 +60,4 @@ const data = {
   sellableItems: generateArray(generateSellableItem, faker.datatype.number({ min: 10, max: 50 })),
   jobs: generateArray(generateJob, faker.datatype.number({ min: 10, max: 50 })),
 }
-writeFileSync('./data.json', JSON.stringify(data, null, 2))
+writeFileSync("./data.json", JSON.stringify(data, null, 2))

@@ -1,7 +1,7 @@
 import { lowerFirst, toLower } from "lodash"
 import { capitalize } from "@mk-libs/common/string"
 
-export function getFindManyCodeForModel(model: string){
+export function getFindManyCodeForModel(model: string) {
   const modelCapitalized = capitalize(model)
   const modelLowerFirst = lowerFirst(model)
   return `export const createDbAccessor_${modelCapitalized}_getMany =
@@ -26,7 +26,7 @@ export function getFindManyCodeForModel(model: string){
     }`
 }
 
-export function getCreateCodeForModel(model: string){
+export function getCreateCodeForModel(model: string) {
   const modelCapitalized = capitalize(model)
   const modelLowerFirst = lowerFirst(model)
   return `export const createDbAccessor_${modelCapitalized}_create =
@@ -50,7 +50,7 @@ export function getCreateCodeForModel(model: string){
     }`
 }
 
-export function getUpdateCodeForModel(model: string){
+export function getUpdateCodeForModel(model: string) {
   const modelCapitalized = capitalize(model)
   const modelLowerFirst = lowerFirst(model)
   return `export const createDbAccessor_${modelCapitalized}_update =

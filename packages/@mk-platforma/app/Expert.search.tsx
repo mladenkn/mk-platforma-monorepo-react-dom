@@ -1,28 +1,28 @@
-import { Input, Box, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
-import SearchRounded from '@mui/icons-material/SearchRounded'
-import { useState } from 'react'
-import LocationIcon from '@mui/icons-material/LocationOn'
-import HandymanIcon from '@mui/icons-material/Handyman'
+import { Input, Box, Typography, Accordion, AccordionSummary, AccordionDetails } from "@mui/material"
+import SearchRounded from "@mui/icons-material/SearchRounded"
+import { useState } from "react"
+import LocationIcon from "@mui/icons-material/LocationOn"
+import HandymanIcon from "@mui/icons-material/Handyman"
 import { asNonNil } from "@mk-libs/common/common"
 import data from "./data.json"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { Layout1_root_sx, Layout1_list_sx } from './layout1'
-import Avatar from './avatar'
-import { faker } from '@faker-js/faker'
+import { Layout1_root_sx, Layout1_list_sx } from "./layout1"
+import Avatar from "./avatar"
+import { faker } from "@faker-js/faker"
 
 const { experts } = data
 
-function randomColor(){
+function randomColor() {
   return faker.helpers.arrayElement([
-    { background: 'green', color: 'white' },
-    { background: 'yellow',  },
-    { background: 'red', color: 'white' },
-    { background: 'blue', color: 'white' },
-    { background: 'orange' },
+    { background: "green", color: "white" },
+    { background: "yellow" },
+    { background: "red", color: "white" },
+    { background: "blue", color: "white" },
+    { background: "orange" },
   ])
 }
 
-export default function Expert_search(){
+export default function Expert_search() {
   const [_selectedExpert, setSelectedExpert] = useState<number>()
   const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
 
@@ -39,34 +39,40 @@ export default function Expert_search(){
           const isExpanded = expert.id === selectedExpert?.id
           return (
             <Accordion
-              sx={{ width: '100%' }}
+              sx={{ width: "100%" }}
               key={expert.id}
               expanded={expert.id === selectedExpert?.id}
               onChange={(e, isExpanded) => setSelectedExpert(isExpanded ? expert.id : undefined)}
             >
               <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Avatar
                     sx={{
                       padding: 3,
                       width: 15,
                       height: 15,
                       marginRight: 4,
-                      ...randomColor()
+                      ...randomColor(),
                     }}
                     letter={expert.firstName[0]}
                   />
                   <Typography sx={{ fontWeight: 600, fontSize: 16, width: 115 }}>
-                    {expert.firstName}{' '}{expert.lastName}
+                    {expert.firstName} {expert.lastName}
                   </Typography>
-                  <Box sx={{ pl: 1, ml: 10, color: !isExpanded ? 'text.secondary' : undefined }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
-                      <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
+                  <Box
+                    sx={{
+                      pl: 1,
+                      ml: 10,
+                      color: !isExpanded ? "text.secondary" : undefined,
+                    }}
+                  >
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
+                      <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
                       <Typography>{expert.location}</Typography>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', }}>
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
                       <HandymanIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
-                      <Typography>{expert.occupations.join(', ')}</Typography>
+                      <Typography>{expert.occupations.join(", ")}</Typography>
                     </Box>
                   </Box>
                 </Box>
