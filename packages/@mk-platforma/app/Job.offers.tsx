@@ -30,29 +30,29 @@ export default function Job_offers(){
               expanded={item.id === selectedItem?.id}
               onChange={(e, isExpanded) => setSelectedItem(isExpanded ? item.id : undefined)}
             >
-              <AccordionSummary sx={{ pl: 1.5 }} expandIcon={<ExpandMoreIcon />}>
-                <Box sx={{ display: 'flex', flex: 1, justifyContent: 'space-between' }}>
-                  <Box>
-                    <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
-                      {item.title}
-                    </Typography>
+              <AccordionSummary sx={{ pl: 1.5, pb: 1, }} expandIcon={<ExpandMoreIcon />}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1, }}>
+                  <Typography sx={{ fontWeight: 600, fontSize: 16 }}>
+                    {item.title}
+                  </Typography>
+                  <Box sx={{ display: 'flex', justifyContent: 'space-between', flex: 1, marginTop: 3, marginRight: 3, }}>
                     <Box sx={{ color: 'text.secondary', mt: 2 }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 0.3, }}>
                         <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1, }} />
                         <Typography>{item.location}</Typography>
                       </Box>
                     </Box>
-                  </Box>
-                  <Box sx={{ marginTop: 5, marginRight: 5, display: 'flex', gap: 1, }}>
-                    {item.photos.map(photo => (
-                      <img
-                        style={{
-                          width: 70,
-                          height: 70
-                        }}
-                        src={photo}
-                      />
-                    ))}
+                    <Box sx={{ display: 'flex', gap: 1, }}>
+                      {item.photos.map(photo => (
+                        <img
+                          style={{
+                            width: 65,
+                            height: 65
+                          }}
+                          src={photo}
+                        />
+                      ))}
+                    </Box>
                   </Box>
                 </Box>
               </AccordionSummary>
