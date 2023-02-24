@@ -62,23 +62,6 @@ importers:
       typescript: 4.9.5
       utility-types: 3.10.0
 
-  packages/@mk-libs/faker:
-    specifiers:
-      '@mk-libs/tsconfig': '*'
-      '@types/lodash': ^4.14.186
-      eslint: ^7.32.0
-      lodash: ^4.17.21
-      typescript: ^4.9.5
-      utility-types: ^3.10.0
-    dependencies:
-      lodash: 4.17.21
-    devDependencies:
-      '@mk-libs/tsconfig': link:../tsconfig
-      '@types/lodash': 4.14.191
-      eslint: 7.32.0
-      typescript: 4.9.5
-      utility-types: 3.10.0
-
   packages/@mk-libs/react-common:
     specifiers:
       '@mk-libs/common': '*'
@@ -136,7 +119,6 @@ importers:
       '@emotion/styled': ^11.10.6
       '@faker-js/faker': ^7.6.0
       '@mk-libs/common': workspace:*
-      '@mk-libs/faker': workspace:*
       '@mk-libs/react-common': workspace:*
       '@mk-libs/tsconfig': workspace:*
       '@mui/icons-material': ^5.11.9
@@ -154,7 +136,6 @@ importers:
       '@emotion/react': 11.10.6_3stiutgnnbnfnf3uowm5cip22i
       '@emotion/styled': 11.10.6_zjrrpqmb4rf5frur5mrydkybnq
       '@faker-js/faker': 7.6.0
-      '@mk-libs/faker': link:../../@mk-libs/faker
       '@mui/icons-material': 5.11.9_get2qq237tdev74m42py37tzwe
       '@mui/material': 5.11.10_bltlva4pirkp365q4ifuylmkle
       '@tanstack/react-query': 4.24.4_react@18.2.0

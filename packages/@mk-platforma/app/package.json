@@ -26,7 +26,6 @@
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.10",
     "@tanstack/react-query": "^4.24.4",
-    "lodash": "^4.17.21",
-    "@mk-libs/faker": "workspace:*"
+    "lodash": "^4.17.21"
   }
 }

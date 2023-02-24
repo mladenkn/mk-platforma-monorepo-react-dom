@@ -1,4 +1,0 @@
-{
-  "extends": "@mk-libs/tsconfig/base.json",
-  "exclude": ["node_modules"]
-}

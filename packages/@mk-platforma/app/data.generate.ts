@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
 import { writeFileSync } from "fs"
-import * as cro_dataset from "@mk-libs/faker/cro.dataset"
+import * as cro_dataset from "./cro.dataset"
 
 
 let expertId = 1
