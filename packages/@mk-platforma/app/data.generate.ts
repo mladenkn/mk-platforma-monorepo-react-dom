@@ -18,21 +18,6 @@ function generateExpert() {
   }
 }
 
-let selableItemId = 1
-function generateSellableItem() {
-  const { label: title, image: imageUrl } = faker.helpers.arrayElement(cro_dataset.products)
-  return {
-    id: selableItemId++,
-    title,
-    description: faker.commerce.productDescription(),
-    location: faker.helpers.arrayElement(cro_dataset.cities),
-    imageUrl,
-    adOwner: {
-      phoneNumber: faker.phone.number(),
-    },
-  }
-}
-
 let jobId = 1
 function generateJob() {
   const photoCount = faker.datatype.number({ min: 0, max: 6 })
@@ -57,7 +42,17 @@ function generateJob() {
 
 const data = {
   experts: generateArray(generateExpert, faker.datatype.number({ min: 10, max: 50 })),
-  sellableItems: generateArray(generateSellableItem, faker.datatype.number({ min: 10, max: 50 })),
   jobs: generateArray(generateJob, faker.datatype.number({ min: 10, max: 50 })),
+
+  sellableItems: cro_dataset.products.map(({ label, image, description }, index) => ({
+    id: index + 1,
+    title: label,
+    imageUrl: image,
+    description,
+    adOwner: {
+      phoneNumber: faker.phone.number(),
+    },
+    location: faker.helpers.arrayElement(cro_dataset.cities),
+  })),
 }
 writeFileSync("./data.json", JSON.stringify(data, null, 2))
