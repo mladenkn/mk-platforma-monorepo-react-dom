@@ -24,6 +24,7 @@ export default function Job_offers(){
       />
       <Box sx={Layout1_list_sx}>
         {jobs.map(item => {
+          const isExpanded = item.id === selectedItem?.id
           return (
             <Accordion
               key={item.id}
@@ -42,27 +43,40 @@ export default function Job_offers(){
                         <Typography>{item.location}</Typography>
                       </Box>
                     </Box>
-                    <Box sx={{ display: 'flex', gap: 1, }}>
-                      {item.photos.map(photo => (
-                        <img
-                          style={{
-                            width: 65,
-                            height: 65
-                          }}
-                          src={photo}
-                        />
-                      ))}
-                    </Box>
+                    {!isExpanded && (
+                      <Box sx={{ display: 'flex', gap: 1, }}>
+                        {item.photos.map(photo => (
+                          <img
+                            style={{
+                              width: 65,
+                              height: 65
+                            }}
+                            src={photo}
+                          />
+                        ))}
+                      </Box>
+                    )}
                   </Box>
                 </Box>
               </AccordionSummary>
-              <AccordionDetails sx={{ ml: 16, }}>
+              <AccordionDetails sx={{ ml: 16, pb: 3, }}>
                 <Typography>
                   {item.description}
                 </Typography>
                 <Typography sx={{ mt: 4 }}>
                   Phone number: {item.adOwner.phoneNumber}
                 </Typography>
+                <Box sx={{ display: 'flex', gap: 1, marginTop: 4, }}>
+                  {item.photos.map(photo => (
+                    <img
+                      style={{
+                        width: 75,
+                        height: 75
+                      }}
+                      src={photo}
+                    />
+                  ))}
+                </Box>
               </AccordionDetails>
             </Accordion>
           )
