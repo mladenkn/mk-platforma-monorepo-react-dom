@@ -62,8 +62,8 @@ export default function Job_offers() {
                 <Typography>{item.description}</Typography>
                 <Typography sx={{ mt: 4 }}>Phone number: {item.adOwner.phoneNumber}</Typography>
                 <Box sx={{ display: "flex", gap: 1, marginTop: 4 }}>
-                  {item.photos.map(photo => (
-                    <img width={75} height={75} src={photo} />
+                  {item.photos.map((photo, index) => (
+                    <img key={index} width={75} height={75} src={photo} />
                   ))}
                 </Box>
               </AccordionDetails>
