@@ -20,12 +20,13 @@ function generateExpert() {
 
 let selableItemId = 1
 function generateSellableItem() {
+  const { label: title, image: imageUrl } = faker.helpers.arrayElement(cro_dataset.products)
   return {
     id: selableItemId++,
-    title: faker.lorem.sentence(7),
+    title,
     description: faker.commerce.productDescription(),
     location: faker.helpers.arrayElement(cro_dataset.cities),
-    imageUrl: faker.image.technics(),
+    imageUrl,
     adOwner: {
       phoneNumber: faker.phone.number(),
     },
