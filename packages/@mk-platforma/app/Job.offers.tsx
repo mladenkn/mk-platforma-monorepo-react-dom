@@ -50,8 +50,8 @@ export default function Job_offers() {
                     </Box>
                     {!isExpanded && (
                       <Box sx={{ display: "flex", gap: 1 }}>
-                        {item.photos.map(photo => (
-                          <img width={65} height={65} src={photo} />
+                        {item.photos.map((photo, index) => (
+                          <img key={index} width={65} height={65} src={photo} />
                         ))}
                       </Box>
                     )}
