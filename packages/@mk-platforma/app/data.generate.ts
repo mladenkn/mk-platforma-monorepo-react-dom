@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
 import { writeFileSync } from "fs"
 import Mk_faker_cro from "@mk-libs/faker/cro"
+import * as cro_dataset from "@mk-libs/faker/cro.dataset"
 
 
 let expertId = 1
@@ -10,7 +11,7 @@ function generateExpert() {
     id: expertId++,
     firstName: Mk_faker_cro.firstName(),
     lastName: Mk_faker_cro.lastName(),
-    location: faker.address.city(),
+    location: faker.helpers.arrayElement(cro_dataset.cities),
     occupations: [Mk_faker_cro.job()],
     description: faker.lorem.text(),
     adOwner: {

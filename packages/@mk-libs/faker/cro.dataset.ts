@@ -7,3 +7,5 @@ export const lastNames = [
 ]
 
 export const jobs = ["računalni programer", "odvjetnik", "zidar", "vodoinstalater", "vodoinstalater", "vrtlar", "stolar", "drvene kuće", "izolacije na kućama"]
+
+export const cities = ["Split", "Zagreb", "Rijeka", "Osijek", "Zadar", "Dubrovnik", "šibenik", "Pula", "Sisak", "Karlovac", "Varaždin"]
