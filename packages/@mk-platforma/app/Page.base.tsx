@@ -1,9 +1,10 @@
 import { OverridableProps } from "@mk-libs/react-common/types"
 import { SearchRounded as SearchRoundedIcon } from "@mui/icons-material"
-import { Input, Box, Paper } from "@mui/material"
+import { Input, Box, Paper, Dialog } from "@mui/material"
 import { Layout1_list_sx } from "./layout1"
 import { ReactElement, useState } from "react"
 import { PageRoot } from "./common"
+import { asNonNil } from "@mk-libs/common/common"
 
 
 type Item = {
@@ -18,7 +19,8 @@ type Props<TItem extends Item> = {
 }
 
 export default function Page_base<TItem extends Item>({ pageRootProps, items, renderListItem, renderDetails }: Props<TItem>){
-  const [selectedItem, setSelectedItem] = useState<number>()
+  const [_selectedItem, setSelectedItem] = useState<number>()
+  const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
 
   return (
     <PageRoot {...pageRootProps}>
@@ -29,19 +31,21 @@ export default function Page_base<TItem extends Item>({ pageRootProps, items, re
         startAdornment={<SearchRoundedIcon sx={{ mr: 2 }} />}
       />
       <Box sx={Layout1_list_sx}>
-        {items.map(item => {
-          const isSelected = selectedItem === item.id
-          return (
-            <Paper
-              key={item.id}
-              sx={{ p: 3, display: 'flex', flex: 1, width: 600, }}
-              onClick={() => setSelectedItem(item.id)}
-            >
-              {renderListItem(item)}
-            </Paper>
-          )
-        })}
+        {items.map(item => (
+          <Paper
+            key={item.id}
+            sx={{ p: 3, display: 'flex', flex: 1, width: 600, }}
+            onClick={() => setSelectedItem(item.id)}
+          >
+            {renderListItem(item)}
+          </Paper>
+        ))}
       </Box>
+      {selectedItem && (
+        <Dialog open onClose={() => setSelectedItem(undefined)}>
+          {renderDetails(selectedItem)}
+        </Dialog>
+      )}
     </PageRoot>
   )
 }
