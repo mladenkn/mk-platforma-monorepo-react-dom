@@ -40,15 +40,24 @@ export default function Job_offers() {
         </Box>
       )}
       renderDetails={item => (
-        <>
+        <Box sx={{ p: 4 }}>
+          <Typography sx={{ fontWeight: 600, fontSize: 19, mb: 3, }}>{item.label}</Typography>
+          <Box sx={{ color: "text.secondary", mb: 6,}}>
+            <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
+              <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
+              <Typography>{item.location}</Typography>
+            </Box>
+          </Box>
           <Typography>{item.description}</Typography>
           <Typography sx={{ mt: 4 }}>Phone number: {item.adOwner.phoneNumber}</Typography>
-          <Box sx={{ display: "flex", gap: 1, marginTop: 4 }}>
-            {item.photos.map((photo, index) => (
-              <img key={index} width={75} height={75} src={photo} />
-            ))}
+          <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+            <Box sx={{ display: "flex", gap: 2, marginTop: 4 }}>
+              {item.photos.map((photo, index) => (
+                <img key={index} width={90} height={90} src={photo} />
+              ))}
+            </Box>
           </Box>
-        </>
+        </Box>
       )}
     />
   )
