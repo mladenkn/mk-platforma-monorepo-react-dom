@@ -13,7 +13,7 @@ export default function Job_offers() {
         activeTab: 'jobs'
       }}
       items={jobs}
-      renderAccorditionListItem={(item, isSelected) => (
+      renderListItem={(item, isSelected) => (
         <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
           <Typography sx={{ fontWeight: 600, fontSize: 16 }}>{item.label}</Typography>
           <Box
@@ -41,7 +41,7 @@ export default function Job_offers() {
           </Box>
         </Box>
       )}
-      renderAccorditionDetails={item => (
+      renderDetails={item => (
         <>
           <Typography>{item.description}</Typography>
           <Typography sx={{ mt: 4 }}>Phone number: {item.adOwner.phoneNumber}</Typography>

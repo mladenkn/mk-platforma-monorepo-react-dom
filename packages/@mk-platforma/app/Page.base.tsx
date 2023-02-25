@@ -14,11 +14,11 @@ type Item = {
 type Props<TItem extends Item> = {
   pageRootProps: OverridableProps<typeof PageRoot, "activeTab">
   items: TItem[]
-  renderAccorditionListItem(item: TItem, isSelected: boolean): ReactElement
-  renderAccorditionDetails(item: TItem): ReactElement
+  renderListItem(item: TItem, isSelected: boolean): ReactElement
+  renderDetails(item: TItem): ReactElement
 }
 
-export default function Page_base<TItem extends Item>({ pageRootProps, items, renderAccorditionListItem, renderAccorditionDetails }: Props<TItem>){
+export default function Page_base<TItem extends Item>({ pageRootProps, items, renderListItem, renderDetails }: Props<TItem>){
   const [selectedItem, setSelectedItem] = useState<number>()
 
   return (
@@ -42,10 +42,10 @@ export default function Page_base<TItem extends Item>({ pageRootProps, items, re
               onChange={(e, isSelected) => setSelectedItem(isSelected ? item.id : undefined)}
             >
               <AccordionSummary sx={{ pl: 1.5, pb: 1 }} expandIcon={<ExpandMoreIcon />}>
-                {renderAccorditionListItem(item, isSelected)}
+                {renderListItem(item, isSelected)}
               </AccordionSummary>
               <AccordionDetails sx={{ ml: 16 }}>
-                {renderAccorditionDetails(item)}
+                {renderDetails(item)}
               </AccordionDetails>
             </Accordion>
           )
