@@ -13,7 +13,7 @@ export default function Job_offers() {
         activeTab: 'jobs'
       }}
       items={jobs}
-      renderListItem={(item, isSelected) => (
+      renderListItem={item => (
         <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
           <Typography sx={{ fontWeight: 600, fontSize: 16 }}>{item.label}</Typography>
           <Box
@@ -31,13 +31,11 @@ export default function Job_offers() {
                 <Typography>{item.location}</Typography>
               </Box>
             </Box>
-            {!isSelected && (
-              <Box sx={{ display: "flex", gap: 1 }}>
-                {item.photos.map((photo, index) => (
-                  <img key={index} width={65} height={65} src={photo} />
-                ))}
-              </Box>
-            )}
+            <Box sx={{ display: "flex", gap: 1 }}>
+              {item.photos.map((photo, index) => (
+                <img key={index} width={65} height={65} src={photo} />
+              ))}
+            </Box>
           </Box>
         </Box>
       )}
