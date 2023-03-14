@@ -1,18 +1,14 @@
 import { Box, Typography } from "@mui/material"
-import { useState } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import { asNonNil } from "@mk-libs/common/common"
 import data from "./data.json"
 import Avatar from "./avatar"
+import Section_base from "Section.base"
 
 
 const { experts } = data
 
 export default function Expert_search() {
-  const [_selectedExpert, setSelectedExpert] = useState<number>()
-  const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
-
   return (
     <Section_base
       pageRootProps={{
