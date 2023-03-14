@@ -10,7 +10,7 @@ export default function Item_sale() {
   return (
     <Section_base
       pageRootProps={{
-        activeTab: 'experts'
+        activeTab: 'buying-selling'
       }}
       items={sellableItems}
       renderListItem={item => (
