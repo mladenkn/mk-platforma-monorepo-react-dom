@@ -3,7 +3,7 @@ import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import data from "./data.json"
 import Avatar from "./avatar"
-import Section_base from "Section.base"
+import Section_base from "./Section.base"
 
 
 const { experts } = data
@@ -46,10 +46,13 @@ export default function Expert_search() {
         </Box>
       )}
       renderDetails={expert => (
-        <>
+        <Box sx={{ p: 4 }}>
+          <Typography sx={{ fontWeight: 600, fontSize: 19, mb: 3.5, }}>
+            {expert.firstName} {expert.lastName}
+          </Typography>
           <Typography>{expert.description}</Typography>
           <Typography sx={{ mt: 4 }}>Mobitel/telefon: {expert.phoneNumber}</Typography>
-        </>
+        </Box>
       )}
     />
   )
