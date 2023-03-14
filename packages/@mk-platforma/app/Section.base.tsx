@@ -18,7 +18,7 @@ type Props<TItem extends Item> = {
   renderDetails(item: TItem): ReactElement
 }
 
-export default function Page_base<TItem extends Item>({ pageRootProps, items, renderListItem, renderDetails }: Props<TItem>){
+export default function Section_base<TItem extends Item>({ pageRootProps, items, renderListItem, renderDetails }: Props<TItem>){
   const [_selectedItem, setSelectedItem] = useState<number>()
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
 
