@@ -95,8 +95,8 @@ export function objectEntriesDeep(obj: Record<string, any>) {
   return entries
 }
 
-export const generateArray = <T>(getNext: () => T, count: number) => {
+export const generateArray = <T>(getNext: (index: number) => T, count: number) => {
   const r: T[] = []
-  for (let i = 0; i < count; i++) r.push(getNext())
+  for (let i = 0; i < count; i++) r.push(getNext(i))
   return r
 }

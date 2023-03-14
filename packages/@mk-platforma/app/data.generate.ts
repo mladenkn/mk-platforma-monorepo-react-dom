@@ -58,5 +58,19 @@ const data = {
     },
     location: faker.helpers.arrayElement(cro_dataset.cities),
   })),
+
+  events: generateArray(
+    (index) => ({
+      id: index + 1,
+      title: faker.helpers.arrayElement([
+        'Duhovna radionica', 'Čišćenje livade', 'Gradnja kuće od cob materijala',
+      ]),
+      startDate: new Date(), // TODO
+      endDate: new Date(), // TODO
+      description: generateArray(() => 'opis oglasa ', 30).join(''),
+    }),
+    faker.datatype.number({ min: 10, max: 50 })
+  )
 }
+
 writeFileSync("./data.json", JSON.stringify(data, null, 2))
