@@ -27,7 +27,7 @@ export default function Section_base<TItem extends Item>({ pageRootProps, items,
       <Input
         sx={{ pb: 0.7, mb: 5, width: 350 }}
         autoFocus
-        placeholder="Pretraži majstore"
+        placeholder="Pretraži"
         startAdornment={<SearchRoundedIcon sx={{ mr: 2 }} />}
       />
       <Box sx={Layout1_list_sx}>
