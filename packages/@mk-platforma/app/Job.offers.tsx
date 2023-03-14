@@ -1,14 +1,14 @@
 import { Box, Typography } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import data from "./data.json"
-import Page_base from "./Page.base"
+import Section_base from "./Section.base"
 
 const { jobs } = data
 
 
 export default function Job_offers() {
   return (
-    <Page_base
+    <Section_base
       pageRootProps={{
         activeTab: 'jobs'
       }}
