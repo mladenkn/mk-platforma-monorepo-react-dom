@@ -10,7 +10,7 @@ type Props = {
   activeTab: Tab
 }
 
-export function PageRoot({ activeTab, children }: Props){
+export function Section_layout({ activeTab, children }: Props){
   return (
     <Box
       sx={{

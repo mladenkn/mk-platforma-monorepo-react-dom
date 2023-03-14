@@ -3,7 +3,7 @@ import { SearchRounded as SearchRoundedIcon } from "@mui/icons-material"
 import { Input, Box, Paper, Dialog } from "@mui/material"
 import { Layout1_list_sx } from "./layout1"
 import { ReactElement, useState } from "react"
-import { PageRoot } from "./common"
+import { Section_layout } from "./common"
 import { asNonNil } from "@mk-libs/common/common"
 
 
@@ -12,7 +12,7 @@ type Item = {
 }
 
 type Props<TItem extends Item> = {
-  pageRootProps: OverridableProps<typeof PageRoot, "activeTab">
+  pageRootProps: OverridableProps<typeof Section_layout, "activeTab">
   items: TItem[]
   renderListItem(item: TItem): ReactElement
   renderDetails(item: TItem): ReactElement
@@ -23,7 +23,7 @@ export default function Page_base<TItem extends Item>({ pageRootProps, items, re
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
 
   return (
-    <PageRoot {...pageRootProps}>
+    <Section_layout {...pageRootProps}>
       <Input
         sx={{ pb: 0.7, mb: 5, width: 350 }}
         autoFocus
@@ -46,6 +46,6 @@ export default function Page_base<TItem extends Item>({ pageRootProps, items, re
           {renderDetails(selectedItem)}
         </Dialog>
       )}
-    </PageRoot>
+    </Section_layout>
   )
 }
