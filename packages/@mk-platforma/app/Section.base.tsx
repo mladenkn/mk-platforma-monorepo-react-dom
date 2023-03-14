@@ -39,7 +39,7 @@ export default function Section_base<TItem extends Item>({ pageRootProps, items,
         {filteredItems.map(item => (
           <Paper
             key={item.id}
-            sx={{ p: 3, display: 'flex', flex: 1, width: 600, cursor: 'pointer' }}
+            sx={{ p: 3, display: 'flex', width: 600, cursor: 'pointer' }}
             onClick={() => setSelectedItem(item.id)}
           >
             {renderListItem(item)}
