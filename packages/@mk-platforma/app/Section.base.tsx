@@ -2,7 +2,7 @@ import { OverridableProps } from "@mk-libs/react-common/types"
 import { SearchRounded as SearchRoundedIcon } from "@mui/icons-material"
 import { Input, Box, Paper, Dialog } from "@mui/material"
 import { Layout1_list_sx } from "./layout1"
-import { ReactElement, useState } from "react"
+import { ReactElement, useMemo, useState } from "react"
 import { ZaBrata_MK_root } from "./ZaBrata.MK.root"
 import { asNonNil } from "@mk-libs/common/common"
 
@@ -19,6 +19,9 @@ type Props<TItem extends Item> = {
 }
 
 export default function Section_base<TItem extends Item>({ pageRootProps, items, renderListItem, renderDetails }: Props<TItem>){
+  const [filter, setFilter] = useState('')
+  const filteredItems = useMemo(() => items.filter(item => JSON.stringify(item).includes(filter)), [items, filter])
+
   const [_selectedItem, setSelectedItem] = useState<number>()
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
 
@@ -29,9 +32,11 @@ export default function Section_base<TItem extends Item>({ pageRootProps, items,
         autoFocus
         placeholder="Pretraži"
         startAdornment={<SearchRoundedIcon sx={{ mr: 2 }} />}
+        value= {filter}
+        onChange={(e: any) => setFilter(e.target.value)}
       />
       <Box sx={Layout1_list_sx}>
-        {items.map(item => (
+        {filteredItems.map(item => (
           <Paper
             key={item.id}
             sx={{ p: 3, display: 'flex', flex: 1, width: 600, cursor: 'pointer' }}
