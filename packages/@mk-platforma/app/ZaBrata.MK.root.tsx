@@ -25,7 +25,7 @@ export function ZaBrata_MK_root({ activeTab, children }: Props){
       <TabsMui value={activeTab} centered>
         <Tab sx={{ textTransform: "none" }} component="a" label="Poslovi" value="jobs" href="poslovi" />
         <Tab sx={{ textTransform: "none" }} component="a" label="Majstori" value="experts" href="majstori" />
-        <Tab sx={{ textTransform: "none" }} component="a" label="Kupuj" value="buying-selling" href="kupuj" />
+        <Tab sx={{ textTransform: "none" }} component="a" label="Nabava" value="buying-selling" href="nabava" />
       </TabsMui>
       <Box sx={Layout1_root_sx}>
         {children}
