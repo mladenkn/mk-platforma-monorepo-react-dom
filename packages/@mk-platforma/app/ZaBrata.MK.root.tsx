@@ -10,7 +10,7 @@ type Props = {
   activeTab: Tab
 }
 
-export function Section_layout({ activeTab, children }: Props){
+export function ZaBrata_MK_root({ activeTab, children }: Props){
   return (
     <Box
       sx={{

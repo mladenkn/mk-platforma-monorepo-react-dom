@@ -8,7 +8,7 @@ import data from "./data.json"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { Layout1_list_sx } from "./layout1"
 import Avatar from "./avatar"
-import { Section_layout } from "./common"
+import { ZaBrata_MK_root } from "./ZaBrata.MK.root"
 
 const { experts } = data
 
@@ -17,7 +17,7 @@ export default function Expert_search() {
   const selectedExpert = _selectedExpert ? asNonNil(experts.find(e => e.id === _selectedExpert)) : undefined
 
   return (
-    <Section_layout activeTab="experts">
+    <ZaBrata_MK_root activeTab="experts">
       <Input
         sx={{ pb: 0.7, mb: 5, width: 350 }}
         autoFocus
@@ -72,6 +72,6 @@ export default function Expert_search() {
           )
         })}
       </Box>
-    </Section_layout>
+    </ZaBrata_MK_root>
   )
 }

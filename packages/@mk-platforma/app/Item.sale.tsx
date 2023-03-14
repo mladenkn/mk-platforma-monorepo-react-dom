@@ -6,7 +6,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import { useState } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 import { Layout1_list_sx, Layout1_root_sx } from "./layout1"
-import { Section_layout } from "./common"
+import { ZaBrata_MK_root } from "./ZaBrata.MK.root"
 
 const { sellableItems } = data
 
@@ -15,7 +15,7 @@ export default function Item_sale() {
   const selectedItem = _selectedItem ? asNonNil(sellableItems.find(e => e.id === _selectedItem)) : undefined
 
   return (
-    <Section_layout activeTab="buying-selling">
+    <ZaBrata_MK_root activeTab="buying-selling">
       <Input
         sx={{ pb: 0.7, mb: 6, width: 350 }}
         autoFocus
@@ -52,6 +52,6 @@ export default function Item_sale() {
           )
         })}
       </Box>
-    </Section_layout>
+    </ZaBrata_MK_root>
   )
 }
