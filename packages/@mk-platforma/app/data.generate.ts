@@ -63,7 +63,7 @@ const data = {
     (index) => ({
       id: index + 1,
       title: faker.helpers.arrayElement([
-        'Duhovna radionica', 'Čišćenje livade', 'Gradnja kuće od cob materijala',
+        'Duhovna radionica', 'Čišćenje livade', 'Gradnja kuće od cob materijala', 'Sadnja vrta', 'Tečaj o permakulturi',
       ]),
       startDate: new Date(), // TODO
       endDate: new Date(), // TODO
