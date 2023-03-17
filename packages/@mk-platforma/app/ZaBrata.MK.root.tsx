@@ -22,7 +22,7 @@ export default function ZaBrata_MK_root(){
         mb: 4,
       }}
     >
-      <TabsMui value={activeTab} centered onChange={(e: any) => setActiveTab(e.target.value)}>
+      <TabsMui value={activeTab} centered onChange={(e, newValue) => setActiveTab(newValue)}>
         <Tab sx={{ textTransform: "none" }} label="Poslovi" value="jobs" />
         <Tab sx={{ textTransform: "none" }} label="Majstori" value="experts" />
         <Tab sx={{ textTransform: "none" }} label="Nabava" value="buying-selling" />
