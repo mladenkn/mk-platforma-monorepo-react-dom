@@ -1,16 +1,16 @@
 import { Tabs as TabsMui, Tab, Box } from "@mui/material"
 import { Layout1_root_sx } from "./layout1"
-import { ReactNode } from "react"
+import { useState } from "react"
+import Item_sale from "./Item.sale"
+import Expert_search from "./Expert.search"
+import Job_offers from "./Job.offers"
 
 
 type Tab = "buying-selling" | "experts" | "jobs"
 
-type Props = {
-  children: ReactNode
-  activeTab: Tab
-}
+export default function ZaBrata_MK_root(){
+  const [activeTab, setActiveTab] = useState<Tab>('jobs')
 
-export function ZaBrata_MK_root({ activeTab, children }: Props){
   return (
     <Box
       sx={{
@@ -22,14 +22,16 @@ export function ZaBrata_MK_root({ activeTab, children }: Props){
         mb: 4,
       }}
     >
-      <TabsMui value={activeTab} centered>
-        <Tab sx={{ textTransform: "none" }} component="a" label="Poslovi" value="jobs" href="poslovi" />
-        <Tab sx={{ textTransform: "none" }} component="a" label="Majstori" value="experts" href="majstori" />
-        <Tab sx={{ textTransform: "none" }} component="a" label="Nabava" value="buying-selling" href="nabava" />
+      <TabsMui value={activeTab} centered onChange={(e: any) => setActiveTab(e.target.value)}>
+        <Tab sx={{ textTransform: "none" }} label="Poslovi" value="jobs" />
+        <Tab sx={{ textTransform: "none" }} label="Majstori" value="experts" />
+        <Tab sx={{ textTransform: "none" }} label="Nabava" value="buying-selling" />
       </TabsMui>
       <Box sx={Layout1_root_sx}>
-        {children}
-      </Box>      
+        {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
+        {activeTab === 'experts' ? <Expert_search /> : <></>}
+        {activeTab === 'jobs' ? <Job_offers /> : <></>}
+      </Box>
     </Box>
   )
 }

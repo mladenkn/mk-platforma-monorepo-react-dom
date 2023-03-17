@@ -11,9 +11,6 @@ const { experts } = data
 export default function Expert_search() {
   return (
     <Section_base
-      pageRootProps={{
-        activeTab: 'experts'
-      }}
       items={experts}
       renderListItem={expert => (
         <Box sx={{ display: "flex", alignItems: "center" }}>

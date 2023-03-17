@@ -1,2 +1,2 @@
-import Job_offers from "@mk-platforma/app/Job.offers"
-export default Job_offers
+import ZaBrata_MK_root from "@mk-platforma/app/ZaBrata.MK.root"
+export default ZaBrata_MK_root

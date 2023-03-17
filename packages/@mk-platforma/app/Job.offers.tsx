@@ -9,9 +9,6 @@ const { jobs } = data
 export default function Job_offers() {
   return (
     <Section_base
-      pageRootProps={{
-        activeTab: 'jobs'
-      }}
       items={jobs}
       renderListItem={item => (
         <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>

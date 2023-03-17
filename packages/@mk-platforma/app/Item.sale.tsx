@@ -9,9 +9,6 @@ const { sellableItems } = data
 export default function Item_sale() {
   return (
     <Section_base
-      pageRootProps={{
-        activeTab: 'buying-selling'
-      }}
       items={sellableItems}
       renderListItem={item => (
         <Box sx={{ display: "flex", flex: 1 }}>
