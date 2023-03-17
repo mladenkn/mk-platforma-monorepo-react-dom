@@ -1,7 +1,8 @@
-import type { AppProps } from "next/app"
+import type { AppType } from 'next/app'
+import { trpc } from '../trpc'
 import "../styles.global.css"
-import "@fontsource/public-sans" // TODO: in pages/app.tsx
 
-export default function AppRoot({ Component, pageProps }: AppProps) {
+const MyApp: AppType = ({ Component, pageProps }) => {
   return <Component {...pageProps} />
 }
+export default trpc.withTRPC(MyApp)
