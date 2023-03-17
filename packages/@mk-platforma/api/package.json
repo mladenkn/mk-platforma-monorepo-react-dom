@@ -1,0 +1,12 @@
+{
+  "name": "@mk-platforma/api",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "@tanstack/react-query": "^4.24.4",
+    "@trpc/client": "^10.16.0",
+    "@trpc/next": "^10.16.0",
+    "@trpc/react-query": "^10.16.0",
+    "@trpc/server": "^10.8.1"
+  }
+}
