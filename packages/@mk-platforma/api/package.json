@@ -3,7 +3,8 @@
   "private": true,
   "version": "1.0.0",
   "scripts": {
-    "db": "pnpm prisma"
+    "db": "pnpm prisma",
+    "ts": "tsc --noEmit"
   },
   "dependencies": {
     "@prisma/client": "^4.11.0",
