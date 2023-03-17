@@ -1,6 +1,7 @@
 import { httpBatchLink } from '@trpc/client';
-import { createTRPCNext } from '@trpc/next';
+import { CreateTRPCNext, createTRPCNext } from '@trpc/next';
 import type { AppRouter } from '../api/index';
+import { NextPageContext } from 'next';
 
 
 function getBaseUrl() {
@@ -20,7 +21,7 @@ function getBaseUrl() {
   return `http://localhost:${process.env.PORT ?? 3000}`;
 }
 
-export const trpc = createTRPCNext<AppRouter>({
+const trpc: CreateTRPCNext<AppRouter, NextPageContext, unknown> = createTRPCNext<AppRouter>({
   config({ ctx }) {
     return {
       links: [
@@ -42,4 +43,6 @@ export const trpc = createTRPCNext<AppRouter>({
    * @link https://trpc.io/docs/ssr
    **/
   ssr: false,
-});
+})
+
+export default trpc
