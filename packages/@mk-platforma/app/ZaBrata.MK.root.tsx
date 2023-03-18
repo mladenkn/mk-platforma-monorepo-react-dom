@@ -5,6 +5,7 @@ import Item_sale from "./Item.sale"
 import Expert_search from "./Expert.search"
 import EventOrJobs_list from "./EventOrJobs_list"
 import data from "./data.json"
+import { faker } from "@faker-js/faker"
 
 
 type Tab = "buying-selling" | "experts" | "jobs" | "gathering/work-action" | "gathering/hangout" | "gathering/spiritual"
@@ -27,17 +28,17 @@ export default function ZaBrata_MK_root(){
         <Tab sx={{ textTransform: "none" }} label="Poslovi" value="jobs" />
         <Tab sx={{ textTransform: "none" }} label="Majstori" value="experts" />
         <Tab sx={{ textTransform: "none" }} label="Nabava" value="buying-selling" />
-        <Tab sx={{ textTransform: "none" }} label="Okupljanje / Radna akcija"/>
-        <Tab sx={{ textTransform: "none" }} label="Okupljanje / Druženje"/>
-        <Tab sx={{ textTransform: "none" }} label="Okupljanje / Duhovna radionica"/>
+        <Tab sx={{ textTransform: "none" }} label="Okupljanje / Radna akcija" value="gathering/work-action" />
+        <Tab sx={{ textTransform: "none" }} label="Okupljanje / Druženje" value="gathering/hangout" />
+        <Tab sx={{ textTransform: "none" }} label="Okupljanje / Duhovna radionica" value="gathering/spiritual" />
       </TabsMui>
       <Box sx={Layout1_root_sx}>
         {activeTab === 'jobs' ? <EventOrJobs_list items={data.jobs} /> : <></>}
         {activeTab === 'experts' ? <Expert_search /> : <></>}
         {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
-        {activeTab === 'gathering/work-action' ? <EventOrJobs_list items={data.jobs} /> : <></>}
-        {activeTab === 'gathering/hangout' ? <EventOrJobs_list items={data.jobs} /> : <></>}
-        {activeTab === 'gathering/spiritual' ? <EventOrJobs_list items={data.jobs} /> : <></>}
+        {activeTab === 'gathering/work-action' ? <EventOrJobs_list items={faker.helpers.shuffle(data.gathering_work_action)} /> : <></>}
+        {activeTab === 'gathering/hangout' ? <EventOrJobs_list items={faker.helpers.shuffle(data.gathering_hangout)} /> : <></>}
+        {activeTab === 'gathering/spiritual' ? <EventOrJobs_list items={faker.helpers.shuffle(data.gathering_spiritual)} /> : <></>}
       </Box>
     </Box>
   )

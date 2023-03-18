@@ -34,19 +34,21 @@ const randomJobPhoto = () =>
     faker.image.transport,
   ])()
 
+const eventsOrJobs = faker.helpers.shuffle(cro_dataset.jobs).map(({ label }, index) => ({
+  id: index + 1,
+  label,
+  description: generateArray(() => 'opis oglasa ', 30).join(''),
+  location: faker.helpers.arrayElement(cro_dataset.cities),
+  photos: generateArray(randomJobPhoto, 3),
+  adOwner: {
+    phoneNumber: faker.phone.number(),
+  },
+}))
+
 const data = {
   experts: generateArray(generateExpert, faker.datatype.number({ min: 10, max: 50 })),
 
-  jobs: faker.helpers.shuffle(cro_dataset.jobs).map(({ label }, index) => ({
-    id: index + 1,
-    label,
-    description: generateArray(() => 'opis oglasa ', 30).join(''),
-    location: faker.helpers.arrayElement(cro_dataset.cities),
-    photos: generateArray(randomJobPhoto, 3),
-    adOwner: {
-      phoneNumber: faker.phone.number(),
-    },
-  })),
+  jobs: faker.helpers.shuffle(eventsOrJobs),
 
   sellableItems: cro_dataset.products.map(({ label, image, description }, index) => ({
     id: index + 1,
@@ -59,7 +61,11 @@ const data = {
     location: faker.helpers.arrayElement(cro_dataset.cities),
   })),
 
-  events: generateArray(
+  gathering_work_action: faker.helpers.shuffle(eventsOrJobs),
+  gathering_hangout: faker.helpers.shuffle(eventsOrJobs),
+  gathering_spiritual: faker.helpers.shuffle(eventsOrJobs),
+
+  events2: generateArray(
     (index) => ({
       id: index + 1,
       title: faker.helpers.arrayElement([
