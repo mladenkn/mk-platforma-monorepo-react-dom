@@ -2,13 +2,13 @@ import { Box, Typography } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 
 
-type EventOrJob_listItem_Props = {
+type EventOrJob_list_item_props = {
   label: string
   location: string
   photos: string[]
 }
 
-export function EventOrJob_listItem({ label, location, photos }: EventOrJob_listItem_Props){
+export function EventOrJob_list_item({ label, location, photos }: EventOrJob_list_item_props){
   return (
     <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
       <Typography sx={{ fontWeight: 600, fontSize: 16 }}>{label}</Typography>
@@ -47,7 +47,7 @@ type EventOrJob_details_Props = {
   }
 }
 
-export function EventOrJob_details({ label, location, photos, description, adOwner }: EventOrJob_details_Props){
+export function EventOrJob_list_ItemDetails({ label, location, photos, description, adOwner }: EventOrJob_details_Props){
   return (
     <Box sx={{ p: 4 }}>
       <Typography sx={{ fontWeight: 600, fontSize: 19, mb: 3, }}>{label}</Typography>
