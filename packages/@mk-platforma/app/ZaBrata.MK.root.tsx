@@ -26,6 +26,9 @@ export default function ZaBrata_MK_root(){
         <Tab sx={{ textTransform: "none" }} label="Poslovi" value="jobs" />
         <Tab sx={{ textTransform: "none" }} label="Majstori" value="experts" />
         <Tab sx={{ textTransform: "none" }} label="Nabava" value="buying-selling" />
+        <Tab sx={{ textTransform: "none" }} label="Okupljanje / Radna akcija"/>
+        <Tab sx={{ textTransform: "none" }} label="Okupljanje / Druženje"/>
+        <Tab sx={{ textTransform: "none" }} label="Okupljanje / Duhovna radionica"/>
       </TabsMui>
       <Box sx={Layout1_root_sx}>
         {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
