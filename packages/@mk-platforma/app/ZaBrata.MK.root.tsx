@@ -3,7 +3,8 @@ import { Layout1_root_sx } from "./layout1"
 import { useState } from "react"
 import Item_sale from "./Item.sale"
 import Expert_search from "./Expert.search"
-import Job_offers from "./Job.offers"
+import EventOrJobs_list from "./EventOrJobs_list"
+import data from "./data.json"
 
 
 type Tab = "buying-selling" | "experts" | "jobs"
@@ -31,9 +32,9 @@ export default function ZaBrata_MK_root(){
         <Tab sx={{ textTransform: "none" }} label="Okupljanje / Duhovna radionica"/>
       </TabsMui>
       <Box sx={Layout1_root_sx}>
-        {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
+        {activeTab === 'jobs' ? <EventOrJobs_list items={data.jobs} /> : <></>}
         {activeTab === 'experts' ? <Expert_search /> : <></>}
-        {activeTab === 'jobs' ? <Job_offers /> : <></>}
+        {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
       </Box>
     </Box>
   )

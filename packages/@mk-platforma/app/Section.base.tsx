@@ -9,13 +9,13 @@ type Item = {
   id: number
 }
 
-type Props<TItem extends Item> = {
+export type Section_base_Props<TItem extends Item> = {
   items: TItem[]
   renderListItem(item: TItem): ReactElement
   renderDetails(item: TItem): ReactElement
 }
 
-export default function Section_base<TItem extends Item>({ items, renderListItem, renderDetails }: Props<TItem>){
+export default function Section_base<TItem extends Item>({ items, renderListItem, renderDetails }: Section_base_Props<TItem>){
   const [filter, setFilter] = useState('')
   const filteredItems = useMemo(() => items.filter(item => JSON.stringify(item).includes(filter)), [items, filter])
 
