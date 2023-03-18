@@ -5,7 +5,7 @@ const t = initTRPC.create()
 const router = t.router
 const publicProcedure = t.procedure
 
-const appRouter = router({
+export const appRouter = router({
   hello: publicProcedure.query(() => 'hello from trpc first query!')
 })
 
