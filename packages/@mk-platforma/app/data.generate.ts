@@ -61,9 +61,15 @@ const data = {
     location: faker.helpers.arrayElement(cro_dataset.cities),
   })),
 
-  gathering_work_action: faker.helpers.shuffle(eventsOrJobs),
-  gathering_hangout: faker.helpers.shuffle(eventsOrJobs),
-  gathering_spiritual: faker.helpers.shuffle(eventsOrJobs),
+  gathering_work_action: faker.helpers.shuffle(
+    eventsOrJobs.filter(e => !e.label.includes('Izdrada web stranice') && !e.label.toLowerCase().includes('šivanje'))
+  ),
+  gathering_hangout: faker.helpers.shuffle(
+    eventsOrJobs.filter(e => !e.label.includes('Izdrada web stranice') && !e.label.toLowerCase().includes('šivanje'))
+  ),
+  gathering_spiritual: faker.helpers.shuffle(
+    eventsOrJobs.filter(e => !e.label.includes('Izdrada web stranice') && !e.label.toLowerCase().includes('šivanje'))
+  ),
 
   events2: generateArray(
     (index) => ({
