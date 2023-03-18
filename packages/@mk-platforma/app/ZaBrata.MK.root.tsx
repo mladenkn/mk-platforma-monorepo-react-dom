@@ -36,9 +36,9 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'jobs' ? <EventOrJobs_list items={data.jobs} /> : <></>}
         {activeTab === 'experts' ? <Expert_search /> : <></>}
         {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
-        {activeTab === 'gathering/work-action' ? <EventOrJobs_list items={faker.helpers.shuffle(data.gathering_work_action)} /> : <></>}
-        {activeTab === 'gathering/hangout' ? <EventOrJobs_list items={faker.helpers.shuffle(data.gathering_hangout)} /> : <></>}
-        {activeTab === 'gathering/spiritual' ? <EventOrJobs_list items={faker.helpers.shuffle(data.gathering_spiritual)} /> : <></>}
+        {activeTab === 'gathering/work-action' ? <EventOrJobs_list items={(data.gathering_work_action)} /> : <></>}
+        {activeTab === 'gathering/hangout' ? <EventOrJobs_list items={(data.gathering_hangout)} /> : <></>}
+        {activeTab === 'gathering/spiritual' ? <EventOrJobs_list items={(data.gathering_spiritual)} /> : <></>}
       </Box>
     </Box>
   )
