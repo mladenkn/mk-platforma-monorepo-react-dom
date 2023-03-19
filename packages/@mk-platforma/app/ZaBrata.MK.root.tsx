@@ -49,15 +49,24 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'experts' ? (                
           <Post_list_base
             items={data.experts}
-            Item={Post_expert_listItem}
-            Item_details={Post_expert_listItem_details}
+            Item={item => <Post_expert_listItem {...item} />}
+            Item_details={item => (
+              <Post_common_listItem_details
+                label={`${item.firstName} ${item.lastName}`}
+                location={item.location}
+                description={item.description}
+                adOwner={{
+                  phoneNumber: item.phoneNumber
+                }}
+              />
+            )}
           />
         ) : <></>}
         {activeTab === 'buying-selling' ? (
           <Post_list_base
             items={data.sellableItems}
             Item={Post_product_listItem}
-            Item_details={Post_product_listItem_details}
+            Item_details={item => <Post_common_listItem_details label={item.title} {...item} />}
           />
         ) : <></>}
         {activeTab === 'gathering' ? (
