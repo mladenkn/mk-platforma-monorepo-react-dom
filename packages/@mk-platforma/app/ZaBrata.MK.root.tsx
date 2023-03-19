@@ -28,7 +28,7 @@ export default function ZaBrata_MK_root(){
         <Tab sx={{ textTransform: "none" }} label="@Poslovi" value="jobs" />
         <Tab sx={{ textTransform: "none" }} label="@Majstori" value="experts" />
         <Tab sx={{ textTransform: "none" }} label="@Nabava" value="buying-selling" />
-        <Tab sx={{ textTransform: "none" }} label="@Okupljanje / @RadnaAkcija" value="gathering/work-action" />
+        <Tab sx={{ textTransform: "none" }} label="@Okupljanje, @RadnaAkcija" value="gathering/work-action" />
         <Tab sx={{ textTransform: "none" }} label="@Okupljanje, @Druženje" value="gathering/hangout" />
         <Tab sx={{ textTransform: "none" }} label="@Okupljanje, @Duhovnost" value="gathering/spiritual" />
       </TabsMui>
