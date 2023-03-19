@@ -33,7 +33,7 @@ const hangouts = [
     label: "Kopanje rupa za voćke",
     photos: [
       '/images/vrt,3.jpg',
-      '/images/okupljanje,priroda,3.jpg',
+      '/images/okupljanje,priroda,3.png',
     ],
   },
   {
@@ -43,7 +43,7 @@ const hangouts = [
     label: "Sadnja povrtnjaka",
     photos: [
       '/images/vrt,4.jpg',
-      '/images/okupljanje,priroda,4.jpg',
+      '/images/okupljanje,priroda,4.png',
     ],
   },
   {
