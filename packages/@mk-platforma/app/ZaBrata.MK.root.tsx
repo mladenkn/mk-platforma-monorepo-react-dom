@@ -8,7 +8,7 @@ import Section_base from "./Section.base"
 import { EventOrJob_list_item, EventOrJob_list_ItemDetails } from "./EventOrJob"
 
 
-type Tab = "buying-selling" | "accommodations" | "experts" | "jobs" | "gathering"
+type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
 
 export default function ZaBrata_MK_root(){
   const [activeTab, setActiveTab] = useState<Tab>('jobs')
