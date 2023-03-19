@@ -3,9 +3,9 @@ import { Layout1_root_sx } from "./layout1"
 import { useState } from "react"
 import Item_sale from "./Item.sale"
 import Expert_search from "./Expert.search"
-import EventOrJobs_list from "./EventOrJobs_list"
 import data from "./data.json"
-import { faker } from "@faker-js/faker"
+import Section_base from "./Section.base"
+import { EventOrJob_list_item, EventOrJob_list_ItemDetails } from "./EventOrJob"
 
 
 type Tab = "buying-selling" | "experts" | "jobs" | "gathering/work-action" | "gathering/hangout" | "gathering/spiritual"
@@ -33,12 +33,36 @@ export default function ZaBrata_MK_root(){
         <Tab sx={{ textTransform: "none" }} label="@Okupljanje, @Duhovnost" value="gathering/spiritual" />
       </TabsMui>
       <Box sx={Layout1_root_sx}>
-        {activeTab === 'jobs' ? <EventOrJobs_list items={data.jobs} /> : <></>}
+        {activeTab === 'jobs' ? (
+          <Section_base
+            items={data.jobs} 
+            renderListItem={item => <EventOrJob_list_item {...item} />}
+            renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
+          />
+        ) : <></>}
         {activeTab === 'experts' ? <Expert_search /> : <></>}
         {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
-        {activeTab === 'gathering/work-action' ? <EventOrJobs_list items={(data.gathering_workAction)} /> : <></>}
-        {activeTab === 'gathering/hangout' ? <EventOrJobs_list items={(data.gathering_hangout)} /> : <></>}
-        {activeTab === 'gathering/spiritual' ? <EventOrJobs_list items={(data.gathering_spiritual)} /> : <></>}
+        {activeTab === 'gathering/work-action' ? (
+          <Section_base
+            items={(data.gathering_workAction)}
+            renderListItem={item => <EventOrJob_list_item {...item} />}
+            renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
+          />
+        ) : <></>}
+        {activeTab === 'gathering/hangout' ? (
+          <Section_base
+            items={(data.gathering_hangout)}
+            renderListItem={item => <EventOrJob_list_item {...item} />}
+            renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
+          />
+        ) : <></>}
+        {activeTab === 'gathering/spiritual' ? (
+          <Section_base
+            items={(data.gathering_spiritual)}
+            renderListItem={item => <EventOrJob_list_item {...item} />}
+            renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}          
+          />
+        ) : <></>}
       </Box>
     </Box>
   )
