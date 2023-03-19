@@ -16,9 +16,7 @@ const data = {
 
   sellableItems: generateProducts(),
 
-  gathering: faker.helpers.shuffle(
-    generateGatherings().filter(e => !e.label.includes('Izdrada web stranice') && !e.label.toLowerCase().includes('šivanje'))
-  ),
+  gatherings: generateGatherings(),
 }
 
-writeFileSync("./data.json", JSON.stringify(data, null, 2))
+writeFileSync("./data/data.json", JSON.stringify(data, null, 2))

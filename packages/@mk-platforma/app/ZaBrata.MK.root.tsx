@@ -43,7 +43,7 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
         {activeTab === 'gathering' ? (
           <Section_base
-            items={(data.gathering_workAction)}
+            items={(data.gatherings)}
             renderListItem={item => <EventOrJob_list_item {...item} />}
             renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
           />

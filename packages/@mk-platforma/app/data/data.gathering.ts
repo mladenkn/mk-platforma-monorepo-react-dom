@@ -14,24 +14,44 @@ const randomPhoto = () =>
 const hangouts = [
   {
     label: "Prekopavanje vrta",
+    photos: [
+      '/images/vrt,1.jpg',
+      '/images/okupljanje,priroda,1.jpg',
+    ],
   },
   {
     label: "Obrezivanje maslina",
+    photos: [
+      '/images/vrt,2.jpg',
+      '/images/okupljanje,priroda,2.jpg',
+    ],
   },
   {
     label: "Zidanje zida",
   },
   {
     label: "Kopanje rupa za voćke",
+    photos: [
+      '/images/vrt,3.jpg',
+      '/images/okupljanje,priroda,3.jpg',
+    ],
   },
   {
     label: "Gradnja drvene kuće",
   },
   {
     label: "Sadnja povrtnjaka",
+    photos: [
+      '/images/vrt,4.jpg',
+      '/images/okupljanje,priroda,4.jpg',
+    ],
   },
   {
     label: "Sadnja voćnjaka",
+    photos: [
+      '/images/vrt,5.jpg',
+      '/images/okupljanje,priroda,5.jpg',
+    ],
   },
   {
     label: "Izdrada ograde",
@@ -39,12 +59,12 @@ const hangouts = [
 ]
 
 export default function generateGatherings(){
-  return faker.helpers.shuffle(hangouts).map((item, index) => ({
-    ...item,
+  return faker.helpers.shuffle(hangouts).map(({ label, photos, }, index) => ({
+    label,
     id: index + 1,
     description: generateArray(() => 'opis oglasa ', 30).join(''),
     location: faker.helpers.arrayElement(cro_dataset.cities),
-    photos: generateArray(randomPhoto, 3),
+    photos: photos || generateArray(randomPhoto, 3),
     adOwner: {
       phoneNumber: faker.phone.number(),
     },

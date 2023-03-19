@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import data from "./data.json"
+import data from "./data/data.json"
 import Avatar from "./avatar"
 import Section_base from "./Section.base"
 
