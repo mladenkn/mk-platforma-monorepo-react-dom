@@ -149,6 +149,6 @@ export default function generateProducts(){
     adOwner: {
       phoneNumber: faker.phone.number(),
     },
-    location: faker.helpers.arrayElement(cro_dataset.cities),
+    location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages]),
   }))
 }

@@ -48,7 +48,7 @@ export default function generateJobs(){
     id: index + 1,
     label,
     description: generateArray(() => 'opis oglasa ', 30).join(''),
-    location: faker.helpers.arrayElement(cro_dataset.cities),
+    location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages]),
     photos: generateArray(randomJobPhoto, 3),
     adOwner: {
       phoneNumber: faker.phone.number(),

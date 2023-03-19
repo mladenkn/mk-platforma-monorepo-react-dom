@@ -31,7 +31,7 @@ export const cities = [
   "Osijek",
   "Zadar",
   "Dubrovnik",
-  "šibenik",
+  "Šibenik",
   "Pula",
   "Sisak",
   "Karlovac",
