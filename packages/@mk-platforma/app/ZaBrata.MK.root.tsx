@@ -1,7 +1,7 @@
 import { Tabs as TabsMui, Tab, Box } from "@mui/material"
 import { Layout1_root_sx } from "./layout1"
 import { useState } from "react"
-import { Post_product_listItem, Post_product_listItem_details } from "./Item.sale"
+import { Post_product_listItem, Post_product_listItem_details } from "./Post.product.listItem"
 import data from "./data/data.json"
 import Section_base from "./Section.base"
 import { Post_common_listItem, MostCommonListItem_details } from "./Post.common.listItem"
