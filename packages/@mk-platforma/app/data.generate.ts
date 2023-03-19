@@ -6,8 +6,6 @@ import generateEventsOrJobs from "data.generate2/eventsOrJobs"
 import generateExpert from "data.generate2/experts"
 
 
-
-
 const eventsOrJobs = generateEventsOrJobs()
 
 const data = {
