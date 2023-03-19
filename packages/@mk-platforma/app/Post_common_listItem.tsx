@@ -8,7 +8,7 @@ type EventOrJob_list_item_props = {
   photos: string[]
 }
 
-export function MostCommonListItem({ label, location, photos }: EventOrJob_list_item_props){
+export function Post_common_listItem({ label, location, photos }: EventOrJob_list_item_props){
   return (
     <Box sx={{ display: "flex", flexDirection: "column", flex: 1 }}>
       <Typography sx={{ fontWeight: 600, fontSize: 16 }}>{label}</Typography>

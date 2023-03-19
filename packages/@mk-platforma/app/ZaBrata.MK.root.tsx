@@ -5,7 +5,7 @@ import Item_sale from "./Item.sale"
 import Expert_search from "./Expert.search"
 import data from "./data/data.json"
 import Section_base from "./Section.base"
-import { MostCommonListItem, MostCommonListItem_details } from "./MostCommonListItem"
+import { Post_common_listItem, MostCommonListItem_details } from "./Post_common_listItem"
 
 
 type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
@@ -35,14 +35,14 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'jobs' ? (
           <Section_base
             items={data.jobs}
-            Item={MostCommonListItem}
+            Item={Post_common_listItem}
             Item_details={MostCommonListItem_details}
           />
         ) : <></>}
         {activeTab === 'accommodations' ? (
           <Section_base
             items={data.accommodations} 
-            Item={MostCommonListItem}
+            Item={Post_common_listItem}
             Item_details={MostCommonListItem_details}
           />
         ) : <></>}
@@ -51,7 +51,7 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'gathering' ? (
           <Section_base
             items={data.gatherings}
-            Item={MostCommonListItem}
+            Item={Post_common_listItem}
             Item_details={MostCommonListItem_details}
           />
         ) : <></>}
