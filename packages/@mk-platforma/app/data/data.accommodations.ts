@@ -25,7 +25,5 @@ export const accommodations = [ ...withRelatedProps, ...withRelatedProps, ].map(
     data_images['smještaj podstanarstvo kuća na seoskom imanju'],
     faker.datatype.number({ min: 1, max: 5 })
   ),
-  adOwner: {
-    phoneNumber: faker.phone.number(),
-  },
+  phoneNumber: faker.phone.number(),
 }))

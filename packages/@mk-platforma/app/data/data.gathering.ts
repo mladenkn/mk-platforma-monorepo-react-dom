@@ -37,8 +37,6 @@ export default function generateGatherings(){
       data_images['nature gathering action work'],
       faker.datatype.number({ min: 1, max: 6 })
     ),
-    adOwner: {
-      phoneNumber: faker.phone.number(),
-    },
+    phoneNumber: faker.phone.number(),
   }))
 }

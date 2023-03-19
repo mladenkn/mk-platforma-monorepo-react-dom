@@ -146,9 +146,7 @@ export default function generateProducts(){
     label,
     imageUrl: image,
     description,
-    adOwner: {
-      phoneNumber: faker.phone.number(),
-    },
+    phoneNumber: faker.phone.number(),
     location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages]),
   }))
 }

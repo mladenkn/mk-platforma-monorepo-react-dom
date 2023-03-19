@@ -50,14 +50,7 @@ export default function ZaBrata_MK_root(){
             items={data.experts}
             Item={item => <Post_expert_listItem {...item} />}
             Item_details={item => (
-              <Post_common_listItem_details
-                label={`${item.firstName} ${item.lastName}`}
-                location={item.location}
-                description={item.description}
-                adOwner={{
-                  phoneNumber: item.phoneNumber
-                }}
-              />
+              <Post_common_listItem_details label={`${item.firstName} ${item.lastName}`} {...item} />
             )}
           />
         ) : <></>}

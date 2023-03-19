@@ -50,12 +50,10 @@ type Post_common_listItem_details_Props = {
   location: string
   photos?: string[]
   description: string
-  adOwner?: {
-    phoneNumber?: string
-  }
+  phoneNumber?: string
 }
 
-export function Post_common_listItem_details({ label, location, photos, description, adOwner }: Post_common_listItem_details_Props){
+export function Post_common_listItem_details({ label, location, photos, description, phoneNumber }: Post_common_listItem_details_Props){
   return (
     <Box sx={{ p: 4 }}>
       <Typography sx={{ fontWeight: 600, fontSize: 19, mb: 3, }}>{label}</Typography>
@@ -66,7 +64,7 @@ export function Post_common_listItem_details({ label, location, photos, descript
         </Box>
       </Box>
       <Typography>{description}</Typography>
-      {adOwner?.phoneNumber && <Typography sx={{ mt: 4 }}>Mobitel/telefon: {adOwner.phoneNumber}</Typography>}
+      {phoneNumber && <Typography sx={{ mt: 4 }}>Mobitel/telefon: {phoneNumber}</Typography>}
       {!!photos?.length && (
         <Box sx={{ display: 'flex', justifyContent: 'end' }}>
           <Box sx={{ display: "flex", gap: 2, marginTop: 4 }}>
