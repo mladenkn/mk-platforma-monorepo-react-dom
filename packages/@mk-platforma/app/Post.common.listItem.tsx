@@ -58,7 +58,7 @@ export function Post_common_listItem_details({ label, location, photos, descript
         </Box>
       </Box>
       <Typography>{description}</Typography>
-      <Typography sx={{ mt: 4 }}>Phone number: {adOwner.phoneNumber}</Typography>
+      <Typography sx={{ mt: 4 }}>Mobitel/telefon: {adOwner.phoneNumber}</Typography>
       <Box sx={{ display: 'flex', justifyContent: 'end' }}>
         <Box sx={{ display: "flex", gap: 2, marginTop: 4 }}>
           {photos.map((photo, index) => (

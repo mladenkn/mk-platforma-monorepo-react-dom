@@ -39,7 +39,7 @@ export function Post_product_listItem_details({ title, description, adOwner }: P
     <Box sx={{ p: 4 }}>
       <Typography sx={{ fontWeight: 600, fontSize: 19, mb: 3.5 }}>{title}</Typography>
       <Typography>{description}</Typography>
-      <Typography sx={{ mt: 4 }}>Phone number: {adOwner.phoneNumber}</Typography>
+      <Typography sx={{ mt: 4 }}>Mobitel/telefon: {adOwner.phoneNumber}</Typography>
     </Box>
   )
 }
