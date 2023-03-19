@@ -5,7 +5,7 @@ import Item_sale from "./Item.sale"
 import Expert_search from "./Expert.search"
 import data from "./data/data.json"
 import Section_base from "./Section.base"
-import { EventOrJob_list_item, EventOrJob_list_ItemDetails } from "./EventOrJob"
+import { MostCommonListItem, MostCommonListItem_details } from "./EventOrJob"
 
 
 type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
@@ -35,15 +35,15 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'jobs' ? (
           <Section_base
             items={data.jobs} 
-            renderListItem={item => <EventOrJob_list_item {...item} />}
-            renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
+            renderListItem={item => <MostCommonListItem {...item} />}
+            renderDetails={item => <MostCommonListItem_details {...item} />}
           />
         ) : <></>}
         {activeTab === 'accommodations' ? (
           <Section_base
             items={data.accommodations} 
-            renderListItem={item => <EventOrJob_list_item {...item} />}
-            renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
+            renderListItem={item => <MostCommonListItem {...item} />}
+            renderDetails={item => <MostCommonListItem_details {...item} />}
           />
         ) : <></>}
         {activeTab === 'experts' ? <Expert_search /> : <></>}
@@ -51,8 +51,8 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'gathering' ? (
           <Section_base
             items={data.gatherings}
-            renderListItem={item => <EventOrJob_list_item {...item} />}
-            renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
+            renderListItem={item => <MostCommonListItem {...item} />}
+            renderDetails={item => <MostCommonListItem_details {...item} />}
           />
         ) : <></>}
       </Box>
