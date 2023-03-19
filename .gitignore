@@ -33,3 +33,4 @@ yarn-error.log*
 .turbo
 
 packages/@mk-platforma/app/data/data.json
+packages/@mk-platforma/app/data/images
