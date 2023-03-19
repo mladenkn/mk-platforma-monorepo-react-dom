@@ -1,7 +1,7 @@
 import { SearchRounded as SearchRoundedIcon } from "@mui/icons-material"
 import { Input, Box, Paper, Dialog } from "@mui/material"
 import { Layout1_list_sx } from "./layout1"
-import { ReactElement, useMemo, useState } from "react"
+import { ComponentType, useMemo, useState } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 
 
@@ -11,11 +11,11 @@ type Item = {
 
 export type Section_base_Props<TItem extends Item> = {
   items: TItem[]
-  renderListItem(item: TItem): ReactElement
-  renderDetails(item: TItem): ReactElement
+  ListItem: ComponentType<TItem>
+  ListItem_details: ComponentType<TItem>
 }
 
-export default function Section_base<TItem extends Item>({ items, renderListItem, renderDetails }: Section_base_Props<TItem>){
+export default function Section_base<TItem extends Item>({ items, ListItem, ListItem_details }: Section_base_Props<TItem>){
   const [filter, setFilter] = useState('')
   const filteredItems = useMemo(() => items.filter(item => JSON.stringify(item).includes(filter)), [items, filter])
 
@@ -39,13 +39,13 @@ export default function Section_base<TItem extends Item>({ items, renderListItem
             sx={{ p: 3, display: 'flex', width: 600, cursor: 'pointer' }}
             onClick={() => setSelectedItem(item.id)}
           >
-            {renderListItem(item)}
+            <ListItem {...item} />
           </Paper>
         ))}
       </Box>
       {selectedItem && (
         <Dialog open onClose={() => setSelectedItem(undefined)}>
-          {renderDetails(selectedItem)}
+          <ListItem_details {...selectedItem} />
         </Dialog>
       )}
     </>

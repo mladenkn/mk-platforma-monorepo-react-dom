@@ -34,16 +34,16 @@ export default function ZaBrata_MK_root(){
       <Box sx={Layout1_root_sx}>
         {activeTab === 'jobs' ? (
           <Section_base
-            items={data.jobs} 
-            renderListItem={item => <MostCommonListItem {...item} />}
-            renderDetails={item => <MostCommonListItem_details {...item} />}
+            items={data.jobs}
+            ListItem={MostCommonListItem}
+            ListItem_details={MostCommonListItem_details}
           />
         ) : <></>}
         {activeTab === 'accommodations' ? (
           <Section_base
             items={data.accommodations} 
-            renderListItem={item => <MostCommonListItem {...item} />}
-            renderDetails={item => <MostCommonListItem_details {...item} />}
+            ListItem={MostCommonListItem}
+            ListItem_details={MostCommonListItem_details}
           />
         ) : <></>}
         {activeTab === 'experts' ? <Expert_search /> : <></>}
@@ -51,8 +51,8 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'gathering' ? (
           <Section_base
             items={data.gatherings}
-            renderListItem={item => <MostCommonListItem {...item} />}
-            renderDetails={item => <MostCommonListItem_details {...item} />}
+            ListItem={MostCommonListItem}
+            ListItem_details={MostCommonListItem_details}
           />
         ) : <></>}
       </Box>
