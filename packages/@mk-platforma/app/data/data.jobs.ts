@@ -5,7 +5,7 @@ import data_images from "./data.images.json"
 
 const jobs = [
   {
-    label: "Prekopavanje vrta",
+    label: "Oranje vrta",
   },
   {
     label: "Obrezivanje maslina",
@@ -14,25 +14,19 @@ const jobs = [
     label: "Zidanje zida",
   },
   {
-    label: "Kopanje rupa za voćke",
-  },
-  {
     label: "Gradnja drvene kuće",
-  },
-  {
-    label: "Sadnja povrtnjaka",
-  },
-  {
-    label: "Sadnja voćnjaka",
   },
   {
     label: "Izdrada ograde",
   },
   {
-    label: "Šivanje haljine za maturu",
+    label: "Izdrada web stranice",
   },
   {
-    label: "Izdrada web stranice",
+    label: "Popravak cijevi u zidu",
+  },
+  {
+    label: "Postavljanje izolacije",
   },
 ]
 
