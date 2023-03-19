@@ -29,8 +29,8 @@ const withRelatedProps = [
 
 export default function generateGatherings(){
   return faker.helpers.shuffle(withRelatedProps).map(({ label }, index) => ({
-    label,
     id: index + 1,
+    label,
     description: generateArray(() => 'opis oglasa ', 30).join(''),
     location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages, ...cro_dataset.villages]),
     photos: faker.helpers.arrayElements(

@@ -57,7 +57,7 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'buying-selling' ? (
           <Post_list_base
             items={data.sellableItems}
-            Item={item => <Post_common_listItem {...item} imageAtStart={item.imageUrl} />}
+            Item={item => <Post_common_listItem {...item} imageAtStart={item.mainImage} />}
             Item_details={item => <Post_common_listItem_details {...item} />}
           />
         ) : <></>}
