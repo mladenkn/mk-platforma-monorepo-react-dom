@@ -22,6 +22,9 @@ const withRelatedProps = [
   {
     label: 'Druženje, proslava rođendana',
   },
+  {
+    label: 'Proslava godišnjice mreže ZaBrata',
+  },
 ]
 
 export default function generateGatherings(){
