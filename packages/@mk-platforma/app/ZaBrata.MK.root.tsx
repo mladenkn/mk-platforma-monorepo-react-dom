@@ -1,7 +1,7 @@
 import { Tabs as TabsMui, Tab, Box } from "@mui/material"
 import { Layout1_root_sx } from "./layout1"
 import { useState } from "react"
-import Item_sale from "./Item.sale"
+import { Post_product_listItem, Post_product_listItem_details } from "./Item.sale"
 import data from "./data/data.json"
 import Section_base from "./Section.base"
 import { Post_common_listItem, MostCommonListItem_details } from "./Post.common.listItem"
@@ -53,7 +53,13 @@ export default function ZaBrata_MK_root(){
             Item_details={Post_expert_listItem_details}
           />
         ) : <></>}
-        {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
+        {activeTab === 'buying-selling' ? (
+          <Section_base
+            items={data.sellableItems}
+            Item={Post_product_listItem}
+            Item_details={Post_product_listItem_details}
+          />
+        ) : <></>}
         {activeTab === 'gathering' ? (
           <Section_base
             items={data.gatherings}
