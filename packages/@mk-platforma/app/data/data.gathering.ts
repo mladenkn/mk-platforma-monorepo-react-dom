@@ -27,7 +27,12 @@ const hangouts = [
     ],
   },
   {
-    label: "Zidanje zida",
+    label: "Zidanje zida od cob materijala",
+    photos: [
+      '/images/okupljanje,2.jpg',
+      '/images/cob-1.jpg',
+      '/images/cob-2.jpg',
+    ]
   },
   {
     label: "Kopanje rupa za voćke",
@@ -38,6 +43,10 @@ const hangouts = [
   },
   {
     label: "Gradnja drvene kuće",
+    photos: [
+      '/images/okupljanje,1.jpg',
+      '/images/drvena-kuca.jpg',
+    ]
   },
   {
     label: "Sadnja povrtnjaka",
@@ -54,7 +63,11 @@ const hangouts = [
     ],
   },
   {
-    label: "Izdrada ograde",
+    label: "Izrada ograde od šiblja",
+    photos: [
+      '/images/okupljanje,priroda,2.jpg',
+      '/images/ograda-od-siblja.jpg',
+    ]
   },
 ]
 
