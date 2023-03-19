@@ -4,7 +4,7 @@ import { useState } from "react"
 import Item_sale from "./Item.sale"
 import data from "./data/data.json"
 import Section_base from "./Section.base"
-import { Post_common_listItem, MostCommonListItem_details } from "./Post_common_listItem"
+import { Post_common_listItem, MostCommonListItem_details } from "./Post.common.listItem"
 import { Post_expert_listItem, Post_expert_listItem_details } from "./Post.expert.listItem"
 
 
