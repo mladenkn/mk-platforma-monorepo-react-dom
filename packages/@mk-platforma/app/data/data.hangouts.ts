@@ -1,8 +1,9 @@
 import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
-import * as cro_dataset from "../data.cro.dataset"
+import * as cro_dataset from "./data.cro.dataset"
 
-const randomJobPhoto = () =>
+
+const randomPhoto = () =>
   faker.helpers.arrayElement([
     faker.image.business,
     faker.image.food,
@@ -10,7 +11,7 @@ const randomJobPhoto = () =>
     faker.image.transport,
   ])()
 
-const jobs = [
+const hangouts = [
   {
     label: "Prekopavanje vrta",
   },
@@ -35,21 +36,15 @@ const jobs = [
   {
     label: "Izdrada ograde",
   },
-  {
-    label: "Šivanje haljine za maturu",
-  },
-  {
-    label: "Izdrada web stranice",
-  },
 ]
 
-export default function generateJobs(){
-  return faker.helpers.shuffle(jobs).map(({ label }, index) => ({
+export default function generateHangout(){
+  return faker.helpers.shuffle(hangouts).map(({ label }, index) => ({
     id: index + 1,
     label,
     description: generateArray(() => 'opis oglasa ', 30).join(''),
     location: faker.helpers.arrayElement(cro_dataset.cities),
-    photos: generateArray(randomJobPhoto, 3),
+    photos: generateArray(randomPhoto, 3),
     adOwner: {
       phoneNumber: faker.phone.number(),
     },

@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
 import { writeFileSync } from "fs"
-import generateProducts from "./data.generate2/products"
-import generateJobs from "./data.generate2/jobs"
-import generateExpert from "./data.generate2/experts"
+import generateProducts from "./data.products"
+import generateJobs from "./data.jobs"
+import generateExpert from "./data.experts"
 
 
 const eventsOrJobs = generateJobs()

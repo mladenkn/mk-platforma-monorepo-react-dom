@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import * as cro_dataset from "../data.cro.dataset"
+import * as cro_dataset from "./data.cro.dataset"
 
 const avatarStyles = [
   { background: "green", color: "white" },
