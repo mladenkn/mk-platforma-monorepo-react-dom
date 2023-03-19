@@ -11,11 +11,11 @@ type Item = {
 
 export type Section_base_Props<TItem extends Item> = {
   items: TItem[]
-  ListItem: ComponentType<TItem>
-  ListItem_details: ComponentType<TItem>
+  Item: ComponentType<TItem>
+  Item_details: ComponentType<TItem>
 }
 
-export default function Section_base<TItem extends Item>({ items, ListItem, ListItem_details }: Section_base_Props<TItem>){
+export default function Section_base<TItem extends Item>({ items, Item: ListItem, Item_details: ListItem_details }: Section_base_Props<TItem>){
   const [filter, setFilter] = useState('')
   const filteredItems = useMemo(() => items.filter(item => JSON.stringify(item).includes(filter)), [items, filter])
 

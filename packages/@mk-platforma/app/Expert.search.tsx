@@ -12,7 +12,7 @@ export default function Expert_search() {
   return (
     <Section_base
       items={experts}
-      ListItem={expert => (
+      Item={expert => (
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <Avatar
             sx={{
@@ -42,7 +42,7 @@ export default function Expert_search() {
           </Box>
         </Box>
       )}
-      ListItem_details={expert => (
+      Item_details={expert => (
         <Box sx={{ p: 4 }}>
           <Typography sx={{ fontWeight: 600, fontSize: 19, mb: 3.5, }}>
             {expert.firstName} {expert.lastName}

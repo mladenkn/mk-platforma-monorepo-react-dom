@@ -10,7 +10,7 @@ export default function Item_sale() {
   return (
     <Section_base
       items={sellableItems}
-      ListItem={item => (
+      Item={item => (
         <Box sx={{ display: "flex", flex: 1 }}>
           <img src={item.imageUrl} width={100} height={100} />
           <Box sx={{ marginLeft: 3 }}>
@@ -24,7 +24,7 @@ export default function Item_sale() {
           </Box>
         </Box>        
       )}
-      ListItem_details={item => (
+      Item_details={item => (
         <Box sx={{ p: 4 }}>
           <Typography sx={{ fontWeight: 600, fontSize: 19, mb: 3.5 }}>{item.title}</Typography>
           <Typography>{item.description}</Typography>

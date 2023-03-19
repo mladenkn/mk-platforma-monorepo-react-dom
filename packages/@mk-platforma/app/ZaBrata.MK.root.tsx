@@ -35,15 +35,15 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'jobs' ? (
           <Section_base
             items={data.jobs}
-            ListItem={MostCommonListItem}
-            ListItem_details={MostCommonListItem_details}
+            Item={MostCommonListItem}
+            Item_details={MostCommonListItem_details}
           />
         ) : <></>}
         {activeTab === 'accommodations' ? (
           <Section_base
             items={data.accommodations} 
-            ListItem={MostCommonListItem}
-            ListItem_details={MostCommonListItem_details}
+            Item={MostCommonListItem}
+            Item_details={MostCommonListItem_details}
           />
         ) : <></>}
         {activeTab === 'experts' ? <Expert_search /> : <></>}
@@ -51,8 +51,8 @@ export default function ZaBrata_MK_root(){
         {activeTab === 'gathering' ? (
           <Section_base
             items={data.gatherings}
-            ListItem={MostCommonListItem}
-            ListItem_details={MostCommonListItem_details}
+            Item={MostCommonListItem}
+            Item_details={MostCommonListItem_details}
           />
         ) : <></>}
       </Box>
