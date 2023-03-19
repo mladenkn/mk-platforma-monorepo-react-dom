@@ -39,11 +39,18 @@ export default function ZaBrata_MK_root(){
             renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
           />
         ) : <></>}
+        {activeTab === 'accommodations' ? (
+          <Section_base
+            items={data.accommodations} 
+            renderListItem={item => <EventOrJob_list_item {...item} />}
+            renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
+          />
+        ) : <></>}
         {activeTab === 'experts' ? <Expert_search /> : <></>}
         {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
         {activeTab === 'gathering' ? (
           <Section_base
-            items={(data.gatherings)}
+            items={data.gatherings}
             renderListItem={item => <EventOrJob_list_item {...item} />}
             renderDetails={item => <EventOrJob_list_ItemDetails {...item} />}
           />
