@@ -4,6 +4,7 @@ import { writeFileSync } from "fs"
 import generateProducts from "./data.products"
 import generateJobs from "./data.jobs"
 import generateExpert from "./data.experts"
+import generateGatherings from "./data.gathering"
 
 
 const eventsOrJobs = generateJobs()
@@ -15,14 +16,8 @@ const data = {
 
   sellableItems: generateProducts(),
 
-  gathering_workAction: faker.helpers.shuffle(
-    eventsOrJobs.filter(e => !e.label.includes('Izdrada web stranice') && !e.label.toLowerCase().includes('šivanje'))
-  ),
-  gathering_hangout: faker.helpers.shuffle(
-    eventsOrJobs.filter(e => !e.label.includes('Izdrada web stranice') && !e.label.toLowerCase().includes('šivanje'))
-  ),
-  gathering_spiritual: faker.helpers.shuffle(
-    eventsOrJobs.filter(e => !e.label.includes('Izdrada web stranice') && !e.label.toLowerCase().includes('šivanje'))
+  gathering: faker.helpers.shuffle(
+    generateGatherings().filter(e => !e.label.includes('Izdrada web stranice') && !e.label.toLowerCase().includes('šivanje'))
   ),
 }
 

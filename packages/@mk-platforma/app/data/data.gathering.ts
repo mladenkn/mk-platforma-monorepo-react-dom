@@ -38,10 +38,10 @@ const hangouts = [
   },
 ]
 
-export default function generateHangout(){
-  return faker.helpers.shuffle(hangouts).map(({ label }, index) => ({
+export default function generateGatherings(){
+  return faker.helpers.shuffle(hangouts).map((item, index) => ({
+    ...item,
     id: index + 1,
-    label,
     description: generateArray(() => 'opis oglasa ', 30).join(''),
     location: faker.helpers.arrayElement(cro_dataset.cities),
     photos: generateArray(randomPhoto, 3),
