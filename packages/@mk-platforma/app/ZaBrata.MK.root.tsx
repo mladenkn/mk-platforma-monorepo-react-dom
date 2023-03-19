@@ -3,7 +3,7 @@ import { Layout1_root_sx } from "./layout1"
 import { useState } from "react"
 import Item_sale from "./Item.sale"
 import Expert_search from "./Expert.search"
-import data from "./data.json"
+import data from "./data/data.json"
 import Section_base from "./Section.base"
 import { EventOrJob_list_item, EventOrJob_list_ItemDetails } from "./EventOrJob"
 

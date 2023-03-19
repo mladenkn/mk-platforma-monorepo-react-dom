@@ -32,4 +32,4 @@ yarn-error.log*
 # turbo
 .turbo
 
-packages/@mk-platforma/app/data.json
+packages/@mk-platforma/app/data/data.json
