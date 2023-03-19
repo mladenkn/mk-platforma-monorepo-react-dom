@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
 import { writeFileSync } from "fs"
 import * as cro_dataset from "./data.cro.dataset"
+import generateProducts from "data.generate2/products"
 
 
 const avatarStyles = [
@@ -50,16 +51,7 @@ const data = {
 
   jobs: faker.helpers.shuffle(eventsOrJobs),
 
-  sellableItems: cro_dataset.products.map(({ label, image, description }, index) => ({
-    id: index + 1,
-    title: label,
-    imageUrl: image,
-    description,
-    adOwner: {
-      phoneNumber: faker.phone.number(),
-    },
-    location: faker.helpers.arrayElement(cro_dataset.cities),
-  })),
+  sellableItems: generateProducts(),
 
   gathering_work_action: faker.helpers.shuffle(
     eventsOrJobs.filter(e => !e.label.includes('Izdrada web stranice') && !e.label.toLowerCase().includes('šivanje'))
