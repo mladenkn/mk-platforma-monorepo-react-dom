@@ -31,7 +31,6 @@ export function Post_common_listItem({ label, location, photos, imageAtStart }: 
             display: "flex",
             justifyContent: "right",
             flex: 1,
-            mt: 3,
             mr: 3,
           }}
         >        

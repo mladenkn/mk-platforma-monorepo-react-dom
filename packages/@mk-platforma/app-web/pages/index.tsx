@@ -1,2 +1,2 @@
-import ZaBrata_MK_root from "@mk-platforma/app/ZaBrata.MK.root"
-export default ZaBrata_MK_root
+import MainSection from "@mk-platforma/app/MainSection"
+export default MainSection
