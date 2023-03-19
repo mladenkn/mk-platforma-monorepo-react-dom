@@ -30,4 +30,4 @@ const accommodations = [ ...withRelatedProps, ...withRelatedProps, ].map(({ labe
   },
 }))
 
-export default accommodations
+export default { accommodations }
