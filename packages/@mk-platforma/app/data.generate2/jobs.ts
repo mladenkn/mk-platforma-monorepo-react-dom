@@ -43,7 +43,7 @@ const jobs = [
   },
 ]
 
-export default function generateEventsOrJobs(){
+export default function generateJobs(){
   return faker.helpers.shuffle(jobs).map(({ label }, index) => ({
     id: index + 1,
     label,
