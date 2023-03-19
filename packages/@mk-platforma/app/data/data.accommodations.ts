@@ -16,7 +16,7 @@ const withRelatedProps = [
   },
 ]
 
-const accommodations = [ ...withRelatedProps, ...withRelatedProps, ].map(({ label }, index) => ({
+export const accommodations = [ ...withRelatedProps, ...withRelatedProps, ].map(({ label }, index) => ({
   id: index + 1,
   label,
   description: generateArray(() => 'opis oglasa ', 30).join(''),
@@ -29,5 +29,3 @@ const accommodations = [ ...withRelatedProps, ...withRelatedProps, ].map(({ labe
     phoneNumber: faker.phone.number(),
   },
 }))
-
-export default { accommodations }
