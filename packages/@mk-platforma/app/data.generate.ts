@@ -3,6 +3,7 @@ import { generateArray } from "@mk-libs/common/common"
 import { writeFileSync } from "fs"
 import * as cro_dataset from "./data.cro.dataset"
 import generateProducts from "data.generate2/products"
+import generateEventsOrJobs from "data.generate2/eventsOrJobs"
 
 
 const avatarStyles = [
@@ -27,24 +28,7 @@ function generateExpert() {
   }
 }
 
-const randomJobPhoto = () =>
-  faker.helpers.arrayElement([
-    faker.image.business,
-    faker.image.food,
-    faker.image.nature,
-    faker.image.transport,
-  ])()
-
-const eventsOrJobs = faker.helpers.shuffle(cro_dataset.jobs).map(({ label }, index) => ({
-  id: index + 1,
-  label,
-  description: generateArray(() => 'opis oglasa ', 30).join(''),
-  location: faker.helpers.arrayElement(cro_dataset.cities),
-  photos: generateArray(randomJobPhoto, 3),
-  adOwner: {
-    phoneNumber: faker.phone.number(),
-  },
-}))
+const eventsOrJobs = generateEventsOrJobs()
 
 const data = {
   experts: generateArray(generateExpert, faker.datatype.number({ min: 10, max: 50 })),
