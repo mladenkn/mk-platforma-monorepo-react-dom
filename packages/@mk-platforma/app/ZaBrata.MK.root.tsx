@@ -3,8 +3,8 @@ import { Layout1_root_sx } from "./layout1"
 import { useState } from "react"
 import { Post_product_listItem, Post_product_listItem_details } from "./Post.product.listItem"
 import data from "./data/data.json"
-import Section_base from "./Section.base"
-import { Post_common_listItem, MostCommonListItem_details } from "./Post.common.listItem"
+import Post_list_base from "./Post.list.base"
+import { Post_common_listItem, Post_common_listItem_details } from "./Post.common.listItem"
 import { Post_expert_listItem, Post_expert_listItem_details } from "./Post.expert.listItem"
 
 
@@ -33,38 +33,38 @@ export default function ZaBrata_MK_root(){
       </TabsMui>
       <Box sx={Layout1_root_sx}>
         {activeTab === 'jobs' ? (
-          <Section_base
+          <Post_list_base
             items={data.jobs}
             Item={Post_common_listItem}
-            Item_details={MostCommonListItem_details}
+            Item_details={Post_common_listItem_details}
           />
         ) : <></>}
         {activeTab === 'accommodations' ? (
-          <Section_base
+          <Post_list_base
             items={data.accommodations} 
             Item={Post_common_listItem}
-            Item_details={MostCommonListItem_details}
+            Item_details={Post_common_listItem_details}
           />
         ) : <></>}
         {activeTab === 'experts' ? (                
-          <Section_base
+          <Post_list_base
             items={data.experts}
             Item={Post_expert_listItem}
             Item_details={Post_expert_listItem_details}
           />
         ) : <></>}
         {activeTab === 'buying-selling' ? (
-          <Section_base
+          <Post_list_base
             items={data.sellableItems}
             Item={Post_product_listItem}
             Item_details={Post_product_listItem_details}
           />
         ) : <></>}
         {activeTab === 'gathering' ? (
-          <Section_base
+          <Post_list_base
             items={data.gatherings}
             Item={Post_common_listItem}
-            Item_details={MostCommonListItem_details}
+            Item_details={Post_common_listItem_details}
           />
         ) : <></>}
       </Box>

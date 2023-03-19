@@ -47,7 +47,7 @@ type EventOrJob_details_Props = {
   }
 }
 
-export function MostCommonListItem_details({ label, location, photos, description, adOwner }: EventOrJob_details_Props){
+export function Post_common_listItem_details({ label, location, photos, description, adOwner }: EventOrJob_details_Props){
   return (
     <Box sx={{ p: 4 }}>
       <Typography sx={{ fontWeight: 600, fontSize: 19, mb: 3, }}>{label}</Typography>
