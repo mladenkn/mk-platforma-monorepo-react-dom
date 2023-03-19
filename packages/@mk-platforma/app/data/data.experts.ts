@@ -11,12 +11,13 @@ const avatarStyles = [
 
 export default function generateExpert() {
   return {
-    firstName: faker.helpers.arrayElement(cro_dataset.firstNames),
-    lastName: faker.helpers.arrayElement(cro_dataset.lastNames),
     location: faker.helpers.arrayElement(cro_dataset.cities),
-    occupations: [faker.helpers.arrayElement(cro_dataset.occupations)],
     description: faker.lorem.text(),
     phoneNumber: faker.phone.number(),
+
+    firstName: faker.helpers.arrayElement(cro_dataset.firstNames),
+    lastName: faker.helpers.arrayElement(cro_dataset.lastNames),
+    occupations: [faker.helpers.arrayElement(cro_dataset.occupations)],
     avatarStyle: faker.helpers.arrayElement(avatarStyles),
   }
 }
