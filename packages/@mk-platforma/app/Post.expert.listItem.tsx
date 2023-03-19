@@ -51,27 +51,3 @@ export function Post_expert_listItem({
     </Box>
   )
 }
-
-type Post_expert_listItem_details_Props = {
-  firstName: string
-  lastName: string
-  description: string
-  phoneNumber: string
-}
-
-export function Post_expert_listItem_details({
-  firstName,
-  lastName,
-  description,
-  phoneNumber,
-}: Post_expert_listItem_details_Props){
-  return (
-    <Box sx={{ p: 4 }}>
-      <Typography sx={{ fontWeight: 600, fontSize: 19, mb: 3.5, }}>
-        {firstName} {lastName}
-      </Typography>
-      <Typography>{description}</Typography>
-      <Typography sx={{ mt: 4 }}>Mobitel/telefon: {phoneNumber}</Typography>
-    </Box>
-  )
-}
