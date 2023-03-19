@@ -2,10 +2,10 @@ import { Tabs as TabsMui, Tab, Box } from "@mui/material"
 import { Layout1_root_sx } from "./layout1"
 import { useState } from "react"
 import Item_sale from "./Item.sale"
-import Expert_search from "./Expert.search"
 import data from "./data/data.json"
 import Section_base from "./Section.base"
 import { Post_common_listItem, MostCommonListItem_details } from "./Post_common_listItem"
+import { Post_expert_listItem, Post_expert_listItem_details } from "./Post.expert.listItem"
 
 
 type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
@@ -46,7 +46,13 @@ export default function ZaBrata_MK_root(){
             Item_details={MostCommonListItem_details}
           />
         ) : <></>}
-        {activeTab === 'experts' ? <Expert_search /> : <></>}
+        {activeTab === 'experts' ? (                
+          <Section_base
+            items={data.experts}
+            Item={Post_expert_listItem}
+            Item_details={Post_expert_listItem_details}
+          />
+        ) : <></>}
         {activeTab === 'buying-selling' ? <Item_sale /> : <></>}
         {activeTab === 'gathering' ? (
           <Section_base
