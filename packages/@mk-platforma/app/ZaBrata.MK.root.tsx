@@ -5,7 +5,7 @@ import Item_sale from "./Item.sale"
 import Expert_search from "./Expert.search"
 import data from "./data/data.json"
 import Section_base from "./Section.base"
-import { MostCommonListItem, MostCommonListItem_details } from "./EventOrJob"
+import { MostCommonListItem, MostCommonListItem_details } from "./MostCommonListItem"
 
 
 type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
