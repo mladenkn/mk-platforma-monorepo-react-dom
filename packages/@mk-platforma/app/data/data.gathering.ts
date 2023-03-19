@@ -76,7 +76,7 @@ export default function generateGatherings(){
     label,
     id: index + 1,
     description: generateArray(() => 'opis oglasa ', 30).join(''),
-    location: faker.helpers.arrayElement(cro_dataset.cities),
+    location: faker.helpers.arrayElement([...cro_dataset.cities, cro_dataset.villages, cro_dataset.villages]),
     photos: photos || generateArray(randomPhoto, 3),
     adOwner: {
       phoneNumber: faker.phone.number(),
