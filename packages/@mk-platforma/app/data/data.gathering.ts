@@ -6,60 +6,27 @@ import data_images from "./data.images.json"
 const hangouts = [
   {
     label: "Prekopavanje vrta",
-    photos: [
-      '/images/vrt,1.jpg',
-      '/images/okupljanje,priroda,1.jpg',
-    ],
   },
   {
     label: "Obrezivanje maslina",
-    photos: [
-      '/images/vrt,2.jpg',
-      '/images/okupljanje,priroda,2.jpg',
-    ],
   },
   {
     label: "Zidanje zida od cob materijala",
-    photos: [
-      '/images/okupljanje,2.jpg',
-      '/images/cob-1.jpg',
-      '/images/cob-2.jpg',
-    ]
   },
   {
     label: "Kopanje rupa za voćke",
-    photos: [
-      '/images/vrt,3.jpg',
-      '/images/okupljanje,priroda,3.png',
-    ],
   },
   {
     label: "Gradnja drvene kuće",
-    photos: [
-      '/images/okupljanje,1.jpg',
-      '/images/drvena-kuca.jpg',
-    ]
   },
   {
     label: "Sadnja povrtnjaka",
-    photos: [
-      '/images/vrt,4.jpg',
-      '/images/okupljanje,priroda,4.png',
-    ],
   },
   {
     label: "Sadnja voćnjaka",
-    photos: [
-      '/images/vrt,5.jpg',
-      '/images/okupljanje,priroda,5.jpg',
-    ],
   },
   {
     label: "Izrada ograde od šiblja",
-    photos: [
-      '/images/okupljanje,priroda,2.jpg',
-      '/images/ograda-od-siblja.jpg',
-    ]
   },
 ]
 
