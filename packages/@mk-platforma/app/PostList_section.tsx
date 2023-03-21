@@ -27,7 +27,7 @@ export default function PostList_section(){
     >
       <Header
         right={
-          <a href="/" style={{ textDecoration: 'none', }}>
+          <a href="/post/create" style={{ textDecoration: 'none', }}>
             <IconButton sx={{ display: 'flex', gap: 1, }}>
               <PostAddIcon sx={{ color: 'white', width: 30, height: 30 }} />
             </IconButton>
@@ -45,7 +45,7 @@ export default function PostList_section(){
         </TabsMui>
         <Box
           sx={{
-            pt: 7,
+            mt: 4,
             pb: 3,
             display: "flex",
             flexDirection: "column",
