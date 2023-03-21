@@ -20,7 +20,6 @@ export default function PostList_section(){
         flexDirection: "column",
         flex: 1,
         height: '100%',
-        mb: 4,
         px: 2,
       }}
     >
