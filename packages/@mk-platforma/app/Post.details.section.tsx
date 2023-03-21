@@ -22,7 +22,7 @@ export default function Post_details_section(){
           </a>
         }
       />
-      (item ? <Post_common_listItem_details {...item!} /> : 'Objava nije pronađena')
+      {item ? <Post_common_listItem_details {...item!} /> : 'Objava nije pronađena'}
     </Box>    
   )
 }
