@@ -1,4 +1,4 @@
-import { Box, IconButton, colors, useTheme } from "@mui/material"
+import { Box, IconButton } from "@mui/material"
 import PostForm from "./post.form"
 import Header from './header'
 import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
