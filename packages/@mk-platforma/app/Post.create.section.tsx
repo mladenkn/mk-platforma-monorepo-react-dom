@@ -14,10 +14,12 @@ export default function Post_create_section({ sx }: Props){
       <Header
         sx={{ mb: 5, }}
         right={
-          <IconButton sx={{ display: 'flex', gap: 1, }}>
-            <Box sx={{ color: 'white', fontSize: 20, }}>Oglasi</Box>
-            <ListAltOutlinedIcon sx={{ color: 'white' }} />
-          </IconButton>
+          <a href="/" style={{ textDecoration: 'none', }}>
+            <IconButton sx={{ display: 'flex', gap: 1, }}>
+              <Box sx={{ color: 'white', fontSize: 20, }}>Oglasi</Box>
+              <ListAltOutlinedIcon sx={{ color: 'white' }} />
+            </IconButton>
+          </a>
         }
       />
       <Box sx={{ px: 3, }}>
