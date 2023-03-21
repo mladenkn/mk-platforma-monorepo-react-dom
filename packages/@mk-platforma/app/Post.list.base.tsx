@@ -2,6 +2,7 @@ import { SearchRounded as SearchRoundedIcon } from "@mui/icons-material"
 import { Input, Box, Paper, Dialog } from "@mui/material"
 import { ComponentType, useMemo, useState } from "react"
 import { asNonNil } from "@mk-libs/common/common"
+import { useRouter } from 'next/navigation'
 
 
 type Item = {
@@ -20,6 +21,15 @@ export default function Post_list_base<TItem extends Item>({ items, Item: ListIt
 
   const [_selectedItem, setSelectedItem] = useState<number>()
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
+
+  const isMobile = true // TODO
+  const router = useRouter()
+  function onItemClick(item: Item){
+    if(isMobile)
+      router.push(`/post/details/${item.id}`)
+    else 
+      setSelectedItem(item.id)
+  }
 
   return (
     <>
@@ -48,7 +58,7 @@ export default function Post_list_base<TItem extends Item>({ items, Item: ListIt
           <Paper
             key={item.id}
             sx={{ p: 1.5, display: 'flex', cursor: 'pointer' }}
-            onClick={() => setSelectedItem(item.id)}
+            onClick={() => onItemClick(item)}
           >
             <ListItem {...item} />
           </Paper>
