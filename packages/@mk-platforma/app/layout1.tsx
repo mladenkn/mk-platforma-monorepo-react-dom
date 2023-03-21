@@ -12,7 +12,6 @@ export const Layout1_list_sx = {
   display: "flex",
   flexDirection: "column",
   gap: 2,
-  maxWidth: 700,
   py: 0.25,
   px: 1.25,
   overflowY: "auto",
