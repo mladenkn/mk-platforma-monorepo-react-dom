@@ -39,11 +39,12 @@ export default function PostList_section(){
         sx={{ position: 'absolute', bottom: 6, right: 6, }}
         color="primary"
         onClick={() => setCategoriesSelector_active(true)}
+        size="large"
       >
         <ManageSearchIcon />
       </Fab>
       {categoriesSelector_active ? (
-          <Dialog open>
+          <Dialog open onClose={() => setCategoriesSelector_active(false)}>
             <Box sx={{ p: 3, }}>
               <Box sx={{ fontSize: 24, mb: 4.5 }}>Odaberite kategorije</Box>
               <Autocomplete
