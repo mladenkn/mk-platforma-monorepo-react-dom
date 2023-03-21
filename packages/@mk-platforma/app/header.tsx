@@ -4,7 +4,7 @@ import { ReactNode } from "react"
 
 type Props = {
   sx?: SxProps
-  right: ReactNode
+  right?: ReactNode
 }
 
 export default function Header({ sx, right, }: Props){
@@ -20,7 +20,7 @@ export default function Header({ sx, right, }: Props){
       alignItems: 'center',
       ...sx,
     }}>
-      <Box sx={{ ml: 2, }}>
+      <Box sx={{ ml: 1, }}>
 	      <a style={{ color: 'white', fontSize: 25, textDecoration: 'none', }} href="https://za-brata.com/">ZaBrata</a>
         <Box sx={{ color: 'white' }}>Loza kontribucionizma</Box>
 	    </Box>
