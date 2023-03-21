@@ -1,4 +1,4 @@
-import { Box, IconButton, Fab } from "@mui/material"
+import { Box, IconButton, Fab, Dialog } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -13,6 +13,7 @@ type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gatherin
 
 export default function PostList_section(){
   const [activeTab, setActiveTab] = useState<Tab>('accommodations')
+  const [categoriesSelector_active, setCategoriesSelector_active] = useState(false)
 
   return (
     <Box
@@ -34,9 +35,20 @@ export default function PostList_section(){
           </a>
         }
       />
-      <Fab color="primary" sx={{ position: 'absolute', bottom: 6, right: 6, }}>
+      <Fab
+        sx={{ position: 'absolute', bottom: 6, right: 6, }}
+        color="primary"
+        onClick={() => setCategoriesSelector_active(true)}
+      >
         <ManageSearchIcon />
       </Fab>
+      {categoriesSelector_active ? (
+          <Dialog open>
+            Select categories
+          </Dialog>
+        ) :
+        <></>
+      }
       <Box
         sx={{
           mt: 4,
