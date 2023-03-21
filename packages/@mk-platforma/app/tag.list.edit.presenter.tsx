@@ -1,9 +1,7 @@
-import { TextField, Chip, SxProps } from '@mui/material'
-import { Autocomplete } from '@mui/material'
+import { TextField, Chip, SxProps, Autocomplete, useTheme } from '@mui/material'
 import { ComponentProps, ReactNode } from 'react'
 import { AsyncOperation } from '@mk-libs/async-operation/async-operation.types'
 import AddIcon from '@mui/icons-material/Add'
-import { useTheme } from "@mk-docs/app/theme"
 import { omit } from 'lodash'
 import TagList from './tag.list'
 import { getTagLabel } from './tag.utils'
@@ -46,7 +44,7 @@ export default function TagsListEditPresenter({
     onActiveChange
   )
 
-  const { palette, sizing } = useTheme()
+  const { palette, spacing } = useTheme()
 
   return (
     <Autocomplete
@@ -72,8 +70,8 @@ export default function TagsListEditPresenter({
         <Chip          
           {...omit(tagProps, 'className') as any}
           sx={{
-            fontSize: sizing(1.8),
-            height: sizing(2.9),
+            fontSize: spacing(1.8),
+            height: spacing(2.9),
             cursor: 'pointer',
             mr: 0.5,
             mb: 0.5,
@@ -106,7 +104,7 @@ export default function TagsListEditPresenter({
           size='small'
           placeholder={placeholder}
           value={search}
-          onChange={e => setSearch && setSearch(e.target.value)}
+          onChange={(e: any) => setSearch && setSearch(e.target.value)}
           {...omit(textFieldProps, 'sx')}
           onClick={() => setIsActive(true)}
         />

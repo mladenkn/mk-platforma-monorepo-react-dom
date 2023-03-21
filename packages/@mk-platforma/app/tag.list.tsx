@@ -1,7 +1,6 @@
-import { Box, SxProps, Chip } from "@mui/material"
+import { Box, SxProps, Chip, useTheme } from "@mui/material"
 import { ComponentProps, ReactNode } from "react"
 import { omit } from 'lodash'
-import { useTheme } from "@mk-docs/app/theme"
 import { getTagLabel } from "./tag.utils"
 
 
@@ -20,7 +19,7 @@ type Props = {
 }
 
 export default function TagList({ sx, tags, separator, TagProps: _TagProps = {}, onClick, }: Props){
-  const { sizing } = useTheme()
+  const { spacing } = useTheme()
 
   return (
     <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', ...sx }} onClick={onClick}>
@@ -30,11 +29,11 @@ export default function TagList({ sx, tags, separator, TagProps: _TagProps = {},
           <Box key={index} sx={{ display: 'flex', gap: 1 }}>
             <Chip
               sx={{
-                height: sizing(3),
+                height: spacing(3),
                 '&:hover, &:focus': {
                   cursor: 'pointer'
                 },
-                fontSize: sizing(1.6),
+                fontSize: spacing(1.6),
                 ...TagProps.sx
               }}
               label={getTagLabel(tag)}

@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material"
-import Avatar from "./avatar"
+import Avatar from "./Avatar"
 import { CSSProperties } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"

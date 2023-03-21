@@ -1,6 +1,6 @@
 import { Box, IconButton, SxProps } from "@mui/material"
 import PostForm from "./post.form"
-import Header from './header'
+import Header from './Header'
 import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined'
 
 

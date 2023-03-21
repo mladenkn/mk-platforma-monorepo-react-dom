@@ -6,7 +6,7 @@ import { Post_common_listItem, Post_common_listItem_details } from "./Post.commo
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
 import PostAddIcon from '@mui/icons-material/PostAdd'
-import Header from "./header"
+import Header from "./Header"
 
 
 type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"

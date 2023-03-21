@@ -1,4 +1,4 @@
-import { Predicate } from "@mk-libs/common/types"
+import { Predicate } from "./types"
 import { groupBy as _groupBy } from "lodash"
 
 export function toggleIncludes<T>(state: T[], item: T) {

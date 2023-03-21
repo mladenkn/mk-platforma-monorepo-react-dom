@@ -2,7 +2,7 @@ import { Post_common_listItem_details } from "./Post.common.listItem"
 import data from "./data/data.json"
 import { useRouter } from 'next/router'
 import { asNonNil } from "@mk-libs/common/common"
-import Header from "./header"
+import Header from "./Header"
 import { Box, IconButton } from "@mui/material"
 import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined'
 
