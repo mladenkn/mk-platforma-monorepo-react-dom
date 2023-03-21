@@ -1,11 +1,16 @@
-import { Box, IconButton } from "@mui/material"
+import { Box, IconButton, SxProps } from "@mui/material"
 import PostForm from "./post.form"
 import Header from './header'
-import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined';
+import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined'
 
-export default function Post_create_section(){
+
+type Props = {
+  sx?: SxProps
+}
+
+export default function Post_create_section({ sx }: Props){
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%', ...sx }}>
       <Header
         sx={{ mb: 5, }}
         right={

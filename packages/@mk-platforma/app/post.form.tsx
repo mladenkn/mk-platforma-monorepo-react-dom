@@ -1,8 +1,13 @@
-import { Box, TextField } from "@mui/material";
+import { Box, TextField, SxProps } from "@mui/material"
 
-export default function PostForm(){
+
+type Props = {
+  sx?: SxProps
+}
+
+export default function PostForm({ sx }: Props){
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 4, ...sx }}>
       <TextField
         label="Naziv"
         variant="outlined"
