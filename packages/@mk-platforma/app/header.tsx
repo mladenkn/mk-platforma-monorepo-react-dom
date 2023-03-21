@@ -17,7 +17,7 @@ export default function Header({ sx, right, }: Props){
       px: 2,
       display: 'flex',
       justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'end',
       ...sx,
     }}>
       <Box sx={{ ml: 1, }}>
