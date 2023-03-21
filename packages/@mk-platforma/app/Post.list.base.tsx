@@ -1,6 +1,5 @@
 import { SearchRounded as SearchRoundedIcon } from "@mui/icons-material"
 import { Input, Box, Paper, Dialog } from "@mui/material"
-import { Layout1_list_sx } from "./layout1"
 import { ComponentType, useMemo, useState } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 
@@ -38,7 +37,7 @@ export default function Post_list_base<TItem extends Item>({ items, Item: ListIt
           flexDirection: "column",
           gap: 2,
           py: 0.25,
-          px: 1.25,
+          px: 0.25,
           overflowY: "auto",
           flex: 1,
           minHeight: 0,

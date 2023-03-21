@@ -32,8 +32,9 @@ export default function PostList_section(){
       </TabsMui>
       <Box
         sx={{
-          px: 4,
+          px: 1,
           pt: 7,
+          pb: 3,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
