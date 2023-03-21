@@ -14,7 +14,6 @@ export default function PostForm(){
       <TextField
         label="Lokacija"
         variant="outlined"
-        multiline
       />
       <TextField
         label="Opis"
@@ -24,7 +23,6 @@ export default function PostForm(){
       <TextField
         label="Broj mobitela"
         variant="outlined"
-        multiline
       />
     </Box>
   )
