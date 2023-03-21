@@ -20,9 +20,9 @@ export default function Header({ sx, right, }: Props){
       alignItems: 'end',
       ...sx,
     }}>
-      <Box sx={{ ml: 1, }}>
-	      <a style={{ color: 'white', fontSize: 25, textDecoration: 'none', }} href="https://za-brata.com/">ZaBrata</a>
-        <Box sx={{ color: 'white' }}>Loza kontribucionizma</Box>
+      <Box sx={{ ml: 0.2 }}>
+	      <a style={{ color: 'white', fontSize: 30, textDecoration: 'none', }} href="https://za-brata.com/">ZaBrata</a>
+        <Box sx={{ color: 'white', fontSize: 18, }}>Loza kontribucionizma</Box>
 	    </Box>
       {right}
     </Box>
