@@ -15,12 +15,12 @@ export function Post_common_listItem({ label, location, photos, imageAtStart }: 
       {imageAtStart && <img src={imageAtStart} width={100} height={100} style={{ marginRight: 24, }} />}
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Typography sx={{ fontWeight: 600, fontSize: 16 }}>{label}</Typography>
+        <Typography sx={{ fontWeight: 600, fontSize: 20 }}>{label}</Typography>
 
-        <Box sx={{ color: "text.secondary", mt: 2, }}>
+        <Box sx={{ color: "text.secondary", mt: 0.75, }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <LocationIcon sx={{ width: 17, height: 17, mr: 1 }} />
-            <Typography sx={{ fontSize: 17 }}>{location}</Typography>
+            <LocationIcon sx={{ width: 19, height: 19, mr: 1 }} />
+            <Typography sx={{ fontSize: 19 }}>{location}</Typography>
           </Box>
         </Box>
       </Box>
@@ -32,6 +32,7 @@ export function Post_common_listItem({ label, location, photos, imageAtStart }: 
             justifyContent: "right",
             flex: 1,
             mr: 3,
+            mt: 3,
           }}
         >        
           <Box sx={{ display: "flex", gap: 1 }}>
