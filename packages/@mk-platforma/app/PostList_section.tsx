@@ -21,7 +21,7 @@ export default function PostList_section(){
         flex: 1,
         height: '100%',
         mb: 4,
-        px: 1,
+        px: 2,
       }}
     >
       <TabsMui value={activeTab} centered onChange={(e, newValue) => setActiveTab(newValue)}>

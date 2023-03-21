@@ -31,12 +31,11 @@ export function Post_common_listItem({ label, location, photos, imageAtStart }: 
             display: "flex",
             justifyContent: "right",
             flex: 1,
-            mr: 3,
             mt: 3,
           }}
         >        
           <Box sx={{ display: "flex", gap: 1 }}>
-            {photos!.slice(0, 4).map((photo, index) => (
+            {photos!.slice(0, 3).map((photo, index) => (
               <img key={index} width={65} height={65} src={photo} />
             ))}
           </Box>
