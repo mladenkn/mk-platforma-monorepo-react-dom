@@ -16,7 +16,7 @@ export default function Post_create_section(){
         }
       />
       <Box sx={{ px: 3, }}>
-        <Box sx={{ fontSize: 34, mb: 5 }}>Novi oglas</Box>
+        <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
         <PostForm />
       </Box>
     </Box> 
