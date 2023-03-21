@@ -67,7 +67,7 @@ export function Post_common_listItem_details({ label, location, photos, descript
       {phoneNumber && <Typography sx={{ mt: 4 }}>Mobitel/telefon: {phoneNumber}</Typography>}
       {!!photos?.length && (
         <Box sx={{ display: 'flex', justifyContent: 'end' }}>
-          <Box sx={{ display: "flex", gap: 2, marginTop: 4 }}>
+          <Box sx={{ display: "flex", gap: 2, flexWrap: 'wrap', marginTop: 4 }}>
             {photos.map((photo, index) => (
               <img key={index} width={90} height={90} src={photo} />
             ))}
