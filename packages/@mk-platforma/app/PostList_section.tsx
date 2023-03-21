@@ -1,15 +1,16 @@
-import { Tabs as TabsMui, Tab, Box } from "@mui/material"
+import { Tabs as TabsMui, Tab, Box, IconButton } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_listItem_details } from "./Post.common.listItem"
 import { Post_expert_listItem } from "./Post.expert.listItem"
+import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 
 
 type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
 
 export default function PostList_section(){
-  const [activeTab, setActiveTab] = useState<Tab>('jobs')
+  const [activeTab, setActiveTab] = useState<Tab>('accommodations')
 
   return (
     <Box
@@ -24,11 +25,12 @@ export default function PostList_section(){
       }}
     >
       <TabsMui value={activeTab} centered onChange={(e, newValue) => setActiveTab(newValue)}>
-        <Tab sx={{ textTransform: "none" }} label="@Poslovi" value="jobs" />
-        <Tab sx={{ textTransform: "none" }} label="@Smještaji" value="accommodations" />
-        <Tab sx={{ textTransform: "none" }} label="@Majstori" value="experts" />
-        <Tab sx={{ textTransform: "none" }} label="@Nabava" value="buying-selling" />
-        <Tab sx={{ textTransform: "none" }} label="@Okupljanje" value="gathering" />
+        <Tab sx={{ textTransform: "none", fontSize: 18, }} label="@Smještaji" value="accommodations" />
+        <Tab sx={{ textTransform: "none", fontSize: 18, }} label="@Nabava" value="buying-selling" />
+        <Tab sx={{ textTransform: "none", fontSize: 18, }} label="@Okupljanje" value="gathering" />
+        <IconButton>
+          <KeyboardArrowDownOutlinedIcon />
+        </IconButton>
       </TabsMui>
       <Box
         sx={{
