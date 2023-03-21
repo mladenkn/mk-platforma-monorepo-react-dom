@@ -32,7 +32,18 @@ export default function Post_list_base<TItem extends Item>({ items, Item: ListIt
         value= {filter}
         onChange={(e: any) => setFilter(e.target.value)}
       />
-      <Box sx={Layout1_list_sx}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          py: 0.25,
+          px: 1.25,
+          overflowY: "auto",
+          flex: 1,
+          minHeight: 0,
+        }}
+      >
         {filteredItems.map(item => (
           <Paper
             key={item.id}

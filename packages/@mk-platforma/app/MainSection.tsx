@@ -30,7 +30,17 @@ export default function ZaBrata_MK_root(){
         <Tab sx={{ textTransform: "none" }} label="@Nabava" value="buying-selling" />
         <Tab sx={{ textTransform: "none" }} label="@Okupljanje" value="gathering" />
       </TabsMui>
-      <Box sx={Layout1_root_sx}>
+      <Box
+        sx={{
+          px: 4,
+          pt: 7,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          flex: 1,
+          minHeight: 0,
+        }}
+      >
         {activeTab === 'jobs' ? (
           <Post_list_base
             items={data.jobs}
