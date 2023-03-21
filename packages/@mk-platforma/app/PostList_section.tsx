@@ -34,7 +34,7 @@ export default function PostList_section(){
           </a>
         }
       />
-      <TabsMui sx={{ px: 2, }} value={activeTab} centered onChange={(e, newValue) => setActiveTab(newValue)}>
+      <TabsMui sx={{ px: 1, }} value={activeTab} centered onChange={(e, newValue) => setActiveTab(newValue)}>
         <Tab sx={{ textTransform: "none", fontSize: 18, }} label="@Smještaji" value="accommodations" />
         <Tab sx={{ textTransform: "none", fontSize: 18, }} label="@Nabava" value="buying-selling" />
         <Tab sx={{ textTransform: "none", fontSize: 18, }} label="@Okupljanje" value="gathering" />

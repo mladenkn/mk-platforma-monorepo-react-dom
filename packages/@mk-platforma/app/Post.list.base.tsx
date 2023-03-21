@@ -25,7 +25,6 @@ export default function Post_list_base<TItem extends Item>({ items, Item: ListIt
     <>
       <Input
         sx={{ pb: 0.7, mb: 2, width: '100%', }}
-        autoFocus
         placeholder="Pretraži"
         startAdornment={<SearchRoundedIcon sx={{ mr: 2 }} />}
         value= {filter}
