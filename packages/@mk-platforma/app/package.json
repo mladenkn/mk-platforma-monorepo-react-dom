@@ -25,6 +25,7 @@
     "@emotion/styled": "^11.10.6",
     "@faker-js/faker": "^7.6.0",
     "@js-temporal/polyfill": "^0.4.3",
+    "@mk-libs/async-operation": "workspace:^0.0.0",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.10",
     "@tanstack/react-query": "^4.24.4",
