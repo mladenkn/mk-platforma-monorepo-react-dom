@@ -1,7 +1,6 @@
 import { Post_common_listItem_details } from "./Post.common.listItem"
 import data from "./data/data.json"
 import { useRouter } from 'next/router'
-import { asNonNil } from "@mk-libs/common/common"
 import Header from "./Header"
 import { Box, IconButton } from "@mui/material"
 import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined'
@@ -9,8 +8,8 @@ import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined'
 
 export default function Post_details_section(){
   const router = useRouter()
-  const itemId = asNonNil(parseInt(router.query.id as string))
-  const item = asNonNil(data.gatherings.find(g => g.id === itemId))
+  const itemId = parseInt(router.query.id as string)!
+  const item = data.gatherings.find(g => g.id === itemId)
   return (
     <Box>
       <Header
@@ -23,7 +22,7 @@ export default function Post_details_section(){
           </a>
         }
       />
-      <Post_common_listItem_details {...item} />
+      (item ? <Post_common_listItem_details {...item!} /> : 'Objava nije pronađena')
     </Box>    
   )
 }
