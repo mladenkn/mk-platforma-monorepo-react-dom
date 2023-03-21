@@ -36,7 +36,7 @@ export function Post_common_listItem({ label, location, photos, imageAtStart }: 
         >        
           <Box sx={{ display: "flex", gap: 1 }}>
             {photos!.slice(0, 3).map((photo, index) => (
-              <img key={index} width={65} height={65} src={photo} />
+              <img key={index} width={75} height={75} src={photo} />
             ))}
           </Box>
         </Box>
@@ -69,7 +69,7 @@ export function Post_common_listItem_details({ label, location, photos, descript
         <Box sx={{ display: 'flex', justifyContent: 'end' }}>
           <Box sx={{ display: "flex", gap: 2, flexWrap: 'wrap', marginTop: 4 }}>
             {photos.map((photo, index) => (
-              <img key={index} width={90} height={90} src={photo} />
+              <img key={index} width={100} height={100} src={photo} />
             ))}
           </Box>
         </Box>
