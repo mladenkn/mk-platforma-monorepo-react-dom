@@ -25,7 +25,7 @@ export default function Post_list_base<TItem extends Item>({ items, Item: ListIt
   return (
     <>
       <Input
-        sx={{ pb: 0.7, mb: 5, width: 350 }}
+        sx={{ pb: 0.7, mb: 5 }}
         autoFocus
         placeholder="Pretraži"
         startAdornment={<SearchRoundedIcon sx={{ mr: 2 }} />}
@@ -36,7 +36,7 @@ export default function Post_list_base<TItem extends Item>({ items, Item: ListIt
         {filteredItems.map(item => (
           <Paper
             key={item.id}
-            sx={{ p: 3, display: 'flex', width: 600, cursor: 'pointer' }}
+            sx={{ p: 3, display: 'flex', cursor: 'pointer' }}
             onClick={() => setSelectedItem(item.id)}
           >
             <ListItem {...item} />
