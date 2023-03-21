@@ -1,5 +1,4 @@
 import { Tabs as TabsMui, Tab, Box } from "@mui/material"
-import { Layout1_root_sx } from "./layout1"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -9,7 +8,7 @@ import { Post_expert_listItem } from "./Post.expert.listItem"
 
 type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
 
-export default function ZaBrata_MK_root(){
+export default function PostList_section(){
   const [activeTab, setActiveTab] = useState<Tab>('jobs')
 
   return (
@@ -20,6 +19,7 @@ export default function ZaBrata_MK_root(){
         display: "flex",
         flexDirection: "column",
         flex: 1,
+        height: '100%',
         mb: 4,
       }}
     >

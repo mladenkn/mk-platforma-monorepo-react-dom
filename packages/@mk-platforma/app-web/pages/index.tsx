@@ -1,2 +1,2 @@
-import MainSection from "@mk-platforma/app/MainSection"
-export default MainSection
+import PostList_section from "@mk-platforma/app/PostList_section"
+export default PostList_section
