@@ -1,4 +1,4 @@
-import { Box, IconButton, Fab, Dialog } from "@mui/material"
+import { Box, IconButton, Fab, Dialog, Autocomplete, TextField } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -44,7 +44,15 @@ export default function PostList_section(){
       </Fab>
       {categoriesSelector_active ? (
           <Dialog open>
-            Select categories
+            <Box sx={{ p: 3, }}>
+              <Box sx={{ fontSize: 24, mb: 4.5 }}>Odaberite kategorije</Box>
+              <Autocomplete
+                disablePortal
+                options={[]}
+                sx={{ width: 300 }}
+                renderInput={params => <TextField {...params} label="Kategorije" />}
+              />
+            </Box>            
           </Dialog>
         ) :
         <></>
