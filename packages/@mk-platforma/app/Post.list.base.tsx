@@ -26,7 +26,7 @@ export default function Post_list_base<TItem extends Item>({ items, Item: ListIt
   const router = useRouter()
   function onItemClick(item: Item){
     if(isMobile)
-      router.push(`/post/details/${item.id}`)
+      router.push(`/post/${item.id}`)
     else 
       setSelectedItem(item.id)
   }
