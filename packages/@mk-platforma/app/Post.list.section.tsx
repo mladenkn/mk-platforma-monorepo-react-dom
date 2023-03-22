@@ -7,9 +7,9 @@ import { Post_expert_listItem } from "./Post.expert.listItem"
 import PostAddIcon from '@mui/icons-material/PostAdd'
 import Header from "./Header"
 import ManageSearchIcon from '@mui/icons-material/ManageSearch'
+import { Category } from "./data/data.types"
 
 
-export type Category = "job" | "accommodation" | "personEndorsement" | "sellable" |  "gathering"
 type Option = { id: Category, label: string }
 
 const allCategories: Category[] = ["job", "accommodation", "personEndorsement", "sellable",  "gathering"]

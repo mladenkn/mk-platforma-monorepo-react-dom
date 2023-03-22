@@ -6,3 +6,5 @@ export type Post_base = {
   photos: string[]
   phoneNumber: string
 }
+
+export type Category = "job" | "accommodation" | "personEndorsement" | "sellable" |  "gathering"
