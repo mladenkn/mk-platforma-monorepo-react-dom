@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker"
 import * as cro_dataset from "./data.cro.dataset"
+import { post_id_getNext } from "./data._utils"
 
 const avatarStyles = [
   { background: "green", color: "white" },
@@ -12,6 +13,7 @@ const avatarStyles = [
 export default function generateExpert() {
   return {
     type: 'personEndorsement' as 'personEndorsement',
+    id: post_id_getNext(),
 
     location: faker.helpers.arrayElement(cro_dataset.cities),
     description: faker.lorem.text(),

@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker"
 import * as cro_dataset from "./data.cro.dataset"
+import { post_id_getNext } from "./data._utils"
 
 const withRelatedProps = [
   {
@@ -141,9 +142,9 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
 ]
 
 export default function generateProducts(){
-  return withRelatedProps.map(({ label, image, description }, index) => ({
+  return withRelatedProps.map(({ label, image, description }) => ({
     type: 'sellable' as 'sellable',
-    id: index + 1,
+    id: post_id_getNext(),
     label,
     mainImage: image,
     description,

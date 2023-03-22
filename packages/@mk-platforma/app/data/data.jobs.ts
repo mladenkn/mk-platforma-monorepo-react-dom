@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
 import * as cro_dataset from "./data.cro.dataset"
 import data_images from "./data.images.json"
+import { post_id_getNext } from "./data._utils"
 
 const jobs = [
   {
@@ -31,9 +32,9 @@ const jobs = [
 ]
 
 export default function generateJobs(){
-  return faker.helpers.shuffle(jobs).map(({ label }, index) => ({
+  return faker.helpers.shuffle(jobs).map(({ label }) => ({
     type: 'job' as 'job',
-    id: index + 1,
+    id: post_id_getNext(),
     label,
     description: generateArray(() => 'opis oglasa ', 30).join(''),
     location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages]),
