@@ -8,11 +8,16 @@ import PostAddIcon from '@mui/icons-material/PostAdd'
 import Header from "./Header"
 import ManageSearchIcon from '@mui/icons-material/ManageSearch'
 import { Category } from "./data/data.types"
+import HandymanIcon from '@mui/icons-material/Handyman'
+import BedIcon from '@mui/icons-material/Bed'
+import EngineeringIcon from '@mui/icons-material/Engineering'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
+import GroupsIcon from '@mui/icons-material/Groups'
 
 
 type Option = { id: Category, label: string }
 
-const allCategories: Category[] = ["job", "accommodation", "personEndorsement", "sellable",  "gathering"]
+const allCategories: Category[] = ["job", "accommodation", "personEndorsement", "sellable", "gathering"]
 
 export default function PostList_section(){
   const [selectedCategory, setSelectedCategory] = useState<Option | undefined | null>({ id: 'gathering', label: getCategoryLabel('gathering') })
@@ -52,10 +57,11 @@ export default function PostList_section(){
       </Fab>
       {selectedCategory ? 
         <Box
-          sx={{ fontSize: 26, mt: 2.5, px: 2, display: 'flex', gap: 0.7, }}
+          sx={{ fontSize: 26, mt: 2.5, px: 2, display: 'flex', gap: 0.7, alignItems: 'end', }}
           onClick={() => setCategoriesSelector_active(true)}
         >
-          <Chip sx={{ fontSize: 18, px: 1, py: 1.2 }} label={selectedCategory.label} size="medium" />
+          {getCategoryIcon(selectedCategory.id)}
+          {selectedCategory.label}
         </Box> :
         <></>
       }
@@ -131,5 +137,15 @@ function getCategoryLabel(category: Category){
     case 'personEndorsement': return 'Majstori'
     case 'gathering': return 'Okupljanja'
     case 'job': return 'Poslovi'
+  }
+}
+
+function getCategoryIcon(category: Category){
+  switch(category){
+    case 'accommodation': return <BedIcon sx={{ width: 28, height: 28 }} />
+    case 'sellable': return <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
+    case 'personEndorsement': return <EngineeringIcon sx={{ width: 28, height: 28 }} />
+    case 'gathering': return <GroupsIcon sx={{ width: 28, height: 28 }} />
+    case 'job': return <HandymanIcon sx={{ width: 28, height: 28 }} />
   }
 }
