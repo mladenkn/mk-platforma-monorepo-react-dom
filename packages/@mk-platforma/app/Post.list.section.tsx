@@ -60,7 +60,7 @@ export default function PostList_section() {
       </Fab>
       {selectedCategory ? (
         <Box
-          sx={{ fontSize: 42, mt: 2.5, px: 2, display: "flex", gap: 0.7, alignItems: "center" }}
+          sx={{ fontSize: 42, mt: 2.5, px: 2, display: "flex", gap: 0.7, alignItems: "end" }}
           onClick={() => setCategoriesSelector_active(true)}
         >
           <CategoryIcon sx={{ fontSize: 42 }} category={selectedCategory.id} />
