@@ -14,7 +14,7 @@ type CategoriesDropdown_Props = {
   setSelectedCategory(c?: Option | null): void
 }
 
-function CategoriesDropdown({ selectedCategory, setSelectedCategory }: CategoriesDropdown_Props) {
+export default function CategoriesDropdown({ selectedCategory, setSelectedCategory }: CategoriesDropdown_Props) {
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
       <Autocomplete
