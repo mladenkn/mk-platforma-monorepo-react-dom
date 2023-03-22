@@ -20,21 +20,20 @@ export function Post_expert_listItem({
   occupations,
 }: Post_expert_listItem_Props) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Box sx={{ display: "flex", alignItems: "center", }}>
       <Avatar
         sx={{
-          marginRight: 4,
+          marginRight: 2,
           ...avatarStyle,
         }}
         letter={firstName[0]}
       />
-      <Typography sx={{ fontWeight: 600, fontSize: 16, width: 115 }}>
+      <Typography sx={{ fontWeight: 600, fontSize: 16, width: 125 }}>
         {firstName} {lastName}
       </Typography>
       <Box
         sx={{
           pl: 1,
-          ml: 10,
           color: "text.secondary",
         }}
       >
