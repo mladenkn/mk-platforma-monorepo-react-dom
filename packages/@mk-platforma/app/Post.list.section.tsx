@@ -1,4 +1,4 @@
-import { Box, IconButton, Fab, Dialog, Autocomplete, TextField } from "@mui/material"
+import { Box, IconButton, Fab, Dialog, Autocomplete, TextField, Chip } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -75,8 +75,13 @@ export default function PostList_section(){
         <></>
       }
       {selectedCategories.length ? 
-        <Box sx={{ fontSize: 26, mt: 2.5, px: 2 }} onClick={() => setCategoriesSelector_active(true)}>
-          {selectedCategories.map(c => '@' + c.label).join(', ')}
+        <Box
+          sx={{ fontSize: 26, mt: 2.5, px: 2, display: 'flex', gap: 0.7, }}
+          onClick={() => setCategoriesSelector_active(true)}
+        >
+          {selectedCategories.map(c => (
+            <Chip sx={{ fontSize: 18, px: 1, py: 1.2 }} label={c.label} size="medium" />
+          ))}
         </Box> :
         <></>
       }
