@@ -1,4 +1,4 @@
-import { Box, IconButton, Fab, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Input } from "@mui/material"
+import { Box, IconButton, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Input } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -27,7 +27,17 @@ export default function PostList_section() {
     label: getCategoryLabel("gathering"),
   })
   const [search, setSearch] = useState('')
-  const [activeSearch, setActiveSearch] = useState<'byCategory' | 'byString'>('byCategory')
+  const [activeSearch, _setActiveSearch] = useState<'byCategory' | 'byString'>('byCategory')
+
+  function setActiveSearch(category: 'byCategory' | 'byString'){
+    if(category === 'byCategory')
+      setSearch('')
+    else
+      setSelectedCategory(undefined)
+
+    _setActiveSearch(category)
+  }
+  
 
   const filteredPosts = selectedCategory
     ? data.allPosts.filter(post => selectedCategory.id === post.type)
