@@ -11,7 +11,7 @@ type Option = { id: Category, label: string }
 
 type CategoriesDropdown_Props = {
   selectedCategory?: Option | null
-  setSelectedCategory(c?: Option | null): void
+  setSelectedCategory?(c?: Option | null): void
 }
 
 export default function CategoriesDropdown({ selectedCategory, setSelectedCategory }: CategoriesDropdown_Props) {
@@ -35,7 +35,7 @@ export default function CategoriesDropdown({ selectedCategory, setSelectedCatego
         }}
         value={selectedCategory}
         options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
-        onChange={(event, newValue) => setSelectedCategory(newValue)}
+        onChange={(event, newValue) => setSelectedCategory && setSelectedCategory(newValue)}
         renderOption={(props, option) => (
           <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
             <CategoryIcon category={option.id} sx={{ fontSize: 26, mr: 2 }} />
