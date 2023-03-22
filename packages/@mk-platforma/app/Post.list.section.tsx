@@ -42,7 +42,7 @@ export default function PostList_section() {
   }
   
   const filteredPosts = selectedCategory
-    ? data.allPosts.filter(post => selectedCategory.id === post.type)
+    ? data.allPosts.filter(post => tab === post.type)
     : data.allPosts
 
   return (
@@ -80,6 +80,7 @@ export default function PostList_section() {
             value={tab}
             centered
             onChange={(e, newValue) => setTab(newValue)}
+            variant="fullWidth"
           >
             {allCategories.slice(0, 3).map(category => (
               <Tab
@@ -102,7 +103,7 @@ export default function PostList_section() {
           </Tabs>
         }
       />
-      {activeSearch == 'byString' && (
+      {/* {activeSearch == 'byString' && (
         <Box sx={{ mx: 2, mt: 3, display: 'flex', alignItems: 'center', gap: 3, }}>
           <Input
             autoFocus
@@ -127,7 +128,7 @@ export default function PostList_section() {
             <SearchRoundedIcon sx={{ fontSize: 30 }} />
           </IconButton>
         </Box>
-      )}
+      )} */}
       <Box
         sx={{
           mt: 3.5,

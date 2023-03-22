@@ -14,7 +14,6 @@ export default function Header({ sx, right, bottom }: Props) {
         background: "#2d5be3",
         pt: 1.5,
         pb: bottom ? 0 : 3,
-        px: 2,
         ...sx,
       }}
     >
@@ -23,6 +22,7 @@ export default function Header({ sx, right, bottom }: Props) {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          px: 2,
         }}
       >
         <Box sx={{ ml: 0.2 }}>
