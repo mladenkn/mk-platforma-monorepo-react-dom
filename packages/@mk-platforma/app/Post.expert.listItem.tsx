@@ -4,7 +4,6 @@ import { CSSProperties } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 
-
 type Post_expert_listItem_Props = {
   avatarStyle: CSSProperties
   firstName: string
@@ -19,7 +18,7 @@ export function Post_expert_listItem({
   lastName,
   location,
   occupations,
-}: Post_expert_listItem_Props){
+}: Post_expert_listItem_Props) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Avatar
@@ -36,7 +35,7 @@ export function Post_expert_listItem({
         sx={{
           pl: 1,
           ml: 10,
-          color: 'text.secondary',
+          color: "text.secondary",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>

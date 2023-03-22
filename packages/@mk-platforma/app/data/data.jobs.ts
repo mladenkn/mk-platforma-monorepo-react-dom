@@ -31,14 +31,17 @@ const jobs = [
   },
 ]
 
-export default function generateJobs(){
+export default function generateJobs() {
   return faker.helpers.shuffle(jobs).map(({ label }) => ({
-    type: 'job' as 'job',
+    type: "job" as "job",
     id: post_id_getNext(),
     label,
-    description: generateArray(() => 'opis oglasa ', 30).join(''),
+    description: generateArray(() => "opis oglasa ", 30).join(""),
     location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages]),
-    photos: faker.helpers.arrayElements(data_images["posao selo kuća tesar zidar"], faker.datatype.number({ min: 1, max: 5 })),
+    photos: faker.helpers.arrayElements(
+      data_images["posao selo kuća tesar zidar"],
+      faker.datatype.number({ min: 1, max: 5 })
+    ),
     phoneNumber: faker.phone.number(),
   }))
 }

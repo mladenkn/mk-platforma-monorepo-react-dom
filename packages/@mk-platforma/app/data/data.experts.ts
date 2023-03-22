@@ -12,7 +12,7 @@ const avatarStyles = [
 
 export default function generateExpert() {
   return {
-    type: 'personEndorsement' as 'personEndorsement',
+    type: "personEndorsement" as "personEndorsement",
     id: post_id_getNext(),
 
     location: faker.helpers.arrayElement(cro_dataset.cities),

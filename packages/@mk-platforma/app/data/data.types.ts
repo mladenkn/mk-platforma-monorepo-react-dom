@@ -7,4 +7,4 @@ export type Post_base = {
   phoneNumber: string
 }
 
-export type Category = "job" | "accommodation" | "personEndorsement" | "sellable" |  "gathering"
+export type Category = "job" | "accommodation" | "personEndorsement" | "sellable" | "gathering"

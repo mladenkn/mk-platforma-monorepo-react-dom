@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext } from "react"
 
 export type AsyncOpContextValue = {
   defaultNotInitiated?(): JSX.Element
@@ -10,10 +10,8 @@ export type AsyncOpContextValue = {
 
 export const AsyncOpContext = createContext<AsyncOpContextValue | undefined>(undefined)
 
-export function useAsyncOpContext(){
+export function useAsyncOpContext() {
   const v = useContext(AsyncOpContext)
-  if(!v)
-    throw new Error('AsyncOpContext not provided')
-  else
-    return v
+  if (!v) throw new Error("AsyncOpContext not provided")
+  else return v
 }

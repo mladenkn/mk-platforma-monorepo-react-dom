@@ -38,14 +38,4 @@ export const cities = [
   "Varaždin",
 ]
 
-
-export const villages = [
-  "Vrgorac",
-  "Zagvozd",
-  "Blatuša",
-  "Krapina",
-  "Ramljane",
-  "Muć",
-  "Drniš",
-  "Cavtat",
-]
+export const villages = ["Vrgorac", "Zagvozd", "Blatuša", "Krapina", "Ramljane", "Muć", "Drniš", "Cavtat"]

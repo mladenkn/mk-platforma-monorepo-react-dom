@@ -18,25 +18,29 @@ const withRelatedProps = [
     label: "Izrada ograde od šiblja",
   },
   {
-    label: 'Duhovno okupljanje, meditacija...',
+    label: "Duhovno okupljanje, meditacija...",
   },
   {
-    label: 'Druženje, proslava rođendana',
+    label: "Druženje, proslava rođendana",
   },
   {
-    label: 'Proslava godišnjice mreže ZaBrata',
+    label: "Proslava godišnjice mreže ZaBrata",
   },
 ]
 
-export default function generateGatherings(){
+export default function generateGatherings() {
   return faker.helpers.shuffle(withRelatedProps).map(({ label }) => ({
-    type: 'gathering' as 'gathering',
+    type: "gathering" as "gathering",
     id: post_id_getNext(),
     label,
-    description: generateArray(() => 'opis oglasa ', 30).join(''),
-    location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages, ...cro_dataset.villages]),
+    description: generateArray(() => "opis oglasa ", 30).join(""),
+    location: faker.helpers.arrayElement([
+      ...cro_dataset.cities,
+      ...cro_dataset.villages,
+      ...cro_dataset.villages,
+    ]),
     photos: faker.helpers.arrayElements(
-      data_images['nature gathering action work'],
+      data_images["nature gathering action work"],
       faker.datatype.number({ min: 1, max: 6 })
     ),
     phoneNumber: faker.phone.number(),
