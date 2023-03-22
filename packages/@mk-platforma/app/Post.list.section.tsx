@@ -15,11 +15,11 @@ type Option = { id: Category, label: string }
 const allCategories: Category[] = ["job", "accommodation", "personEndorsement", "sellable",  "gathering"]
 
 export default function PostList_section(){
-  const [selectedCategories, setSelectedCategories] = useState<Option[]>([{ id: 'gathering', label: getCategoryLabel('gathering') }])
+  const [selectedCategory, setSelectedCategory] = useState<Option | undefined | null>({ id: 'gathering', label: getCategoryLabel('gathering') })
   const [categoriesSelector_active, setCategoriesSelector_active] = useState(false)
 
-  const filteredPosts = selectedCategories.length ?
-    data.allPosts.filter(post => selectedCategories.some(c => c.id === (post.type as Category))) :
+  const filteredPosts = selectedCategory ?
+    data.allPosts.filter(post => selectedCategory.id === post.type) :
     data.allPosts
 
   return (
@@ -50,6 +50,15 @@ export default function PostList_section(){
       >
         <ManageSearchIcon />
       </Fab>
+      {selectedCategory ? 
+        <Box
+          sx={{ fontSize: 26, mt: 2.5, px: 2, display: 'flex', gap: 0.7, }}
+          onClick={() => setCategoriesSelector_active(true)}
+        >
+          <Chip sx={{ fontSize: 18, px: 1, py: 1.2 }} label={selectedCategory.label} size="medium" />
+        </Box> :
+        <></>
+      }
       {categoriesSelector_active ? (
           <Dialog open onClose={() => setCategoriesSelector_active(false)}>
             <Box sx={{ p: 3, width: 320, height: 400, }}>
@@ -59,10 +68,9 @@ export default function PostList_section(){
                 open
                 sx={{ mb: 3, }}
                 disablePortal
-                multiple
-                value={selectedCategories}
+                value={selectedCategory}
                 options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
-                onChange={(event, newValue) => setSelectedCategories(newValue)}
+                onChange={(event, newValue) => setSelectedCategory(newValue)}
                 renderInput={params => (
                   <TextField
                     {...params}
@@ -74,17 +82,6 @@ export default function PostList_section(){
             </Box>
           </Dialog>
         ) :
-        <></>
-      }
-      {selectedCategories.length ? 
-        <Box
-          sx={{ fontSize: 26, mt: 2.5, px: 2, display: 'flex', gap: 0.7, }}
-          onClick={() => setCategoriesSelector_active(true)}
-        >
-          {selectedCategories.map(c => (
-            <Chip sx={{ fontSize: 18, px: 1, py: 1.2 }} label={c.label} size="medium" />
-          ))}
-        </Box> :
         <></>
       }
       <Box
