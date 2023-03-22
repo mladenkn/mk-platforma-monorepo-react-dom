@@ -5,14 +5,16 @@ import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_listItem_details } from "./Post.common.listItem"
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import PostAddIcon from '@mui/icons-material/PostAdd'
+import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import Header from "./Header"
 import ManageSearchIcon from '@mui/icons-material/ManageSearch'
 
 
-type Tab = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
+type Category = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
+const allCategories: Category[] = ["jobs", "accommodations", "experts", "buying-selling",  "gathering"]
 
 export default function PostList_section(){
-  const [activeTab, setActiveTab] = useState<Tab>('accommodations')
+  const [activeTab, setActiveTab] = useState<Category>('accommodations')
   const [categoriesSelector_active, setCategoriesSelector_active] = useState(false)
 
   return (
@@ -45,15 +47,10 @@ export default function PostList_section(){
       </Fab>
       {categoriesSelector_active ? (
           <Dialog open onClose={() => setCategoriesSelector_active(false)}>
-            <Box sx={{ p: 3, }}>
+            <Box sx={{ p: 3, width: 320, height: 400, }}>
               <Box sx={{ fontSize: 24, mb: 4.5 }}>Odaberite kategorije</Box>
-              <Autocomplete
-                disablePortal
-                options={[]}
-                sx={{ width: 300 }}
-                renderInput={params => <TextField {...params} label="Kategorije" />}
-              />
-            </Box>            
+              <CategorySelector_dropdown />
+            </Box>
           </Dialog>
         ) :
         <></>
@@ -110,4 +107,33 @@ export default function PostList_section(){
       </Box>
     </Box>
   )
+}
+
+function CategorySelector_dropdown(){
+  return (
+    <Autocomplete
+      fullWidth
+      open
+      sx={{ mb: 3, }}
+      disablePortal
+      options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
+      renderInput={params => (
+        <TextField
+          {...params}
+          label={"Kategorija"}
+          variant="standard"
+        />
+      )}
+    />
+  )
+}
+
+function getCategoryLabel(category: Category){
+  switch(category){
+    case 'accommodations': return 'Smještaji'
+    case 'buying-selling': return 'Nabava'
+    case 'experts': return 'Majstori'
+    case 'gathering': return 'Okupljanja'
+    case 'jobs': return 'Poslovi'
+  }
 }
