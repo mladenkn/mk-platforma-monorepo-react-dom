@@ -64,16 +64,43 @@ export default function PostList_section() {
             </IconButton>
           </a>
         }
-        // bottom={
-        //   <Tabs sx={{ px: 1, mt: 2, }} value={tab} centered onChange={(e, newValue) => setTab(newValue)} textColor="secondary" indicatorColor="secondary">
-        //     <Tab sx={{ textTransform: "none", fontSize: 18, color: 'white', }} label="@Smještaji" value="accommodations" />
-        //     <Tab sx={{ textTransform: "none", fontSize: 18, color: 'white', }} label="@Nabava" value="buying-selling" />
-        //     <Tab sx={{ textTransform: "none", fontSize: 18, color: 'white', }} label="@Okupljanje" value="gathering" />
-        //     <IconButton>
-        //       <KeyboardArrowDownOutlinedIcon />
-        //     </IconButton>
-        //   </Tabs>
-        // }
+        bottom={
+          <Tabs
+            sx={{ 
+              px: 1,
+              mt: 2,
+              mb: 0.1,
+              '.MuiTabs-indicator': {
+                background: 'white',
+              },
+              '.Mui-selected': {
+                color: 'white',
+              },
+            }}
+            value={tab}
+            centered
+            onChange={(e, newValue) => setTab(newValue)}
+          >
+            {allCategories.slice(0, 3).map(category => (
+              <Tab
+                sx={{
+                  textTransform: "none",
+                  fontSize: 18,
+                  color: 'white',
+                  '.Mui-selected': {
+                    color: 'white !important',
+                  },
+                }}
+                label={getCategoryLabel(category)}
+                value={category}
+                icon={<CategoryIcon category={category} />}
+              />
+            ))}
+            <IconButton>
+              <KeyboardArrowDownOutlinedIcon sx={{ color: 'white' }} />
+            </IconButton>
+          </Tabs>
+        }
       />
       {activeSearch == 'byString' && (
         <Box sx={{ mx: 2, mt: 3, display: 'flex', alignItems: 'center', gap: 3, }}>
