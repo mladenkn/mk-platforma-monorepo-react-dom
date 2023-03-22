@@ -9,14 +9,14 @@ type Post_common_listItem_props = {
 }
 
 export function Post_common_listItem({ label, location, photos, imageAtStart }: Post_common_listItem_props) {
-  const imageRight = photos?.length === 1 ? photos[0] : undefined
+  const imagesAtRight = photos?.length === 1
   return (
     <Box
       sx={{
         flex: 1,
         display: "flex",
-        flexDirection: imageAtStart || imageRight ? "row" : "column",
-        justifyContent: imageRight ? "space-between" : "unset",
+        flexDirection: imageAtStart || imagesAtRight ? "row" : "column",
+        justifyContent: imagesAtRight ? "space-between" : "unset",
       }}
     >
       {imageAtStart && <img src={imageAtStart} width={100} height={100} style={{ marginRight: 24 }} />}
@@ -32,27 +32,29 @@ export function Post_common_listItem({ label, location, photos, imageAtStart }: 
         </Box>
       </Box>
 
-      {imageRight && <img src={imageRight} width={100} height={100} style={{}} />}
+      {photos?.length && <Images images={photos} />}
+    </Box>
+  )
+}
 
-      {(photos?.length || 0) > 1 && (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "right",
-            flex: 1,
-            mt: 3,
-          }}
-        >
-          <Box sx={{ display: "flex", gap: 1 }}>
-            {photos!
-              .filter(p => p)
-              .slice(0, 3)
-              .map((photo, index) => (
-                <img key={index} width={75} height={75} src={photo} />
-              ))}
-          </Box>
-        </Box>
-      )}
+function Images({ images }: { images: string[] }){
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "right",
+        flex: 1,
+        mt: 3,
+      }}
+    >
+      <Box sx={{ display: "flex", gap: 1 }}>
+        {images!
+          .filter(p => p)
+          .slice(0, 3)
+          .map((image, index) => (
+            <img key={index} width={75} height={75} src={image} />
+          ))}
+      </Box>
     </Box>
   )
 }
