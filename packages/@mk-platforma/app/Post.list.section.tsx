@@ -15,9 +15,12 @@ type Option = { id: Category, label: string }
 const allCategories: Category[] = ["job", "accommodation", "personEndorsement", "sellable",  "gathering"]
 
 export default function PostList_section(){
-  const [activeTab, setActiveTab] = useState<Category>('accommodation')
-  const [selectedCategories, setSelectedCategories] = useState<Option[]>([])
+  const [selectedCategories, setSelectedCategories] = useState<Option[]>([{ id: 'gathering', label: getCategoryLabel('gathering') }])
   const [categoriesSelector_active, setCategoriesSelector_active] = useState(false)
+
+  const filteredPosts = selectedCategories.length ?
+    data.allPosts.filter(post => selectedCategories.some(c => c.id === (post.type as Category))) :
+    data.allPosts
 
   return (
     <Box
@@ -96,43 +99,29 @@ export default function PostList_section(){
           minHeight: 0,
         }}
       >
-        {activeTab === 'job' ? (
-          <Post_list_base
-            items={data.jobs}
-            Item={Post_common_listItem}
-            Item_details={Post_common_listItem_details}
-          />
-        ) : <></>}
-        {activeTab === 'accommodation' ? (
-          <Post_list_base
-            items={data.accommodations} 
-            Item={Post_common_listItem}
-            Item_details={Post_common_listItem_details}
-          />
-        ) : <></>}
-        {activeTab === 'personEndorsement' ? (                
-          <Post_list_base
-            items={data.experts}
-            Item={item => <Post_expert_listItem {...item} />}
-            Item_details={item => (
-              <Post_common_listItem_details label={`${item.firstName} ${item.lastName}`} {...item} />
-            )}
-          />
-        ) : <></>}
-        {activeTab === 'sellable' ? (
-          <Post_list_base
-            items={data.sellableItems}
-            Item={item => <Post_common_listItem {...item} imageAtStart={item.mainImage} />}
-            Item_details={item => <Post_common_listItem_details {...item} />}
-          />
-        ) : <></>}
-        {activeTab === 'gathering' ? (
-          <Post_list_base
-            items={data.gatherings}
-            Item={Post_common_listItem}
-            Item_details={Post_common_listItem_details}
-          />
-        ) : <></>}
+        <Post_list_base
+          items={filteredPosts}
+          Item={item => {
+            switch(item.type){
+              case 'personEndorsement':
+                return <Post_expert_listItem {...item as any} />
+              case 'sellable':
+                return <Post_common_listItem {...item as any} imageAtStart={item.mainImage} />
+              default:
+                return <Post_common_listItem {...item as any} />
+            }
+          }}
+          Item_details={item => {
+            switch(item.type){
+              case 'personEndorsement':
+                return <Post_common_listItem_details label={`${item.firstName} ${item.lastName}`} {...item} />
+              case 'sellable':
+                return <Post_common_listItem_details {...item as any} />
+              default:
+                return <Post_common_listItem_details {...item as any} />
+            }
+          }}
+        />
       </Box>
     </Box>
   )

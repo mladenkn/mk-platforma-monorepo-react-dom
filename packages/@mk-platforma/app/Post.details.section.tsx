@@ -9,7 +9,7 @@ import ListAltOutlinedIcon from '@mui/icons-material/ListAltOutlined'
 export default function Post_details_section(){
   const router = useRouter()
   const itemId = parseInt(router.query.id as string)!
-  const item = data.gatherings.find(g => g.id === itemId)
+  const item = data.allPosts.find(g => g.id === itemId)
   return (
     <Box>
       <Header
@@ -22,7 +22,7 @@ export default function Post_details_section(){
           </a>
         }
       />
-      {item ? <Post_common_listItem_details {...item!} /> : 'Objava nije pronađena'}
+      {item ? <Post_common_listItem_details {...item as any} /> : 'Objava nije pronađena'}
     </Box>    
   )
 }

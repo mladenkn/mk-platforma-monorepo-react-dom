@@ -15,4 +15,9 @@ const data = {
   ...require("./data.accommodations")
 }
 
-writeFileSync("./data/data.json", JSON.stringify(data, null, 2))
+const data2 = {
+  ...data,
+  allPosts: faker.helpers.shuffle(Object.values(data).flat())
+}
+
+writeFileSync("./data/data.json", JSON.stringify(data2, null, 2))
