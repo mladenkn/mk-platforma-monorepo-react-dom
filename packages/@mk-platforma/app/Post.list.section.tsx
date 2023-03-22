@@ -1,4 +1,4 @@
-import { Box, IconButton, Fab, Dialog, Autocomplete, TextField, SxProps } from "@mui/material"
+import { Box, IconButton, Fab, ThemeProvider, Autocomplete, TextField, SxProps, createTheme } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -69,11 +69,24 @@ export default function PostList_section() {
       ) : (
         <></>
       )} */}
-      {categoriesSelector_active ?
-        <Box sx={{ mx: 2, }}>
+      <Box sx={{ mx: 2, mt: 3, }}>
+        <ThemeProvider theme={createTheme({ spacing: 8, })}>
           <Autocomplete
             fullWidth
-            sx={{ mb: 3 }}
+            sx={{ 
+              '.MuiAutocomplete-popupIndicator': {
+                mb: 2,
+              },
+              '.MuiAutocomplete-clearIndicator': {
+                mb: 2,
+              },
+              '.MuiAutocomplete-popupIndicator svg': {
+                fontSize: 30,
+              },
+              '.MuiAutocomplete-clearIndicator svg': {
+                fontSize: 24,
+              },
+            }}
             disablePortal
             value={selectedCategory}
             options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
@@ -83,21 +96,20 @@ export default function PostList_section() {
                 {...params}
                 variant="standard"
                 sx={{
-                  fontSize: 42,
+                  fontSize: 36,
                 }}
                 InputProps={{
                   ...params.InputProps,
                   sx: {
-                    fontSize: 42,
+                    fontSize: 36,
                   },
-                  startAdornment: selectedCategory ? <CategoryIcon sx={{ fontSize: 42, mr: 2, }} category={selectedCategory.id} /> : <></>,
+                  startAdornment: selectedCategory ? <CategoryIcon sx={{ fontSize: 36, mr: 2, }} category={selectedCategory.id} /> : <></>,
                 }}
               />
             )}
-          /> 
-        </Box> :
-        <></>
-      }
+          />
+        </ThemeProvider>
+      </Box>
       <Box
         sx={{
           mt: 3.5,
