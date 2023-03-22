@@ -87,7 +87,6 @@ export default function PostList_section() {
                 fontSize: 24,
               },
             }}
-            disablePortal
             value={selectedCategory}
             options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
             onChange={(event, newValue) => setSelectedCategory(newValue)}
