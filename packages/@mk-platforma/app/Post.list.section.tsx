@@ -70,54 +70,12 @@ export default function PostList_section() {
         <></>
       )} */}
       <Box sx={{ mx: 2, mt: 3, }}>
-        <ThemeProvider theme={createTheme({ spacing: 8, })}>
-          <Autocomplete
-            fullWidth
-            open={categoriesSelector_active}
-            onOpen={() => setCategoriesSelector_active(true)}
-            onClose={() => setCategoriesSelector_active(false)}
-            sx={{ 
-              '.MuiAutocomplete-popupIndicator': {
-                mb: 2,
-              },
-              '.MuiAutocomplete-clearIndicator': {
-                mb: 2,
-              },
-              '.MuiAutocomplete-popupIndicator svg': {
-                fontSize: 30,
-              },
-              '.MuiAutocomplete-clearIndicator svg': {
-                fontSize: 24,
-              },
-            }}
-            value={selectedCategory}
-            options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
-            onChange={(event, newValue) => setSelectedCategory(newValue)}
-            renderOption={(props, option) => (
-              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-                <CategoryIcon category={option.id} sx={{ fontSize: 26, mr: 2, }} />
-                {option.label}
-              </Box>
-            )}
-            renderInput={params => (
-              <TextField
-                {...params}
-                focused={categoriesSelector_active}
-                variant="standard"
-                sx={{
-                  fontSize: 32,
-                }}
-                InputProps={{
-                  ...params.InputProps,
-                  sx: {
-                    fontSize: 32,
-                  },
-                  startAdornment: selectedCategory ? <CategoryIcon sx={{ fontSize: 32, mr: 2, }} category={selectedCategory.id} /> : <></>,
-                }}
-              />
-            )}
-          />
-        </ThemeProvider>
+        <CategoriesDropdown
+          isOpen={categoriesSelector_active}
+          setIsOpen={setCategoriesSelector_active}
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
       </Box>
       <Box
         sx={{
@@ -187,4 +145,69 @@ function CategoryIcon({ category, sx }: { category: Category; sx?: SxProps }) {
     case "job":
       return <HandymanIcon sx={sx} />
   }
+}
+
+type CategoriesDropdown_Props = {
+  isOpen: boolean
+  setIsOpen: (a: boolean) => void
+  selectedCategory?: Option | null
+  setSelectedCategory(c?: Option | null): void
+}
+
+function CategoriesDropdown({
+  isOpen,
+  setIsOpen,
+  selectedCategory,
+  setSelectedCategory,
+}: CategoriesDropdown_Props){
+  return (
+    <ThemeProvider theme={createTheme({ spacing: 8, })}>
+      <Autocomplete
+        fullWidth
+        open={isOpen}
+        onOpen={() => setIsOpen(true)}
+        onClose={() => setIsOpen(false)}
+        sx={{ 
+          '.MuiAutocomplete-popupIndicator': {
+            mb: 2,
+          },
+          '.MuiAutocomplete-clearIndicator': {
+            mb: 2,
+          },
+          '.MuiAutocomplete-popupIndicator svg': {
+            fontSize: 30,
+          },
+          '.MuiAutocomplete-clearIndicator svg': {
+            fontSize: 24,
+          },
+        }}
+        value={selectedCategory}
+        options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
+        onChange={(event, newValue) => setSelectedCategory(newValue)}
+        renderOption={(props, option) => (
+          <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+            <CategoryIcon category={option.id} sx={{ fontSize: 26, mr: 2, }} />
+            {option.label}
+          </Box>
+        )}
+        renderInput={params => (
+          <TextField
+            {...params}
+            focused={isOpen}
+            variant="standard"
+            sx={{
+              fontSize: 32,
+            }}
+            InputProps={{
+              ...params.InputProps,
+              sx: {
+                fontSize: 32,
+              },
+              startAdornment: selectedCategory ? <CategoryIcon sx={{ fontSize: 32, mr: 2, }} category={selectedCategory.id} /> : <></>,
+            }}
+          />
+        )}
+      />
+    </ThemeProvider>
+  )
 }
