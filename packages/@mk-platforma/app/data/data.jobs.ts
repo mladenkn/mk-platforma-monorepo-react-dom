@@ -33,7 +33,7 @@ const jobs = [
 
 export default function generateJobs() {
   return faker.helpers.shuffle(jobs).map(({ label }) => ({
-    type: "job" as "job",
+    categories: ["job" as "job"],
     id: post_id_getNext(),
     label,
     description: generateArray(() => "opis oglasa ", 30).join(""),

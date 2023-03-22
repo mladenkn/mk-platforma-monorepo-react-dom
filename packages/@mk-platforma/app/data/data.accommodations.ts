@@ -17,7 +17,7 @@ const withRelatedProps = [
 ]
 
 export const accommodations = [...withRelatedProps, ...withRelatedProps].map(({ label }) => ({
-  type: "accommodation" as "accommodation",
+  categories: ["accommodation" as "accommodation"],
   id: post_id_getNext(),
   label,
   description: generateArray(() => "opis oglasa ", 30).join(""),

@@ -59,7 +59,7 @@ export default function PostList_section() {
     _setActiveSearch(category)
   }
 
-  const filteredPosts = selectedCategory ? data.allPosts.filter(post => tab === post.type) : data.allPosts
+  const filteredPosts = selectedCategory ? data.allPosts.filter(post => post.categories.includes(tab)) : data.allPosts
 
   return (
     <Box
@@ -189,7 +189,7 @@ export default function PostList_section() {
         <Post_list_base
           items={filteredPosts}
           Item={item => {
-            switch (item.type) {
+            switch (item.categories[0]) { // problem
               case "personEndorsement":
                 return <Post_expert_listItem {...(item as any)} />
               case "sellable":
@@ -199,7 +199,7 @@ export default function PostList_section() {
             }
           }}
           Item_details={item => {
-            switch (item.type) {
+            switch (item.categories[0]) { // problem
               case "personEndorsement":
                 return <Post_common_listItem_details label={`${item.firstName} ${item.lastName}`} {...item} />
               case "sellable":

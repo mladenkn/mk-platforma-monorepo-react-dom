@@ -30,7 +30,7 @@ const withRelatedProps = [
 
 export default function generateGatherings() {
   return faker.helpers.shuffle(withRelatedProps).map(({ label }) => ({
-    type: "gathering" as "gathering",
+    categories: ["gathering" as "gathering"],
     id: post_id_getNext(),
     label,
     description: generateArray(() => "opis oglasa ", 30).join(""),
