@@ -9,13 +9,13 @@ import Header from "./Header"
 import ManageSearchIcon from '@mui/icons-material/ManageSearch'
 
 
-export type Category = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
+export type Category = "job" | "accommodation" | "personEndorsement" | "sellable" |  "gathering"
 type Option = { id: Category, label: string }
 
-const allCategories: Category[] = ["jobs", "accommodations", "experts", "buying-selling",  "gathering"]
+const allCategories: Category[] = ["job", "accommodation", "personEndorsement", "sellable",  "gathering"]
 
 export default function PostList_section(){
-  const [activeTab, setActiveTab] = useState<Category>('accommodations')
+  const [activeTab, setActiveTab] = useState<Category>('accommodation')
   const [selectedCategories, setSelectedCategories] = useState<Option[]>([])
   const [categoriesSelector_active, setCategoriesSelector_active] = useState(false)
 
@@ -96,21 +96,21 @@ export default function PostList_section(){
           minHeight: 0,
         }}
       >
-        {activeTab === 'jobs' ? (
+        {activeTab === 'job' ? (
           <Post_list_base
             items={data.jobs}
             Item={Post_common_listItem}
             Item_details={Post_common_listItem_details}
           />
         ) : <></>}
-        {activeTab === 'accommodations' ? (
+        {activeTab === 'accommodation' ? (
           <Post_list_base
             items={data.accommodations} 
             Item={Post_common_listItem}
             Item_details={Post_common_listItem_details}
           />
         ) : <></>}
-        {activeTab === 'experts' ? (                
+        {activeTab === 'personEndorsement' ? (                
           <Post_list_base
             items={data.experts}
             Item={item => <Post_expert_listItem {...item} />}
@@ -119,7 +119,7 @@ export default function PostList_section(){
             )}
           />
         ) : <></>}
-        {activeTab === 'buying-selling' ? (
+        {activeTab === 'sellable' ? (
           <Post_list_base
             items={data.sellableItems}
             Item={item => <Post_common_listItem {...item} imageAtStart={item.mainImage} />}
@@ -140,10 +140,10 @@ export default function PostList_section(){
 
 function getCategoryLabel(category: Category){
   switch(category){
-    case 'accommodations': return 'Smještaji'
-    case 'buying-selling': return 'Nabava'
-    case 'experts': return 'Majstori'
+    case 'accommodation': return 'Smještaji'
+    case 'sellable': return 'Nabava'
+    case 'personEndorsement': return 'Majstori'
     case 'gathering': return 'Okupljanja'
-    case 'jobs': return 'Poslovi'
+    case 'job': return 'Poslovi'
   }
 }
