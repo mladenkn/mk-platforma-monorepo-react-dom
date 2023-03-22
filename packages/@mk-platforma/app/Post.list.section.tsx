@@ -91,6 +91,12 @@ export default function PostList_section() {
             value={selectedCategory}
             options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
             onChange={(event, newValue) => setSelectedCategory(newValue)}
+            renderOption={(props, option) => (
+              <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+                <CategoryIcon category={option.id} sx={{ fontSize: 26, mr: 2, }} />
+                {option.label}
+              </Box>
+            )}
             renderInput={params => (
               <TextField
                 {...params}
