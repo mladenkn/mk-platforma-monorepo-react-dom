@@ -31,6 +31,7 @@ export default function PostList_section() {
   const [activeSearch, _setActiveSearch] = useState<'byCategory' | 'byString'>('byCategory')
 
   const [tab, setTab] = useState<Category>('accommodation')
+  const [additionalTabsShown, setAdditionalTabsShown] = useState(false)
 
   function setActiveSearch(category: 'byCategory' | 'byString'){
     if(category === 'byCategory')
@@ -72,9 +73,10 @@ export default function PostList_section() {
               mb: 0.1,
               '.MuiTabs-indicator': {
                 background: 'white',
+                height: 3
               },
               '.Mui-selected': {
-                color: 'white',
+                color: 'white !important',
               },
             }}
             value={tab}
@@ -97,7 +99,7 @@ export default function PostList_section() {
                 icon={<CategoryIcon category={category} />}
               />
             ))}
-            <IconButton>
+            <IconButton onClick={() => setAdditionalTabsShown(true)}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: 'white' }} />
             </IconButton>
           </Tabs>
