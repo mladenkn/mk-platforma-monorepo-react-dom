@@ -1,4 +1,4 @@
-import { Box, IconButton, Fab, Dialog, Autocomplete, TextField, Chip } from "@mui/material"
+import { Box, IconButton, Fab, Dialog, Autocomplete, TextField, Chip, SxProps } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -57,10 +57,10 @@ export default function PostList_section(){
       </Fab>
       {selectedCategory ? 
         <Box
-          sx={{ fontSize: 26, mt: 2.5, px: 2, display: 'flex', gap: 0.7, alignItems: 'end', }}
+          sx={{ fontSize: 42, mt: 2.5, px: 2, display: 'flex', gap: 0.7, alignItems: 'center', }}
           onClick={() => setCategoriesSelector_active(true)}
         >
-          {getCategoryIcon(selectedCategory.id)}
+          <CategoryIcon sx={{ fontSize: 42, }} category={selectedCategory.id} />
           {selectedCategory.label}
         </Box> :
         <></>
@@ -140,12 +140,12 @@ function getCategoryLabel(category: Category){
   }
 }
 
-function getCategoryIcon(category: Category){
+function CategoryIcon({ category, sx }: { category: Category, sx?: SxProps }){
   switch(category){
-    case 'accommodation': return <BedIcon sx={{ width: 28, height: 28 }} />
-    case 'sellable': return <ShoppingCartIcon sx={{ width: 28, height: 28 }} />
-    case 'personEndorsement': return <EngineeringIcon sx={{ width: 28, height: 28 }} />
-    case 'gathering': return <GroupsIcon sx={{ width: 28, height: 28 }} />
-    case 'job': return <HandymanIcon sx={{ width: 28, height: 28 }} />
+    case 'accommodation': return <BedIcon sx={sx} />
+    case 'sellable': return <ShoppingCartIcon sx={sx} />
+    case 'personEndorsement': return <EngineeringIcon sx={sx} />
+    case 'gathering': return <GroupsIcon sx={sx} />
+    case 'job': return <HandymanIcon sx={sx} />
   }
 }
