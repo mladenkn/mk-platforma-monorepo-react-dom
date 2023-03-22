@@ -29,6 +29,7 @@ const withRelatedProps = [
 
 export default function generateGatherings(){
   return faker.helpers.shuffle(withRelatedProps).map(({ label }, index) => ({
+    type: 'gathering' as 'gathering',
     id: index + 1,
     label,
     description: generateArray(() => 'opis oglasa ', 30).join(''),

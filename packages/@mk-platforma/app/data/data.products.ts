@@ -142,6 +142,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
 
 export default function generateProducts(){
   return withRelatedProps.map(({ label, image, description }, index) => ({
+    type: 'sellable' as 'sellable',
     id: index + 1,
     label,
     mainImage: image,
