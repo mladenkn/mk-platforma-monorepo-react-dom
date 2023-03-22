@@ -11,10 +11,13 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch'
 
 
 type Category = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
+type Option = { id: Category, label: string }
+
 const allCategories: Category[] = ["jobs", "accommodations", "experts", "buying-selling",  "gathering"]
 
 export default function PostList_section(){
   const [activeTab, setActiveTab] = useState<Category>('accommodations')
+  const [selectedCategories, setSelectedCategories] = useState<Option[]>([])
   const [categoriesSelector_active, setCategoriesSelector_active] = useState(false)
 
   return (
@@ -49,7 +52,23 @@ export default function PostList_section(){
           <Dialog open onClose={() => setCategoriesSelector_active(false)}>
             <Box sx={{ p: 3, width: 320, height: 400, }}>
               <Box sx={{ fontSize: 24, mb: 4.5 }}>Odaberite kategorije</Box>
-              <CategorySelector_dropdown />
+              <Autocomplete
+                fullWidth
+                open
+                sx={{ mb: 3, }}
+                disablePortal
+                multiple
+                value={selectedCategories}
+                options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
+                onChange={(event, newValue) => setSelectedCategories(newValue)}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    label={"Kategorija"}
+                    variant="standard"
+                  />
+                )}
+              />
             </Box>
           </Dialog>
         ) :
@@ -106,25 +125,6 @@ export default function PostList_section(){
         ) : <></>}
       </Box>
     </Box>
-  )
-}
-
-function CategorySelector_dropdown(){
-  return (
-    <Autocomplete
-      fullWidth
-      open
-      sx={{ mb: 3, }}
-      disablePortal
-      options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
-      renderInput={params => (
-        <TextField
-          {...params}
-          label={"Kategorija"}
-          variant="standard"
-        />
-      )}
-    />
   )
 }
 
