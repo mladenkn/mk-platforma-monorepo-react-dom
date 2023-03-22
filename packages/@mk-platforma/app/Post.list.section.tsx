@@ -1,5 +1,5 @@
-import { Box, IconButton, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Tabs, Tab, Input } from "@mui/material"
-import { useState } from "react"
+import { Box, IconButton, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Tabs, Tab, Input, Popover } from "@mui/material"
+import { useState, MouseEvent } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_listItem_details } from "./Post.common.listItem"
@@ -32,6 +32,11 @@ export default function PostList_section() {
 
   const [tab, setTab] = useState<Category>('accommodation')
   const [additionalTabsShown, setAdditionalTabsShown] = useState(false)
+  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(null)
+
+  function handle_showMoreTabs(event: MouseEvent<HTMLButtonElement>){
+    setAdditionalTabsShownAnchorEl(event.currentTarget)
+  }
 
   function setActiveSearch(category: 'byCategory' | 'byString'){
     if(category === 'byCategory')
@@ -99,12 +104,23 @@ export default function PostList_section() {
                 icon={<CategoryIcon category={category} />}
               />
             ))}
-            <IconButton onClick={() => setAdditionalTabsShown(true)}>
+            <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: 'white' }} />
             </IconButton>
           </Tabs>
         }
       />
+      <Popover
+        open={!!additionalTabsShownAnchorEl}
+        anchorEl={additionalTabsShownAnchorEl}
+        onClose={() => setAdditionalTabsShownAnchorEl(null)}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        The content of the Popover.
+      </Popover>
       {/* {activeSearch == 'byString' && (
         <Box sx={{ mx: 2, mt: 3, display: 'flex', alignItems: 'center', gap: 3, }}>
           <Input
