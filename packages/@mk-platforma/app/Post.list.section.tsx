@@ -1,4 +1,4 @@
-import { Box, IconButton, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Tabs, Tab, Input, Popover } from "@mui/material"
+import { Box, IconButton, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Tabs, Tab, Input, Popover, Button } from "@mui/material"
 import { useState, MouseEvent } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -127,7 +127,7 @@ export default function PostList_section() {
       >
         <Box sx={{ px: 2, py: 1.4, display: 'flex', flexDirection: 'column', gap: 2, }}>
           {allCategories.slice(3).map(category => (
-            <Box sx={{ display: 'flex', gap: 2, fontSize: 20, }}>
+            <Box sx={{ display: 'flex', gap: 2, fontSize: 20, }} onClick={() => setTab(category)}>
               <CategoryIcon category={category} />
               <Box sx={{  }}>{getCategoryLabel(category)}</Box>
             </Box>
