@@ -116,10 +116,22 @@ export default function PostList_section() {
         onClose={() => setAdditionalTabsShownAnchorEl(null)}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'left',
+          horizontal: 'right',
+        }}
+        PaperProps={{
+          sx: {
+            right: 0,
+          }
         }}
       >
-        The content of the Popover.
+        <Box sx={{ px: 2, py: 1.4, display: 'flex', flexDirection: 'column', gap: 2, }}>
+          {allCategories.slice(3).map(category => (
+            <Box sx={{ display: 'flex', gap: 2, fontSize: 24, }}>
+              <CategoryIcon category={category} />
+              <Box sx={{  }}>{getCategoryLabel(category)}</Box>
+            </Box>
+          ))}
+        </Box>
       </Popover>
       {/* {activeSearch == 'byString' && (
         <Box sx={{ mx: 2, mt: 3, display: 'flex', alignItems: 'center', gap: 3, }}>
