@@ -64,11 +64,16 @@ export default function PostList_section() {
     >
       <Header
         right={
-          <a href="/post/create" style={{ textDecoration: "none" }}>
-            <IconButton sx={{ display: "flex", gap: 1 }}>
-              <PostAddIcon sx={{ color: "white", width: 30, height: 30 }} />
+          <Box sx={{ pr: 1, }}>
+            <a href="/post/create" style={{ textDecoration: "none" }}>
+              <IconButton sx={{ p: 1, }}>
+                <PostAddIcon sx={{ color: "white", fontSize: 30 }} />
+              </IconButton>
+            </a>
+            <IconButton sx={{ p: 1, }}>
+              <SearchIcon sx={{ color: "white", fontSize: 30 }} />
             </IconButton>
-          </a>
+          </Box>
         }
         bottom={
           <Tabs
