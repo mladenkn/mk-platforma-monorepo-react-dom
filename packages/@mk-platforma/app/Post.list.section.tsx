@@ -73,6 +73,9 @@ export default function PostList_section() {
         <ThemeProvider theme={createTheme({ spacing: 8, })}>
           <Autocomplete
             fullWidth
+            open={categoriesSelector_active}
+            onOpen={() => setCategoriesSelector_active(true)}
+            onClose={() => setCategoriesSelector_active(false)}
             sx={{ 
               '.MuiAutocomplete-popupIndicator': {
                 mb: 2,
@@ -99,6 +102,7 @@ export default function PostList_section() {
             renderInput={params => (
               <TextField
                 {...params}
+                focused={categoriesSelector_active}
                 variant="standard"
                 sx={{
                   fontSize: 36,
