@@ -1,4 +1,4 @@
-import { Box, IconButton, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Input } from "@mui/material"
+import { Box, IconButton, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Tabs, Tab, Input } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -12,6 +12,7 @@ import HandymanIcon from "@mui/icons-material/Handyman"
 import BedIcon from "@mui/icons-material/Bed"
 import EngineeringIcon from "@mui/icons-material/Engineering"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import GroupsIcon from "@mui/icons-material/Groups"
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded"
 import SearchIcon from "@mui/icons-material/Search"
@@ -29,6 +30,8 @@ export default function PostList_section() {
   const [search, setSearch] = useState('')
   const [activeSearch, _setActiveSearch] = useState<'byCategory' | 'byString'>('byCategory')
 
+  const [tab, setTab] = useState<Category>('accommodation')
+
   function setActiveSearch(category: 'byCategory' | 'byString'){
     if(category === 'byCategory')
       setSearch('')
@@ -38,7 +41,6 @@ export default function PostList_section() {
     _setActiveSearch(category)
   }
   
-
   const filteredPosts = selectedCategory
     ? data.allPosts.filter(post => selectedCategory.id === post.type)
     : data.allPosts
@@ -62,6 +64,16 @@ export default function PostList_section() {
             </IconButton>
           </a>
         }
+        // bottom={
+        //   <Tabs sx={{ px: 1, mt: 2, }} value={tab} centered onChange={(e, newValue) => setTab(newValue)} textColor="secondary" indicatorColor="secondary">
+        //     <Tab sx={{ textTransform: "none", fontSize: 18, color: 'white', }} label="@Smještaji" value="accommodations" />
+        //     <Tab sx={{ textTransform: "none", fontSize: 18, color: 'white', }} label="@Nabava" value="buying-selling" />
+        //     <Tab sx={{ textTransform: "none", fontSize: 18, color: 'white', }} label="@Okupljanje" value="gathering" />
+        //     <IconButton>
+        //       <KeyboardArrowDownOutlinedIcon />
+        //     </IconButton>
+        //   </Tabs>
+        // }
       />
       {activeSearch == 'byString' && (
         <Box sx={{ mx: 2, mt: 3, display: 'flex', alignItems: 'center', gap: 3, }}>
