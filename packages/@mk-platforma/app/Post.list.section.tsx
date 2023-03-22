@@ -74,9 +74,15 @@ export default function PostList_section(){
         ) :
         <></>
       }
+      {selectedCategories.length ? 
+        <Box sx={{ fontSize: 26, mt: 2.5, px: 2 }} onClick={() => setCategoriesSelector_active(true)}>
+          {selectedCategories.map(c => '@' + c.label).join(', ')}
+        </Box> :
+        <></>
+      }
       <Box
         sx={{
-          mt: 4,
+          mt: 3.5,
           pb: 3,
           px: 2,
           display: "flex",
