@@ -5,12 +5,11 @@ import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_listItem_details } from "./Post.common.listItem"
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import PostAddIcon from '@mui/icons-material/PostAdd'
-import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
 import Header from "./Header"
 import ManageSearchIcon from '@mui/icons-material/ManageSearch'
 
 
-type Category = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
+export type Category = "jobs" | "accommodations" | "experts" | "buying-selling" |  "gathering"
 type Option = { id: Category, label: string }
 
 const allCategories: Category[] = ["jobs", "accommodations", "experts", "buying-selling",  "gathering"]
