@@ -120,13 +120,14 @@ export default function PostList_section() {
         }}
         PaperProps={{
           sx: {
+            left: 'unset !important',
             right: 0,
           }
         }}
       >
         <Box sx={{ px: 2, py: 1.4, display: 'flex', flexDirection: 'column', gap: 2, }}>
           {allCategories.slice(3).map(category => (
-            <Box sx={{ display: 'flex', gap: 2, fontSize: 24, }}>
+            <Box sx={{ display: 'flex', gap: 2, fontSize: 20, }}>
               <CategoryIcon category={category} />
               <Box sx={{  }}>{getCategoryLabel(category)}</Box>
             </Box>
