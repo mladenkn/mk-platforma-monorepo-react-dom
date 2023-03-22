@@ -58,7 +58,7 @@ export default function Post_list_base<TItem extends Item>({
         {filteredItems.map(item => (
           <Paper
             key={item.id}
-            sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2, }}
+            sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}
             onClick={() => onItemClick(item)}
           >
             <ListItem {...item} />

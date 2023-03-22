@@ -9,8 +9,16 @@ type Post_common_listItem_props = {
 }
 
 export function Post_common_listItem({ label, location, photos, imageAtStart }: Post_common_listItem_props) {
+  const imageRight = photos?.length === 1 ? photos[0] : undefined
   return (
-    <Box sx={{ flex: 1, display: "flex", flexDirection: imageAtStart ? "row" : "column" }}>
+    <Box
+      sx={{
+        flex: 1,
+        display: "flex",
+        flexDirection: imageAtStart || imageRight ? "row" : "column",
+        justifyContent: imageRight ? "space-between" : "unset",
+      }}
+    >
       {imageAtStart && <img src={imageAtStart} width={100} height={100} style={{ marginRight: 24 }} />}
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -24,7 +32,9 @@ export function Post_common_listItem({ label, location, photos, imageAtStart }: 
         </Box>
       </Box>
 
-      {!!photos?.length && (
+      {imageRight && <img src={imageRight} width={100} height={100} style={{}} />}
+
+      {(photos?.length || 0) > 1 && (
         <Box
           sx={{
             display: "flex",
@@ -34,7 +44,7 @@ export function Post_common_listItem({ label, location, photos, imageAtStart }: 
           }}
         >
           <Box sx={{ display: "flex", gap: 1 }}>
-            {photos
+            {photos!
               .filter(p => p)
               .slice(0, 3)
               .map((photo, index) => (

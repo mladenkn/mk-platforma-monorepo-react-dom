@@ -7,7 +7,7 @@ type BottomSheet_Props = {
   onClickAway?(e: any): void
 }
 
-export function BottomSheet({ sx, children, onClickAway = () => {} }: BottomSheet_Props){
+export function BottomSheet({ sx, children, onClickAway = () => {} }: BottomSheet_Props) {
   const { spacing } = useTheme()
   return (
     <ClickAwayListener onClickAway={onClickAway}>
@@ -16,7 +16,7 @@ export function BottomSheet({ sx, children, onClickAway = () => {} }: BottomShee
         sx={{
           pt: 1.5,
           pr: 1.2,
-          pb: 2.5,   
+          pb: 2.5,
           pl: 1.2,
           borderTopRightRadius: spacing(1.5),
           borderTopLeftRadius: spacing(1.5),

@@ -1,4 +1,17 @@
-import { Box, IconButton, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Tabs, Tab, Input, Popover, Button } from "@mui/material"
+import {
+  Box,
+  IconButton,
+  ThemeProvider,
+  Autocomplete,
+  TextField,
+  SxProps,
+  createTheme,
+  Tabs,
+  Tab,
+  Input,
+  Popover,
+  Button,
+} from "@mui/material"
 import { useState, MouseEvent } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -17,7 +30,6 @@ import GroupsIcon from "@mui/icons-material/Groups"
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded"
 import SearchIcon from "@mui/icons-material/Search"
 
-
 type Option = { id: Category; label: string }
 
 const allCategories: Category[] = ["job", "accommodation", "personEndorsement", "sellable", "gathering"]
@@ -27,29 +39,27 @@ export default function PostList_section() {
     id: "gathering",
     label: getCategoryLabel("gathering"),
   })
-  const [search, setSearch] = useState('')
-  const [activeSearch, _setActiveSearch] = useState<'byCategory' | 'byString'>('byCategory')
+  const [search, setSearch] = useState("")
+  const [activeSearch, _setActiveSearch] = useState<"byCategory" | "byString">("byCategory")
 
-  const [tab, setTab] = useState<Category>('accommodation')
+  const [tab, setTab] = useState<Category>("accommodation")
   const [additionalTabsShown, setAdditionalTabsShown] = useState(false)
-  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(
+    null
+  )
 
-  function handle_showMoreTabs(event: MouseEvent<HTMLButtonElement>){
+  function handle_showMoreTabs(event: MouseEvent<HTMLButtonElement>) {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
   }
 
-  function setActiveSearch(category: 'byCategory' | 'byString'){
-    if(category === 'byCategory')
-      setSearch('')
-    else
-      setSelectedCategory(undefined)
+  function setActiveSearch(category: "byCategory" | "byString") {
+    if (category === "byCategory") setSearch("")
+    else setSelectedCategory(undefined)
 
     _setActiveSearch(category)
   }
-  
-  const filteredPosts = selectedCategory
-    ? data.allPosts.filter(post => tab === post.type)
-    : data.allPosts
+
+  const filteredPosts = selectedCategory ? data.allPosts.filter(post => tab === post.type) : data.allPosts
 
   return (
     <Box
@@ -64,29 +74,29 @@ export default function PostList_section() {
     >
       <Header
         right={
-          <Box sx={{ pr: 1, }}>
+          <Box sx={{ pr: 1 }}>
             <a href="/post/create" style={{ textDecoration: "none" }}>
-              <IconButton sx={{ p: 1, }}>
+              <IconButton sx={{ p: 1 }}>
                 <PostAddIcon sx={{ color: "white", fontSize: 30 }} />
               </IconButton>
             </a>
-            <IconButton sx={{ p: 1, }}>
+            <IconButton sx={{ p: 1 }}>
               <SearchIcon sx={{ color: "white", fontSize: 30 }} />
             </IconButton>
           </Box>
         }
         bottom={
           <Tabs
-            sx={{ 
+            sx={{
               px: 1,
               mt: 2,
               mb: 0.1,
-              '.MuiTabs-indicator': {
-                background: 'white',
-                height: 3
+              ".MuiTabs-indicator": {
+                background: "white",
+                height: 3,
               },
-              '.Mui-selected': {
-                color: 'white !important',
+              ".Mui-selected": {
+                color: "white !important",
               },
             }}
             value={tab}
@@ -99,9 +109,9 @@ export default function PostList_section() {
                 sx={{
                   textTransform: "none",
                   fontSize: 18,
-                  color: 'white',
-                  '.Mui-selected': {
-                    color: 'white !important',
+                  color: "white",
+                  ".Mui-selected": {
+                    color: "white !important",
                   },
                 }}
                 label={getCategoryLabel(category)}
@@ -110,7 +120,7 @@ export default function PostList_section() {
               />
             ))}
             <IconButton onClick={handle_showMoreTabs}>
-              <KeyboardArrowDownOutlinedIcon sx={{ color: 'white' }} />
+              <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
             </IconButton>
           </Tabs>
         }
@@ -120,21 +130,21 @@ export default function PostList_section() {
         anchorEl={additionalTabsShownAnchorEl}
         onClose={() => setAdditionalTabsShownAnchorEl(null)}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
         PaperProps={{
           sx: {
-            left: 'unset !important',
+            left: "unset !important",
             right: 0,
-          }
+          },
         }}
       >
-        <Box sx={{ px: 2, py: 1.4, display: 'flex', flexDirection: 'column', gap: 2, }}>
+        <Box sx={{ px: 2, py: 1.4, display: "flex", flexDirection: "column", gap: 2 }}>
           {allCategories.slice(3).map(category => (
-            <Box sx={{ display: 'flex', gap: 2, fontSize: 20, }} onClick={() => setTab(category)}>
+            <Box sx={{ display: "flex", gap: 2, fontSize: 20 }} onClick={() => setTab(category)}>
               <CategoryIcon category={category} />
-              <Box sx={{  }}>{getCategoryLabel(category)}</Box>
+              <Box sx={{}}>{getCategoryLabel(category)}</Box>
             </Box>
           ))}
         </Box>
@@ -173,7 +183,7 @@ export default function PostList_section() {
           alignItems: "center",
           flex: 1,
           minHeight: 0,
-          background: '#E4E6EB',
+          background: "#E4E6EB",
         }}
       >
         <Post_list_base
@@ -239,25 +249,22 @@ type CategoriesDropdown_Props = {
   setSelectedCategory(c?: Option | null): void
 }
 
-function CategoriesDropdown({
-  selectedCategory,
-  setSelectedCategory,
-}: CategoriesDropdown_Props){
+function CategoriesDropdown({ selectedCategory, setSelectedCategory }: CategoriesDropdown_Props) {
   return (
-    <ThemeProvider theme={createTheme({ spacing: 8, })}>
+    <ThemeProvider theme={createTheme({ spacing: 8 })}>
       <Autocomplete
         fullWidth
-        sx={{ 
-          '.MuiAutocomplete-popupIndicator': {
+        sx={{
+          ".MuiAutocomplete-popupIndicator": {
             mb: 2,
           },
-          '.MuiAutocomplete-clearIndicator': {
+          ".MuiAutocomplete-clearIndicator": {
             mb: 2,
           },
-          '.MuiAutocomplete-popupIndicator svg': {
+          ".MuiAutocomplete-popupIndicator svg": {
             fontSize: 30,
           },
-          '.MuiAutocomplete-clearIndicator svg': {
+          ".MuiAutocomplete-clearIndicator svg": {
             fontSize: 24,
           },
         }}
@@ -265,8 +272,8 @@ function CategoriesDropdown({
         options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
         onChange={(event, newValue) => setSelectedCategory(newValue)}
         renderOption={(props, option) => (
-          <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
-            <CategoryIcon category={option.id} sx={{ fontSize: 26, mr: 2, }} />
+          <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
+            <CategoryIcon category={option.id} sx={{ fontSize: 26, mr: 2 }} />
             {option.label}
           </Box>
         )}
@@ -282,7 +289,11 @@ function CategoriesDropdown({
               sx: {
                 fontSize: 32,
               },
-              startAdornment: selectedCategory ? <CategoryIcon sx={{ fontSize: 32, mr: 2, }} category={selectedCategory.id} /> : <></>,
+              startAdornment: selectedCategory ? (
+                <CategoryIcon sx={{ fontSize: 32, mr: 2 }} category={selectedCategory.id} />
+              ) : (
+                <></>
+              ),
             }}
           />
         )}

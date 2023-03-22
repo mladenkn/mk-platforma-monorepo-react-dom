@@ -20,7 +20,7 @@ export function Post_expert_listItem({
   occupations,
 }: Post_expert_listItem_Props) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center", }}>
+    <Box sx={{ display: "flex", alignItems: "center" }}>
       <Avatar
         sx={{
           marginRight: 2,

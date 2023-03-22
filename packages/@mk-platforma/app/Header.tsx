@@ -18,13 +18,13 @@ export default function Header({ sx, right, bottom }: Props) {
       }}
     >
       <Box
-        sx={{ 
+        sx={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "start",
         }}
       >
-        <Box sx={{ ml: 0.2, pl: 2, }}>
+        <Box sx={{ ml: 0.2, pl: 2 }}>
           <a style={{ color: "white", fontSize: 35, textDecoration: "none" }} href="https://za-brata.com/">
             ZaBrata
           </a>
