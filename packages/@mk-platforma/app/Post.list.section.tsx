@@ -58,17 +58,6 @@ export default function PostList_section() {
       >
         <ManageSearchIcon />
       </Fab>
-      {/* {selectedCategory ? (
-        <Box
-          sx={{ fontSize: 42, mt: 2.5, px: 2, display: "flex", gap: 0.7, alignItems: "end" }}
-          onClick={() => setCategoriesSelector_active(true)}
-        >
-          <CategoryIcon sx={{ fontSize: 42 }} category={selectedCategory.id} />
-          {selectedCategory.label}
-        </Box>
-      ) : (
-        <></>
-      )} */}
       <Box sx={{ mx: 2, mt: 3, }}>
         <CategoriesDropdown
           isOpen={categoriesSelector_active}
