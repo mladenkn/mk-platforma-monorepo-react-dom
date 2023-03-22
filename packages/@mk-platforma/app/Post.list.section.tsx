@@ -162,14 +162,13 @@ export default function PostList_section() {
       )} */}
       <Box
         sx={{
-          mt: 3.5,
-          pb: 3,
-          px: 2,
+          p: 1,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           flex: 1,
           minHeight: 0,
+          background: '#E4E6EB',
         }}
       >
         <Post_list_base
