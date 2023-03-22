@@ -105,14 +105,14 @@ export default function PostList_section() {
                 focused={categoriesSelector_active}
                 variant="standard"
                 sx={{
-                  fontSize: 36,
+                  fontSize: 32,
                 }}
                 InputProps={{
                   ...params.InputProps,
                   sx: {
-                    fontSize: 36,
+                    fontSize: 32,
                   },
-                  startAdornment: selectedCategory ? <CategoryIcon sx={{ fontSize: 36, mr: 2, }} category={selectedCategory.id} /> : <></>,
+                  startAdornment: selectedCategory ? <CategoryIcon sx={{ fontSize: 32, mr: 2, }} category={selectedCategory.id} /> : <></>,
                 }}
               />
             )}
