@@ -1,4 +1,4 @@
-import { Box, IconButton, Fab, Dialog, Autocomplete, TextField, Chip, SxProps } from "@mui/material"
+import { Box, IconButton, Fab, Dialog, Autocomplete, TextField, SxProps } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -13,6 +13,7 @@ import BedIcon from "@mui/icons-material/Bed"
 import EngineeringIcon from "@mui/icons-material/Engineering"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
+
 
 type Option = { id: Category; label: string }
 
