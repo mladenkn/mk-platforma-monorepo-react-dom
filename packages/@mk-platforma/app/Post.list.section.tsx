@@ -58,7 +58,7 @@ export default function PostList_section() {
       >
         <ManageSearchIcon />
       </Fab>
-      {selectedCategory ? (
+      {/* {selectedCategory ? (
         <Box
           sx={{ fontSize: 42, mt: 2.5, px: 2, display: "flex", gap: 0.7, alignItems: "end" }}
           onClick={() => setCategoriesSelector_active(true)}
@@ -68,26 +68,36 @@ export default function PostList_section() {
         </Box>
       ) : (
         <></>
-      )}
-      {categoriesSelector_active ? (
-        <Dialog open onClose={() => setCategoriesSelector_active(false)}>
-          <Box sx={{ p: 3, width: 320, height: 400 }}>
-            <Box sx={{ fontSize: 24, mb: 4.5 }}>Odaberite kategorije</Box>
-            <Autocomplete
-              fullWidth
-              open
-              sx={{ mb: 3 }}
-              disablePortal
-              value={selectedCategory}
-              options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
-              onChange={(event, newValue) => setSelectedCategory(newValue)}
-              renderInput={params => <TextField {...params} label={"Kategorija"} variant="standard" />}
-            />
-          </Box>
-        </Dialog>
-      ) : (
+      )} */}
+      {categoriesSelector_active ?
+        <Box sx={{ mx: 2, }}>
+          <Autocomplete
+            fullWidth
+            sx={{ mb: 3 }}
+            disablePortal
+            value={selectedCategory}
+            options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
+            onChange={(event, newValue) => setSelectedCategory(newValue)}
+            renderInput={params => (
+              <TextField
+                {...params}
+                variant="standard"
+                sx={{
+                  fontSize: 42,
+                }}
+                InputProps={{
+                  ...params.InputProps,
+                  sx: {
+                    fontSize: 42,
+                  },
+                  startAdornment: selectedCategory ? <CategoryIcon sx={{ fontSize: 42, mr: 2, }} category={selectedCategory.id} /> : <></>,
+                }}
+              />
+            )}
+          /> 
+        </Box> :
         <></>
-      )}
+      }
       <Box
         sx={{
           mt: 3.5,

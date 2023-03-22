@@ -37,13 +37,13 @@ export default function Post_list_base<TItem extends Item>({
 
   return (
     <>
-      <Input
+      {/* <Input
         sx={{ pb: 0.7, mb: 2, width: "100%" }}
         placeholder="Pretraži"
         startAdornment={<SearchRoundedIcon sx={{ mr: 2 }} />}
         value={filter}
         onChange={(e: any) => setFilter(e.target.value)}
-      />
+      /> */}
       <Box
         sx={{
           display: "flex",
