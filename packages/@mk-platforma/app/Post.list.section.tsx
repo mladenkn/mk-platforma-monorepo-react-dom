@@ -1,4 +1,4 @@
-import { Box, IconButton, Fab, ThemeProvider, Autocomplete, TextField, SxProps, createTheme } from "@mui/material"
+import { Box, IconButton, Fab, ThemeProvider, Autocomplete, TextField, SxProps, createTheme, Input } from "@mui/material"
 import { useState } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -13,6 +13,8 @@ import BedIcon from "@mui/icons-material/Bed"
 import EngineeringIcon from "@mui/icons-material/Engineering"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
+import SearchRoundedIcon from "@mui/icons-material/SearchRounded"
+import SearchIcon from "@mui/icons-material/Search"
 
 
 type Option = { id: Category; label: string }
@@ -24,7 +26,8 @@ export default function PostList_section() {
     id: "gathering",
     label: getCategoryLabel("gathering"),
   })
-  const [categoriesSelector_active, setCategoriesSelector_active] = useState(false)
+  const [search, setSearch] = useState('')
+  const [activeSearch, setActiveSearch] = useState<'byCategory' | 'byString'>('byCategory')
 
   const filteredPosts = selectedCategory
     ? data.allPosts.filter(post => selectedCategory.id === post.type)
@@ -50,22 +53,32 @@ export default function PostList_section() {
           </a>
         }
       />
-      <Fab
-        sx={{ position: "absolute", bottom: 6, right: 6 }}
-        color="primary"
-        onClick={() => setCategoriesSelector_active(true)}
-        size="large"
-      >
-        <ManageSearchIcon />
-      </Fab>
-      <Box sx={{ mx: 2, mt: 3, }}>
-        <CategoriesDropdown
-          isOpen={categoriesSelector_active}
-          setIsOpen={setCategoriesSelector_active}
-          selectedCategory={selectedCategory}
-          setSelectedCategory={setSelectedCategory}
-        />
-      </Box>
+      {activeSearch == 'byString' && (
+        <Box sx={{ mx: 2, mt: 3, display: 'flex', alignItems: 'center', gap: 3, }}>
+          <Input
+            autoFocus
+            sx={{ pb: 0.7, mb: 2, width: "100%" }}
+            placeholder="Pretraži"
+            startAdornment={<SearchRoundedIcon sx={{ mr: 2 }} />}
+            value={search}
+            onChange={(e: any) => setSearch(e.target.value)}
+          />
+          <IconButton onClick={() => setActiveSearch('byCategory')}>
+            <ManageSearchIcon sx={{ fontSize: 30 }} />
+          </IconButton>
+        </Box>
+      )}
+      {activeSearch == 'byCategory' && (
+        <Box sx={{ mx: 2, mt: 3, display: 'flex', alignItems: 'end', gap: 3, }}>
+          <CategoriesDropdown
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
+          <IconButton onClick={() => setActiveSearch('byString')}>
+            <SearchRoundedIcon sx={{ fontSize: 30 }} />
+          </IconButton>
+        </Box>
+      )}
       <Box
         sx={{
           mt: 3.5,
@@ -137,15 +150,11 @@ function CategoryIcon({ category, sx }: { category: Category; sx?: SxProps }) {
 }
 
 type CategoriesDropdown_Props = {
-  isOpen: boolean
-  setIsOpen: (a: boolean) => void
   selectedCategory?: Option | null
   setSelectedCategory(c?: Option | null): void
 }
 
 function CategoriesDropdown({
-  isOpen,
-  setIsOpen,
   selectedCategory,
   setSelectedCategory,
 }: CategoriesDropdown_Props){
@@ -153,9 +162,6 @@ function CategoriesDropdown({
     <ThemeProvider theme={createTheme({ spacing: 8, })}>
       <Autocomplete
         fullWidth
-        open={isOpen}
-        onOpen={() => setIsOpen(true)}
-        onClose={() => setIsOpen(false)}
         sx={{ 
           '.MuiAutocomplete-popupIndicator': {
             mb: 2,
@@ -182,7 +188,6 @@ function CategoriesDropdown({
         renderInput={params => (
           <TextField
             {...params}
-            focused={isOpen}
             variant="standard"
             sx={{
               fontSize: 32,
