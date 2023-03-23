@@ -27,10 +27,13 @@ export default function CategoriesDropdown({ value, onChange, }: CategoriesDropd
             mb: 2,
           },
           ".MuiAutocomplete-popupIndicator svg": {
-            fontSize: 30,
+            fontSize: 26,
           },
           ".MuiAutocomplete-clearIndicator svg": {
-            fontSize: 24,
+            fontSize: 26,
+          },
+          '.MuiChip-root': {
+            fontSize: 16,
           },
         }}
         multiple
@@ -47,13 +50,13 @@ export default function CategoriesDropdown({ value, onChange, }: CategoriesDropd
           <TextField
             {...params}
             sx={{
-              fontSize: 32,
+              fontSize: 18,
             }}
             variant="outlined"
             InputProps={{
               ...params.InputProps,
               sx: {
-                fontSize: 32,
+                fontSize: 18,
               },
             }}
           />
