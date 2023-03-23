@@ -11,11 +11,11 @@ import { ComponentProps } from "react"
 type Option = { id: Category, label: string }
 
 type CategoriesDropdown_Props = Partial<ComponentProps<typeof Autocomplete<Option>>> & {
-  selectedCategory?: Option | null
-  setSelectedCategory?(c?: Option | null): void
+  value?: Option | null
+  onChange?(c?: Option | null): void
 }
 
-export default function CategoriesDropdown({ selectedCategory, setSelectedCategory }: CategoriesDropdown_Props) {
+export default function CategoriesDropdown({ value: selectedCategory, onChange: setSelectedCategory }: CategoriesDropdown_Props) {
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
       <Autocomplete
