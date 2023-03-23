@@ -21,7 +21,7 @@ export default function generateExpert() {
 
     firstName: faker.helpers.arrayElement(cro_dataset.firstNames),
     lastName: faker.helpers.arrayElement(cro_dataset.lastNames),
-    occupations: [faker.helpers.arrayElement(cro_dataset.occupations)],
+    skills: faker.helpers.arrayElements(cro_dataset.skills, faker.datatype.number({ min: 1, max: 4 })),
     avatarStyle: faker.helpers.arrayElement(avatarStyles),
   }
 }

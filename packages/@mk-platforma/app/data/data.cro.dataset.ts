@@ -12,7 +12,7 @@ export const lastNames = [
   "Lerotić",
 ]
 
-export const occupations = [
+export const skills = [
   "računalni programer",
   "odvjetnik",
   "zidar",

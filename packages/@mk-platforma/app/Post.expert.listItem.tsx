@@ -4,12 +4,13 @@ import { CSSProperties } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 
+
 type Post_expert_listItem_Props = {
   avatarStyle: CSSProperties
   firstName: string
   lastName: string
   location: string
-  occupations: string[]
+  skills: string[]
 }
 
 export function Post_expert_listItem({
@@ -17,7 +18,7 @@ export function Post_expert_listItem({
   firstName,
   lastName,
   location,
-  occupations,
+  skills,
 }: Post_expert_listItem_Props) {
   return (
     <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -43,7 +44,7 @@ export function Post_expert_listItem({
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <HandymanIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
-          <Typography>{occupations.join(", ")}</Typography>
+          <Typography>{skills.join(", ")}</Typography>
         </Box>
       </Box>
     </Box>
