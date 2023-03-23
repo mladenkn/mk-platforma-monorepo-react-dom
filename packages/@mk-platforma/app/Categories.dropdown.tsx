@@ -5,17 +5,16 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
 import { ThemeProvider, createTheme, Autocomplete, Box, TextField, SxProps } from "@mui/material"
 import { Category, allCategories } from "./data/data.types"
-import { ComponentProps } from "react"
 
 
 type Option = { id: Category, label: string }
 
-type CategoriesDropdown_Props = Partial<ComponentProps<typeof Autocomplete<Option>>> & {
-  value?: Option | null
-  onChange?(c?: Option | null): void
+type CategoriesDropdown_Props = {
+  value?: Option[]
+  onChange?(c?: Option[]): void
 }
 
-export default function CategoriesDropdown({ value: selectedCategory, onChange: setSelectedCategory }: CategoriesDropdown_Props) {
+export default function CategoriesDropdown({ value, onChange, }: CategoriesDropdown_Props) {
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
       <Autocomplete
@@ -34,9 +33,10 @@ export default function CategoriesDropdown({ value: selectedCategory, onChange: 
             fontSize: 24,
           },
         }}
-        value={selectedCategory}
+        multiple
+        value={value}
         options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
-        onChange={(event, newValue) => setSelectedCategory && setSelectedCategory(newValue)}
+        onChange={(event, newValue) => onChange && onChange(newValue)}
         renderOption={(props, option) => (
           <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
             <CategoryIcon category={option.id} sx={{ fontSize: 26, mr: 2 }} />
