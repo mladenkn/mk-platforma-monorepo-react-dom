@@ -24,27 +24,31 @@ export function Post_expert_listItem({
     <Box sx={{ display: "flex", alignItems: "center" }}>
       <Avatar
         sx={{
-          marginRight: 2,
+          marginRight: 3,
           ...avatarStyle,
         }}
         letter={firstName[0]}
       />
-      <Typography sx={{ fontWeight: 600, fontSize: 16, width: 125 }}>
-        {firstName} {lastName}
-      </Typography>
+      <Box>
+        <Typography sx={{ fontWeight: 600, fontSize: 16, width: 125 }}>
+          {firstName} {lastName}
+        </Typography>
+        <Box sx={{ display: "flex", alignItems: "center", }}>
+          <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
+          <Typography>{location}</Typography>
+        </Box>
+      </Box>
       <Box
         sx={{
           pl: 1,
           color: "text.secondary",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
-          <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
-          <Typography>{location}</Typography>
-        </Box>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <HandymanIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
-          <Typography>{skills.join(", ")}</Typography>
+        <Box sx={{ display: "flex", alignItems: "start" }}>
+          <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
+          <Box>
+            {skills.map(s => <Typography>{s}</Typography>)}
+          </Box>          
         </Box>
       </Box>
     </Box>
