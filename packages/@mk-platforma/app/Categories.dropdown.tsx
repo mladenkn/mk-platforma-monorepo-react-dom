@@ -46,20 +46,15 @@ export default function CategoriesDropdown({ selectedCategory, setSelectedCatego
         renderInput={params => (
           <TextField
             {...params}
-            variant="standard"
             sx={{
               fontSize: 32,
             }}
+            variant="outlined"
             InputProps={{
               ...params.InputProps,
               sx: {
                 fontSize: 32,
               },
-              startAdornment: selectedCategory ? (
-                <CategoryIcon sx={{ fontSize: 32, mr: 2 }} category={selectedCategory.id} />
-              ) : (
-                <></>
-              ),
             }}
           />
         )}
