@@ -1,7 +1,7 @@
 import { Box, TextField, SxProps } from "@mui/material"
 import CategoriesDropdown from "./Categories.dropdown"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
+import { useFormik } from "formik"
+import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { Post_base_zod, Post_base } from "./data/data.types"
 import { useEffect } from "react"
 
@@ -11,21 +11,51 @@ type Props = {
 }
 
 export default function PostForm({ sx }: Props) {
-  const { register, getValues } = useForm<Post_base>({
-    resolver: zodResolver(Post_base_zod),
+  const { values, handleChange } = useFormik<Omit<Post_base, 'id'>>({
+    initialValues: {
+      label: '',
+      description: '',
+      phoneNumber: '',
+      location: '',
+      categories: [],
+      photos: [],
+    },
+    validationSchema: toFormikValidationSchema(Post_base_zod),
+    onSubmit(){}
   })
-
-  useEffect(() => {
-    // setInterval(() => console.log(getValues(), []), 1000)
-  })  
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 4, ...sx }}>
-      <TextField label="Naziv" variant="outlined" {...register('label')} />
+      <TextField
+        label="Naziv"
+        variant="outlined"
+        name="label"
+        value={values.label}
+        onChange={handleChange}
+      />
       <CategoriesDropdown />
-      <TextField label="Lokacija" variant="outlined" {...register('location')} />
-      <TextField label="Opis" variant="outlined" multiline {...register('description')} />
-      <TextField label="Broj mobitela" variant="outlined" {...register('phoneNumber')} />
+      <TextField
+        label="Lokacija"
+        variant="outlined"
+        name="location"
+        value={values.location}
+        onChange={handleChange}
+      />
+      <TextField
+        label="Opis"
+        variant="outlined"
+        multiline
+        name="description"
+        value={values.description}
+        onChange={handleChange}
+      />
+      <TextField
+        label="Broj mobitela"
+        variant="outlined"
+        name="phoneNumber"
+        value={values.phoneNumber}
+        onChange={handleChange}
+      />
     </Box>
   )
 }
