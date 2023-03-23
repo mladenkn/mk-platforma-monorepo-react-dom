@@ -50,13 +50,13 @@ export default function CategoriesDropdown({ value, onChange, }: CategoriesDropd
           <TextField
             {...params}
             sx={{
-              fontSize: 18,
+              fontSize: 16,
             }}
             variant="outlined"
             InputProps={{
               ...params.InputProps,
               sx: {
-                fontSize: 18,
+                fontSize: 16,
               },
             }}
           />
