@@ -3,7 +3,6 @@ import CategoriesDropdown from "./Categories.dropdown"
 import { useFormik } from "formik"
 import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { Post_base_zod, Post_base } from "./data/data.types"
-import { useEffect } from "react"
 
 
 type Props = {
@@ -11,7 +10,7 @@ type Props = {
 }
 
 export default function PostForm({ sx }: Props) {
-  const { values, handleChange } = useFormik<Omit<Post_base, 'id'>>({
+  const { values, handleChange, setFieldValue } = useFormik<Omit<Post_base, 'id'>>({
     initialValues: {
       label: '',
       description: '',
@@ -33,7 +32,10 @@ export default function PostForm({ sx }: Props) {
         value={values.label}
         onChange={handleChange}
       />
-      <CategoriesDropdown />
+      <CategoriesDropdown
+        value={values.categories}
+        onChange={(e, value) => setFieldValue('categories', value)}
+      />
       <TextField
         label="Lokacija"
         variant="outlined"
