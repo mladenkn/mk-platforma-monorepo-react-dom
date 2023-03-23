@@ -5,11 +5,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
 import { ThemeProvider, createTheme, Autocomplete, Box, TextField, SxProps } from "@mui/material"
 import { Category, allCategories } from "./data/data.types"
+import { ComponentProps } from "react"
 
 
 type Option = { id: Category, label: string }
 
-type CategoriesDropdown_Props = {
+type CategoriesDropdown_Props = Partial<ComponentProps<typeof Autocomplete<Option>>> & {
   selectedCategory?: Option | null
   setSelectedCategory?(c?: Option | null): void
 }
