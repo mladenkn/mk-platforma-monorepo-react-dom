@@ -24,4 +24,17 @@ export const Post_Accommodation_zod = Post_base_zod.extend({
   })
 })
 
-export type Post_Accommodation = z.infer<typeof Post_Accommodation_zod>
+export const Post_Gathering_zod = Post_Accommodation_zod
+
+export const Post_Job_zod = Post_Accommodation_zod
+
+export const Post_PersonEndorsement = Post_base_zod.extend({
+  endorsedPerson: z.object({
+    phoneNumber: z.string(),
+    location: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    skills: z.array(z.string()),
+    avatarStyle: z.object({}),
+  })
+})
