@@ -14,8 +14,6 @@ export default function PostForm({ sx }: Props) {
     initialValues: {
       label: '',
       description: '',
-      phoneNumber: '',
-      location: '',
       categories: [],
       photos: [],
     },
@@ -37,25 +35,11 @@ export default function PostForm({ sx }: Props) {
         onChange={(e, value) => setFieldValue('categories', value)}
       />
       <TextField
-        label="Lokacija"
-        variant="outlined"
-        name="location"
-        value={values.location}
-        onChange={handleChange}
-      />
-      <TextField
         label="Opis"
         variant="outlined"
         multiline
         name="description"
         value={values.description}
-        onChange={handleChange}
-      />
-      <TextField
-        label="Broj mobitela"
-        variant="outlined"
-        name="phoneNumber"
-        value={values.phoneNumber}
         onChange={handleChange}
       />
     </Box>
