@@ -19,15 +19,15 @@ export const Post_Accommodation_zod = Post_base_zod.extend({
   postAuthor: z.object({
     phoneNumber: z.string()
   }),
-  categories: z.enum(['accommodation']),
+  categories: z.array(z.enum(['accommodation'])),
 })
 
 export const Post_Gathering_zod = Post_base_zod.extend({
-  categories: z.enum(['gathering']),
+  categories: z.array(z.enum(['gathering'])),
 })
 
 export const Post_Job_zod = Post_base_zod.extend({
-  categories: z.enum(['job']),
+  categories: z.array(z.enum(['job'])),
 })
 
 export const Post_Expert = Post_base_zod.extend({
@@ -39,5 +39,5 @@ export const Post_Expert = Post_base_zod.extend({
     skills: z.array(z.string()),
     avatarStyle: z.object({}),
   }),
-  categories: z.enum(['personEndorsement']),
+  categories: z.array(z.enum(['personEndorsement'])),
 })

@@ -8,17 +8,16 @@ import { Diff } from "utility-types"
 import { z } from "zod"
 
 
-type Props<TFields extends Omit<Post_base, 'id'>> = {
+type Props<TFields extends Omit<Post_base, 'id' | 'categories'>> = {
   initialValues: Diff<TFields, Post_base> & Partial<Post_base>
   zodSchema: z.ZodSchema<TFields>
 }
 
-export default function use_Post_form_base<TFields extends Omit<Post_base, 'id'>>({ initialValues, zodSchema }: Props<TFields>){
-  const { values, handleChange, setFieldValue } = useFormik<TFields>({
+export default function use_Post_form_base<TFields extends Omit<Post_base, 'id' | 'categories'>>({ initialValues, zodSchema }: Props<TFields>){
+  const { values, handleChange } = useFormik<TFields>({
     initialValues: ({
       label: '',
       description: '',
-      categories: [],
       photos: [],
       ...initialValues,
     } as any) as TFields,
@@ -36,13 +35,6 @@ export default function use_Post_form_base<TFields extends Omit<Post_base, 'id'>
     />
   ), [values.label, handleChange])
 
-  // const Categories = useCallback(() => (
-  //   <CategoriesDropdown
-  //     value={values.categories}
-  //     onChange={(e, value) => setFieldValue('categories', value)}
-  //   />
-  // ), [])
-
   const Description = useCallback(() => (
     <TextField
       label="Opis"
@@ -56,7 +48,6 @@ export default function use_Post_form_base<TFields extends Omit<Post_base, 'id'>
 
   return {
     Label,
-    // Categories,
     Description,
   }
 }
