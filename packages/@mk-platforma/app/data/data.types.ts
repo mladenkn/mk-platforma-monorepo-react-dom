@@ -16,3 +16,12 @@ export const Post_base_zod = z.object({
 })
 
 export type Post_base = z.infer<typeof Post_base_zod>
+
+export const Post_Accommodation_zod = Post_base_zod.extend({
+  location: z.string(),
+  postAuthor: z.object({
+    phoneNumber: z.string()
+  })
+})
+
+export type Post_Accommodation = z.infer<typeof Post_Accommodation_zod>

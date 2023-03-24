@@ -1,8 +1,6 @@
-import { Box, TextField, SxProps } from "@mui/material"
-import CategoriesDropdown from "./Categories.dropdown"
-import { useFormik } from "formik"
-import { toFormikValidationSchema } from 'zod-formik-adapter'
-import { Post_base_zod, Post_base } from "./data/data.types"
+import { SxProps } from "@mui/material"
+import { Post_Accommodation_zod } from "./data/data.types"
+import use_Post_form_base from "Post.form.base"
 
 
 type Props = {
@@ -10,38 +8,13 @@ type Props = {
 }
 
 export default function PostForm({ sx }: Props) {
-  const { values, handleChange, setFieldValue } = useFormik<Omit<Post_base, 'id'>>({
+  const accomodationForm = use_Post_form_base({
+    zodSchema: Post_Accommodation_zod,
     initialValues: {
-      label: '',
-      description: '',
-      categories: [],
-      photos: [],
-    },
-    validationSchema: toFormikValidationSchema(Post_base_zod),
-    onSubmit(){}
+      location: '',
+      postAuthor: {
+        phoneNumber: '',
+      },
+    }
   })
-
-  return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 4, ...sx }}>
-      <TextField
-        label="Naziv"
-        variant="outlined"
-        name="label"
-        value={values.label}
-        onChange={handleChange}
-      />
-      <CategoriesDropdown
-        value={values.categories}
-        onChange={(e, value) => setFieldValue('categories', value)}
-      />
-      <TextField
-        label="Opis"
-        variant="outlined"
-        multiline
-        name="description"
-        value={values.description}
-        onChange={handleChange}
-      />
-    </Box>
-  )
 }

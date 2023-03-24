@@ -4,17 +4,25 @@ import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { Post_base_zod, Post_base } from "./data/data.types"
 import { Box, TextField, SxProps } from "@mui/material"
 import CategoriesDropdown from "./Categories.dropdown"
+import { Diff } from "utility-types"
+import { z } from "zod"
 
 
-export default function use_Post_form_base(){
-  const { values, handleChange, setFieldValue } = useFormik<Omit<Post_base, 'id'>>({
-    initialValues: {
+type Props<TFields extends Omit<Post_base, 'id'>> = {
+  initialValues: Diff<TFields, Post_base> & Partial<Post_base>
+  zodSchema: z.ZodSchema<TFields>
+}
+
+export default function use_Post_form_base<TFields extends Omit<Post_base, 'id'>>({ initialValues, zodSchema }: Props<TFields>){
+  const { values, handleChange, setFieldValue } = useFormik<TFields>({
+    initialValues: ({
       label: '',
       description: '',
       categories: [],
       photos: [],
-    },
-    validationSchema: toFormikValidationSchema(Post_base_zod),
+      ...initialValues,
+    } as any) as TFields,
+    validationSchema: toFormikValidationSchema(zodSchema),
     onSubmit(){}
   })
 
