@@ -36,12 +36,12 @@ export default function use_Post_form_base<TFields extends Omit<Post_base, 'id'>
     />
   ), [values.label, handleChange])
 
-  const Categories = useCallback(() => (
-    <CategoriesDropdown
-      value={values.categories}
-      onChange={(e, value) => setFieldValue('categories', value)}
-    />
-  ), [])
+  // const Categories = useCallback(() => (
+  //   <CategoriesDropdown
+  //     value={values.categories}
+  //     onChange={(e, value) => setFieldValue('categories', value)}
+  //   />
+  // ), [])
 
   const Description = useCallback(() => (
     <TextField
@@ -56,7 +56,7 @@ export default function use_Post_form_base<TFields extends Omit<Post_base, 'id'>
 
   return {
     Label,
-    Categories,
+    // Categories,
     Description,
   }
 }
