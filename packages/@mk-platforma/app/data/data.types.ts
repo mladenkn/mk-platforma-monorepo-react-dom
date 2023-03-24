@@ -28,7 +28,7 @@ export const Post_Gathering_zod = Post_Accommodation_zod
 
 export const Post_Job_zod = Post_Accommodation_zod
 
-export const Post_PersonEndorsement = Post_base_zod.extend({
+export const Post_Expert = Post_base_zod.extend({
   endorsedPerson: z.object({
     phoneNumber: z.string(),
     location: z.string(),

@@ -1,5 +1,5 @@
 import { SxProps } from "@mui/material"
-import { Category, Post_Accommodation_zod, Post_PersonEndorsement } from "./data/data.types"
+import { Category, Post_Accommodation_zod, Post_Expert } from "./data/data.types"
 import use_Post_form_base from "Post.form.base"
 import { useState } from "react"
 import { eva } from "@mk-libs/common/common"
@@ -20,8 +20,8 @@ export default function PostForm({ sx }: Props) {
     }
   })
 
-  const personEndorsementForm = use_Post_form_base({
-    zodSchema: Post_PersonEndorsement,
+  const expertForm = use_Post_form_base({
+    zodSchema: Post_Expert,
     initialValues: {
       endorsedPerson: {
         phoneNumber: '',
@@ -39,7 +39,7 @@ export default function PostForm({ sx }: Props) {
   const baseElements = eva(() => {
     switch(currentForm){
       case 'accommodation': return accomodationForm;
-      case 'personEndorsement': return personEndorsementForm;
+      case 'personEndorsement': return expertForm;
       case undefined: return undefined
       default: throw new Error()
     }
