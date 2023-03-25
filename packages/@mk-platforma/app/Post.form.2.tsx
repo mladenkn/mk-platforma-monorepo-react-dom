@@ -7,17 +7,18 @@ import { useFormik } from "formik"
 type Props = {
   sx?: SxProps
   base_initialValues: Post_form_base_input
+  expert_initialValues: {
+    firstName: string
+    lastName: string
+    skills: string
+  }
 }
 
-export default function use_Post_form({ sx, base_initialValues }: Props) {
+export default function use_Post_form({ sx, base_initialValues, expert_initialValues }: Props) {
   const baseForm = use_Post_form_base({ initialValues: base_initialValues })
 
   const expertForm = useFormik({
-    initialValues: {
-      firstName: '',
-      lastName: '',
-      skills: '',
-    },
+    initialValues: expert_initialValues,
     onSubmit(){}
   })
 
