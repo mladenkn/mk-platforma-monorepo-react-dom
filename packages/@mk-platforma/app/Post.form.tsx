@@ -3,6 +3,7 @@ import { Category, Post_Accommodation_zod, Post_Expert } from "./data/data.types
 import use_Post_form_base from "Post.form.base"
 import { useState } from "react"
 import { eva } from "@mk-libs/common/common"
+import { z } from "zod"
 
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
 
 export default function PostForm({ sx }: Props) {
   const accomodationForm = use_Post_form_base({
-    zodSchema: Post_Accommodation_zod,
+    zodSchema: Post_Accommodation_zod.omit({ categories: true }),
     initialValues: {
       location: '',
       postAuthor: {
@@ -21,7 +22,7 @@ export default function PostForm({ sx }: Props) {
   })
 
   const expertForm = use_Post_form_base({
-    zodSchema: Post_Expert,
+    zodSchema: Post_Expert.omit({ categories: true }),
     initialValues: {
       endorsedPerson: {
         phoneNumber: '',
@@ -44,8 +45,6 @@ export default function PostForm({ sx }: Props) {
       default: throw new Error()
     }
   })
-
-  const a = form!.control.values.categories
 
   return <></>
 }
