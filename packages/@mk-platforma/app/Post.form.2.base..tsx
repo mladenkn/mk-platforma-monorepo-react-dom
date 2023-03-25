@@ -10,19 +10,17 @@ type WithSx = {
   sx?: SxProps
 }
 
-type Input = Post_base & {
+export type Post_form_base_input = Post_base & {
   location: string
 }
 
-export default function use_Post_form_base(){
-  const form = useFormik<Omit<Input, 'id'>>({
-    initialValues: {
-      label: '',
-      description: '',
-      photos: [],
-      categories: [],
-      location: '',
-    },
+type Props = {
+  initialValues: Omit<Post_form_base_input, 'id'>
+}
+
+export default function use_Post_form_base({ initialValues }: Props){
+  const form = useFormik<Omit<Post_form_base_input, 'id'>>({
+    initialValues,
     validationSchema: toFormikValidationSchema(Post_base_zod),
     onSubmit(){}
   })

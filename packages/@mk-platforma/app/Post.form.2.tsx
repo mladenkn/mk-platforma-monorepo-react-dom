@@ -1,15 +1,16 @@
 import { SxProps, TextField } from "@mui/material"
-import use_Post_form_base from "Post.form.2.base."
+import use_Post_form_base, { Post_form_base_input } from "Post.form.2.base."
 import { useCallback } from "react"
 import { useFormik } from "formik"
 
 
 type Props = {
   sx?: SxProps
+  base_initialValues: Post_form_base_input
 }
 
-export default function use_Post_form({ sx }: Props) {
-  const baseForm = use_Post_form_base()
+export default function use_Post_form({ sx, base_initialValues }: Props) {
+  const baseForm = use_Post_form_base({ initialValues: base_initialValues })
 
   const expertForm = useFormik({
     initialValues: {
