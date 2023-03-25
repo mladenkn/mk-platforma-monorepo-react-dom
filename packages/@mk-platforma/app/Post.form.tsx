@@ -34,10 +34,10 @@ export default function PostForm({ sx }: Props) {
     }
   })
 
-  const [_currentForm, _setCurrentForm] = useState<Category>()
+  const [_form, _setForm] = useState<Category>()
 
   const form = eva(() => {
-    switch(_currentForm){
+    switch(_form){
       case 'accommodation': return accomodationForm as typeof accomodationForm;
       case 'personEndorsement': return expertForm as typeof expertForm;
       case undefined: return undefined
