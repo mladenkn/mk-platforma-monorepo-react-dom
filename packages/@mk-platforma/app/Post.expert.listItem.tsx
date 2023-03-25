@@ -4,7 +4,6 @@ import { CSSProperties } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 
-
 type Post_expert_listItem_Props = {
   avatarStyle: CSSProperties
   firstName: string
@@ -33,7 +32,7 @@ export function Post_expert_listItem({
         <Typography sx={{ fontWeight: 600, fontSize: 16, width: 125 }}>
           {firstName} {lastName}
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center", }}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
           <Typography>{location}</Typography>
         </Box>
@@ -47,8 +46,10 @@ export function Post_expert_listItem({
         <Box sx={{ display: "flex", alignItems: "start" }}>
           <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
           <Box>
-            {skills.map(s => <Typography>{s}</Typography>)}
-          </Box>          
+            {skills.map(s => (
+              <Typography>{s}</Typography>
+            ))}
+          </Box>
         </Box>
       </Box>
     </Box>

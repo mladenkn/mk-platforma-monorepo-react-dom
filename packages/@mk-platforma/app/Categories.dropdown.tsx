@@ -7,8 +7,7 @@ import { ThemeProvider, createTheme, Autocomplete, Box, TextField, SxProps } fro
 import { Category, allCategories } from "./data/data.types"
 import { ReactElement } from "react"
 
-
-type Option = { id: Category, label: string }
+type Option = { id: Category; label: string }
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
@@ -16,7 +15,12 @@ type CategoriesDropdown_Props = {
   onChange(event: any, c?: Category[]): void
 }
 
-export default function CategoriesDropdown({ sx, value, onChange, ...props }: CategoriesDropdown_Props): ReactElement {
+export default function CategoriesDropdown({
+  sx,
+  value,
+  onChange,
+  ...props
+}: CategoriesDropdown_Props): ReactElement {
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
       <Autocomplete
@@ -34,10 +38,10 @@ export default function CategoriesDropdown({ sx, value, onChange, ...props }: Ca
           ".MuiAutocomplete-clearIndicator svg": {
             fontSize: 26,
           },
-          '.MuiChip-root': {
+          ".MuiChip-root": {
             fontSize: 16,
           },
-          ...sx
+          ...sx,
         }}
         multiple
         options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
@@ -63,7 +67,12 @@ export default function CategoriesDropdown({ sx, value, onChange, ...props }: Ca
           />
         )}
         value={value?.map(c => ({ id: c, label: getCategoryLabel(c) }))}
-        onChange={(event, value) => onChange(event, value.map(o => o.id))}
+        onChange={(event, value) =>
+          onChange(
+            event,
+            value.map(o => o.id)
+          )
+        }
         {...props}
       />
     </ThemeProvider>

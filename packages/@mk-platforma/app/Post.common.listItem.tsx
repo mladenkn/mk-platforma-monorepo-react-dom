@@ -37,7 +37,7 @@ export function Post_common_listItem({ label, location, photos, imageAtStart }: 
   )
 }
 
-function Images({ images }: { images: string[] }){
+function Images({ images }: { images: string[] }) {
   return (
     <Box
       sx={{

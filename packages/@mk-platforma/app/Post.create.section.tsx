@@ -5,7 +5,6 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import use_Post_form_base from "./Post.form.base"
 
-
 type Props = {
   sx?: SxProps
 }
@@ -14,7 +13,7 @@ export default function Post_create_section({ sx }: Props) {
   const form_base = use_Post_form_base({})
 
   const form_expert = use_Post_form_expertOnly({})
-  const form_expert_isActive = form_base.control.values.categories.includes('personEndorsement')
+  const form_expert_isActive = form_base.control.values.categories.includes("personEndorsement")
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
@@ -29,7 +28,7 @@ export default function Post_create_section({ sx }: Props) {
           </a>
         }
       />
-      <Box sx={{ px: 3, display: 'flex', flexDirection: 'column', gap: 2, }}>
+      <Box sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2 }}>
         <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
         <TextField {...form_base.components_props.label} />
         <CategoriesDropdown {...form_base.components_props.categories} />
@@ -41,7 +40,9 @@ export default function Post_create_section({ sx }: Props) {
             <TextField {...form_expert.components_props.lastName} />
             <TextField {...form_expert.components_props.skills} />
           </>
-        ) : <></>}
+        ) : (
+          <></>
+        )}
       </Box>
     </Box>
   )

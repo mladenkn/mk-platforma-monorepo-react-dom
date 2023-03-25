@@ -1,10 +1,4 @@
-import {
-  Box,
-  IconButton,
-  Tabs,
-  Tab,
-  Popover,
-} from "@mui/material"
+import { Box, IconButton, Tabs, Tab, Popover } from "@mui/material"
 import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
@@ -16,7 +10,6 @@ import { Category, allCategories } from "./data/data.types"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
 import { getCategoryLabel, CategoryIcon } from "./Categories.dropdown"
-
 
 type Option = { id: Category; label: string }
 
@@ -44,7 +37,9 @@ export default function PostList_section() {
     _setActiveSearch(category)
   }
 
-  const filteredPosts = selectedCategory ? data.allPosts.filter(post => post.categories.includes(tab)) : data.allPosts
+  const filteredPosts = selectedCategory
+    ? data.allPosts.filter(post => post.categories.includes(tab))
+    : data.allPosts
 
   return (
     <Box
@@ -70,13 +65,18 @@ export default function PostList_section() {
             </IconButton>
           </Box>
         }
-        bottom={(
-          <SectionTabs sx={{ mt: 2, mb: 0.1 }} activeTab={tab} setActiveTab={setTab} tabs={allCategories.slice(0, 3)}>            
+        bottom={
+          <SectionTabs
+            sx={{ mt: 2, mb: 0.1 }}
+            activeTab={tab}
+            setActiveTab={setTab}
+            tabs={allCategories.slice(0, 3)}
+          >
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
             </IconButton>
           </SectionTabs>
-        )}
+        }
       />
       <Popover
         open={!!additionalTabsShownAnchorEl}
@@ -115,7 +115,9 @@ export default function PostList_section() {
         <Post_list_base
           items={filteredPosts}
           Item={item => {
-            switch (item.categories[0]) { // problem
+            switch (
+              item.categories[0] // problem
+            ) {
               case "personEndorsement":
                 return <Post_expert_listItem {...(item as any)} />
               case "sellable":
@@ -125,7 +127,9 @@ export default function PostList_section() {
             }
           }}
           Item_details={item => {
-            switch (item.categories[0]) { // problem
+            switch (
+              item.categories[0] // problem
+            ) {
               case "personEndorsement":
                 return <Post_common_listItem_details label={`${item.firstName} ${item.lastName}`} {...item} />
               case "sellable":
@@ -148,7 +152,15 @@ type SectionTabs_props = ComponentProps<typeof Tabs> & {
   tabProps?: Partial<ComponentProps<typeof Tab>>
 }
 
-function SectionTabs({ activeTab, setActiveTab, children, tabs, sx, tabProps, ...otherProps }: SectionTabs_props){
+function SectionTabs({
+  activeTab,
+  setActiveTab,
+  children,
+  tabs,
+  sx,
+  tabProps,
+  ...otherProps
+}: SectionTabs_props) {
   return (
     <Tabs
       sx={{
