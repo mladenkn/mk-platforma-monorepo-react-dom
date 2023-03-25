@@ -1,4 +1,4 @@
-import { Box, SxProps } from "@mui/material"
+import { Box, SxProps, TextField } from "@mui/material"
 import { Category, Post_Accommodation_zod, Post_Expert } from "./data/data.types"
 import use_Post_form_base from "Post.form.2.base."
 import { useCallback, useState } from "react"
@@ -20,6 +20,7 @@ const form_baseProps = {
 
 export default function PostForm({ sx }: Props) {
   const baseForm = use_Post_form_base()
+
   const expertForm = useFormik({
     initialValues: {
       firstName: '',
@@ -28,6 +29,7 @@ export default function PostForm({ sx }: Props) {
     },
     onSubmit(){}
   })
+  const isExpert = baseForm.control.values.categories.includes('personEndorsement')
 
   const {
     Label, Categories, Description, Location
@@ -39,6 +41,26 @@ export default function PostForm({ sx }: Props) {
       <Categories />
       <Description />
       <Location />
+      {isExpert ? (
+        <>
+          <TextField
+            sx={sx}
+            label="Ime"
+            variant="outlined"
+            name="firstName"
+            value={expertForm.values.firstName}
+            onChange={expertForm.handleChange}
+          />
+          <TextField
+            sx={sx}
+            label="Prezime"
+            variant="outlined"
+            name="lastName"
+            value={expertForm.values.lastName}
+            onChange={expertForm.handleChange}
+          />
+        </>
+      ) : <></>}
     </Box>
   )
 }
