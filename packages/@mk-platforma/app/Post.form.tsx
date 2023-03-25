@@ -45,6 +45,8 @@ export default function PostForm({ sx }: Props) {
       default: throw new Error()
     }
   })
+
+  const formControl = form?.control
   
   const [categories, setCategories] = useState<Category[]>([])
 

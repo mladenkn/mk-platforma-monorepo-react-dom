@@ -1,11 +1,10 @@
 import { useFormik } from "formik"
-import { useCallback, useState } from "react"
+import { useCallback } from "react"
 import { toFormikValidationSchema } from 'zod-formik-adapter'
-import { Category, Post_base } from "./data/data.types"
+import { Post_base } from "./data/data.types"
 import { TextField } from "@mui/material"
 import { Diff } from "utility-types"
 import { z } from "zod"
-import CategoriesDropdown from "Categories.dropdown"
 
 
 type Props<TFields extends Omit<Post_base, 'id' | 'categories'>> = {
