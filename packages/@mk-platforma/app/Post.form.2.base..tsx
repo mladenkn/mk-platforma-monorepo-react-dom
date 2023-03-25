@@ -65,7 +65,6 @@ export default function use_Post_form_base(){
       sx={sx}
       label="Lokacija"
       variant="outlined"
-      multiline
       name="location"
       value={values.location}
       onChange={handleChange}
