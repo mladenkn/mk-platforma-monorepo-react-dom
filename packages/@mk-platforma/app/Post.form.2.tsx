@@ -29,12 +29,16 @@ export default function PostForm({ sx }: Props) {
     onSubmit(){}
   })
 
+  const {
+    Label, Categories, Description, Location
+  } = baseForm.components
+
   return (
     <Box>
-      <baseForm.components.Label sx={{ mb: 2 }} />
-      <baseForm.components.Categories />
-      <baseForm.components.Description />
-      <baseForm.components.Location />
+      <Label sx={{ mb: 2 }} />
+      <Categories />
+      <Description />
+      <Location />
     </Box>
   )
 }
