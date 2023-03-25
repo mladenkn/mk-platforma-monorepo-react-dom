@@ -1,10 +1,11 @@
 import { useFormik } from "formik"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { toFormikValidationSchema } from 'zod-formik-adapter'
-import { Post_base } from "./data/data.types"
+import { Category, Post_base } from "./data/data.types"
 import { TextField } from "@mui/material"
 import { Diff } from "utility-types"
 import { z } from "zod"
+import CategoriesDropdown from "Categories.dropdown"
 
 
 type Props<TFields extends Omit<Post_base, 'id' | 'categories'>> = {
@@ -47,11 +48,25 @@ export default function use_Post_form_base<TFields extends Omit<Post_base, 'id' 
     />
   ), [])
 
+  const [categories, setCategories] = useState<Category[]>([])
+
+  const Categories = useCallback(() => (
+    <CategoriesDropdown
+      value={categories}
+      onChange={(e, value) => setCategories(value || [])}
+    />
+  ), [categories, setCategories])
+
   return {
     control: form,
+    control_ext : {
+      categories,
+      setCategories,
+    },
     components: {
       Label,
       Description,
+      Categories,
     },
   }
 }
