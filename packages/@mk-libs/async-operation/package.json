@@ -17,7 +17,6 @@
     "typescript": "^4.9.4"
   },
   "dependencies": {
-    "@mk-libs/async-operation": "workspace:^0.0.0",
     "@tanstack/react-query": "^4.24.4",
     "add": "^2.0.6",
     "lodash": "^4.17.21",
