@@ -38,14 +38,14 @@ export default function PostForm({ sx }: Props) {
 
   const form = eva(() => {
     switch(_form){
-      case 'accommodation': return accomodationForm as typeof accomodationForm;
-      case 'personEndorsement': return expertForm as typeof expertForm;
+      case 'accommodation': return accomodationForm
+      case 'personEndorsement': return expertForm
       case undefined: return undefined
       default: throw new Error()
     }
   })
 
-  const a = form!.control.values
+  const a = form!.control.values.categories
 
   return <></>
 }
