@@ -50,15 +50,27 @@ export default function use_Post_form_base(){
       value={values.description}
       onChange={handleChange}
     />
-  ), [])
+  ), [values.description, handleChange])
 
   const Categories = useCallback(({ sx }: WithSx) => (
     <CategoriesDropdown
       sx={sx}
-      value={form.values.categories}
+      value={values.categories}
       onChange={(e, value) => form.setFieldValue('categories', value)}
     />
-  ), [])
+  ), [values.categories, form.setFieldValue])
+
+  const Location = useCallback(({ sx }: WithSx) => (
+    <TextField
+      sx={sx}
+      label="Lokacija"
+      variant="outlined"
+      multiline
+      name="location"
+      value={values.location}
+      onChange={handleChange}
+    />    
+  ), [values.location, handleChange])
 
   return {
     control: form,
@@ -66,6 +78,7 @@ export default function use_Post_form_base(){
       Label,
       Description,
       Categories,
+      Location,
     },
   }
 }

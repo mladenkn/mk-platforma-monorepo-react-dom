@@ -34,6 +34,7 @@ export default function PostForm({ sx }: Props) {
       <baseForm.components.Label sx={{ mb: 2 }} />
       <baseForm.components.Categories />
       <baseForm.components.Description />
+      <baseForm.components.Location />
     </Box>
   )
 }
