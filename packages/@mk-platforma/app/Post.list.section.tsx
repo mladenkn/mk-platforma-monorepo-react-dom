@@ -102,32 +102,6 @@ export default function PostList_section() {
           ))}
         </Box>
       </Popover>
-      {/* {activeSearch == 'byString' && (
-        <Box sx={{ mx: 2, mt: 3, display: 'flex', alignItems: 'center', gap: 3, }}>
-          <Input
-            autoFocus
-            sx={{ pb: 0.7, mb: 2, width: "100%" }}
-            placeholder="Pretraži"
-            startAdornment={<SearchRoundedIcon sx={{ mr: 2 }} />}
-            value={search}
-            onChange={(e: any) => setSearch(e.target.value)}
-          />
-          <IconButton onClick={() => setActiveSearch('byCategory')}>
-            <ManageSearchIcon sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Box>
-      )}
-      {activeSearch == 'byCategory' && (
-        <Box sx={{ mx: 2, mt: 3, display: 'flex', alignItems: 'end', gap: 3, }}>
-          <CategoriesDropdown
-            selectedCategory={selectedCategory}
-            setSelectedCategory={setSelectedCategory}
-          />
-          <IconButton onClick={() => setActiveSearch('byString')}>
-            <SearchRoundedIcon sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Box>
-      )} */}
       <Box
         sx={{
           p: 1,
