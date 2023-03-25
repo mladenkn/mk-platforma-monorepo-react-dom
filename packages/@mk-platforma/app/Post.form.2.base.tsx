@@ -1,5 +1,5 @@
 import { useFormik } from "formik"
-import { useCallback } from "react"
+import { ComponentProps, useCallback } from "react"
 import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { Post_base, Post_base_zod } from "./data/data.types"
 import { SxProps, TextField } from "@mui/material"
@@ -27,61 +27,43 @@ export default function use_Post_form_base({ initialValues }: Props){
 
   const { values, handleChange } = form
 
-  const Label = useCallback(({ sx }: WithSx) => (
-    <TextField
-      sx={sx}
-      label="Naziv"
-      variant="outlined"
-      name="label"
-      value={values.label}
-      onChange={handleChange}
-    />
-  ), [values.label, handleChange])
+  const labelProps = {
+    label: "Naziv",
+    variant: "outlined",
+    name: "label",
+    value: values.label,
+    onChange: handleChange,
+  }
 
-  const Description = useCallback(({ sx }: WithSx) => (
-    <TextField
-      {...{
-        sx,
-        label: "Opis",
-        variant: "outlined",
-        multiline: true,
-        name: "description",
-        value: values.description,
-        onChange: handleChange,
-      }}
-    />
-  ), [values.description, handleChange])
+  const descriptionProps = {
+    label: "Opis",
+    variant: "outlined",
+    multiline: true,
+    name: "description",
+    value: values.description,
+    onChange: handleChange,
+  }
 
-  const Categories = useCallback(({ sx }: WithSx) => (
-    <CategoriesDropdown
-      {...{
-        sx,
-        value: values.categories,
-        onChange: (e, value) => form.setFieldValue('categories', value),
-      }}
-    />
-  ), [values.categories, form.setFieldValue])
+  const categoriesProps = {
+    value: values.categories,
+    onChange: (e, value) => form.setFieldValue('categories', value),
+  } satisfies ComponentProps<typeof CategoriesDropdown>
 
-  const Location = useCallback(({ sx }: WithSx) => (
-    <TextField
-      {...{
-        sx,
-        label: "Lokacija",
-        variant: "outlined",
-        name: "location",
-        value: values.location,
-        onChange: handleChange,
-      }}      
-    />    
-  ), [values.location, handleChange])
+  const locationProps = {
+    label: "Lokacija",
+    variant: "outlined",
+    name: "location",
+    value: values.location,
+    onChange: handleChange,
+  }
 
   return {
     control: form,
     components: {
-      Label,
-      Description,
-      Categories,
-      Location,
+      labelProps,
+      descriptionProps,
+      categoriesProps,
+      locationProps,
     },
   }
 }
