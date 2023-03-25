@@ -11,11 +11,12 @@ import { ReactElement } from "react"
 type Option = { id: Category, label: string }
 
 type CategoriesDropdown_Props = {
+  sx?: SxProps
   value: Category[]
   onChange(event: any, c?: Category[]): void
 }
 
-export default function CategoriesDropdown({ value, onChange, ...props }: CategoriesDropdown_Props): ReactElement {
+export default function CategoriesDropdown({ sx, value, onChange, ...props }: CategoriesDropdown_Props): ReactElement {
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
       <Autocomplete
@@ -36,6 +37,7 @@ export default function CategoriesDropdown({ value, onChange, ...props }: Catego
           '.MuiChip-root': {
             fontSize: 16,
           },
+          ...sx
         }}
         multiple
         options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}

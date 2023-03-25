@@ -1,8 +1,9 @@
 import { useFormik } from "formik"
 import { useCallback } from "react"
 import { toFormikValidationSchema } from 'zod-formik-adapter'
-import { Post_base_zod } from "./data/data.types"
+import { Post_base, Post_base_zod } from "./data/data.types"
 import { SxProps, TextField } from "@mui/material"
+import CategoriesDropdown from "Categories.dropdown"
 
 
 type WithSx = {
@@ -10,7 +11,7 @@ type WithSx = {
 }
 
 export default function use_Post_form_base(){
-  const form = useFormik({
+  const form = useFormik<Omit<Post_base, 'id'>>({
     initialValues: {
       label: '',
       description: '',
@@ -25,6 +26,7 @@ export default function use_Post_form_base(){
 
   const Label = useCallback(({ sx }: WithSx) => (
     <TextField
+      sx={sx}
       label="Naziv"
       variant="outlined"
       name="label"
@@ -35,6 +37,7 @@ export default function use_Post_form_base(){
 
   const Description = useCallback(({ sx }: WithSx) => (
     <TextField
+      sx={sx}
       label="Opis"
       variant="outlined"
       multiline
@@ -44,11 +47,20 @@ export default function use_Post_form_base(){
     />
   ), [])
 
+  const Categories = useCallback(({ sx }: WithSx) => (
+    <CategoriesDropdown
+      sx={sx}
+      value={form.values.categories}
+      onChange={(e, value) => form.setFieldValue('categories', value)}
+    />
+  ), [])
+
   return {
     control: form,
     components: {
       Label,
       Description,
+      Categories,
     },
   }
 }
