@@ -46,4 +46,6 @@ export default function PostForm({ sx }: Props) {
   })
 
   const a = form!.control.values
+
+  return <></>
 }
