@@ -5,7 +5,7 @@ import {
   Tab,
   Popover,
 } from "@mui/material"
-import { useState, MouseEvent, ReactNode } from "react"
+import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_listItem_details } from "./Post.common.listItem"
@@ -71,7 +71,7 @@ export default function PostList_section() {
           </Box>
         }
         bottom={(
-          <SectionTabs activeTab={tab} setActiveTab={setTab} tabs={allCategories.slice(0, 3)}>            
+          <SectionTabs sx={{ mt: 2, mb: 0.1 }} activeTab={tab} setActiveTab={setTab} tabs={allCategories.slice(0, 3)}>            
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
             </IconButton>
@@ -93,14 +93,13 @@ export default function PostList_section() {
           },
         }}
       >
-        <Box sx={{ px: 2, py: 1.4, display: "flex", flexDirection: "column", gap: 2 }}>
-          {allCategories.slice(3).map(category => (
-            <Box sx={{ display: "flex", gap: 2, fontSize: 20 }} onClick={() => setTab(category)}>
-              <CategoryIcon category={category} />
-              <Box sx={{}}>{getCategoryLabel(category)}</Box>
-            </Box>
-          ))}
-        </Box>
+        <SectionTabs
+          sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
+          tabs={allCategories.slice(3)}
+          activeTab={tab}
+          setActiveTab={setTab}
+          orientation="vertical"
+        />
       </Popover>
       <Box
         sx={{
@@ -141,20 +140,18 @@ export default function PostList_section() {
   )
 }
 
-type SectionTabs_props = {
+type SectionTabs_props = ComponentProps<typeof Tabs> & {
   activeTab: Category
   setActiveTab(c: Category): void
   children?: ReactNode
   tabs: Category[]
 }
 
-function SectionTabs({ activeTab, setActiveTab, children, tabs }: SectionTabs_props){
+function SectionTabs({ activeTab, setActiveTab, children, tabs, sx, ...otherProps }: SectionTabs_props){
   return (
     <Tabs
       sx={{
         px: 1,
-        mt: 2,
-        mb: 0.1,
         ".MuiTabs-indicator": {
           background: "white",
           height: 3,
@@ -162,11 +159,13 @@ function SectionTabs({ activeTab, setActiveTab, children, tabs }: SectionTabs_pr
         ".Mui-selected": {
           color: "white !important",
         },
+        ...sx,
       }}
       value={activeTab}
       centered
       onChange={(e, newValue) => setActiveTab(newValue)}
       variant="fullWidth"
+      {...otherProps}
     >
       {tabs.map(category => (
         <Tab
