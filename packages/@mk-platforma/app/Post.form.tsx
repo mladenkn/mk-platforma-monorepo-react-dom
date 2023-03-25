@@ -1,67 +1,73 @@
-import { Box, SxProps } from "@mui/material"
-import { Category, Post_Accommodation_zod, Post_Expert } from "./data/data.types"
-import use_Post_form_base from "Post.form.base"
-import { useCallback, useState } from "react"
-import { eva } from "@mk-libs/common/common"
-import CategoriesDropdown from "Categories.dropdown"
+import { TextFieldProps } from "@mui/material"
+import use_Post_form_base, { Post_form_base_input } from "./Post.form.base"
+import { useFormik } from "formik"
+import { Category } from "./data/data.types"
 
 
 type Props = {
-  sx?: SxProps
+  base_initialValues?: Post_form_base_input
+  expert_initialValues?: {
+    firstName: string
+    lastName: string
+    skills: string
+  }
 }
 
-export default function PostForm({ sx }: Props) {
-  const accomodationForm = use_Post_form_base({
-    zodSchema: Post_Accommodation_zod.omit({ categories: true }),
-    initialValues: {
-      location: '',
-      postAuthor: {
-        phoneNumber: '',
+const base_initialValues_default = {
+  label: '',
+  description: '',
+  location: '',
+  categories: [] as Category[],
+  photos: [] as string[],
+}
+
+const expert_initialValues_default = {
+  firstName: '',
+  lastName: '',
+  skills: '',
+}
+
+export default function use_Post_form({
+  base_initialValues = base_initialValues_default,
+  expert_initialValues = expert_initialValues_default,
+}: Props) {
+  const baseForm = use_Post_form_base({ initialValues: base_initialValues })
+
+  const expertForm = useFormik({
+    initialValues: expert_initialValues,
+    onSubmit(){}
+  })
+
+  return {
+    baseForm,
+    expertForm: {
+      isActive: baseForm.control.values.categories.includes('personEndorsement'),
+      control: expertForm,
+      components_props: {
+        firstName: {
+          label: "Ime",
+          variant: "outlined",
+          name: "firstName",
+          value: expertForm.values.firstName,
+          onChange: expertForm.handleChange,
+        } satisfies Partial<TextFieldProps>,
+
+        lastName: {
+          label: "Prezime",
+          variant: "outlined",
+          name: "firstName",
+          value: expertForm.values.lastName,
+          onChange: expertForm.handleChange,
+        } satisfies Partial<TextFieldProps>,
+        
+        skills: {
+          label: "Skills",
+          variant: "outlined",
+          name: "firstName",
+          value: expertForm.values.skills,
+          onChange: expertForm.handleChange,
+        } satisfies Partial<TextFieldProps>,
       },
     }
-  })
-
-  const expertForm = use_Post_form_base({
-    zodSchema: Post_Expert.omit({ categories: true }),
-    initialValues: {
-      endorsedPerson: {
-        phoneNumber: '',
-        location: '',
-        firstName: '',
-        lastName: '',
-        skills: [],
-        avatarStyle: '',
-      }
-    }
-  })
-
-  const [_form, _setForm] = useState<Category>()
-
-  const form = eva(() => {
-    switch(_form){
-      case 'accommodation': return accomodationForm
-      case 'personEndorsement': return expertForm
-      case undefined: return undefined
-      default: throw new Error()
-    }
-  })
-
-  const formControl = form?.control
-  
-  const [categories, setCategories] = useState<Category[]>([])
-
-  return (
-    <Box>
-      <CategoriesDropdown
-        value={categories}
-        onChange={(e, value) => setCategories(value || [])}
-      />
-      {form ? (
-        <>
-          <form.components.Label />
-          <form.components.Description />
-        </>
-      ): <></>}
-    </Box>
-  )
+  }
 }

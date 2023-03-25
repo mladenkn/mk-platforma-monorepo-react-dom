@@ -1,7 +1,7 @@
 import { Box, IconButton, SxProps, TextField } from "@mui/material"
 import Header from "./Header"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
-import use_Post_form from "./Post.form.2"
+import use_Post_form from "./Post.form"
 import CategoriesDropdown from "./Categories.dropdown"
 
 type Props = {
