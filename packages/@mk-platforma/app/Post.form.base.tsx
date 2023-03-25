@@ -1,9 +1,8 @@
 import { useFormik } from "formik"
 import { useCallback } from "react"
 import { toFormikValidationSchema } from 'zod-formik-adapter'
-import { Post_base_zod, Post_base } from "./data/data.types"
-import { Box, TextField, SxProps } from "@mui/material"
-import CategoriesDropdown from "./Categories.dropdown"
+import { Post_base } from "./data/data.types"
+import { TextField } from "@mui/material"
 import { Diff } from "utility-types"
 import { z } from "zod"
 
@@ -14,7 +13,7 @@ type Props<TFields extends Omit<Post_base, 'id' | 'categories'>> = {
 }
 
 export default function use_Post_form_base<TFields extends Omit<Post_base, 'id' | 'categories'>>({ initialValues, zodSchema }: Props<TFields>){
-  const { values, handleChange } = useFormik<TFields>({
+  const form = useFormik<TFields>({
     initialValues: ({
       label: '',
       description: '',
@@ -24,6 +23,8 @@ export default function use_Post_form_base<TFields extends Omit<Post_base, 'id' 
     validationSchema: toFormikValidationSchema(zodSchema),
     onSubmit(){}
   })
+
+  const { values, handleChange } = form
 
   const Label = useCallback(() => (
     <TextField
@@ -47,7 +48,10 @@ export default function use_Post_form_base<TFields extends Omit<Post_base, 'id' 
   ), [])
 
   return {
-    Label,
-    Description,
+    control: form,
+    components: {
+      Label,
+      Description,
+    },
   }
 }
