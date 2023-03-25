@@ -1,15 +1,20 @@
 import { Box, IconButton, SxProps, TextField } from "@mui/material"
 import Header from "./Header"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
-import use_Post_form from "./Post.form"
+import use_Post_form_onlyExpert from "./Post.form.onlyExpert"
 import CategoriesDropdown from "./Categories.dropdown"
+import use_Post_form_base from "./Post.form.base"
+
 
 type Props = {
   sx?: SxProps
 }
 
 export default function Post_create_section({ sx }: Props) {
-  const form = use_Post_form({  })
+  const form_base = use_Post_form_base({})
+
+  const form_expert = use_Post_form_onlyExpert({})
+  const form_expert_isActive = form_base.control.values.categories.includes('personEndorsement')
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
@@ -26,15 +31,15 @@ export default function Post_create_section({ sx }: Props) {
       />
       <Box sx={{ px: 3, display: 'flex', flexDirection: 'column', gap: 2, }}>
         <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
-        <TextField {...form.baseForm.components_props.label} />
-        <CategoriesDropdown {...form.baseForm.components_props.categories} />
-        <TextField {...form.baseForm.components_props.description} />
-        <TextField {...form.baseForm.components_props.location} />
-        {form.expertForm.isActive ? (
+        <TextField {...form_base.components_props.label} />
+        <CategoriesDropdown {...form_base.components_props.categories} />
+        <TextField {...form_base.components_props.description} />
+        <TextField {...form_base.components_props.location} />
+        {form_expert_isActive ? (
           <>
-            <TextField {...form.expertForm.components_props.firstName} />
-            <TextField {...form.expertForm.components_props.lastName} />
-            <TextField {...form.expertForm.components_props.skills} />
+            <TextField {...form_expert.components_props.firstName} />
+            <TextField {...form_expert.components_props.lastName} />
+            <TextField {...form_expert.components_props.skills} />
           </>
         ) : <></>}
       </Box>

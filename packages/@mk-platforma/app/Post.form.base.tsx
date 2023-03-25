@@ -6,19 +6,23 @@ import { SxProps, TextField, TextFieldProps } from "@mui/material"
 import CategoriesDropdown from "./Categories.dropdown"
 
 
-type WithSx = {
-  sx?: SxProps
-}
-
 export type Post_form_base_input = Omit<Post_base, 'id'> & {
   location: string
 }
 
 type Props = {
-  initialValues: Omit<Post_form_base_input, 'id'>
+  initialValues?: Omit<Post_form_base_input, 'id'>
 }
 
-export default function use_Post_form_base({ initialValues }: Props){
+const initialValues_default = {
+  label: '',
+  description: '',
+  categories: [],
+  location: '',
+  photos: [],
+} satisfies Omit<Post_form_base_input, 'id'>
+
+export default function use_Post_form_base({ initialValues = initialValues_default }: Props){
   const form = useFormik({
     initialValues,
     validationSchema: toFormikValidationSchema(Post_base_zod),
@@ -59,6 +63,8 @@ export default function use_Post_form_base({ initialValues }: Props){
         value: values.location,
         onChange: handleChange,
       } satisfies Partial<TextFieldProps>,
+
+      // TODO: photos
     },
   }
 }
