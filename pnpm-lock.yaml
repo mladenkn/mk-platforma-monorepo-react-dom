@@ -47,7 +47,6 @@ importers:
 
   packages/@mk-libs/async-operation:
     specifiers:
-      '@mk-libs/async-operation': workspace:^0.0.0
       '@mk-libs/tsconfig': '*'
       '@tanstack/react-query': ^4.24.4
       '@types/lodash': ^4.14.186
@@ -60,7 +59,6 @@ importers:
       react-query: '3'
       typescript: ^4.9.4
     dependencies:
-      '@mk-libs/async-operation': 'link:'
       '@tanstack/react-query': 4.24.4_react@18.2.0
       add: 2.0.6
       lodash: 4.17.21
