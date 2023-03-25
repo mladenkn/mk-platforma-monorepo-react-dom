@@ -29,6 +29,13 @@ export default function Post_create_section({ sx }: Props) {
         <form.baseForm.components.Categories />
         <form.baseForm.components.Description />
         <form.baseForm.components.Location />
+        {form.expertForm.isActive ? (
+          <>
+            <form.expertForm.components.FirstName />
+            <form.expertForm.components.LastName />
+            <form.expertForm.components.Skills />    
+          </>
+        ) : <></>}
       </Box>
     </Box>
   )
