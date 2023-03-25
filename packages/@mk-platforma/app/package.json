@@ -24,7 +24,6 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@faker-js/faker": "^7.6.0",
-    "@hookform/resolvers": "^3.0.0",
     "@js-temporal/polyfill": "^0.4.3",
     "@mk-libs/async-operation": "workspace:^0.0.0",
     "@mui/icons-material": "^5.11.9",
@@ -33,7 +32,6 @@
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "next": "^13.2.4",
-    "react-hook-form": "^7.43.7",
     "zod": "^3.19.1",
     "zod-formik-adapter": "^1.2.0"
   }
