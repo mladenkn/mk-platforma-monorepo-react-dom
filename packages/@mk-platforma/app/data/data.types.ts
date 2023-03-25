@@ -10,7 +10,9 @@ export const Post_base_zod = z.object({
   label: z.string(),
   description: z.string(),
   photos: z.array(z.string()),
-  categories: z.array(z.unknown()),
+  categories: z.array(
+    z.enum(["job", "accommodation", "personEndorsement", "sellable", "gathering"])
+  ),
 })
 
 export type Post_base = z.infer<typeof Post_base_zod>
