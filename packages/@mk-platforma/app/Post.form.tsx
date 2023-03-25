@@ -1,7 +1,7 @@
 import { Box, SxProps } from "@mui/material"
 import { Category, Post_Accommodation_zod, Post_Expert } from "./data/data.types"
 import use_Post_form_base from "Post.form.base"
-import { useState } from "react"
+import { useCallback, useState } from "react"
 import { eva } from "@mk-libs/common/common"
 import CategoriesDropdown from "Categories.dropdown"
 
@@ -45,9 +45,15 @@ export default function PostForm({ sx }: Props) {
       default: throw new Error()
     }
   })
+  
+  const [categories, setCategories] = useState<Category[]>([])
 
   return (
     <Box>
+      <CategoriesDropdown
+        value={categories}
+        onChange={(e, value) => setCategories(value || [])}
+      />
     </Box>
   )
 }

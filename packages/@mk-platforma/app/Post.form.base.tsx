@@ -48,25 +48,11 @@ export default function use_Post_form_base<TFields extends Omit<Post_base, 'id' 
     />
   ), [])
 
-  const [categories, setCategories] = useState<Category[]>([])
-
-  const Categories = useCallback(() => (
-    <CategoriesDropdown
-      value={categories}
-      onChange={(e, value) => setCategories(value || [])}
-    />
-  ), [categories, setCategories])
-
   return {
     control: form,
-    control_ext : {
-      categories,
-      setCategories,
-    },
     components: {
       Label,
       Description,
-      Categories,
     },
   }
 }
