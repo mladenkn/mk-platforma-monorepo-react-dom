@@ -2,8 +2,12 @@ import { useFormik } from "formik"
 import { useCallback } from "react"
 import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { Post_base_zod } from "./data/data.types"
-import { TextField } from "@mui/material"
+import { SxProps, TextField } from "@mui/material"
 
+
+type WithSx = {
+  sx?: SxProps
+}
 
 export default function use_Post_form_base(){
   const form = useFormik({
@@ -19,7 +23,7 @@ export default function use_Post_form_base(){
 
   const { values, handleChange } = form
 
-  const Label = useCallback(() => (
+  const Label = useCallback(({ sx }: WithSx) => (
     <TextField
       label="Naziv"
       variant="outlined"
@@ -29,7 +33,7 @@ export default function use_Post_form_base(){
     />
   ), [values.label, handleChange])
 
-  const Description = useCallback(() => (
+  const Description = useCallback(({ sx }: WithSx) => (
     <TextField
       label="Opis"
       variant="outlined"

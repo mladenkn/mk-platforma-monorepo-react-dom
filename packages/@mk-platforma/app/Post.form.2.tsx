@@ -15,6 +15,8 @@ export default function PostForm({ sx }: Props) {
 
   return (
     <Box>
+      <baseForm.components.Label sx={{ mb: 2 }} />
+      <baseForm.components.Description />
     </Box>
   )
 }
