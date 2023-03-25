@@ -11,7 +11,7 @@ type Props = {
   sx?: SxProps
 }
 
-export default function PostForm({ sx }: Props) {
+export default function use_Post_form({ sx }: Props) {
   const baseForm = use_Post_form_base()
 
   const expertForm = useFormik({
@@ -22,38 +22,38 @@ export default function PostForm({ sx }: Props) {
     },
     onSubmit(){}
   })
-  const isExpert = baseForm.control.values.categories.includes('personEndorsement')
 
-  const {
-    Label, Categories, Description, Location
-  } = baseForm.components
+  const Expert_firstName = useCallback(() => (
+    <TextField
+      sx={sx}
+      label="Ime"
+      variant="outlined"
+      name="firstName"
+      value={expertForm.values.firstName}
+      onChange={expertForm.handleChange}
+    />
+  ), [expertForm.values.firstName, expertForm.handleChange])
 
-  return (
-    <Box>
-      <Label sx={{ mb: 2 }} />
-      <Categories />
-      <Description />
-      <Location />
-      {isExpert ? (
-        <>
-          <TextField
-            sx={sx}
-            label="Ime"
-            variant="outlined"
-            name="firstName"
-            value={expertForm.values.firstName}
-            onChange={expertForm.handleChange}
-          />
-          <TextField
-            sx={sx}
-            label="Prezime"
-            variant="outlined"
-            name="lastName"
-            value={expertForm.values.lastName}
-            onChange={expertForm.handleChange}
-          />
-        </>
-      ) : <></>}
-    </Box>
-  )
+  const Expert_lastName = useCallback(() => (
+    <TextField
+      sx={sx}
+      label="Prezime"
+      variant="outlined"
+      name="firstName"
+      value={expertForm.values.lastName}
+      onChange={expertForm.handleChange}
+    />
+  ), [expertForm.values.lastName, expertForm.handleChange])
+
+
+  return {
+    baseForm,
+    expertForm: {
+      control: expertForm,
+      components: {
+        Expert_firstName,
+        Expert_lastName,
+      },
+    }
+  }
 }
