@@ -1,4 +1,4 @@
-import { SxProps, TextField } from "@mui/material"
+import { SxProps, TextField, TextFieldProps } from "@mui/material"
 import use_Post_form_base, { Post_form_base_input } from "./Post.form.2.base"
 import { useCallback } from "react"
 import { useFormik } from "formik"
@@ -39,54 +39,35 @@ export default function use_Post_form({
     onSubmit(){}
   })
 
-  const Expert_firstName = useCallback((sx?: SxProps) => (
-    <TextField
-      {...{
-        sx,
-        label: "Ime",
-        variant: "outlined",
-        name: "firstName",
-        value: expertForm.values.firstName,
-        onChange: expertForm.handleChange,
-      }}
-    />
-  ), [expertForm.values.firstName, expertForm.handleChange])
-
-  const Expert_lastName = useCallback((sx?: SxProps) => (
-    <TextField
-      {...{
-        sx,
-        label: "Prezime",
-        variant: "outlined",
-        name: "firstName",
-        value: expertForm.values.lastName,
-        onChange: expertForm.handleChange,
-      }}      
-    />
-  ), [expertForm.values.lastName, expertForm.handleChange])
-
-  const Expert_skills = useCallback((sx?: SxProps) => ( // need array
-    <TextField
-      {...{
-        sx,
-        label: "Prezime",
-        variant: "outlined",
-        name: "firstName",
-        value: expertForm.values.skills,
-        onChange: expertForm.handleChange,
-      }}
-    />
-  ), [expertForm.values.skills, expertForm.handleChange])
-
   return {
     baseForm,
     expertForm: {
       isActive: baseForm.control.values.categories.includes('personEndorsement'),
       control: expertForm,
-      components: {
-        FirstName: Expert_firstName,
-        LastName: Expert_lastName,
-        Skills: Expert_skills,
+      components_props: {
+        firstName: {
+          label: "Ime",
+          variant: "outlined",
+          name: "firstName",
+          value: expertForm.values.firstName,
+          onChange: expertForm.handleChange,
+        } satisfies Partial<TextFieldProps>,
+
+        lastName: {
+          label: "Prezime",
+          variant: "outlined",
+          name: "firstName",
+          value: expertForm.values.lastName,
+          onChange: expertForm.handleChange,
+        } satisfies Partial<TextFieldProps>,
+        
+        skills: {
+          label: "Prezime",
+          variant: "outlined",
+          name: "firstName",
+          value: expertForm.values.skills,
+          onChange: expertForm.handleChange,
+        } satisfies Partial<TextFieldProps>,
       },
     }
   }

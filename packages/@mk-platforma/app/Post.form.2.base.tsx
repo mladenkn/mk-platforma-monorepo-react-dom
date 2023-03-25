@@ -36,7 +36,7 @@ export default function use_Post_form_base({ initialValues }: Props){
         name: "label",
         value: values.label,
         onChange: handleChange,
-      } satisfies TextFieldProps,
+      } satisfies Partial<TextFieldProps>,
 
       description: {
         label: "Opis",
@@ -45,12 +45,12 @@ export default function use_Post_form_base({ initialValues }: Props){
         name: "description",
         value: values.description,
         onChange: handleChange,
-      } satisfies TextFieldProps,
+      } satisfies Partial<TextFieldProps>,
 
       categories: {
         value: values.categories,
         onChange: (e, value) => form.setFieldValue('categories', value),
-      } satisfies ComponentProps<typeof CategoriesDropdown>,
+      } satisfies Partial<ComponentProps<typeof CategoriesDropdown>>,
 
       location: {
         label: "Lokacija",
@@ -58,7 +58,7 @@ export default function use_Post_form_base({ initialValues }: Props){
         name: "location",
         value: values.location,
         onChange: handleChange,
-      } satisfies TextFieldProps,
+      } satisfies Partial<TextFieldProps>,
     },
   }
 }
