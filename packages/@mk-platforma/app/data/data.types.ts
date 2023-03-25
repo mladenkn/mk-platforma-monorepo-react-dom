@@ -26,10 +26,12 @@ export const Post_Accommodation_zod = Post_base_zod.extend({
 })
 
 export const Post_Gathering_zod = Post_base_zod.extend({
+  location: z.string(),
   categories: z.array(z.enum(['gathering'])),
 })
 
 export const Post_Job_zod = Post_base_zod.extend({
+  location: z.string(),
   categories: z.array(z.enum(['job'])),
 })
 
