@@ -6,7 +6,6 @@ import { Category } from "data/data.types"
 
 
 type Props = {
-  sx?: SxProps
   base_initialValues?: Post_form_base_input
   expert_initialValues?: {
     firstName: string
@@ -30,7 +29,6 @@ const expert_initialValues_default = {
 }
 
 export default function use_Post_form({
-  sx,
   base_initialValues = base_initialValues_default,
   expert_initialValues = expert_initialValues_default,
 }: Props) {
@@ -41,7 +39,7 @@ export default function use_Post_form({
     onSubmit(){}
   })
 
-  const Expert_firstName = useCallback(() => (
+  const Expert_firstName = useCallback((sx?: SxProps) => (
     <TextField
       sx={sx}
       label="Ime"
@@ -52,7 +50,7 @@ export default function use_Post_form({
     />
   ), [expertForm.values.firstName, expertForm.handleChange])
 
-  const Expert_lastName = useCallback(() => (
+  const Expert_lastName = useCallback((sx?: SxProps) => (
     <TextField
       sx={sx}
       label="Prezime"
@@ -63,7 +61,7 @@ export default function use_Post_form({
     />
   ), [expertForm.values.lastName, expertForm.handleChange])
 
-  const Expert_skills = useCallback(() => ( // need array
+  const Expert_skills = useCallback((sx?: SxProps) => ( // need array
     <TextField
       sx={sx}
       label="Prezime"

@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default function Post_create_section({ sx }: Props) {
-  const form = use_Post_form
+  const form = use_Post_form({  })
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
@@ -25,6 +25,10 @@ export default function Post_create_section({ sx }: Props) {
       />
       <Box sx={{ px: 3 }}>
         <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
+        <form.baseForm.components.Label />
+        <form.baseForm.components.Categories />
+        <form.baseForm.components.Description />
+        <form.baseForm.components.Location />
       </Box>
     </Box>
   )
