@@ -145,9 +145,10 @@ type SectionTabs_props = ComponentProps<typeof Tabs> & {
   setActiveTab(c: Category): void
   children?: ReactNode
   tabs: Category[]
+  tabProps?: Partial<ComponentProps<typeof Tab>>
 }
 
-function SectionTabs({ activeTab, setActiveTab, children, tabs, sx, ...otherProps }: SectionTabs_props){
+function SectionTabs({ activeTab, setActiveTab, children, tabs, sx, tabProps, ...otherProps }: SectionTabs_props){
   return (
     <Tabs
       sx={{
@@ -180,6 +181,7 @@ function SectionTabs({ activeTab, setActiveTab, children, tabs, sx, ...otherProp
           label={getCategoryLabel(category)}
           value={category}
           icon={<CategoryIcon category={category} />}
+          {...tabProps}
         />
       ))}
       {children}
