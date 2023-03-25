@@ -1,26 +1,19 @@
 import { useFormik } from "formik"
 import { useCallback } from "react"
 import { toFormikValidationSchema } from 'zod-formik-adapter'
-import { Post_base } from "./data/data.types"
+import { Post_base_zod } from "./data/data.types"
 import { TextField } from "@mui/material"
-import { Diff } from "utility-types"
-import { z } from "zod"
 
 
-type Props<TFields extends Omit<Post_base, 'id' | 'categories'>> = {
-  initialValues: Diff<TFields, Post_base> & Partial<Post_base>
-  zodSchema: z.ZodSchema<TFields>
-}
-
-export default function use_Post_form_base<TFields extends Omit<Post_base, 'id' | 'categories'>>({ initialValues, zodSchema }: Props<TFields>){
-  const form = useFormik<TFields>({
-    initialValues: ({
+export default function use_Post_form_base(){
+  const form = useFormik({
+    initialValues: {
       label: '',
       description: '',
       photos: [],
-      ...initialValues,
-    } as any) as TFields,
-    validationSchema: toFormikValidationSchema(zodSchema),
+      categories: [],
+    },
+    validationSchema: toFormikValidationSchema(Post_base_zod),
     onSubmit(){}
   })
 
