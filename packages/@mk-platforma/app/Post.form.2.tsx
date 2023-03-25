@@ -11,13 +11,6 @@ type Props = {
   sx?: SxProps
 }
 
-const form_baseProps = {
-  label: true,
-  description: true,
-  photos: true,
-  categories: true,
-}
-
 export default function PostForm({ sx }: Props) {
   const baseForm = use_Post_form_base()
 
