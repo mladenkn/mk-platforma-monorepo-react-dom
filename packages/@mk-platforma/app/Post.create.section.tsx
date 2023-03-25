@@ -25,10 +25,10 @@ export default function Post_create_section({ sx }: Props) {
       />
       <Box sx={{ px: 3, display: 'flex', flexDirection: 'column', gap: 2, }}>
         <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
-        <form.baseForm.components.Label />
-        <form.baseForm.components.Categories />
-        <form.baseForm.components.Description />
-        <form.baseForm.components.Location />
+        <form.baseForm.components_props.Label />
+        <form.baseForm.components_props.Categories />
+        <form.baseForm.components_props.Description />
+        <form.baseForm.components_props.Location />
         {form.expertForm.isActive ? (
           <>
             <form.expertForm.components.FirstName />

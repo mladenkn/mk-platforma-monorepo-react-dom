@@ -27,43 +27,38 @@ export default function use_Post_form_base({ initialValues }: Props){
 
   const { values, handleChange } = form
 
-  const labelProps = {
-    label: "Naziv",
-    variant: "outlined",
-    name: "label",
-    value: values.label,
-    onChange: handleChange,
-  } satisfies TextFieldProps
-
-  const descriptionProps = {
-    label: "Opis",
-    variant: "outlined",
-    multiline: true,
-    name: "description",
-    value: values.description,
-    onChange: handleChange,
-  } satisfies TextFieldProps
-
-  const categoriesProps = {
-    value: values.categories,
-    onChange: (e, value) => form.setFieldValue('categories', value),
-  } satisfies ComponentProps<typeof CategoriesDropdown>
-
-  const locationProps = {
-    label: "Lokacija",
-    variant: "outlined",
-    name: "location",
-    value: values.location,
-    onChange: handleChange,
-  } satisfies TextFieldProps
-
   return {
     control: form,
-    components: {
-      labelProps,
-      descriptionProps,
-      categoriesProps,
-      locationProps,
+    components_props: {
+      label: {
+        label: "Naziv",
+        variant: "outlined",
+        name: "label",
+        value: values.label,
+        onChange: handleChange,
+      } satisfies TextFieldProps,
+
+      description: {
+        label: "Opis",
+        variant: "outlined",
+        multiline: true,
+        name: "description",
+        value: values.description,
+        onChange: handleChange,
+      } satisfies TextFieldProps,
+
+      categories: {
+        value: values.categories,
+        onChange: (e, value) => form.setFieldValue('categories', value),
+      } satisfies ComponentProps<typeof CategoriesDropdown>,
+
+      location: {
+        label: "Lokacija",
+        variant: "outlined",
+        name: "location",
+        value: values.location,
+        onChange: handleChange,
+      } satisfies TextFieldProps,
     },
   }
 }
