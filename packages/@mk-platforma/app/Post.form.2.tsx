@@ -41,34 +41,40 @@ export default function use_Post_form({
 
   const Expert_firstName = useCallback((sx?: SxProps) => (
     <TextField
-      sx={sx}
-      label="Ime"
-      variant="outlined"
-      name="firstName"
-      value={expertForm.values.firstName}
-      onChange={expertForm.handleChange}
+      {...{
+        sx,
+        label: "Ime",
+        variant: "outlined",
+        name: "firstName",
+        value: expertForm.values.firstName,
+        onChange: expertForm.handleChange,
+      }}
     />
   ), [expertForm.values.firstName, expertForm.handleChange])
 
   const Expert_lastName = useCallback((sx?: SxProps) => (
     <TextField
-      sx={sx}
-      label="Prezime"
-      variant="outlined"
-      name="firstName"
-      value={expertForm.values.lastName}
-      onChange={expertForm.handleChange}
+      {...{
+        sx,
+        label: "Prezime",
+        variant: "outlined",
+        name: "firstName",
+        value: expertForm.values.lastName,
+        onChange: expertForm.handleChange,
+      }}      
     />
   ), [expertForm.values.lastName, expertForm.handleChange])
 
   const Expert_skills = useCallback((sx?: SxProps) => ( // need array
     <TextField
-      sx={sx}
-      label="Prezime"
-      variant="outlined"
-      name="firstName"
-      value={expertForm.values.skills}
-      onChange={expertForm.handleChange}
+      {...{
+        sx,
+        label: "Prezime",
+        variant: "outlined",
+        name: "firstName",
+        value: expertForm.values.skills,
+        onChange: expertForm.handleChange,
+      }}
     />
   ), [expertForm.values.skills, expertForm.handleChange])
 
