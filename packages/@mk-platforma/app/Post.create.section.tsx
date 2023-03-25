@@ -1,7 +1,7 @@
 import { Box, IconButton, SxProps, TextField } from "@mui/material"
 import Header from "./Header"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
-import use_Post_form_onlyExpert from "./Post.form.onlyExpert"
+import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import use_Post_form_base from "./Post.form.base"
 
@@ -13,7 +13,7 @@ type Props = {
 export default function Post_create_section({ sx }: Props) {
   const form_base = use_Post_form_base({})
 
-  const form_expert = use_Post_form_onlyExpert({})
+  const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = form_base.control.values.categories.includes('personEndorsement')
 
   return (

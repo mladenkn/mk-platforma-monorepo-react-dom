@@ -16,7 +16,7 @@ const initialValues_default = {
   skills: '',
 }
 
-export default function use_Post_form_onlyExpert({
+export default function use_Post_form_expertOnly({
   initialValues = initialValues_default,
 }: Props) {
   const expertForm = useFormik({
