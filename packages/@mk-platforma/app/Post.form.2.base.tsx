@@ -3,7 +3,7 @@ import { useCallback } from "react"
 import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { Post_base, Post_base_zod } from "./data/data.types"
 import { SxProps, TextField } from "@mui/material"
-import CategoriesDropdown from "Categories.dropdown"
+import CategoriesDropdown from "./Categories.dropdown"
 
 
 type WithSx = {
