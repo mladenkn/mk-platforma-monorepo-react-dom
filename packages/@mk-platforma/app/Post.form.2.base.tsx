@@ -40,32 +40,38 @@ export default function use_Post_form_base({ initialValues }: Props){
 
   const Description = useCallback(({ sx }: WithSx) => (
     <TextField
-      sx={sx}
-      label="Opis"
-      variant="outlined"
-      multiline
-      name="description"
-      value={values.description}
-      onChange={handleChange}
+      {...{
+        sx,
+        label: "Opis",
+        variant: "outlined",
+        multiline: true,
+        name: "description",
+        value: values.description,
+        onChange: handleChange,
+      }}
     />
   ), [values.description, handleChange])
 
   const Categories = useCallback(({ sx }: WithSx) => (
     <CategoriesDropdown
-      sx={sx}
-      value={values.categories}
-      onChange={(e, value) => form.setFieldValue('categories', value)}
+      {...{
+        sx,
+        value: values.categories,
+        onChange: (e, value) => form.setFieldValue('categories', value),
+      }}
     />
   ), [values.categories, form.setFieldValue])
 
   const Location = useCallback(({ sx }: WithSx) => (
     <TextField
-      sx={sx}
-      label="Lokacija"
-      variant="outlined"
-      name="location"
-      value={values.location}
-      onChange={handleChange}
+      {...{
+        sx,
+        label: "Lokacija",
+        variant: "outlined",
+        name: "location",
+        value: values.location,
+        onChange: handleChange,
+      }}      
     />    
   ), [values.location, handleChange])
 
