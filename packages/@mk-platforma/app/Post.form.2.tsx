@@ -1,5 +1,5 @@
 import { SxProps, TextField } from "@mui/material"
-import use_Post_form_base, { Post_form_base_input } from "Post.form.2.base."
+import use_Post_form_base, { Post_form_base_input } from "Post.form.2.base"
 import { useCallback } from "react"
 import { useFormik } from "formik"
 import { Category } from "data/data.types"

@@ -1,13 +1,15 @@
 import { Box, IconButton, SxProps } from "@mui/material"
-import PostForm from "./Post.form"
 import Header from "./Header"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
+import use_Post_form_base from "./Post.form.2.base"
 
 type Props = {
   sx?: SxProps
 }
 
 export default function Post_create_section({ sx }: Props) {
+  const form = use_Post_form_base
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
       <Header
@@ -23,7 +25,6 @@ export default function Post_create_section({ sx }: Props) {
       />
       <Box sx={{ px: 3 }}>
         <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
-        <PostForm />
       </Box>
     </Box>
   )
