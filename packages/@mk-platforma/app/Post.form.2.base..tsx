@@ -10,7 +10,7 @@ type WithSx = {
   sx?: SxProps
 }
 
-export type Post_form_base_input = Post_base & {
+export type Post_form_base_input = Omit<Post_base, 'id'> & {
   location: string
 }
 
@@ -19,7 +19,7 @@ type Props = {
 }
 
 export default function use_Post_form_base({ initialValues }: Props){
-  const form = useFormik<Omit<Post_form_base_input, 'id'>>({
+  const form = useFormik({
     initialValues,
     validationSchema: toFormikValidationSchema(Post_base_zod),
     onSubmit(){}
