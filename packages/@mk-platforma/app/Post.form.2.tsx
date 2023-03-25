@@ -77,6 +77,7 @@ export default function use_Post_form({
   return {
     baseForm,
     expertForm: {
+      isActive: baseForm.control.values.categories.includes('personEndorsement'),
       control: expertForm,
       components: {
         FirstName: Expert_firstName,
