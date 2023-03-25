@@ -20,9 +20,11 @@ const form_baseProps = {
 
 export default function PostForm({ sx }: Props) {
   const baseForm = use_Post_form_base()
-  const accommodationForm = useFormik({
+  const expertForm = useFormik({
     initialValues: {
-      location: '',
+      firstName: '',
+      lastName: '',
+      skills: [] as string[],
     },
     onSubmit(){}
   })
