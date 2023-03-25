@@ -1,9 +1,6 @@
-import { Box, SxProps, TextField } from "@mui/material"
-import { Category, Post_Accommodation_zod, Post_Expert } from "./data/data.types"
+import { SxProps, TextField } from "@mui/material"
 import use_Post_form_base from "Post.form.2.base."
-import { useCallback, useState } from "react"
-import { eva } from "@mk-libs/common/common"
-import CategoriesDropdown from "Categories.dropdown"
+import { useCallback } from "react"
 import { useFormik } from "formik"
 
 
@@ -18,7 +15,7 @@ export default function use_Post_form({ sx }: Props) {
     initialValues: {
       firstName: '',
       lastName: '',
-      skills: [] as string[],
+      skills: '',
     },
     onSubmit(){}
   })
@@ -45,14 +42,25 @@ export default function use_Post_form({ sx }: Props) {
     />
   ), [expertForm.values.lastName, expertForm.handleChange])
 
+  const Expert_skills = useCallback(() => ( // need array
+    <TextField
+      sx={sx}
+      label="Prezime"
+      variant="outlined"
+      name="firstName"
+      value={expertForm.values.skills}
+      onChange={expertForm.handleChange}
+    />
+  ), [expertForm.values.skills, expertForm.handleChange])
 
   return {
     baseForm,
     expertForm: {
       control: expertForm,
       components: {
-        Expert_firstName,
-        Expert_lastName,
+        FirstName: Expert_firstName,
+        LastName: Expert_lastName,
+        Skills: Expert_skills,
       },
     }
   }
