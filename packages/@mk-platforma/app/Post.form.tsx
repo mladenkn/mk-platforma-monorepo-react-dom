@@ -54,6 +54,12 @@ export default function PostForm({ sx }: Props) {
         value={categories}
         onChange={(e, value) => setCategories(value || [])}
       />
+      {form ? (
+        <>
+          <form.components.Label />
+          <form.components.Description />
+        </>
+      ): <></>}
     </Box>
   )
 }
