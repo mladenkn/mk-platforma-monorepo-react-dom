@@ -1,6 +1,5 @@
-import { SxProps, TextField, TextFieldProps } from "@mui/material"
+import { TextFieldProps } from "@mui/material"
 import use_Post_form_base, { Post_form_base_input } from "./Post.form.2.base"
-import { useCallback } from "react"
 import { useFormik } from "formik"
 import { Category } from "./data/data.types"
 
@@ -62,7 +61,7 @@ export default function use_Post_form({
         } satisfies Partial<TextFieldProps>,
         
         skills: {
-          label: "Prezime",
+          label: "Skills",
           variant: "outlined",
           name: "firstName",
           value: expertForm.values.skills,

@@ -1,7 +1,8 @@
-import { Box, IconButton, SxProps } from "@mui/material"
+import { Box, IconButton, SxProps, TextField } from "@mui/material"
 import Header from "./Header"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import use_Post_form from "./Post.form.2"
+import CategoriesDropdown from "./Categories.dropdown"
 
 type Props = {
   sx?: SxProps
@@ -25,15 +26,15 @@ export default function Post_create_section({ sx }: Props) {
       />
       <Box sx={{ px: 3, display: 'flex', flexDirection: 'column', gap: 2, }}>
         <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
-        <form.baseForm.components_props.Label />
-        <form.baseForm.components_props.Categories />
-        <form.baseForm.components_props.Description />
-        <form.baseForm.components_props.Location />
+        <TextField {...form.baseForm.components_props.label} />
+        <CategoriesDropdown {...form.baseForm.components_props.categories} />
+        <TextField {...form.baseForm.components_props.description} />
+        <TextField {...form.baseForm.components_props.location} />
         {form.expertForm.isActive ? (
           <>
-            <form.expertForm.components.FirstName />
-            <form.expertForm.components.LastName />
-            <form.expertForm.components.Skills />    
+            <TextField {...form.expertForm.components_props.firstName} />
+            <TextField {...form.expertForm.components_props.lastName} />
+            <TextField {...form.expertForm.components_props.skills} />
           </>
         ) : <></>}
       </Box>
