@@ -3,7 +3,6 @@ import { Category, Post_Accommodation_zod, Post_Expert } from "./data/data.types
 import use_Post_form_base from "Post.form.base"
 import { useState } from "react"
 import { eva } from "@mk-libs/common/common"
-import { z } from "zod"
 
 
 type Props = {
