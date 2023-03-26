@@ -116,7 +116,7 @@ export default function PostList_section() {
           items={filteredPosts}
           Item={item => {
             switch (
-              item.categories[0] // problem
+              item.categories[0] // ~ ?
             ) {
               case "personEndorsement":
                 return <Post_expert_listItem {...(item as any)} />
@@ -128,7 +128,7 @@ export default function PostList_section() {
           }}
           Item_details={item => {
             switch (
-              item.categories[0] // problem
+              item.categories[0] // ~ ?
             ) {
               case "personEndorsement":
                 return <Post_common_listItem_details label={`${item.firstName} ${item.lastName}`} {...item} />
