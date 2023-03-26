@@ -9,10 +9,10 @@ import Header from "./Header"
 import { Category } from "./data/data.types"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
-import { getCategoryLabel, CategoryIcon } from "./Categories.dropdown"
+import { CategoryIcon } from "./Categories.dropdown"
 
 
-const queries = [
+const tabs = [
   {
     id: 1,
     label: 'Smještaji',
@@ -45,32 +45,18 @@ const queries = [
   }
 ]
 
-type Query = typeof queries[number]
+type Query = typeof tabs[number]
 
 type Option = { id: Category; label: string }
 
 export default function PostList_section() {
-  const [selectedCategory, setSelectedCategory] = useState<Option | undefined | null>({
-    id: "gathering",
-    label: getCategoryLabel("gathering"),
-  })
-  const [search, setSearch] = useState("")
-  const [activeSearch, _setActiveSearch] = useState<"byCategory" | "byString">("byCategory")
+  const [_activeTab, setActiveTab] = useState<number>(3)
+  const activeTab = tabs.find(t => t.id === _activeTab)
 
-  const [tab, setTab] = useState<Category>("accommodation")
-  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(
-    null
-  )
+  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(null)
 
   function handle_showMoreTabs(event: MouseEvent<HTMLButtonElement>) {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
-  }
-
-  function setActiveSearch(category: "byCategory" | "byString") {
-    if (category === "byCategory") setSearch("")
-    else setSelectedCategory(undefined)
-
-    _setActiveSearch(category)
   }
 
   function mapQuery({ id, label, categories }: Query){
@@ -85,8 +71,8 @@ export default function PostList_section() {
     }
   }
 
-  const filteredPosts = selectedCategory
-    ? data.allPosts.filter(post => post.categories.includes(tab))
+  const filteredPosts = activeTab
+    ? data.allPosts.filter(post => post.categories.some(postCat => activeTab.categories.includes(postCat as Category)))
     : data.allPosts
 
   return (
@@ -116,9 +102,9 @@ export default function PostList_section() {
         bottom={
           <SectionTabs
             sx={{ mt: 2, mb: 0.1 }}
-            activeTab={tab}
-            setActiveTab={setTab}
-            tabs={queries.slice(0, 3).map(mapQuery)}
+            activeTab={activeTab?.id}
+            setActiveTab={setActiveTab}
+            tabs={tabs.slice(0, 3).map(mapQuery)}
           >
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
@@ -143,9 +129,9 @@ export default function PostList_section() {
       >
         <SectionTabs
           sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
-          tabs={queries.slice(3).map(mapQuery)}
-          activeTab={tab}
-          setActiveTab={setTab}
+          tabs={tabs.slice(3).map(mapQuery)}
+          activeTab={activeTab?.id}
+          setActiveTab={setActiveTab}
           orientation="vertical"
         />
       </Popover>
@@ -193,8 +179,8 @@ export default function PostList_section() {
 }
 
 type SectionTabs_props = ComponentProps<typeof Tabs> & {
-  activeTab: Category
-  setActiveTab(c: Category): void
+  activeTab?: number
+  setActiveTab(c: number): void
   children?: ReactNode
   tabs: {
     id: number
@@ -243,7 +229,7 @@ function SectionTabs({
             },
           }}
           label={tab.label}
-          value={tab}
+          value={tab.id}
           icon={tab.icons}
           {...tabProps}
         />
