@@ -1,15 +1,51 @@
 import { Box, IconButton, Tabs, Tab, Popover } from "@mui/material"
-import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
+import { useState, MouseEvent, ReactElement, ReactNode, ComponentProps } from "react"
 import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_listItem_details } from "./Post.common.listItem"
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import Header from "./Header"
-import { Category, allCategories } from "./data/data.types"
+import { Category } from "./data/data.types"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
 import { getCategoryLabel, CategoryIcon } from "./Categories.dropdown"
+
+
+const queries = [
+  {
+    id: 1,
+    label: 'Smještaji',
+    categories: ['accommodation'] as Category[],
+  },
+  {
+    id: 2,
+    label: 'Duhovna okupljanja',
+    categories: ['gathering', 'spirituality'] as Category[],
+  },
+  {
+    id: 3,
+    label: 'Radne akcije',
+    categories: ['gathering', 'work'] as Category[],
+  },
+  {
+    id: 4,
+    label: 'Poslovi',
+    categories: ['job'] as Category[],
+  },
+  {
+    id: 5,
+    label: 'Majstori',
+    categories: ['personEndorsement'] as Category[],
+  },
+  {
+    id: 6,
+    label: 'Nabava',
+    categories: ['sellable'] as Category[],
+  }
+]
+
+type Query = typeof queries[number]
 
 type Option = { id: Category; label: string }
 
@@ -35,6 +71,18 @@ export default function PostList_section() {
     else setSelectedCategory(undefined)
 
     _setActiveSearch(category)
+  }
+
+  function mapQuery({ id, label, categories }: Query){
+    return {
+      id,
+      label,
+      icons: (
+        <Box>
+          {categories.map(c => <CategoryIcon category={c} />)}
+        </Box>
+      )
+    }
   }
 
   const filteredPosts = selectedCategory
@@ -70,7 +118,7 @@ export default function PostList_section() {
             sx={{ mt: 2, mb: 0.1 }}
             activeTab={tab}
             setActiveTab={setTab}
-            tabs={allCategories.slice(0, 3)}
+            tabs={queries.slice(0, 3).map(mapQuery)}
           >
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
@@ -95,7 +143,7 @@ export default function PostList_section() {
       >
         <SectionTabs
           sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
-          tabs={allCategories.slice(3)}
+          tabs={queries.slice(3).map(mapQuery)}
           activeTab={tab}
           setActiveTab={setTab}
           orientation="vertical"
@@ -148,7 +196,11 @@ type SectionTabs_props = ComponentProps<typeof Tabs> & {
   activeTab: Category
   setActiveTab(c: Category): void
   children?: ReactNode
-  tabs: Category[]
+  tabs: {
+    id: number
+    icons: ReactElement
+    label: string
+  }[]
   tabProps?: Partial<ComponentProps<typeof Tab>>
 }
 
@@ -180,7 +232,7 @@ function SectionTabs({
       variant="fullWidth"
       {...otherProps}
     >
-      {tabs.map(category => (
+      {tabs.map(tab => (
         <Tab
           sx={{
             textTransform: "none",
@@ -190,9 +242,9 @@ function SectionTabs({
               color: "white !important",
             },
           }}
-          label={getCategoryLabel(category)}
-          value={category}
-          icon={<CategoryIcon category={category} />}
+          label={tab.label}
+          value={tab}
+          icon={tab.icons}
           {...tabProps}
         />
       ))}
