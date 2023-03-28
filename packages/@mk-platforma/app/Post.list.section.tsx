@@ -16,32 +16,32 @@ const tabs = [
   {
     id: 1,
     label: 'Smještaji',
-    categories: ['accommodation'] as Category[],
+    category: 'accommodation' as Category,
   },
   {
     id: 4,
     label: 'Poslovi',
-    categories: ['job'] as Category[],
+    category: 'job' as Category,
   },
   {
     id: 3,
     label: 'Radne akcije',
-    categories: ['gathering', 'work'] as Category[],
+    category: 'gathering' as Category,
   },
   {
     id: 2,
     label: 'Duhovna okupljanja',
-    categories: ['gathering', 'spirituality'] as Category[],
+    category: 'gathering' as Category,
   },
   {
     id: 5,
     label: 'Majstori',
-    categories: ['personEndorsement'] as Category[],
+    category: 'personEndorsement' as Category,
   },
   {
     id: 6,
     label: 'Nabava',
-    categories: ['sellable'] as Category[],
+    category: 'sellable' as Category,
   }
 ]
 
@@ -59,20 +59,16 @@ export default function PostList_section() {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
   }
 
-  function mapQuery({ id, label, categories }: Query){
+  function mapQuery({ id, label, category, }: Query){
     return {
       id,
       label,
-      icons: (
-        <Box>
-          {categories.map(c => <CategoryIcon category={c} />)}
-        </Box>
-      )
+      icon: <CategoryIcon category={category} />
     }
   }
 
   const filteredPosts = activeTab
-    ? data.allPosts.filter(post => post.categories.some(postCat => activeTab.categories.includes(postCat as Category)))
+    ? data.allPosts.filter(post => post.categories.some(postCat => activeTab.category.includes(postCat as Category)))
     : data.allPosts
 
   return (
@@ -184,7 +180,7 @@ type SectionTabs_props = ComponentProps<typeof Tabs> & {
   children?: ReactNode
   tabs: {
     id: number
-    icons: ReactElement
+    icon: ReactElement
     label: string
   }[]
   tabProps?: Partial<ComponentProps<typeof Tab>>
@@ -230,7 +226,7 @@ function SectionTabs({
           }}
           label={tab.label}
           value={tab.id}
-          icon={tab.icons}
+          icon={tab.icon}
           {...tabProps}
         />
       ))}
