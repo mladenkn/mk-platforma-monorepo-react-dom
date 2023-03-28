@@ -1,4 +1,4 @@
-import { Box, IconButton, SxProps, TextField } from "@mui/material"
+import { Box, IconButton, SxProps, TextField, Button } from "@mui/material"
 import Header from "./Header"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
@@ -49,6 +49,7 @@ export default function Post_create_section({ sx }: Props) {
         ) : (
           <></>
         )}
+        <Button variant="contained" sx={{ mt: 4 }}>Dodaj</Button>
       </Box>
     </Box>
   )
