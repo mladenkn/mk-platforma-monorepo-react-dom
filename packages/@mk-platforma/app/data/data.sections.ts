@@ -41,7 +41,7 @@ const sections = [
     id: 6,
     label: "Okupljanja/druženja",
     iconName: "gathering" as Category,
-    categories: ["gathering/hangout"] as Category[],
+    categories: ["gathering"] as Category[],
   },
 ]
 

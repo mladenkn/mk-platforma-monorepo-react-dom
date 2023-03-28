@@ -10,8 +10,8 @@ import { Category } from "./data/data.types"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
-  value?: number
-  onChange(event: any, c?: number): void
+  value?: number[]
+  onChange(event: any, c?: number[]): void
 }
 
 export default function CategoriesDropdown({
@@ -20,7 +20,7 @@ export default function CategoriesDropdown({
   onChange,
   ...props
 }: CategoriesDropdown_Props): ReactElement {
-  const selectedSection = sections.find(s => s.id === value)
+  const selectedSections = sections.filter(s => value?.includes(s.id))
 
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
@@ -66,11 +66,12 @@ export default function CategoriesDropdown({
                 fontSize: 16,
               },
             }}
-            placeholder="Sekcija"
+            placeholder="Sekcije"
           />
         )}
-        value={selectedSection}
-        onChange={(e, value) => onChange(e, value?.id)}
+        value={selectedSections}
+        onChange={(e, value) => onChange(e, value?.map(o => o.id))}
+        multiple
         {...props}
       />
     </ThemeProvider>

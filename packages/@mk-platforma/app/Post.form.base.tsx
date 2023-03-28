@@ -7,7 +7,7 @@ import SectionsDropdown from "./Sections.dropdown"
 
 export type Post_form_base_input = Omit<Post_base, "id" | "categories"> & {
   location: string
-  section?: number
+  sections?: number[]
 }
 
 type Props = {
@@ -51,7 +51,7 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
       } satisfies Partial<TextFieldProps>,
 
       section: {
-        value: values.section,
+        value: values.sections,
         onChange: (e, value) => form.setFieldValue("section", value),
       } satisfies Partial<ComponentProps<typeof SectionsDropdown>>,
 

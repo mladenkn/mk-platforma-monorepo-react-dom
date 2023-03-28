@@ -6,7 +6,7 @@ import SectionsDropdown from "./Sections.dropdown"
 import use_Post_form_base from "./Post.form.base"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import sections from "./data/data.sections"
-import { omit } from "lodash"
+import { flatMap, omit } from "lodash"
 
 type Props = {
   sx?: SxProps
@@ -17,15 +17,15 @@ export default function Post_create_section({ sx }: Props) {
 
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = eva(() => {
-    const selectedSection = sections.find(s => form_base.control.values.section === s.id)
-    return selectedSection ? selectedSection.categories.includes("personEndorsement") : false
+    const selectedSection = sections.filter(s => form_base.control.values.sections?.includes(s.id))
+    return !!selectedSection.some(s => s.categories.includes("personEndorsement"))
   })
 
   function onSubmit() {
     const mapped = {
       ...omit(form_base.control.values, "section"),
       categories: asNonNil(
-        sections.find(s => s.id === asNonNil(form_base.control.values.section))?.categories
+        flatMap(sections.filter(s => form_base.control.values.sections?.includes(s.id)), s => s.categories)
       ),
     }
   }
