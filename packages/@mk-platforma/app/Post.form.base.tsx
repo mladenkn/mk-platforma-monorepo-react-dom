@@ -1,8 +1,8 @@
 import { useFormik } from "formik"
-import { ComponentProps, useCallback } from "react"
+import { ComponentProps } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import { Post_base, Post_base_zod } from "./data/data.types"
-import { SxProps, TextField, TextFieldProps } from "@mui/material"
+import { TextFieldProps } from "@mui/material"
 import SectionsDropdown from "./Sections.dropdown"
 
 export type Post_form_base_input = Omit<Post_base, "id" | "categories"> & {
