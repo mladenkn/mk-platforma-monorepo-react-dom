@@ -41,8 +41,6 @@ export default function PostList_section() {
       )
     : data.allPosts
 
-  const query = trpc.posts.useQuery()
-
   return (
     <Box
       sx={{
@@ -54,7 +52,6 @@ export default function PostList_section() {
         height: "100%",
       }}
     >
-      {JSON.stringify(query.data, null, 2)}
       <Header
         right={
           <Box sx={{ pr: 1 }}>
