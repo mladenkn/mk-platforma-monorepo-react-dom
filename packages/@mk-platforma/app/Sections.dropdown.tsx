@@ -70,7 +70,12 @@ export default function CategoriesDropdown({
           />
         )}
         value={selectedSections}
-        onChange={(e, value) => onChange(e, value?.map(o => o.id))}
+        onChange={(e, value) =>
+          onChange(
+            e,
+            value?.map(o => o.id)
+          )
+        }
         multiple
         {...props}
       />
@@ -105,6 +110,7 @@ export function CategoryIcon({ name, sx }: { name: Category; sx?: SxProps }) {
       return <GroupsIcon sx={sx} />
     case "job":
       return <HandymanIcon sx={sx} />
-    default: throw new Error("Category name not matched")
+    default:
+      throw new Error("Category name not matched")
   }
 }

@@ -25,7 +25,12 @@ export default function Post_create_section({ sx }: Props) {
     const mapped = {
       ...omit(form_base.control.values, "section"),
       categories: asNonNil(
-        uniq(flatMap(sections.filter(s => form_base.control.values.sections?.includes(s.id)), s => s.categories))
+        uniq(
+          flatMap(
+            sections.filter(s => form_base.control.values.sections?.includes(s.id)),
+            s => s.categories
+          )
+        )
       ),
     }
   }
