@@ -1,6 +1,5 @@
 import { Box, IconButton, Tabs, Tab, Popover } from "@mui/material"
 import { useState, MouseEvent, ReactElement, ReactNode, ComponentProps } from "react"
-import data from "./data/data.json"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_listItem_details } from "./Post.common.listItem"
 import { Post_expert_listItem } from "./Post.expert.listItem"
@@ -37,11 +36,13 @@ export default function PostList_section() {
     }
   }
 
+  const posts = trpc.posts.useQuery()
+
   const filteredPosts = activeTab
-    ? data.allPosts.filter(post =>
+    ? (posts.data || []).filter(post =>
         post.categories.some(postCat => activeTab.iconName.includes(postCat as Category))
       )
-    : data.allPosts
+    : (posts.data || [])
 
   return (
     <Box
@@ -116,7 +117,7 @@ export default function PostList_section() {
           background: "#E4E6EB",
         }}
       >
-        <Post_list_base
+        <Post_list_base // počistit sve any
           items={filteredPosts}
           Item={item => {
             switch (
@@ -125,7 +126,7 @@ export default function PostList_section() {
               case "personEndorsement":
                 return <Post_expert_listItem {...(item as any)} />
               case "sellable":
-                return <Post_common_listItem {...(item as any)} imageAtStart={item.mainImage} />
+                return <Post_common_listItem {...(item as any)} imageAtStart={(item as any).mainImage} />
               default:
                 return <Post_common_listItem {...(item as any)} />
             }
@@ -135,7 +136,7 @@ export default function PostList_section() {
               item.categories[0] // ~ ?
             ) {
               case "personEndorsement":
-                return <Post_common_listItem_details label={`${item.firstName} ${item.lastName}`} {...item} />
+                return <Post_common_listItem_details label={`${(item as any).firstName} ${(item as any).lastName}`} {...item} />
               case "sellable":
                 return <Post_common_listItem_details {...(item as any)} />
               default:
