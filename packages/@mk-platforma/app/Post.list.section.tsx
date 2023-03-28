@@ -10,42 +10,8 @@ import { Category } from "./data/data.types"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Categories.dropdown"
+import sections, { Section } from "./data/data.sections"
 
-
-const sections = [
-  {
-    id: 1,
-    label: 'Smještaji',
-    iconName: 'accommodation' as Category,
-  },
-  {
-    id: 4,
-    label: 'Poslovi',
-    iconName: 'job' as Category,
-  },
-  {
-    id: 3,
-    label: 'Radne akcije',
-    iconName: 'gathering' as Category,
-  },
-  {
-    id: 2,
-    label: 'Duhovna okupljanja',
-    iconName: 'gathering' as Category,
-  },
-  {
-    id: 5,
-    label: 'Majstori',
-    iconName: 'personEndorsement' as Category,
-  },
-  {
-    id: 6,
-    label: 'Nabava',
-    iconName: 'sellable' as Category,
-  }
-]
-
-type Query = typeof sections[number]
 
 type Option = { id: Category; label: string }
 
@@ -59,7 +25,7 @@ export default function PostList_section() {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
   }
 
-  function mapQuery({ id, label, iconName, }: Query){
+  function mapQuery({ id, label, iconName, }: Section){
     return {
       id,
       label,
