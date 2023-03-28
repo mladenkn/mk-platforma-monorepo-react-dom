@@ -12,29 +12,32 @@ import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Categories.dropdown"
 import sections, { Section } from "./data/data.sections"
 
-
 type Option = { id: Category; label: string }
 
 export default function PostList_section() {
   const [_activeTab, setActiveTab] = useState<number>(3)
   const activeTab = sections.find(t => t.id === _activeTab)
 
-  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(
+    null
+  )
 
   function handle_showMoreTabs(event: MouseEvent<HTMLButtonElement>) {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
   }
 
-  function mapQuery({ id, label, iconName, }: Section){
+  function mapQuery({ id, label, iconName }: Section) {
     return {
       id,
       label,
-      icon: <CategoryIcon name={iconName} />
+      icon: <CategoryIcon name={iconName} />,
     }
   }
 
   const filteredPosts = activeTab
-    ? data.allPosts.filter(post => post.categories.some(postCat => activeTab.iconName.includes(postCat as Category)))
+    ? data.allPosts.filter(post =>
+        post.categories.some(postCat => activeTab.iconName.includes(postCat as Category))
+      )
     : data.allPosts
 
   return (

@@ -1,6 +1,14 @@
 import { z } from "zod"
 
-export type Category = "job" | "accommodation" | "personEndorsement" | "sellable" | "gathering"
+export type Category =
+  | "job"
+  | "accommodation"
+  | "personEndorsement"
+  | "sellable"
+  | "gathering"
+  | "gathering/spirituality"
+  | "gathering/work"
+  | "gathering/hangout"
 
 export const allCategories: Category[] = [
   "job",
@@ -8,6 +16,9 @@ export const allCategories: Category[] = [
   "personEndorsement",
   "sellable",
   "gathering",
+  "gathering/spirituality",
+  "gathering/work",
+  "gathering/hangout",
 ]
 
 export const Post_base_zod = z.object({
