@@ -16,32 +16,32 @@ const tabs = [
   {
     id: 1,
     label: 'Smještaji',
-    category: 'accommodation' as Category,
+    iconName: 'accommodation' as Category,
   },
   {
     id: 4,
     label: 'Poslovi',
-    category: 'job' as Category,
+    iconName: 'job' as Category,
   },
   {
     id: 3,
     label: 'Radne akcije',
-    category: 'gathering' as Category,
+    iconName: 'gathering' as Category,
   },
   {
     id: 2,
     label: 'Duhovna okupljanja',
-    category: 'gathering' as Category,
+    iconName: 'gathering' as Category,
   },
   {
     id: 5,
     label: 'Majstori',
-    category: 'personEndorsement' as Category,
+    iconName: 'personEndorsement' as Category,
   },
   {
     id: 6,
     label: 'Nabava',
-    category: 'sellable' as Category,
+    iconName: 'sellable' as Category,
   }
 ]
 
@@ -59,16 +59,16 @@ export default function PostList_section() {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
   }
 
-  function mapQuery({ id, label, category, }: Query){
+  function mapQuery({ id, label, iconName, }: Query){
     return {
       id,
       label,
-      icon: <CategoryIcon name={category} />
+      icon: <CategoryIcon name={iconName} />
     }
   }
 
   const filteredPosts = activeTab
-    ? data.allPosts.filter(post => post.categories.some(postCat => activeTab.category.includes(postCat as Category)))
+    ? data.allPosts.filter(post => post.categories.some(postCat => activeTab.iconName.includes(postCat as Category)))
     : data.allPosts
 
   return (
