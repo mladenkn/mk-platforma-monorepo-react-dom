@@ -9,7 +9,7 @@ import Header from "./Header"
 import { Category } from "./data/data.types"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
-import { CategoryIcon } from "./Categories.dropdown"
+import { CategoryIcon } from "./Sections.dropdown"
 import sections, { Section } from "./data/data.sections"
 import trpc from "./trpc"
 
