@@ -10,14 +10,16 @@ import { Category } from "./data/data.types"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Sections.dropdown"
-import sections, { Section } from "./data/data.sections"
+import { Section } from "./data/data.sections"
 import trpc from "./trpc"
 
 type Option = { id: Category; label: string }
 
 export default function PostList_section() {
+  const sections = trpc.sections.useQuery()
+
   const [_activeTab, setActiveTab] = useState<number>(3)
-  const activeTab = sections.find(t => t.id === _activeTab)
+  const activeTab = sections.data?.find(t => t.id === _activeTab)
 
   const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(
     null
@@ -65,18 +67,18 @@ export default function PostList_section() {
             </IconButton>
           </Box>
         }
-        bottom={
+        bottom={sections.data && (
           <SectionTabs
             sx={{ mt: 2, mb: 0.1 }}
             activeTab={activeTab?.id}
             setActiveTab={setActiveTab}
-            tabs={sections.slice(0, 3).map(mapQuery)}
+            tabs={sections.data.slice(0, 3).map(mapQuery)}
           >
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
             </IconButton>
           </SectionTabs>
-        }
+        )}
       />
       <Popover
         open={!!additionalTabsShownAnchorEl}
@@ -93,13 +95,15 @@ export default function PostList_section() {
           },
         }}
       >
-        <SectionTabs
-          sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
-          tabs={sections.slice(3).map(mapQuery)}
-          activeTab={activeTab?.id}
-          setActiveTab={setActiveTab}
-          orientation="vertical"
-        />
+        {sections.data && (
+          <SectionTabs
+            sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
+            tabs={sections.data.slice(3).map(mapQuery)}
+            activeTab={activeTab?.id}
+            setActiveTab={setActiveTab}
+            orientation="vertical"
+          />
+        )}
       </Popover>
       <Box
         sx={{

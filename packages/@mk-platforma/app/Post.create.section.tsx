@@ -5,8 +5,8 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import SectionsDropdown from "./Sections.dropdown"
 import use_Post_form_base from "./Post.form.base"
 import { asNonNil, eva } from "@mk-libs/common/common"
-import sections from "./data/data.sections"
 import { flatMap, omit, uniq } from "lodash"
+import trpc from "./trpc"
 
 type Props = {
   sx?: SxProps
@@ -15,10 +15,12 @@ type Props = {
 export default function Post_create_section({ sx }: Props) {
   const form_base = use_Post_form_base({})
 
+  const sections = trpc.posts.useQuery()
+
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = eva(() => {
-    const selectedSection = sections.filter(s => form_base.control.values.sections?.includes(s.id))
-    return !!selectedSection.some(s => s.categories.includes("personEndorsement"))
+    const selectedSection = sections.data?.filter(s => form_base.control.values.sections?.includes(s.id))
+    return !!selectedSection?.some(s => s.categories.includes("personEndorsement"))
   })
 
   function onSubmit() {
@@ -27,7 +29,7 @@ export default function Post_create_section({ sx }: Props) {
       categories: asNonNil(
         uniq(
           flatMap(
-            sections.filter(s => form_base.control.values.sections?.includes(s.id)),
+            sections.data?.filter(s => form_base.control.values.sections?.includes(s.id)),
             s => s.categories
           )
         )
