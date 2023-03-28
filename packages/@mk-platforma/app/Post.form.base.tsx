@@ -10,7 +10,7 @@ export type Post_form_base_input = Omit<Post_base, "id"> & {
 }
 
 type Props = {
-  initialValues?: Omit<Post_form_base_input, "id">
+  initialValues?: Post_form_base_input
 }
 
 const initialValues_default = {
@@ -19,7 +19,7 @@ const initialValues_default = {
   categories: [],
   location: "",
   photos: [],
-} satisfies Omit<Post_form_base_input, "id">
+} satisfies Post_form_base_input
 
 export default function use_Post_form_base({ initialValues = initialValues_default }: Props) {
   const form = useFormik({
