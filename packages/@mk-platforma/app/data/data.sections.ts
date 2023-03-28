@@ -38,7 +38,7 @@ const sections = [
     categories: ["sellable"] as Category[],
   },
   {
-    id: 6,
+    id: 7,
     label: "Okupljanja/druženja",
     iconName: "gathering" as Category,
     categories: ["gathering"] as Category[],

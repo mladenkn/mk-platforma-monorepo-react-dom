@@ -30,6 +30,8 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
 
   const { values, handleChange } = form
 
+  console.log(values)
+
   return {
     control: form,
     components_props: {
