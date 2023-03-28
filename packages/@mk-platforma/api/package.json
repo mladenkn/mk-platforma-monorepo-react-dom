@@ -8,7 +8,8 @@
   },
   "dependencies": {
     "@prisma/client": "^4.11.0",
-    "@trpc/server": "^10.8.1"
+    "@trpc/server": "^10.8.1",
+    "zod": "^3.19.1"
   },
   "devDependencies": {
     "@mk-libs/tsconfig": "workspace:*",
