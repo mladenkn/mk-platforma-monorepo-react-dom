@@ -21,7 +21,7 @@ const initialValues_default = {
   photos: [],
 } satisfies Post_form_base_input
 
-// Treba validacija da nemože selektirat bilo koju kombinaciju kategorija
+// Treba validacija da nemože selektirat bilo koju kombinaciju sekcija
 
 export default function use_Post_form_base({ initialValues = initialValues_default }: Props) {
   const form = useFormik({

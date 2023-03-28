@@ -6,7 +6,7 @@ import SectionsDropdown from "./Sections.dropdown"
 import use_Post_form_base from "./Post.form.base"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import sections from "./data/data.sections"
-import { flatMap, omit } from "lodash"
+import { flatMap, omit, uniq } from "lodash"
 
 type Props = {
   sx?: SxProps
@@ -25,7 +25,7 @@ export default function Post_create_section({ sx }: Props) {
     const mapped = {
       ...omit(form_base.control.values, "section"),
       categories: asNonNil(
-        flatMap(sections.filter(s => form_base.control.values.sections?.includes(s.id)), s => s.categories)
+        uniq(flatMap(sections.filter(s => form_base.control.values.sections?.includes(s.id)), s => s.categories))
       ),
     }
   }
