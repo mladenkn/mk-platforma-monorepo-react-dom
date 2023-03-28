@@ -19,9 +19,9 @@ const tabs = [
     categories: ['accommodation'] as Category[],
   },
   {
-    id: 2,
-    label: 'Duhovna okupljanja',
-    categories: ['gathering', 'spirituality'] as Category[],
+    id: 4,
+    label: 'Poslovi',
+    categories: ['job'] as Category[],
   },
   {
     id: 3,
@@ -29,9 +29,9 @@ const tabs = [
     categories: ['gathering', 'work'] as Category[],
   },
   {
-    id: 4,
-    label: 'Poslovi',
-    categories: ['job'] as Category[],
+    id: 2,
+    label: 'Duhovna okupljanja',
+    categories: ['gathering', 'spirituality'] as Category[],
   },
   {
     id: 5,
