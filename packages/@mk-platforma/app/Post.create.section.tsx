@@ -23,7 +23,7 @@ export default function Post_create_section({ sx }: Props) {
 
   function onSubmit() {
     const mapped = {
-      ...omit(form_base.control.values, "section"),
+      ...omit(form_base.control.values, "sections"),
       categories: asNonNil(
         uniq(
           flatMap(
