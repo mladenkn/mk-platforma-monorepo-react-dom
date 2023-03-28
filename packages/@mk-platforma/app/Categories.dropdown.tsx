@@ -47,7 +47,7 @@ export default function CategoriesDropdown({
         options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
         renderOption={(props, option) => (
           <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
-            <CategoryIcon category={option.id} sx={{ fontSize: 26, mr: 2 }} />
+            <CategoryIcon name={option.id} sx={{ fontSize: 26, mr: 2 }} />
             {option.label}
           </Box>
         )}
@@ -95,8 +95,8 @@ export function getCategoryLabel(category: Category) {
   }
 }
 
-export function CategoryIcon({ category, sx }: { category: Category; sx?: SxProps }) {
-  switch (category) {
+export function CategoryIcon({ name, sx }: { name: Category; sx?: SxProps }) {
+  switch (name) {
     case "accommodation":
       return <BedIcon sx={sx} />
     case "sellable":

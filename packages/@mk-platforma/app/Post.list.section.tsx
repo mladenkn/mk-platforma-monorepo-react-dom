@@ -63,7 +63,7 @@ export default function PostList_section() {
     return {
       id,
       label,
-      icon: <CategoryIcon category={category} />
+      icon: <CategoryIcon name={category} />
     }
   }
 
