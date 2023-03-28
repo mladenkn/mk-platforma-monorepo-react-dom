@@ -12,7 +12,7 @@ import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Categories.dropdown"
 
 
-const tabs = [
+const sections = [
   {
     id: 1,
     label: 'Smještaji',
@@ -45,13 +45,13 @@ const tabs = [
   }
 ]
 
-type Query = typeof tabs[number]
+type Query = typeof sections[number]
 
 type Option = { id: Category; label: string }
 
 export default function PostList_section() {
   const [_activeTab, setActiveTab] = useState<number>(3)
-  const activeTab = tabs.find(t => t.id === _activeTab)
+  const activeTab = sections.find(t => t.id === _activeTab)
 
   const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(null)
 
@@ -100,7 +100,7 @@ export default function PostList_section() {
             sx={{ mt: 2, mb: 0.1 }}
             activeTab={activeTab?.id}
             setActiveTab={setActiveTab}
-            tabs={tabs.slice(0, 3).map(mapQuery)}
+            tabs={sections.slice(0, 3).map(mapQuery)}
           >
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
@@ -125,7 +125,7 @@ export default function PostList_section() {
       >
         <SectionTabs
           sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
-          tabs={tabs.slice(3).map(mapQuery)}
+          tabs={sections.slice(3).map(mapQuery)}
           activeTab={activeTab?.id}
           setActiveTab={setActiveTab}
           orientation="vertical"
