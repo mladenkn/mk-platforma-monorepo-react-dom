@@ -41,7 +41,7 @@ export default function PostList_section() {
       )
     : data.allPosts
 
-  const query = trpc.hello.useQuery()
+  const query = trpc.posts.useQuery()
 
   return (
     <Box
