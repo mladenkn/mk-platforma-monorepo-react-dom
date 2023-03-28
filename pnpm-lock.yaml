@@ -176,6 +176,7 @@ importers:
       '@tanstack/react-query': ^4.24.4
       '@trpc/client': ^10.16.0
       '@trpc/next': ^10.16.0
+      '@trpc/react-query': ^10.16.0
       '@types/lodash': ^4.14.186
       '@types/node': ^17.0.12
       '@types/react': ^18.0.21
@@ -199,7 +200,8 @@ importers:
       '@mui/material': 5.11.10_bltlva4pirkp365q4ifuylmkle
       '@tanstack/react-query': 4.24.4_react@18.2.0
       '@trpc/client': 10.16.0
-      '@trpc/next': 10.16.0_winx7ooo5si7s4pal3ikaf5jim
+      '@trpc/next': 10.16.0_omqazpaok7fkeck37wklca6xrq
+      '@trpc/react-query': 10.16.0_eay3hfut7c5w7kedbry2h4gtxe
       formik: 2.2.9_react@18.2.0
       lodash: 4.17.21
       next: 13.2.4_react@18.2.0
@@ -1425,7 +1427,7 @@ packages:
       '@trpc/server': 10.10.0
     dev: false
 
-  /@trpc/next/10.16.0_winx7ooo5si7s4pal3ikaf5jim:
+  /@trpc/next/10.16.0_omqazpaok7fkeck37wklca6xrq:
     resolution: {integrity: sha512-2AohDydvvLk2IjnQ1hTnT8cVmLItYf6cFRwJVYnyi35y2DVKXLiIWuKSTzc9xzR5enYFUQJZivXaWx/i0jjcfQ==}
     peerDependencies:
       '@tanstack/react-query': ^4.18.0
@@ -1438,6 +1440,7 @@ packages:
     dependencies:
       '@tanstack/react-query': 4.24.4_react@18.2.0
       '@trpc/client': 10.16.0
+      '@trpc/react-query': 10.16.0_eay3hfut7c5w7kedbry2h4gtxe
       next: 13.2.4_react@18.2.0
       react: 18.2.0
       react-ssr-prepass: 1.5.0_react@18.2.0
@@ -1462,6 +1465,20 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-ssr-prepass: 1.5.0_react@18.2.0
+    dev: false
+
+  /@trpc/react-query/10.16.0_eay3hfut7c5w7kedbry2h4gtxe:
+    resolution: {integrity: sha512-LHLkyYgmmmaqMK33Hil7+DxCRG+8cRl2hF/rY8DQneh7e/u4cBA/wbun5vs8BAJxmYcHsQNPlq5aBy80CyU78g==}
+    peerDependencies:
+      '@tanstack/react-query': ^4.18.0
+      '@trpc/client': 10.16.0
+      '@trpc/server': 10.16.0
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+    dependencies:
+      '@tanstack/react-query': 4.24.4_react@18.2.0
+      '@trpc/client': 10.16.0
+      react: 18.2.0
     dev: false
 
   /@trpc/react-query/10.16.0_vktll4h6bp7dc3nf25zfxcmkja:

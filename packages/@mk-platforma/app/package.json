@@ -31,6 +31,7 @@
     "@tanstack/react-query": "^4.24.4",
     "@trpc/client": "^10.16.0",
     "@trpc/next": "^10.16.0",
+    "@trpc/react-query": "^10.16.0",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "next": "^13.2.4",
