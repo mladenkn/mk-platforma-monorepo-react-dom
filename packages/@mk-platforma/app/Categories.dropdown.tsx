@@ -64,6 +64,7 @@ export default function CategoriesDropdown({
                 fontSize: 16,
               },
             }}
+            placeholder="Kategorije"
           />
         )}
         value={value?.map(c => ({ id: c, label: getCategoryLabel(c) }))}
