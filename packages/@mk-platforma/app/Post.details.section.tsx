@@ -1,14 +1,14 @@
 import { Post_common_listItem_details } from "./Post.common.listItem"
-import data from "./data/data.json"
 import { useRouter } from "next/router"
 import Header from "./Header"
 import { Box, IconButton } from "@mui/material"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
+import trpc from "./trpc"
 
 export default function Post_details_section() {
   const router = useRouter()
   const itemId = parseInt(router.query.id as string)!
-  const item = data.allPosts.find(g => g.id === itemId)
+  const post = trpc.post_sing.useQuery({ id: itemId })
   return (
     <Box>
       <Header
@@ -21,7 +21,7 @@ export default function Post_details_section() {
           </a>
         }
       />
-      {item ? <Post_common_listItem_details {...(item as any)} /> : "Objava nije pronađena"}
+      {post.data ? <Post_common_listItem_details {...(post.data as any)} /> : "Učitavanje..."}
     </Box>
   )
 }
