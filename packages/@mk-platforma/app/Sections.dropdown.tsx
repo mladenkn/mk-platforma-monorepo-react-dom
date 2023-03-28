@@ -5,19 +5,26 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
 import { ThemeProvider, createTheme, Autocomplete, Box, TextField, SxProps } from "@mui/material"
 import { ReactElement } from "react"
-import sections from "./data/data.sections"
 import { Category } from "./data/data.types"
+
+type Section = {
+  id: number
+  label: string
+  iconName: Category
+}
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
   value?: number[]
   onChange(event: any, c?: number[]): void
+  sections: Section[]
 }
 
 export default function CategoriesDropdown({
   sx,
   value,
   onChange,
+  sections,
   ...props
 }: CategoriesDropdown_Props): ReactElement {
   const selectedSections = sections.filter(s => value?.includes(s.id))

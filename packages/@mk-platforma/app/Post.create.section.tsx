@@ -15,7 +15,7 @@ type Props = {
 export default function Post_create_section({ sx }: Props) {
   const form_base = use_Post_form_base({})
 
-  const sections = trpc.posts.useQuery()
+  const sections = trpc.sections.useQuery()
 
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = eva(() => {
@@ -53,7 +53,7 @@ export default function Post_create_section({ sx }: Props) {
       <Box sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2 }}>
         <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
         <TextField {...form_base.components_props.label} />
-        <SectionsDropdown {...form_base.components_props.section} />
+        {sections.data && <SectionsDropdown {...form_base.components_props.section} sections={sections.data} />}
         <TextField {...form_base.components_props.description} />
         <TextField {...form_base.components_props.location} />
         {form_expert_isActive ? (

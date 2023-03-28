@@ -25,7 +25,7 @@ export default function Header({ sx, right, bottom }: Props) {
         }}
       >
         <Box sx={{ ml: 0.2, pl: 2 }}>
-          <a style={{ color: "white", fontSize: 35, textDecoration: "none" }} href="https://za-brata.com/">
+          <a style={{ color: "white", fontSize: 35, textDecoration: "none" }} href="/">
             ZaBrata
           </a>
           <Box sx={{ color: "white", fontSize: 22 }}>Loza kontribucionizma</Box>
