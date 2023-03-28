@@ -4,9 +4,12 @@
   "version": "1.0.0",
   "scripts": {
     "db": "pnpm prisma",
-    "ts": "tsc --noEmit"
+    "ts": "tsc --noEmit",
+    "data.generate": "ts-node --compilerOptions '{ \"module\": \"commonjs\" }' ./data/data.generate.ts"
   },
   "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "@mk-libs/common": "workspace:^0.0.0",
     "@prisma/client": "^4.11.0",
     "@trpc/server": "^10.8.1",
     "zod": "^3.19.1"

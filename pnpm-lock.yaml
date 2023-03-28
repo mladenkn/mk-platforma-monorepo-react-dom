@@ -144,6 +144,8 @@ importers:
 
   packages/@mk-platforma/api:
     specifiers:
+      '@faker-js/faker': ^7.6.0
+      '@mk-libs/common': workspace:^0.0.0
       '@mk-libs/tsconfig': workspace:*
       '@prisma/client': ^4.11.0
       '@trpc/server': ^10.8.1
@@ -153,6 +155,8 @@ importers:
       typescript: ^4.9.5
       zod: ^3.19.1
     dependencies:
+      '@faker-js/faker': 7.6.0
+      '@mk-libs/common': link:../../@mk-libs/common
       '@prisma/client': 4.11.0_prisma@4.11.0
       '@trpc/server': 10.10.0
       zod: 3.20.3

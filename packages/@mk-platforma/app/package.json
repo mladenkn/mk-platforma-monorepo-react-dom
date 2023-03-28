@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "scripts": {
     "lint": "eslint *.ts*",
-    "data.generate": "ts-node --compilerOptions '{ \"module\": \"commonjs\" }' ./data/data.generate.ts",
     "postinstall": "pnpm data.generate",
     "ts": "pnpm tsc --noEmit"
   },
