@@ -52,7 +52,7 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
 
       section: {
         value: values.sections,
-        onChange: (e, value) => form.setFieldValue("section", value),
+        onChange: (e, value) => form.setFieldValue("sections", value),
       } satisfies Partial<ComponentProps<typeof SectionsDropdown>>,
 
       location: {
