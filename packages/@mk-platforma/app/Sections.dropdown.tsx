@@ -10,7 +10,7 @@ import { Category } from "./data/data.types"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
-  value: number
+  value?: number
   onChange(event: any, c?: number): void
 }
 

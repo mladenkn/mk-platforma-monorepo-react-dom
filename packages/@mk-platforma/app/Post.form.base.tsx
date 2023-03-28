@@ -3,10 +3,11 @@ import { ComponentProps, useCallback } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import { Post_base, Post_base_zod } from "./data/data.types"
 import { SxProps, TextField, TextFieldProps } from "@mui/material"
-import CategoriesDropdown from "./Categories.dropdown"
+import SectionsDropdown from "./Sections.dropdown"
 
-export type Post_form_base_input = Omit<Post_base, "id"> & {
+export type Post_form_base_input = Omit<Post_base, "id" | "categories"> & {
   location: string
+  section?: number
 }
 
 type Props = {
@@ -16,7 +17,6 @@ type Props = {
 const initialValues_default = {
   label: "",
   description: "",
-  categories: [],
   location: "",
   photos: [],
 } satisfies Post_form_base_input
@@ -50,10 +50,10 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
         onChange: handleChange,
       } satisfies Partial<TextFieldProps>,
 
-      categories: {
-        value: values.categories,
-        onChange: (e, value) => form.setFieldValue("categories", value),
-      } satisfies Partial<ComponentProps<typeof CategoriesDropdown>>,
+      section: {
+        value: values.section,
+        onChange: (e, value) => form.setFieldValue("section", value),
+      } satisfies Partial<ComponentProps<typeof SectionsDropdown>>,
 
       location: {
         label: "Lokacija",
