@@ -22,8 +22,6 @@ export default function CategoriesDropdown({
 }: CategoriesDropdown_Props): ReactElement {
   const selectedSections = sections.filter(s => value?.includes(s.id))
 
-  console.log(selectedSections)
-
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
       <Autocomplete
