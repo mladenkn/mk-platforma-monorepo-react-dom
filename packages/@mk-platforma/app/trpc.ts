@@ -4,6 +4,7 @@ import type { AppRouter } from "../api/index"
 import { NextPageContext } from "next"
 
 function getBaseUrl() {
+  // @ts-ignore
   if (typeof window !== "undefined")
     // browser should use relative path
     return ""

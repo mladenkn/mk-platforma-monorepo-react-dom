@@ -11,6 +11,7 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Categories.dropdown"
 import sections, { Section } from "./data/data.sections"
+import trpc from "./trpc"
 
 type Option = { id: Category; label: string }
 
@@ -40,6 +41,8 @@ export default function PostList_section() {
       )
     : data.allPosts
 
+  const query = trpc.hello.useQuery()
+
   return (
     <Box
       sx={{
@@ -51,6 +54,7 @@ export default function PostList_section() {
         height: "100%",
       }}
     >
+      {JSON.stringify(query.data, null, 2)}
       <Header
         right={
           <Box sx={{ pr: 1 }}>
