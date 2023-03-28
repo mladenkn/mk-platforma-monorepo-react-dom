@@ -4,8 +4,9 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import SectionsDropdown from "./Sections.dropdown"
 import use_Post_form_base from "./Post.form.base"
-import { eva } from "@mk-libs/common/common"
+import { asNonNil, eva } from "@mk-libs/common/common"
 import sections from "./data/data.sections"
+import { omit } from "lodash"
 
 
 type Props = {
@@ -20,6 +21,15 @@ export default function Post_create_section({ sx }: Props) {
     const selectedSection = sections.find(s => form_base.control.values.section === s.id)
     return selectedSection ? selectedSection.categories.includes('personEndorsement') : false
   })
+
+  function onSubmit(){
+    const mapped = {
+      ...omit(form_base.control.values, 'section'),
+      categories: asNonNil(
+        sections.find(s => s.id === asNonNil(form_base.control.values.section))?.categories
+      )
+    }
+  }
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
@@ -49,7 +59,7 @@ export default function Post_create_section({ sx }: Props) {
         ) : (
           <></>
         )}
-        <Button variant="contained" sx={{ mt: 4 }}>Dodaj</Button>
+        <Button variant="contained" sx={{ mt: 4 }} onClick={onSubmit}>Dodaj</Button>
       </Box>
     </Box>
   )
