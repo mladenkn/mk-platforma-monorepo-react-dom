@@ -12,7 +12,7 @@ const publicProcedure = t.procedure
 export const appRouter = router({
   posts: publicProcedure.query(() => data.allPosts),
 
-  post_sing: publicProcedure
+  post_single: publicProcedure
     .input(z.object({
       id: z.number()
     }))
