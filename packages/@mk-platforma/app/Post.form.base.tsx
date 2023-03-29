@@ -19,6 +19,7 @@ const initialValues_default = {
   description: "",
   location: "",
   photos: [],
+  sections: [],
 } satisfies Post_form_base_input
 
 // Treba validacija da nemože selektirat bilo koju kombinaciju sekcija

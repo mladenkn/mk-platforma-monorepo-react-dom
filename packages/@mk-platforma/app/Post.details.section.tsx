@@ -41,7 +41,7 @@ export default function Post_details_section() {
           }
         />
       ) : <></>}
-      {(post.data && isEdit) ? <Post_edit post={post.data} onSubmit={() => {}} /> : <></>}
+      {(post.data && isEdit) ? <Post_edit post={post.data as any} onSubmit={() => {}} /> : <></>}
     </Box>
   )
 }
