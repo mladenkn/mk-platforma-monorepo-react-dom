@@ -14,16 +14,10 @@ const sections = [
     categories: ["job"] as Category[],
   },
   {
-    id: 3,
-    label: "Radne akcije",
+    id: 8,
+    label: "Okupljanja",
     iconName: "gathering" as Category,
-    categories: ["gathering", "gathering/work"] as Category[],
-  },
-  {
-    id: 2,
-    label: "Duhovna okupljanja",
-    iconName: "gathering" as Category,
-    categories: ["gathering", "gathering/spirituality"] as Category[],
+    categories: ["gathering"] as Category[],
   },
   {
     id: 5,
@@ -42,6 +36,18 @@ const sections = [
     label: "Okupljanja/druženja",
     iconName: "gathering" as Category,
     categories: ["gathering", "gathering/hangout"] as Category[],
+  },
+  {
+    id: 3,
+    label: "Radne akcije",
+    iconName: "gathering" as Category,
+    categories: ["gathering", "gathering/work"] as Category[],
+  },
+  {
+    id: 2,
+    label: "Duhovna okupljanja",
+    iconName: "gathering" as Category,
+    categories: ["gathering", "gathering/spirituality"] as Category[],
   },
 ]
 
