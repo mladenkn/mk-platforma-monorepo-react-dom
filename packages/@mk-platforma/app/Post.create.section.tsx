@@ -4,8 +4,6 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import SectionsDropdown from "./Sections.dropdown"
 import use_Post_form_base from "./Post.form.base"
-import { asNonNil, eva } from "@mk-libs/common/common"
-import { flatMap, omit, uniq } from "lodash"
 import trpc from "./trpc"
 
 type Props = {
@@ -18,23 +16,10 @@ export default function Post_create_section({ sx }: Props) {
   const sections = trpc.sections.useQuery()
 
   const form_expert = use_Post_form_expertOnly({})
-  const form_expert_isActive = eva(() => {
-    const selectedSection = sections.data?.filter(s => form_base.control.values.sections?.includes(s.id))
-    return !!selectedSection?.some(s => s.categories.includes("personEndorsement"))
-  })
+  const form_expert_isActive = sections.data?.filter(s => form_base.control.values.categories?.includes("personEndorsement"))
 
   function onSubmit() {
-    const mapped = {
-      ...omit(form_base.control.values, "sections"),
-      categories: asNonNil(
-        uniq(
-          flatMap(
-            sections.data?.filter(s => form_base.control.values.sections?.includes(s.id)),
-            s => s.categories
-          )
-        )
-      ),
-    }
+    
   }
 
   return (
