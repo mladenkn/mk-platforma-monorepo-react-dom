@@ -2,7 +2,7 @@ import { Box, IconButton, SxProps, TextField, Button } from "@mui/material"
 import Header from "./Header"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
-import SectionsDropdown from "./Sections.dropdown"
+import CategoriesDropdown from "./Categories.dropdown"
 import use_Post_form_base from "./Post.form.base"
 import trpc from "./trpc"
 
@@ -38,7 +38,7 @@ export default function Post_create_section({ sx }: Props) {
       <Box sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2 }}>
         <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
         <TextField {...form_base.components_props.label} />
-        {sections.data && <SectionsDropdown {...form_base.components_props.section} sections={sections.data} />}
+        {sections.data && <CategoriesDropdown {...form_base.components_props.section} />}
         <TextField {...form_base.components_props.description} />
         <TextField {...form_base.components_props.location} />
         {form_expert_isActive ? (
