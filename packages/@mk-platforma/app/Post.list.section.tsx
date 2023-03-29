@@ -5,7 +5,6 @@ import { Post_common_listItem, Post_common_details } from "./Post.common.listIte
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import Header from "./Header"
-import { Category } from "./data/data.types"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Sections.dropdown"
