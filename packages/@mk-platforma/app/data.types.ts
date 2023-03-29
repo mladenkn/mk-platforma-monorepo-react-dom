@@ -28,9 +28,3 @@ export type Section = {
   iconName: Category
   categories: Category[]
 }
-
-export type Category2 = {
-  id: number
-  name: string
-  parent?: Category2 | null
-}
