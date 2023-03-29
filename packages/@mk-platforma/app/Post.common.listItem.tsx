@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material"
+import { Box, SxProps, Typography } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import { ReactNode } from "react"
 
@@ -61,6 +61,7 @@ function Images({ images }: { images: string[] }) {
 }
 
 type Post_common_listItem_details_Props = {
+  sx?: SxProps
   label: string
   location: string
   photos?: string[]
@@ -70,6 +71,7 @@ type Post_common_listItem_details_Props = {
 }
 
 export function Post_common_details({
+  sx,
   label,
   location,
   photos,
@@ -78,7 +80,7 @@ export function Post_common_details({
   label_right,
 }: Post_common_listItem_details_Props) {
   return (
-    <Box sx={{ p: 4, mb: 3, }}>
+    <Box sx={sx}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Typography sx={{ fontWeight: 600, fontSize: 19 }}>{label}</Typography>
         {label_right}

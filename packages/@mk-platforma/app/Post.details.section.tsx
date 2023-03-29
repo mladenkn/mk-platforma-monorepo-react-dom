@@ -35,6 +35,7 @@ export default function Post_details_section() {
       {(post.data && !isEdit) ? (
         <Post_common_details
           {...(post.data as any)}
+          sx={{ py: 3, pl: 3, pr: 2, }}
           label_right={
             <Box>
               <IconButton onClick={() => setIsEdit(true)}>
