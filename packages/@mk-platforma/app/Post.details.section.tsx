@@ -5,6 +5,7 @@ import { Box, Button, IconButton, TextField } from "@mui/material"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
 import { useState } from "react"
 import { Post_base } from "../api/data/data.types"
 import use_Post_form_base from "./Post.form.base"
@@ -35,9 +36,14 @@ export default function Post_details_section() {
         <Post_common_details
           {...(post.data as any)}
           label_right={
-            <IconButton onClick={() => setIsEdit(true)}>
-              <EditIcon />
-            </IconButton>
+            <Box>
+              <IconButton onClick={() => setIsEdit(true)}>
+                <EditIcon />
+              </IconButton>
+              <IconButton>
+                <DeleteIcon />
+              </IconButton>
+            </Box>            
           }
         />
       ) : <></>}
