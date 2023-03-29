@@ -19,7 +19,7 @@ export default function PostList_section() {
   const sections = trpc.sections.useQuery()
 
   const [_activeTab, setActiveTab] = useState<number>(8)
-  const activeTab = asNonNil(sections.data?.find(t => t.id === _activeTab))
+  const activeTab = sections.data?.find(t => t.id === _activeTab)
 
   const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(
     null
@@ -37,7 +37,7 @@ export default function PostList_section() {
     }
   }
 
-  const posts = trpc.posts.useQuery({ categories: activeTab.categories })
+  const posts = trpc.posts.useQuery({ categories: activeTab?.categories })
 
   return (
     <Box
