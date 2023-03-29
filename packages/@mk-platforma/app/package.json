@@ -33,6 +33,7 @@
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "next": "^13.2.4",
+    "superjson": "^1.10.0",
     "zod": "^3.19.1",
     "zod-formik-adapter": "^1.2.0"
   }
