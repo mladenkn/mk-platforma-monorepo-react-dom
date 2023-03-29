@@ -16,7 +16,7 @@ export default function Post_create_section({ sx }: Props) {
   const sections = trpc.sections.useQuery()
 
   const form_expert = use_Post_form_expertOnly({})
-  const form_expert_isActive = sections.data?.filter(s => form_base.control.values.categories?.includes("personEndorsement"))
+  const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")
 
   function onSubmit() {
     
@@ -38,7 +38,7 @@ export default function Post_create_section({ sx }: Props) {
       <Box sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2 }}>
         <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
         <TextField {...form_base.components_props.label} />
-        {sections.data && <CategoriesDropdown {...form_base.components_props.section} />}
+        <CategoriesDropdown {...form_base.components_props.section} />
         <TextField {...form_base.components_props.description} />
         <TextField {...form_base.components_props.location} />
         {form_expert_isActive ? (
