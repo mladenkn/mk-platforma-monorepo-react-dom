@@ -13,8 +13,6 @@ type Props = {
 export default function Post_create_section({ sx }: Props) {
   const form_base = use_Post_form_base({})
 
-  const sections = trpc.sections.useQuery()
-
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")
 
