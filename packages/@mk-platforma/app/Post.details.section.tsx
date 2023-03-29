@@ -5,11 +5,14 @@ import { Box, IconButton } from "@mui/material"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
+import { useState } from "react"
 
 export default function Post_details_section() {
   const router = useRouter()
   const itemId = parseInt(router.query.id as string)!
   const post = trpc.post_single.useQuery({ id: itemId })
+  const [isEdit, setIsEdit] = useState(false)
+
   return (
     <Box>
       <Header
@@ -22,16 +25,20 @@ export default function Post_details_section() {
           </a>
         }
       />
-      {post.data ? (
+      {!post.data ? <>Učitavanje...</> : <></>}
+      {(post.data && !isEdit) ? (
         <Post_common_details
           {...(post.data as any)}
           label_right={
-            <IconButton>
+            <IconButton onClick={() => setIsEdit(true)}>
               <EditIcon />
             </IconButton>
           }
         />
-      ) : "Učitavanje..."}
+      ) : <></>}
+      {(post.data && isEdit) ? (
+        <>post edit</>
+      ) : <></>}
     </Box>
   )
 }
