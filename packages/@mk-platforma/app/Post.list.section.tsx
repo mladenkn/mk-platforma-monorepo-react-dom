@@ -36,7 +36,7 @@ export default function PostList_section() {
     }
   }
 
-  const posts = trpc.posts.useQuery({ categories: activeTab?.categories })
+  const posts = trpc.posts.useQuery({ categories: activeTab.categories })
 
   return (
     <Box
