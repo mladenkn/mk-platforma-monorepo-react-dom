@@ -40,7 +40,7 @@ export default function PostList_section() {
 
   const filteredPosts = activeTab
     ? (posts.data || []).filter(post =>
-        post.categories.some(postCat => activeTab.iconName.includes(postCat as Category))
+        activeTab.categories.every(tabCat => post.categories.includes(tabCat))
       )
     : (posts.data || [])
 
