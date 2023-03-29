@@ -9,11 +9,8 @@ import { Category } from "./data/data.types"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Sections.dropdown"
-import { Section } from "./data/data.sections"
+import { Section } from "./data/data.types"
 import trpc from "./trpc"
-import { asNonNil } from "@mk-libs/common/common"
-
-type Option = { id: Category; label: string }
 
 export default function PostList_section() {
   const sections = trpc.sections.useQuery()
