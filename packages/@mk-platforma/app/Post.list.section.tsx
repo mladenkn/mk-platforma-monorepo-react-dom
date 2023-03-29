@@ -8,7 +8,7 @@ import Header from "./Header"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Sections.dropdown"
-import { Section } from "./data/data.types"
+import { Section } from "./data.types"
 import trpc from "./trpc"
 
 export default function PostList_section() {

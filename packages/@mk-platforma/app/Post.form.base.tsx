@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import { ComponentProps } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import { Post_base, Post_base_zod } from "./data/data.types"
+import { Post_base, Post_base_zod } from "./data.types"
 import { TextFieldProps } from "@mui/material"
 import SectionsDropdown from "./Sections.dropdown"
 

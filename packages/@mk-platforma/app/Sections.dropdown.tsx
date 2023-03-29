@@ -5,7 +5,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
 import { ThemeProvider, createTheme, Autocomplete, Box, TextField, SxProps } from "@mui/material"
 import { ReactElement } from "react"
-import { Category } from "./data/data.types"
+import { Category } from "./data.types"
 
 type Section = {
   id: number
