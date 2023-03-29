@@ -3,6 +3,7 @@ import data from './data/data.json'
 import sections from "./data/data.sections"
 import { z } from "zod"
 import superjson from 'superjson'
+import { Category_zod } from "./data/data.types"
 
 
 const t = initTRPC.create({
@@ -13,7 +14,17 @@ const router = t.router
 const publicProcedure = t.procedure
 
 export const appRouter = router({
-  posts: publicProcedure.query(() => data.allPosts),
+  posts: publicProcedure
+    .input(z.object({
+      categories: z.array(Category_zod).optional(),
+    }))
+    .query(({ input }) =>
+      data.allPosts.filter(post =>
+        input.categories ? 
+          input.categories.every(tabCat => post.categories.includes(tabCat)) :
+          true
+      )
+    ),
 
   post_single: publicProcedure
     .input(z.object({

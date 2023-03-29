@@ -36,13 +36,7 @@ export default function PostList_section() {
     }
   }
 
-  const posts = trpc.posts.useQuery()
-
-  const filteredPosts = activeTab
-    ? (posts.data || []).filter(post =>
-        activeTab.categories.every(tabCat => post.categories.includes(tabCat))
-      )
-    : (posts.data || [])
+  const posts = trpc.posts.useQuery({ categories: activeTab?.categories })
 
   return (
     <Box
@@ -117,33 +111,36 @@ export default function PostList_section() {
           background: "#E4E6EB",
         }}
       >
-        <Post_list_base // počistit sve any
-          items={filteredPosts}
-          Item={item => {
-            switch (
-              item.categories[0] // ~ ?
-            ) {
-              case "personEndorsement":
-                return <Post_expert_listItem {...(item as any)} />
-              case "sellable":
-                return <Post_common_listItem {...(item as any)} imageAtStart={(item as any).mainImage} />
-              default:
-                return <Post_common_listItem {...(item as any)} />
-            }
-          }}
-          Item_details={item => {
-            switch (
-              item.categories[0] // ~ ?
-            ) {
-              case "personEndorsement":
-                return <Post_common_details label={`${(item as any).firstName} ${(item as any).lastName}`} {...item} />
-              case "sellable":
-                return <Post_common_details {...(item as any)} />
-              default:
-                return <Post_common_details {...(item as any)} />
-            }
-          }}
-        />
+        {posts.data ? (
+          <Post_list_base // počistit sve any
+            items={posts.data}
+            Item={item => {
+              switch (
+                item.categories[0] // ~ ?
+              ) {
+                case "personEndorsement":
+                  return <Post_expert_listItem {...(item as any)} />
+                case "sellable":
+                  return <Post_common_listItem {...(item as any)} imageAtStart={(item as any).mainImage} />
+                default:
+                  return <Post_common_listItem {...(item as any)} />
+              }
+            }}
+            Item_details={item => {
+              switch (
+                item.categories[0] // ~ ?
+              ) {
+                case "personEndorsement":
+                  return <Post_common_details label={`${(item as any).firstName} ${(item as any).lastName}`} {...item} />
+                case "sellable":
+                  return <Post_common_details {...(item as any)} />
+                default:
+                  return <Post_common_details {...(item as any)} />
+              }
+            }}
+          />) :
+          <>Učitavanje...</>
+        }
       </Box>
     </Box>
   )

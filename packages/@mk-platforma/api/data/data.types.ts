@@ -21,12 +21,14 @@ export const allCategories: Category[] = [
   "gathering/hangout",
 ]
 
+export const Category_zod = z.enum(["job", "accommodation", "personEndorsement", "sellable", "gathering", "gathering/spirituality", "gathering/work", "gathering/hangout"])
+
 export const Post_base_zod = z.object({
   id: z.number(),
   label: z.string(),
   description: z.string(),
   photos: z.array(z.string()),
-  categories: z.array(z.enum(["job", "accommodation", "personEndorsement", "sellable", "gathering", "gathering/spirituality", "gathering/work", "gathering/hangout"])),
+  categories: z.array(Category_zod),
   location: z.string(),
 })
 
