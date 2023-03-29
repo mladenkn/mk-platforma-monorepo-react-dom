@@ -1,5 +1,3 @@
-import { z } from "zod"
-
 export type Category =
   | "job"
   | "accommodation"
@@ -20,7 +18,6 @@ export const allCategories: Category[] = [
   "gathering/work",
   "gathering/hangout",
 ]
-
 
 export type Section = {
   id: number
