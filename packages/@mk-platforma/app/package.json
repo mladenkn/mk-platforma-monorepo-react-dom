@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "scripts": {
     "lint": "eslint *.ts*",
-    "postinstall": "pnpm data.generate",
     "ts": "pnpm tsc --noEmit"
   },
   "devDependencies": {

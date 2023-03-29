@@ -5,7 +5,8 @@
   "scripts": {
     "db": "pnpm prisma",
     "ts": "tsc --noEmit",
-    "data.generate": "ts-node --compilerOptions '{ \"module\": \"commonjs\" }' ./data/data.generate.ts"
+    "data.generate": "ts-node --compilerOptions '{ \"module\": \"commonjs\" }' ./data/data.generate.ts",
+    "postinstall": "pnpm data.generate"
   },
   "dependencies": {
     "@faker-js/faker": "^7.6.0",
