@@ -1,17 +1,23 @@
 import { useFormik } from "formik"
 import { ComponentProps } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import { Post_base, Post_base_zod } from "./data.types"
 import { TextFieldProps } from "@mui/material"
 import SectionsDropdown from "./Sections.dropdown"
+import { z } from "zod"
 
-export type Post_form_base_input = Omit<Post_base, "id" | "categories"> & {
-  location: string
-  sections?: number[]
-}
+
+const Post_zod = z.object({
+  label: z.string(),
+  description: z.string(),
+  photos: z.array(z.string()),
+  categories: z.array(z.enum(["job", "accommodation", "personEndorsement", "sellable", "gathering", "gathering/spirituality", "gathering/work", "gathering/hangout"])),
+  location: z.string(),
+})
+
+type Post = z.infer<typeof Post_zod>
 
 type Props = {
-  initialValues?: Post_form_base_input
+  initialValues?: Post
 }
 
 const initialValues_default = {
@@ -19,15 +25,15 @@ const initialValues_default = {
   description: "",
   location: "",
   photos: [],
-  sections: [],
-} satisfies Post_form_base_input
+  categories: [],
+} satisfies Post
 
 // Treba validacija da nemože selektirat bilo koju kombinaciju sekcija
 
 export default function use_Post_form_base({ initialValues = initialValues_default }: Props) {
   const form = useFormik({
     initialValues,
-    validationSchema: toFormikValidationSchema(Post_base_zod),
+    validationSchema: toFormikValidationSchema(Post_zod),
     onSubmit() {},
   })
 
@@ -54,8 +60,8 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
       } satisfies Partial<TextFieldProps>,
 
       section: {
-        value: values.sections,
-        onChange: (e, value) => form.setFieldValue("sections", value),
+        value: values.categories,
+        onChange: (e, value) => form.setFieldValue("categories", value),
       } satisfies Partial<ComponentProps<typeof SectionsDropdown>>,
 
       location: {

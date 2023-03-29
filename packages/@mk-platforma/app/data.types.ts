@@ -21,19 +21,16 @@ export const allCategories: Category[] = [
   "gathering/hangout",
 ]
 
-export const Post_base_zod = z.object({
-  id: z.number(),
-  label: z.string(),
-  description: z.string(),
-  photos: z.array(z.string()),
-  categories: z.array(z.enum(["job", "accommodation", "personEndorsement", "sellable", "gathering", "gathering/spirituality", "gathering/work", "gathering/hangout"])),
-})
-
-export type Post_base = z.infer<typeof Post_base_zod>
 
 export type Section = {
   id: number
   label: string
   iconName: Category
   categories: Category[]
+}
+
+export type Category2 = {
+  id: number
+  name: string
+  parent?: Category2 | null
 }
