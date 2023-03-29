@@ -11,6 +11,7 @@ import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Sections.dropdown"
 import { Section } from "./data/data.sections"
 import trpc from "./trpc"
+import { asNonNil } from "@mk-libs/common/common"
 
 type Option = { id: Category; label: string }
 
@@ -18,7 +19,7 @@ export default function PostList_section() {
   const sections = trpc.sections.useQuery()
 
   const [_activeTab, setActiveTab] = useState<number>(8)
-  const activeTab = sections.data?.find(t => t.id === _activeTab)
+  const activeTab = asNonNil(sections.data?.find(t => t.id === _activeTab))
 
   const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(
     null
