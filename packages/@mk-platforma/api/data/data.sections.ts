@@ -17,13 +17,13 @@ const sections = [
     id: 3,
     label: "Radne akcije",
     iconName: "gathering" as Category,
-    categories: ["gathering/work"] as Category[],
+    categories: ["gathering", "gathering/work"] as Category[],
   },
   {
     id: 2,
     label: "Duhovna okupljanja",
     iconName: "gathering" as Category,
-    categories: ["gathering/spirituality"] as Category[],
+    categories: ["gathering", "gathering/spirituality"] as Category[],
   },
   {
     id: 5,
@@ -41,7 +41,7 @@ const sections = [
     id: 7,
     label: "Okupljanja/druženja",
     iconName: "gathering" as Category,
-    categories: ["gathering"] as Category[],
+    categories: ["gathering", "gathering/hangout"] as Category[],
   },
 ]
 
