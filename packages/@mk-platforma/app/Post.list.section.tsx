@@ -17,7 +17,7 @@ type Option = { id: Category; label: string }
 export default function PostList_section() {
   const sections = trpc.sections.useQuery()
 
-  const [_activeTab, setActiveTab] = useState<number>(3)
+  const [_activeTab, setActiveTab] = useState<number>(4)
   const activeTab = sections.data?.find(t => t.id === _activeTab)
 
   const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(
