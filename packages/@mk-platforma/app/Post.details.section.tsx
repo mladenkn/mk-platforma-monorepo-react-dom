@@ -8,7 +8,7 @@ import trpc from "./trpc"
 export default function Post_details_section() {
   const router = useRouter()
   const itemId = parseInt(router.query.id as string)!
-  const post = trpc.post_sing.useQuery({ id: itemId })
+  const post = trpc.post_single.useQuery({ id: itemId })
   return (
     <Box>
       <Header
