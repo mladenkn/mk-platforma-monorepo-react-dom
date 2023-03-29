@@ -1,7 +1,7 @@
 import { Box, IconButton, Tabs, Tab, Popover } from "@mui/material"
 import { useState, MouseEvent, ReactElement, ReactNode, ComponentProps } from "react"
 import Post_list_base from "./Post.list.base"
-import { Post_common_listItem, Post_common_listItem_details } from "./Post.common.listItem"
+import { Post_common_listItem, Post_common_details } from "./Post.common.listItem"
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import Header from "./Header"
@@ -136,11 +136,11 @@ export default function PostList_section() {
               item.categories[0] // ~ ?
             ) {
               case "personEndorsement":
-                return <Post_common_listItem_details label={`${(item as any).firstName} ${(item as any).lastName}`} {...item} />
+                return <Post_common_details label={`${(item as any).firstName} ${(item as any).lastName}`} {...item} />
               case "sellable":
-                return <Post_common_listItem_details {...(item as any)} />
+                return <Post_common_details {...(item as any)} />
               default:
-                return <Post_common_listItem_details {...(item as any)} />
+                return <Post_common_details {...(item as any)} />
             }
           }}
         />

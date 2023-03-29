@@ -1,9 +1,10 @@
-import { Post_common_listItem_details } from "./Post.common.listItem"
+import { Post_common_details } from "./Post.common.listItem"
 import { useRouter } from "next/router"
 import Header from "./Header"
 import { Box, IconButton } from "@mui/material"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import trpc from "./trpc"
+import EditIcon from "@mui/icons-material/Edit"
 
 export default function Post_details_section() {
   const router = useRouter()
@@ -21,7 +22,16 @@ export default function Post_details_section() {
           </a>
         }
       />
-      {post.data ? <Post_common_listItem_details {...(post.data as any)} /> : "Učitavanje..."}
+      {post.data ? (
+        <Post_common_details
+          {...(post.data as any)}
+          label_right={
+            <IconButton>
+              <EditIcon />
+            </IconButton>
+          }
+        />
+      ) : "Učitavanje..."}
     </Box>
   )
 }
