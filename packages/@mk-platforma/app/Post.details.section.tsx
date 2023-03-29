@@ -59,7 +59,7 @@ function Post_edit({ post, onSubmit, } : { post: Post_base, onSubmit: () => void
   
   return (
     <Box sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2 }}>
-      <Box sx={{ fontSize: 38, mb: 5 }}>Novi oglas</Box>
+      <Box sx={{ fontSize: 38, mb: 5, mt: 4, }}>Uređivanje oglasa</Box>
       <TextField {...form_base.components_props.label} />
       {sections.data && <SectionsDropdown {...form_base.components_props.section} sections={sections.data} />}
       <TextField {...form_base.components_props.description} />
