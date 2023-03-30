@@ -96,6 +96,8 @@ export function getCategoryLabel(category: Category) {
       return "Radne akcije"
     case "gathering/hangout":
       return "Druženja"
+    default:
+      throw new Error("Category name not matched")
   }
 }
 
