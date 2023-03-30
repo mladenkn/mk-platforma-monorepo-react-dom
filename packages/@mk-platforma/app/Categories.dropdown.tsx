@@ -60,18 +60,13 @@ export default function CategoriesDropdown({
               sx: {
                 fontSize: 16,
               },
-              startAdornment: value ? <CategoryIcon sx={{ ml: 1, mr: 1.5, }} name={value} /> : <></>
+              startAdornment: value ? <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={value} /> : <></>,
             }}
             placeholder="Kategorije"
           />
         )}
         value={value ? { id: value, label: getCategoryLabel(value) } : undefined}
-        onChange={(event, value) =>
-          onChange(
-            event,
-            value?.id
-          )
-        }
+        onChange={(event, value) => onChange(event, value?.id)}
         {...props}
       />
     </ThemeProvider>
