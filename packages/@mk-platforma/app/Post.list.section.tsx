@@ -1,5 +1,5 @@
 import { Box, IconButton, Tabs, Tab, Popover } from "@mui/material"
-import { useState, MouseEvent, ReactElement, ReactNode, ComponentProps } from "react"
+import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.common.listItem"
 import { Post_expert_listItem } from "./Post.expert.listItem"
@@ -21,14 +21,6 @@ export default function PostList_section() {
 
   function handle_showMoreTabs(event: MouseEvent<HTMLButtonElement>) {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
-  }
-
-  function mapQuery(category: Category) {
-    return {
-      id: category,
-      label: getCategoryLabel(category),
-      icon: <CategoryIcon name={category} />,
-    }
   }
 
   const posts = trpc.posts.useQuery({ categories: [activeTab] })
@@ -62,7 +54,6 @@ export default function PostList_section() {
             sx={{ mt: 2, mb: 0.1 }}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
-            tabs={allCategories.slice(0, 3).map(mapQuery)}
           >
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
@@ -87,7 +78,6 @@ export default function PostList_section() {
       >
       <SectionTabs
         sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
-        tabs={allCategories.slice(3).map(mapQuery)}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         orientation="vertical"
@@ -143,11 +133,6 @@ type SectionTabs_props = ComponentProps<typeof Tabs> & {
   activeTab?: Category
   setActiveTab(c: Category): void
   children?: ReactNode
-  tabs: {
-    id: Category
-    icon: ReactElement
-    label: string
-  }[]
   tabProps?: Partial<ComponentProps<typeof Tab>>
 }
 
@@ -155,7 +140,6 @@ function SectionTabs({
   activeTab,
   setActiveTab,
   children,
-  tabs,
   sx,
   tabProps,
   ...otherProps
@@ -179,7 +163,7 @@ function SectionTabs({
       variant="fullWidth"
       {...otherProps}
     >
-      {tabs.map(tab => (
+      {allCategories.map(tab => (
         <Tab
           sx={{
             textTransform: "none",
@@ -189,9 +173,9 @@ function SectionTabs({
               color: "white !important",
             },
           }}
-          label={tab.label}
-          value={tab.id}
-          icon={tab.icon}
+          label={getCategoryLabel(tab)}
+          value={tab}
+          icon={<CategoryIcon name={tab} />}
           {...tabProps}
         />
       ))}
