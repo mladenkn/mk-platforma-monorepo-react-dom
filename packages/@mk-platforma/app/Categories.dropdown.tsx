@@ -60,6 +60,7 @@ export default function CategoriesDropdown({
               sx: {
                 fontSize: 16,
               },
+              startAdornment: <CategoryIcon sx={{ ml: 1, mr: 1.5, }} name={value} />
             }}
             placeholder="Kategorije"
           />
