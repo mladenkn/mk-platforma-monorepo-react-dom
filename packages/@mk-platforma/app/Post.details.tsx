@@ -6,21 +6,21 @@ type Post_common_listItem_props = {
   label: string
   location: string
   photos?: string[] // rename to photos_bottomRight
-  imageAtStart?: string
+  mainImage?: string
 }
 
-export function Post_common_listItem({ label, location, photos, imageAtStart }: Post_common_listItem_props) {
+export function Post_common_listItem({ label, location, photos, mainImage, }: Post_common_listItem_props) {
   const imagesAtRight = photos?.length === 1
   return (
     <Box
       sx={{
         flex: 1,
         display: "flex",
-        flexDirection: imageAtStart || imagesAtRight ? "row" : "column",
+        flexDirection: mainImage || imagesAtRight ? "row" : "column",
         justifyContent: imagesAtRight ? "space-between" : "unset",
       }}
     >
-      {imageAtStart && <img src={imageAtStart} width={100} height={100} style={{ marginRight: 24 }} />}
+      {mainImage && <img src={mainImage} width={100} height={100} style={{ marginRight: 24 }} />}
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography sx={{ fontWeight: 600, fontSize: 20 }}>{label}</Typography>
