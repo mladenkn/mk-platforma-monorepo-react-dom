@@ -68,6 +68,7 @@ type Post_common_listItem_details_Props = {
   description: string
   phoneNumber?: string
   label_right?: ReactNode
+  mainImage?: string
 }
 
 export function Post_common_details({
@@ -78,13 +79,19 @@ export function Post_common_details({
   description,
   phoneNumber,
   label_right,
+  mainImage,
 }: Post_common_listItem_details_Props) {
   return (
     <Box sx={sx}>
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Typography sx={{ fontWeight: 600, fontSize: 19 }}>{label}</Typography>
         {label_right}
-      </Box>      
+      </Box>
+        {mainImage && (
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4, mt: 3, }}>
+            <img src={mainImage} />
+          </Box>
+        )}
       <Box sx={{ color: "text.secondary", mb: 6 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
           <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
