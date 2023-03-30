@@ -118,7 +118,7 @@ export default function PostList_section() {
                 case "personEndorsement":
                   return <Post_common_details {...item} />
                 case "sellable":
-                  return <Post_common_details {...(item)} photos={item.mainImage ? [item.mainImage] : []} />
+                  return <Post_common_details {...item} />
                 default:
                   return <Post_common_details {...item} />
               }
