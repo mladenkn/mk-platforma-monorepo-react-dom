@@ -7,11 +7,10 @@ import PostAddIcon from "@mui/icons-material/PostAdd"
 import Header from "./Header"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
-import { CategoryIcon } from "./Sections.dropdown"
 import { allCategories } from "./data.types"
 import trpc from "./trpc"
 import { Category } from "../api/data/data.types"
-import { getCategoryLabel } from "./Categories.dropdown"
+import { getCategoryLabel, CategoryIcon } from "./Categories.dropdown"
 
 export default function PostList_section() {
   const [activeTab, setActiveTab] = useState<Category>("gathering")
