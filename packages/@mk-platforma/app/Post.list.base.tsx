@@ -15,8 +15,8 @@ export type Section_base_Props<TItem extends Item> = {
 
 export default function Post_list_base<TItem extends Item>({
   items,
-  Item: ListItem,
-  Item_details: ListItem_details,
+  Item,
+  Item_details,
 }: Section_base_Props<TItem>) {
   const [_selectedItem, setSelectedItem] = useState<number>()
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
@@ -47,13 +47,13 @@ export default function Post_list_base<TItem extends Item>({
             sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}
             onClick={() => onItemClick(item)}
           >
-            <ListItem {...item} />
+            <Item {...item} />
           </Paper>
         ))}
       </Box>
       {selectedItem && (
         <Dialog open onClose={() => setSelectedItem(undefined)}>
-          <ListItem_details {...selectedItem} />
+          <Item_details {...selectedItem} />
         </Dialog>
       )}
     </>
