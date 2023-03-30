@@ -15,9 +15,8 @@ import { getCategoryLabel, CategoryIcon } from "./Categories.dropdown"
 export default function PostList_section() {
   const [activeTab, setActiveTab] = useState<Category>("gathering")
 
-  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(
-    null
-  )
+  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] =
+    useState<HTMLButtonElement | null>(null)
 
   function handle_showMoreTabs(event: MouseEvent<HTMLButtonElement>) {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
@@ -49,7 +48,7 @@ export default function PostList_section() {
             </IconButton>
           </Box>
         }
-        bottom={(
+        bottom={
           <Categories_tabs
             sx={{ mt: 2, mb: 0.1 }}
             activeTab={activeTab}
@@ -60,7 +59,7 @@ export default function PostList_section() {
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
             </IconButton>
           </Categories_tabs>
-        )}
+        }
       />
       <Popover
         open={!!additionalTabsShownAnchorEl}
@@ -77,13 +76,13 @@ export default function PostList_section() {
           },
         }}
       >
-      <Categories_tabs
-        sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        orientation="vertical"
-        options={allCategories.slice(3)}
-      />
+        <Categories_tabs
+          sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          orientation="vertical"
+          options={allCategories.slice(3)}
+        />
       </Popover>
       <Box
         sx={{
@@ -97,14 +96,23 @@ export default function PostList_section() {
         }}
       >
         {posts.data ? (
-            <Post_list_base
-              items={posts.data}
-              Item={Post_common_listItem}
-              Item_details={Post_common_details}
-            />
-          ) :
+          <Post_list_base
+            items={posts.data}
+            Item={item => {
+              switch (
+                item.categories[0] // ~ ?
+              ) {
+                case "personEndorsement":
+                  return <Post_expert_listItem {...(item as any)} />
+                default:
+                  return <Post_common_listItem {...item} />
+              }
+            }}
+            Item_details={Post_common_details}
+          />
+        ) : (
           <>Učitavanje...</>
-        }
+        )}
       </Box>
     </Box>
   )
