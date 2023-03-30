@@ -97,7 +97,7 @@ export default function PostList_section() {
         }}
       >
         {posts.data ? (
-            <Post_list_base // počistit sve any
+            <Post_list_base
               items={posts.data}
               Item={Post_common_listItem}
               Item_details={Post_common_details}
