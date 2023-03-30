@@ -106,9 +106,9 @@ export default function PostList_section() {
                 case "personEndorsement":
                   return <Post_expert_listItem {...(item as any)} />
                 case "sellable":
-                  return <Post_common_listItem {...(item as any)} imageAtStart={(item as any).mainImage} />
+                  return <Post_common_listItem {...item} imageAtStart={(item as any).mainImage} />
                 default:
-                  return <Post_common_listItem {...(item as any)} />
+                  return <Post_common_listItem {...item} />
               }
             }}
             Item_details={item => {
