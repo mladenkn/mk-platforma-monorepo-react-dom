@@ -50,7 +50,7 @@ export default function PostList_section() {
           </Box>
         }
         bottom={(
-          <SectionTabs
+          <Categories_tabs
             sx={{ mt: 2, mb: 0.1 }}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
@@ -58,7 +58,7 @@ export default function PostList_section() {
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
             </IconButton>
-          </SectionTabs>
+          </Categories_tabs>
         )}
       />
       <Popover
@@ -76,7 +76,7 @@ export default function PostList_section() {
           },
         }}
       >
-      <SectionTabs
+      <Categories_tabs
         sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
@@ -136,7 +136,7 @@ type SectionTabs_props = ComponentProps<typeof Tabs> & {
   tabProps?: Partial<ComponentProps<typeof Tab>>
 }
 
-function SectionTabs({
+function Categories_tabs({
   activeTab,
   setActiveTab,
   children,
