@@ -5,12 +5,12 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
 import { ThemeProvider, createTheme, Autocomplete, Box, TextField, SxProps } from "@mui/material"
 import { Category, allCategories } from "./data.types"
-import React, { ReactElement } from "react"
+import { ReactElement } from "react"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
-  value: Category[]
-  onChange(event: any, c?: Category[]): void
+  value: Category
+  onChange(event: any, c?: Category): void
 }
 
 export default function CategoriesDropdown({
@@ -41,7 +41,6 @@ export default function CategoriesDropdown({
           },
           ...sx,
         }}
-        multiple
         options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
         renderOption={(props, option) => (
           <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
@@ -65,11 +64,11 @@ export default function CategoriesDropdown({
             placeholder="Kategorije"
           />
         )}
-        value={value?.map(c => ({ id: c, label: getCategoryLabel(c) }))}
+        value={{ id: value, label: getCategoryLabel(value) }}
         onChange={(event, value) =>
           onChange(
             event,
-            value.map(o => o.id)
+            value?.id
           )
         }
         {...props}
