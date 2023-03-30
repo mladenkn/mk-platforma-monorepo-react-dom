@@ -9,7 +9,7 @@ import { ReactElement } from "react"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
-  value: Category
+  value?: Category
   onChange(event: any, c?: Category): void
 }
 
@@ -60,7 +60,7 @@ export default function CategoriesDropdown({
               sx: {
                 fontSize: 16,
               },
-              startAdornment: <CategoryIcon sx={{ ml: 1, mr: 1.5, }} name={value} />
+              startAdornment: value ? <CategoryIcon sx={{ ml: 1, mr: 1.5, }} name={value} /> : <></>
             }}
             placeholder="Kategorije"
           />
