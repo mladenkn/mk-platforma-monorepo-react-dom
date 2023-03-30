@@ -116,7 +116,7 @@ export default function PostList_section() {
                 item.categories[0] // ~ ?
               ) {
                 case "personEndorsement":
-                  return <Post_common_details label={`${(item as any).firstName} ${(item as any).lastName}`} {...item} />
+                  return <Post_common_details {...item} />
                 case "sellable":
                   return <Post_common_details {...(item as any)} />
                 default:

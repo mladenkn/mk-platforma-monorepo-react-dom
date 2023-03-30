@@ -34,7 +34,7 @@ export default function Post_details_section() {
       {!post.data ? <>Učitavanje...</> : <></>}
       {(post.data && !isEdit) ? (
         <Post_common_details
-          {...(post.data as any)}
+          {...post.data}
           sx={{ py: 3, pl: 3, pr: 2, }}
           label_right={
             <Box>
