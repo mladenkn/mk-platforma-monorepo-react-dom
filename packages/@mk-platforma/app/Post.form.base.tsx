@@ -5,13 +5,23 @@ import { TextFieldProps } from "@mui/material"
 import CategoriesDropdown from "./Categories.dropdown"
 import { z } from "zod"
 
-
 const Post_zod = z.object({
   label: z.string(),
   description: z.string(),
   photos: z.array(z.string()),
-  categories: z.array(z.enum(["job", "accommodation", "personEndorsement", "sellable", "gathering", "gathering/spirituality", "gathering/work", "gathering/hangout"])),
-  location: z.string(),
+  categories: z.array(
+    z.enum([
+      "job",
+      "accommodation",
+      "personEndorsement",
+      "sellable",
+      "gathering",
+      "gathering/spirituality",
+      "gathering/work",
+      "gathering/hangout",
+    ])
+  ),
+  location: z.string().optional(),
 })
 
 type Post = z.infer<typeof Post_zod>
