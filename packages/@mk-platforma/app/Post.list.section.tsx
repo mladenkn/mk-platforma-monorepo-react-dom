@@ -111,18 +111,7 @@ export default function PostList_section() {
                   return <Post_common_listItem {...item} />
               }
             }}
-            Item_details={item => {
-              switch (
-                item.categories[0] // ~ ?
-              ) {
-                case "personEndorsement":
-                  return <Post_common_details {...item} />
-                case "sellable":
-                  return <Post_common_details {...item} />
-                default:
-                  return <Post_common_details {...item} />
-              }
-            }}
+            Item_details={Post_common_details}
           />) :
           <>Učitavanje...</>
         }

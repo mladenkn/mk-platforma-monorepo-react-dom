@@ -1,4 +1,4 @@
-import { Box, Paper, Dialog, useTheme, useMediaQuery } from "@mui/material"
+import { Box, Paper, Dialog, useTheme, useMediaQuery, SxProps } from "@mui/material"
 import { ComponentType, useState } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 import { useRouter } from "next/navigation"
@@ -10,7 +10,7 @@ type Item = {
 export type Section_base_Props<TItem extends Item> = {
   items: TItem[]
   Item: ComponentType<TItem>
-  Item_details: ComponentType<TItem>
+  Item_details: ComponentType<TItem & { sx?: SxProps }>
 }
 
 export default function Post_list_base<TItem extends Item>({
@@ -55,7 +55,7 @@ export default function Post_list_base<TItem extends Item>({
       </Box>
       {selectedItem && (
         <Dialog open onClose={() => setSelectedItem(undefined)}>
-          <Item_details {...selectedItem} />
+          <Item_details sx={{ p: 3 }} {...selectedItem} />
         </Dialog>
       )}
     </>
