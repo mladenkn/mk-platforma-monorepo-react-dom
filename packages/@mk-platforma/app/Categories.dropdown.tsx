@@ -86,10 +86,16 @@ export function getCategoryLabel(category: Category) {
       return "Nabava"
     case "personEndorsement":
       return "Majstori"
-    case "gathering":
-      return "Okupljanja"
     case "job":
       return "Poslovi"
+    case "gathering":
+      return "Okupljanja"
+    case "gathering/spirituality":
+      return "Duhovna okupljanja"
+    case "gathering/work":
+      return "Radne akcije"
+    case "gathering/hangout":
+      return "Druženja"
   }
 }
 
@@ -101,10 +107,16 @@ export function CategoryIcon({ name, sx }: { name: Category; sx?: SxProps }) {
       return <ShoppingCartIcon sx={sx} />
     case "personEndorsement":
       return <EngineeringIcon sx={sx} />
-    case "gathering":
-      return <GroupsIcon sx={sx} />
     case "job":
       return <HandymanIcon sx={sx} />
+    case "gathering":
+      return <GroupsIcon sx={sx} />
+    case "gathering/spirituality":
+      return <GroupsIcon sx={sx} />
+    case "gathering/work":
+      return <GroupsIcon sx={sx} />
+    case "gathering/hangout":
+      return <GroupsIcon sx={sx} />
     default:
       throw new Error("Category name not matched")
   }
