@@ -21,7 +21,7 @@ export default function Post_list_base<TItem extends Item>({
   const [_selectedItem, setSelectedItem] = useState<number>()
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
 
-  const isMobile = false // TODO
+  const isMobile = true // TODO
   const router = useRouter()
   function onItemClick(item: Item) {
     if (isMobile) router.push(`/post/${item.id}`)
