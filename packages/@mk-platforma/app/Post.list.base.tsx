@@ -1,6 +1,5 @@
-import { SearchRounded as SearchRoundedIcon } from "@mui/icons-material"
-import { Input, Box, Paper, Dialog } from "@mui/material"
-import { ComponentType, useMemo, useState } from "react"
+import { Box, Paper, Dialog } from "@mui/material"
+import { ComponentType, useState } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 import { useRouter } from "next/navigation"
 
@@ -19,16 +18,10 @@ export default function Post_list_base<TItem extends Item>({
   Item: ListItem,
   Item_details: ListItem_details,
 }: Section_base_Props<TItem>) {
-  const [filter, setFilter] = useState("")
-  const filteredItems = useMemo(
-    () => items.filter(item => JSON.stringify(item).includes(filter)),
-    [items, filter]
-  )
-
   const [_selectedItem, setSelectedItem] = useState<number>()
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
 
-  const isMobile = true // TODO
+  const isMobile = false // TODO
   const router = useRouter()
   function onItemClick(item: Item) {
     if (isMobile) router.push(`/post/${item.id}`)
@@ -48,7 +41,7 @@ export default function Post_list_base<TItem extends Item>({
           width: "100%",
         }}
       >
-        {filteredItems.map(item => (
+        {items.map(item => (
           <Paper
             key={item.id}
             sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}
