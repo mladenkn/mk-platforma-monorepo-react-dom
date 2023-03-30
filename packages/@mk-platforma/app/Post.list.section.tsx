@@ -97,22 +97,12 @@ export default function PostList_section() {
         }}
       >
         {posts.data ? (
-          <Post_list_base // počistit sve any
-            items={posts.data}
-            Item={item => {
-              switch (
-                item.categories[0] // ~ ?
-              ) {
-                case "personEndorsement":
-                  return <Post_expert_listItem {...(item as any)} />
-                case "sellable":
-                  return <Post_common_listItem {...item} />
-                default:
-                  return <Post_common_listItem {...item} />
-              }
-            }}
-            Item_details={Post_common_details}
-          />) :
+            <Post_list_base // počistit sve any
+              items={posts.data}
+              Item={Post_common_listItem}
+              Item_details={Post_common_details}
+            />
+          ) :
           <>Učitavanje...</>
         }
       </Box>
