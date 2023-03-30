@@ -8,14 +8,13 @@ import Header from "./Header"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
 import { CategoryIcon } from "./Sections.dropdown"
-import { Section } from "./data.types"
+import { allCategories } from "./data.types"
 import trpc from "./trpc"
+import { Category } from "../api/data/data.types"
+import { getCategoryLabel } from "./Categories.dropdown"
 
 export default function PostList_section() {
-  const sections = trpc.sections.useQuery()
-
-  const [_activeTab, setActiveTab] = useState<number>(8)
-  const activeTab = sections.data?.find(t => t.id === _activeTab)
+  const [activeTab, setActiveTab] = useState<Category>("gathering")
 
   const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] = useState<HTMLButtonElement | null>(
     null
@@ -25,15 +24,15 @@ export default function PostList_section() {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
   }
 
-  function mapQuery({ id, label, iconName }: Section) {
+  function mapQuery(category: Category) {
     return {
-      id,
-      label,
-      icon: <CategoryIcon name={iconName} />,
+      id: category,
+      label: getCategoryLabel(category),
+      icon: <CategoryIcon name={category} />,
     }
   }
 
-  const posts = trpc.posts.useQuery({ categories: activeTab?.categories })
+  const posts = trpc.posts.useQuery({ categories: [activeTab] })
 
   return (
     <Box
@@ -59,12 +58,12 @@ export default function PostList_section() {
             </IconButton>
           </Box>
         }
-        bottom={sections.data && (
+        bottom={(
           <SectionTabs
             sx={{ mt: 2, mb: 0.1 }}
-            activeTab={activeTab?.id}
+            activeTab={activeTab}
             setActiveTab={setActiveTab}
-            tabs={sections.data.slice(0, 3).map(mapQuery)}
+            tabs={allCategories.slice(0, 3).map(mapQuery)}
           >
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
@@ -87,15 +86,13 @@ export default function PostList_section() {
           },
         }}
       >
-        {sections.data && (
-          <SectionTabs
-            sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
-            tabs={sections.data.slice(3).map(mapQuery)}
-            activeTab={activeTab?.id}
-            setActiveTab={setActiveTab}
-            orientation="vertical"
-          />
-        )}
+      <SectionTabs
+        sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
+        tabs={allCategories.slice(3).map(mapQuery)}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        orientation="vertical"
+      />
       </Popover>
       <Box
         sx={{
@@ -144,11 +141,11 @@ export default function PostList_section() {
 }
 
 type SectionTabs_props = ComponentProps<typeof Tabs> & {
-  activeTab?: number
-  setActiveTab(c: number): void
+  activeTab?: Category
+  setActiveTab(c: Category): void
   children?: ReactNode
   tabs: {
-    id: number
+    id: Category
     icon: ReactElement
     label: string
   }[]

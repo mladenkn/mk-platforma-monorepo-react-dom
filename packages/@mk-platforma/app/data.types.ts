@@ -11,17 +11,10 @@ export type Category =
 export const allCategories: Category[] = [
   "job",
   "accommodation",
+  "gathering",
   "personEndorsement",
   "sellable",
-  "gathering",
   "gathering/spirituality",
   "gathering/work",
   "gathering/hangout",
 ]
-
-export type Section = {
-  id: number
-  label: string
-  iconName: Category
-  categories: Category[]
-}
