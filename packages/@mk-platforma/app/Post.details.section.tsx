@@ -1,11 +1,12 @@
 import { Post_common_details } from "./Post.common.listItem"
 import { useRouter } from "next/router"
 import Header from "./Header"
-import { Box, Button, IconButton, TextField } from "@mui/material"
+import { Box, Button, IconButton, SxProps, TextField } from "@mui/material"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
+import ClearIcon from "@mui/icons-material/Cancel"
 import { useState } from "react"
 import { Post_base } from "../api/data/data.types"
 import use_Post_form_base from "./Post.form.base"
@@ -47,20 +48,25 @@ export default function Post_details_section() {
           }
         />
       ) : <></>}
-      {(post.data && isEdit) ? <Post_edit post={post.data as any} onSubmit={() => {}} /> : <></>}
+      {(post.data && isEdit) ? <Post_edit sx={{ px: 2, }} post={post.data as any} onSubmit={() => {}} /> : <></>}
     </Box>
   )
 }
 
-function Post_edit({ post, onSubmit, } : { post: Post_base, onSubmit: () => void, }){
+function Post_edit({ post, onSubmit, sx, } : { post: Post_base, onSubmit: () => void, sx?: SxProps }){
   const form_base = use_Post_form_base({ initialValues: post })
 
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")
   
   return (
-    <Box sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2 }}>
-      <Box sx={{ fontSize: 38, mb: 5, mt: 4, }}>Uređivanje oglasa</Box>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
+      <Box sx={{ fontSize: 38, mb: 5, mt: 4, display: 'flex', justifyContent: 'space-between' }}>
+        <Box>Uređivanje oglasa</Box>
+        <IconButton sx={{ fontSize: 44, }}>
+          <ClearIcon />
+        </IconButton>
+      </Box>
       <TextField {...form_base.components_props.label} />
       <CategoriesDropdown {...form_base.components_props.section} />
       <TextField {...form_base.components_props.description} />
