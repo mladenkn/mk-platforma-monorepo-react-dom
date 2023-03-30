@@ -1,4 +1,4 @@
-import { Box, Paper, Dialog } from "@mui/material"
+import { Box, Paper, Dialog, useTheme, useMediaQuery } from "@mui/material"
 import { ComponentType, useState } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 import { useRouter } from "next/navigation"
@@ -21,7 +21,9 @@ export default function Post_list_base<TItem extends Item>({
   const [_selectedItem, setSelectedItem] = useState<number>()
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
 
-  const isMobile = true // TODO
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));  // TODO
+
   const router = useRouter()
   function onItemClick(item: Item) {
     if (isMobile) router.push(`/post/${item.id}`)
