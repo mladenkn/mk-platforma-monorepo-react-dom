@@ -4,12 +4,17 @@ import { ReactNode } from "react"
 
 type Post_common_listItem_props = {
   label: string
-  location: string
-  photos?: string[] // rename to photos_bottomRight
+  location?: string
+  photos?: string[]
   mainImage?: string
 }
 
-export function Post_common_listItem({ label, location, photos, mainImage, }: Post_common_listItem_props) {
+export function Post_common_listItem({
+  label,
+  location,
+  photos,
+  mainImage,
+}: Post_common_listItem_props) {
   const imagesAtRight = photos?.length === 1
   return (
     <Box
@@ -25,12 +30,14 @@ export function Post_common_listItem({ label, location, photos, mainImage, }: Po
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography sx={{ fontWeight: 600, fontSize: 20 }}>{label}</Typography>
 
-        <Box sx={{ color: "text.secondary", mt: 0.75 }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <LocationIcon sx={{ width: 19, height: 19, mr: 1 }} />
-            <Typography sx={{ fontSize: 19 }}>{location}</Typography>
+        {location && (
+          <Box sx={{ color: "text.secondary", mt: 0.75 }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <LocationIcon sx={{ width: 19, height: 19, mr: 1 }} />
+              <Typography sx={{ fontSize: 19 }}>{location}</Typography>
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
 
       {photos?.length && <Images images={photos} />}
@@ -63,7 +70,7 @@ function Images({ images }: { images: string[] }) {
 type Post_common_listItem_details_Props = {
   sx?: SxProps
   label: string
-  location: string
+  location?: string
   photos?: string[]
   description: string
   phoneNumber?: string
@@ -83,21 +90,23 @@ export function Post_common_details({
 }: Post_common_listItem_details_Props) {
   return (
     <Box sx={sx}>
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <Typography sx={{ fontWeight: 600, fontSize: 19 }}>{label}</Typography>
         {label_right}
       </Box>
-        {mainImage && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4, mt: 3, }}>
-            <img src={mainImage} />
-          </Box>
-        )}
-      <Box sx={{ color: "text.secondary", mb: 6 }}>
-        <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
-          <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
-          <Typography>{location}</Typography>
+      {mainImage && (
+        <Box sx={{ display: "flex", justifyContent: "center", mb: 4, mt: 3 }}>
+          <img src={mainImage} />
         </Box>
-      </Box>
+      )}
+      {location && (
+        <Box sx={{ color: "text.secondary", mb: 6 }}>
+          <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
+            <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
+            <Typography>{location}</Typography>
+          </Box>
+        </Box>
+      )}
       <Typography>{description}</Typography>
       {phoneNumber && <Typography sx={{ mt: 4 }}>Mobitel/telefon: {phoneNumber}</Typography>}
       {!!photos?.length && (
