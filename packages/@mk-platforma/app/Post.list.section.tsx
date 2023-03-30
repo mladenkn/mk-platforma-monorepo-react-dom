@@ -1,7 +1,7 @@
 import { Box, IconButton, Tabs, Tab, Popover } from "@mui/material"
 import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 import Post_list_base from "./Post.list.base"
-import { Post_common_listItem, Post_common_details } from "./Post.common.listItem"
+import { Post_common_listItem, Post_common_details } from "./Post.details"
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import Header from "./Header"

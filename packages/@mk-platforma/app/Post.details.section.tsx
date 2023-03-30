@@ -1,4 +1,4 @@
-import { Post_common_details } from "./Post.common.listItem"
+import { Post_common_details } from "./Post.details"
 import { useRouter } from "next/router"
 import Header from "./Header"
 import { Box, Button, IconButton, SxProps, TextField } from "@mui/material"
