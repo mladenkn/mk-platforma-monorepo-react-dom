@@ -54,6 +54,7 @@ export default function PostList_section() {
             sx={{ mt: 2, mb: 0.1 }}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
+            options={allCategories.slice(0, 3)}
           >
             <IconButton onClick={handle_showMoreTabs}>
               <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
@@ -81,6 +82,7 @@ export default function PostList_section() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         orientation="vertical"
+        options={allCategories.slice(3)}
       />
       </Popover>
       <Box
@@ -132,6 +134,7 @@ export default function PostList_section() {
 type SectionTabs_props = ComponentProps<typeof Tabs> & {
   activeTab?: Category
   setActiveTab(c: Category): void
+  options: Category[]
   children?: ReactNode
   tabProps?: Partial<ComponentProps<typeof Tab>>
 }
@@ -140,6 +143,7 @@ function Categories_tabs({
   activeTab,
   setActiveTab,
   children,
+  options,
   sx,
   tabProps,
   ...otherProps
@@ -163,7 +167,7 @@ function Categories_tabs({
       variant="fullWidth"
       {...otherProps}
     >
-      {allCategories.map(tab => (
+      {options.map(tab => (
         <Tab
           sx={{
             textTransform: "none",
