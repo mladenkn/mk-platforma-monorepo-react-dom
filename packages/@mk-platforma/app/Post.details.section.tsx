@@ -63,7 +63,7 @@ function Post_edit({ post, onSubmit, sx, } : { post: Post_base, onSubmit: () => 
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
       <Box sx={{ fontSize: 38, mb: 5, mt: 4, display: 'flex', justifyContent: 'space-between' }}>
         <Box>Uređivanje oglasa</Box>
-        <IconButton sx={{ fontSize: 44, }}>
+        <IconButton sx={{ fontSize: 44, }} onClick={() => form_base.control.resetForm()}>
           <ClearIcon />
         </IconButton>
       </Box>
