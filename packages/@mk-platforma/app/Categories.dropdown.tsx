@@ -64,7 +64,7 @@ export default function CategoriesDropdown({
             placeholder="Kategorije"
           />
         )}
-        value={{ id: value, label: getCategoryLabel(value) }}
+        value={value ? { id: value, label: getCategoryLabel(value) } : undefined}
         onChange={(event, value) =>
           onChange(
             event,
