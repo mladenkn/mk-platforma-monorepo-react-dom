@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
+import { generateComment } from "./data.common"
 import * as cro_dataset from "./data.cro.dataset"
 import data_images from "./data.images.json"
 import { post_id_getNext } from "./data._utils"
@@ -44,5 +45,6 @@ export default function generateGatherings() {
       faker.datatype.number({ min: 1, max: 6 })
     ),
     phoneNumber: faker.phone.number(),
+    comments: generateArray(generateComment, faker.datatype.number({ min: 0, max: 7 })),
   }))
 }
