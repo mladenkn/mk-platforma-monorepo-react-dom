@@ -5,7 +5,6 @@ import { NextPageContext } from "next"
 import superjson from "superjson"
 
 function getBaseUrl() {
-  // @ts-ignore
   if (typeof window !== "undefined")
     // browser should use relative path
     return ""
