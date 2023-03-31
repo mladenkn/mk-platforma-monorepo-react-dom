@@ -9,12 +9,12 @@ type Props = {
 
 export default function Comment_listItem({ sx, comment }: Props) {
   return (
-    <Box sx={sx}>
-      <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 1.3 }}>
+    <Box sx={{ display: "flex", flexDirection: "column", ...sx }}>
+      <Box sx={{ display: "flex", gap: 2, alignItems: "center", mb: 1.3 }}>
         <Avatar sx={comment.author.avatarStyle} letter={comment.author.name[0]} />
-        <Box>{comment.author.name}</Box>
+        <Box sx={{ fontSize: 18, fontWeight: 600 }}>{comment.author.name}</Box>
       </Box>
-      <Box>{comment.content}</Box>
+      <Box sx={{ mt: 1, ml: 1 }}>{comment.content}</Box>
     </Box>
   )
 }
