@@ -9,7 +9,7 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 import SearchIcon from "@mui/icons-material/Search"
 import trpc from "./trpc"
 import { Category } from "../api/data/data.types"
-import { getCategoryLabel, CategoryIcon, allCategories } from "./Categories.dropdown"
+import { getCategoryLabel, CategoryIcon, allCategories } from "./Categories.common"
 import { eva } from "@mk-libs/common/common"
 import Avatar from "./Avatar"
 import { Post_expert } from "../api/data/data.types"
