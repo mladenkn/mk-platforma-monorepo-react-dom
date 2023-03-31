@@ -1,4 +1,4 @@
-import { Box, IconButton, Tabs, Tab, Popover } from "@mui/material"
+import { Box, IconButton, Tabs, Tab, Popover, TabProps } from "@mui/material"
 import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
@@ -13,9 +13,18 @@ import { getCategoryLabel, CategoryIcon, allCategories } from "./Categories.comm
 import { eva } from "@mk-libs/common/common"
 import Avatar from "./Avatar"
 import { Post_expert } from "../api/data/data.types"
+import Link from "next/link"
+
+function getInitialTab(): Category {
+  // @ts-ignore
+  const { name } = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop as any),
+  })
+  return name || "gathering"
+}
 
 export default function PostList_section() {
-  const [activeTab, setActiveTab] = useState<Category>("gathering")
+  const [activeTab, setActiveTab] = useState<Category>(getInitialTab())
 
   const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] =
     useState<HTMLButtonElement | null>(null)
@@ -172,7 +181,7 @@ function Categories_tabs({
       {...otherProps}
     >
       {options.map(tab => (
-        <Tab
+        <LinkTab
           sx={{
             textTransform: "none",
             fontSize: 18,
@@ -184,10 +193,19 @@ function Categories_tabs({
           label={getCategoryLabel(tab)}
           value={tab}
           icon={<CategoryIcon name={tab} />}
+          linkProps={{
+            href: {
+              query: { name: tab },
+            },
+          }}
           {...tabProps}
         />
       ))}
       {children}
     </Tabs>
   )
+}
+
+function LinkTab(props: TabProps & { linkProps: ComponentProps<typeof Link> }) {
+  return <Tab component={linkProps => <Link {...linkProps} {...props.linkProps} />} {...props} />
 }
