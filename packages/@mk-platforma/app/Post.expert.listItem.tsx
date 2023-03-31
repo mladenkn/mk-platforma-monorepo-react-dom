@@ -8,7 +8,7 @@ type Post_expert_listItem_Props = {
   avatarStyle: CSSProperties
   firstName: string
   lastName: string
-  location: string
+  location?: string
   skills: string[]
 }
 
@@ -32,10 +32,12 @@ export function Post_expert_listItem({
         <Typography sx={{ fontWeight: 600, fontSize: 16, width: 125 }}>
           {firstName} {lastName}
         </Typography>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
-          <Typography>{location}</Typography>
-        </Box>
+        {location && (
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
+            <Typography>{location}</Typography>
+          </Box>
+        )}
       </Box>
       <Box
         sx={{

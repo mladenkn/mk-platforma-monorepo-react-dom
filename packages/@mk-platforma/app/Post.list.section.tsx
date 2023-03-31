@@ -106,7 +106,7 @@ export default function PostList_section() {
                 item.categories[0] // ~ ?
               ) {
                 case "personEndorsement":
-                  return <Post_expert_listItem {...(item as any)} />
+                  return <Post_expert_listItem {...(item as Post_expert)} />
                 default:
                   return <Post_common_listItem {...item} />
               }
