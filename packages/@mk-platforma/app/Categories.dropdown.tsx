@@ -58,7 +58,7 @@ export default function CategoriesDropdown({
               },
               startAdornment: value ? <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={value} /> : <></>,
             }}
-            placeholder="Kategorije"
+            placeholder="Kategorija"
           />
         )}
         value={value ? { id: value, label: getCategoryLabel(value) } : undefined}
