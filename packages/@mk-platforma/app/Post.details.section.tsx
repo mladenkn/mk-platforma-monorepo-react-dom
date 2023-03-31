@@ -47,7 +47,7 @@ export default function Post_details_section() {
       />
       {!post.data ? <>Učitavanje...</> : <></>}
       {post.data && !isEdit ? (
-        <Box sx={{ background: "#E4E6EB", p: 1 }}>
+        <Box sx={{ p: 1 }}>
           <Paper sx={{ px: 2.5, py: 2, borderRadius: 2 }}>
             <Post_common_details
               {...post.data}
