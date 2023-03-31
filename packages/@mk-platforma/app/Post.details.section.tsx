@@ -15,7 +15,7 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import Avatar from "./Avatar"
 import { castIf } from "@mk-libs/common/common"
-import Comment_listItem from "./Comment.listItem"
+import { Comment_listItem } from "./Comment.common"
 
 export default function Post_details_section() {
   const router = useRouter()

@@ -7,7 +7,7 @@ type Props = {
   comment: Comment
 }
 
-export default function Comment_listItem({ sx, comment }: Props) {
+export function Comment_listItem({ sx, comment }: Props) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Box sx={{ display: "flex", gap: 2, alignItems: "center", mb: 1.3 }}>
