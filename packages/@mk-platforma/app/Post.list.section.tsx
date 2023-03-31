@@ -11,6 +11,9 @@ import { allCategories } from "./data.types"
 import trpc from "./trpc"
 import { Category } from "../api/data/data.types"
 import { getCategoryLabel, CategoryIcon } from "./Categories.dropdown"
+import { eva } from "@mk-libs/common/common"
+import Avatar from "./Avatar"
+import { Post_expert } from "../api/data/data.types"
 
 export default function PostList_section() {
   const [activeTab, setActiveTab] = useState<Category>("gathering")
@@ -108,7 +111,19 @@ export default function PostList_section() {
                   return <Post_common_listItem {...item} />
               }
             }}
-            Item_details={Post_common_details}
+            Item_details={item => (
+              <Post_common_details
+                {...item}
+                label_left={eva(() => {
+                  if (item.categories[0] === "personEndorsement") {
+                    const item_ = item as Post_expert
+                    return (
+                      <Avatar sx={{ mr: 2, ...item_.avatarStyle }} letter={item_.firstName[0]} />
+                    )
+                  }
+                })}
+              />
+            )}
           />
         ) : (
           <>Učitavanje...</>
