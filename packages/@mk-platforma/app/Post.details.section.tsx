@@ -1,7 +1,7 @@
 import { Post_common_details } from "./Post.details"
 import { useRouter } from "next/router"
 import Header from "./Header"
-import { Box, Button, IconButton, SxProps, TextField, Paper } from "@mui/material"
+import { Box, Button, IconButton, SxProps, TextField, Paper, Input } from "@mui/material"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
@@ -70,6 +70,10 @@ export default function Post_details_section() {
                 </Box>
               }
             />
+          </Paper>
+          <Paper sx={{ borderRadius: 2, p: 2, mt: 4, display: "flex" }}>
+            <Avatar letter="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
+            <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
           </Paper>
           {post.data.comments?.length && (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
