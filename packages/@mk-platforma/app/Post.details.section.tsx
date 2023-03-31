@@ -15,7 +15,7 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import Avatar from "./Avatar"
 import { castIf } from "@mk-libs/common/common"
-import Comment_list from "./Comment.list"
+import Comment_listItem from "./Comment.listItem"
 
 export default function Post_details_section() {
   const router = useRouter()
@@ -72,7 +72,13 @@ export default function Post_details_section() {
             />
           </Paper>
           {post.data.comments?.length && (
-            <Comment_list sx={{ mt: 4 }} comments={post.data.comments} />
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 3 }}>
+              {post.data.comments.map(comment => (
+                <Paper sx={{ p: 2, borderRadius: 2 }}>
+                  <Comment_listItem comment={comment} />
+                </Paper>
+              ))}
+            </Box>
           )}
         </Box>
       ) : (
