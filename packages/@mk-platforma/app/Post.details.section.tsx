@@ -15,6 +15,7 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import Avatar from "./Avatar"
 import { castIf } from "@mk-libs/common/common"
+import Comment_list from "./Comment.list"
 
 export default function Post_details_section() {
   const router = useRouter()
@@ -46,28 +47,33 @@ export default function Post_details_section() {
       />
       {!post.data ? <>Učitavanje...</> : <></>}
       {post.data && !isEdit ? (
-        <Post_common_details
-          {...post.data}
-          sx={{ py: 3, pl: 3, pr: 2 }}
-          label_left={
-            <>
-              <IconButton sx={{ p: 0.5, mr: 1 }} onClick={goBack}>
-                <ArrowBackIosOutlinedIcon sx={{ fontSize: 20 }} />
-              </IconButton>
-              {post.data && renderAvatar(post.data)}
-            </>
-          }
-          label_right={
-            <Box>
-              <IconButton onClick={() => setIsEdit(true)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
-            </Box>
-          }
-        />
+        <>
+          <Post_common_details
+            {...post.data}
+            sx={{ py: 3, pl: 3, pr: 2 }}
+            label_left={
+              <>
+                <IconButton sx={{ p: 0.5, mr: 1 }} onClick={goBack}>
+                  <ArrowBackIosOutlinedIcon sx={{ fontSize: 20 }} />
+                </IconButton>
+                {post.data && renderAvatar(post.data)}
+              </>
+            }
+            label_right={
+              <Box>
+                <IconButton onClick={() => setIsEdit(true)}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            }
+          />
+          {post.data.comments?.length && (
+            <Comment_list sx={{ pb: 3, pl: 3, pr: 2 }} comments={post.data.comments} />
+          )}
+        </>
       ) : (
         <></>
       )}

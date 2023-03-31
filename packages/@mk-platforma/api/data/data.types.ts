@@ -12,7 +12,7 @@ export const Category_zod = z.enum([
 ])
 export type Category = z.infer<typeof Category_zod>
 
-type Comment = {
+export type Comment = {
   id: number
   content: string
   author: {
