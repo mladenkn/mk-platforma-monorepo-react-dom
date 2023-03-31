@@ -12,6 +12,15 @@ export const Category_zod = z.enum([
 ])
 export type Category = z.infer<typeof Category_zod>
 
+type Comment = {
+  id: number
+  content: string
+  author: {
+    name: string
+    avatarStyle: Record<string, string>
+  }
+}
+
 export type Post_base = {
   id: number
   label: string
@@ -20,6 +29,7 @@ export type Post_base = {
   categories: Category[]
   location?: string
   mainImage?: string
+  comments?: Comment[]
 }
 
 export type Post_expert = Post_base & {
