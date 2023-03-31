@@ -2,7 +2,7 @@ import { httpBatchLink } from "@trpc/client"
 import { CreateTRPCNext, createTRPCNext } from "@trpc/next"
 import type { AppRouter } from "../api/index"
 import { NextPageContext } from "next"
-import superjson from 'superjson'
+import superjson from "superjson"
 
 function getBaseUrl() {
   // @ts-ignore
