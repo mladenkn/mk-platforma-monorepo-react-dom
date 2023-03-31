@@ -26,7 +26,7 @@ export function Post_expert_listItem({
           marginRight: 3,
           ...avatarStyle,
         }}
-        letter={firstName[0]}
+        letter={firstName[0] + lastName[0]}
       />
       <Box>
         <Typography sx={{ fontWeight: 600, fontSize: 16, width: 125 }}>

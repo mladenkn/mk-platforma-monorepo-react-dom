@@ -118,7 +118,10 @@ export default function PostList_section() {
                   if (item.categories[0] === "personEndorsement") {
                     const item_ = item as Post_expert
                     return (
-                      <Avatar sx={{ mr: 2, ...item_.avatarStyle }} letter={item_.firstName[0]} />
+                      <Avatar
+                        sx={{ mr: 2, ...item_.avatarStyle }}
+                        letter={item_.firstName[0] + item_.lastName[0]}
+                      />
                     )
                   }
                 })}

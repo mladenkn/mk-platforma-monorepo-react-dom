@@ -42,7 +42,10 @@ export default function Post_details_section() {
             if (post.data?.categories[0] === "personEndorsement") {
               const post_data = post.data as Post_expert
               return (
-                <Avatar sx={{ mr: 2, ...post_data.avatarStyle }} letter={post_data.firstName[0]} />
+                <Avatar
+                  sx={{ mr: 2, ...post_data.avatarStyle }}
+                  letter={post_data.firstName[0] + post_data.lastName[0]}
+                />
               )
             }
           })}
