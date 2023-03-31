@@ -47,10 +47,9 @@ export default function Post_details_section() {
       />
       {!post.data ? <>Učitavanje...</> : <></>}
       {post.data && !isEdit ? (
-        <>
+        <Box sx={{ py: 3, pl: 3, pr: 2 }}>
           <Post_common_details
             {...post.data}
-            sx={{ py: 3, pl: 3, pr: 2 }}
             label_left={
               <>
                 <IconButton sx={{ p: 0.5, mr: 1 }} onClick={goBack}>
@@ -71,9 +70,9 @@ export default function Post_details_section() {
             }
           />
           {post.data.comments?.length && (
-            <Comment_list sx={{ pb: 3, pl: 3, pr: 2 }} comments={post.data.comments} />
+            <Comment_list sx={{ mt: 4 }} comments={post.data.comments} />
           )}
-        </>
+        </Box>
       ) : (
         <></>
       )}
