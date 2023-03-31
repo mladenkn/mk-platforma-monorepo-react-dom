@@ -15,9 +15,8 @@ export function generateComment() {
     id: comment_id_getNext(),
     content: faker.lorem.paragraph(),
     author: {
-      name: `${faker.helpers.arrayElement(cro_dataset.firstNames)} ${faker.helpers.arrayElement(
-        cro_dataset.lastNames
-      )}`,
+      firstName: faker.helpers.arrayElement(cro_dataset.firstNames),
+      lastName: faker.helpers.arrayElement(cro_dataset.lastNames),
       avatarStyle: faker.helpers.arrayElement(avatarStyles),
     },
   }

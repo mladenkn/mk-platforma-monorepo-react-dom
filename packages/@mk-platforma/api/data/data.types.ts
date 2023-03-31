@@ -16,7 +16,8 @@ export type Comment = {
   id: number
   content: string
   author: {
-    name: string
+    firstName: string
+    lastName: string
     avatarStyle: Record<string, string>
   }
 }

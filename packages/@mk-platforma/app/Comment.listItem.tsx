@@ -11,8 +11,13 @@ export default function Comment_listItem({ sx, comment }: Props) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Box sx={{ display: "flex", gap: 2, alignItems: "center", mb: 1.3 }}>
-        <Avatar sx={comment.author.avatarStyle} letter={comment.author.name[0]} />
-        <Box sx={{ fontSize: 18, fontWeight: 600 }}>{comment.author.name}</Box>
+        <Avatar
+          sx={comment.author.avatarStyle}
+          letter={`${comment.author.firstName[0]} ${comment.author.lastName[0]}`}
+        />
+        <Box sx={{ fontSize: 18, fontWeight: 600 }}>
+          {comment.author.firstName} {comment.author.lastName}
+        </Box>
       </Box>
       <Box sx={{ mt: 1, ml: 1 }}>{comment.content}</Box>
     </Box>
