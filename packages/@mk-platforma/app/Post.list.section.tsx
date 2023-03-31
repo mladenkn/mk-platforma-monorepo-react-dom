@@ -10,7 +10,7 @@ import SearchIcon from "@mui/icons-material/Search"
 import trpc from "./trpc"
 import type { Category } from "../api/data/data.types"
 import { getCategoryLabel, CategoryIcon, allCategories } from "./Categories.common"
-import { eva } from "@mk-libs/common/common"
+import { castIf, eva } from "@mk-libs/common/common"
 import Avatar from "./Avatar"
 import { Post_expert } from "../api/data/data.types"
 import Link from "next/link"
@@ -123,12 +123,11 @@ export default function PostList_section() {
               <Post_common_details
                 {...item}
                 label_left={eva(() => {
-                  if (item.categories[0] === "personEndorsement") {
-                    const item_ = item as Post_expert
+                  if (castIf<Post_expert>(item, item.categories[0] === "personEndorsement")) {
                     return (
                       <Avatar
-                        sx={{ mr: 2, ...item_.avatarStyle }}
-                        letter={item_.firstName[0] + item_.lastName[0]}
+                        sx={{ mr: 2, ...item.avatarStyle }}
+                        letter={item.firstName[0] + item.lastName[0]}
                       />
                     )
                   }

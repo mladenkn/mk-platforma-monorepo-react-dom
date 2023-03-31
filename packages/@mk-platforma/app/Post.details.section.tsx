@@ -14,6 +14,7 @@ import use_Post_form_base from "./Post.form.base"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import Avatar from "./Avatar"
+import { castIf } from "@mk-libs/common/common"
 
 export default function Post_details_section() {
   const router = useRouter()
@@ -22,13 +23,9 @@ export default function Post_details_section() {
   const [isEdit, setIsEdit] = useState(false)
 
   function renderAvatar(post: Post_base) {
-    if (post.categories[0] === "personEndorsement") {
-      const post_ = post as Post_expert
+    if (castIf<Post_expert>(post, post.categories[0] === "personEndorsement")) {
       return (
-        <Avatar
-          sx={{ mr: 2, ...post_.avatarStyle }}
-          letter={post_.firstName[0] + post_.lastName[0]}
-        />
+        <Avatar sx={{ mr: 2, ...post.avatarStyle }} letter={post.firstName[0] + post.lastName[0]} />
       )
     }
   }

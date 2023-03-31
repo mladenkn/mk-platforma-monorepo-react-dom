@@ -16,7 +16,9 @@ export function asNonNil<T>(val?: T) {
   return val
 }
 
-export function parsePropertyPathFromExpression<TObject, TReturnValue>(expr: (a: TObject) => TReturnValue) {
+export function parsePropertyPathFromExpression<TObject, TReturnValue>(
+  expr: (a: TObject) => TReturnValue
+) {
   const firstDotIndex = expr.toString().indexOf(".")
   const cutFromLeft = expr.toString().slice(firstDotIndex + 1)
   if (cutFromLeft.endsWith("}")) return cutFromLeft.slice(0, cutFromLeft.length - 1)
@@ -99,4 +101,8 @@ export const generateArray = <T>(getNext: (index: number) => T, count: number) =
   const r: T[] = []
   for (let i = 0; i < count; i++) r.push(getNext(i))
   return r
+}
+
+export function castIf<T>(it: any, isIt: boolean): it is T {
+  return isIt
 }
