@@ -20,6 +20,8 @@ export type Comment = {
     lastName: string
     avatarStyle: Record<string, string>
   }
+  canEdit: boolean
+  canDelete: boolean
 }
 
 export type Post_base = {

@@ -19,5 +19,7 @@ export function generateComment() {
       lastName: faker.helpers.arrayElement(cro_dataset.lastNames),
       avatarStyle: faker.helpers.arrayElement(avatarStyles),
     },
+    canEdit: true,
+    canDelete: true,
   }
 }
