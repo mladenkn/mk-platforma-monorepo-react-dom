@@ -1,7 +1,7 @@
 import { Post_common_details } from "./Post.details"
 import { useRouter } from "next/router"
 import Header from "./Header"
-import { Box, Button, IconButton, SxProps, TextField } from "@mui/material"
+import { Box, Button, IconButton, SxProps, TextField, Paper } from "@mui/material"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
@@ -47,28 +47,30 @@ export default function Post_details_section() {
       />
       {!post.data ? <>Učitavanje...</> : <></>}
       {post.data && !isEdit ? (
-        <Box sx={{ py: 3, pl: 3, pr: 2 }}>
-          <Post_common_details
-            {...post.data}
-            label_left={
-              <>
-                <IconButton sx={{ p: 0.5, mr: 1 }} onClick={goBack}>
-                  <ArrowBackIosOutlinedIcon sx={{ fontSize: 20 }} />
-                </IconButton>
-                {post.data && renderAvatar(post.data)}
-              </>
-            }
-            label_right={
-              <Box>
-                <IconButton onClick={() => setIsEdit(true)}>
-                  <EditIcon />
-                </IconButton>
-                <IconButton>
-                  <DeleteIcon />
-                </IconButton>
-              </Box>
-            }
-          />
+        <Box sx={{ background: "#E4E6EB", p: 1 }}>
+          <Paper sx={{ px: 2.5, py: 2, borderRadius: 2 }}>
+            <Post_common_details
+              {...post.data}
+              label_left={
+                <>
+                  <IconButton sx={{ p: 0.5, mr: 1 }} onClick={goBack}>
+                    <ArrowBackIosOutlinedIcon sx={{ fontSize: 20 }} />
+                  </IconButton>
+                  {post.data && renderAvatar(post.data)}
+                </>
+              }
+              label_right={
+                <Box>
+                  <IconButton onClick={() => setIsEdit(true)}>
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton>
+                    <DeleteIcon />
+                  </IconButton>
+                </Box>
+              }
+            />
+          </Paper>
           {post.data.comments?.length && (
             <Comment_list sx={{ mt: 4 }} comments={post.data.comments} />
           )}
