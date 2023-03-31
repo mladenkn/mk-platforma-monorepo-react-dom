@@ -1,12 +1,4 @@
-export type Category =
-  | "job"
-  | "accommodation"
-  | "personEndorsement"
-  | "sellable"
-  | "gathering"
-  | "gathering/spirituality"
-  | "gathering/work"
-  | "gathering/hangout"
+import type { Category } from "../api/data/data.types"
 
 export const allCategories: Category[] = [
   "job",
