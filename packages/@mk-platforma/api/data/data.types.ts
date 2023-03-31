@@ -30,5 +30,5 @@ export type Post_expert = Post_base & {
   firstName: string
   lastName: string
   skills: string[]
-  avatarStyles: Record<string, string>
+  avatarStyle: Record<string, string>
 }

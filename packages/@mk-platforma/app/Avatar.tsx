@@ -9,8 +9,8 @@ type ContactAvatarProps =
     }
   | {
       style?: CSSProperties
-      imageUrl: string
       letter?: undefined
+      imageUrl: string
     }
 
 export default function Avatar({ imageUrl, letter, ...props }: ContactAvatarProps) {

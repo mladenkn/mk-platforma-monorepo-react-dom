@@ -8,10 +8,12 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ClearIcon from "@mui/icons-material/Cancel"
 import { useState } from "react"
-import { Post_base } from "../api/data/data.types"
+import { Post_base, Post_expert } from "../api/data/data.types"
 import use_Post_form_base from "./Post.form.base"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
+import Avatar from "./Avatar"
+import { eva } from "@mk-libs/common/common"
 
 export default function Post_details_section() {
   const router = useRouter()
@@ -32,10 +34,18 @@ export default function Post_details_section() {
         }
       />
       {!post.data ? <>Učitavanje...</> : <></>}
-      {(post.data && !isEdit) ? (
+      {post.data && !isEdit ? (
         <Post_common_details
           {...post.data}
-          sx={{ py: 3, pl: 3, pr: 2, }}
+          sx={{ py: 3, pl: 3, pr: 2 }}
+          label_left={eva(() => {
+            if (post.data?.categories[0] === "personEndorsement") {
+              const post_data = post.data as Post_expert
+              return (
+                <Avatar sx={{ mr: 2, ...post_data.avatarStyle }} letter={post_data.firstName[0]} />
+              )
+            }
+          })}
           label_right={
             <Box>
               <IconButton onClick={() => setIsEdit(true)}>
@@ -44,26 +54,40 @@ export default function Post_details_section() {
               <IconButton>
                 <DeleteIcon />
               </IconButton>
-            </Box>            
+            </Box>
           }
         />
-      ) : <></>}
-      {(post.data && isEdit) ? <Post_edit sx={{ px: 2, }} post={post.data as any} onSubmit={() => {}} /> : <></>}
+      ) : (
+        <></>
+      )}
+      {post.data && isEdit ? (
+        <Post_edit sx={{ px: 2 }} post={post.data as any} onSubmit={() => {}} />
+      ) : (
+        <></>
+      )}
     </Box>
   )
 }
 
-function Post_edit({ post, onSubmit, sx, } : { post: Post_base, onSubmit: () => void, sx?: SxProps }){
+function Post_edit({
+  post,
+  onSubmit,
+  sx,
+}: {
+  post: Post_base
+  onSubmit: () => void
+  sx?: SxProps
+}) {
   const form_base = use_Post_form_base({ initialValues: post })
 
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")
-  
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
-      <Box sx={{ fontSize: 38, mb: 5, mt: 4, display: 'flex', justifyContent: 'space-between' }}>
+      <Box sx={{ fontSize: 38, mb: 5, mt: 4, display: "flex", justifyContent: "space-between" }}>
         <Box>Uređivanje oglasa</Box>
-        <IconButton sx={{ fontSize: 44, }} onClick={() => form_base.control.resetForm()}>
+        <IconButton sx={{ fontSize: 44 }} onClick={() => form_base.control.resetForm()}>
           <ClearIcon />
         </IconButton>
       </Box>

@@ -1,6 +1,6 @@
 import { Box, SxProps, Typography } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
-import { ReactNode } from "react"
+import { CSSProperties, ReactNode } from "react"
 
 type Post_common_listItem_props = {
   label: string
@@ -74,6 +74,7 @@ type Post_common_listItem_details_Props = {
   photos?: string[]
   description: string
   phoneNumber?: string
+  label_left?: ReactNode
   label_right?: ReactNode
   mainImage?: string
 }
@@ -85,26 +86,32 @@ export function Post_common_details({
   photos,
   description,
   phoneNumber,
+  label_left,
   label_right,
   mainImage,
 }: Post_common_listItem_details_Props) {
   return (
     <Box sx={sx}>
-      <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <Typography sx={{ fontWeight: 600, fontSize: 19 }}>{label}</Typography>
+      <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex" }}>
+          {label_left}
+          <Box sx={{ ml: 1.5 }}>
+            <Typography sx={{ fontWeight: 600, fontSize: 19 }}>{label}</Typography>
+            {location && (
+              <Box sx={{ color: "text.secondary" }}>
+                <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
+                  <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
+                  <Typography>{location}</Typography>
+                </Box>
+              </Box>
+            )}
+          </Box>
+        </Box>
         {label_right}
       </Box>
       {mainImage && (
         <Box sx={{ display: "flex", justifyContent: "center", mb: 4, mt: 3 }}>
           <img src={mainImage} />
-        </Box>
-      )}
-      {location && (
-        <Box sx={{ color: "text.secondary", mb: 6 }}>
-          <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
-            <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
-            <Typography>{location}</Typography>
-          </Box>
         </Box>
       )}
       <Typography>{description}</Typography>
