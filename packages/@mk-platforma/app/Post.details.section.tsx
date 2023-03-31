@@ -89,7 +89,7 @@ export default function Post_details_section() {
         <></>
       )}
       {post.data && isEdit ? (
-        <Post_edit sx={{ px: 2 }} post={post.data as any} onSubmit={() => {}} />
+        <Post_edit sx={{ p: 2, m: 1 }} post={post.data as any} onSubmit={() => {}} />
       ) : (
         <></>
       )}
@@ -112,8 +112,8 @@ function Post_edit({
   const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
-      <Box sx={{ fontSize: 38, mb: 5, mt: 4, display: "flex", justifyContent: "space-between" }}>
+    <Paper sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
+      <Box sx={{ fontSize: 38, mb: 5, display: "flex", justifyContent: "space-between" }}>
         <Box>Uređivanje oglasa</Box>
         <IconButton sx={{ fontSize: 44 }} onClick={() => form_base.control.resetForm()}>
           <ClearIcon />
@@ -135,6 +135,6 @@ function Post_edit({
       <Button variant="contained" sx={{ mt: 4 }} onClick={onSubmit}>
         Spremi
       </Button>
-    </Box>
+    </Paper>
   )
 }
