@@ -7,6 +7,7 @@ import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import ClearIcon from "@mui/icons-material/Cancel"
+import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useState } from "react"
 import { Post_base, Post_expert } from "../api/data/data.types"
 import use_Post_form_base from "./Post.form.base"
@@ -20,6 +21,20 @@ export default function Post_details_section() {
   const itemId = parseInt(router.query.id as string)!
   const post = trpc.post_single.useQuery({ id: itemId })
   const [isEdit, setIsEdit] = useState(false)
+
+  function renderAvatar(post: Post_base) {
+    if (post.categories[0] === "personEndorsement") {
+      const post_ = post as Post_expert
+      return (
+        <Avatar
+          sx={{ mr: 2, ...post_.avatarStyle }}
+          letter={post_.firstName[0] + post_.lastName[0]}
+        />
+      )
+    }
+  }
+
+  const goBack = useRouter().back
 
   return (
     <Box>
@@ -38,17 +53,14 @@ export default function Post_details_section() {
         <Post_common_details
           {...post.data}
           sx={{ py: 3, pl: 3, pr: 2 }}
-          label_left={eva(() => {
-            if (post.data?.categories[0] === "personEndorsement") {
-              const post_data = post.data as Post_expert
-              return (
-                <Avatar
-                  sx={{ mr: 2, ...post_data.avatarStyle }}
-                  letter={post_data.firstName[0] + post_data.lastName[0]}
-                />
-              )
-            }
-          })}
+          label_left={
+            <>
+              <IconButton sx={{ p: 0.5, mr: 1 }} onClick={goBack}>
+                <ArrowBackIosOutlinedIcon sx={{ fontSize: 20 }} />
+              </IconButton>
+              {post.data && renderAvatar(post.data)}
+            </>
+          }
           label_right={
             <Box>
               <IconButton onClick={() => setIsEdit(true)}>
