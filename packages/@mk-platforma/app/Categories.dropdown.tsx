@@ -4,7 +4,6 @@ import EngineeringIcon from "@mui/icons-material/Engineering"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
 import { ThemeProvider, createTheme, Autocomplete, Box, TextField, SxProps } from "@mui/material"
-import { allCategories } from "./data.types"
 import { ReactElement } from "react"
 import type { Category } from "../api/data/data.types"
 
@@ -119,3 +118,14 @@ export function CategoryIcon({ name, sx }: { name: Category; sx?: SxProps }) {
       throw new Error("Category name not matched")
   }
 }
+
+export const allCategories: Category[] = [
+  "job",
+  "accommodation",
+  "gathering",
+  "personEndorsement",
+  "sellable",
+  "gathering/spirituality",
+  "gathering/work",
+  "gathering/hangout",
+]
