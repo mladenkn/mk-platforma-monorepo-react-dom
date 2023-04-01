@@ -1,4 +1,4 @@
-import { Box, SxProps } from "@mui/material"
+import { Box, SxProps, Typography } from "@mui/material"
 import { ReactNode } from "react"
 
 type Props = {
@@ -25,10 +25,12 @@ export default function Header({ sx, right, bottom }: Props) {
         }}
       >
         <Box sx={{ ml: 0.2, pl: 2 }}>
-          <a style={{ color: "white", fontSize: 35, textDecoration: "none" }} href="/">
-            ZaBrata
+          <a style={{ color: "white", textDecoration: "none" }} href="/">
+            <Typography variant="h3">ZaBrata</Typography>
           </a>
-          <Box sx={{ color: "white", fontSize: 22 }}>Loza kontribucionizma</Box>
+          <Box sx={{ color: "white" }}>
+            <Typography variant="h5">Loza kontribucionizma</Typography>
+          </Box>
         </Box>
         {right}
       </Box>
