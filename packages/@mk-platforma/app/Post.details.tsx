@@ -56,7 +56,7 @@ function Images({ images }: { images: string[] }) {
         display: "flex",
         justifyContent: "right",
         flex: 1,
-        mt: 3,
+        mt: 2,
       }}
     >
       <Box sx={{ display: "flex", gap: 1 }}>
