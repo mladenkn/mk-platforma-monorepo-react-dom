@@ -15,16 +15,8 @@ import Avatar from "./Avatar"
 import { Post_expert } from "../api/data/data.types"
 import Link from "next/link"
 
-function getInitialTab(): Category {
-  if (typeof window === "undefined") return "gathering"
-  const { name } = new Proxy(new URLSearchParams(window.location.search), {
-    get: (searchParams, prop) => searchParams.get(prop as any),
-  }) as any
-  return name || "gathering"
-}
-
-export default function PostList_section() {
-  const [activeTab, setActiveTab] = useState<Category>(getInitialTab())
+export default function PostList_section({ initialTab }: { initialTab?: Category }) {
+  const [activeTab, setActiveTab] = useState<Category | undefined>(initialTab)
 
   const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] =
     useState<HTMLButtonElement | null>(null)
@@ -33,7 +25,7 @@ export default function PostList_section() {
     setAdditionalTabsShownAnchorEl(event.currentTarget)
   }
 
-  const posts = trpc.posts.useQuery({ categories: [activeTab] })
+  const posts = trpc.posts.useQuery({ categories: activeTab ? [activeTab] : [] })
 
   const { typography } = useTheme()
 
@@ -202,6 +194,7 @@ function Categories_tabs({
               query: { name: tab },
             },
           }}
+          onClick={() => setActiveTab(tab)}
           {...tabProps}
         />
       ))}
