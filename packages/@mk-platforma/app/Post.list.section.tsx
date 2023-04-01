@@ -35,6 +35,8 @@ export default function PostList_section() {
 
   const posts = trpc.posts.useQuery({ categories: [activeTab] })
 
+  const { typography } = useTheme()
+
   return (
     <Box
       sx={{
@@ -51,11 +53,11 @@ export default function PostList_section() {
           <Box sx={{ pr: 1 }}>
             <a href="/post/create" style={{ textDecoration: "none" }}>
               <IconButton sx={{ p: 1 }}>
-                <PostAddIcon sx={{ color: "white", fontSize: 30 }} />
+                <PostAddIcon sx={{ color: "white", fontSize: typography.h4 }} />
               </IconButton>
             </a>
             <IconButton sx={{ p: 1 }}>
-              <SearchIcon sx={{ color: "white", fontSize: 30 }} />
+              <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
             </IconButton>
           </Box>
         }
