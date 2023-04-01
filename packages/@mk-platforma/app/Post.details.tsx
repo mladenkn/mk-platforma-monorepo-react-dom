@@ -1,4 +1,4 @@
-import { Box, SxProps, Typography } from "@mui/material"
+import { Box, SxProps, Typography, useTheme } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import { CSSProperties, ReactNode } from "react"
 
@@ -16,6 +16,8 @@ export function Post_common_listItem({
   mainImage,
 }: Post_common_listItem_props) {
   const imagesAtRight = photos?.length === 1
+  const { typography } = useTheme()
+
   return (
     <Box
       sx={{
@@ -28,13 +30,15 @@ export function Post_common_listItem({
       {mainImage && <img src={mainImage} width={100} height={100} style={{ marginRight: 24 }} />}
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Typography sx={{ fontWeight: 600, fontSize: 20 }}>{label}</Typography>
+        <Typography variant="h5" fontWeight={500}>
+          {label}
+        </Typography>
 
         {location && (
           <Box sx={{ color: "text.secondary", mt: 0.75 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <LocationIcon sx={{ width: 19, height: 19, mr: 1 }} />
-              <Typography sx={{ fontSize: 19 }}>{location}</Typography>
+              <LocationIcon sx={{ fontSize: typography.h6, mr: 1 }} />
+              <Typography variant="h6">{location}</Typography>
             </Box>
           </Box>
         )}
