@@ -1,4 +1,4 @@
-import { Box, IconButton, Tabs, Tab, Popover, TabProps } from "@mui/material"
+import { Box, IconButton, Tabs, Tab, Popover, TabProps, useTheme } from "@mui/material"
 import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
@@ -160,6 +160,8 @@ function Categories_tabs({
   tabProps,
   ...otherProps
 }: SectionTabs_props) {
+  const theme = useTheme()
+
   return (
     <Tabs
       sx={{
@@ -183,11 +185,12 @@ function Categories_tabs({
         <LinkTab
           sx={{
             textTransform: "none",
-            fontSize: 18,
+            fontSize: theme.typography.h6,
             color: "white",
             ".Mui-selected": {
               color: "white !important",
             },
+            fontWeight: 400,
           }}
           label={getCategoryLabel(tab)}
           value={tab}
