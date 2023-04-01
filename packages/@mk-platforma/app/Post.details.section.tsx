@@ -1,7 +1,17 @@
 import { Post_common_details } from "./Post.details"
 import { useRouter } from "next/router"
 import Header from "./Header"
-import { Box, Button, IconButton, SxProps, TextField, Paper, Input } from "@mui/material"
+import {
+  Box,
+  Button,
+  IconButton,
+  SxProps,
+  TextField,
+  Paper,
+  Input,
+  Typography,
+  useTheme,
+} from "@mui/material"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
@@ -33,14 +43,18 @@ export default function Post_details_section() {
 
   const goBack = useRouter().back
 
+  const { typography } = useTheme()
+
   return (
     <Box>
       <Header
         right={
           <a href="/" style={{ textDecoration: "none" }}>
-            <IconButton sx={{ display: "flex", gap: 1 }}>
-              <Box sx={{ color: "white", fontSize: 20 }}>Oglasi</Box>
-              <ListAltOutlinedIcon sx={{ color: "white" }} />
+            <IconButton sx={{ display: "flex", gap: 1, alignItems: "start" }}>
+              <Box sx={{ color: "white" }}>
+                <Typography variant="h5">Oglasi</Typography>
+              </Box>
+              <ListAltOutlinedIcon fontSize="medium" sx={{ color: "white" }} />
             </IconButton>
           </a>
         }
@@ -54,7 +68,7 @@ export default function Post_details_section() {
               label_left={
                 <>
                   <IconButton sx={{ p: 0.5, mr: 1 }} onClick={goBack}>
-                    <ArrowBackIosOutlinedIcon sx={{ fontSize: 20 }} />
+                    <ArrowBackIosOutlinedIcon fontSize="medium" />
                   </IconButton>
                   {post.data && renderAvatar(post.data)}
                 </>
@@ -115,10 +129,10 @@ function Post_edit({
 
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
-      <Box sx={{ fontSize: 38, mb: 5, display: "flex", justifyContent: "space-between" }}>
-        <Box>Uređivanje oglasa</Box>
-        <IconButton sx={{ fontSize: 44 }} onClick={() => form_base.control.resetForm()}>
-          <ClearIcon />
+      <Box sx={{ mb: 5, display: "flex", justifyContent: "space-between" }}>
+        <Typography variant="h2">Uređivanje oglasa</Typography>
+        <IconButton onClick={() => form_base.control.resetForm()}>
+          <ClearIcon fontSize="medium" />
         </IconButton>
       </Box>
       <TextField {...form_base.components_props.label} />
