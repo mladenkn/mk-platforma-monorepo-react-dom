@@ -100,11 +100,13 @@ export function Post_common_details({
         <Box sx={{ display: "flex" }}>
           {label_left}
           <Box sx={{ ml: 1.5 }}>
-            <Typography sx={{ fontWeight: 600, fontSize: 19 }}>{label}</Typography>
+            <Typography fontWeight={500} variant="h5">
+              {label}
+            </Typography>
             {location && (
               <Box sx={{ color: "text.secondary" }}>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
-                  <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
+                  <LocationIcon fontSize="small" sx={{ mr: 1 }} />
                   <Typography>{location}</Typography>
                 </Box>
               </Box>
