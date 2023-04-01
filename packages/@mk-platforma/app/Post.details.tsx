@@ -44,7 +44,7 @@ export function Post_common_listItem({
         )}
       </Box>
 
-      {photos?.length && <Images images={photos} />}
+      {photos?.length ? <Images images={photos} /> : <></>}
     </Box>
   )
 }

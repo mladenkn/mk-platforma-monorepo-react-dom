@@ -75,7 +75,7 @@ export default function Post_details_section() {
             <Avatar letter="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
             <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
           </Paper>
-          {post.data.comments?.length && (
+          {post.data.comments?.length ? (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
               {post.data.comments.map(comment => (
                 <Paper sx={{ p: 2, borderRadius: 2 }}>
@@ -83,6 +83,8 @@ export default function Post_details_section() {
                 </Paper>
               ))}
             </Box>
+          ) : (
+            <></>
           )}
         </Box>
       ) : (
