@@ -5,7 +5,6 @@
   "scripts": {
     "build": "pnpm app-web build",
     "start": "pnpm app-web start",
-    "dev": "turbo run dev",
     "admin-web": "pnpm --filter @mk-platforma/admin-web",
     "app-web": "pnpm --filter @mk-platforma/app-web",
     "app": "pnpm --filter @mk-platforma/app",
