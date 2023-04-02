@@ -1,4 +1,14 @@
-import { Box, IconButton, Tabs, Tab, Popover, TabProps, useTheme, Avatar } from "@mui/material"
+import {
+  Box,
+  IconButton,
+  Tabs,
+  Tab,
+  Popover,
+  TabProps,
+  useTheme,
+  Avatar,
+  Input,
+} from "@mui/material"
 import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
@@ -13,6 +23,7 @@ import { getCategoryLabel, CategoryIcon, allCategories } from "./Categories.comm
 import { castIf, eva } from "@mk-libs/common/common"
 import { Post_expert } from "../api/data/data.types"
 import Link from "next/link"
+import { Comment_listItem } from "./Comment.common"
 
 export default function PostList_section({ initialTab }: { initialTab?: Category }) {
   const [activeTab, setActiveTab] = useState<Category | undefined>(initialTab)
@@ -113,19 +124,36 @@ export default function PostList_section({ initialTab }: { initialTab?: Category
               }
             }}
             Item_details={item => (
-              <Post_common_details
-                {...item}
-                label_left={eva(() => {
-                  if (castIf<Post_expert>(item, item.categories[0] === "personEndorsement")) {
-                    return (
-                      <Avatar
-                        sx={{ mr: 2, ...item.avatarStyle }}
-                        children={item.firstName[0] + item.lastName[0]}
-                      />
-                    )
-                  }
-                })}
-              />
+              <Box display="flex" flexDirection={item.comments?.length ? "row" : "column"}>
+                <Post_common_details
+                  {...item}
+                  label_left={eva(() => {
+                    if (castIf<Post_expert>(item, item.categories[0] === "personEndorsement")) {
+                      return (
+                        <Avatar
+                          sx={{ mr: 2, ...item.avatarStyle }}
+                          children={item.firstName[0] + item.lastName[0]}
+                        />
+                      )
+                    }
+                  })}
+                />
+                <Box>
+                  <Box sx={{ borderRadius: 2, p: 2, mt: 4, display: "flex" }}>
+                    <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
+                    <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
+                  </Box>
+                  {item.comments?.length ? (
+                    <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
+                      {item.comments.map(comment => (
+                        <Comment_listItem comment={comment} />
+                      ))}
+                    </Box>
+                  ) : (
+                    <></>
+                  )}
+                </Box>
+              </Box>
             )}
           />
         ) : (
