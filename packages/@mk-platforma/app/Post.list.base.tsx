@@ -22,7 +22,7 @@ export default function Post_list_base<TItem extends Item>({
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
 
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));  // TODO
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm")) // TODO
 
   const router = useRouter()
   function onItemClick(item: Item) {
@@ -54,7 +54,7 @@ export default function Post_list_base<TItem extends Item>({
         ))}
       </Box>
       {selectedItem && (
-        <Dialog open onClose={() => setSelectedItem(undefined)}>
+        <Dialog open onClose={() => setSelectedItem(undefined)} maxWidth="lg">
           <Item_details sx={{ p: 3 }} {...selectedItem} />
         </Dialog>
       )}
