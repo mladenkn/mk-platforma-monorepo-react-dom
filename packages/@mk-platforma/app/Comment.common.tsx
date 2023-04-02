@@ -1,5 +1,4 @@
-import { Box, SxProps, IconButton, Typography } from "@mui/material"
-import Avatar from "./Avatar"
+import { Box, SxProps, IconButton, Typography, Avatar } from "@mui/material"
 import { Comment } from "../api/data/data.types"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
@@ -23,7 +22,7 @@ export function Comment_listItem({ sx, comment }: Props) {
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Avatar
             sx={comment.author.avatarStyle}
-            letter={`${comment.author.firstName[0]} ${comment.author.lastName[0]}`}
+            children={`${comment.author.firstName[0]} ${comment.author.lastName[0]}`}
           />
           <Typography fontWeight={500} variant="h6">
             {comment.author.firstName} {comment.author.lastName}

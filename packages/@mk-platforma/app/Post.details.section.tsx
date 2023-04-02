@@ -10,6 +10,7 @@ import {
   Paper,
   Input,
   Typography,
+  Avatar,
   useTheme,
 } from "@mui/material"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
@@ -23,7 +24,6 @@ import type { Post_base, Post_expert } from "../api/data/data.types"
 import use_Post_form_base from "./Post.form.base"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
-import Avatar from "./Avatar"
 import { castIf } from "@mk-libs/common/common"
 import { Comment_listItem } from "./Comment.common"
 
@@ -36,7 +36,10 @@ export default function Post_details_section() {
   function renderAvatar(post: Post_base) {
     if (castIf<Post_expert>(post, post.categories[0] === "personEndorsement")) {
       return (
-        <Avatar sx={{ mr: 2, ...post.avatarStyle }} letter={post.firstName[0] + post.lastName[0]} />
+        <Avatar
+          sx={{ mr: 2, ...post.avatarStyle }}
+          children={post.firstName[0] + post.lastName[0]}
+        />
       )
     }
   }
@@ -86,7 +89,7 @@ export default function Post_details_section() {
             />
           </Paper>
           <Paper sx={{ borderRadius: 2, p: 2, mt: 4, display: "flex" }}>
-            <Avatar letter="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
+            <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
             <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
           </Paper>
           {post.data.comments?.length ? (

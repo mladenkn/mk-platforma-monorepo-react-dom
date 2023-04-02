@@ -1,4 +1,4 @@
-import { Box, IconButton, Tabs, Tab, Popover, TabProps, useTheme } from "@mui/material"
+import { Box, IconButton, Tabs, Tab, Popover, TabProps, useTheme, Avatar } from "@mui/material"
 import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
@@ -11,7 +11,6 @@ import trpc from "./trpc"
 import type { Category } from "../api/data/data.types"
 import { getCategoryLabel, CategoryIcon, allCategories } from "./Categories.common"
 import { castIf, eva } from "@mk-libs/common/common"
-import Avatar from "./Avatar"
 import { Post_expert } from "../api/data/data.types"
 import Link from "next/link"
 
@@ -121,7 +120,7 @@ export default function PostList_section({ initialTab }: { initialTab?: Category
                     return (
                       <Avatar
                         sx={{ mr: 2, ...item.avatarStyle }}
-                        letter={item.firstName[0] + item.lastName[0]}
+                        children={item.firstName[0] + item.lastName[0]}
                       />
                     )
                   }

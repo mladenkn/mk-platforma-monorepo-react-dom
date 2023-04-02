@@ -1,5 +1,4 @@
-import { Box, Typography } from "@mui/material"
-import Avatar from "./Avatar"
+import { Box, Typography, Avatar } from "@mui/material"
 import { CSSProperties } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
@@ -26,7 +25,7 @@ export function Post_expert_listItem({
           marginRight: 3,
           ...avatarStyle,
         }}
-        letter={firstName[0] + lastName[0]}
+        children={firstName[0] + lastName[0]}
       />
       <Box>
         <Typography variant="h6" sx={{ width: 125 }}>
