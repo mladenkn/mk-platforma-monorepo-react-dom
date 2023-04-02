@@ -69,12 +69,12 @@ export default function Post_details_section() {
             <Post_common_details
               {...post.data}
               label_left={
-                <>
+                <Box mr={1.2} display="flex" aligItems="center">
                   <IconButton sx={{ p: 0.5, mr: 1 }} onClick={goBack}>
                     <ArrowBackIosOutlinedIcon fontSize="medium" />
                   </IconButton>
                   {post.data && renderAvatar(post.data)}
-                </>
+                </Box>
               }
               label_right={
                 <Box>

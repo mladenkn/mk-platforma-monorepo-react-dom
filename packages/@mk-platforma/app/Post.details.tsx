@@ -99,7 +99,7 @@ export function Post_common_details({
       <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "space-between" }}>
         <Box sx={{ display: "flex" }}>
           {label_left}
-          <Box sx={{ ml: 1.5 }}>
+          <Box>
             <Typography fontWeight={500} variant="h5">
               {label}
             </Typography>
