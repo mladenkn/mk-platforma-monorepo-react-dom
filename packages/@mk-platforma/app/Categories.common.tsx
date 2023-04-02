@@ -5,6 +5,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
 import { SxProps } from "@mui/material"
+import { ComponentProps } from "react"
 
 export function getCategoryLabel(category: Category) {
   switch (category) {
@@ -29,24 +30,27 @@ export function getCategoryLabel(category: Category) {
   }
 }
 
-export function CategoryIcon({ name, sx }: { name: Category; sx?: SxProps }) {
+export function CategoryIcon({
+  name,
+  ...otherProps
+}: { name: Category } & ComponentProps<typeof BedIcon>) {
   switch (name) {
     case "accommodation":
-      return <BedIcon sx={sx} />
+      return <BedIcon {...otherProps} />
     case "sellable":
-      return <ShoppingCartIcon sx={sx} />
+      return <ShoppingCartIcon {...otherProps} />
     case "personEndorsement":
-      return <EngineeringIcon sx={sx} />
+      return <EngineeringIcon {...otherProps} />
     case "job":
-      return <HandymanIcon sx={sx} />
+      return <HandymanIcon {...otherProps} />
     case "gathering":
-      return <GroupsIcon sx={sx} />
+      return <GroupsIcon {...otherProps} />
     case "gathering/spirituality":
-      return <GroupsIcon sx={sx} />
+      return <GroupsIcon {...otherProps} />
     case "gathering/work":
-      return <GroupsIcon sx={sx} />
+      return <GroupsIcon {...otherProps} />
     case "gathering/hangout":
-      return <GroupsIcon sx={sx} />
+      return <GroupsIcon {...otherProps} />
     default:
       throw new Error("Category name not matched")
   }
