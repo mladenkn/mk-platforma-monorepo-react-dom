@@ -43,7 +43,6 @@ export default function PostList_section({ initialTab }: { initialTab?: Category
     <Box
       sx={{
         width: "100%",
-        bgcolor: "background.paper",
         display: "flex",
         flexDirection: "column",
         flex: 1,
