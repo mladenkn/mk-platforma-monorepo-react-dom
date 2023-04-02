@@ -1,4 +1,12 @@
-import { ThemeProvider, createTheme, Autocomplete, Box, TextField, SxProps } from "@mui/material"
+import {
+  ThemeProvider,
+  createTheme,
+  Autocomplete,
+  Box,
+  TextField,
+  SxProps,
+  useTheme,
+} from "@mui/material"
 import { CategoryIcon, getCategoryLabel, allCategories } from "./Categories.common"
 import { ReactElement } from "react"
 import type { Category } from "../api/data/data.types"
@@ -15,6 +23,8 @@ export default function CategoriesDropdown({
   onChange,
   ...props
 }: CategoriesDropdown_Props): ReactElement {
+  const { typography } = useTheme()
+
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
       <Autocomplete
@@ -27,35 +37,26 @@ export default function CategoriesDropdown({
             mb: 2,
           },
           ".MuiAutocomplete-popupIndicator svg": {
-            fontSize: 26,
+            fontSize: typography.h4,
           },
           ".MuiAutocomplete-clearIndicator svg": {
-            fontSize: 26,
-          },
-          ".MuiChip-root": {
-            fontSize: 16,
+            fontSize: typography.h4,
           },
           ...sx,
         }}
         options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
         renderOption={(props, option) => (
           <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
-            <CategoryIcon name={option.id} sx={{ fontSize: 26, mr: 2 }} />
+            <CategoryIcon fontSize="medium" name={option.id} sx={{ mr: 2 }} />
             {option.label}
           </Box>
         )}
         renderInput={params => (
           <TextField
             {...params}
-            sx={{
-              fontSize: 16,
-            }}
             variant="outlined"
             InputProps={{
               ...params.InputProps,
-              sx: {
-                fontSize: 16,
-              },
               startAdornment: value ? <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={value} /> : <></>,
             }}
             placeholder="Kategorija"

@@ -1,4 +1,4 @@
-import { Box, IconButton, SxProps, TextField, Button, Paper } from "@mui/material"
+import { Box, IconButton, SxProps, TextField, Button, Paper, Typography } from "@mui/material"
 import Header from "./Header"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
@@ -24,14 +24,18 @@ export default function Post_create_section({ sx }: Props) {
         right={
           <a href="/" style={{ textDecoration: "none" }}>
             <IconButton sx={{ display: "flex", gap: 1 }}>
-              <Box sx={{ color: "white", fontSize: 20 }}>Oglasi</Box>
+              <Typography variant="h4" sx={{ color: "white" }}>
+                Oglasi
+              </Typography>
               <ListAltOutlinedIcon sx={{ color: "white" }} />
             </IconButton>
           </a>
         }
       />
       <Paper sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2, m: 1, p: 2 }}>
-        <Box sx={{ fontSize: 38, mb: 3 }}>Novi oglas</Box>
+        <Typography variant="h3" sx={{ mb: 2 }}>
+          Novi oglas
+        </Typography>
         <TextField {...form_base.components_props.label} />
         <CategoriesDropdown {...form_base.components_props.section} />
         <TextField {...form_base.components_props.description} />

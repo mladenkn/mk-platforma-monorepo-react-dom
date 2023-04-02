@@ -29,7 +29,7 @@ export function Post_expert_listItem({
         letter={firstName[0] + lastName[0]}
       />
       <Box>
-        <Typography sx={{ fontWeight: 600, fontSize: 16, width: 125 }}>
+        <Typography variant="h6" sx={{ width: 125 }}>
           {firstName} {lastName}
         </Typography>
         {location && (
