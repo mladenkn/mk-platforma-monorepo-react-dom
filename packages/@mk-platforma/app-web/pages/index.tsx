@@ -5,6 +5,6 @@ import { Category } from "../../api/data/data.types"
 export default function () {
   const router = useRouter()
   const { name } = router.query
-  const name_ = typeof name === "string" ? (name as Category) : undefined
+  const name_ = typeof name === "string" ? (name as Category) : "gathering"
   return <PostList_section initialTab={name_} />
 }
