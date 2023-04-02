@@ -27,10 +27,10 @@ export default function Header({ sx, right, bottom }: Props) {
         <Box sx={{ ml: 0.2, pl: 2 }}>
           <a style={{ color: "white", textDecoration: "none" }} href="/">
             <Typography variant="h3">ZaBrata</Typography>
+            <Box sx={{ color: "white" }}>
+              <Typography variant="h5">Loza kontribucionizma</Typography>
+            </Box>
           </a>
-          <Box sx={{ color: "white" }}>
-            <Typography variant="h5">Loza kontribucionizma</Typography>
-          </Box>
         </Box>
         {right}
       </Box>
