@@ -8,7 +8,6 @@ import { z } from "zod"
 const Post_zod = z.object({
   label: z.string(),
   description: z.string(),
-  images: z.array(z.string()),
   categories: z.array(
     z.enum([
       "job",
@@ -34,7 +33,6 @@ const initialValues_default = {
   label: "",
   description: "",
   location: "",
-  images: [],
   categories: [],
 } satisfies Post
 

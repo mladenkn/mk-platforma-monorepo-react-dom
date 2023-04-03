@@ -26,14 +26,19 @@ export type Comment = {
   canDelete: boolean
 }
 
+export type Post_image = {
+  id: Id
+  url: string
+  isMain: boolean
+}
+
 export type Post_base = {
   id: Id
   label: string
   description: string
-  images: string[]
+  images: Post_image[]
   categories: Category[]
   location?: string
-  mainImage?: string
   comments?: Comment[]
 }
 
