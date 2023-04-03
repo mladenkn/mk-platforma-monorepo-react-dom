@@ -48,7 +48,7 @@ export function Post_expert_listItem({
           <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
           <Box>
             {skills.map(s => (
-              <Typography>{s}</Typography>
+              <Typography key={s}>{s}</Typography>
             ))}
           </Box>
         </Box>

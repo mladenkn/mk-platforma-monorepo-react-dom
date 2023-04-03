@@ -95,7 +95,7 @@ export default function Post_details_section() {
           {post.data.comments?.length ? (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
               {post.data.comments.map(comment => (
-                <Paper sx={{ p: 2, borderRadius: 2 }}>
+                <Paper key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
                   <Comment_listItem comment={comment} />
                 </Paper>
               ))}

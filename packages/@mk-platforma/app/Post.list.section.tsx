@@ -142,7 +142,7 @@ export default function PostList_section({ initialTab }: { initialTab?: Category
                   {item.comments?.length ? (
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 3 }}>
                       {item.comments.map(comment => (
-                        <Comment_listItem comment={comment} />
+                        <Comment_listItem key={comment.id} comment={comment} />
                       ))}
                     </Box>
                   ) : (
@@ -200,6 +200,7 @@ function Categories_tabs({
     >
       {options.map(tab => (
         <LinkTab
+          key={tab}
           sx={{
             textTransform: "none",
             fontSize: theme.typography.h6,
