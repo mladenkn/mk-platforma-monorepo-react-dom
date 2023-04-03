@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 import * as cro_dataset from "./data.cro.dataset"
-import { post_id_getNext } from "./data._utils"
+import { post_id_getNext, post_image_id_getNext } from "./data._utils"
 
 const withRelatedProps = [
   {
@@ -146,7 +146,12 @@ export default function generateProducts() {
     categories: ["sellable" as "sellable"],
     id: post_id_getNext(),
     label,
-    mainImage: image,
+    images: [
+      {
+        id: post_image_id_getNext(),
+        url: image,
+      },
+    ],
     description,
     phoneNumber: faker.phone.number(),
     location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages]),

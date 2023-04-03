@@ -3,7 +3,7 @@ import { generateArray } from "@mk-libs/common/common"
 import { generateComment } from "./data.common"
 import * as cro_dataset from "./data.cro.dataset"
 import data_images from "./data.images.json"
-import { post_id_getNext } from "./data._utils"
+import { post_id_getNext, post_image_id_getNext } from "./data._utils"
 
 const withRelatedProps = [
   {
@@ -27,10 +27,12 @@ export const accommodations = [...withRelatedProps, ...withRelatedProps].map(({ 
     ...cro_dataset.villages,
     ...cro_dataset.villages,
   ]),
-  images: faker.helpers.arrayElements(
-    data_images["smještaj podstanarstvo kuća na seoskom imanju"],
-    faker.datatype.number({ min: 1, max: 5 })
-  ),
+  images: faker.helpers
+    .arrayElements(
+      data_images["smještaj podstanarstvo kuća na seoskom imanju"],
+      faker.datatype.number({ min: 1, max: 5 })
+    )
+    .map(url => ({ url, id: post_image_id_getNext() })),
   phoneNumber: faker.phone.number(),
   comments: generateArray(generateComment, faker.datatype.number({ min: 0, max: 7 })),
 }))

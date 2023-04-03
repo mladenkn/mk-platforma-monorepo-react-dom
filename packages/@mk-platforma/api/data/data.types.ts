@@ -36,8 +36,8 @@ export type Post_base = {
   id: Id
   label: string
   description: string
-  images: Post_image[]
   categories: Category[]
+  images?: Post_image[]
   location?: string
   comments?: Comment[]
 }
