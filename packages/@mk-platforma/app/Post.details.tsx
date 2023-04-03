@@ -5,17 +5,17 @@ import { CSSProperties, ReactNode } from "react"
 type Post_common_listItem_props = {
   label: string
   location?: string
-  photos?: string[]
+  images?: string[]
   mainImage?: string
 }
 
 export function Post_common_listItem({
   label,
   location,
-  photos,
+  images,
   mainImage,
 }: Post_common_listItem_props) {
-  const imagesAtRight = photos?.length === 1
+  const imagesAtRight = images?.length === 1
   const { typography } = useTheme()
 
   return (
@@ -44,7 +44,7 @@ export function Post_common_listItem({
         )}
       </Box>
 
-      {photos?.length ? <Images images={photos} /> : <></>}
+      {images?.length ? <Images images={images} /> : <></>}
     </Box>
   )
 }
@@ -75,7 +75,7 @@ type Post_common_listItem_details_Props = {
   sx?: SxProps
   label: string
   location?: string
-  photos?: string[]
+  images?: string[]
   description: string
   phoneNumber?: string
   label_left?: ReactNode
@@ -87,7 +87,7 @@ export function Post_common_details({
   sx,
   label,
   location,
-  photos,
+  images,
   description,
   phoneNumber,
   label_left,
@@ -122,13 +122,13 @@ export function Post_common_details({
       )}
       <Typography>{description}</Typography>
       {phoneNumber && <Typography sx={{ mt: 4 }}>Mobitel/telefon: {phoneNumber}</Typography>}
-      {!!photos?.length && (
+      {!!images?.length && (
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", marginTop: 4 }}>
-            {photos
+            {images
               .filter(p => p)
-              .map((photo, index) => (
-                <img key={index} width={100} height={100} src={photo} />
+              .map((image, index) => (
+                <img key={index} width={100} height={100} src={image} />
               ))}
           </Box>
         </Box>

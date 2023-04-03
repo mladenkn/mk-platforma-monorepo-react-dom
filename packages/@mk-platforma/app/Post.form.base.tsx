@@ -8,7 +8,7 @@ import { z } from "zod"
 const Post_zod = z.object({
   label: z.string(),
   description: z.string(),
-  photos: z.array(z.string()),
+  images: z.array(z.string()),
   categories: z.array(
     z.enum([
       "job",
@@ -34,7 +34,7 @@ const initialValues_default = {
   label: "",
   description: "",
   location: "",
-  photos: [],
+  images: [],
   categories: [],
 } satisfies Post
 
@@ -82,7 +82,7 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
         onChange: handleChange,
       } satisfies Partial<TextFieldProps>,
 
-      // TODO: photos
+      // TODO: images
     },
   }
 }

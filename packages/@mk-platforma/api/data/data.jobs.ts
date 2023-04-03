@@ -38,7 +38,7 @@ export default function generateJobs() {
     label,
     description: generateArray(() => "opis oglasa ", 30).join(""),
     location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages]),
-    photos: faker.helpers.arrayElements(
+    images: faker.helpers.arrayElements(
       data_images["posao selo kuća tesar zidar"],
       faker.datatype.number({ min: 1, max: 5 })
     ),

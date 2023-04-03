@@ -40,7 +40,7 @@ export default function generateGatherings() {
       ...cro_dataset.villages,
       ...cro_dataset.villages,
     ]),
-    photos: faker.helpers.arrayElements(
+    images: faker.helpers.arrayElements(
       data_images["nature gathering action work"],
       faker.datatype.number({ min: 1, max: 6 })
     ),

@@ -27,7 +27,7 @@ export const accommodations = [...withRelatedProps, ...withRelatedProps].map(({ 
     ...cro_dataset.villages,
     ...cro_dataset.villages,
   ]),
-  photos: faker.helpers.arrayElements(
+  images: faker.helpers.arrayElements(
     data_images["smještaj podstanarstvo kuća na seoskom imanju"],
     faker.datatype.number({ min: 1, max: 5 })
   ),
