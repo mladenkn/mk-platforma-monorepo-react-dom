@@ -1,5 +1,5 @@
 import type { AppType } from "next/app"
-import trpc from "@mk-platforma/app/trpc"
+import trpc from "../app/trpc"
 import "../styles.global.css"
 import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material/styles"
 import "@fontsource/roboto/300.css"

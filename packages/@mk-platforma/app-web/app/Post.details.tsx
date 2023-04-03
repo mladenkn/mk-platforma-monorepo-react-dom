@@ -1,7 +1,7 @@
 import { Box, SxProps, Typography, useTheme } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import { ReactNode } from "react"
-import { Post_image } from "../api/data/data.types"
+import { Post_image } from "../../api/data/data.types"
 
 type Post_common_listItem_props = {
   label: string

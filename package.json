@@ -7,7 +7,6 @@
     "start": "pnpm app-web start",
     "admin-web": "pnpm --filter @mk-platforma/admin-web",
     "app-web": "pnpm --filter @mk-platforma/app-web",
-    "app": "pnpm --filter @mk-platforma/app",
     "api": "pnpm --filter @mk-platforma/api",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "wipe": "find . -type d -name node_modules | xargs rm -rf && rm -f pnpm-lock.lock && rm -rf packages/*/*/.next"

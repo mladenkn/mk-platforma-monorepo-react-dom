@@ -1,4 +1,4 @@
-import PostList_section from "@mk-platforma/app/Post.list.section"
+import PostList_section from "../app/Post.list.section"
 import { useRouter } from "next/router"
 import { Category } from "../../api/data/data.types"
 
