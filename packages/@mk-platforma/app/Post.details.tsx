@@ -43,30 +43,6 @@ export function Post_common_listItem({ label, location, images }: Post_common_li
           </Box>
         )}
       </Box>
-
-      {images?.length ? <Images images={images} /> : <></>}
-    </Box>
-  )
-}
-
-function Images({ images }: { images: Post_image[] }) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "right",
-        flex: 1,
-        mt: 2,
-      }}
-    >
-      <Box sx={{ display: "flex", gap: 1 }}>
-        {images!
-          .filter(p => p)
-          .slice(0, 3)
-          .map(image => (
-            <img key={image.id} width={75} height={75} src={image.url} />
-          ))}
-      </Box>
     </Box>
   )
 }
