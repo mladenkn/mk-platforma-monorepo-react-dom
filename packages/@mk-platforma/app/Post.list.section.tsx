@@ -102,8 +102,6 @@ export default function PostList_section({ initialTab }: { initialTab?: Category
         sx={{
           p: 1,
           display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
           flex: 1,
           minHeight: 0,
           background: "#E4E6EB",
