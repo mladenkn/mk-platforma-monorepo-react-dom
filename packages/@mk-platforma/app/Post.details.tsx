@@ -13,7 +13,6 @@ type Post_common_listItem_props = {
 export function Post_common_listItem({ label, location, images }: Post_common_listItem_props) {
   const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
 
-  const imagesAtRight = images?.length === 1
   const { typography } = useTheme()
 
   return (
@@ -21,8 +20,7 @@ export function Post_common_listItem({ label, location, images }: Post_common_li
       sx={{
         flex: 1,
         display: "flex",
-        flexDirection: mainImage || imagesAtRight ? "row" : "column",
-        justifyContent: imagesAtRight ? "space-between" : "unset",
+        flexDirection: "row",
       }}
     >
       {mainImage && (
