@@ -1,5 +1,7 @@
 import { z } from "zod"
 
+export type Id = number | string
+
 export const Category_zod = z.enum([
   "job",
   "accommodation",
@@ -13,7 +15,7 @@ export const Category_zod = z.enum([
 export type Category = z.infer<typeof Category_zod>
 
 export type Comment = {
-  id: number
+  id: Id
   content: string
   author: {
     firstName: string
@@ -25,7 +27,7 @@ export type Comment = {
 }
 
 export type Post_base = {
-  id: number
+  id: Id
   label: string
   description: string
   photos: string[]

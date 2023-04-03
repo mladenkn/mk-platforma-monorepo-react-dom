@@ -2,9 +2,10 @@ import { Box, Paper, Dialog, useTheme, useMediaQuery, SxProps } from "@mui/mater
 import { ComponentType, useState } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 import { useRouter } from "next/navigation"
+import type { Id } from "../api/data/data.types"
 
 type Item = {
-  id: number
+  id: Id
 }
 
 export type Section_base_Props<TItem extends Item> = {
@@ -18,7 +19,7 @@ export default function Post_list_base<TItem extends Item>({
   Item,
   Item_details,
 }: Section_base_Props<TItem>) {
-  const [_selectedItem, setSelectedItem] = useState<number>()
+  const [_selectedItem, setSelectedItem] = useState<Id>()
   const selectedItem = _selectedItem ? asNonNil(items.find(e => e.id === _selectedItem)) : undefined
 
   const theme = useTheme()
