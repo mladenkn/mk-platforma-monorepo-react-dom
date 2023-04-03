@@ -104,7 +104,6 @@ export default function PostList_section({ initialTab }: { initialTab?: Category
           display: "flex",
           flex: 1,
           minHeight: 0,
-          background: "#E4E6EB",
         }}
       >
         {posts.data ? (
