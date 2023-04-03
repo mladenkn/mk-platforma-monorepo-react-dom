@@ -1,6 +1,6 @@
 import { httpBatchLink } from "@trpc/client"
 import { CreateTRPCNext, createTRPCNext } from "@trpc/next"
-import type { AppRouter } from "../../api/index"
+import type { AppRouter } from "../trpc.router"
 import { NextPageContext } from "next"
 import superjson from "superjson"
 

@@ -1,5 +1,5 @@
 import { Box, SxProps, IconButton, Typography, Avatar } from "@mui/material"
-import { Comment } from "../../api/data/data.types"
+import { Comment } from "../data/data.types"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 

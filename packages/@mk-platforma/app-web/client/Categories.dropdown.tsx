@@ -9,7 +9,7 @@ import {
 } from "@mui/material"
 import { CategoryIcon, getCategoryLabel, allCategories } from "./Categories.common"
 import { ReactElement } from "react"
-import type { Category } from "../../api/data/data.types"
+import type { Category } from "../data/data.types"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps

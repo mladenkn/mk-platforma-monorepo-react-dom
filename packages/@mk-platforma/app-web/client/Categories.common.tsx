@@ -1,4 +1,4 @@
-import type { Category } from "../../api/data/data.types"
+import type { Category } from "../data/data.types"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import BedIcon from "@mui/icons-material/Bed"
 import EngineeringIcon from "@mui/icons-material/Engineering"

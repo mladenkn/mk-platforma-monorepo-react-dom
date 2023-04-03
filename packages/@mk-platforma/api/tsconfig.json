@@ -1,6 +1,0 @@
-{
-  "extends": "@mk-libs/tsconfig/base.json",
-  "compilerOptions": {
-    "resolveJsonModule": true
-  }
-}
