@@ -48,7 +48,7 @@ export default function PostList_section({ selectedCategory }: { selectedCategor
             display: "flex",
             alignItems: "center",
             color: "white",
-            gap: 2,
+            gap: 3.5,
           }}
         >
           <CategoryIcon fontSize="large" name={selectedCategory} />
