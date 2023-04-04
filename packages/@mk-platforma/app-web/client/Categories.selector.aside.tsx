@@ -4,16 +4,19 @@ import { allCategories, getCategoryLabel, CategoryIcon } from "./Categories.comm
 type Props = {}
 
 export default function Categories_selector_aside({}: Props) {
-  const { palette } = useTheme()
+  const { palette, typography } = useTheme()
   return (
-    <List sx={{ background: palette.primary.main, pr: 3, height: "100%" }}>
+    <List sx={{ background: palette.primary.main, pl: 1, pr: 3, height: "100%" }}>
       {allCategories.map(category => (
         <ListItem key={category} disablePadding>
           <ListItemButton href={`?/category=${category}`}>
             <ListItemIcon sx={{ color: "white" }}>
-              <CategoryIcon name={category} />
+              <CategoryIcon sx={{ fontSize: typography.h3 }} name={category} />
             </ListItemIcon>
-            <ListItemText sx={{ color: "white" }} primary={getCategoryLabel(category)} />
+            <ListItemText
+              sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
+              primary={getCategoryLabel(category)}
+            />
           </ListItemButton>
         </ListItem>
       ))}
