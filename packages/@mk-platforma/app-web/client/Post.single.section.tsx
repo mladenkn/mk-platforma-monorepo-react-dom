@@ -13,7 +13,6 @@ import {
   Avatar,
   useTheme,
 } from "@mui/material"
-import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
@@ -26,6 +25,7 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import { castIf } from "@mk-libs/common/common"
 import { Comment_listItem } from "./Comment.common"
+import MoreVertIcon from "@mui/icons-material/MoreVert"
 
 export default function Post_single_section({ post_initial }: { post_initial: Post_base }) {
   const router = useRouter()
@@ -46,22 +46,43 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
 
   const goBack = useRouter().back
 
-  const { typography } = useTheme()
+  const { typography, palette } = useTheme()
 
   return (
     <Box>
-      <Header
-        right={
-          <a href="/" style={{ textDecoration: "none" }}>
-            <IconButton sx={{ display: "flex", gap: 1, alignItems: "start" }}>
-              <Box sx={{ color: "white" }}>
-                <Typography variant="h5">Oglasi</Typography>
-              </Box>
-              <ListAltOutlinedIcon fontSize="medium" sx={{ color: "white" }} />
-            </IconButton>
+      <Box
+        sx={{
+          background: palette.primary.main,
+          py: 2,
+          pl: 1.5,
+          pr: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            color: "white",
+            gap: 2,
+          }}
+        >
+          <IconButton sx={{ color: "white" }} onClick={goBack}>
+            <ArrowBackIosOutlinedIcon />
+          </IconButton>
+          <a style={{ color: "white", textDecoration: "none" }} href="/">
+            <Typography variant="h3">ZaBrata</Typography>
+            <Box sx={{ color: "white" }}>
+              <Typography variant="h5">Loza kontribucionizma</Typography>
+            </Box>
           </a>
-        }
-      />
+        </Box>
+        <IconButton sx={{}}>
+          <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
+        </IconButton>
+      </Box>
       {!post.data ? <>Učitavanje...</> : <></>}
       {post.data && !isEdit ? (
         <Box sx={{ p: 1 }}>
@@ -70,9 +91,6 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
               {...post.data}
               label_left={
                 <Box mr={1.2} display="flex" alignItems="center">
-                  <IconButton sx={{ p: 0.5, mr: 1 }} onClick={goBack}>
-                    <ArrowBackIosOutlinedIcon fontSize="medium" />
-                  </IconButton>
                   {post.data && renderAvatar(post.data)}
                 </Box>
               }
