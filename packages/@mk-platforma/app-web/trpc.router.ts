@@ -44,6 +44,8 @@ export const appRouter = router({
     }),
 })
 
+export const api_ss = appRouter.createCaller({})
+
 // Export type router type signature,
 // NOT the router itself.
 export type AppRouter = typeof appRouter

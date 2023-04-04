@@ -1,11 +1,16 @@
 import PostList_section from "../client/Post.list.section"
-import { useRouter } from "next/router"
 import { Category } from "../data/data.types"
+import { api_ss } from "../trpc.router"
+import { GetServerSidePropsContext } from "next/types"
 
-export default function () {
-  const { query, isReady } = useRouter()
-  if (isReady) {
-    const category = query.category ? (query.category as Category) : ("gathering" as "gathering")
-    return <PostList_section selectedCategory={category} />
-  } else return "Učitavanje..."
+export async function getServerSideProps({ query }: GetServerSidePropsContext) {
+  const categories = [query.category] as Category[]
+  return {
+    props: {
+      selectedCategory: query.category as Category,
+      posts_initial: await api_ss.posts({ categories }),
+    },
+  }
 }
+
+export default PostList_section

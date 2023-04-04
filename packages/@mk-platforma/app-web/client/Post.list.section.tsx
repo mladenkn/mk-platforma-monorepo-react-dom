@@ -14,7 +14,7 @@ import { Post_common_listItem, Post_common_details } from "./Post.details"
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import trpc from "./trpc"
-import type { Category } from "../data/data.types"
+import type { Category, Post_base } from "../data/data.types"
 import { castIf, eva } from "@mk-libs/common/common"
 import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
@@ -23,8 +23,13 @@ import { useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 
-export default function PostList_section({ selectedCategory }: { selectedCategory: Category }) {
-  const posts = trpc.posts.useQuery({ categories: selectedCategory ? [selectedCategory] : [] })
+type Props = { selectedCategory: Category; posts_initial: Post_base[] }
+
+export default function PostList_section({ selectedCategory, posts_initial }: Props) {
+  const posts = trpc.posts.useQuery(
+    { categories: selectedCategory ? [selectedCategory] : [] },
+    { initialData: posts_initial }
+  )
   const { typography } = useTheme()
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
