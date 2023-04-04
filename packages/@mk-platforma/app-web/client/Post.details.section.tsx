@@ -17,7 +17,7 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
-import ClearIcon from "@mui/icons-material/Cancel"
+import CloseIcon from "@mui/icons-material/Close"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useState } from "react"
 import type { Post_base, Post_expert } from "../data/data.types"
@@ -108,7 +108,12 @@ export default function Post_details_section({ post_initial }: { post_initial: P
         <></>
       )}
       {post.data && isEdit ? (
-        <Post_edit sx={{ p: 2, m: 1 }} post={post.data as any} onSubmit={() => {}} />
+        <Post_edit
+          sx={{ p: 2, m: 1 }}
+          post={post.data as any}
+          onSubmit={() => {}}
+          cancel={() => setIsEdit(false)}
+        />
       ) : (
         <></>
       )}
@@ -120,22 +125,26 @@ function Post_edit({
   post,
   onSubmit,
   sx,
+  cancel,
 }: {
   post: Post_base
-  onSubmit: () => void
+  onSubmit(): void
   sx?: SxProps
+  cancel(): void
 }) {
   const form_base = use_Post_form_base({ initialValues: post })
 
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")
 
+  const goBack = useRouter().back
+
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
       <Box sx={{ mb: 5, display: "flex", justifyContent: "space-between" }}>
-        <Typography variant="h2">Uređivanje oglasa</Typography>
-        <IconButton onClick={() => form_base.control.resetForm()}>
-          <ClearIcon fontSize="medium" />
+        <Typography variant="h2">Uredi oglasi</Typography>
+        <IconButton onClick={cancel}>
+          <CloseIcon fontSize="medium" />
         </IconButton>
       </Box>
       <TextField {...form_base.components_props.label} />
