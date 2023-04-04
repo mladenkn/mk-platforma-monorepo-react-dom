@@ -75,10 +75,12 @@ export function Header_moreOptions() {
         anchorEl={optionsAnchorEl}
         onClose={() => set_optionsAnchorEl(null)}
       >
-        <MenuItem>
-          <PostAddIcon sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }} />
-          <Typography sx={{ color: palette.primary.main }}>Objavi</Typography>
-        </MenuItem>
+        <a href="/post/create" style={{ textDecoration: "none" }}>
+          <MenuItem>
+            <PostAddIcon sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }} />
+            <Typography sx={{ color: palette.primary.main }}>Objavi</Typography>
+          </MenuItem>
+        </a>
         <MenuItem>
           <AccountCircleIcon
             sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
