@@ -1,42 +1,21 @@
-import {
-  Box,
-  IconButton,
-  Tabs,
-  Tab,
-  Popover,
-  TabProps,
-  useTheme,
-  Avatar,
-  Input,
-} from "@mui/material"
-import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
+import { Box, IconButton, useTheme, Avatar, Input } from "@mui/material"
+import { useState } from "react"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import Header from "./Header"
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import SearchIcon from "@mui/icons-material/Search"
 import trpc from "./trpc"
 import type { Category } from "../data/data.types"
-import { getCategoryLabel, CategoryIcon, allCategories } from "./Categories.common"
 import { castIf, eva } from "@mk-libs/common/common"
 import { Post_expert } from "../data/data.types"
-import Link from "next/link"
 import { Comment_listItem } from "./Comment.common"
+import Post_list_section_categories_tabs from "./Post.list.section.categories.tabs"
 
 export default function PostList_section({ initialTab }: { initialTab?: Category }) {
   const [activeTab, setActiveTab] = useState<Category | undefined>(initialTab)
-
-  const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] =
-    useState<HTMLButtonElement | null>(null)
-
-  function handle_showMoreTabs(event: MouseEvent<HTMLButtonElement>) {
-    setAdditionalTabsShownAnchorEl(event.currentTarget)
-  }
-
   const posts = trpc.posts.useQuery({ categories: activeTab ? [activeTab] : [] })
-
   const { typography } = useTheme()
 
   return (
@@ -63,41 +42,13 @@ export default function PostList_section({ initialTab }: { initialTab?: Category
           </Box>
         }
         bottom={
-          <Categories_tabs
+          <Post_list_section_categories_tabs
             sx={{ mt: 2, mb: 0.1 }}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
-            options={allCategories.slice(0, 3)}
-          >
-            <IconButton onClick={handle_showMoreTabs}>
-              <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
-            </IconButton>
-          </Categories_tabs>
+          />
         }
       />
-      <Popover
-        open={!!additionalTabsShownAnchorEl}
-        anchorEl={additionalTabsShownAnchorEl}
-        onClose={() => setAdditionalTabsShownAnchorEl(null)}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        PaperProps={{
-          sx: {
-            left: "unset !important",
-            right: 0,
-          },
-        }}
-      >
-        <Categories_tabs
-          sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          orientation="vertical"
-          options={allCategories.slice(3)}
-        />
-      </Popover>
       <Box
         sx={{
           p: 1,
@@ -158,75 +109,4 @@ export default function PostList_section({ initialTab }: { initialTab?: Category
       </Box>
     </Box>
   )
-}
-
-type SectionTabs_props = ComponentProps<typeof Tabs> & {
-  activeTab?: Category
-  setActiveTab(c: Category): void
-  options: Category[]
-  children?: ReactNode
-  tabProps?: Partial<ComponentProps<typeof Tab>>
-}
-
-function Categories_tabs({
-  activeTab,
-  setActiveTab,
-  children,
-  options,
-  sx,
-  tabProps,
-  ...otherProps
-}: SectionTabs_props) {
-  const theme = useTheme()
-
-  return (
-    <Tabs
-      sx={{
-        px: 1,
-        ".MuiTabs-indicator": {
-          background: "white",
-          height: 3,
-        },
-        ".Mui-selected": {
-          color: "white !important",
-        },
-        ...sx,
-      }}
-      value={activeTab}
-      centered
-      onChange={(e, newValue) => setActiveTab(newValue)}
-      variant="fullWidth"
-      {...otherProps}
-    >
-      {options.map(tab => (
-        <LinkTab
-          key={tab}
-          sx={{
-            textTransform: "none",
-            fontSize: theme.typography.h6,
-            color: "white",
-            ".Mui-selected": {
-              color: "white !important",
-            },
-            fontWeight: 400,
-          }}
-          label={getCategoryLabel(tab)}
-          value={tab}
-          icon={<CategoryIcon name={tab} />}
-          linkProps={{
-            href: {
-              query: { name: tab },
-            },
-          }}
-          onClick={() => setActiveTab(tab)}
-          {...tabProps}
-        />
-      ))}
-      {children}
-    </Tabs>
-  )
-}
-
-function LinkTab(props: TabProps & { linkProps: ComponentProps<typeof Link> }) {
-  return <Tab component={linkProps => <Link {...linkProps} {...props.linkProps} />} {...props} />
 }
