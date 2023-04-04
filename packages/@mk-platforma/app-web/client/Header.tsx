@@ -1,6 +1,7 @@
-import { Box, SxProps, Typography, useTheme } from "@mui/material"
+import { Box, SxProps, Typography, useTheme, IconButton } from "@mui/material"
 import { ReactNode } from "react"
 import { styled } from "@mui/material/styles"
+import MoreVertIcon from "@mui/icons-material/MoreVert"
 
 type Props = {
   sx?: SxProps
@@ -49,3 +50,12 @@ export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "space-between",
 }))
+
+export function Header_moreOptions() {
+  const { typography } = useTheme()
+  return (
+    <IconButton>
+      <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
+    </IconButton>
+  )
+}

@@ -1,8 +1,7 @@
-import { Box, IconButton, useTheme, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
+import { Box, useTheme, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.single"
 import { Post_expert_listItem } from "./Post.expert.listItem"
-import MoreVertIcon from "@mui/icons-material/MoreVert"
 import trpc from "./trpc"
 import type { Category, Post_base } from "../data/data.types"
 import { castIf, eva } from "@mk-libs/common/common"
@@ -12,7 +11,7 @@ import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
-import { Header_root } from "./Header"
+import { Header_root, Header_moreOptions } from "./Header"
 
 type Props = { selectedCategory: Category; posts_initial: Post_base[] }
 
@@ -43,7 +42,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
             display: "flex",
             alignItems: "center",
             color: "white",
-            gap: 3.5,
+            gap: 2.5,
           }}
           onClick={() => set_SectionsDrawer_isActive(true)}
         >
@@ -52,9 +51,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
             {getCategoryLabel(selectedCategory)}
           </Typography>
         </Box>
-        <IconButton sx={{}}>
-          <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
-        </IconButton>
+        <Header_moreOptions />
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>

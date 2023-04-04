@@ -1,6 +1,6 @@
 import { Post_common_details } from "./Post.single"
 import { useRouter } from "next/router"
-import Header, { Header_root } from "./Header"
+import { Header_root, Header_moreOptions } from "./Header"
 import {
   Box,
   Button,
@@ -25,7 +25,6 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import { castIf } from "@mk-libs/common/common"
 import { Comment_listItem } from "./Comment.common"
-import MoreVertIcon from "@mui/icons-material/MoreVert"
 
 export default function Post_single_section({ post_initial }: { post_initial: Post_base }) {
   const router = useRouter()
@@ -45,8 +44,6 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
   }
 
   const goBack = useRouter().back
-
-  const { typography, palette } = useTheme()
 
   return (
     <Box>
@@ -69,9 +66,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
             </Box>
           </a>
         </Box>
-        <IconButton sx={{}}>
-          <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
-        </IconButton>
+        <Header_moreOptions />
       </Header_root>
       {!post.data ? <>Učitavanje...</> : <></>}
       {post.data && !isEdit ? (
