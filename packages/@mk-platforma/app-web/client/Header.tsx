@@ -1,4 +1,4 @@
-import { Box, SxProps, Typography } from "@mui/material"
+import { Box, SxProps, Typography, useTheme } from "@mui/material"
 import { ReactNode } from "react"
 
 type Props = {
@@ -8,10 +8,12 @@ type Props = {
 }
 
 export default function Header({ sx, right, bottom }: Props) {
+  const { palette } = useTheme()
+
   return (
     <Box
       sx={{
-        background: "#2d5be3",
+        background: palette.primary.main,
         pt: 1.5,
         pb: bottom ? 0 : 3,
         ...sx,

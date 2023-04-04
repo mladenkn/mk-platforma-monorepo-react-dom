@@ -21,6 +21,8 @@ export default function Categories_selector_tabs({
     setAdditionalTabsShownAnchorEl(event.currentTarget)
   }
 
+  const { palette } = useTheme()
+
   return (
     <>
       <Categories_tabs sx={sx} activeTab={activeTab} options={allCategories.slice(0, 3)}>
@@ -44,7 +46,12 @@ export default function Categories_selector_tabs({
         }}
       >
         <Categories_tabs
-          sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            background: palette.primary.main,
+          }}
           activeTab={activeTab}
           orientation="vertical"
           options={allCategories.slice(3)}
