@@ -2,9 +2,8 @@ import { Box, IconButton, useTheme, Avatar, Input, Drawer, Typography, Fab } fro
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
 import { Post_expert_listItem } from "./Post.expert.listItem"
-import PostAddIcon from "@mui/icons-material/PostAdd"
-import Header from "./Header"
-import SearchIcon from "@mui/icons-material/Search"
+import MoreVertIcon from "@mui/icons-material/MoreVert"
+import SearchIcon from "@mui/icons-material/More"
 import trpc from "./trpc"
 import type { Category } from "../data/data.types"
 import { castIf, eva } from "@mk-libs/common/common"
@@ -31,35 +30,34 @@ export default function PostList_section({ selectedCategory }: { selectedCategor
         height: "100%",
       }}
     >
-      <Header
-        right={
-          <Box sx={{ pr: 1 }}>
-            <a href="/post/create" style={{ textDecoration: "none" }}>
-              <IconButton sx={{ p: 1 }}>
-                <PostAddIcon sx={{ color: "white", fontSize: typography.h4 }} />
-              </IconButton>
-            </a>
-            <IconButton sx={{ p: 1 }}>
-              <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
-            </IconButton>
-          </Box>
-        }
-        bottom={
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              color: "white",
-              mt: 2,
-              mb: 2,
-              gap: 2,
-            }}
-          >
-            <CategoryIcon fontSize="large" name={selectedCategory} />
-            <Typography variant="h2">{getCategoryLabel(selectedCategory)}</Typography>
-          </Box>
-        }
-      />
+      <Box
+        sx={{
+          background: "#2d5be3",
+          py: 2,
+          pl: 3,
+          pr: 1,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            color: "white",
+            gap: 2,
+          }}
+        >
+          <CategoryIcon fontSize="large" name={selectedCategory} />
+          <Typography variant="h2" fontWeight={400}>
+            {getCategoryLabel(selectedCategory)}
+          </Typography>
+        </Box>
+        <IconButton sx={{}}>
+          <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
+        </IconButton>
+      </Box>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
           <Categories_selector_aside />
