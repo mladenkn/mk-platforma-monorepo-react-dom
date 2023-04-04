@@ -4,11 +4,11 @@ import { api_ss } from "../trpc.router"
 import { GetServerSidePropsContext } from "next/types"
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
-  const categories = [query.category] as Category[]
+  const category = query.category ? (query.category as Category) : ("gathering" as "gathering")
   return {
     props: {
-      selectedCategory: query.category as Category,
-      posts_initial: await api_ss.posts({ categories }),
+      selectedCategory: category,
+      posts_initial: await api_ss.posts({ categories: [category] }),
     },
   }
 }
