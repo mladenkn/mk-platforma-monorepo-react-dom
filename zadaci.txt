@@ -1,1 +1,1 @@
-firstName, lastName --> userName
+- sekcije sa strane, na mobu drawer
