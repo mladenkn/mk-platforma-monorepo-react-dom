@@ -1,4 +1,14 @@
-import { Box, IconButton, useTheme, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
+import {
+  Box,
+  IconButton,
+  useTheme,
+  Avatar,
+  Input,
+  Drawer,
+  Typography,
+  Fab,
+  Button,
+} from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
 import { Post_expert_listItem } from "./Post.expert.listItem"
@@ -49,6 +59,7 @@ export default function PostList_section({ selectedCategory }: { selectedCategor
             color: "white",
             gap: 3.5,
           }}
+          onClick={() => set_SectionsDrawer_isActive(true)}
         >
           <CategoryIcon fontSize="large" name={selectedCategory} />
           <Typography variant="h2" fontWeight={400}>
