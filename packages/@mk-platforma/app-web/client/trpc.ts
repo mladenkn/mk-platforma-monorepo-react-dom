@@ -1,6 +1,6 @@
 import { httpBatchLink } from "@trpc/client"
 import { CreateTRPCNext, createTRPCNext } from "@trpc/next"
-import type { AppRouter } from "../trpc.router"
+import type { ApiRouter } from "../trpc.router"
 import { NextPageContext } from "next"
 import superjson from "superjson"
 
@@ -21,7 +21,7 @@ function getBaseUrl() {
   return `http://localhost:${process.env.PORT ?? 3000}`
 }
 
-const trpc: CreateTRPCNext<AppRouter, NextPageContext, unknown> = createTRPCNext<AppRouter>({
+const trpc: CreateTRPCNext<ApiRouter, NextPageContext, unknown> = createTRPCNext<ApiRouter>({
   config({ ctx }) {
     return {
       links: [
