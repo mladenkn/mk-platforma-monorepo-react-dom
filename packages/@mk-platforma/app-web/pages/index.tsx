@@ -6,6 +6,6 @@ export default function () {
   const { query, isReady } = useRouter()
   if (isReady) {
     const category = query.category ? (query.category as Category) : ("gathering" as "gathering")
-    return <PostList_section initialTab={category} />
+    return <PostList_section selectedCategory={category} />
   } else return "Učitavanje..."
 }

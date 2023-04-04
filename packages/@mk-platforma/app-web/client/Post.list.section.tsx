@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme, Avatar, Input, Drawer, Fab } from "@mui/material"
+import { Box, IconButton, useTheme, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
 import { Post_expert_listItem } from "./Post.expert.listItem"
@@ -15,8 +15,8 @@ import { useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 
-export default function PostList_section({ activeTab }: { activeTab: Category }) {
-  const posts = trpc.posts.useQuery({ categories: activeTab ? [activeTab] : [] })
+export default function PostList_section({ selectedCategory }: { selectedCategory: Category }) {
+  const posts = trpc.posts.useQuery({ categories: selectedCategory ? [selectedCategory] : [] })
   const { typography } = useTheme()
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
@@ -45,10 +45,19 @@ export default function PostList_section({ activeTab }: { activeTab: Category })
           </Box>
         }
         bottom={
-          <>
-            <CategoryIcon name={activeTab} />
-            <Box>{getCategoryLabel(activeTab)}</Box>
-          </>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              color: "white",
+              mt: 2,
+              mb: 2,
+              gap: 2,
+            }}
+          >
+            <CategoryIcon fontSize="large" name={selectedCategory} />
+            <Typography variant="h2">{getCategoryLabel(selectedCategory)}</Typography>
+          </Box>
         }
       />
       {sectionsDrawer_isActive && (
