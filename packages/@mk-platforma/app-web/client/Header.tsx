@@ -1,50 +1,10 @@
-import { Box, SxProps, Typography, useTheme, IconButton, Menu, MenuItem } from "@mui/material"
-import { ReactNode, useState } from "react"
+import { Box, Typography, useTheme, IconButton, Menu, MenuItem } from "@mui/material"
+import { useState } from "react"
 import { styled } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
-
-type Props = {
-  sx?: SxProps
-  right?: ReactNode
-  bottom?: ReactNode
-}
-
-export default function Header({ sx, right, bottom }: Props) {
-  const { palette } = useTheme()
-
-  return (
-    <Box
-      sx={{
-        background: palette.primary.main,
-        pt: 1.5,
-        pb: bottom ? 0 : 3,
-        ...sx,
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "start",
-        }}
-      >
-        <Box sx={{ ml: 0.2, pl: 2 }}>
-          <a style={{ color: "white", textDecoration: "none" }} href="/">
-            <Typography variant="h3">ZaBrata</Typography>
-            <Box sx={{ color: "white" }}>
-              <Typography variant="h5">Loza kontribucionizma</Typography>
-            </Box>
-          </a>
-        </Box>
-        {right}
-      </Box>
-      {bottom}
-    </Box>
-  )
-}
 
 export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
   background: theme.palette.primary.main,
