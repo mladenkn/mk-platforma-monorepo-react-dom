@@ -31,10 +31,10 @@ export default function Header({ sx, right, bottom }: Props) {
               <Typography variant="h5">Loza kontribucionizma</Typography>
             </Box>
           </a>
-          {bottom}
         </Box>
         {right}
       </Box>
+      {bottom}
     </Box>
   )
 }
