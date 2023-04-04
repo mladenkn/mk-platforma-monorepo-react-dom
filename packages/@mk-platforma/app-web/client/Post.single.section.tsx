@@ -1,6 +1,6 @@
 import { Post_common_details } from "./Post.single"
 import { useRouter } from "next/router"
-import Header from "./Header"
+import Header, { Header_root } from "./Header"
 import {
   Box,
   Button,
@@ -50,17 +50,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
 
   return (
     <Box>
-      <Box
-        sx={{
-          background: palette.primary.main,
-          py: 2,
-          pl: 1.5,
-          pr: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+      <Header_root sx={{ pr: 1.5 }}>
         <Box
           sx={{
             display: "flex",
@@ -82,7 +72,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
         <IconButton sx={{}}>
           <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
         </IconButton>
-      </Box>
+      </Header_root>
       {!post.data ? <>Učitavanje...</> : <></>}
       {post.data && !isEdit ? (
         <Box sx={{ p: 1 }}>

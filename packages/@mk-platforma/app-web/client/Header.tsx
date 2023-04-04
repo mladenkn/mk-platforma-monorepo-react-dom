@@ -1,5 +1,6 @@
 import { Box, SxProps, Typography, useTheme } from "@mui/material"
 import { ReactNode } from "react"
+import { styled } from "@mui/material/styles"
 
 type Props = {
   sx?: SxProps
@@ -40,3 +41,11 @@ export default function Header({ sx, right, bottom }: Props) {
     </Box>
   )
 }
+
+export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
+  background: theme.palette.primary.main,
+  padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+}))

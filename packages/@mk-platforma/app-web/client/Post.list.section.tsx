@@ -1,14 +1,4 @@
-import {
-  Box,
-  IconButton,
-  useTheme,
-  Avatar,
-  Input,
-  Drawer,
-  Typography,
-  Fab,
-  Button,
-} from "@mui/material"
+import { Box, IconButton, useTheme, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.single"
 import { Post_expert_listItem } from "./Post.expert.listItem"
@@ -22,6 +12,7 @@ import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
+import { Header_root } from "./Header"
 
 type Props = { selectedCategory: Category; posts_initial: Post_base[] }
 
@@ -46,17 +37,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
         height: "100%",
       }}
     >
-      <Box
-        sx={{
-          background: palette.primary.main,
-          py: 2,
-          pl: 3,
-          pr: 1,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
+      <Header_root sx={{ pl: 3 }}>
         <Box
           sx={{
             display: "flex",
@@ -74,7 +55,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
         <IconButton sx={{}}>
           <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
         </IconButton>
-      </Box>
+      </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
           <Categories_selector_aside />
