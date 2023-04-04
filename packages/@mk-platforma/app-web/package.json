@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "ts": "tsc --noEmit"
+    "ts": "tsc --noEmit",
+    "data.generate": "ts-node --compilerOptions '{ \"module\": \"commonjs\" }' ./data/data.generate.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",

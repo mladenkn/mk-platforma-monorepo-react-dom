@@ -18,8 +18,7 @@ export type Comment = {
   id: Id
   content: string
   author: {
-    firstName: string
-    lastName: string
+    userName: string
     avatarStyle: Record<string, string>
   }
   canEdit: boolean

@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker"
 import { comment_id_getNext } from "./data._utils"
-import * as cro_dataset from "./data.cro.dataset"
 
 export const avatarStyles = [
   { background: "green", color: "white" },
@@ -15,8 +14,7 @@ export function generateComment() {
     id: comment_id_getNext(),
     content: faker.lorem.paragraph(),
     author: {
-      firstName: faker.helpers.arrayElement(cro_dataset.firstNames),
-      lastName: faker.helpers.arrayElement(cro_dataset.lastNames),
+      userName: faker.internet.userName(),
       avatarStyle: faker.helpers.arrayElement(avatarStyles),
     },
     canEdit: faker.helpers.arrayElement([false, false, false, true]),

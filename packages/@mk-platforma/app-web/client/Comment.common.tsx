@@ -22,10 +22,10 @@ export function Comment_listItem({ sx, comment }: Props) {
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Avatar
             sx={comment.author.avatarStyle}
-            children={`${comment.author.firstName[0]} ${comment.author.lastName[0]}`}
+            children={`${comment.author.userName[0]} ${comment.author.userName[0]}`}
           />
           <Typography fontWeight={500} variant="h6">
-            {comment.author.firstName} {comment.author.lastName}
+            {comment.author.userName}
           </Typography>
         </Box>
         <Box>
