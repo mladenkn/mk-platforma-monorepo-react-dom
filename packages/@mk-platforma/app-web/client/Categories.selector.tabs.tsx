@@ -11,7 +11,7 @@ type Post_list_section_categories_tabs_props = {
   setActiveTab(c: Category): void
 }
 
-export default function Post_list_section_categories_tabs({
+export default function Categories_selector_tabs({
   sx,
   activeTab,
   setActiveTab,
