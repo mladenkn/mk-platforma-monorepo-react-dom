@@ -27,10 +27,10 @@ import CategoriesDropdown from "./Categories.dropdown"
 import { castIf } from "@mk-libs/common/common"
 import { Comment_listItem } from "./Comment.common"
 
-export default function Post_details_section() {
+export default function Post_details_section({ post_initial }: { post_initial: Post_base }) {
   const router = useRouter()
   const itemId = parseInt(router.query.id as string)!
-  const post = trpc.post_single.useQuery({ id: itemId })
+  const post = trpc.post_single.useQuery({ id: itemId }, { initialData: post_initial })
   const [isEdit, setIsEdit] = useState(false)
 
   function renderAvatar(post: Post_base) {
