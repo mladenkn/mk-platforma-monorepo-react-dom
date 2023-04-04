@@ -6,13 +6,13 @@ type Props = {}
 export default function Categories_selector_aside({}: Props) {
   return (
     <List sx={{ background: "#2d5be3", pr: 3, height: "100%" }}>
-      {allCategories.map((text, index) => (
-        <ListItem key={text} disablePadding>
-          <ListItemButton>
+      {allCategories.map(category => (
+        <ListItem key={category} disablePadding>
+          <ListItemButton href={`?/category=${category}`}>
             <ListItemIcon sx={{ color: "white" }}>
-              <CategoryIcon name={text} />
+              <CategoryIcon name={category} />
             </ListItemIcon>
-            <ListItemText sx={{ color: "white" }} primary={getCategoryLabel(text)} />
+            <ListItemText sx={{ color: "white" }} primary={getCategoryLabel(category)} />
           </ListItemButton>
         </ListItem>
       ))}
