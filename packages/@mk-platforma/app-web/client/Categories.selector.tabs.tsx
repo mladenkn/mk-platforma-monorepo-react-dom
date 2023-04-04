@@ -8,13 +8,11 @@ import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 type Post_list_section_categories_tabs_props = {
   sx?: SxProps
   activeTab?: Category
-  setActiveTab(c: Category): void
 }
 
 export default function Categories_selector_tabs({
   sx,
   activeTab,
-  setActiveTab,
 }: Post_list_section_categories_tabs_props) {
   const [additionalTabsShownAnchorEl, setAdditionalTabsShownAnchorEl] =
     useState<HTMLButtonElement | null>(null)
@@ -25,12 +23,7 @@ export default function Categories_selector_tabs({
 
   return (
     <>
-      <Categories_tabs
-        sx={sx}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        options={allCategories.slice(0, 3)}
-      >
+      <Categories_tabs sx={sx} activeTab={activeTab} options={allCategories.slice(0, 3)}>
         <IconButton onClick={handle_showMoreTabs}>
           <KeyboardArrowDownOutlinedIcon sx={{ color: "white" }} />
         </IconButton>
@@ -53,7 +46,6 @@ export default function Categories_selector_tabs({
         <Categories_tabs
           sx={{ display: "flex", flexDirection: "column", gap: 2, background: "#2d5be3" }}
           activeTab={activeTab}
-          setActiveTab={setActiveTab}
           orientation="vertical"
           options={allCategories.slice(3)}
         />
@@ -64,7 +56,6 @@ export default function Categories_selector_tabs({
 
 type Categories_tabs_props = ComponentProps<typeof Tabs> & {
   activeTab?: Category
-  setActiveTab(c: Category): void
   options: Category[]
   children?: ReactNode
   tabProps?: Partial<ComponentProps<typeof Tab>>
@@ -72,7 +63,6 @@ type Categories_tabs_props = ComponentProps<typeof Tabs> & {
 
 function Categories_tabs({
   activeTab,
-  setActiveTab,
   children,
   options,
   sx,
@@ -96,7 +86,6 @@ function Categories_tabs({
       }}
       value={activeTab}
       centered
-      onChange={(e, newValue) => setActiveTab(newValue)}
       variant="fullWidth"
       {...otherProps}
     >
@@ -117,10 +106,9 @@ function Categories_tabs({
           icon={<CategoryIcon name={tab} />}
           linkProps={{
             href: {
-              query: { name: tab },
+              query: { category: tab },
             },
           }}
-          onClick={() => setActiveTab(tab)}
           {...tabProps}
         />
       ))}
