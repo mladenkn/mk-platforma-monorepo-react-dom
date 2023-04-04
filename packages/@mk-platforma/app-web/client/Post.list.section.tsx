@@ -48,7 +48,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
             {getCategoryLabel(selectedCategory)}
           </Typography>
         </Box>
-        <Header_moreOptions />
+        <Header_moreOptions options={["post.create", "profile"]} />
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>

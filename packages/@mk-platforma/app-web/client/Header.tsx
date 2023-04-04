@@ -62,7 +62,11 @@ export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
 }))
 
-export function Header_moreOptions() {
+type Header_moreOptions_props = {
+  options: ("post.create" | "profile")[]
+}
+
+export function Header_moreOptions({ options }: Header_moreOptions_props) {
   const { typography, palette } = useTheme()
   const [optionsAnchorEl, set_optionsAnchorEl] = useState<HTMLButtonElement | null>(null)
   return (
@@ -75,18 +79,22 @@ export function Header_moreOptions() {
         anchorEl={optionsAnchorEl}
         onClose={() => set_optionsAnchorEl(null)}
       >
-        <a href="/post/create" style={{ textDecoration: "none" }}>
+        {options.includes("post.create") && (
+          <a href="/post/create" style={{ textDecoration: "none" }}>
+            <MenuItem>
+              <PostAddIcon sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }} />
+              <Typography sx={{ color: palette.primary.main }}>Objavi</Typography>
+            </MenuItem>
+          </a>
+        )}
+        {options.includes("profile") && (
           <MenuItem>
-            <PostAddIcon sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }} />
-            <Typography sx={{ color: palette.primary.main }}>Objavi</Typography>
+            <AccountCircleIcon
+              sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
+            />
+            <Typography sx={{ color: palette.primary.main }}>Moj profil</Typography>
           </MenuItem>
-        </a>
-        <MenuItem>
-          <AccountCircleIcon
-            sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
-          />
-          <Typography sx={{ color: palette.primary.main }}>Moj profil</Typography>
-        </MenuItem>
+        )}
       </Menu>
     </>
   )
