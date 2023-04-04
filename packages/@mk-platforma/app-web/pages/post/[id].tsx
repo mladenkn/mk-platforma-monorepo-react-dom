@@ -1,4 +1,4 @@
-import Post_details_section from "../../client/Post.details.section"
+import Post_single_section from "../../client/Post.single.section"
 import { api_ss } from "../../trpc.router"
 import { GetServerSidePropsContext } from "next/types"
 
@@ -11,4 +11,4 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   }
 }
 
-export default Post_details_section
+export default Post_single_section
