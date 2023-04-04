@@ -1,5 +1,4 @@
 import { Box, IconButton, useTheme, Avatar, Input } from "@mui/material"
-import { useState } from "react"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
 import { Post_expert_listItem } from "./Post.expert.listItem"
@@ -13,8 +12,8 @@ import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
 import Post_list_section_categories_tabs from "./Post.list.section.categories.tabs"
 
-export default function PostList_section({ initialTab }: { initialTab?: Category }) {
-  const [activeTab, setActiveTab] = useState<Category | undefined>(initialTab)
+export default function PostList_section({ initialTab }: { initialTab: Category }) {
+  const activeTab = initialTab
   const posts = trpc.posts.useQuery({ categories: activeTab ? [activeTab] : [] })
   const { typography } = useTheme()
 
@@ -41,13 +40,7 @@ export default function PostList_section({ initialTab }: { initialTab?: Category
             </IconButton>
           </Box>
         }
-        bottom={
-          <Post_list_section_categories_tabs
-            sx={{ mt: 2, mb: 0.1 }}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-          />
-        }
+        bottom={<Post_list_section_categories_tabs sx={{ mt: 2, mb: 0.1 }} activeTab={activeTab} />}
       />
       <Box
         sx={{
