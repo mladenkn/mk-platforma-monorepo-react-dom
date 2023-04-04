@@ -1,18 +1,10 @@
-import {
-  Box,
-  SxProps,
-  Typography,
-  useTheme,
-  IconButton,
-  Popover,
-  Menu,
-  MenuItem,
-} from "@mui/material"
+import { Box, SxProps, Typography, useTheme, IconButton, Menu, MenuItem } from "@mui/material"
 import { ReactNode, useState } from "react"
 import { styled } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
+import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 
 type Props = {
   sx?: SxProps
@@ -63,7 +55,7 @@ export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
 }))
 
 type Header_moreOptions_props = {
-  options: ("post.create" | "profile")[]
+  options: ("post.create" | "post.list" | "profile")[]
 }
 
 export function Header_moreOptions({ options }: Header_moreOptions_props) {
@@ -79,6 +71,14 @@ export function Header_moreOptions({ options }: Header_moreOptions_props) {
         anchorEl={optionsAnchorEl}
         onClose={() => set_optionsAnchorEl(null)}
       >
+        {options.includes("post.list") && (
+          <MenuItem>
+            <ListAltOutlinedIcon
+              sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
+            />
+            <Typography sx={{ color: palette.primary.main }}>Objave</Typography>
+          </MenuItem>
+        )}
         {options.includes("post.create") && (
           <a href="/post/create" style={{ textDecoration: "none" }}>
             <MenuItem>
