@@ -106,7 +106,7 @@ function Categories_tabs({
           icon={<CategoryIcon name={tab} />}
           linkProps={{
             href: {
-              query: { name: tab },
+              query: { category: tab },
             },
           }}
           {...tabProps}

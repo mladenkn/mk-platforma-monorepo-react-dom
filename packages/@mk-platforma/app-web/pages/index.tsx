@@ -4,7 +4,7 @@ import { Category } from "../data/data.types"
 
 export default function () {
   const router = useRouter()
-  const { name } = router.query
-  const name_ = typeof name === "string" ? (name as Category) : "gathering"
-  return <PostList_section initialTab={name_} />
+  const { category } = router.query
+  const category_ = typeof category === "string" ? (category as Category) : "gathering"
+  return <PostList_section initialTab={category_} />
 }
