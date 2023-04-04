@@ -10,7 +10,6 @@ import type { Category } from "../data/data.types"
 import { castIf, eva } from "@mk-libs/common/common"
 import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
-import Categories_selector_tabs from "./Categories.selector.tabs"
 
 export default function PostList_section({ initialTab }: { initialTab: Category }) {
   const activeTab = initialTab
@@ -40,7 +39,6 @@ export default function PostList_section({ initialTab }: { initialTab: Category 
             </IconButton>
           </Box>
         }
-        bottom={<Categories_selector_tabs sx={{ mt: 2, mb: 0.1 }} activeTab={activeTab} />}
       />
       <Box
         sx={{
