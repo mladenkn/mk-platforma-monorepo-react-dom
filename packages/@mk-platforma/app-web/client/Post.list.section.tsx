@@ -10,7 +10,7 @@ import {
   Button,
 } from "@mui/material"
 import Post_list_base from "./Post.list.base"
-import { Post_common_listItem, Post_common_details } from "./Post.details"
+import { Post_common_listItem, Post_common_details } from "./Post.single"
 import { Post_expert_listItem } from "./Post.expert.listItem"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import trpc from "./trpc"

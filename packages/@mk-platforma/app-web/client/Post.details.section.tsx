@@ -1,4 +1,4 @@
-import { Post_common_details } from "./Post.details"
+import { Post_common_details } from "./Post.single"
 import { useRouter } from "next/router"
 import Header from "./Header"
 import {
