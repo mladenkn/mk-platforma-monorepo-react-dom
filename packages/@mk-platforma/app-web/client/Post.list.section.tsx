@@ -13,9 +13,9 @@ import { Comment_listItem } from "./Comment.common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
+import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 
-export default function PostList_section({ initialTab }: { initialTab: Category }) {
-  const activeTab = initialTab
+export default function PostList_section({ activeTab }: { activeTab: Category }) {
   const posts = trpc.posts.useQuery({ categories: activeTab ? [activeTab] : [] })
   const { typography } = useTheme()
 
@@ -43,6 +43,12 @@ export default function PostList_section({ initialTab }: { initialTab: Category 
               <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
             </IconButton>
           </Box>
+        }
+        bottom={
+          <>
+            <CategoryIcon name={activeTab} />
+            <Box>{getCategoryLabel(activeTab)}</Box>
+          </>
         }
       />
       {sectionsDrawer_isActive && (

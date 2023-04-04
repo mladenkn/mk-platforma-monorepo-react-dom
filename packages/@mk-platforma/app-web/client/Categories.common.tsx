@@ -26,7 +26,7 @@ export function getCategoryLabel(category: Category) {
     case "gathering/hangout":
       return "Druženja"
     default:
-      throw new Error("Category name not matched")
+      throw new Error(`Parameter ${category} not matched as Category`)
   }
 }
 
@@ -52,7 +52,7 @@ export function CategoryIcon({
     case "gathering/hangout":
       return <GroupsIcon {...otherProps} />
     default:
-      throw new Error("Category name not matched")
+      throw new Error(`Parameter ${name} not matched as Category`)
   }
 }
 
