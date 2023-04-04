@@ -65,6 +65,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
       <Box
         sx={{
           p: 1,
+          pt: 2,
           display: "flex",
           flex: 1,
           minHeight: 0,

@@ -72,12 +72,14 @@ export function Header_moreOptions({ options }: Header_moreOptions_props) {
         onClose={() => set_optionsAnchorEl(null)}
       >
         {options.includes("post.list") && (
-          <MenuItem>
-            <ListAltOutlinedIcon
-              sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
-            />
-            <Typography sx={{ color: palette.primary.main }}>Objave</Typography>
-          </MenuItem>
+          <a href="/" style={{ textDecoration: "none" }}>
+            <MenuItem>
+              <ListAltOutlinedIcon
+                sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
+              />
+              <Typography sx={{ color: palette.primary.main }}>Objave</Typography>
+            </MenuItem>
+          </a>
         )}
         {options.includes("post.create") && (
           <a href="/post/create" style={{ textDecoration: "none" }}>
