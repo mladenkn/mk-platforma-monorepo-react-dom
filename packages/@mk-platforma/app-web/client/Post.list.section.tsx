@@ -20,6 +20,8 @@ export default function PostList_section({ selectedCategory }: { selectedCategor
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
+  const { palette } = useTheme()
+
   return (
     <Box
       sx={{
@@ -32,7 +34,7 @@ export default function PostList_section({ selectedCategory }: { selectedCategor
     >
       <Box
         sx={{
-          background: "#2d5be3",
+          background: palette.primary.main,
           py: 2,
           pl: 3,
           pr: 1,

@@ -1,11 +1,12 @@
-import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText, useTheme } from "@mui/material"
 import { allCategories, getCategoryLabel, CategoryIcon } from "./Categories.common"
 
 type Props = {}
 
 export default function Categories_selector_aside({}: Props) {
+  const { palette } = useTheme()
   return (
-    <List sx={{ background: "#2d5be3", pr: 3, height: "100%" }}>
+    <List sx={{ background: palette.primary.main, pr: 3, height: "100%" }}>
       {allCategories.map(category => (
         <ListItem key={category} disablePadding>
           <ListItemButton href={`?/category=${category}`}>
