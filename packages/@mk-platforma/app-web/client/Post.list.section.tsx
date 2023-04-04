@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme, Avatar, Input } from "@mui/material"
+import { Box, IconButton, useTheme, Avatar, Input, Drawer } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
 import { Post_expert_listItem } from "./Post.expert.listItem"
@@ -10,11 +10,15 @@ import type { Category } from "../data/data.types"
 import { castIf, eva } from "@mk-libs/common/common"
 import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
+import Categories_selector_aside from "./Categories.selector.aside"
+import { useState } from "react"
 
 export default function PostList_section({ initialTab }: { initialTab: Category }) {
   const activeTab = initialTab
   const posts = trpc.posts.useQuery({ categories: activeTab ? [activeTab] : [] })
   const { typography } = useTheme()
+
+  const [sectionsDrawer_isActive, setSectionsDrawer_isActive] = useState(true)
 
   return (
     <Box
@@ -40,6 +44,11 @@ export default function PostList_section({ initialTab }: { initialTab: Category 
           </Box>
         }
       />
+      {sectionsDrawer_isActive && (
+        <Drawer open onClose={() => setSectionsDrawer_isActive(false)}>
+          <Categories_selector_aside />
+        </Drawer>
+      )}
       <Box
         sx={{
           p: 1,
