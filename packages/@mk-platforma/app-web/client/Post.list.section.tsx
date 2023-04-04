@@ -1,4 +1,4 @@
-import { Box, IconButton, useTheme, Avatar, Input, Drawer } from "@mui/material"
+import { Box, IconButton, useTheme, Avatar, Input, Drawer, Fab } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.details"
 import { Post_expert_listItem } from "./Post.expert.listItem"
@@ -12,13 +12,14 @@ import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
+import MenuIcon from "@mui/icons-material/Menu"
 
 export default function PostList_section({ initialTab }: { initialTab: Category }) {
   const activeTab = initialTab
   const posts = trpc.posts.useQuery({ categories: activeTab ? [activeTab] : [] })
   const { typography } = useTheme()
 
-  const [sectionsDrawer_isActive, setSectionsDrawer_isActive] = useState(true)
+  const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
   return (
     <Box
@@ -45,10 +46,17 @@ export default function PostList_section({ initialTab }: { initialTab: Category 
         }
       />
       {sectionsDrawer_isActive && (
-        <Drawer open onClose={() => setSectionsDrawer_isActive(false)}>
+        <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
           <Categories_selector_aside />
         </Drawer>
       )}
+      <Fab
+        color="primary"
+        sx={{ position: "absolute", bottom: 14, right: 14 }}
+        onClick={() => set_SectionsDrawer_isActive(true)}
+      >
+        <MenuIcon />
+      </Fab>
       <Box
         sx={{
           p: 1,
