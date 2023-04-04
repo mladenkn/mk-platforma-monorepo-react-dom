@@ -1,7 +1,20 @@
-import { Box, SxProps, Typography, useTheme, IconButton } from "@mui/material"
-import { ReactNode } from "react"
+import {
+  Box,
+  SxProps,
+  Typography,
+  useTheme,
+  IconButton,
+  Popover,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  ListItemIcon,
+} from "@mui/material"
+import { ReactNode, useState } from "react"
 import { styled } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
+import PostAddIcon from "@mui/icons-material/PostAdd"
 
 type Props = {
   sx?: SxProps
@@ -53,9 +66,34 @@ export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
 
 export function Header_moreOptions() {
   const { typography } = useTheme()
+  const [optionsAnchorEl, set_optionsAnchorEl] = useState<HTMLButtonElement | null>(null)
   return (
-    <IconButton>
-      <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
-    </IconButton>
+    <>
+      <IconButton onClick={e => set_optionsAnchorEl(e.target)}>
+        <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
+      </IconButton>
+      <Popover
+        open={!!optionsAnchorEl}
+        anchorEl={optionsAnchorEl}
+        onClose={() => set_optionsAnchorEl(null)}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+      >
+        <List sx={{ pl: 1.5, pr: 2 }}>
+          <ListItem disablePadding>
+            <ListItemButton sx={{ px: 0 }}>
+              <ListItemIcon>
+                <PostAddIcon sx={{ fontSize: typography.h3 }} />
+              </ListItemIcon>
+              <ListItemText sx={{ ".MuiListItemText-primary": { fontSize: typography.h5 } }}>
+                Dodaj objavu
+              </ListItemText>
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Popover>
+    </>
   )
 }

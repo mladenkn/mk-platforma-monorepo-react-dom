@@ -20,11 +20,8 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
     { categories: selectedCategory ? [selectedCategory] : [] },
     { initialData: posts_initial }
   )
-  const { typography } = useTheme()
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
-
-  const { palette } = useTheme()
 
   return (
     <Box
