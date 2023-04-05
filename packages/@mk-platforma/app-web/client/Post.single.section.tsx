@@ -25,6 +25,7 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import { castIf } from "@mk-libs/common/common"
 import { Comment_listItem } from "./Comment.common"
+import SaveIcon from "@mui/icons-material/Save"
 
 export default function Post_single_section({ post_initial }: { post_initial: Post_base }) {
   const router = useRouter()
@@ -164,7 +165,12 @@ function Post_edit({
       ) : (
         <></>
       )}
-      <Button variant="contained" sx={{ mt: 4 }} onClick={onSubmit}>
+      <Button
+        variant="contained"
+        sx={{ mt: 4, display: "flex", alignItems: "center", gap: 1 }}
+        onClick={onSubmit}
+      >
+        <SaveIcon />
         Spremi
       </Button>
     </Paper>

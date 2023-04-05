@@ -3,6 +3,7 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import use_Post_form_base from "./Post.form.base"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
+import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
 import { Header_root, Header_moreOptions } from "./Header"
 import { useRouter } from "next/router"
@@ -65,8 +66,13 @@ export default function Post_create_section({ sx }: Props) {
         ) : (
           <></>
         )}
-        <Button variant="contained" sx={{ mt: 4 }} onClick={onSubmit}>
-          Dodaj
+        <Button
+          variant="contained"
+          sx={{ mt: 4, display: "flex", alignItems: "center", gap: 1 }}
+          onClick={onSubmit}
+        >
+          <SaveIcon />
+          Spremi
         </Button>
       </Paper>
     </Box>
