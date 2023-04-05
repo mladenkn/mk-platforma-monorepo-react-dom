@@ -1,4 +1,4 @@
-import { Box, Typography, Avatar } from "@mui/material"
+import { Box, Typography, Avatar, useTheme } from "@mui/material"
 import { CSSProperties } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
@@ -13,6 +13,7 @@ type Props = {
 }
 
 export function Post_single_expert({ avatarStyle, firstName, lastName, location, skills }: Props) {
+  const { typography } = useTheme()
   return (
     <Box sx={{ display: "flex", alignItems: "start" }}>
       <Avatar
@@ -40,7 +41,7 @@ export function Post_single_expert({ avatarStyle, firstName, lastName, location,
         }}
       >
         <Box sx={{ display: "flex", alignItems: "start" }}>
-          <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
+          <HandymanIcon sx={{ mt: 0.5, mr: 1.5, fontSize: typography.h5 }} />
           <Box>
             {skills.map(s => (
               <Typography key={s.label}>{s.label}</Typography>
