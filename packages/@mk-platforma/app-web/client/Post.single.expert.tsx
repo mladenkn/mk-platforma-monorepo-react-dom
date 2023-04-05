@@ -13,7 +13,7 @@ type Props = {
 
 export function Post_single_expert({ avatarStyle, firstName, lastName, location, skills }: Props) {
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Box sx={{ display: "flex", alignItems: "start" }}>
       <Avatar
         sx={{
           marginRight: 3,
@@ -22,7 +22,7 @@ export function Post_single_expert({ avatarStyle, firstName, lastName, location,
         children={firstName[0] + lastName[0]}
       />
       <Box>
-        <Typography variant="h6" sx={{ width: 125 }}>
+        <Typography variant="h6" sx={{ width: 140 }}>
           {firstName} {lastName}
         </Typography>
         {location && (
