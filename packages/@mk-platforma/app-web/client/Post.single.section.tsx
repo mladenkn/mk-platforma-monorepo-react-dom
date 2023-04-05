@@ -100,7 +100,10 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
                       <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
                       <Box>
                         {post.skills.map(s => (
-                          <Typography key={s}>{s}</Typography>
+                          <Typography key={s.label}>
+                            {s.label}
+                            {` `}({s.level}/5)
+                          </Typography>
                         ))}
                       </Box>
                     </Box>

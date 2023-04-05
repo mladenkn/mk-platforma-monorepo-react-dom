@@ -48,6 +48,9 @@ export type Post_expert = Post_base & {
     | ["personEndorsement", Category, Category]
   firstName: string
   lastName: string
-  skills: string[]
+  skills: {
+    label: string
+    level: 1 | 2 | 3 | 4 | 5
+  }[]
   avatarStyle: Record<string, string>
 }

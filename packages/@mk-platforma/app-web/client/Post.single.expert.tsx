@@ -2,13 +2,14 @@ import { Box, Typography, Avatar } from "@mui/material"
 import { CSSProperties } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
+import { Post_expert } from "../data/data.types"
 
 type Props = {
   avatarStyle: CSSProperties
   firstName: string
   lastName: string
   location?: string
-  skills: string[]
+  skills: Post_expert["skills"]
 }
 
 export function Post_single_expert({ avatarStyle, firstName, lastName, location, skills }: Props) {
@@ -42,7 +43,7 @@ export function Post_single_expert({ avatarStyle, firstName, lastName, location,
           <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
           <Box>
             {skills.map(s => (
-              <Typography key={s}>{s}</Typography>
+              <Typography key={s.label}>{s.label}</Typography>
             ))}
           </Box>
         </Box>
