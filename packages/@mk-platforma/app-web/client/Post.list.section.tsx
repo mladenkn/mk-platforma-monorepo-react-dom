@@ -1,7 +1,7 @@
 import { Box, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
 import Post_list_base from "./Post.list.base"
-import { Post_common_listItem, Post_common_details } from "./Post.single"
-import { Post_expert_listItem } from "./Post.expert.listItem"
+import { Post_single_listItem, Post_single_details } from "./Post.single"
+import { Post_single_expert } from "./Post.single.expert"
 import trpc from "./trpc"
 import type { Category, Post_base } from "../data/data.types"
 import { castIf, eva } from "@mk-libs/common/common"
@@ -79,14 +79,14 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 item.categories[0] // ~ ?
               ) {
                 case "personEndorsement":
-                  return <Post_expert_listItem {...(item as Post_expert)} />
+                  return <Post_single_expert {...(item as Post_expert)} />
                 default:
-                  return <Post_common_listItem {...item} />
+                  return <Post_single_listItem {...item} />
               }
             }}
             Item_details={item => (
               <Box display="flex" flexDirection={item.comments?.length ? "row" : "column"}>
-                <Post_common_details
+                <Post_single_details
                   {...item}
                   label_left={eva(() => {
                     if (castIf<Post_expert>(item, item.categories[0] === "personEndorsement")) {

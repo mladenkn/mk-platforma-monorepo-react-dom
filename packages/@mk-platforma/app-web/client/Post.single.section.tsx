@@ -1,4 +1,4 @@
-import { Post_common_details } from "./Post.single"
+import { Post_single_details } from "./Post.single"
 import { useRouter } from "next/router"
 import { Header_root, Header_moreOptions } from "./Header"
 import {
@@ -72,7 +72,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
       {post.data && !isEdit ? (
         <Box sx={{ p: 1 }}>
           <Paper sx={{ px: 2.5, py: 2, borderRadius: 2 }}>
-            <Post_common_details
+            <Post_single_details
               {...post.data}
               label_left={
                 <Box mr={1.2} display="flex" alignItems="center">

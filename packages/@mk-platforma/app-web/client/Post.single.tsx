@@ -10,7 +10,7 @@ type Post_common_listItem_props = {
   mainImage?: string
 }
 
-export function Post_common_listItem({ label, location, images }: Post_common_listItem_props) {
+export function Post_single_listItem({ label, location, images }: Post_common_listItem_props) {
   const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
 
   const { typography } = useTheme()
@@ -56,7 +56,7 @@ type Post_common_listItem_details_Props = {
   label_right?: ReactNode
 }
 
-export function Post_common_details({
+export function Post_single_details({
   sx,
   label,
   location,
