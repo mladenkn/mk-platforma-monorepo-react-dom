@@ -26,7 +26,7 @@ export default function generateExpert() {
 
     skills: faker.helpers
       .arrayElements(cro_dataset.skills, faker.datatype.number({ min: 1, max: 4 }))
-      .map(skill => ({ label: skill, level: faker.datatype.number({ min: 1, max: 5 }) })),
+      .map(skill => ({ label: skill, level: faker.datatype.number({ min: 2, max: 5 }) })),
 
     avatarStyle: faker.helpers.arrayElement(avatarStyles),
     comments: generateArray(generateComment, faker.datatype.number({ min: 0, max: 7 })),
