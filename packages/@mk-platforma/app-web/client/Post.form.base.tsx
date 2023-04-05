@@ -21,6 +21,7 @@ const Post_zod = z.object({
     ])
   ),
   location: z.string().optional(),
+  contact: z.string().optional(),
 })
 
 type Post = z.infer<typeof Post_zod>
@@ -77,6 +78,14 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
         variant: "outlined",
         name: "location",
         value: values.location,
+        onChange: handleChange,
+      } satisfies Partial<TextFieldProps>,
+
+      contact: {
+        label: "Kontakt",
+        variant: "outlined",
+        name: "contact",
+        value: values.contact,
         onChange: handleChange,
       } satisfies Partial<TextFieldProps>,
 

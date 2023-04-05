@@ -55,6 +55,7 @@ export default function Post_create_section({ sx }: Props) {
         <CategoriesDropdown {...form_base.components_props.section} />
         <TextField {...form_base.components_props.description} />
         <TextField {...form_base.components_props.location} />
+        <TextField {...form_base.components_props.contact} />
         {form_expert_isActive ? (
           <>
             <TextField {...form_expert.components_props.firstName} />
