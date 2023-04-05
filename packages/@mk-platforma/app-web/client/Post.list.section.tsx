@@ -1,4 +1,4 @@
-import { Box, useTheme, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
+import { Box, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_common_listItem, Post_common_details } from "./Post.single"
 import { Post_expert_listItem } from "./Post.expert.listItem"
@@ -9,7 +9,7 @@ import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
-import MenuIcon from "@mui/icons-material/Menu"
+import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
 
@@ -60,7 +60,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
         sx={{ position: "absolute", bottom: 14, right: 14 }}
         onClick={() => set_SectionsDrawer_isActive(true)}
       >
-        <MenuIcon />
+        <ManageSearchIcon />
       </Fab>
       <Box
         sx={{
