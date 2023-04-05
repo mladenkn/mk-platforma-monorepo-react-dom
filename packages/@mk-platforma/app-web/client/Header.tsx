@@ -63,10 +63,7 @@ export function Header_moreOptions({ options }: Header_moreOptions_props) {
             <EngineeringIcon
               sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
             />
-            <Typography
-              sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}
-              component="div"
-            >
+            <Typography sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}>
               Kontaktiraj razvojni tim
             </Typography>
           </MenuItem>
