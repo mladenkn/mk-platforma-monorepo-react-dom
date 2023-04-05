@@ -31,7 +31,7 @@ import SaveIcon from "@mui/icons-material/Save"
 export default function Post_single_section({ post_initial }: { post_initial: Post_base }) {
   const router = useRouter()
   const itemId = parseInt(router.query.id as string)!
-  const postQuery = trpc.post_single.useQuery({ id: itemId }, { initialData: post_initial })
+  const postQuery = trpc.posts.get_single.useQuery({ id: itemId }, { initialData: post_initial })
   const post = asNonNil(postQuery.data)
   const [isEdit, setIsEdit] = useState(false)
 

@@ -6,7 +6,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const post_id = parseInt(query.id as string)
   return {
     props: {
-      post_initial: await api_ss.post_single({ id: post_id }),
+      post_initial: await api_ss.posts.get_single({ id: post_id }),
     },
   }
 }
