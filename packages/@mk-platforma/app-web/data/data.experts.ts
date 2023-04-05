@@ -11,7 +11,7 @@ export default function generateExpert() {
 
     location: faker.helpers.arrayElement(cro_dataset.cities),
     description: faker.lorem.text(),
-    phoneNumber: faker.phone.number(),
+    contact: faker.phone.number(),
 
     firstName: faker.helpers.arrayElement(cro_dataset.firstNames),
     lastName: faker.helpers.arrayElement(cro_dataset.lastNames),

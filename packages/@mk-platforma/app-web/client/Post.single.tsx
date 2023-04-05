@@ -51,7 +51,7 @@ type Post_common_listItem_details_Props = {
   location?: string
   images?: Post_image[]
   description: string
-  phoneNumber?: string
+  contact?: string
   label_left?: ReactNode
   label_right?: ReactNode
 }
@@ -62,7 +62,7 @@ export function Post_common_details({
   location,
   images,
   description,
-  phoneNumber,
+  contact,
   label_left,
   label_right,
 }: Post_common_listItem_details_Props) {
@@ -95,7 +95,7 @@ export function Post_common_details({
         </Box>
       )}
       <Typography>{description}</Typography>
-      {phoneNumber && <Typography sx={{ mt: 4 }}>Mobitel/telefon: {phoneNumber}</Typography>}
+      {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
       {!!images?.length && (
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", marginTop: 4 }}>
