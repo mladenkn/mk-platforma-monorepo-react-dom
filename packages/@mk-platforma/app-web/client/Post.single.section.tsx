@@ -135,7 +135,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
       {post && isEdit ? (
         <Post_edit
           sx={{ p: 2, m: 1 }}
-          post={post as any}
+          post={post}
           onSubmit={() => {}}
           cancel={() => setIsEdit(false)}
         />
