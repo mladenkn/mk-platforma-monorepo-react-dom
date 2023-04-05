@@ -18,19 +18,21 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import CloseIcon from "@mui/icons-material/Close"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
+import HandymanIcon from "@mui/icons-material/Handyman"
 import { useState } from "react"
 import type { Post_base, Post_expert } from "../data/data.types"
 import use_Post_form_base from "./Post.form.base"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
-import { castIf } from "@mk-libs/common/common"
+import { asNonNil, castIf } from "@mk-libs/common/common"
 import { Comment_listItem } from "./Comment.common"
 import SaveIcon from "@mui/icons-material/Save"
 
 export default function Post_single_section({ post_initial }: { post_initial: Post_base }) {
   const router = useRouter()
   const itemId = parseInt(router.query.id as string)!
-  const post = trpc.post_single.useQuery({ id: itemId }, { initialData: post_initial })
+  const postQuery = trpc.post_single.useQuery({ id: itemId }, { initialData: post_initial })
+  const post = asNonNil(postQuery.data)
   const [isEdit, setIsEdit] = useState(false)
 
   function renderAvatar(post: Post_base) {
@@ -69,15 +71,15 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
         </Box>
         <Header_moreOptions options={["post.create", "profile", "post.list", "devContact"]} />
       </Header_root>
-      {!post.data ? <>Učitavanje...</> : <></>}
-      {post.data && !isEdit ? (
+      {postQuery.isLoading ? <>Učitavanje...</> : <></>}
+      {!isEdit ? (
         <Box sx={{ p: 1 }}>
           <Paper sx={{ px: 2.5, py: 2, borderRadius: 2 }}>
             <Post_single_details
-              {...post.data}
+              {...post}
               label_left={
                 <Box mr={1.2} display="flex" alignItems="center">
-                  {post.data && renderAvatar(post.data)}
+                  {renderAvatar(post)}
                 </Box>
               }
               label_right={
@@ -91,14 +93,29 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
                 </Box>
               }
             />
+            {castIf<Post_expert>(post, post.categories.includes("personEndorsement")) &&
+            post.skills?.length ? (
+              <Box sx={{ mt: 2 }}>
+                <Box sx={{ display: "flex", alignItems: "start" }}>
+                  <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
+                  <Box>
+                    {post.skills.map(s => (
+                      <Typography key={s}>{s}</Typography>
+                    ))}
+                  </Box>
+                </Box>
+              </Box>
+            ) : (
+              <></>
+            )}
           </Paper>
           <Paper sx={{ borderRadius: 2, p: 2, mt: 4, display: "flex" }}>
             <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
             <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
           </Paper>
-          {post.data.comments?.length ? (
+          {post.comments?.length ? (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
-              {post.data.comments.map(comment => (
+              {post.comments.map(comment => (
                 <Paper key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
                   <Comment_listItem comment={comment} />
                 </Paper>
@@ -111,10 +128,10 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
       ) : (
         <></>
       )}
-      {post.data && isEdit ? (
+      {post && isEdit ? (
         <Post_edit
           sx={{ p: 2, m: 1 }}
-          post={post.data as any}
+          post={post as any}
           onSubmit={() => {}}
           cancel={() => setIsEdit(false)}
         />
