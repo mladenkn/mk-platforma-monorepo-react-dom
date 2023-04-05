@@ -153,7 +153,7 @@ export default function generateProducts() {
       },
     ],
     description,
-    contact: faker.phone.number(),
+    contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
     location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages]),
     // TODO: secondary images
   }))

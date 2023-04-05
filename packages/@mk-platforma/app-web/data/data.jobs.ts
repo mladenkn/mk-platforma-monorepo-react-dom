@@ -44,6 +44,6 @@ export default function generateJobs() {
         faker.datatype.number({ min: 1, max: 5 })
       )
       .map(url => ({ url, id: post_image_id_getNext() })),
-    contact: faker.phone.number(),
+    contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
   }))
 }

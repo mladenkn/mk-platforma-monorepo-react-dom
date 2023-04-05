@@ -33,6 +33,6 @@ export const accommodations = [...withRelatedProps, ...withRelatedProps].map(({ 
       faker.datatype.number({ min: 1, max: 5 })
     )
     .map(url => ({ url, id: post_image_id_getNext() })),
-  contact: faker.phone.number(),
+  contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
   comments: generateArray(generateComment, faker.datatype.number({ min: 0, max: 7 })),
 }))

@@ -11,7 +11,7 @@ export default function generateExpert() {
 
     location: faker.helpers.arrayElement(cro_dataset.cities),
     description: generateArray(() => "opis oglasa ", 30).join(""),
-    contact: faker.phone.number(),
+    contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
 
     firstName: faker.helpers.arrayElement(cro_dataset.firstNames),
     lastName: faker.helpers.arrayElement(cro_dataset.lastNames),
