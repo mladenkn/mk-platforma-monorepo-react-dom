@@ -1,6 +1,7 @@
-- search
 - skill levels
+- search
 - još responsive
+- createTrpcLoader
 
 MOŽDA
 - kad tek dođe u app, i kategorija nije odabrana, otvorit sve kategorije
