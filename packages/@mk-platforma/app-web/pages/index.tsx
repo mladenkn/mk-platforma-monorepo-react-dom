@@ -1,6 +1,6 @@
 import PostList_section from "../client/Post.list.section"
 import { Category } from "../data/data.types"
-import { api_ss } from "../trpc.router"
+import { Api_ss } from "../trpc.router"
 import { GetServerSidePropsContext } from "next/types"
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
@@ -8,7 +8,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   return {
     props: {
       selectedCategory: category,
-      posts_initial: await api_ss.post.many({ categories: [category] }),
+      posts_initial: await Api_ss.post.many({ categories: [category] }),
     },
   }
 }

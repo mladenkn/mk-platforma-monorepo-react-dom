@@ -1,6 +1,6 @@
 import { httpBatchLink } from "@trpc/client"
 import { CreateTRPCNext, createTRPCNext } from "@trpc/next"
-import type { ApiRouter } from "../trpc.router"
+import type { ApiRouter_type } from "../trpc.router"
 import { NextPageContext } from "next"
 import superjson from "superjson"
 
@@ -21,29 +21,30 @@ function getBaseUrl() {
   return `http://localhost:${process.env.PORT ?? 3000}`
 }
 
-const trpc: CreateTRPCNext<ApiRouter, NextPageContext, unknown> = createTRPCNext<ApiRouter>({
-  config({ ctx }) {
-    return {
-      links: [
-        httpBatchLink({
-          /**
-           * If you want to use SSR, you need to use the server's full URL
-           * @link https://trpc.io/docs/ssr
-           **/
-          url: `${getBaseUrl()}/api/trpc`,
-        }),
-      ],
-      /**
-       * @link https://tanstack.com/query/v4/docs/reference/QueryClient
-       **/
-      // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
-      transformer: superjson,
-    }
-  },
-  /**
-   * @link https://trpc.io/docs/ssr
-   **/
-  ssr: false,
-})
+const trpc: CreateTRPCNext<ApiRouter_type, NextPageContext, unknown> =
+  createTRPCNext<ApiRouter_type>({
+    config({ ctx }) {
+      return {
+        links: [
+          httpBatchLink({
+            /**
+             * If you want to use SSR, you need to use the server's full URL
+             * @link https://trpc.io/docs/ssr
+             **/
+            url: `${getBaseUrl()}/api/trpc`,
+          }),
+        ],
+        /**
+         * @link https://tanstack.com/query/v4/docs/reference/QueryClient
+         **/
+        // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
+        transformer: superjson,
+      }
+    },
+    /**
+     * @link https://trpc.io/docs/ssr
+     **/
+    ssr: false,
+  })
 
 export default trpc

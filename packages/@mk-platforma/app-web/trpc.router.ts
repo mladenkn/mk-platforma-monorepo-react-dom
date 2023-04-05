@@ -9,12 +9,12 @@ const t = initTRPC.create({
 export const router = t.router
 export const publicProcedure = t.procedure
 
-export const apiRouter = router({
+export const ApiRouter = router({
   post: Post_api,
 })
 
-export const api_ss = apiRouter.createCaller({})
+export const Api_ss = ApiRouter.createCaller({})
 
 // Export type router type signature,
 // NOT the router itself.
-export type ApiRouter = typeof apiRouter
+export type ApiRouter_type = typeof ApiRouter
