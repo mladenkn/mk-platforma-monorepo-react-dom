@@ -8,7 +8,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   return {
     props: {
       selectedCategory: category,
-      posts_initial: await api_ss.posts.get_many({ categories: [category] }),
+      posts_initial: await api_ss.post.many({ categories: [category] }),
     },
   }
 }

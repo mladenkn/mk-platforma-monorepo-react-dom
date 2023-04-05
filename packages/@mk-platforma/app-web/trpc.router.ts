@@ -10,7 +10,7 @@ export const router = t.router
 export const publicProcedure = t.procedure
 
 export const apiRouter = router({
-  posts: Posts_api,
+  post: Posts_api,
 })
 
 export const api_ss = apiRouter.createCaller({})

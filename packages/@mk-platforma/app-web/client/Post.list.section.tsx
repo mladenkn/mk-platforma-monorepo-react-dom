@@ -16,7 +16,7 @@ import { Header_root, Header_moreOptions } from "./Header"
 type Props = { selectedCategory: Category; posts_initial: Post_base[] }
 
 export default function PostList_section({ selectedCategory, posts_initial }: Props) {
-  const posts = trpc.posts.get_many.useQuery(
+  const posts = trpc.post.many.useQuery(
     { categories: selectedCategory ? [selectedCategory] : [] },
     { initialData: posts_initial }
   )

@@ -4,7 +4,7 @@ import { publicProcedure, router } from "./trpc.router"
 import data from "./data/data.json"
 
 const Posts_api = router({
-  get_many: publicProcedure
+  many: publicProcedure
     .input(
       z.object({
         categories: z.array(Category_zod).optional(),
@@ -21,7 +21,7 @@ const Posts_api = router({
           ) as Post_base[]
     ),
 
-  get_single: publicProcedure
+  single: publicProcedure
     .input(
       z.object({
         id: z.number(),
