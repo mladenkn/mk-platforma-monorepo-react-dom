@@ -26,7 +26,7 @@ export default function Categories_selector_aside({}: Props) {
           </Typography>
         </Box>
       </a>
-      <List sx={{ mt: 4 }} disablePadding>
+      <List sx={{ mt: 4, ml: 1 }} disablePadding>
         {allCategories.map(category => (
           <ListItem key={category} disablePadding>
             <ListItemButton href={`?category=${category}`} sx={{ px: 0 }}>
