@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker"
+import { generateArray } from "@mk-libs/common/common"
 import { comment_id_getNext } from "./data._utils"
 
 export const avatarStyles = [
@@ -12,7 +13,7 @@ export const avatarStyles = [
 export function generateComment() {
   return {
     id: comment_id_getNext(),
-    content: faker.lorem.paragraph(),
+    content: generateArray(() => "komentar ", 20).join(""),
     author: {
       userName: faker.internet.userName(),
       avatarStyle: faker.helpers.arrayElement(avatarStyles),
