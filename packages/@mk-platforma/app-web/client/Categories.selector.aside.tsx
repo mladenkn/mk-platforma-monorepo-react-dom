@@ -8,11 +8,13 @@ import {
   Box,
   Typography,
 } from "@mui/material"
+import { Category } from "../data/data.types"
 import { allCategories, getCategoryLabel, CategoryIcon } from "./Categories.common"
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 
-type Props = {}
+type Props = { selectedItem?: Category }
 
-export default function Categories_selector_aside({}: Props) {
+export default function Categories_selector_aside({ selectedItem }: Props) {
   const { palette, typography } = useTheme()
   return (
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
@@ -28,7 +30,15 @@ export default function Categories_selector_aside({}: Props) {
       </a>
       <List sx={{ mt: 4, ml: 1 }} disablePadding>
         {allCategories.map(category => (
-          <ListItem key={category} disablePadding>
+          <ListItem
+            key={category}
+            disablePadding
+            secondaryAction={
+              selectedItem === category ? (
+                <RadioButtonCheckedIcon sx={{ color: "white" }} />
+              ) : undefined
+            }
+          >
             <ListItemButton href={`?category=${category}`} sx={{ px: 0 }}>
               <ListItemIcon sx={{ color: "white" }}>
                 <CategoryIcon sx={{ fontSize: typography.h3 }} name={category} />

@@ -52,7 +52,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
-          <Categories_selector_aside />
+          <Categories_selector_aside selectedItem={selectedCategory} />
         </Drawer>
       )}
       <Fab
