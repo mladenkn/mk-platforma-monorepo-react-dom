@@ -41,7 +41,7 @@ export default function Post_create_section({ sx }: Props) {
             </Box>
           </a>
         </Box>
-        <Header_moreOptions options={["profile", "post.list"]} />
+        <Header_moreOptions options={["profile", "post.list", "devContact"]} />
       </Header_root>
       <Paper sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2, m: 1, p: 2 }}>
         <Typography variant="h3" sx={{ mb: 2 }}>

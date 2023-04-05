@@ -66,7 +66,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
             </Box>
           </a>
         </Box>
-        <Header_moreOptions options={["post.create", "profile", "post.list"]} />
+        <Header_moreOptions options={["post.create", "profile", "post.list", "devContact"]} />
       </Header_root>
       {!post.data ? <>Učitavanje...</> : <></>}
       {post.data && !isEdit ? (

@@ -5,6 +5,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
+import EngineeringIcon from "@mui/icons-material/Engineering"
 
 export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
   background: theme.palette.primary.main,
@@ -15,7 +16,7 @@ export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
 }))
 
 type Header_moreOptions_props = {
-  options: ("post.create" | "post.list" | "profile")[]
+  options: ("post.create" | "post.list" | "profile" | "devContact")[]
 }
 
 export function Header_moreOptions({ options }: Header_moreOptions_props) {
@@ -55,6 +56,19 @@ export function Header_moreOptions({ options }: Header_moreOptions_props) {
               sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
             />
             <Typography sx={{ color: palette.primary.main }}>Moj profil</Typography>
+          </MenuItem>
+        )}
+        {options.includes("devContact") && (
+          <MenuItem>
+            <EngineeringIcon
+              sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
+            />
+            <Typography
+              sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}
+              component="div"
+            >
+              Kontaktiraj razvojni tim
+            </Typography>
           </MenuItem>
         )}
       </Menu>
