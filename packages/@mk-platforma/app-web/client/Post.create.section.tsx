@@ -3,6 +3,7 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoriesDropdown from "./Categories.dropdown"
 import use_Post_form_base from "./Post.form.base"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
+import CloseIcon from "@mui/icons-material/Close"
 import { Header_root, Header_moreOptions } from "./Header"
 import { useRouter } from "next/router"
 
@@ -44,9 +45,12 @@ export default function Post_create_section({ sx }: Props) {
         <Header_moreOptions options={["profile", "post.list", "devContact"]} />
       </Header_root>
       <Paper sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2, m: 1, p: 2 }}>
-        <Typography variant="h3" sx={{ mb: 2 }}>
-          Novi oglas
-        </Typography>
+        <Box sx={{ mb: 3, display: "flex", justifyContent: "space-between" }}>
+          <Typography variant="h3">Novi oglas</Typography>
+          <IconButton onClick={goBack}>
+            <CloseIcon fontSize="medium" />
+          </IconButton>
+        </Box>
         <TextField {...form_base.components_props.label} />
         <CategoriesDropdown {...form_base.components_props.section} />
         <TextField {...form_base.components_props.description} />
