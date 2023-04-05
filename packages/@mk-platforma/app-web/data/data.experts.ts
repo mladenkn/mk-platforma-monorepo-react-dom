@@ -5,16 +5,25 @@ import * as cro_dataset from "./data.cro.dataset"
 import { post_id_getNext } from "./data._utils"
 
 export default function generateExpert() {
+  const firstName = faker.helpers.arrayElement(cro_dataset.firstNames)
+  const lastName = faker.helpers.arrayElement(cro_dataset.lastNames)
+
   return {
     categories: ["personEndorsement" as "personEndorsement"],
     id: post_id_getNext(),
 
     location: faker.helpers.arrayElement(cro_dataset.cities),
     description: generateArray(() => "opis oglasa ", 30).join(""),
-    contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
+    contact: faker.helpers.arrayElement([
+      faker.phone.number(),
+      faker.phone.number(),
+      `${firstName.toLowerCase()}.${lastName.toLowerCase()}@gmail.com`,
+      `${firstName.toLowerCase()}.${lastName.toLowerCase()}@yahoo.com`,
+    ]),
 
-    firstName: faker.helpers.arrayElement(cro_dataset.firstNames),
-    lastName: faker.helpers.arrayElement(cro_dataset.lastNames),
+    firstName,
+    lastName,
+
     skills: faker.helpers.arrayElements(
       cro_dataset.skills,
       faker.datatype.number({ min: 1, max: 4 })
