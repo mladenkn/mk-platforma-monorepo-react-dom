@@ -1,6 +1,7 @@
 - skill levels
 - search
 - još responsive
+- GDPR i cookies
 - createTrpcLoader
 
 MOŽDA
