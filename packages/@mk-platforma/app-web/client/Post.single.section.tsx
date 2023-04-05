@@ -92,22 +92,22 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
                   </IconButton>
                 </Box>
               }
-            />
-            {castIf<Post_expert>(post, post.categories.includes("personEndorsement")) &&
-            post.skills?.length ? (
-              <Box sx={{ mt: 2 }}>
-                <Box sx={{ display: "flex", alignItems: "start" }}>
-                  <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
-                  <Box>
-                    {post.skills.map(s => (
-                      <Typography key={s}>{s}</Typography>
-                    ))}
+              afterDescription={
+                castIf<Post_expert>(post, post.categories.includes("personEndorsement")) &&
+                post.skills?.length ? (
+                  <Box sx={{ mt: 4 }}>
+                    <Box sx={{ display: "flex", alignItems: "start" }}>
+                      <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
+                      <Box>
+                        {post.skills.map(s => (
+                          <Typography key={s}>{s}</Typography>
+                        ))}
+                      </Box>
+                    </Box>
                   </Box>
-                </Box>
-              </Box>
-            ) : (
-              <></>
-            )}
+                ) : undefined
+              }
+            />
           </Paper>
           <Paper sx={{ borderRadius: 2, p: 2, mt: 4, display: "flex" }}>
             <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />

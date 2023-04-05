@@ -54,6 +54,7 @@ type Post_common_listItem_details_Props = {
   contact?: string
   label_left?: ReactNode
   label_right?: ReactNode
+  afterDescription?: ReactNode
 }
 
 export function Post_single_details({
@@ -65,6 +66,7 @@ export function Post_single_details({
   contact,
   label_left,
   label_right,
+  afterDescription,
 }: Post_common_listItem_details_Props) {
   const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
 
@@ -95,6 +97,7 @@ export function Post_single_details({
         </Box>
       )}
       <Typography>{description}</Typography>
+      {afterDescription}
       {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
       {!!images?.length && (
         <Box sx={{ display: "flex", justifyContent: "end" }}>
