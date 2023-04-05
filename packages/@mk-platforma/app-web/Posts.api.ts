@@ -3,7 +3,7 @@ import { Category_zod, Post_base } from "./data/data.types"
 import { publicProcedure, router } from "./trpc.router"
 import data from "./data/data.json"
 
-const Posts_api = router({
+const Post_api = router({
   many: publicProcedure
     .input(
       z.object({
@@ -36,4 +36,4 @@ const Posts_api = router({
     }),
 })
 
-export default Posts_api
+export default Post_api
