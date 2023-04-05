@@ -47,6 +47,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
   }
 
   const goBack = useRouter().back
+  const { typography } = useTheme()
 
   return (
     <Box>
@@ -97,7 +98,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
                 post.skills?.length ? (
                   <Box sx={{ mt: 4 }}>
                     <Box sx={{ display: "flex", alignItems: "start" }}>
-                      <HandymanIcon sx={{ width: 16, height: 16, mt: 0.5, mr: 1 }} />
+                      <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
                       <Box>
                         {post.skills.map(s => (
                           <Typography key={s.label}>
