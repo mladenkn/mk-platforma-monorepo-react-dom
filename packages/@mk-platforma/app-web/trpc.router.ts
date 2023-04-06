@@ -1,4 +1,4 @@
-import Post_api from "./Posts.api"
+import Post_api from "./Post.api"
 import { router } from "./trpc.utils"
 
 export const ApiRouter = router({
