@@ -1,5 +1,6 @@
 - search
 - još responsive
+- kategorija: Potražnja
 - GDPR i cookies
 - createTrpcLoader
 
