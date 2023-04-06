@@ -1,3 +1,4 @@
+- lokacija
 - search
 - još responsive
 - kategorija: Potražnja
