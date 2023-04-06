@@ -1,6 +1,6 @@
 import { z } from "zod"
 import { Category_zod, Post_base } from "./data/data.types"
-import { publicProcedure, router } from "./trpc.router"
+import { publicProcedure, router } from "./trpc.utils"
 import data from "./data/data.json"
 
 const Post_api = router({

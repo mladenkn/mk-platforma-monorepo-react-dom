@@ -1,13 +1,5 @@
-import { initTRPC } from "@trpc/server"
-import superjson from "superjson"
 import Post_api from "./Posts.api"
-
-const t = initTRPC.create({
-  transformer: superjson,
-})
-
-export const router = t.router
-export const publicProcedure = t.procedure
+import { router } from "./trpc.utils"
 
 export const ApiRouter = router({
   post: Post_api,
