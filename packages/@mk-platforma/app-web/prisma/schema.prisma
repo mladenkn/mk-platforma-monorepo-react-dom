@@ -4,7 +4,48 @@ datasource db {
 }
 
 model Post {
-  id      Int    @id @default(autoincrement())
-  title   String
-  content String
+  id         Int    @id @default(autoincrement())
+  title      String
+  content    String
+  contact    String
+  locationId Int
+  userId     Int
+
+  location Location  @relation(fields: [locationId], references: [id])
+  images   Image[]
+  user     User      @relation(fields: [userId], references: [id])
+  comments Comment[]
+}
+
+model Location {
+  id       Int    @id @default(autoincrement())
+  googleId String
+
+  post Post[]
+}
+
+model Image {
+  id           Int    @id @default(autoincrement())
+  cloudinaryId String
+  postId       Int
+
+  post Post @relation(fields: [postId], references: [id])
+}
+
+model Comment {
+  id       Int    @id @default(autoincrement())
+  content  String
+  authorId Int
+  postId   Int
+
+  post   Post @relation(fields: [postId], references: [id])
+  auther User @relation(fields: [authorId], references: [id])
+}
+
+model User {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  comments Comment[]
+  Post     Post[]
 }
