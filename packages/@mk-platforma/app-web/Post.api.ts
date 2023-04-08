@@ -16,7 +16,9 @@ const Post_api = router({
           .map(p => (p.label ? p : { ...p, label: `${p.firstName} ${p.lastName}` }))
           .filter(post =>
             input.categories
-              ? input.categories.every(tabCat => post.categories.includes(tabCat))
+              ? input.categories.every(requiredCategory =>
+                  post.categories.includes(requiredCategory)
+                )
               : true
           ) as Post_base[]
     ),

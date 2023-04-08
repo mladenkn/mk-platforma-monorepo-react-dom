@@ -2,7 +2,7 @@ import { useFormik } from "formik"
 import { ComponentProps } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import { TextFieldProps } from "@mui/material"
-import CategoriesDropdown from "./Categories.dropdown"
+import CategoryDropdown from "./Categories.dropdown"
 import { z } from "zod"
 
 const Post_zod = z.object({
@@ -68,10 +68,10 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
         onChange: handleChange,
       } satisfies Partial<TextFieldProps>,
 
-      section: {
+      category: {
         value: values.categories[0],
         onChange: (e, value) => form.setFieldValue("categories", [value]),
-      } satisfies Partial<ComponentProps<typeof CategoriesDropdown>>,
+      } satisfies Partial<ComponentProps<typeof CategoryDropdown>>,
 
       location: {
         label: "Lokacija",

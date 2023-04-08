@@ -17,7 +17,7 @@ type CategoriesDropdown_Props = {
   onChange(event: any, c?: Category): void
 }
 
-export default function CategoriesDropdown({
+export default function CategoryDropdown({
   sx,
   value,
   onChange,
