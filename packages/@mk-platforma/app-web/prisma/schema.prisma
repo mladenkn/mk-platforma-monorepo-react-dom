@@ -25,7 +25,7 @@ model Post {
 
 model Category {
   id       Int    @id @default(autoincrement())
-  label    String
+  label    String @unique
   parentId Int?
   posts    Post[]
 }
