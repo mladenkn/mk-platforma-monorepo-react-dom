@@ -14,17 +14,20 @@ model Post {
   contact    String
   locationId Int
   userId     Int
+  categoryId Int
 
   location Location  @relation(fields: [locationId], references: [id])
   images   Image[]
   user     User      @relation(fields: [userId], references: [id])
   comments Comment[]
+  category Category  @relation(fields: [categoryId], references: [id])
 }
 
 model Category {
   id       Int    @id @default(autoincrement())
   label    String
   parentId Int?
+  Post     Post[]
 }
 
 model Location {
