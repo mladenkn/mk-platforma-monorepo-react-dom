@@ -27,7 +27,7 @@ model Category {
   id       Int    @id @default(autoincrement())
   label    String
   parentId Int?
-  Post     Post[]
+  posts    Post[]
 }
 
 model Location {
