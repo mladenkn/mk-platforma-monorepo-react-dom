@@ -23,9 +23,20 @@ model Post {
   category Category  @relation(fields: [categoryId], references: [id])
 }
 
+enum CategoryLabel {
+  job
+  accommodation
+  personEndorsement
+  sellable
+  gathering
+  gathering_spirituality
+  gathering_work
+  gathering_hangout
+}
+
 model Category {
-  id       Int    @id @default(autoincrement())
-  label    String @unique
+  id       Int           @id @default(autoincrement())
+  label    CategoryLabel @unique
   parentId Int?
   posts    Post[]
 }
