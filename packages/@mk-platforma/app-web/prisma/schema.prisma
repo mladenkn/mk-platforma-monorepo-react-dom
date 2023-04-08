@@ -21,6 +21,12 @@ model Post {
   comments Comment[]
 }
 
+model Category {
+  id       Int    @id @default(autoincrement())
+  label    String
+  parentId Int?
+}
+
 model Location {
   id        Int     @id @default(autoincrement())
   googleId  String
