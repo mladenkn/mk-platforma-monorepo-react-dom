@@ -18,8 +18,10 @@ model Post {
 }
 
 model Location {
-  id       Int    @id @default(autoincrement())
-  googleId String
+  id        Int     @id @default(autoincrement())
+  googleId  String
+  latitude  Decimal
+  longitude Decimal
 
   post Post[]
 }
