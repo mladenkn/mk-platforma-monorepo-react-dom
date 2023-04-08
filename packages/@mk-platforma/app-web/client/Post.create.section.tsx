@@ -1,6 +1,6 @@
 import { Box, IconButton, SxProps, TextField, Button, Paper, Typography } from "@mui/material"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
-import CategoriesDropdown from "./Categories.dropdown"
+import CategoryDropdown from "./Categories.dropdown"
 import use_Post_form_base from "./Post.form.base"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import SaveIcon from "@mui/icons-material/Save"
@@ -53,7 +53,7 @@ export default function Post_create_section({ sx }: Props) {
           </IconButton>
         </Box>
         <TextField {...form_base.components_props.label} />
-        <CategoriesDropdown {...form_base.components_props.section} />
+        <CategoryDropdown {...form_base.components_props.category} />
         <TextField {...form_base.components_props.description} />
         <TextField {...form_base.components_props.location} />
         <TextField {...form_base.components_props.contact} />
