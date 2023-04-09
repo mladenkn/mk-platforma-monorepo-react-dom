@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { inferOutput } from "../trpc.types"
 
 export type Id = number | string
 
@@ -31,15 +32,7 @@ export type Post_image = {
   isMain: boolean
 }
 
-export type Post_base = {
-  id: Id
-  label: string
-  description: string
-  categories: Category[]
-  images?: Post_image[]
-  location?: string
-  comments?: Comment[]
-}
+export type Post_base = inferOutput["post"]["single"]
 
 export type Post_expert = Post_base & {
   categories:
