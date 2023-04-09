@@ -15,9 +15,9 @@ const Post_zod = z.object({
       "personEndorsement",
       "sellable",
       "gathering",
-      "gathering/spirituality",
-      "gathering/work",
-      "gathering/hangout",
+      "gathering_spirituality",
+      "gathering_work",
+      "gathering_hangout",
     ])
   ),
   location: z.string().optional(),

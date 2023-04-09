@@ -19,11 +19,11 @@ export function getCategoryLabel(category: CategoryLabel) {
       return "Poslovi"
     case "gathering":
       return "Okupljanja"
-    case "gathering/spirituality":
+    case "gathering_spirituality":
       return "Duhovna okupljanja"
-    case "gathering/work":
+    case "gathering_work":
       return "Radne akcije"
-    case "gathering/hangout":
+    case "gathering_hangout":
       return "Druženja"
     default:
       throw new Error(`Parameter ${category} not matched as Category`)
@@ -45,11 +45,11 @@ export function CategoryIcon({
       return <HandymanIcon {...otherProps} />
     case "gathering":
       return <GroupsIcon {...otherProps} />
-    case "gathering/spirituality":
+    case "gathering_spirituality":
       return <GroupsIcon {...otherProps} />
-    case "gathering/work":
+    case "gathering_work":
       return <GroupsIcon {...otherProps} />
-    case "gathering/hangout":
+    case "gathering_hangout":
       return <GroupsIcon {...otherProps} />
     default:
       throw new Error(`Parameter ${name} not matched as Category`)
@@ -62,7 +62,7 @@ export const allCategories: CategoryLabel[] = [
   "gathering",
   "personEndorsement",
   "sellable",
-  "gathering/spirituality",
-  "gathering/work",
-  "gathering/hangout",
+  "gathering_spirituality",
+  "gathering_work",
+  "gathering_hangout",
 ]

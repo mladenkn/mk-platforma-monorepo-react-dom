@@ -41,7 +41,7 @@ export type Post_base = {
   id: Id
   label: string
   description: string
-  categories: Category[]
+  categories: CategoryLabel[]
   images?: Post_image[]
   location?: string
   comments?: Comment[]
@@ -50,8 +50,8 @@ export type Post_base = {
 export type Post_expert = Post_base & {
   categories:
     | ["personEndorsement"]
-    | ["personEndorsement", Category]
-    | ["personEndorsement", Category, Category]
+    | ["personEndorsement", CategoryLabel]
+    | ["personEndorsement", CategoryLabel, CategoryLabel]
   firstName: string
   lastName: string
   skills: {
