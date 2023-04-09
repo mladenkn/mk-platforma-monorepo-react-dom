@@ -10,17 +10,14 @@ const Post_api = router({
         categories: z.array(Category_zod).optional(),
       })
     )
-    .query(
-      ({ input }) =>
-        data.allPosts
-          .map(p => (p.label ? p : { ...p, label: `${p.firstName} ${p.lastName}` }))
-          .filter(post =>
-            input.categories
-              ? input.categories.every(requiredCategory =>
-                  post.categories.includes(requiredCategory)
-                )
-              : true
-          ) as Post_base[]
+    .query(({ input }) =>
+      data.allPosts
+        .map(p => (p.label ? p : { ...p, label: `${p.firstName} ${p.lastName}` }))
+        .filter(post =>
+          input.categories
+            ? input.categories.every(requiredCategory => post.categories.includes(requiredCategory))
+            : true
+        )
     ),
 
   single: publicProcedure
@@ -32,9 +29,7 @@ const Post_api = router({
     .query(({ input }) => {
       const post = data.allPosts.find(post => post.id === input.id)
       if (!post) return post
-      return (
-        post.label ? post : { ...post, label: `${post.firstName} ${post.lastName}` }
-      ) as Post_base
+      return post.label ? post : { ...post, label: `${post.firstName} ${post.lastName}` }
     }),
 })
 
