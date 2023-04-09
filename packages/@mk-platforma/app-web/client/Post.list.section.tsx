@@ -4,7 +4,7 @@ import { Post_single_listItem, Post_single_details } from "./Post.single"
 import { Post_single_expert } from "./Post.single.expert"
 import trpc from "./trpc"
 import type { Category, Post_base } from "../data/data.types"
-import { castIf, eva } from "@mk-libs/common/common"
+import { castIf } from "@mk-libs/common/common"
 import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
 import Categories_selector_aside from "./Categories.selector.aside"
@@ -22,6 +22,17 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   )
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
+
+  function render_title_left(item: Post_base) {
+    if (castIf<Post_expert>(item, item.categories[0] === "personEndorsement")) {
+      return (
+        <Avatar
+          sx={{ mr: 2, ...item.avatarStyle }}
+          children={item.firstName[0] + item.lastName[0]}
+        />
+      )
+    }
+  }
 
   return (
     <Box
@@ -86,19 +97,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
             }}
             Item_details={item => (
               <Box display="flex" flexDirection={item.comments?.length ? "row" : "column"}>
-                <Post_single_details
-                  {...item}
-                  title_left={eva(() => {
-                    if (castIf<Post_expert>(item, item.categories[0] === "personEndorsement")) {
-                      return (
-                        <Avatar
-                          sx={{ mr: 2, ...item.avatarStyle }}
-                          children={item.firstName[0] + item.lastName[0]}
-                        />
-                      )
-                    }
-                  })}
-                />
+                <Post_single_details {...item} title_left={render_title_left(item)} />
                 <Box sx={{ mr: 2 }}>
                   <Box sx={{ borderRadius: 2, mt: 4, display: "flex", mb: 6 }}>
                     <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
