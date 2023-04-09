@@ -4,13 +4,13 @@ import { ReactNode } from "react"
 import { Post_image } from "../data/data.types"
 
 type Post_common_listItem_props = {
-  label: string
+  title: string
   location?: string
   images?: Post_image[]
   mainImage?: string
 }
 
-export function Post_single_listItem({ label, location, images }: Post_common_listItem_props) {
+export function Post_single_listItem({ title, location, images }: Post_common_listItem_props) {
   const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
 
   const { typography } = useTheme()
@@ -29,7 +29,7 @@ export function Post_single_listItem({ label, location, images }: Post_common_li
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography variant="h5" fontWeight={500}>
-          {label}
+          {title}
         </Typography>
 
         {location && (
@@ -47,25 +47,25 @@ export function Post_single_listItem({ label, location, images }: Post_common_li
 
 type Post_common_listItem_details_Props = {
   sx?: SxProps
-  label: string
+  title: string
   location?: string
   images?: Post_image[]
   description: string
   contact?: string
-  label_left?: ReactNode
-  label_right?: ReactNode
+  title_left?: ReactNode
+  title_right?: ReactNode
   afterDescription?: ReactNode
 }
 
 export function Post_single_details({
   sx,
-  label,
+  title,
   location,
   images,
   description,
   contact,
-  label_left,
-  label_right,
+  title_left,
+  title_right,
   afterDescription,
 }: Post_common_listItem_details_Props) {
   const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
@@ -74,10 +74,10 @@ export function Post_single_details({
     <Box sx={sx}>
       <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "space-between" }}>
         <Box sx={{ display: "flex" }}>
-          {label_left}
+          {title_left}
           <Box>
             <Typography fontWeight={500} variant="h5">
-              {label}
+              {title}
             </Typography>
             {location && (
               <Box sx={{ color: "text.secondary" }}>
@@ -89,7 +89,7 @@ export function Post_single_details({
             )}
           </Box>
         </Box>
-        {label_right}
+        {title_right}
       </Box>
       {mainImage && (
         <Box sx={{ display: "flex", justifyContent: "center", mb: 4, mt: 3 }}>

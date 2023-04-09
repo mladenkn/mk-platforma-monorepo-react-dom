@@ -4,23 +4,23 @@ import { post_image_id_getNext } from "./data._utils"
 
 const withRelatedProps = [
   {
-    label: "Kućica na selu",
+    title: "Kućica na selu",
   },
   {
-    label: "Soba u kućici na selu",
+    title: "Soba u kućici na selu",
   },
   {
-    label: "Stan u gradu",
+    title: "Stan u gradu",
   },
 ]
 
 export default function generateAccomodations(
   item_getMoreData: () => Record<string, unknown> = () => ({})
 ) {
-  return [...withRelatedProps, ...withRelatedProps].map(({ label }) => ({
+  return [...withRelatedProps, ...withRelatedProps].map(({ title }) => ({
     ...item_getMoreData(),
     categories: ["accommodation" as "accommodation"],
-    label,
+    title,
     images: faker.helpers
       .arrayElements(
         data_images["smještaj podstanarstvo kuća na seoskom imanju"],

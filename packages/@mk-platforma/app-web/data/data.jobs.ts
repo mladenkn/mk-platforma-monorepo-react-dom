@@ -4,36 +4,36 @@ import { post_image_id_getNext } from "./data._utils"
 
 const jobs = [
   {
-    label: "Oranje vrta",
+    title: "Oranje vrta",
   },
   {
-    label: "Obrezivanje maslina",
+    title: "Obrezivanje maslina",
   },
   {
-    label: "Zidanje zida",
+    title: "Zidanje zida",
   },
   {
-    label: "Gradnja drvene kuće",
+    title: "Gradnja drvene kuće",
   },
   {
-    label: "Izdrada ograde",
+    title: "Izdrada ograde",
   },
   {
-    label: "Izdrada web stranice",
+    title: "Izdrada web stranice",
   },
   {
-    label: "Popravak cijevi u zidu",
+    title: "Popravak cijevi u zidu",
   },
   {
-    label: "Postavljanje izolacije",
+    title: "Postavljanje izolacije",
   },
 ]
 
 export default function generateJobs(item_getMoreData: () => Record<string, unknown> = () => ({})) {
-  return faker.helpers.shuffle(jobs).map(({ label }) => ({
+  return faker.helpers.shuffle(jobs).map(({ title }) => ({
     ...item_getMoreData(),
     categories: ["job" as "job"],
-    label,
+    title,
     images: faker.helpers
       .arrayElements(
         data_images["posao selo kuća tesar zidar"],

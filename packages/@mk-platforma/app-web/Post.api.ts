@@ -12,7 +12,7 @@ const Post_api = router({
     )
     .query(({ input }) =>
       data.allPosts
-        .map(p => (p.label ? p : { ...p, label: `${p.firstName} ${p.lastName}` }))
+        .map(p => (p.title ? p : { ...p, title: `${p.firstName} ${p.lastName}` }))
         .filter(post =>
           input.categories
             ? input.categories.every(requiredCategory => post.categories.includes(requiredCategory))
@@ -29,7 +29,7 @@ const Post_api = router({
     .query(({ input }) => {
       const post = data.allPosts.find(post => post.id === input.id)
       if (!post) return post
-      return post.label ? post : { ...post, label: `${post.firstName} ${post.lastName}` }
+      return post.post ? post : { ...post, post: `${post.firstName} ${post.lastName}` }
     }),
 })
 
