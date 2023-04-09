@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client"
 
 const db = new PrismaClient()
 
-const categoreis = [
+const categories = [
   "job",
   "accommodation",
   "personEndorsement",
@@ -15,7 +15,7 @@ const categoreis = [
 
 async function main() {
   await db.category.createMany({
-    data: categoreis.map(label => ({ label })),
+    data: categories.map(label => ({ label })),
   })
 }
 
