@@ -9,12 +9,12 @@ import {
 } from "@mui/material"
 import { CategoryIcon, getCategoryLabel, allCategories } from "./Categories.common"
 import { ReactElement } from "react"
-import type { Category } from "../data/data.types"
+import type { CategoryLabel } from "../data/data.types"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
-  value?: Category
-  onChange(event: any, c?: Category): void
+  value?: CategoryLabel
+  onChange(event: any, c?: CategoryLabel): void
 }
 
 export default function CategoryDropdown({

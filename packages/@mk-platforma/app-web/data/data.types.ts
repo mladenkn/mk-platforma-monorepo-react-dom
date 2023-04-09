@@ -8,11 +8,17 @@ export const Category_zod = z.enum([
   "personEndorsement",
   "sellable",
   "gathering",
-  "gathering/spirituality",
-  "gathering/work",
-  "gathering/hangout",
+  "gathering_spirituality",
+  "gathering_work",
+  "gathering_hangout",
 ])
-export type Category = z.infer<typeof Category_zod>
+export type CategoryLabel = z.infer<typeof Category_zod>
+
+export type Category = {
+  id: number
+  label: CategoryLabel
+  parent?: Category
+}
 
 export type Comment = {
   id: Id
@@ -35,7 +41,7 @@ export type Post_base = {
   id: Id
   label: string
   description: string
-  categories: Category[]
+  categories: CategoryLabel[]
   images?: Post_image[]
   location?: string
   comments?: Comment[]
@@ -44,8 +50,8 @@ export type Post_base = {
 export type Post_expert = Post_base & {
   categories:
     | ["personEndorsement"]
-    | ["personEndorsement", Category]
-    | ["personEndorsement", Category, Category]
+    | ["personEndorsement", CategoryLabel]
+    | ["personEndorsement", CategoryLabel, CategoryLabel]
   firstName: string
   lastName: string
   skills: {

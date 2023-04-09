@@ -29,24 +29,18 @@ const withRelatedProps = [
   },
 ]
 
-export default function generateGatherings() {
+export default function generateGatherings(
+  item_getMoreData: () => Record<string, unknown> = () => ({})
+) {
   return faker.helpers.shuffle(withRelatedProps).map(({ label }) => ({
+    ...item_getMoreData(),
     categories: ["gathering" as "gathering"],
-    id: post_id_getNext(),
     label,
-    description: generateArray(() => "opis oglasa ", 30).join(""),
-    location: faker.helpers.arrayElement([
-      ...cro_dataset.cities,
-      ...cro_dataset.villages,
-      ...cro_dataset.villages,
-    ]),
     images: faker.helpers
       .arrayElements(
         data_images["nature gathering action work"],
         faker.datatype.number({ min: 1, max: 6 })
       )
       .map(url => ({ url, id: post_image_id_getNext() })),
-    contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
-    comments: generateArray(generateComment, faker.datatype.number({ min: 0, max: 7 })),
   }))
 }

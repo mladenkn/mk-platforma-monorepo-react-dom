@@ -3,7 +3,7 @@ import Post_list_base from "./Post.list.base"
 import { Post_single_listItem, Post_single_details } from "./Post.single"
 import { Post_single_expert } from "./Post.single.expert"
 import trpc from "./trpc"
-import type { Category, Post_base } from "../data/data.types"
+import type { CategoryLabel, Post_base } from "../data/data.types"
 import { castIf, eva } from "@mk-libs/common/common"
 import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
@@ -13,7 +13,7 @@ import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
 
-type Props = { selectedCategory: Category; posts_initial: Post_base[] }
+type Props = { selectedCategory: CategoryLabel; posts_initial: Post_base[] }
 
 export default function PostList_section({ selectedCategory, posts_initial }: Props) {
   const posts = trpc.post.many.useQuery(

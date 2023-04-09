@@ -1,10 +1,10 @@
 import PostList_section from "../client/Post.list.section"
-import { Category } from "../data/data.types"
+import { CategoryLabel } from "../data/data.types"
 import { Api_ss } from "../trpc.router"
 import { GetServerSidePropsContext } from "next/types"
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
-  const category = query.category ? (query.category as Category) : ("gathering" as "gathering")
+  const category = query.category ? (query.category as CategoryLabel) : ("gathering" as "gathering")
   return {
     props: {
       selectedCategory: category,

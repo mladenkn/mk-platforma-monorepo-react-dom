@@ -1,4 +1,4 @@
-import type { Category } from "../data/data.types"
+import type { CategoryLabel } from "../data/data.types"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import BedIcon from "@mui/icons-material/Bed"
 import EngineeringIcon from "@mui/icons-material/Engineering"
@@ -7,7 +7,7 @@ import GroupsIcon from "@mui/icons-material/Groups"
 import { SxProps } from "@mui/material"
 import { ComponentProps } from "react"
 
-export function getCategoryLabel(category: Category) {
+export function getCategoryLabel(category: CategoryLabel) {
   switch (category) {
     case "accommodation":
       return "Smještaji"
@@ -19,11 +19,11 @@ export function getCategoryLabel(category: Category) {
       return "Poslovi"
     case "gathering":
       return "Okupljanja"
-    case "gathering/spirituality":
+    case "gathering_spirituality":
       return "Duhovna okupljanja"
-    case "gathering/work":
+    case "gathering_work":
       return "Radne akcije"
-    case "gathering/hangout":
+    case "gathering_hangout":
       return "Druženja"
     default:
       throw new Error(`Parameter ${category} not matched as Category`)
@@ -33,7 +33,7 @@ export function getCategoryLabel(category: Category) {
 export function CategoryIcon({
   name,
   ...otherProps
-}: { name: Category } & ComponentProps<typeof BedIcon>) {
+}: { name: CategoryLabel } & ComponentProps<typeof BedIcon>) {
   switch (name) {
     case "accommodation":
       return <BedIcon {...otherProps} />
@@ -45,24 +45,24 @@ export function CategoryIcon({
       return <HandymanIcon {...otherProps} />
     case "gathering":
       return <GroupsIcon {...otherProps} />
-    case "gathering/spirituality":
+    case "gathering_spirituality":
       return <GroupsIcon {...otherProps} />
-    case "gathering/work":
+    case "gathering_work":
       return <GroupsIcon {...otherProps} />
-    case "gathering/hangout":
+    case "gathering_hangout":
       return <GroupsIcon {...otherProps} />
     default:
       throw new Error(`Parameter ${name} not matched as Category`)
   }
 }
 
-export const allCategories: Category[] = [
+export const allCategories: CategoryLabel[] = [
   "job",
   "accommodation",
   "gathering",
   "personEndorsement",
   "sellable",
-  "gathering/spirituality",
-  "gathering/work",
-  "gathering/hangout",
+  "gathering_spirituality",
+  "gathering_work",
+  "gathering_hangout",
 ]

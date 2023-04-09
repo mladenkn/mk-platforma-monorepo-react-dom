@@ -8,11 +8,11 @@ import {
   Box,
   Typography,
 } from "@mui/material"
-import { Category } from "../data/data.types"
+import { CategoryLabel } from "../data/data.types"
 import { allCategories, getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 
-type Props = { selectedItem?: Category }
+type Props = { selectedItem?: CategoryLabel }
 
 export default function Categories_selector_aside({ selectedItem }: Props) {
   const { palette, typography } = useTheme()

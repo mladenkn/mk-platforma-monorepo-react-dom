@@ -141,10 +141,12 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default function generateProducts() {
+export default function generateProducts(
+  item_getMoreData: () => Record<string, unknown> = () => ({})
+) {
   return withRelatedProps.map(({ label, image, description }) => ({
+    ...item_getMoreData(),
     categories: ["sellable" as "sellable"],
-    id: post_id_getNext(),
     label,
     images: [
       {
@@ -152,9 +154,5 @@ export default function generateProducts() {
         url: image,
       },
     ],
-    description,
-    contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
-    location: faker.helpers.arrayElement([...cro_dataset.cities, ...cro_dataset.villages]),
-    // TODO: secondary images
   }))
 }
