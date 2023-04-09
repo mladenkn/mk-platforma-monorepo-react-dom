@@ -88,7 +88,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
               <Box display="flex" flexDirection={item.comments?.length ? "row" : "column"}>
                 <Post_single_details
                   {...item}
-                  label_left={eva(() => {
+                  title_left={eva(() => {
                     if (castIf<Post_expert>(item, item.categories[0] === "personEndorsement")) {
                       return (
                         <Avatar
