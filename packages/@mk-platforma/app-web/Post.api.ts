@@ -29,7 +29,7 @@ const Post_api = router({
     .query(({ input }) => {
       const post = data.allPosts.find(post => post.id === input.id)
       if (!post) return post
-      return post.post ? post : { ...post, post: `${post.firstName} ${post.lastName}` }
+      return post.title ? post : { ...post, title: `${post.firstName} ${post.lastName}` }
     }),
 })
 
