@@ -29,7 +29,7 @@ export type Comment = {
 export type Post_image = {
   id: Id
   url: string
-  isMain: boolean
+  isMain?: boolean
 }
 
 export type Post_base = inferOutput["post"]["single"]

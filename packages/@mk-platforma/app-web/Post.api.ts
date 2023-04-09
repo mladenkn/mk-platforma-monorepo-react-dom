@@ -1,7 +1,11 @@
 import { z } from "zod"
-import { Category_zod, Post_base } from "./data/data.types"
+import { Category, Category_zod } from "./data/data.types"
 import { publicProcedure, router } from "./trpc.utils"
 import data from "./data/data.json"
+
+function asWithCategories<TInput>(input: TInput) {
+  return input as typeof input & { categories: Category[] }
+}
 
 const Post_api = router({
   many: publicProcedure
@@ -12,7 +16,7 @@ const Post_api = router({
     )
     .query(({ input }) =>
       data.allPosts
-        .map(p => (p.title ? p : { ...p, title: `${p.firstName} ${p.lastName}` }))
+        .map(p => asWithCategories(p.title ? p : { ...p, title: `${p.firstName} ${p.lastName}` }))
         .filter(post =>
           input.categories
             ? input.categories.every(requiredCategory => post.categories.includes(requiredCategory))
@@ -29,7 +33,9 @@ const Post_api = router({
     .query(({ input }) => {
       const post = data.allPosts.find(post => post.id === input.id)
       if (!post) return post
-      return post.title ? post : { ...post, title: `${post.firstName} ${post.lastName}` }
+      return asWithCategories(
+        post.title ? post : { ...post, title: `${post.firstName} ${post.lastName}` }
+      )
     }),
 })
 
