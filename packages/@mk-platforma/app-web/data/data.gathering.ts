@@ -1,41 +1,38 @@
 import { faker } from "@faker-js/faker"
-import { generateArray } from "@mk-libs/common/common"
-import { generateComment } from "./data.common"
-import * as cro_dataset from "./data.cro.dataset"
 import data_images from "./data.images.json"
-import { post_id_getNext, post_image_id_getNext } from "./data._utils"
+import { post_image_id_getNext } from "./data._utils"
 
 const withRelatedProps = [
   {
-    label: "Zidanje od cob materijala",
+    title: "Zidanje od cob materijala",
   },
   {
-    label: "Kopanje rupa za voćke",
+    title: "Kopanje rupa za voćke",
   },
   {
-    label: "Sadnja povrtnjaka",
+    title: "Sadnja povrtnjaka",
   },
   {
-    label: "Izrada ograde od šiblja",
+    title: "Izrada ograde od šiblja",
   },
   {
-    label: "Duhovno okupljanje, meditacija...",
+    title: "Duhovno okupljanje, meditacija...",
   },
   {
-    label: "Druženje, proslava rođendana",
+    title: "Druženje, proslava rođendana",
   },
   {
-    label: "Proslava godišnjice mreže ZaBrata",
+    title: "Proslava godišnjice mreže ZaBrata",
   },
 ]
 
 export default function generateGatherings(
   item_getMoreData: () => Record<string, unknown> = () => ({})
 ) {
-  return faker.helpers.shuffle(withRelatedProps).map(({ label }) => ({
+  return faker.helpers.shuffle(withRelatedProps).map(({ title }) => ({
     ...item_getMoreData(),
     categories: ["gathering" as "gathering"],
-    label,
+    title,
     images: faker.helpers
       .arrayElements(
         data_images["nature gathering action work"],

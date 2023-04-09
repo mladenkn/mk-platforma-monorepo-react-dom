@@ -39,7 +39,7 @@ export type Post_image = {
 
 export type Post_base = {
   id: Id
-  label: string
+  title: string
   description: string
   categories: CategoryLabel[]
   images?: Post_image[]
