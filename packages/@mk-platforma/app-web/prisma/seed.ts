@@ -1,16 +1,16 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, CategoryLabel } from "@prisma/client"
 
 const db = new PrismaClient()
 
-const categories = [
+const categories: CategoryLabel[] = [
   "job",
   "accommodation",
   "personEndorsement",
   "sellable",
   "gathering",
-  "gathering/spirituality",
-  "gathering/work",
-  "gathering/hangout",
+  "gathering_spirituality",
+  "gathering_work",
+  "gathering_hangout",
 ]
 
 async function main() {
