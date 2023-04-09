@@ -1,4 +1,4 @@
-import type { Category } from "../data/data.types"
+import type { CategoryLabel } from "../data/data.types"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import BedIcon from "@mui/icons-material/Bed"
 import EngineeringIcon from "@mui/icons-material/Engineering"
@@ -7,7 +7,7 @@ import GroupsIcon from "@mui/icons-material/Groups"
 import { SxProps } from "@mui/material"
 import { ComponentProps } from "react"
 
-export function getCategoryLabel(category: Category) {
+export function getCategoryLabel(category: CategoryLabel) {
   switch (category) {
     case "accommodation":
       return "Smještaji"
@@ -33,7 +33,7 @@ export function getCategoryLabel(category: Category) {
 export function CategoryIcon({
   name,
   ...otherProps
-}: { name: Category } & ComponentProps<typeof BedIcon>) {
+}: { name: CategoryLabel } & ComponentProps<typeof BedIcon>) {
   switch (name) {
     case "accommodation":
       return <BedIcon {...otherProps} />
@@ -56,7 +56,7 @@ export function CategoryIcon({
   }
 }
 
-export const allCategories: Category[] = [
+export const allCategories: CategoryLabel[] = [
   "job",
   "accommodation",
   "gathering",

@@ -8,11 +8,17 @@ export const Category_zod = z.enum([
   "personEndorsement",
   "sellable",
   "gathering",
-  "gathering/spirituality",
-  "gathering/work",
-  "gathering/hangout",
+  "gathering_spirituality",
+  "gathering_work",
+  "gathering_hangout",
 ])
-export type Category = z.infer<typeof Category_zod>
+export type CategoryLabel = z.infer<typeof Category_zod>
+
+export type Category = {
+  id: number
+  label: CategoryLabel
+  parent?: Category
+}
 
 export type Comment = {
   id: Id
