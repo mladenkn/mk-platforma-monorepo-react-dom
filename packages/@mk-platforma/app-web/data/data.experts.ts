@@ -1,8 +1,6 @@
 import { faker } from "@faker-js/faker"
-import { generateArray } from "@mk-libs/common/common"
-import { avatarStyles, generateComment } from "./data.common"
+import { avatarStyles } from "./data.common"
 import * as cro_dataset from "./data.cro.dataset"
-import { post_id_getNext } from "./data._utils"
 
 export default function generateExpert() {
   const firstName = faker.helpers.arrayElement(cro_dataset.firstNames)
@@ -10,10 +8,6 @@ export default function generateExpert() {
 
   return {
     categories: ["personEndorsement" as "personEndorsement"],
-    id: post_id_getNext(),
-
-    location: faker.helpers.arrayElement(cro_dataset.cities),
-    description: generateArray(() => "opis oglasa ", 30).join(""),
     contact: faker.helpers.arrayElement([
       faker.phone.number(),
       faker.phone.number(),
@@ -29,6 +23,5 @@ export default function generateExpert() {
       .map(skill => ({ label: skill, level: faker.datatype.number({ min: 2, max: 5 }) })),
 
     avatarStyle: faker.helpers.arrayElement(avatarStyles),
-    comments: generateArray(generateComment, faker.datatype.number({ min: 0, max: 7 })),
   }
 }
