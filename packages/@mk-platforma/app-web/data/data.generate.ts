@@ -24,7 +24,10 @@ function data_common_generate() {
 }
 
 const data = {
-  experts: generateArray(generateExpert, faker.datatype.number({ min: 10, max: 50 })),
+  experts: generateArray(
+    () => ({ ...data_common_generate(), ...generateExpert() }),
+    faker.datatype.number({ min: 10, max: 50 })
+  ),
   jobs: generateJobs(),
   sellableItems: generateProducts(),
   gatherings: generateGatherings(),
