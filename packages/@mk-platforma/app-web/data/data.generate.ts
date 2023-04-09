@@ -8,15 +8,12 @@ import generateGatherings from "./data.gathering"
 
 const data = {
   experts: generateArray(generateExpert, faker.datatype.number({ min: 10, max: 50 })),
-  jobs: faker.helpers.shuffle(generateJobs()),
+  jobs: generateJobs(),
   sellableItems: generateProducts(),
   gatherings: generateGatherings(),
   ...require("./data.accommodations"),
 }
 
-const data2 = {
-  ...data,
-  allPosts: faker.helpers.shuffle(Object.values(data).flat()),
-}
+const allPosts = faker.helpers.shuffle(Object.values(data).flat())
 
-writeFileSync("./data/data.json", JSON.stringify(data2, null, 2))
+writeFileSync("./data/data.json", JSON.stringify({ allPosts }, null, 2))
