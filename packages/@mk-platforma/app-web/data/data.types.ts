@@ -1,4 +1,5 @@
 import { z } from "zod"
+import { inferOutput } from "../trpc.types"
 
 export type Id = number | string
 
@@ -20,32 +21,11 @@ export type Category = {
   parent?: Category
 }
 
-export type Comment = {
-  id: Id
-  content: string
-  author: {
-    userName: string
-    avatarStyle: Record<string, string>
-  }
-  canEdit: boolean
-  canDelete: boolean
-}
+export type Post_base = NonNullable<inferOutput["post"]["single"]>
 
-export type Post_image = {
-  id: Id
-  url: string
-  isMain: boolean
-}
+export type Comment = Post_base["comments"][number]
 
-export type Post_base = {
-  id: Id
-  label: string
-  description: string
-  categories: CategoryLabel[]
-  images?: Post_image[]
-  location?: string
-  comments?: Comment[]
-}
+export type Post_image = NonNullable<Post_base["images"]>[number] & { isMain?: boolean }
 
 export type Post_expert = Post_base & {
   categories:

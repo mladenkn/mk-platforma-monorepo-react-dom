@@ -6,7 +6,7 @@ import CategoryDropdown from "./Categories.dropdown"
 import { z } from "zod"
 
 const Post_zod = z.object({
-  label: z.string(),
+  title: z.string(),
   description: z.string(),
   categories: z.array(
     z.enum([
@@ -31,7 +31,7 @@ type Props = {
 }
 
 const initialValues_default = {
-  label: "",
+  title: "",
   description: "",
   location: "",
   categories: [],
@@ -54,8 +54,8 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
       label: {
         label: "Naziv",
         variant: "outlined",
-        name: "label",
-        value: values.label,
+        name: "title",
+        value: values.title,
         onChange: handleChange,
       } satisfies Partial<TextFieldProps>,
 

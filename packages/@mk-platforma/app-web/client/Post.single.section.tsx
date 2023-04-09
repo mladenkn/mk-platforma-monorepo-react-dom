@@ -35,7 +35,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
   const post = asNonNil(postQuery.data)
   const [isEdit, setIsEdit] = useState(false)
 
-  function renderAvatar(post: Post_base) {
+  function renderAvatar() {
     if (castIf<Post_expert>(post, post.categories[0] === "personEndorsement")) {
       return (
         <Avatar
@@ -78,12 +78,12 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
           <Paper sx={{ px: 2.5, py: 2, borderRadius: 2 }}>
             <Post_single_details
               {...post}
-              label_left={
+              title_left={
                 <Box mr={1.2} display="flex" alignItems="center">
-                  {renderAvatar(post)}
+                  {renderAvatar()}
                 </Box>
               }
-              label_right={
+              title_right={
                 <Box>
                   <IconButton onClick={() => setIsEdit(true)}>
                     <EditIcon />
