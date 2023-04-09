@@ -8,6 +8,7 @@ import generateGatherings from "./data.gathering"
 import * as cro_dataset from "./data.cro.dataset"
 import { post_id_getNext } from "./data._utils"
 import { generateComment } from "./data.common"
+import generateAccomodations from "./data.accommodations"
 
 function data_common_generate() {
   return {
@@ -28,10 +29,10 @@ const data = {
     () => ({ ...data_common_generate(), ...generateExpert() }),
     faker.datatype.number({ min: 10, max: 50 })
   ),
-  jobs: generateJobs(),
-  sellableItems: generateProducts(),
-  gatherings: generateGatherings(),
-  ...require("./data.accommodations"),
+  jobs: generateJobs(data_common_generate),
+  sellableItems: generateProducts(data_common_generate),
+  gatherings: generateGatherings(data_common_generate),
+  accommodations: generateAccomodations(data_common_generate),
 }
 
 const allPosts = faker.helpers.shuffle(Object.values(data).flat())

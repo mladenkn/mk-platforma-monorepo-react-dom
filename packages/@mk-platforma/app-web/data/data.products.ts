@@ -141,8 +141,9 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default function generateProducts() {
+export default function generateProducts(item_getMoreData: () => Record<string, unknown> = (() => ({}))) {
   return withRelatedProps.map(({ label, image, description }) => ({
+    ...item_getMoreData(),
     categories: ["sellable" as "sellable"],
     label,
   }))

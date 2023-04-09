@@ -29,8 +29,11 @@ const withRelatedProps = [
   },
 ]
 
-export default function generateGatherings() {
+export default function generateGatherings(
+  item_getMoreData: () => Record<string, unknown> = () => ({})
+) {
   return faker.helpers.shuffle(withRelatedProps).map(({ label }) => ({
+    ...item_getMoreData(),
     categories: ["gathering" as "gathering"],
     label,
     images: faker.helpers
