@@ -15,24 +15,15 @@ export const Category_zod = z.enum([
 ])
 export type Category = z.infer<typeof Category_zod>
 
-export type Comment = {
-  id: Id
-  content: string
-  author: {
-    userName: string
-    avatarStyle: Record<string, string>
-  }
-  canEdit: boolean
-  canDelete: boolean
-}
+export type Post_base = NonNullable<inferOutput["post"]["single"]>
+
+export type Comment = Post_base["comments"][number]
 
 export type Post_image = {
   id: Id
   url: string
   isMain?: boolean
 }
-
-export type Post_base = inferOutput["post"]["single"]
 
 export type Post_expert = Post_base & {
   categories:
