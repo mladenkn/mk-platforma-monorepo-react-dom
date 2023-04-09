@@ -162,8 +162,6 @@ function Post_edit({
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")
 
-  const goBack = useRouter().back
-
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
       <Box sx={{ mb: 5, display: "flex", justifyContent: "space-between" }}>

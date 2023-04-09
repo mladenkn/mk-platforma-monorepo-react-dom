@@ -1,10 +1,10 @@
 import { z } from "zod"
-import { Category, Category_zod } from "./data/data.types"
+import { CategoryLabel, Category_zod } from "./data/data.types"
 import { publicProcedure, router } from "./trpc.utils"
 import data from "./data/data.json"
 
 function asWithCategories<TInput>(input: TInput) {
-  return input as typeof input & { categories: Category[] }
+  return input as typeof input & { categories: CategoryLabel[] }
 }
 
 const Post_api = router({
