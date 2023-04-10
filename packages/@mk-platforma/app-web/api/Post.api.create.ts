@@ -1,5 +1,5 @@
 import { shallowPick, castIf } from "@mk-libs/common/common"
-import { PrismaClient } from "@prisma/client"
+import { Post_category_label, PrismaClient } from "@prisma/client"
 import { z } from "zod"
 import { PersonEndorsementOnly } from "../data/data.types"
 import {
@@ -17,14 +17,20 @@ const Post_api_create = publicProcedure
       title: true,
       description: true,
       contact: true,
-    }).extend({
-      categories: z.array(Post_categorySchema.pick({ label: true })),
-      asPersonEndorsement: Post_asPersonEndorsementSchema.pick({
-        firstName: true,
-        lastName: true,
-        avatarStyle: true,
-      }).optional(),
     })
+      .extend({
+        categories: z.array(Post_categorySchema.pick({ label: true })),
+        asPersonEndorsement: Post_asPersonEndorsementSchema.pick({
+          firstName: true,
+          lastName: true,
+          avatarStyle: true,
+        }).optional(),
+      })
+      .refine(input => {
+        if (input.categories.some(({ label }) => label === "personEndorsement")) {
+          return !!input.asPersonEndorsement
+        }
+      })
   )
   .mutation(async ({ ctx, input }) => {
     await db.$transaction(async tx => {
