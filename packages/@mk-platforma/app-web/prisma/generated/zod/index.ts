@@ -48,7 +48,7 @@ export type InputJsonValueType = z.infer<typeof InputJsonValue>;
 // ENUMS
 /////////////////////////////////////////
 
-export const ImageScalarFieldEnumSchema = z.enum(['id','postId','url']);
+export const ImageScalarFieldEnumSchema = z.enum(['id','cloudinary_id','postId']);
 
 export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]);
 
@@ -154,8 +154,8 @@ export type Location = z.infer<typeof LocationSchema>
 
 export const ImageSchema = z.object({
   id: z.number().int(),
+  cloudinary_id: z.string(),
   postId: z.number().int(),
-  url: z.string(),
 })
 
 export type Image = z.infer<typeof ImageSchema>
