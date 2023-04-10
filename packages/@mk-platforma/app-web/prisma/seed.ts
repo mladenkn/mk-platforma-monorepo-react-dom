@@ -1,22 +1,30 @@
-import { PrismaClient, CategoryLabel } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 
 const db = new PrismaClient()
 
-const categories: CategoryLabel[] = [
-  "job",
-  "accommodation",
-  "personEndorsement",
-  "sellable",
-  "gathering",
-  "gathering_spirituality",
-  "gathering_work",
-  "gathering_hangout",
-]
+async function seedCategories() {
+  await db.category.createMany({
+    data: [
+      { label: "job" },
+      { label: "accommodation" },
+      { label: "personEndorsement" },
+      { label: "sellable" },
+    ],
+  })
+  const gathering = await db.category.create({
+    data: { label: "gathering" },
+  })
+  await db.category.createMany({
+    data: [
+      { label: "gathering_spirituality", parentId: gathering.id },
+      { label: "gathering_work", parentId: gathering.id },
+      { label: "gathering_hangout", parentId: gathering.id },
+    ],
+  })
+}
 
 async function main() {
-  await db.category.createMany({
-    data: categories.map(label => ({ label })),
-  })
+  await seedCategories()
 }
 
 main()
