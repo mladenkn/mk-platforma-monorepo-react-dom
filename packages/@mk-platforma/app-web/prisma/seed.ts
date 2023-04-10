@@ -2,6 +2,10 @@ import { PrismaClient } from "@prisma/client"
 
 const db = new PrismaClient()
 
+async function main() {
+  await seedCategories()
+}
+
 async function seedCategories() {
   await db.category.createMany({
     data: [
@@ -23,9 +27,7 @@ async function seedCategories() {
   })
 }
 
-async function main() {
-  await seedCategories()
-}
+async function seedPosts() {}
 
 main()
   .then(async () => {
