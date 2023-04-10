@@ -3,6 +3,7 @@ import generatePosts from "../data/data.generate"
 import { Api_ss } from "../trpc.router"
 import locations from "../data/data.locations.json"
 import { faker } from "@faker-js/faker"
+import { asNonNil } from "@mk-libs/common/common"
 
 const db = new PrismaClient()
 
@@ -16,13 +17,17 @@ async function main() {
   })
   const locations = await seedLocations()
 
-  if ((await db.post.count({})) === 0) {
-    const posts_notCreated = generatePosts()
+  const posts_notCreated = generatePosts()
+
+  const images_count = await db.image.count({})
+  const posts_count = await db.post.count({})
+
+  if (!images_count && !posts_count) {
     const posts_notCreated_withSavedImages = await posts_notCreated_map_withSaveImages(
       posts_notCreated
     )
     await seedPosts(
-      posts_notCreated_withSavedImages,
+      asNonNil(posts_notCreated_withSavedImages),
       locations.map(l => l.id)
     )
   }

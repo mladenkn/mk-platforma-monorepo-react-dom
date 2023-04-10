@@ -44,6 +44,9 @@ const Post_api_create = publicProcedure
           categories: {
             connect: input.categories,
           },
+          images: {
+            connect: input.images?.map(id => ({ id })),
+          },
         },
       })
       if (
