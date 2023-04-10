@@ -10,7 +10,8 @@
     "data.generate": "ts-node --compilerOptions '{ \"module\": \"commonjs\" }' ./data/data.generate.toFile.ts",
     "prisma.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' prisma",
     "prisma.seed": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' ts-node prisma/seed.ts",
-    "psql.dev": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'"
+    "psql.dev": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'",
+    "postinstall": "pnpm prisma generate"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",

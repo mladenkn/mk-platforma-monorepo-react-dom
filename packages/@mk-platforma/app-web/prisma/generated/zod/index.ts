@@ -43,24 +43,6 @@ export const InputJsonValue: z.ZodType<Prisma.InputJsonValue> = z.union([
 
 export type InputJsonValueType = z.infer<typeof InputJsonValue>;
 
-// DECIMAL
-//------------------------------------------------------
-
-export const DecimalJSLikeSchema: z.ZodType<Prisma.DecimalJsLike> = z.object({ d: z.array(z.number()), e: z.number(), s: z.number(), toFixed: z.function().args().returns(z.string()), });
-
-export const DecimalJSLikeListSchema: z.ZodType<Prisma.DecimalJsLike[]> = z.object({ d: z.array(z.number()), e: z.number(), s: z.number(), toFixed: z.function().args().returns(z.string()), }).array();
-
-export const DECIMAL_STRING_REGEX = /^[0-9.,e+-bxffo_cp]+$|Infinity|NaN/;
-
-export const isValidDecimalInput =
-  (v?: null | string | number | Prisma.DecimalJsLike): v is string | number | Prisma.DecimalJsLike => {
-    if (v === undefined || v === null) return false;
-    return (
-      (typeof v === 'object' && 'd' in v && 'e' in v && 's' in v && 'toFixed' in v) ||
-      (typeof v === 'string' && DECIMAL_STRING_REGEX.test(v)) ||
-      typeof v === 'number'
-    )
-  };
 
 /////////////////////////////////////////
 // ENUMS
@@ -72,7 +54,7 @@ export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]
 
 export const JsonNullValueInputSchema = z.enum(['JsonNull',]);
 
-export const LocationScalarFieldEnumSchema = z.enum(['id','googleId','latitude','longitude']);
+export const LocationScalarFieldEnumSchema = z.enum(['id','url']);
 
 export const PostScalarFieldEnumSchema = z.enum(['id','title','description','contact','location_id','author_id','as_PersonEndorsement_id']);
 
@@ -161,9 +143,7 @@ export type Post_category = z.infer<typeof Post_categorySchema>
 
 export const LocationSchema = z.object({
   id: z.number().int(),
-  googleId: z.string(),
-  latitude: z.union([z.number(),z.string(),DecimalJSLikeSchema,]).refine((v) => isValidDecimalInput(v), { message: "Field 'latitude' must be a Decimal. Location: ['Models', 'Location']",  }),
-  longitude: z.union([z.number(),z.string(),DecimalJSLikeSchema,]).refine((v) => isValidDecimalInput(v), { message: "Field 'longitude' must be a Decimal. Location: ['Models', 'Location']",  }),
+  url: z.string(),
 })
 
 export type Location = z.infer<typeof LocationSchema>
