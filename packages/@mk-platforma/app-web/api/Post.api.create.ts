@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
 import { PersonEndorsementOnly } from "../data/data.types"
 import {
+  LocationSchema,
   PostSchema,
   Post_asPersonEndorsementSchema,
   Post_categorySchema,
@@ -25,6 +26,7 @@ const Post_api_create = publicProcedure
           lastName: true,
           avatarStyle: true,
         }).optional(),
+        location_id: LocationSchema.shape.id.optional(),
       })
       .refine(input => {
         if (input.categories.some(({ label }) => label === "personEndorsement"))
@@ -35,7 +37,7 @@ const Post_api_create = publicProcedure
     await db.$transaction(async tx => {
       const post_created = await tx.post.create({
         data: {
-          ...shallowPick(input, "title", "description", "contact"),
+          ...shallowPick(input, "title", "description", "contact", "location_id"),
           author_id: 1,
           categories: {
             connect: input.categories,
