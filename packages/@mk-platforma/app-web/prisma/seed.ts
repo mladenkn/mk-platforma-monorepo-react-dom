@@ -40,14 +40,14 @@ async function seedCategories() {
 
 async function seedPosts(author_id: number) {
   const allPosts = generatePosts()
-  for (const post of allPosts) {
+  for (const input of allPosts) {
     await db.$transaction(async tx => {
       const post_created = await tx.post.create({
         data: {
-          ...shallowPick(post, "title", "description", "contact"),
+          ...shallowPick(input, "title", "description", "contact"),
           author_id,
           categories: {
-            connect: post.categories.map(label => ({ label })),
+            connect: input.categories.map(label => ({ label })),
           },
         },
         include: {
@@ -56,8 +56,8 @@ async function seedPosts(author_id: number) {
       })
       if (
         castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
-          post,
-          (post.categories as any).includes("personEndorsement")
+          input,
+          (input.categories as any).includes("personEndorsement")
         )
       ) {
         await tx.post.update({
@@ -68,7 +68,7 @@ async function seedPosts(author_id: number) {
             asPersonEndorsement: {
               create: {
                 postId: post_created.id,
-                ...shallowPick(post.asPersonEndorsement, "firstName", "lastName", "avatarStyle"),
+                ...shallowPick(input.asPersonEndorsement, "firstName", "lastName", "avatarStyle"),
               },
             },
           },
