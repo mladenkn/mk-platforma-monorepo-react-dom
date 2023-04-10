@@ -16,6 +16,9 @@ model Post {
   userId     Int
   authorId   Int
 
+  expert_firstName String?
+  expert_lastName  String?
+
   location   Location?  @relation(fields: [locationId], references: [id])
   images     Image[]
   comments   Comment[]
