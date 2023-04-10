@@ -9,7 +9,7 @@ type Props = {
   firstName: string
   lastName: string
   location?: string
-  skills: Post_expert["skills"]
+  skills: Post_expert["asPersonEndorsement"]["skills"]
 }
 
 export function Post_single_expert({ avatarStyle, firstName, lastName, location, skills }: Props) {

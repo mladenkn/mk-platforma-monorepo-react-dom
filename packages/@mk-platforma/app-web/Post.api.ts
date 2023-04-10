@@ -1,10 +1,24 @@
 import { z } from "zod"
-import { CategoryLabel, Category_zod } from "./data/data.types"
+import { CategoryLabel, Category_zod, PersonEndorsementOnly } from "./data/data.types"
 import { publicProcedure, router } from "./trpc.utils"
 import data from "./data/data.json"
+import { castIf } from "@mk-libs/common/common"
 
-function asWithCategories<TInput>(input: TInput) {
-  return input as typeof input & { categories: CategoryLabel[] }
+function casted<TInput>(input: TInput) {
+  return input as typeof input & { categories: CategoryLabel[]; title: string }
+}
+
+function mapPost(post: (typeof data.allPosts)[number]) {
+  const mapped = castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
+    post,
+    post.categories[0] === "personEndorsement"
+  )
+    ? {
+        ...post,
+        title: `${post.asPersonEndorsement.firstName} ${post.asPersonEndorsement.lastName}`,
+      }
+    : post
+  return casted(mapped)
 }
 
 const Post_api = router({
@@ -16,7 +30,7 @@ const Post_api = router({
     )
     .query(({ input }) =>
       data.allPosts
-        .map(p => asWithCategories(p.title ? p : { ...p, title: `${p.firstName} ${p.lastName}` }))
+        .map(mapPost)
         .filter(post =>
           input.categories
             ? input.categories.every(requiredCategory => post.categories.includes(requiredCategory))
@@ -33,9 +47,7 @@ const Post_api = router({
     .query(({ input }) => {
       const post = data.allPosts.find(post => post.id === input.id)
       if (!post) return post
-      return asWithCategories(
-        post.title ? post : { ...post, title: `${post.firstName} ${post.lastName}` }
-      )
+      return mapPost(post)
     }),
 })
 

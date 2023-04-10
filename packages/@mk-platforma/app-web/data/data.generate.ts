@@ -20,6 +20,7 @@ function data_common_generate() {
     ]),
     contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
     comments: generateArray(generateComment, faker.datatype.number({ min: 0, max: 7 })),
+    title: faker.lorem.words(),
   }
 }
 

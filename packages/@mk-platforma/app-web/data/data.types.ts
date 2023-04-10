@@ -32,6 +32,10 @@ export type Post_expert = Post_base & {
     | ["personEndorsement"]
     | ["personEndorsement", CategoryLabel]
     | ["personEndorsement", CategoryLabel, CategoryLabel]
+  asPersonEndorsement: PersonEndorsementOnly
+}
+
+export type PersonEndorsementOnly = {
   firstName: string
   lastName: string
   skills: {
