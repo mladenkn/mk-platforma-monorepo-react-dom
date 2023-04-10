@@ -2,6 +2,7 @@ import { Post_category_label, PrismaClient } from "@prisma/client"
 import generatePosts from "../data/data.generate"
 import { Api_ss } from "../trpc.router"
 import locations from "../data/data.locations.json"
+import { faker } from "@faker-js/faker"
 
 const db = new PrismaClient()
 
@@ -13,7 +14,8 @@ async function main() {
       avatarStyle: { background: "green", color: "white" },
     },
   })
-  await seedLocations()
+  const locations = await seedLocations()
+  await seedPosts(locations.map(l => l.id))
 }
 
 async function seedCategories() {
@@ -39,12 +41,13 @@ async function upsertCategory(label: Post_category_label, parent_id?: number) {
   })
 }
 
-async function seedPosts() {
+async function seedPosts(locations: number[]) {
   const allPosts = generatePosts()
   for (const input of allPosts) {
     await Api_ss.post.create({
       ...input,
       categories: input.categories.map(label => ({ label })),
+      location_id: faker.helpers.arrayElement(locations),
     })
   }
 }
