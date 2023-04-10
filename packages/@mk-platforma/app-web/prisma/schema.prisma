@@ -8,22 +8,40 @@ datasource db {
 }
 
 model Post {
-  id         Int    @id @default(autoincrement())
-  title      String
-  content    String
-  contact    String
-  locationId Int?
-  userId     Int
-  authorId   Int
+  id                    Int    @id @default(autoincrement())
+  title                 String
+  content               String
+  contact               String
+  locationId            Int?
+  userId                Int
+  authorId              Int
+  asPersonEndorsementId Int?   @unique
 
-  expert_firstName String?
-  expert_lastName  String?
+  location            Location?                 @relation(fields: [locationId], references: [id])
+  images              Image[]
+  comments            Comment[]
+  categories          Category[]
+  author              User                      @relation(fields: [authorId], references: [id])
+  asPersonEndorsement Post_asPersonEndorsement? @relation(fields: [asPersonEndorsementId], references: [id])
+}
 
-  location   Location?  @relation(fields: [locationId], references: [id])
-  images     Image[]
-  comments   Comment[]
-  categories Category[]
-  author     User       @relation(fields: [authorId], references: [id])
+model Post_asPersonEndorsement {
+  id          Int    @id @default(autoincrement())
+  postId      Int    @unique
+  firstName   String
+  lastName    String
+  avatarStyle Json
+
+  post   Post?
+  skills Post_asPersonEndorsement_skill[]
+}
+
+model Post_asPersonEndorsement_skill {
+  id                         Int                       @id @default(autoincrement())
+  label                      String
+  level                      Int
+  post_asPersonEndorsement   Post_asPersonEndorsement? @relation(fields: [post_asPersonEndorsementId], references: [id])
+  post_asPersonEndorsementId Int?
 }
 
 enum CategoryLabel {
