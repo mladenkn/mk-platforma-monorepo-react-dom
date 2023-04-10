@@ -33,19 +33,14 @@ const Post_api_create = publicProcedure
           ...shallowPick(input, "title", "description", "contact"),
           author_id: 1,
           categories: {
-            connect: input.categories.map(({ label }) => ({
-              label,
-            })),
+            connect: input.categories,
           },
-        },
-        include: {
-          categories: true,
         },
       })
       if (
         castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
           input,
-          (input.categories as any).includes("personEndorsement")
+          input.categories.some(c => c.label === "personEndorsement")
         )
       ) {
         await tx.post.update({
