@@ -14,13 +14,12 @@ model Post {
   contact    String
   locationId Int?
   userId     Int
-  categoryId Int
 
-  location Location? @relation(fields: [locationId], references: [id])
-  images   Image[]
-  user     User      @relation(fields: [userId], references: [id])
-  comments Comment[]
-  category Category  @relation(fields: [categoryId], references: [id])
+  location   Location?  @relation(fields: [locationId], references: [id])
+  images     Image[]
+  user       User       @relation(fields: [userId], references: [id])
+  comments   Comment[]
+  categories Category[]
 }
 
 enum CategoryLabel {
@@ -39,6 +38,9 @@ model Category {
   label    CategoryLabel @unique
   parentId Int?
   posts    Post[]
+
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
 }
 
 model Location {
