@@ -1,8 +1,5 @@
-import { shallowPick } from "@mk-libs/common/common"
-import { Post_category_label, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import generatePosts from "../data/data.generate"
-import { PersonEndorsementOnly } from "../data/data.types"
-import { castIf } from "@mk-libs/common/common"
 import { Api_ss } from "../trpc.router"
 
 const db = new PrismaClient()
