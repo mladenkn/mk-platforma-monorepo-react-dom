@@ -72,11 +72,11 @@ model Post_category {
 }
 
 model Location {
-  id   Int    @id @default(autoincrement())
-  // googleId  String
-  // latitude  Decimal
-  // longitude Decimal
-  name String
+  id        Int     @id @default(autoincrement())
+  google_id String
+  latitude  Decimal
+  longitude Decimal
+  name      String
 
   post Post[]
 }
