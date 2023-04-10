@@ -12,7 +12,7 @@ async function main() {
       avatarStyle: { background: "green", color: "white" },
     },
   })
-  await seedPosts()
+  // await seedPosts()
 }
 
 async function seedCategories() {

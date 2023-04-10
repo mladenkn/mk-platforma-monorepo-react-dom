@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "ts": "tsc --noEmit",
-    "data.generate": "ts-node --compilerOptions '{ \"module\": \"commonjs\" }' ./data/data.generate.toFile.ts",
-    "prisma.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' prisma",
-    "prisma.seed": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' ts-node prisma/seed.ts",
-    "psql.dev": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'",
-    "postinstall": "pnpm prisma generate"
+    "data.generate": "_exe-ts ./data/data.generate.toFile.ts",
+    "db.prisma.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' prisma",
+    "db.prisma.seed": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts prisma/seed.ts",
+    "db.psql.dev": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'",
+    "postinstall": "pnpm prisma generate",
+    "playground.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts ./playground.ts",
+    "_exe-ts": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\"}\"  --transpile-only"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
