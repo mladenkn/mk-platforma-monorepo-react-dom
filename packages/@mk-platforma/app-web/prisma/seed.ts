@@ -68,9 +68,7 @@ async function seedPosts(author_id: number) {
             asPersonEndorsement: {
               create: {
                 postId: post_created.id,
-                firstName: post.asPersonEndorsement.firstName,
-                lastName: post.asPersonEndorsement.lastName,
-                avatarStyle: post.asPersonEndorsement.avatarStyle,
+                ...shallowPick(post.asPersonEndorsement, "firstName", "lastName", "avatarStyle"),
               },
             },
           },
