@@ -1,29 +1,46 @@
 import { z } from "zod"
-import { CategoryLabel, Category_zod, PersonEndorsementOnly } from "../data/data.types"
+import { CategoryLabel } from "../data/data.types"
 import { publicProcedure, router } from "../trpc.utils"
-import data from "../data/data.json"
-import { castIf } from "@mk-libs/common/common"
 import Post_api_create from "./Post.api.create"
-import { PrismaClient } from "@prisma/client"
+import { Prisma, PrismaClient } from "@prisma/client"
 import { Post_category_labelSchema } from "../prisma/generated/zod"
 import { assertIsNonNil } from "@mk-libs/common/common"
 
-function casted<TInput>(input: TInput) {
-  return input as typeof input & { categories: CategoryLabel[]; title: string }
-}
-
-function mapPost(post: (typeof data.allPosts)[number]) {
-  const mapped = castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
-    post,
-    post.categories[0] === "personEndorsement"
-  )
-    ? {
-        ...post,
-        title: `${post.asPersonEndorsement.firstName} ${post.asPersonEndorsement.lastName}`,
-      }
-    : post
-  return casted(mapped)
-}
+const Post_select = {
+  id: true,
+  title: true,
+  description: true,
+  contact: true,
+  location: {
+    select: {
+      name: true,
+    },
+  },
+  images: {
+    select: {
+      id: true,
+      url: true,
+    },
+  },
+  categories: {
+    select: {
+      label: true,
+    },
+  },
+  asPersonEndorsement: {
+    select: {
+      firstName: true,
+      lastName: true,
+      avatarStyle: true,
+      skills: {
+        select: {
+          label: true,
+          level: true,
+        },
+      },
+    },
+  },
+} satisfies Prisma.PostSelect
 
 const db = new PrismaClient()
 
@@ -43,41 +60,7 @@ const Post_api = router({
             },
           },
         },
-        select: {
-          id: true,
-          title: true,
-          description: true,
-          contact: true,
-          location: {
-            select: {
-              name: true,
-            },
-          },
-          images: {
-            select: {
-              id: true,
-              url: true,
-            },
-          },
-          categories: {
-            select: {
-              label: true,
-            },
-          },
-          asPersonEndorsement: {
-            select: {
-              firstName: true,
-              lastName: true,
-              avatarStyle: true,
-              skills: {
-                select: {
-                  label: true,
-                  level: true,
-                },
-              },
-            },
-          },
-        },
+        select: Post_select,
       })
       return posts.map(post => ({
         ...post,
@@ -95,41 +78,7 @@ const Post_api = router({
     .query(async ({ input }) => {
       const post = await db.post.findUnique({
         where: { id: input.id },
-        select: {
-          id: true,
-          title: true,
-          description: true,
-          contact: true,
-          location: {
-            select: {
-              name: true,
-            },
-          },
-          images: {
-            select: {
-              id: true,
-              url: true,
-            },
-          },
-          categories: {
-            select: {
-              label: true,
-            },
-          },
-          asPersonEndorsement: {
-            select: {
-              firstName: true,
-              lastName: true,
-              avatarStyle: true,
-              skills: {
-                select: {
-                  label: true,
-                  level: true,
-                },
-              },
-            },
-          },
-        },
+        select: Post_select,
       })
       assertIsNonNil(post)
       return {
