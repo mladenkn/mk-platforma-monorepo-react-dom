@@ -6,6 +6,12 @@ const db = new PrismaClient()
 
 async function main() {
   await seedCategories()
+  const user = await db.user.create({
+    data: {
+      name: "Mladen",
+    },
+  })
+  await seedPosts(user.id)
 }
 
 async function seedCategories() {
@@ -29,12 +35,12 @@ async function seedCategories() {
   })
 }
 
-async function seedPosts() {
+async function seedPosts(author_id: number) {
   const allPosts = generatePosts()
   await db.post.createMany({
     data: allPosts.map(post => ({
       ...shallowPick(post, "title", "description", "contact"),
-      author_id: 1,
+      author_id,
     })),
   })
 }
