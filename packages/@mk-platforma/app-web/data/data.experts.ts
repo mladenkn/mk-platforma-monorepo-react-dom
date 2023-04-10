@@ -15,6 +15,8 @@ export default function generateExpert() {
       `${firstName.toLowerCase()}.${lastName.toLowerCase()}@yahoo.com`,
     ]),
 
+    title: `${firstName} ${lastName}`,
+
     asPersonEndorsement: {
       firstName,
       lastName,
