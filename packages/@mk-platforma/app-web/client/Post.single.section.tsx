@@ -20,13 +20,14 @@ import CloseIcon from "@mui/icons-material/Close"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import { useState } from "react"
-import type { Post_base, Post_expert } from "../data/data.types"
+import type { Post_base } from "../data/data.types"
 import use_Post_form_base from "./Post.form.base"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoryDropdown from "./Categories.dropdown"
-import { asNonNil, castIf } from "@mk-libs/common/common"
+import { asNonNil } from "@mk-libs/common/common"
 import { Comment_listItem } from "./Comment.common"
 import SaveIcon from "@mui/icons-material/Save"
+import { isPersonEndorsement } from "../utils"
 
 export default function Post_single_section({ post_initial }: { post_initial: Post_base }) {
   const router = useRouter()
@@ -36,7 +37,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
   const [isEdit, setIsEdit] = useState(false)
 
   function renderAvatar() {
-    if (castIf<Post_expert>(post, post.categories[0] === "personEndorsement")) {
+    if (isPersonEndorsement(post)) {
       return (
         <Avatar
           sx={{ mr: 2, ...post.asPersonEndorsement.avatarStyle }}
@@ -94,8 +95,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
                 </Box>
               }
               afterDescription={
-                castIf<Post_expert>(post, post.categories.includes("personEndorsement")) &&
-                post.asPersonEndorsement.skills?.length ? (
+                isPersonEndorsement(post) && post.asPersonEndorsement.skills?.length ? (
                   <Box sx={{ mt: 4 }}>
                     <Box sx={{ display: "flex", alignItems: "start" }}>
                       <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />

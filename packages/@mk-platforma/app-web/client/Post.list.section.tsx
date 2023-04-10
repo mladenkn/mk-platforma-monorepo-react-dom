@@ -4,7 +4,7 @@ import { Post_single_listItem, Post_single_details } from "./Post.single"
 import { Post_single_expert } from "./Post.single.expert"
 import trpc from "./trpc"
 import type { CategoryLabel, Post_base } from "../data/data.types"
-import { castIf, castTo, shallowPick } from "@mk-libs/common/common"
+import { castTo, shallowPick } from "@mk-libs/common/common"
 import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
 import Categories_selector_aside from "./Categories.selector.aside"
@@ -12,6 +12,7 @@ import { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
+import { isPersonEndorsement } from "../utils"
 
 type Props = { selectedCategory: CategoryLabel; posts_initial: Post_base[] }
 
@@ -24,7 +25,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
   function render_title_left(item: Post_base) {
-    if (castIf<Post_expert>(item, item.categories[0] === "personEndorsement")) {
+    if (isPersonEndorsement(item)) {
       return (
         <Avatar
           sx={{ mr: 2, ...item.asPersonEndorsement.avatarStyle }}
