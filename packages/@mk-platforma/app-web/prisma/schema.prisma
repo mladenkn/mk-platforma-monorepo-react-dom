@@ -14,12 +14,13 @@ model Post {
   contact    String
   locationId Int?
   userId     Int
+  authorId   Int
 
   location   Location?  @relation(fields: [locationId], references: [id])
   images     Image[]
-  user       User       @relation(fields: [userId], references: [id])
   comments   Comment[]
   categories Category[]
+  author     User       @relation(fields: [authorId], references: [id])
 }
 
 enum CategoryLabel {
@@ -67,13 +68,14 @@ model Comment {
   postId   Int
 
   post   Post @relation(fields: [postId], references: [id])
-  auther User @relation(fields: [authorId], references: [id])
+  author User @relation(fields: [authorId], references: [id])
 }
 
 model User {
-  id   Int    @id @default(autoincrement())
-  name String
+  id          Int    @id @default(autoincrement())
+  name        String
+  avatarStyle Json
 
   comments Comment[]
-  Post     Post[]
+  posts    Post[]
 }

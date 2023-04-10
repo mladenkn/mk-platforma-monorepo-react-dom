@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client"
+import generatePosts from "../data/data.generate"
 
 const db = new PrismaClient()
 
@@ -27,7 +28,9 @@ async function seedCategories() {
   })
 }
 
-async function seedPosts() {}
+async function seedPosts() {
+  const allPosts = generatePosts()
+}
 
 main()
   .then(async () => {
