@@ -57,7 +57,7 @@ async function seedPosts(author_id: number) {
       if (
         castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
           post,
-          post.categories.includes("personEndorsement")
+          (post.categories as any).includes("personEndorsement")
         )
       ) {
         await tx.post.update({
