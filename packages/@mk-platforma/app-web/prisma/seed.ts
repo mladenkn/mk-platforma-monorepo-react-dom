@@ -50,13 +50,15 @@ async function seedPosts() {
 }
 
 async function seedLocations() {
-  for (const location of locations) {
-    await db.location.upsert({
-      where: { google_id: location.google_id },
-      create: location,
-      update: location,
-    })
-  }
+  return await Promise.all(
+    locations.map(location =>
+      db.location.upsert({
+        where: { google_id: location.google_id },
+        create: location,
+        update: location,
+      })
+    )
+  )
 }
 
 main()
