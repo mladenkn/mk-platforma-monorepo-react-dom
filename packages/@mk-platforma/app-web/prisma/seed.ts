@@ -39,7 +39,7 @@ async function seedCategories() {
 async function seedPosts() {
   const allPosts = generatePosts()
   for (const input of allPosts) {
-    Api_ss.post.create({
+    await Api_ss.post.create({
       ...input,
       categories: input.categories.map(label => ({ label })),
     })
