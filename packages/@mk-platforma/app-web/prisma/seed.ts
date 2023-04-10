@@ -13,7 +13,7 @@ async function main() {
       avatarStyle: { background: "green", color: "white" },
     },
   })
-  // await seedPosts()
+  await seedLocations()
 }
 
 async function seedCategories() {
@@ -57,9 +57,6 @@ async function seedLocations() {
       update: location,
     })
   }
-  await db.location.createMany({
-    data: locations,
-  })
 }
 
 main()
