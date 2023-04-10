@@ -48,13 +48,13 @@ export type InputJsonValueType = z.infer<typeof InputJsonValue>;
 // ENUMS
 /////////////////////////////////////////
 
-export const ImageScalarFieldEnumSchema = z.enum(['id','cloudinary_id','postId']);
+export const ImageScalarFieldEnumSchema = z.enum(['id','postId','url']);
 
 export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]);
 
 export const JsonNullValueInputSchema = z.enum(['JsonNull',]);
 
-export const LocationScalarFieldEnumSchema = z.enum(['id','url']);
+export const LocationScalarFieldEnumSchema = z.enum(['id','name']);
 
 export const PostScalarFieldEnumSchema = z.enum(['id','title','description','contact','location_id','author_id','as_PersonEndorsement_id']);
 
@@ -143,7 +143,7 @@ export type Post_category = z.infer<typeof Post_categorySchema>
 
 export const LocationSchema = z.object({
   id: z.number().int(),
-  url: z.string(),
+  name: z.string(),
 })
 
 export type Location = z.infer<typeof LocationSchema>
@@ -154,8 +154,8 @@ export type Location = z.infer<typeof LocationSchema>
 
 export const ImageSchema = z.object({
   id: z.number().int(),
-  cloudinary_id: z.string(),
   postId: z.number().int(),
+  url: z.string(),
 })
 
 export type Image = z.infer<typeof ImageSchema>
