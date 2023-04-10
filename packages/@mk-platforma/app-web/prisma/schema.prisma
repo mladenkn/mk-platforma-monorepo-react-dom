@@ -8,21 +8,21 @@ datasource db {
 }
 
 model Post {
-  id                    Int    @id @default(autoincrement())
-  title                 String
-  content               String
-  contact               String
-  locationId            Int?
-  userId                Int
-  authorId              Int
-  asPersonEndorsementId Int?   @unique
+  id                      Int    @id @default(autoincrement())
+  title                   String
+  content                 String
+  contact                 String
+  location_id             Int?
+  userId                  Int
+  author_id               Int
+  as_PersonEndorsement_id Int?   @unique
 
-  location            Location?                 @relation(fields: [locationId], references: [id])
+  location            Location?                 @relation(fields: [location_id], references: [id])
   images              Image[]
   comments            Post_comment[]
   categories          Post_category[]
-  author              User                      @relation(fields: [authorId], references: [id])
-  asPersonEndorsement Post_asPersonEndorsement? @relation(fields: [asPersonEndorsementId], references: [id])
+  author              User                      @relation(fields: [author_id], references: [id])
+  asPersonEndorsement Post_asPersonEndorsement? @relation(fields: [as_PersonEndorsement_id], references: [id])
 }
 
 model Post_asPersonEndorsement {
@@ -37,11 +37,11 @@ model Post_asPersonEndorsement {
 }
 
 model Post_asPersonEndorsement_skill {
-  id                         Int                       @id @default(autoincrement())
-  label                      String
-  level                      Int
-  post_asPersonEndorsement   Post_asPersonEndorsement? @relation(fields: [post_asPersonEndorsementId], references: [id])
-  post_asPersonEndorsementId Int?
+  id                      Int                       @id @default(autoincrement())
+  label                   String
+  level                   Int
+  as_PersonEndorsement    Post_asPersonEndorsement? @relation(fields: [as_PersonEndorsement_id], references: [id])
+  as_PersonEndorsement_id Int?
 }
 
 enum Post_category_label {
@@ -56,12 +56,12 @@ enum Post_category_label {
 }
 
 model Post_category {
-  id       Int                 @id @default(autoincrement())
-  label    Post_category_label @unique
-  parentId Int?
-  posts    Post[]
+  id        Int                 @id @default(autoincrement())
+  label     Post_category_label @unique
+  parent_id Int?
+  posts     Post[]
 
-  parent   Post_category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  parent   Post_category?  @relation("CategoryHierarchy", fields: [parent_id], references: [id])
   children Post_category[] @relation("CategoryHierarchy")
 }
 
@@ -75,9 +75,9 @@ model Location {
 }
 
 model Image {
-  id           Int    @id @default(autoincrement())
-  cloudinaryId String
-  postId       Int
+  id            Int    @id @default(autoincrement())
+  cloudinary_id String
+  postId        Int
 
   post Post @relation(fields: [postId], references: [id])
 }
