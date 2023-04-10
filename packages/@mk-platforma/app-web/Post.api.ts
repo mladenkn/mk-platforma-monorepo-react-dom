@@ -8,6 +8,19 @@ function casted<TInput>(input: TInput) {
   return input as typeof input & { categories: CategoryLabel[]; title: string }
 }
 
+function mapPost(post: (typeof data.allPosts)[number]) {
+  const mapped = castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
+    post,
+    post.categories[0] === "personEndorsement"
+  )
+    ? {
+        ...post,
+        title: `${post.asPersonEndorsement.firstName} ${post.asPersonEndorsement.lastName}`,
+      }
+    : post
+  return casted(mapped)
+}
+
 const Post_api = router({
   many: publicProcedure
     .input(
@@ -17,18 +30,7 @@ const Post_api = router({
     )
     .query(({ input }) =>
       data.allPosts
-        .map(post => {
-          const mapped = castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
-            post,
-            post.categories[0] === "personEndorsement"
-          )
-            ? {
-                ...post,
-                title: `${post.asPersonEndorsement.firstName} ${post.asPersonEndorsement.lastName}`,
-              }
-            : post
-          return casted(mapped)
-        })
+        .map(mapPost)
         .filter(post =>
           input.categories
             ? input.categories.every(requiredCategory => post.categories.includes(requiredCategory))
@@ -45,16 +47,7 @@ const Post_api = router({
     .query(({ input }) => {
       const post = data.allPosts.find(post => post.id === input.id)
       if (!post) return post
-      const mapped = castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
-        post,
-        post.categories[0] === "personEndorsement"
-      )
-        ? {
-            ...post,
-            title: `${post.asPersonEndorsement.firstName} ${post.asPersonEndorsement.lastName}`,
-          }
-        : post
-      return casted(mapped)
+      return mapPost(post)
     }),
 })
 
