@@ -26,8 +26,8 @@ const withRelatedProps = [
   },
 ]
 
-export default function generateGatherings(
-  item_getMoreData: () => Record<string, unknown> = () => ({})
+export default function generateGatherings<TMoreData>(
+  item_getMoreData: () => TMoreData = () => ({} as any)
 ) {
   return faker.helpers.shuffle(withRelatedProps).map(({ title }) => ({
     ...item_getMoreData(),

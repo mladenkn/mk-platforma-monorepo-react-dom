@@ -29,7 +29,9 @@ const jobs = [
   },
 ]
 
-export default function generateJobs(item_getMoreData: () => Record<string, unknown> = () => ({})) {
+export default function generateJobs<TMoreData>(
+  item_getMoreData: () => TMoreData = () => ({} as any)
+) {
   return faker.helpers.shuffle(jobs).map(({ title }) => ({
     ...item_getMoreData(),
     categories: ["job" as "job"],

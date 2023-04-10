@@ -14,8 +14,8 @@ const withRelatedProps = [
   },
 ]
 
-export default function generateAccomodations(
-  item_getMoreData: () => Record<string, unknown> = () => ({})
+export default function generateAccomodations<TMoreData>(
+  item_getMoreData: () => TMoreData = () => ({} as any)
 ) {
   return [...withRelatedProps, ...withRelatedProps].map(({ title }) => ({
     ...item_getMoreData(),

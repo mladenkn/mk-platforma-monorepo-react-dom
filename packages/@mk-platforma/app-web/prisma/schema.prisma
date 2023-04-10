@@ -10,10 +10,9 @@ datasource db {
 model Post {
   id                      Int    @id @default(autoincrement())
   title                   String
-  content                 String
+  description             String
   contact                 String
   location_id             Int?
-  userId                  Int
   author_id               Int
   as_PersonEndorsement_id Int?   @unique
 

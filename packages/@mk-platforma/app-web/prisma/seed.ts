@@ -1,3 +1,4 @@
+import { shallowPick } from "@mk-libs/common/common"
 import { PrismaClient } from "@prisma/client"
 import generatePosts from "../data/data.generate"
 
@@ -30,6 +31,12 @@ async function seedCategories() {
 
 async function seedPosts() {
   const allPosts = generatePosts()
+  await db.post.createMany({
+    data: allPosts.map(post => ({
+      ...shallowPick(post, "title", "description", "contact"),
+      author_id: 1,
+    })),
+  })
 }
 
 main()
