@@ -17,13 +17,11 @@ async function main() {
 }
 
 async function seedCategories() {
-  const rootCategories: Post_category_label[] = [
-    "job",
-    "accommodation",
-    "personEndorsement",
-    "sellable",
-  ]
-  await Promise.all(rootCategories.map(upsertCategory))
+  await upsertCategory("job")
+  await upsertCategory("accommodation")
+  await upsertCategory("personEndorsement")
+  await upsertCategory("sellable")
+
   const gathering = await upsertCategory("gathering")
 
   await Promise.all([
