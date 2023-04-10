@@ -1,29 +1,29 @@
 import { shallowPick, castIf } from "@mk-libs/common/common"
-import { Post_category_label, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
 import { PersonEndorsementOnly } from "../data/data.types"
+import {
+  PostSchema,
+  Post_asPersonEndorsementSchema,
+  Post_categorySchema,
+} from "../prisma/generated/zod"
 import { publicProcedure } from "../trpc.utils"
 
 const db = new PrismaClient()
 
 const Post_api_create = publicProcedure
   .input(
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      contact: z.string(),
-      categories: z.array(
-        z.object({
-          label: z.string(),
-        })
-      ),
-      asPersonEndorsement: z
-        .object({
-          firstName: z.string(),
-          lastName: z.string(),
-          avatarStyle: z.object({}),
-        })
-        .optional(),
+    PostSchema.pick({
+      title: true,
+      description: true,
+      contact: true,
+    }).extend({
+      categories: z.array(Post_categorySchema.pick({ label: true })),
+      asPersonEndorsement: Post_asPersonEndorsementSchema.pick({
+        firstName: true,
+        lastName: true,
+        avatarStyle: true,
+      }).optional(),
     })
   )
   .mutation(async ({ ctx, input }) => {
@@ -33,8 +33,8 @@ const Post_api_create = publicProcedure
           ...shallowPick(input, "title", "description", "contact"),
           author_id: 1,
           categories: {
-            connect: input.categories.map(label => ({
-              label: label as any as Post_category_label,
+            connect: input.categories.map(({ label }) => ({
+              label,
             })),
           },
         },
