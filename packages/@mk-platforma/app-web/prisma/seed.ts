@@ -1,6 +1,7 @@
-import { PrismaClient } from "@prisma/client"
+import { Post_category_label, PrismaClient } from "@prisma/client"
 import generatePosts from "../data/data.generate"
 import { Api_ss } from "../trpc.router"
+import locations from "../data/data.locations.json"
 
 const db = new PrismaClient()
 
@@ -16,23 +17,30 @@ async function main() {
 }
 
 async function seedCategories() {
-  await db.post_category.createMany({
-    data: [
-      { label: "job" },
-      { label: "accommodation" },
-      { label: "personEndorsement" },
-      { label: "sellable" },
-    ],
-  })
-  const gathering = await db.post_category.create({
-    data: { label: "gathering" },
-  })
-  await db.post_category.createMany({
-    data: [
-      { label: "gathering_spirituality", parent_id: gathering.id },
-      { label: "gathering_work", parent_id: gathering.id },
-      { label: "gathering_hangout", parent_id: gathering.id },
-    ],
+  const rootCategories: Post_category_label[] = [
+    "job",
+    "accommodation",
+    "personEndorsement",
+    "sellable",
+  ]
+  await Promise.all(
+    rootCategories.map(upsertCategory)
+  )
+  
+  const gathering = await upsertCategory("gathering")
+  
+  await Promise.all([
+    upsertCategory("gathering_spirituality", gathering.id),
+    upsertCategory("gathering_work", gathering.id),
+    upsertCategory("gathering_hangout", gathering.id),
+  ])
+}
+
+async function upsertCategory(label: Post_category_label, parent_id?: number){
+  await return db.post_category.upsert({
+    where: { label },
+    create: { label, parent_id },
+    update: { label, parent_id },
   })
 }
 
@@ -44,6 +52,12 @@ async function seedPosts() {
       categories: input.categories.map(label => ({ label })),
     })
   }
+}
+
+async function seedLocations() {
+  await db.location.createMany({
+    data: locations,
+  })
 }
 
 main()
