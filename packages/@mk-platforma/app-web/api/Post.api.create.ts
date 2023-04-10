@@ -6,6 +6,7 @@ import {
   ImageSchema,
   PostSchema,
   Post_asPersonEndorsementSchema,
+  Post_asPersonEndorsement_skillSchema,
   Post_categorySchema,
 } from "../prisma/generated/zod"
 import { publicProcedure } from "../trpc.utils"
@@ -26,7 +27,18 @@ const Post_api_create = publicProcedure
           firstName: true,
           lastName: true,
           avatarStyle: true,
-        }).optional(),
+        })
+          .extend({
+            skills: z
+              .array(
+                Post_asPersonEndorsement_skillSchema.pick({
+                  label: true,
+                  level: true,
+                })
+              )
+              .optional(),
+          })
+          .optional(),
         images: z.array(ImageSchema.shape.id).optional(),
       })
       .refine(input => {
@@ -64,6 +76,12 @@ const Post_api_create = publicProcedure
               create: {
                 postId: post_created.id,
                 ...shallowPick(input.asPersonEndorsement, "firstName", "lastName", "avatarStyle"),
+                skills: {
+                  create: input.asPersonEndorsement.skills?.map(({ label, level }) => ({
+                    label,
+                    level,
+                  })),
+                },
               },
             },
           },
