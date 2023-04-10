@@ -3,6 +3,7 @@ import { CategoryLabel, Category_zod, PersonEndorsementOnly } from "../data/data
 import { publicProcedure, router } from "../trpc.utils"
 import data from "../data/data.json"
 import { castIf } from "@mk-libs/common/common"
+import Post_api_create from "./Post.api.create"
 
 function casted<TInput>(input: TInput) {
   return input as typeof input & { categories: CategoryLabel[]; title: string }
@@ -49,6 +50,8 @@ const Post_api = router({
       if (!post) return post
       return mapPost(post)
     }),
+
+  create: Post_api_create,
 })
 
 export default Post_api

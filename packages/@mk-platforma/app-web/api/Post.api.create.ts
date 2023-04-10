@@ -62,3 +62,5 @@ const Post_api_create = publicProcedure
       }
     })
   })
+
+export default Post_api_create
