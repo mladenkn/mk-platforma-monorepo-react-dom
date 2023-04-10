@@ -1,6 +1,8 @@
 import { shallowPick } from "@mk-libs/common/common"
 import { PrismaClient } from "@prisma/client"
 import generatePosts from "../data/data.generate"
+import { PersonEndorsementOnly } from "../data/data.types"
+import { castIf } from "@mk-libs/common/common"
 
 const db = new PrismaClient()
 
@@ -38,12 +40,29 @@ async function seedCategories() {
 
 async function seedPosts(author_id: number) {
   const allPosts = generatePosts()
-  await db.post.createMany({
-    data: allPosts.map(post => ({
-      ...shallowPick(post, "title", "description", "contact"),
-      author_id,
-    })),
-  })
+  for (const post of allPosts) {
+    await db.post.create({
+      data: {
+        ...shallowPick(post, "title", "description", "contact"),
+        author_id,
+        categories: {
+          connect: post.categories.map(label => ({ label })),
+        },
+        asPersonEndorsement: castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
+          post,
+          post.categories.includes("personEndorsement")
+        )
+          ? {
+              create: {
+                firstName: post.asPersonEndorsement.firstName,
+                lastName: post.asPersonEndorsement.lastName,
+                avatarStyle: post.asPersonEndorsement.avatarStyle,
+              },
+            }
+          : undefined,
+      },
+    })
+  }
 }
 
 main()
