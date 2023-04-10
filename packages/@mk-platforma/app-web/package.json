@@ -9,7 +9,7 @@
     "ts": "tsc --noEmit",
     "data.generate": "_exe-ts ./data/data.generate.toFile.ts",
     "db.prisma.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' prisma",
-    "db.prisma.seed": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts prisma/seed.ts",
+    "db.prisma.dev.seed": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts prisma/seed.ts",
     "db.psql.dev": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'",
     "postinstall": "pnpm prisma generate",
     "playground.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts ./playground.ts",

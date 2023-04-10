@@ -23,12 +23,9 @@ async function seedCategories() {
     "personEndorsement",
     "sellable",
   ]
-  await Promise.all(
-    rootCategories.map(upsertCategory)
-  )
-  
+  await Promise.all(rootCategories.map(upsertCategory))
   const gathering = await upsertCategory("gathering")
-  
+
   await Promise.all([
     upsertCategory("gathering_spirituality", gathering.id),
     upsertCategory("gathering_work", gathering.id),
@@ -36,8 +33,8 @@ async function seedCategories() {
   ])
 }
 
-async function upsertCategory(label: Post_category_label, parent_id?: number){
-  await return db.post_category.upsert({
+async function upsertCategory(label: Post_category_label, parent_id?: number) {
+  return await db.post_category.upsert({
     where: { label },
     create: { label, parent_id },
     update: { label, parent_id },
@@ -55,6 +52,13 @@ async function seedPosts() {
 }
 
 async function seedLocations() {
+  for (const location of locations) {
+    await db.location.upsert({
+      where: { google_id: location.google_id },
+      create: location,
+      update: location,
+    })
+  }
   await db.location.createMany({
     data: locations,
   })
