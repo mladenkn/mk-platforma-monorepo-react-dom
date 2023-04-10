@@ -1,5 +1,4 @@
 import { z } from "zod"
-import { CategoryLabel } from "../data/data.types"
 import { publicProcedure, router } from "../trpc.utils"
 import Post_api_create from "./Post.api.create"
 import { Prisma, PrismaClient } from "@prisma/client"
