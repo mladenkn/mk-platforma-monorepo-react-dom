@@ -17,11 +17,13 @@ const Post_api_create = publicProcedure
           label: z.string(),
         })
       ),
-      asPersonEndorsement: z.object({
-        firstName: z.string(),
-        lastName: z.string(),
-        avatarStyle: z.object({}),
-      }),
+      asPersonEndorsement: z
+        .object({
+          firstName: z.string(),
+          lastName: z.string(),
+          avatarStyle: z.object({}),
+        })
+        .optional(),
     })
   )
   .mutation(async ({ ctx, input }) => {

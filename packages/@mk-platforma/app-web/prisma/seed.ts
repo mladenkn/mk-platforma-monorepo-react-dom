@@ -1,8 +1,9 @@
 import { shallowPick } from "@mk-libs/common/common"
-import { PrismaClient } from "@prisma/client"
+import { Post_category_label, PrismaClient } from "@prisma/client"
 import generatePosts from "../data/data.generate"
 import { PersonEndorsementOnly } from "../data/data.types"
 import { castIf } from "@mk-libs/common/common"
+import { Api_ss } from "../trpc.router"
 
 const db = new PrismaClient()
 
@@ -41,39 +42,9 @@ async function seedCategories() {
 async function seedPosts(author_id: number) {
   const allPosts = generatePosts()
   for (const input of allPosts) {
-    await db.$transaction(async tx => {
-      const post_created = await tx.post.create({
-        data: {
-          ...shallowPick(input, "title", "description", "contact"),
-          author_id,
-          categories: {
-            connect: input.categories.map(label => ({ label })),
-          },
-        },
-        include: {
-          categories: true,
-        },
-      })
-      if (
-        castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
-          input,
-          (input.categories as any).includes("personEndorsement")
-        )
-      ) {
-        await tx.post.update({
-          where: {
-            id: post_created.id,
-          },
-          data: {
-            asPersonEndorsement: {
-              create: {
-                postId: post_created.id,
-                ...shallowPick(input.asPersonEndorsement, "firstName", "lastName", "avatarStyle"),
-              },
-            },
-          },
-        })
-      }
+    Api_ss.post.create({
+      ...input,
+      categories: input.categories.map(label => ({ label })),
     })
   }
 }
