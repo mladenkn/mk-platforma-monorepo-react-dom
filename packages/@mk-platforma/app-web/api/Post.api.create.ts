@@ -1,5 +1,5 @@
 import { shallowPick, castIf } from "@mk-libs/common/common"
-import { Post_category_label, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
 import { PersonEndorsementOnly } from "../data/data.types"
 import {
@@ -27,9 +27,8 @@ const Post_api_create = publicProcedure
         }).optional(),
       })
       .refine(input => {
-        if (input.categories.some(({ label }) => label === "personEndorsement")) {
+        if (input.categories.some(({ label }) => label === "personEndorsement"))
           return !!input.asPersonEndorsement
-        }
       })
   )
   .mutation(async ({ ctx, input }) => {
