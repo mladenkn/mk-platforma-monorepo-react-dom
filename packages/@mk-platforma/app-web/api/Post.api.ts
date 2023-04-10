@@ -1,7 +1,7 @@
 import { z } from "zod"
-import { CategoryLabel, Category_zod, PersonEndorsementOnly } from "./data/data.types"
-import { publicProcedure, router } from "./trpc.utils"
-import data from "./data/data.json"
+import { CategoryLabel, Category_zod, PersonEndorsementOnly } from "../data/data.types"
+import { publicProcedure, router } from "../trpc.utils"
+import data from "../data/data.json"
 import { castIf } from "@mk-libs/common/common"
 
 function casted<TInput>(input: TInput) {
