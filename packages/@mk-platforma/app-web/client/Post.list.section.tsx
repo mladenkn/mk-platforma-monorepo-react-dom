@@ -4,7 +4,7 @@ import { Post_single_listItem, Post_single_details } from "./Post.single"
 import { Post_single_expert } from "./Post.single.expert"
 import trpc from "./trpc"
 import type { CategoryLabel, Post_base } from "../data/data.types"
-import { castIf, eva } from "@mk-libs/common/common"
+import { castIf, castTo, shallowPick } from "@mk-libs/common/common"
 import { Post_expert } from "../data/data.types"
 import { Comment_listItem } from "./Comment.common"
 import Categories_selector_aside from "./Categories.selector.aside"
@@ -27,8 +27,8 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
     if (castIf<Post_expert>(item, item.categories[0] === "personEndorsement")) {
       return (
         <Avatar
-          sx={{ mr: 2, ...item.avatarStyle }}
-          children={item.firstName[0] + item.lastName[0]}
+          sx={{ mr: 2, ...item.asPersonEndorsement.avatarStyle }}
+          children={item.asPersonEndorsement.firstName[0] + item.asPersonEndorsement.lastName[0]}
         />
       )
     }
@@ -90,7 +90,19 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 item.categories[0] // ~ ?
               ) {
                 case "personEndorsement":
-                  return <Post_single_expert {...(item as Post_expert)} />
+                  castTo<Post_expert>(item)
+                  return (
+                    <Post_single_expert
+                      {...shallowPick(
+                        item.asPersonEndorsement,
+                        "firstName",
+                        "lastName",
+                        "skills",
+                        "avatarStyle"
+                      )}
+                      location={item.location}
+                    />
+                  )
                 default:
                   return <Post_single_listItem {...item} />
               }

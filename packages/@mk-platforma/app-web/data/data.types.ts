@@ -32,11 +32,13 @@ export type Post_expert = Post_base & {
     | ["personEndorsement"]
     | ["personEndorsement", CategoryLabel]
     | ["personEndorsement", CategoryLabel, CategoryLabel]
-  firstName: string
-  lastName: string
-  skills: {
-    label: string
-    level: 1 | 2 | 3 | 4 | 5
-  }[]
-  avatarStyle: Record<string, string>
+  asPersonEndorsement: {
+    firstName: string
+    lastName: string
+    skills: {
+      label: string
+      level: 1 | 2 | 3 | 4 | 5
+    }[]
+    avatarStyle: Record<string, string>
+  }
 }

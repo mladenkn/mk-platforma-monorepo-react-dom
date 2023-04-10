@@ -39,8 +39,8 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
     if (castIf<Post_expert>(post, post.categories[0] === "personEndorsement")) {
       return (
         <Avatar
-          sx={{ mr: 2, ...post.avatarStyle }}
-          children={post.firstName[0] + post.lastName[0]}
+          sx={{ mr: 2, ...post.asPersonEndorsement.avatarStyle }}
+          children={post.asPersonEndorsement.firstName[0] + post.asPersonEndorsement.lastName[0]}
         />
       )
     }
@@ -95,12 +95,12 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
               }
               afterDescription={
                 castIf<Post_expert>(post, post.categories.includes("personEndorsement")) &&
-                post.skills?.length ? (
+                post.asPersonEndorsement.skills?.length ? (
                   <Box sx={{ mt: 4 }}>
                     <Box sx={{ display: "flex", alignItems: "start" }}>
                       <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
                       <Box>
-                        {post.skills.map(s => (
+                        {post.asPersonEndorsement.skills.map(s => (
                           <Typography key={s.label}>
                             {s.label}
                             {` `}({s.level}/5)
