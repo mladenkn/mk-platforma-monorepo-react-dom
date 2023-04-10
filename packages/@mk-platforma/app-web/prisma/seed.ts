@@ -9,13 +9,14 @@ async function main() {
   const user = await db.user.create({
     data: {
       name: "Mladen",
+      avatarStyle: { background: "green", color: "white" },
     },
   })
   await seedPosts(user.id)
 }
 
 async function seedCategories() {
-  await db.category.createMany({
+  await db.post_category.createMany({
     data: [
       { label: "job" },
       { label: "accommodation" },
@@ -23,14 +24,14 @@ async function seedCategories() {
       { label: "sellable" },
     ],
   })
-  const gathering = await db.category.create({
+  const gathering = await db.post_category.create({
     data: { label: "gathering" },
   })
-  await db.category.createMany({
+  await db.post_category.createMany({
     data: [
-      { label: "gathering_spirituality", parentId: gathering.id },
-      { label: "gathering_work", parentId: gathering.id },
-      { label: "gathering_hangout", parentId: gathering.id },
+      { label: "gathering_spirituality", parent_id: gathering.id },
+      { label: "gathering_work", parent_id: gathering.id },
+      { label: "gathering_hangout", parent_id: gathering.id },
     ],
   })
 }
