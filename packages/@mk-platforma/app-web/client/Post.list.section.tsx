@@ -24,12 +24,15 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
-  function render_title_left(item: Post_base) {
-    if (isPersonEndorsement(item)) {
+  function render_title_left(item: Omit<Post_base, "comments">) {
+    if (isPersonEndorsement(item as any)) {
       return (
         <Avatar
-          sx={{ mr: 2, ...item.asPersonEndorsement.avatarStyle }}
-          children={item.asPersonEndorsement.firstName[0] + item.asPersonEndorsement.lastName[0]}
+          sx={{ mr: 2, ...(item as any).asPersonEndorsement.avatarStyle }}
+          children={
+            (item as any).asPersonEndorsement.firstName[0] +
+            (item as any).asPersonEndorsement.lastName[0]
+          }
         />
       )
     }
@@ -95,13 +98,13 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                   return (
                     <Post_single_expert
                       {...shallowPick(
-                        item.asPersonEndorsement,
+                        (item as any).asPersonEndorsement,
                         "firstName",
                         "lastName",
                         "skills",
                         "avatarStyle"
                       )}
-                      location={item.location}
+                      location={(item as any).location}
                     />
                   )
                 default:
@@ -109,14 +112,17 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
               }
             }}
             Item_details={item => (
-              <Box display="flex" flexDirection={item.comments?.length ? "row" : "column"}>
-                <Post_single_details {...item} title_left={render_title_left(item)} />
+              <Box
+                display="flex"
+                flexDirection="column" /*flexDirection={item.comments?.length ? "row" : "column"}*/
+              >
+                <Post_single_details {...item} title_left={render_title_left(item as any)} />
                 <Box sx={{ mr: 2 }}>
                   <Box sx={{ borderRadius: 2, mt: 4, display: "flex", mb: 6 }}>
                     <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
                     <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
                   </Box>
-                  {item.comments?.length ? (
+                  {/* {item.comments?.length ? (
                     <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 3 }}>
                       {item.comments.map(comment => (
                         <Comment_listItem key={comment.id} comment={comment} />
@@ -124,7 +130,8 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                     </Box>
                   ) : (
                     <></>
-                  )}
+                  )} */}
+                  TODO: comments
                 </Box>
               </Box>
             )}

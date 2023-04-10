@@ -4,6 +4,8 @@ import { publicProcedure, router } from "../trpc.utils"
 import data from "../data/data.json"
 import { castIf } from "@mk-libs/common/common"
 import Post_api_create from "./Post.api.create"
+import { PrismaClient } from "@prisma/client"
+import { Post_category_labelSchema } from "../prisma/generated/zod"
 
 function casted<TInput>(input: TInput) {
   return input as typeof input & { categories: CategoryLabel[]; title: string }
@@ -22,22 +24,60 @@ function mapPost(post: (typeof data.allPosts)[number]) {
   return casted(mapped)
 }
 
+const db = new PrismaClient()
+
 const Post_api = router({
   many: publicProcedure
     .input(
       z.object({
-        categories: z.array(Category_zod).optional(),
+        categories: z.array(Post_category_labelSchema).optional(),
       })
     )
-    .query(({ input }) =>
-      data.allPosts
-        .map(mapPost)
-        .filter(post =>
-          input.categories
-            ? input.categories.every(requiredCategory => post.categories.includes(requiredCategory))
-            : true
-        )
-    ),
+    .query(async ({ input }) => {
+      const posts = await db.post.findMany({
+        where: {
+          categories: input.categories && {
+            some: {
+              label: input.categories[0],
+            },
+          },
+        },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          contact: true,
+          location: {
+            select: {
+              name: true,
+            },
+          },
+          images: {
+            select: {
+              id: true,
+              url: true,
+            },
+          },
+          categories: {
+            select: {
+              label: true,
+            },
+          },
+          asPersonEndorsement: {
+            select: {
+              firstName: true,
+              lastName: true,
+              avatarStyle: true,
+            },
+          },
+        },
+      })
+      return posts.map(post => ({
+        ...post,
+        location: post.location?.name,
+        categories: post.categories.map(({ label }) => label),
+      }))
+    }),
 
   single: publicProcedure
     .input(

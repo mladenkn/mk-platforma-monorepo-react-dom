@@ -37,11 +37,14 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
   const [isEdit, setIsEdit] = useState(false)
 
   function renderAvatar() {
-    if (isPersonEndorsement(post)) {
+    if (isPersonEndorsement(post as any)) {
       return (
         <Avatar
-          sx={{ mr: 2, ...post.asPersonEndorsement.avatarStyle }}
-          children={post.asPersonEndorsement.firstName[0] + post.asPersonEndorsement.lastName[0]}
+          sx={{ mr: 2, ...(post as any).asPersonEndorsement.avatarStyle }}
+          children={
+            (post as any).asPersonEndorsement.firstName[0] +
+            (post as any).asPersonEndorsement.lastName[0]
+          }
         />
       )
     }
@@ -95,12 +98,13 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
                 </Box>
               }
               afterDescription={
-                isPersonEndorsement(post) && post.asPersonEndorsement.skills?.length ? (
+                isPersonEndorsement(post as any) &&
+                (post as any).asPersonEndorsement.skills?.length ? (
                   <Box sx={{ mt: 4 }}>
                     <Box sx={{ display: "flex", alignItems: "start" }}>
                       <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
                       <Box>
-                        {post.asPersonEndorsement.skills.map(s => (
+                        {(post as any).asPersonEndorsement.skills.map((s: any) => (
                           <Typography key={s.label}>
                             {s.label}
                             {` `}({s.level}/5)
