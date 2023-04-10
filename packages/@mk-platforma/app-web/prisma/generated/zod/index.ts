@@ -91,9 +91,9 @@ export const PostSchema = z.object({
   title: z.string(),
   description: z.string(),
   contact: z.string(),
-  location_id: z.number().int().nullable(),
+  location_id: z.number().int().nullish(),
   author_id: z.number().int(),
-  as_PersonEndorsement_id: z.number().int().nullable(),
+  as_PersonEndorsement_id: z.number().int().nullish(),
 })
 
 export type Post = z.infer<typeof PostSchema>
@@ -120,7 +120,7 @@ export const Post_asPersonEndorsement_skillSchema = z.object({
   id: z.number().int(),
   label: z.string(),
   level: z.number().int(),
-  as_PersonEndorsement_id: z.number().int().nullable(),
+  as_PersonEndorsement_id: z.number().int().nullish(),
 })
 
 export type Post_asPersonEndorsement_skill = z.infer<typeof Post_asPersonEndorsement_skillSchema>
@@ -132,7 +132,7 @@ export type Post_asPersonEndorsement_skill = z.infer<typeof Post_asPersonEndorse
 export const Post_categorySchema = z.object({
   label: Post_category_labelSchema,
   id: z.number().int(),
-  parent_id: z.number().int().nullable(),
+  parent_id: z.number().int().nullish(),
 })
 
 export type Post_category = z.infer<typeof Post_categorySchema>
