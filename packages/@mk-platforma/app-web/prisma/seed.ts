@@ -6,13 +6,13 @@ const db = new PrismaClient()
 
 async function main() {
   await seedCategories()
-  const user = await db.user.create({
+  await db.user.create({
     data: {
       name: "Mladen",
       avatarStyle: { background: "green", color: "white" },
     },
   })
-  await seedPosts(user.id)
+  await seedPosts()
 }
 
 async function seedCategories() {
@@ -36,7 +36,7 @@ async function seedCategories() {
   })
 }
 
-async function seedPosts(author_id: number) {
+async function seedPosts() {
   const allPosts = generatePosts()
   for (const input of allPosts) {
     Api_ss.post.create({
