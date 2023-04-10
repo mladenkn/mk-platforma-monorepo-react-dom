@@ -41,26 +41,41 @@ async function seedCategories() {
 async function seedPosts(author_id: number) {
   const allPosts = generatePosts()
   for (const post of allPosts) {
-    await db.post.create({
-      data: {
-        ...shallowPick(post, "title", "description", "contact"),
-        author_id,
-        categories: {
-          connect: post.categories.map(label => ({ label })),
+    await db.$transaction(async tx => {
+      const post_created = await tx.post.create({
+        data: {
+          ...shallowPick(post, "title", "description", "contact"),
+          author_id,
+          categories: {
+            connect: post.categories.map(label => ({ label })),
+          },
         },
-        asPersonEndorsement: castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
+        include: {
+          categories: true,
+        },
+      })
+      if (
+        castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
           post,
           post.categories.includes("personEndorsement")
         )
-          ? {
+      ) {
+        await tx.post.update({
+          where: {
+            id: post_created.id,
+          },
+          data: {
+            asPersonEndorsement: {
               create: {
+                postId: post_created.id,
                 firstName: post.asPersonEndorsement.firstName,
                 lastName: post.asPersonEndorsement.lastName,
                 avatarStyle: post.asPersonEndorsement.avatarStyle,
               },
-            }
-          : undefined,
-      },
+            },
+          },
+        })
+      }
     })
   }
 }
