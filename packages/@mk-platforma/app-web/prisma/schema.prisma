@@ -12,11 +12,11 @@ model Post {
   title      String
   content    String
   contact    String
-  locationId Int
+  locationId Int?
   userId     Int
   categoryId Int
 
-  location Location  @relation(fields: [locationId], references: [id])
+  location Location? @relation(fields: [locationId], references: [id])
   images   Image[]
   user     User      @relation(fields: [userId], references: [id])
   comments Comment[]
