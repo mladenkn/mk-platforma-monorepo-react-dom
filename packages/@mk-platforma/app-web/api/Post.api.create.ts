@@ -32,6 +32,7 @@ const Post_api_create = publicProcedure
       .refine(input => {
         if (input.categories.some(({ label }) => label === "personEndorsement"))
           return !!input.asPersonEndorsement
+        return true
       })
   )
   .mutation(async ({ ctx, input }) => {

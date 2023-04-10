@@ -15,7 +15,17 @@ async function main() {
     },
   })
   const locations = await seedLocations()
-  await seedPosts(locations.map(l => l.id))
+
+  if ((await db.post.count({})) === 0) {
+    const posts_notCreated = generatePosts()
+    const posts_notCreated_withSavedImages = await posts_notCreated_map_withSaveImages(
+      posts_notCreated
+    )
+    await seedPosts(
+      posts_notCreated_withSavedImages,
+      locations.map(l => l.id)
+    )
+  }
 }
 
 async function seedCategories() {
@@ -53,13 +63,26 @@ async function seedLocations() {
   )
 }
 
-async function seedPosts(locations: number[]) {
-  const allPosts = generatePosts()
-  for (const input of allPosts) {
+type Post_unsaved = ReturnType<typeof generatePosts>[number] & { images?: { url: string }[] }
+async function posts_notCreated_map_withSaveImages(posts: Post_unsaved[]) {
+  return await Promise.all(
+    posts.map(async post => {
+      const images = await Promise.all(
+        (post.images || []).map(image => db.image.create({ data: { url: image.url } }))
+      )
+      return { ...post, images }
+    })
+  )
+}
+type Post_withSavedImages = Awaited<ReturnType<typeof posts_notCreated_map_withSaveImages>>[number]
+
+async function seedPosts(posts: Post_withSavedImages[], locations: number[]) {
+  for (const post of posts) {
     await Api_ss.post.create({
-      ...input,
-      categories: input.categories.map(label => ({ label })),
+      ...post,
+      categories: post.categories.map(label => ({ label })),
       location_id: faker.helpers.arrayElement(locations),
+      images: post.images.map(i => i.id),
     })
   }
 }
