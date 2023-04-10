@@ -6,6 +6,7 @@ import { castIf } from "@mk-libs/common/common"
 import Post_api_create from "./Post.api.create"
 import { PrismaClient } from "@prisma/client"
 import { Post_category_labelSchema } from "../prisma/generated/zod"
+import { assertIsNonNil } from "@mk-libs/common/common"
 
 function casted<TInput>(input: TInput) {
   return input as typeof input & { categories: CategoryLabel[]; title: string }
@@ -68,6 +69,12 @@ const Post_api = router({
               firstName: true,
               lastName: true,
               avatarStyle: true,
+              skills: {
+                select: {
+                  label: true,
+                  level: true,
+                },
+              },
             },
           },
         },
@@ -85,10 +92,51 @@ const Post_api = router({
         id: z.number(),
       })
     )
-    .query(({ input }) => {
-      const post = data.allPosts.find(post => post.id === input.id)
-      if (!post) return post
-      return mapPost(post)
+    .query(async ({ input }) => {
+      const post = await db.post.findUnique({
+        where: { id: input.id },
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          contact: true,
+          location: {
+            select: {
+              name: true,
+            },
+          },
+          images: {
+            select: {
+              id: true,
+              url: true,
+            },
+          },
+          categories: {
+            select: {
+              label: true,
+            },
+          },
+          asPersonEndorsement: {
+            select: {
+              firstName: true,
+              lastName: true,
+              avatarStyle: true,
+              skills: {
+                select: {
+                  label: true,
+                  level: true,
+                },
+              },
+            },
+          },
+        },
+      })
+      assertIsNonNil(post)
+      return {
+        ...post,
+        location: post.location?.name,
+        categories: post.categories.map(({ label }) => label),
+      }
     }),
 
   create: Post_api_create,
