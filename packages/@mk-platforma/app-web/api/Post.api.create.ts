@@ -3,6 +3,7 @@ import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
 import { PersonEndorsementOnly } from "../data/data.types"
 import {
+  ImageSchema,
   PostSchema,
   Post_asPersonEndorsementSchema,
   Post_categorySchema,
@@ -26,6 +27,7 @@ const Post_api_create = publicProcedure
           lastName: true,
           avatarStyle: true,
         }).optional(),
+        images: z.array(ImageSchema.shape.id).optional(),
       })
       .refine(input => {
         if (input.categories.some(({ label }) => label === "personEndorsement"))

@@ -41,17 +41,6 @@ async function upsertCategory(label: Post_category_label, parent_id?: number) {
   })
 }
 
-async function seedPosts(locations: number[]) {
-  const allPosts = generatePosts()
-  for (const input of allPosts) {
-    await Api_ss.post.create({
-      ...input,
-      categories: input.categories.map(label => ({ label })),
-      location_id: faker.helpers.arrayElement(locations),
-    })
-  }
-}
-
 async function seedLocations() {
   return await Promise.all(
     locations.map(location =>
@@ -62,6 +51,17 @@ async function seedLocations() {
       })
     )
   )
+}
+
+async function seedPosts(locations: number[]) {
+  const allPosts = generatePosts()
+  for (const input of allPosts) {
+    await Api_ss.post.create({
+      ...input,
+      categories: input.categories.map(label => ({ label })),
+      location_id: faker.helpers.arrayElement(locations),
+    })
+  }
 }
 
 main()
