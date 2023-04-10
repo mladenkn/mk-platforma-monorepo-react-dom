@@ -19,8 +19,8 @@ model Post {
 
   location            Location?                 @relation(fields: [locationId], references: [id])
   images              Image[]
-  comments            Comment[]
-  categories          Category[]
+  comments            Post_comment[]
+  categories          Post_category[]
   author              User                      @relation(fields: [authorId], references: [id])
   asPersonEndorsement Post_asPersonEndorsement? @relation(fields: [asPersonEndorsementId], references: [id])
 }
@@ -44,7 +44,7 @@ model Post_asPersonEndorsement_skill {
   post_asPersonEndorsementId Int?
 }
 
-enum CategoryLabel {
+enum Post_category_label {
   job
   accommodation
   personEndorsement
@@ -55,14 +55,14 @@ enum CategoryLabel {
   gathering_hangout
 }
 
-model Category {
-  id       Int           @id @default(autoincrement())
-  label    CategoryLabel @unique
+model Post_category {
+  id       Int                 @id @default(autoincrement())
+  label    Post_category_label @unique
   parentId Int?
   posts    Post[]
 
-  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
-  children Category[] @relation("CategoryHierarchy")
+  parent   Post_category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Post_category[] @relation("CategoryHierarchy")
 }
 
 model Location {
@@ -82,7 +82,7 @@ model Image {
   post Post @relation(fields: [postId], references: [id])
 }
 
-model Comment {
+model Post_comment {
   id       Int    @id @default(autoincrement())
   content  String
   authorId Int
@@ -97,6 +97,6 @@ model User {
   name        String
   avatarStyle Json
 
-  comments Comment[]
+  comments Post_comment[]
   posts    Post[]
 }
