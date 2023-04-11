@@ -101,7 +101,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
                       <Box sx={{ display: "flex", alignItems: "start" }}>
                         <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
                         <Box>
-                          {(post as any).asPersonEndorsement.skills.map((s: any) => (
+                          {(post as Post_expert).asPersonEndorsement.skills.map(s => (
                             <Typography key={s.label}>
                               {s.label}
                               {` `}({s.level}/5)
