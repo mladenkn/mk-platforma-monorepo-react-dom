@@ -9,12 +9,12 @@ import {
 } from "@mui/material"
 import { CategoryIcon, getCategoryLabel, allCategories } from "./Categories.common"
 import { ReactElement } from "react"
-import type { CategoryLabel } from "../data/data.types"
+import type { Post_category_labelType } from "../prisma/generated/zod"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
-  value?: CategoryLabel
-  onChange(event: any, c?: CategoryLabel): void
+  value?: Post_category_labelType
+  onChange(event: any, c?: Post_category_labelType): void
 }
 
 export default function CategoryDropdown({

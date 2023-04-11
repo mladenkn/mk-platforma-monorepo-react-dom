@@ -3,15 +3,16 @@ import Post_list_base from "./Post.list.base"
 import { Post_single_listItem, Post_single_details } from "./Post.single"
 import { Post_single_expert } from "./Post.single.expert"
 import trpc from "./trpc"
-import type { CategoryLabel, Post_base } from "../data/data.types"
-import { castTo, shallowPick } from "@mk-libs/common/common"
+import type { Post_base } from "../data/data.types"
+import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
+import type { Post_category_labelType } from "../prisma/generated/zod"
 
-type Props = { selectedCategory: CategoryLabel; posts_initial: Post_base[] }
+type Props = { selectedCategory: Post_category_labelType; posts_initial: Post_base[] }
 
 export default function PostList_section({ selectedCategory, posts_initial }: Props) {
   const posts = trpc.post.many.useQuery(

@@ -8,11 +8,11 @@ import {
   Box,
   Typography,
 } from "@mui/material"
-import { CategoryLabel } from "../data/data.types"
+import type { Post_category_labelType } from "../prisma/generated/zod"
 import { allCategories, getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 
-type Props = { selectedItem?: CategoryLabel }
+type Props = { selectedItem?: Post_category_labelType }
 
 export default function Categories_selector_aside({ selectedItem }: Props) {
   const { palette, typography } = useTheme()

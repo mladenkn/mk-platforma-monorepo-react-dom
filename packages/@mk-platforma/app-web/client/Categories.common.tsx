@@ -1,13 +1,12 @@
-import type { CategoryLabel } from "../data/data.types"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import BedIcon from "@mui/icons-material/Bed"
 import EngineeringIcon from "@mui/icons-material/Engineering"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
-import { SxProps } from "@mui/material"
 import { ComponentProps } from "react"
+import type { Post_category_labelType } from "../prisma/generated/zod"
 
-export function getCategoryLabel(category: CategoryLabel) {
+export function getCategoryLabel(category: Post_category_labelType) {
   switch (category) {
     case "accommodation":
       return "Smještaji"
@@ -33,7 +32,7 @@ export function getCategoryLabel(category: CategoryLabel) {
 export function CategoryIcon({
   name,
   ...otherProps
-}: { name: CategoryLabel } & ComponentProps<typeof BedIcon>) {
+}: { name: Post_category_labelType } & ComponentProps<typeof BedIcon>) {
   switch (name) {
     case "accommodation":
       return <BedIcon {...otherProps} />
@@ -56,7 +55,7 @@ export function CategoryIcon({
   }
 }
 
-export const allCategories: CategoryLabel[] = [
+export const allCategories: Post_category_labelType[] = [
   "job",
   "accommodation",
   "gathering",

@@ -1,13 +1,13 @@
 import { Tabs, Tab, useTheme, TabProps, Popover, IconButton, SxProps } from "@mui/material"
 import Link from "next/link"
-import { CategoryLabel } from "../data/data.types"
+import type { Post_category_labelType } from "../prisma/generated/zod"
 import { getCategoryLabel, CategoryIcon, allCategories } from "./Categories.common"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 
 type Post_list_section_categories_tabs_props = {
   sx?: SxProps
-  activeTab?: CategoryLabel
+  activeTab?: Post_category_labelType
 }
 
 export default function Categories_selector_tabs({
@@ -62,8 +62,8 @@ export default function Categories_selector_tabs({
 }
 
 type Categories_tabs_props = ComponentProps<typeof Tabs> & {
-  activeTab?: CategoryLabel
-  options: CategoryLabel[]
+  activeTab?: Post_category_labelType
+  options: Post_category_labelType[]
   children?: ReactNode
   tabProps?: Partial<ComponentProps<typeof Tab>>
 }
