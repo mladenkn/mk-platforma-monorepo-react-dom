@@ -6,13 +6,11 @@ import trpc from "./trpc"
 import type { CategoryLabel, Post_base } from "../data/data.types"
 import { castTo, shallowPick } from "@mk-libs/common/common"
 import { Post_expert } from "../data/data.types"
-import { Comment_listItem } from "./Comment.common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
-import { isPersonEndorsement } from "../utils"
 
 type Props = { selectedCategory: CategoryLabel; posts_initial: Post_base[] }
 
@@ -25,14 +23,12 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
   function render_title_left(item: Omit<Post_base, "comments">) {
-    if (isPersonEndorsement(item as any)) {
+    if (item.categories.includes("personEndorsement")) {
+      castTo<Post_expert>(item)
       return (
         <Avatar
-          sx={{ mr: 2, ...(item as any).asPersonEndorsement.avatarStyle }}
-          children={
-            (item as any).asPersonEndorsement.firstName[0] +
-            (item as any).asPersonEndorsement.lastName[0]
-          }
+          sx={{ mr: 2, ...(item.asPersonEndorsement.avatarStyle as object) }}
+          children={item.asPersonEndorsement.firstName[0] + item.asPersonEndorsement.lastName[0]}
         />
       )
     }
@@ -97,14 +93,9 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                   castTo<Post_expert>(item)
                   return (
                     <Post_single_expert
-                      {...shallowPick(
-                        (item as any).asPersonEndorsement,
-                        "firstName",
-                        "lastName",
-                        "skills",
-                        "avatarStyle"
-                      )}
-                      location={(item as any).location}
+                      {...shallowPick(item.asPersonEndorsement, "firstName", "lastName", "skills")}
+                      avatarStyle={item.asPersonEndorsement.avatarStyle as any}
+                      location={item.location}
                     />
                   )
                 default:

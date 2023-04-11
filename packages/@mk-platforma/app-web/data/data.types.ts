@@ -42,5 +42,5 @@ export type PersonEndorsementOnly = {
     label: string
     level: 1 | 2 | 3 | 4 | 5
   }[]
-  avatarStyle: Record<string, string>
+  avatarStyle: object
 }
