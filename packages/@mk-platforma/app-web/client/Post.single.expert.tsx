@@ -2,14 +2,14 @@ import { Box, Typography, Avatar, useTheme } from "@mui/material"
 import { CSSProperties } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import { Post_expert } from "../data/data.types"
+import { Post_base } from "../data/data.types"
 
 type Props = {
   avatarStyle: CSSProperties
   firstName: string
   lastName: string
   location?: string
-  skills: Post_expert["asPersonEndorsement"]["skills"]
+  skills: NonNullable<Post_base["asPersonEndorsement"]>["skills"]
 }
 
 export function Post_single_expert({ avatarStyle, firstName, lastName, location, skills }: Props) {

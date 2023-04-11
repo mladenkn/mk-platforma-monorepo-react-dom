@@ -1,7 +1,6 @@
-import { shallowPick, castIf } from "@mk-libs/common/common"
+import { shallowPick } from "@mk-libs/common/common"
 import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
-import { PersonEndorsementOnly } from "../data/data.types"
 import {
   ImageSchema,
   PostSchema,
@@ -61,12 +60,7 @@ const Post_api_create = publicProcedure
           },
         },
       })
-      if (
-        castIf<{ asPersonEndorsement: PersonEndorsementOnly }>(
-          input,
-          input.categories.some(c => c.label === "personEndorsement")
-        )
-      ) {
+      if (input.asPersonEndorsement) {
         await tx.post.update({
           where: {
             id: post_created.id,
