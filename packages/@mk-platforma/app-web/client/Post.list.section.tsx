@@ -23,8 +23,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
   function render_title_left(item: Omit<Post_base, "comments">) {
-    if (item.categories.includes("personEndorsement")) {
-      castTo<Post_expert>(item)
+    if (item.asPersonEndorsement) {
       return (
         <Avatar
           sx={{ mr: 2, ...(item.asPersonEndorsement.avatarStyle as object) }}
@@ -86,21 +85,15 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
           <Post_list_base
             items={posts.data}
             Item={item => {
-              switch (
-                item.categories[0] // ~ ?
-              ) {
-                case "personEndorsement":
-                  castTo<Post_expert>(item)
-                  return (
-                    <Post_single_expert
-                      {...shallowPick(item.asPersonEndorsement, "firstName", "lastName", "skills")}
-                      avatarStyle={item.asPersonEndorsement.avatarStyle as object}
-                      location={item.location}
-                    />
-                  )
-                default:
-                  return <Post_single_listItem {...item} />
-              }
+              if (item.asPersonEndorsement) {
+                return (
+                  <Post_single_expert
+                    {...shallowPick(item.asPersonEndorsement, "firstName", "lastName", "skills")}
+                    avatarStyle={item.asPersonEndorsement.avatarStyle as object}
+                    location={item.location}
+                  />
+                )
+              } else return <Post_single_listItem {...item} />
             }}
             Item_details={item => (
               <Box

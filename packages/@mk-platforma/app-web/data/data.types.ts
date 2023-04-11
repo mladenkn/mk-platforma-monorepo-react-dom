@@ -40,7 +40,7 @@ export type PersonEndorsementOnly = {
   lastName: string
   skills: {
     label: string
-    level: 1 | 2 | 3 | 4 | 5
+    level: number
   }[]
   avatarStyle: object
 }
