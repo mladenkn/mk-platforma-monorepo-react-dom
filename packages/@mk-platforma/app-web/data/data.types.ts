@@ -18,5 +18,3 @@ export type CategoryLabel = z.infer<typeof Category_zod>
 export type Post_base = NonNullable<inferOutput["post"]["single"]>
 
 export type Comment = Post_base["comments"][number]
-
-export type Post_image = NonNullable<Post_base["images"]>[number] & { isMain?: boolean }

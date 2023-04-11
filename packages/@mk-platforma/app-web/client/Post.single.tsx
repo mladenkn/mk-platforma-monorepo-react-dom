@@ -1,7 +1,11 @@
 import { Box, SxProps, Typography, useTheme } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import { ReactNode } from "react"
-import { Post_image } from "../data/data.types"
+
+type Post_image = {
+  url: string
+  isMain?: string
+}
 
 type Post_common_listItem_props = {
   title: string
