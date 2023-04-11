@@ -4,7 +4,7 @@ import { Post_single_listItem, Post_single_details } from "./Post.single"
 import { Post_single_expert } from "./Post.single.expert"
 import trpc from "./trpc"
 import type { Post_base } from "../data/data.types"
-import { shallowPick } from "@mk-libs/common/common"
+import { eva, shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
@@ -21,17 +21,6 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   )
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
-
-  function render_title_left(item: Omit<Post_base, "comments">) {
-    if (item.asPersonEndorsement) {
-      return (
-        <Avatar
-          sx={{ mr: 2, ...(item.asPersonEndorsement.avatarStyle as object) }}
-          children={item.asPersonEndorsement.firstName[0] + item.asPersonEndorsement.lastName[0]}
-        />
-      )
-    }
-  }
 
   return (
     <Box
@@ -100,7 +89,22 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 display="flex"
                 flexDirection="column" /*flexDirection={item.comments?.length ? "row" : "column"}*/
               >
-                <Post_single_details {...item} title_left={render_title_left(item)} />
+                <Post_single_details
+                  {...item}
+                  title_left={eva(() => {
+                    if (item.asPersonEndorsement) {
+                      return (
+                        <Avatar
+                          sx={{ mr: 2, ...(item.asPersonEndorsement.avatarStyle as object) }}
+                          children={
+                            item.asPersonEndorsement.firstName[0] +
+                            item.asPersonEndorsement.lastName[0]
+                          }
+                        />
+                      )
+                    }
+                  })}
+                />
                 <Box sx={{ mr: 2 }}>
                   <Box sx={{ borderRadius: 2, mt: 4, display: "flex", mb: 6 }}>
                     <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />

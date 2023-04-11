@@ -77,13 +77,38 @@ const Post_api = router({
     .query(async ({ input }) => {
       const post = await db.post.findUnique({
         where: { id: input.id },
-        select: Post_select,
+        select: {
+          ...Post_select,
+          comments: {
+            select: {
+              id: true,
+              content: true,
+              author: {
+                select: {
+                  id: true,
+                  name: true,
+                  avatarStyle: true,
+                },
+              },
+            },
+          },
+        },
       })
       assertIsNonNil(post)
       return {
         ...post,
         location: post.location?.name,
         categories: post.categories.map(({ label }) => label),
+        comments: post.comments.map(c => ({
+          id: c.id,
+          content: c.content,
+          author: {
+            userName: c.author.name,
+            avatarStyle: c.author.avatarStyle as object,
+          },
+          canEdit: true,
+          canDelete: true,
+        })),
       }
     }),
 

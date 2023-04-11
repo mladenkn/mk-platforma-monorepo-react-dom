@@ -26,6 +26,7 @@ import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoryDropdown from "./Categories.dropdown"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import SaveIcon from "@mui/icons-material/Save"
+import { Comment_listItem } from "./Comment.common"
 
 export default function Post_single_section({ post_initial }: { post_initial: Post_base }) {
   const router = useRouter()
@@ -117,7 +118,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
             <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
             <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
           </Paper>
-          {/* {post.comments?.length ? (
+          {post.comments?.length ? (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
               {post.comments.map(comment => (
                 <Paper key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
@@ -127,7 +128,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
             </Box>
           ) : (
             <></>
-          )} */}
+          )}
         </Box>
       ) : (
         <></>
