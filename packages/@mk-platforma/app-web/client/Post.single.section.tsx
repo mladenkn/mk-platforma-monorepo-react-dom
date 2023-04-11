@@ -36,8 +36,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
   const [isEdit, setIsEdit] = useState(false)
 
   function renderAvatar() {
-    if (post.categories.includes("personEndorsement")) {
-      castTo<Post_expert>(post)
+    if (post.asPersonEndorsement) {
       return (
         <Avatar
           sx={{ mr: 2, ...(post.asPersonEndorsement.avatarStyle as object) }}
@@ -95,13 +94,13 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
                 </Box>
               }
               afterDescription={eva(() => {
-                if (post.categories.includes("personEndorsement")) {
-                  return (post as Post_expert).asPersonEndorsement.skills?.length ? (
+                if (post.asPersonEndorsement) {
+                  return post.asPersonEndorsement.skills?.length ? (
                     <Box sx={{ mt: 4 }}>
                       <Box sx={{ display: "flex", alignItems: "start" }}>
                         <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
                         <Box>
-                          {(post as Post_expert).asPersonEndorsement.skills.map(s => (
+                          {post.asPersonEndorsement.skills.map(s => (
                             <Typography key={s.label}>
                               {s.label}
                               {` `}({s.level}/5)
