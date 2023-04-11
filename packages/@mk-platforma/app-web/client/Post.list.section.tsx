@@ -94,7 +94,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                   return (
                     <Post_single_expert
                       {...shallowPick(item.asPersonEndorsement, "firstName", "lastName", "skills")}
-                      avatarStyle={item.asPersonEndorsement.avatarStyle as any}
+                      avatarStyle={item.asPersonEndorsement.avatarStyle as object}
                       location={item.location}
                     />
                   )
@@ -107,7 +107,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 display="flex"
                 flexDirection="column" /*flexDirection={item.comments?.length ? "row" : "column"}*/
               >
-                <Post_single_details {...item} title_left={render_title_left(item as any)} />
+                <Post_single_details {...item} title_left={render_title_left(item)} />
                 <Box sx={{ mr: 2 }}>
                   <Box sx={{ borderRadius: 2, mt: 4, display: "flex", mb: 6 }}>
                     <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
