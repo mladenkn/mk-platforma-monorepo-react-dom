@@ -1,7 +1,16 @@
 import { Box, SxProps, IconButton, Typography, Avatar } from "@mui/material"
-import { Comment } from "../data/data.types"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
+
+type Comment = {
+  author: {
+    avatarStyle: object
+    userName: string
+  }
+  canEdit: boolean
+  canDelete: boolean
+  content: string
+}
 
 type Props = {
   sx?: SxProps

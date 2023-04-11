@@ -16,5 +16,3 @@ export const Category_zod = z.enum([
 export type CategoryLabel = z.infer<typeof Category_zod>
 
 export type Post_base = NonNullable<inferOutput["post"]["single"]>
-
-export type Comment = Post_base["comments"][number]
