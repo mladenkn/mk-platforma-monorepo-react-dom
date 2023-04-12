@@ -14,11 +14,11 @@ export default function DataOrQuery<TData>({
   loading = <>Loading...</>,
   error = <>"Error"</>,
 }: DataOrQuery_Props<TData>) {
-  if (typeof input === "object") {
+  if ((input as any).status) {
     const query = input as UseQueryResult<TData>
     if (query.isLoading) return loading
     else if (query.error) return error
     else render((input as any).data)
-  } else return render(input)
-  return <></> // čudno
+  } else return render(input as any)
+  throw new Error("Unpredicted")
 }
