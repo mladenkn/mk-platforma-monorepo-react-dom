@@ -15,30 +15,34 @@ function createMethod(inner: any) {
 const Prisma_api = {
   post: {
     findUnique:
-      (inner: any) =>
+      <TInput>({
+        input,
+        resolve,
+      }: {
+        input: z.ZodType<TInput>
+        resolve: (ctx: any, input: TInput, moreArgs: any) => any
+      }) =>
       <TMoreArgs extends Partial<Prisma.PostFindUniqueArgs>>(args: Partial<TMoreArgs>) =>
       (input: any) =>
-        createMethod(inner(args)) as any as Promise<Prisma.PostGetPayload<TMoreArgs>>,
+        ({} as any as Promise<Prisma.PostGetPayload<TMoreArgs>>),
   },
 }
 
 const Api_abstract = {
   post: {
-    findUnique: Prisma_api.post.findUnique((moreArgs: any) =>
-      publicProcedure
-        .input(
-          z.object({
-            id: z.number(),
-          })
-        )
-        .query(async ({ input }) => {
-          const post = await db.post.findUnique({
-            where: { id: input.id },
-            ...moreArgs,
-          })
-          return post
+    findUnique: Prisma_api.post.findUnique({
+      input: z.object({
+        id: z.number(),
+      }),
+      resolve(ctx: any, input, moreArgs: any) {
+        return db.post.findUnique({
+          where: {
+            id: input.id,
+          },
+          ...moreArgs,
         })
-    ),
+      },
+    }),
   },
 }
 
