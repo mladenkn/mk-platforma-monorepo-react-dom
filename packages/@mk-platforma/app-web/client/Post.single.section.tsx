@@ -1,4 +1,4 @@
-import { Post_single_details } from "./Post.single"
+import Post_single_details from "./Post.single.details"
 import { useRouter } from "next/router"
 import { Header_root, Header_moreOptions } from "./Header"
 import {

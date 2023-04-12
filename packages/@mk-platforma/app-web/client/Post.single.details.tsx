@@ -19,7 +19,7 @@ type Post_common_listItem_details_Props = {
   afterDescription?: ReactNode
 }
 
-export function Post_single_details({
+export default function Post_single_details({
   sx,
   title,
   location,

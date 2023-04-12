@@ -1,6 +1,7 @@
 import { Box, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
 import Post_list_base from "./Post.list.base"
-import { Post_single_listItem, Post_single_details } from "./Post.single"
+import { Post_single_listItem } from "./Post.single"
+import Post_single_details from "./Post.single.details"
 import { Post_single_expert } from "./Post.single.expert"
 import trpc from "./trpc"
 import type { Post_base } from "../data/data.types"
