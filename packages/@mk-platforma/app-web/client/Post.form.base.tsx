@@ -4,22 +4,12 @@ import { toFormikValidationSchema } from "zod-formik-adapter"
 import { TextFieldProps } from "@mui/material"
 import CategoryDropdown from "./Categories.dropdown"
 import { z } from "zod"
+import { Post_category_labelSchema } from "../prisma/generated/zod"
 
 const Post_zod = z.object({
   title: z.string(),
   description: z.string(),
-  categories: z.array(
-    z.enum([
-      "job",
-      "accommodation",
-      "personEndorsement",
-      "sellable",
-      "gathering",
-      "gathering_spirituality",
-      "gathering_work",
-      "gathering_hangout",
-    ])
-  ),
+  categories: z.array(Post_category_labelSchema),
   location: z.string().optional(),
   contact: z.string().optional(),
 })
