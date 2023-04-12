@@ -1,30 +1,24 @@
-import Post_single_details from "./Post.single.details"
+import Post_single_details, { Post_common_listItem_details_PostModel } from "./Post.single.details"
 import { useRouter } from "next/router"
 import { Header_root, Header_moreOptions } from "./Header"
-import {
-  Box,
-  Button,
-  IconButton,
-  SxProps,
-  TextField,
-  Paper,
-  Typography,
-  useTheme,
-} from "@mui/material"
+import { Box, Button, IconButton, SxProps, TextField, Paper, Typography } from "@mui/material"
 import trpc from "./trpc"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import CloseIcon from "@mui/icons-material/Close"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useState } from "react"
-import type { Post_base } from "../data/data.types"
 import use_Post_form_base from "./Post.form.base"
 import use_Post_form_expertOnly from "./Post.form.expertOnly"
 import CategoryDropdown from "./Categories.dropdown"
-import { asNonNil, eva } from "@mk-libs/common/common"
+import { asNonNil } from "@mk-libs/common/common"
 import SaveIcon from "@mui/icons-material/Save"
 
-export default function Post_single_section({ post_initial }: { post_initial: Post_base }) {
+export default function Post_single_section({
+  post_initial,
+}: {
+  post_initial: Post_common_listItem_details_PostModel
+}) {
   const router = useRouter()
   const itemId = parseInt(router.query.id as string)!
   const postQuery = trpc.post.single.useQuery({ id: itemId }, { initialData: post_initial })
@@ -95,12 +89,12 @@ function Post_edit({
   sx,
   cancel,
 }: {
-  post: Post_base
+  post: any
   onSubmit(): void
   sx?: SxProps
   cancel(): void
 }) {
-  const form_base = use_Post_form_base({ initialValues: post as any })
+  const form_base = use_Post_form_base({ initialValues: post }) // nevalja
 
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")

@@ -81,9 +81,14 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
               if (item.asPersonEndorsement) {
                 return (
                   <Post_single_listItem_personEndorsement
-                    {...shallowPick(item.asPersonEndorsement, "firstName", "lastName", "skills")}
-                    avatarStyle={item.asPersonEndorsement.avatarStyle as object}
-                    location={item.location?.name}
+                    {...shallowPick(
+                      item.asPersonEndorsement,
+                      "firstName",
+                      "lastName",
+                      "skills",
+                      "avatarStyle"
+                    )}
+                    location={item.location}
                   />
                 )
               } else return <Post_single_listItem {...item} location={item.location?.name} />

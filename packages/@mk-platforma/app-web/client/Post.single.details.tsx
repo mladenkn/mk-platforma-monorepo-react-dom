@@ -56,11 +56,11 @@ type Comment = Post_base["comments"][number] & {
   canEdit: boolean
   canDelete: boolean
 }
-type Post = Omit<Post_base, "comments"> & {
+export type Post_common_listItem_details_PostModel = Omit<Post_base, "comments"> & {
   comments?: Comment[] | UseQueryResult<Comment[]>
 }
 
-type Post_common_listItem_details_Props = Post & {
+type Post_common_listItem_details_Props = Post_common_listItem_details_PostModel & {
   sx?: SxProps
   title_right?: ReactNode
   usePaperSections?: boolean

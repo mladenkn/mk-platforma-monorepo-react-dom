@@ -1,15 +1,24 @@
 import { Box, Typography, Avatar, useTheme } from "@mui/material"
-import { CSSProperties } from "react"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import { Post_base } from "../data/data.types"
+import type { Prisma } from "@prisma/client"
 
-type Props = {
-  avatarStyle: CSSProperties
-  firstName: string
-  lastName: string
-  location?: string
-  skills: NonNullable<Post_base["asPersonEndorsement"]>["skills"]
+type Props = Prisma.Post_asPersonEndorsementGetPayload<{
+  select: {
+    avatarStyle: true
+    firstName: true
+    lastName: true
+    skills: {
+      select: {
+        label: true
+        level: true
+      }
+    }
+  }
+}> & {
+  location?: {
+    name: string
+  } | null
 }
 
 export function Post_single_listItem_personEndorsement({
@@ -25,7 +34,7 @@ export function Post_single_listItem_personEndorsement({
       <Avatar
         sx={{
           marginRight: 3,
-          ...avatarStyle,
+          ...(avatarStyle as object),
         }}
         children={firstName[0] + lastName[0]}
       />
@@ -36,7 +45,7 @@ export function Post_single_listItem_personEndorsement({
         {location && (
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <LocationIcon style={{ width: 17, height: 17 }} sx={{ mr: 1 }} />
-            <Typography>{location}</Typography>
+            <Typography>{location.name}</Typography>
           </Box>
         )}
       </Box>
