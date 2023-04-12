@@ -4,10 +4,22 @@ import { ReactNode } from "react"
 import { Comment_listItem } from "./Comment.common"
 import { Post_asPersonEndorsement, Post_asPersonEndorsement_skill } from "../prisma/generated/zod"
 import HandymanIcon from "@mui/icons-material/Handyman"
+import { UseQueryResult } from "@tanstack/react-query"
 
 type Post_image = {
   url: string
   isMain?: string
+}
+
+type Comment = {
+  id: number
+  author: {
+    avatarStyle: any
+    userName: string
+  }
+  content: string
+  canEdit?: boolean
+  canDelete?: boolean
 }
 
 type Post_common_listItem_details_Props = {
@@ -18,16 +30,7 @@ type Post_common_listItem_details_Props = {
   description: string
   contact?: string
   title_right?: ReactNode
-  comments?: {
-    id: number
-    author: {
-      avatarStyle: any
-      userName: string
-    }
-    content: string
-    canEdit?: boolean
-    canDelete?: boolean
-  }[]
+  comments?: Comment[] | UseQueryResult<Comment[]>
   usePaperSections?: boolean
   asPersonEndorsement?:
     | (Pick<Post_asPersonEndorsement, "firstName" | "lastName"> & {
@@ -120,17 +123,42 @@ export default function Post_single_details({
         <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
         <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
       </Container>
-      {comments?.length ? (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
-          {comments.map(comment => (
-            <Container key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
-              <Comment_listItem comment={comment} />
-            </Container>
-          ))}
-        </Box>
-      ) : (
-        <></>
+      {comments && (
+        <DataOrQuery
+          input={comments}
+          render={comments => (
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
+              {comments.map(comment => (
+                <Container key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
+                  <Comment_listItem comment={comment} />
+                </Container>
+              ))}
+            </Box>
+          )}
+        />
       )}
     </Box>
   )
+}
+
+type DataOrQuery_Props<TData> = {
+  input: TData | UseQueryResult<TData>
+  render(data: TData): JSX.Element
+  loading?: JSX.Element
+  error?: JSX.Element
+}
+
+function DataOrQuery<TData>({
+  input,
+  render,
+  loading = <>Loading...</>,
+  error = <>"Error"</>,
+}: DataOrQuery_Props<TData>) {
+  if (typeof input === "object") {
+    const query = input as UseQueryResult<TData>
+    if (query.isLoading) return loading
+    else if (query.error) return error
+    else render((input as any).data)
+  } else return render(input)
+  throw new Error("DataOrQuery: invalid param")
 }
