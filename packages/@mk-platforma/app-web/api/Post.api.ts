@@ -1,10 +1,11 @@
 import { z } from "zod"
 import { publicProcedure, router } from "../trpc.utils"
 import Post_api_create from "./Post.api.create"
-import { Prisma, PrismaClient } from "@prisma/client"
+import { PrismaClient } from "@prisma/client"
 import { Post_category_labelSchema } from "../prisma/generated/zod"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
+import { PostList_section_PostSelect } from "../client/Post.list.section"
 
 const db = new PrismaClient()
 
@@ -24,37 +25,7 @@ const Post_api = router({
             },
           },
         },
-        select: {
-          id: true,
-          title: true,
-          description: true,
-          contact: true,
-          location: {
-            select: {
-              name: true,
-            },
-          },
-          images: {
-            select: {
-              id: true,
-              url: true,
-            },
-          },
-          asPersonEndorsement: {
-            select: {
-              firstName: true,
-              lastName: true,
-              avatarStyle: true,
-              skills: {
-                select: {
-                  id: true,
-                  label: true,
-                  level: true,
-                },
-              },
-            },
-          },
-        },
+        select: PostList_section_PostSelect,
       })
       return posts
     }),

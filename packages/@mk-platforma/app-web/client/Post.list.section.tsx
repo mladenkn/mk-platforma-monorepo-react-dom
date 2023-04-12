@@ -4,7 +4,7 @@ import { Post_single_listItem } from "./Post.single.listItem"
 import Post_single_details from "./Post.single.details"
 import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
 import trpc from "./trpc"
-import type { Id, Post_base } from "../data/data.types"
+import type { Id } from "../data/data.types"
 import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
@@ -12,8 +12,45 @@ import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
 import type { Post_category_labelType } from "../prisma/generated/zod"
+import type { Prisma } from "@prisma/client"
 
-type Props = { selectedCategory: Post_category_labelType; posts_initial: Post_base[] }
+export const PostList_section_PostSelect = {
+  id: true,
+  title: true,
+  description: true,
+  contact: true,
+  location: {
+    select: {
+      name: true,
+    },
+  },
+  images: {
+    select: {
+      id: true,
+      url: true,
+    },
+  },
+  asPersonEndorsement: {
+    select: {
+      firstName: true,
+      lastName: true,
+      avatarStyle: true,
+      skills: {
+        select: {
+          id: true,
+          label: true,
+          level: true,
+        },
+      },
+    },
+  },
+} satisfies Prisma.PostSelect
+
+type Post = Prisma.PostGetPayload<{
+  select: typeof PostList_section_PostSelect
+}>
+
+type Props = { selectedCategory: Post_category_labelType; posts_initial: Post[] }
 
 export default function PostList_section({ selectedCategory, posts_initial }: Props) {
   const posts = trpc.post.many.useQuery(
