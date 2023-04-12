@@ -55,7 +55,7 @@ export default function Post_single_details({
 
   return (
     <Box sx={sx}>
-      <Container>
+      <Container sx={{ p: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
             {asPersonEndorsement && (
@@ -82,7 +82,7 @@ export default function Post_single_details({
         </Box>
         {mainImage && (
           <Box sx={{ display: "flex", justifyContent: "center", mb: 4, mt: 3 }}>
-            <img src={mainImage.url} />
+            <img style={{ overflow: "auto" }} src={mainImage.url} />
           </Box>
         )}
         <Typography>{description}</Typography>
@@ -116,7 +116,7 @@ export default function Post_single_details({
           </Box>
         )}
       </Container>
-      <Container sx={{ borderRadius: 2, mt: 4, display: "flex" }}>
+      <Container sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex" }}>
         <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
         <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
       </Container>
