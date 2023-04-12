@@ -23,27 +23,31 @@ const Prisma_api = {
 }
 
 const Api_abstract = {
-  post: Prisma_api.post.findUnique((moreArgs: any) =>
-    publicProcedure
-      .input(
-        z.object({
-          id: z.number(),
+  post: {
+    findUnique: Prisma_api.post.findUnique((moreArgs: any) =>
+      publicProcedure
+        .input(
+          z.object({
+            id: z.number(),
+          })
+        )
+        .query(async ({ input }) => {
+          const post = await db.post.findUnique({
+            where: { id: input.id },
+            ...moreArgs,
+          })
+          return post
         })
-      )
-      .query(async ({ input }) => {
-        const post = await db.post.findUnique({
-          where: { id: input.id },
-          ...moreArgs,
-        })
-        return post
-      })
-  ),
+    ),
+  },
 }
 
 const Api = {
-  post: Api_abstract.post({
-    select: Post_single_details_PostSelect,
-  }),
+  post: {
+    findUnique: Api_abstract.post.findUnique({
+      select: Post_single_details_PostSelect,
+    }),
+  },
 }
 
-const a = Api.post({})
+const a = Api.post.findUnique({})
