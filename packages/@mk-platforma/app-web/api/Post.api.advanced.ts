@@ -12,24 +12,7 @@ function createMethod(inner: any) {
   }
 }
 
-// @ts-ignore
-const post_single2_base = createMethod(select =>
-  publicProcedure
-    .input(
-      z.object({
-        id: z.number(),
-      })
-    )
-    .query(async ({ input }) => {
-      const post = await db.post.findUnique({
-        where: { id: input.id },
-        select,
-      })
-      return post
-    })
-)
-
-const Database_abstract = {
+const PrismaApi = {
   post: {
     findUnique:
       (inner: any) =>
@@ -39,10 +22,28 @@ const Database_abstract = {
   },
 }
 
-const Database = {
-  post: Database_abstract.post.findUnique(post_single2_base)({
+const Api_abstract = {
+  post: PrismaApi.post.findUnique((moreArgs: any) =>
+    publicProcedure
+      .input(
+        z.object({
+          id: z.number(),
+        })
+      )
+      .query(async ({ input }) => {
+        const post = await db.post.findUnique({
+          where: { id: input.id },
+          ...moreArgs,
+        })
+        return post
+      })
+  ),
+}
+
+const Api = {
+  post: Api_abstract.post({
     select: Post_single_details_PostSelect,
   }),
 }
 
-const a = Database.post({})
+const a = Api.post({})
