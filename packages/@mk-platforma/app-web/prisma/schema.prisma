@@ -47,6 +47,8 @@ model Post_asPersonEndorsement_skill {
   level                   Int
   as_PersonEndorsement    Post_asPersonEndorsement? @relation(fields: [as_PersonEndorsement_id], references: [id])
   as_PersonEndorsement_id Int?
+
+  @@unique([as_PersonEndorsement_id, label])
 }
 
 enum Post_category_label {
