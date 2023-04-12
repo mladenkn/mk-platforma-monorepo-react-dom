@@ -18,7 +18,6 @@ export default function DataOrQuery<TData>({
     const query = input as UseQueryResult<TData>
     if (query.isLoading) return loading
     else if (query.error) return error
-    else render((input as any).data)
+    else return render((input as any).data)
   } else return render(input as any)
-  throw new Error("Unpredicted")
 }

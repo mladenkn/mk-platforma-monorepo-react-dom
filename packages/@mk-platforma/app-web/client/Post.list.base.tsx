@@ -2,19 +2,18 @@ import { Box, Paper, Dialog, useTheme, useMediaQuery, SxProps } from "@mui/mater
 import { ComponentType } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 import { useRouter } from "next/navigation"
-import type { Id } from "../data.types"
 import React from "react"
 
 type Item = {
-  id: Id
+  id: number
 }
 
 export type Section_base_Props<TItem extends Item> = {
   items: TItem[]
   Item: ComponentType<TItem>
   Item_details: ComponentType<TItem & { sx?: SxProps }>
-  selectedItem?: Id
-  setSelectedItem(id?: Id): void
+  selectedItem?: number
+  setSelectedItem(id?: number): void
 }
 
 export default function Post_list_base<TItem extends Item>({

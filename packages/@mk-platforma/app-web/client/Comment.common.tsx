@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit"
 import type { Prisma } from "@prisma/client"
 
 export const Comment_listItem_CommentSelect = {
+  id: true,
   content: true,
   author: {
     select: {

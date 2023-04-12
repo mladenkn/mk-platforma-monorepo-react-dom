@@ -60,7 +60,12 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   )
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<Id>()
+  const [selectedItem, setSelectedItem] = useState<number>()
+
+  const details_comments = trpc.post_comment.many.useQuery(
+    { post_id: selectedItem! },
+    { enabled: !!selectedItem }
+  )
 
   return (
     <Box
@@ -131,7 +136,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 )
               } else return <Post_single_listItem {...item} location={item.location?.name} />
             }}
-            Item_details={Post_single_details}
+            Item_details={post => <Post_single_details {...post} comments={details_comments} />}
           />
         ) : (
           <>Učitavanje...</>
