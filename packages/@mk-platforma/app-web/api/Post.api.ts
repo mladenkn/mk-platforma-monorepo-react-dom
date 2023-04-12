@@ -1,11 +1,12 @@
 import { z } from "zod"
 import { publicProcedure, router } from "../trpc.utils"
 import Post_api_create from "./Post.api.create"
-import { PrismaClient } from "@prisma/client"
+import { Post, PrismaClient } from "@prisma/client"
 import { Post_category_labelSchema } from "../prisma/generated/zod"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { PostList_section_PostSelect } from "../client/Post.list.section"
+import type { Prisma } from "@prisma/client"
 
 const db = new PrismaClient()
 
@@ -54,5 +55,55 @@ const Post_api = router({
 
   create: Post_api_create,
 })
+
+function Post_single<TMapped>(
+  select: Prisma.PostSelect,
+  map?: (post?: Partial<Post> | null) => TMapped
+) {
+  return publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      })
+    )
+    .query(async ({ input }) => {
+      const post = await db.post.findUnique({
+        where: { id: input.id },
+        select,
+      })
+      return map ? map(post) : post
+    })
+}
+
+const single1 = Post_single(Post_single_details_PostSelect, () => ({}))
+
+function createMethod(inner: any) {
+  return async <TOutput>(select: any, map?: any): Promise<TOutput> => {
+    const data = await inner(select)
+    return map ? map(data) : data
+  }
+}
+
+// @ts-ignore
+const post_single2_base = createMethod(select =>
+  publicProcedure
+    .input(
+      z.object({
+        id: z.number(),
+      })
+    )
+    .query(async ({ input }) => {
+      const post = await db.post.findUnique({
+        where: { id: input.id },
+        select,
+      })
+      return post
+    })
+)
+
+type A = Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
+const post_single_2 = createMethod(post_single2_base)<
+  Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
+>(Post_single_details_PostSelect)
 
 export default Post_api
