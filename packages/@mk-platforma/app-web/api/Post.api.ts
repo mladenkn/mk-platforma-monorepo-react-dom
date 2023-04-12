@@ -101,7 +101,7 @@ const post_single2_base = createMethod(select =>
     })
 )
 
-const Database_createMethods = {
+const Database_abstract = {
   post: {
     findUnique:
       (inner: any) =>
@@ -112,7 +112,7 @@ const Database_createMethods = {
 }
 
 const Database = {
-  post: Database_createMethods.post.findUnique(post_single2_base)({
+  post: Database_abstract.post.findUnique(post_single2_base)({
     select: Post_single_details_PostSelect,
   }),
 }
