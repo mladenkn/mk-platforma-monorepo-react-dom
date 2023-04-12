@@ -4,12 +4,18 @@ import { Api_ss } from "../trpc.router"
 import locations from "../data/data.locations.json"
 import { faker } from "@faker-js/faker"
 import { asNonNil } from "@mk-libs/common/common"
+import * as cro_dataset from "../data/data.cro.dataset"
+import { avatarStyles } from "../data/data.common"
 
 const db = new PrismaClient()
 
 async function main() {
   await seedCategories()
-  await upsertUser("Mladen", { background: "green", color: "white" })
+  const mladenUser = await upsertUser("Mladen", { background: "green", color: "white" })
+  const otherUsers = await seedUsers()
+  const users = [mladenUser, ...otherUsers]
+  const users_ids = users.map(u => u.id)
+
   const locations = await seedLocations()
 
   const posts_notCreated = generatePosts()
@@ -23,13 +29,25 @@ async function main() {
     )
     await seedPosts(
       asNonNil(posts_notCreated_withSavedImages),
-      locations.map(l => l.id)
+      locations.map(l => l.id),
+      users_ids
     )
   }
 }
 
+async function seedUsers() {
+  const users = cro_dataset.firstNames
+    .filter(n => n !== "Mladen")
+    .map(name => ({
+      name,
+      avatarStyle: faker.helpers.arrayElement(avatarStyles),
+    }))
+  await db.user.createMany({ data: users })
+  return await db.user.findMany({})
+}
+
 async function upsertUser(name: string, avatarStyle: object) {
-  await db.user.upsert({
+  return await db.user.upsert({
     where: { name },
     update: {
       name,
@@ -90,7 +108,7 @@ async function posts_notCreated_map_withSaveImages(posts: Post_unsaved[]) {
 }
 type Post_withSavedImages = Awaited<ReturnType<typeof posts_notCreated_map_withSaveImages>>[number]
 
-async function seedPosts(posts: Post_withSavedImages[], locations: number[]) {
+async function seedPosts(posts: Post_withSavedImages[], locations: number[], users: number[]) {
   for (const post of posts) {
     const post_created = await Api_ss.post.create({
       ...post,
@@ -103,7 +121,7 @@ async function seedPosts(posts: Post_withSavedImages[], locations: number[]) {
         data: {
           content: comment.content,
           postId: post_created.id,
-          authorId: 1,
+          authorId: faker.helpers.arrayElement(users),
         },
       })
     }
