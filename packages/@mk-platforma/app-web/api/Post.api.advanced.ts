@@ -12,7 +12,7 @@ function createMethod(inner: any) {
   }
 }
 
-const PrismaApi = {
+const Prisma_api = {
   post: {
     findUnique:
       (inner: any) =>
@@ -23,7 +23,7 @@ const PrismaApi = {
 }
 
 const Api_abstract = {
-  post: PrismaApi.post.findUnique((moreArgs: any) =>
+  post: Prisma_api.post.findUnique((moreArgs: any) =>
     publicProcedure
       .input(
         z.object({
