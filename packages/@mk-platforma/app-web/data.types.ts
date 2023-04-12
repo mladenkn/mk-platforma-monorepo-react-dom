@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { inferOutput } from "../trpc.types"
+import { inferOutput } from "./trpc.types"
 
 export type Id = number | string
 

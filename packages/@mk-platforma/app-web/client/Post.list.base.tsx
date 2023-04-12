@@ -2,7 +2,7 @@ import { Box, Paper, Dialog, useTheme, useMediaQuery, SxProps } from "@mui/mater
 import { ComponentType } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 import { useRouter } from "next/navigation"
-import type { Id } from "../data/data.types"
+import type { Id } from "../data.types"
 
 type Item = {
   id: Id
