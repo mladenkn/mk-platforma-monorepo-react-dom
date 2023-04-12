@@ -1,7 +1,8 @@
 import { z } from "zod"
-import { publicProcedure } from "../trpc.utils"
+import { publicProcedure, router } from "../trpc.utils"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { Prisma, PrismaClient } from "@prisma/client"
+import a from "../pages/api/trpc/[trpc]"
 
 const db = new PrismaClient()
 
@@ -15,18 +16,20 @@ function createMethod(inner: any) {
 const Prisma_api = {
   post: {
     findUnique:
-      <TInput>({
-        input,
+      <TInput, TOutput>({
+        input: zodInput,
         resolve,
       }: {
         input: z.ZodType<TInput>
-        resolve: (ctx: any, input: TInput, moreArgs: Prisma.PostFindUniqueArgs) => any
+        resolve: (ctx: any, input: TInput, moreArgs: Prisma.PostFindUniqueArgs) => TOutput
       }) =>
-      <TMoreArgs extends Partial<Prisma.PostFindUniqueArgs>>(args: TMoreArgs) =>
-      (input: any) => {
+      <TMoreArgs extends Partial<Prisma.PostFindUniqueArgs>>(args: TMoreArgs) => {
         const procedure = publicProcedure
-          .input(input)
-          .query(({ ctx, input }) => resolve(null as any, input as any, args as any))
+          .input(zodInput)
+          .query(
+            ({ ctx, input }) =>
+              resolve(ctx, input as TInput, args as any) as Prisma.PostGetPayload<TMoreArgs>
+          )
         return procedure
       },
   },
@@ -52,12 +55,14 @@ const Api_abstract = {
   },
 }
 
-const Api = {
-  post: {
+const Api = router({
+  post: router({
     findUnique: Api_abstract.post.findUnique({
       select: Post_single_details_PostSelect,
     }),
-  },
-}
+  }),
+})
 
-const a = Api.post.findUnique({})
+const Api_ss = Api.createCaller({})
+
+const post = Api_ss.post.findUnique({ id: 2 })
