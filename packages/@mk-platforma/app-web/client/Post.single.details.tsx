@@ -58,7 +58,7 @@ type Comment = Post_base["comments"][number] & {
   canDelete: boolean
 }
 type Post = Omit<Post_base, "comments"> & {
-  comments?: Comment[] | null
+  comments?: Comment[] | UseQueryResult<Comment[]>
 }
 
 type Post_common_listItem_details_Props = Post & {
@@ -150,20 +150,24 @@ export default function Post_single_details({
         <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
         <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
       </Container>
-      {/* {comments && (
+      {comments && (
         <DataOrQuery
           input={comments}
-          render={comments => (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
-              {comments.map(comment => (
-                <Container key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
-                  <Comment_listItem comment={comment} />
-                </Container>
-              ))}
-            </Box>
-          )}
+          render={comments =>
+            comments.length > 0 ? (
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
+                {comments.map(comment => (
+                  <Container key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
+                    <Comment_listItem comment={comment} />
+                  </Container>
+                ))}
+              </Box>
+            ) : (
+              <></>
+            )
+          }
         />
-      )} */}
+      )}
     </Box>
   )
 }

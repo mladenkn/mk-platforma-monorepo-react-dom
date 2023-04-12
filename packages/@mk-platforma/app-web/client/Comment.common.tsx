@@ -4,8 +4,8 @@ import EditIcon from "@mui/icons-material/Edit"
 
 type Comment = {
   author: {
-    avatarStyle: object
-    userName: string
+    avatarStyle: any
+    name: string
   }
   canEdit?: boolean
   canDelete?: boolean
@@ -29,9 +29,9 @@ export function Comment_listItem({ sx, comment }: Props) {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Avatar sx={comment.author.avatarStyle} children={comment.author.userName[0]} />
+          <Avatar sx={comment.author.avatarStyle} children={comment.author.name[0]} />
           <Typography fontWeight={500} variant="h6">
-            {comment.author.userName}
+            {comment.author.name}
           </Typography>
         </Box>
         <Box>
