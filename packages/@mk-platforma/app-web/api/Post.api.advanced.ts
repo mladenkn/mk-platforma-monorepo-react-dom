@@ -2,16 +2,14 @@ import { z } from "zod"
 import { publicProcedure, router } from "../trpc.utils"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { Prisma, PrismaClient } from "@prisma/client"
-import a from "../pages/api/trpc/[trpc]"
 
 const db = new PrismaClient()
 
-function createMethod(inner: any) {
-  return async <TOutput>(select: any, map?: any): Promise<TOutput> => {
-    const data = await inner(select)
-    return map ? map(data) : data
-  }
-}
+type ResolveClassic<TContext, TInput, TOutput> = (
+  ctx: TContext,
+  input: TInput,
+  moreArgs: Prisma.PostFindUniqueArgs
+) => TOutput
 
 const Prisma_api = {
   post: {
@@ -21,15 +19,26 @@ const Prisma_api = {
         resolve,
       }: {
         input: z.ZodType<TInput>
-        resolve: (ctx: any, input: TInput, moreArgs: Prisma.PostFindUniqueArgs) => TOutput
+        resolve:
+          | ResolveClassic<{}, TInput, TOutput>
+          | ((input: TInput) => Prisma.PostFindUniqueArgs)
       }) =>
-      <TMoreArgs extends Partial<Prisma.PostFindUniqueArgs>>(args: TMoreArgs) => {
-        const procedure = publicProcedure
-          .input(zodInput)
-          .query(
-            ({ ctx, input }) =>
-              resolve(ctx, input as TInput, args as any) as Prisma.PostGetPayload<TMoreArgs>
-          )
+      <TMoreArgs extends Partial<Prisma.PostFindUniqueArgs>>(moreArgs: TMoreArgs) => {
+        const procedure = publicProcedure.input(zodInput).query(({ ctx, input }) => {
+          if (resolve.arguments.length === 3)
+            return (resolve as ResolveClassic<{}, TInput, TOutput>)(
+              ctx,
+              input as TInput,
+              moreArgs as any
+            ) as Prisma.PostGetPayload<TMoreArgs>
+          else if (resolve.arguments.length === 1) {
+            const args = (resolve as (input: TInput) => Prisma.PostFindUniqueArgs)(input as any)
+            return db.post.findUnique({
+              ...args,
+              ...moreArgs,
+            }) as any as Prisma.PostGetPayload<TMoreArgs>
+          }
+        })
         return procedure
       },
   },
