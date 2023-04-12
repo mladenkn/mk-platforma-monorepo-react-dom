@@ -154,7 +154,7 @@ export default function Post_single_details({
         <DataOrQuery
           input={comments}
           render={comments =>
-            comments.length > 0 ? (
+            comments?.length > 0 ? (
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
                 {comments.map(comment => (
                   <Container key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
