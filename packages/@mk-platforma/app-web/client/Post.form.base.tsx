@@ -1,5 +1,5 @@
 import { useFormik } from "formik"
-import { ComponentProps } from "react"
+import React, { ComponentProps } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import { TextFieldProps } from "@mui/material"
 import CategoryDropdown from "./Categories.dropdown"

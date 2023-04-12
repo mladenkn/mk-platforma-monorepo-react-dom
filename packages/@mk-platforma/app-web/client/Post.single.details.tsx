@@ -5,7 +5,7 @@ import HandymanIcon from "@mui/icons-material/Handyman"
 import DataOrQuery from "../utils"
 import { UseQueryResult } from "@tanstack/react-query"
 import type { Prisma } from "@prisma/client"
-import { ReactNode } from "react"
+import React, { ReactNode } from "react"
 
 export const Post_single_details_PostSelect = {
   id: true,

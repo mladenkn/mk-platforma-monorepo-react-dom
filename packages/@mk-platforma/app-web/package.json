@@ -13,7 +13,7 @@
     "db.psql.dev": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'",
     "postinstall": "pnpm prisma generate",
     "playground.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts ./playground.ts",
-    "_exe-ts": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\"}\""
+    "_exe-ts": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\", \\\"jsx\\\": \\\"react\\\"}\""
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",

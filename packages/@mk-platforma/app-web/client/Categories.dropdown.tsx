@@ -8,7 +8,7 @@ import {
   useTheme,
 } from "@mui/material"
 import { CategoryIcon, getCategoryLabel, allCategories } from "./Categories.common"
-import { ReactElement } from "react"
+import React, { ReactElement } from "react"
 import type { Post_category_labelType } from "../prisma/generated/zod"
 
 type CategoriesDropdown_Props = {

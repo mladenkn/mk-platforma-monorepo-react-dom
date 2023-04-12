@@ -1,5 +1,6 @@
 import { Box, Typography, useTheme } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
+import React from "react"
 
 type Post_image = {
   url: string

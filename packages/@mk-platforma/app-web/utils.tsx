@@ -1,4 +1,5 @@
 import { UseQueryResult } from "@tanstack/react-query"
+import React from "react"
 
 type DataOrQuery_Props<TData> = {
   input: TData | UseQueryResult<TData>

@@ -2,6 +2,7 @@ import { Box, Typography, Avatar, useTheme } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import type { Prisma } from "@prisma/client"
+import React from "react"
 
 type Props = Prisma.Post_asPersonEndorsementGetPayload<{
   select: {

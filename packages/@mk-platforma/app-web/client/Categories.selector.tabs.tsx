@@ -3,7 +3,7 @@ import Link from "next/link"
 import type { Post_category_labelType } from "../prisma/generated/zod"
 import { getCategoryLabel, CategoryIcon, allCategories } from "./Categories.common"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
-import { useState, MouseEvent, ReactNode, ComponentProps } from "react"
+import React, { useState, MouseEvent, ReactNode, ComponentProps } from "react"
 
 type Post_list_section_categories_tabs_props = {
   sx?: SxProps

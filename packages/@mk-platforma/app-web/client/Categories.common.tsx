@@ -3,7 +3,7 @@ import BedIcon from "@mui/icons-material/Bed"
 import EngineeringIcon from "@mui/icons-material/Engineering"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
-import { ComponentProps } from "react"
+import React, { ComponentProps } from "react"
 import type { Post_category_labelType } from "../prisma/generated/zod"
 
 export function getCategoryLabel(category: Post_category_labelType) {

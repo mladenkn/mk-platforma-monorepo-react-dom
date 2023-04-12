@@ -11,6 +11,7 @@ import {
 import type { Post_category_labelType } from "../prisma/generated/zod"
 import { allCategories, getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
+import React from "react"
 
 type Props = { selectedItem?: Post_category_labelType }
 
