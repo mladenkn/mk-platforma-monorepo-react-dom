@@ -3,16 +3,18 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import type { Prisma } from "@prisma/client"
 
+export const Comment_listItem_CommentSelect = {
+  content: true,
+  author: {
+    select: {
+      avatarStyle: true,
+      name: true,
+    },
+  },
+}
+
 type Comment = Prisma.Post_commentGetPayload<{
-  select: {
-    content: true
-    author: {
-      select: {
-        avatarStyle: true
-        name: true
-      }
-    }
-  }
+  select: typeof Comment_listItem_CommentSelect
 }> & {
   canEdit?: boolean
   canDelete?: boolean

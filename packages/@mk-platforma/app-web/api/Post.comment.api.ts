@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { publicProcedure, router } from "../trpc.utils"
 import { PrismaClient } from "@prisma/client"
+import { Comment_listItem_CommentSelect } from "../client/Comment.common"
 
 const db = new PrismaClient()
 
@@ -16,17 +17,7 @@ const Post_comment_api = router({
         where: {
           postId: input.post_id,
         },
-        select: {
-          id: true,
-          content: true,
-          author: {
-            select: {
-              id: true,
-              name: true,
-              avatarStyle: true,
-            },
-          },
-        },
+        select: Comment_listItem_CommentSelect,
       })
     }),
 })
