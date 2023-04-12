@@ -88,14 +88,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 )
               } else return <Post_single_listItem {...item} location={item.location?.name} />
             }}
-            Item_details={item => (
-              <Box
-                display="flex"
-                flexDirection="column" /*flexDirection={item.comments?.length ? "row" : "column"}*/
-              >
-                <Post_single_details {...item} />
-              </Box>
-            )}
+            Item_details={Post_single_details}
           />
         ) : (
           <>Učitavanje...</>
