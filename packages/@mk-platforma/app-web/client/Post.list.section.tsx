@@ -22,6 +22,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   )
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<Id>()
 
   return (
     <Box
@@ -73,6 +74,8 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
       >
         {posts.data ? (
           <Post_list_base
+            selectedItem={selectedItem}
+            setSelectedItem={setSelectedItem}
             items={posts.data}
             Item={item => {
               if (item.asPersonEndorsement) {

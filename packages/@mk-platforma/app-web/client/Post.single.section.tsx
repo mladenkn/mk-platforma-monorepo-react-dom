@@ -30,11 +30,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
   const postQuery = trpc.post.single.useQuery({ id: itemId }, { initialData: post_initial })
   const post = asNonNil(postQuery.data)
   const [isEdit, setIsEdit] = useState(false)
-
-  const a = post.comments
-
   const goBack = useRouter().back
-  const { typography } = useTheme()
 
   return (
     <Box>
