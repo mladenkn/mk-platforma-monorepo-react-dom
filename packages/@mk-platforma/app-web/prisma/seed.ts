@@ -90,12 +90,21 @@ type Post_withSavedImages = Awaited<ReturnType<typeof posts_notCreated_map_withS
 
 async function seedPosts(posts: Post_withSavedImages[], locations: number[]) {
   for (const post of posts) {
-    await Api_ss.post.create({
+    const post_created = await Api_ss.post.create({
       ...post,
       categories: post.categories.map(label => ({ label })),
       location_id: faker.helpers.arrayElement(locations),
       images: post.images.map(i => i.id),
     })
+    for (const comment of post.comments) {
+      await db.post_comment.create({
+        data: {
+          content: comment.content,
+          postId: post_created.id,
+          authorId: 1,
+        },
+      })
+    }
   }
 }
 

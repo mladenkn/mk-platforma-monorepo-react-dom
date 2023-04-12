@@ -47,7 +47,7 @@ const Post_api_create = publicProcedure
       })
   )
   .mutation(async ({ ctx, input }) => {
-    await db.$transaction(async tx => {
+    return await db.$transaction(async tx => {
       const post_created = await tx.post.create({
         data: {
           ...shallowPick(input, "title", "description", "contact", "location_id"),
@@ -81,6 +81,7 @@ const Post_api_create = publicProcedure
           },
         })
       }
+      return post_created
     })
   })
 
