@@ -101,8 +101,26 @@ const post_single2_base = createMethod(select =>
     })
 )
 
-const post_single_2 = createMethod(post_single2_base)<
-  Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
->(Post_single_details_PostSelect)
+const Database_createMethods = {
+  post: {
+    findUnique:
+      (inner: any) =>
+      <TMoreArgs extends Partial<Prisma.PostFindUniqueArgs>>(args: Partial<TMoreArgs>) =>
+      (input: any) =>
+        createMethod(inner(args)) as any as Promise<Prisma.PostGetPayload<TMoreArgs>>,
+  },
+}
+
+const Database = {
+  post: Database_createMethods.post.findUnique(post_single2_base)({
+    select: Post_single_details_PostSelect,
+  }),
+}
+
+const a = Database.post({})
+
+// const post_single_2 = createMethod(post_single2_base)<
+//   Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
+// >(Post_single_details_PostSelect)
 
 export default Post_api
