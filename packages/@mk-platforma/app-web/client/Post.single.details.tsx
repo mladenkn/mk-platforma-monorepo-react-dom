@@ -1,8 +1,9 @@
-import { Box, SxProps, Typography, Paper, Input, Avatar } from "@mui/material"
+import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import { ReactNode } from "react"
 import { Comment_listItem } from "./Comment.common"
 import { Post_asPersonEndorsement, Post_asPersonEndorsement_skill } from "../prisma/generated/zod"
+import HandymanIcon from "@mui/icons-material/Handyman"
 
 type Post_image = {
   url: string
@@ -17,7 +18,6 @@ type Post_common_listItem_details_Props = {
   description: string
   contact?: string
   title_right?: ReactNode
-  afterDescription?: ReactNode
   comments?: {
     id: number
     author: {
@@ -45,14 +45,13 @@ export default function Post_single_details({
   description,
   contact,
   title_right,
-  afterDescription,
   usePaperSections,
   comments,
   asPersonEndorsement,
 }: Post_common_listItem_details_Props) {
   const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
-
   const Container = (usePaperSections ? Paper : Box) as typeof Box
+  const { typography } = useTheme()
 
   return (
     <Box sx={sx}>
@@ -87,7 +86,23 @@ export default function Post_single_details({
           </Box>
         )}
         <Typography>{description}</Typography>
-        {afterDescription}
+        {asPersonEndorsement?.skills?.length ? (
+          <Box sx={{ mt: 4 }}>
+            <Box sx={{ display: "flex", alignItems: "start" }}>
+              <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
+              <Box>
+                {asPersonEndorsement.skills.map(s => (
+                  <Typography key={s.label}>
+                    {s.label}
+                    {` `}({s.level}/5)
+                  </Typography>
+                ))}
+              </Box>
+            </Box>
+          </Box>
+        ) : (
+          <></>
+        )}
         {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
         {!!images?.length && (
           <Box sx={{ display: "flex", justifyContent: "end" }}>

@@ -8,9 +8,7 @@ import {
   SxProps,
   TextField,
   Paper,
-  Input,
   Typography,
-  Avatar,
   useTheme,
 } from "@mui/material"
 import trpc from "./trpc"
@@ -18,7 +16,6 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import CloseIcon from "@mui/icons-material/Close"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
-import HandymanIcon from "@mui/icons-material/Handyman"
 import { useState } from "react"
 import type { Post_base } from "../data/data.types"
 import use_Post_form_base from "./Post.form.base"
@@ -78,25 +75,6 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
               </IconButton>
             </Box>
           }
-          afterDescription={eva(() => {
-            if (post.asPersonEndorsement) {
-              return post.asPersonEndorsement.skills?.length ? (
-                <Box sx={{ mt: 4 }}>
-                  <Box sx={{ display: "flex", alignItems: "start" }}>
-                    <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
-                    <Box>
-                      {post.asPersonEndorsement.skills.map(s => (
-                        <Typography key={s.label}>
-                          {s.label}
-                          {` `}({s.level}/5)
-                        </Typography>
-                      ))}
-                    </Box>
-                  </Box>
-                </Box>
-              ) : undefined
-            }
-          })}
         />
       ) : (
         <></>
