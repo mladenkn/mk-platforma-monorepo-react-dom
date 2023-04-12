@@ -103,6 +103,7 @@ const Post_api = router({
           id: c.id,
           content: c.content,
           author: {
+            id: true,
             userName: c.author.name,
             avatarStyle: c.author.avatarStyle as object,
           },

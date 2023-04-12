@@ -35,16 +35,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
   const post = asNonNil(postQuery.data)
   const [isEdit, setIsEdit] = useState(false)
 
-  function renderAvatar() {
-    if (post.asPersonEndorsement) {
-      return (
-        <Avatar
-          sx={{ mr: 2, ...(post.asPersonEndorsement.avatarStyle as object) }}
-          children={post.asPersonEndorsement.firstName[0] + post.asPersonEndorsement.lastName[0]}
-        />
-      )
-    }
-  }
+  const a = post.asPersonEndorsement
 
   const goBack = useRouter().back
   const { typography } = useTheme()
@@ -78,11 +69,6 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
           sx={{ p: 1 }}
           {...post}
           usePaperSections
-          title_left={
-            <Box mr={1.2} display="flex" alignItems="center">
-              {renderAvatar()}
-            </Box>
-          }
           title_right={
             <Box>
               <IconButton onClick={() => setIsEdit(true)}>

@@ -90,22 +90,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 display="flex"
                 flexDirection="column" /*flexDirection={item.comments?.length ? "row" : "column"}*/
               >
-                <Post_single_details
-                  {...item}
-                  title_left={eva(() => {
-                    if (item.asPersonEndorsement) {
-                      return (
-                        <Avatar
-                          sx={{ mr: 2, ...(item.asPersonEndorsement.avatarStyle as object) }}
-                          children={
-                            item.asPersonEndorsement.firstName[0] +
-                            item.asPersonEndorsement.lastName[0]
-                          }
-                        />
-                      )
-                    }
-                  })}
-                />
+                <Post_single_details {...item} />
               </Box>
             )}
           />

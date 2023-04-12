@@ -1,7 +1,8 @@
-import { Box, SxProps, Typography, Paper, Input, InputProps, Avatar } from "@mui/material"
+import { Box, SxProps, Typography, Paper, Input, Avatar } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import { ReactNode } from "react"
 import { Comment_listItem } from "./Comment.common"
+import { Post_asPersonEndorsement, Post_asPersonEndorsement_skill } from "../prisma/generated/zod"
 
 type Post_image = {
   url: string
@@ -15,7 +16,6 @@ type Post_common_listItem_details_Props = {
   images?: Post_image[]
   description: string
   contact?: string
-  title_left?: ReactNode
   title_right?: ReactNode
   afterDescription?: ReactNode
   comments?: {
@@ -29,6 +29,11 @@ type Post_common_listItem_details_Props = {
     canDelete?: boolean
   }[]
   usePaperSections?: boolean
+  asPersonEndorsement?:
+    | (Pick<Post_asPersonEndorsement, "firstName" | "lastName" | "avatarStyle"> & {
+        skills: Pick<Post_asPersonEndorsement_skill, "id" | "label" | "level">[]
+      })
+    | null
 }
 
 export default function Post_single_details({
@@ -38,11 +43,11 @@ export default function Post_single_details({
   images,
   description,
   contact,
-  title_left,
   title_right,
   afterDescription,
   usePaperSections,
   comments,
+  asPersonEndorsement,
 }: Post_common_listItem_details_Props) {
   const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
 
@@ -53,7 +58,12 @@ export default function Post_single_details({
       <Container>
         <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
-            {title_left}
+            {asPersonEndorsement && (
+              <Avatar
+                sx={{ mr: 2, ...(asPersonEndorsement.avatarStyle as object) }}
+                children={asPersonEndorsement.firstName[0] + asPersonEndorsement.lastName[0]}
+              />
+            )}
             <Box>
               <Typography fontWeight={500} variant="h5">
                 {title}
