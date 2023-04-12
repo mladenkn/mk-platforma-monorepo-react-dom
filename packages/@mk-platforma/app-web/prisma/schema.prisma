@@ -101,7 +101,7 @@ model Post_comment {
 
 model User {
   id          Int    @id @default(autoincrement())
-  name        String
+  name        String @unique
   avatarStyle Json
 
   comments Post_comment[]

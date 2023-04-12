@@ -9,12 +9,19 @@ const db = new PrismaClient()
 
 async function main() {
   await seedCategories()
-  await db.user.create({
-    data: {
+
+  await db.user.upsert({
+    where: { name: "Mladen" },
+    update: {
+      name: "Mladen",
+      avatarStyle: { background: "green", color: "white" },
+    },
+    create: {
       name: "Mladen",
       avatarStyle: { background: "green", color: "white" },
     },
   })
+
   const locations = await seedLocations()
 
   const posts_notCreated = generatePosts()
