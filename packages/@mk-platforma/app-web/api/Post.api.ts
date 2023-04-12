@@ -65,7 +65,6 @@ const Post_api = router({
       })
       return posts.map(post => ({
         ...post,
-        location: post.location?.name,
         categories: post.categories.map(({ label }) => label),
       }))
     }),

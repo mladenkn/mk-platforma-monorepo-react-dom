@@ -12,7 +12,7 @@ export type Section_base_Props<TItem extends Item> = {
   items: TItem[]
   Item: ComponentType<TItem>
   Item_details: ComponentType<TItem & { sx?: SxProps }>
-  selectedItem: Id
+  selectedItem?: Id
   setSelectedItem(id?: Id): void
 }
 
