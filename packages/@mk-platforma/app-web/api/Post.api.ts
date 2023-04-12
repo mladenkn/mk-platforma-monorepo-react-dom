@@ -33,6 +33,7 @@ const Post_select = {
       avatarStyle: true,
       skills: {
         select: {
+          id: true,
           label: true,
           level: true,
         },

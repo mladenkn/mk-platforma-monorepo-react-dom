@@ -21,7 +21,7 @@ type Post_common_listItem_details_Props = {
   comments?: {
     id: number
     author: {
-      avatarStyle: object
+      avatarStyle: any
       userName: string
     }
     content: string
@@ -30,7 +30,8 @@ type Post_common_listItem_details_Props = {
   }[]
   usePaperSections?: boolean
   asPersonEndorsement?:
-    | (Pick<Post_asPersonEndorsement, "firstName" | "lastName" | "avatarStyle"> & {
+    | (Pick<Post_asPersonEndorsement, "firstName" | "lastName"> & {
+        avatarStyle: any
         skills: Pick<Post_asPersonEndorsement_skill, "id" | "label" | "level">[]
       })
     | null
