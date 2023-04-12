@@ -1,15 +1,21 @@
 import { Box, SxProps, IconButton, Typography, Avatar } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
+import type { Prisma } from "@prisma/client"
 
-type Comment = {
-  author: {
-    avatarStyle: any
-    name: string
+type Comment = Prisma.Post_commentGetPayload<{
+  select: {
+    content: true
+    author: {
+      select: {
+        avatarStyle: true
+        name: true
+      }
+    }
   }
+}> & {
   canEdit?: boolean
   canDelete?: boolean
-  content: string
 }
 
 type Props = {
@@ -29,7 +35,7 @@ export function Comment_listItem({ sx, comment }: Props) {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Avatar sx={comment.author.avatarStyle} children={comment.author.name[0]} />
+          <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name[0]} />
           <Typography fontWeight={500} variant="h6">
             {comment.author.name}
           </Typography>
