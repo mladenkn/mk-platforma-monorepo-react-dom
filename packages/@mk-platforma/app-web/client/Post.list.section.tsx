@@ -1,8 +1,8 @@
 import { Box, Avatar, Input, Drawer, Typography, Fab } from "@mui/material"
 import Post_list_base from "./Post.list.base"
-import { Post_single_listItem } from "./Post.single"
+import { Post_single_listItem } from "./Post.single.listItem"
 import Post_single_details from "./Post.single.details"
-import { Post_single_expert } from "./Post.single.expert"
+import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
 import trpc from "./trpc"
 import type { Post_base } from "../data/data.types"
 import { eva, shallowPick } from "@mk-libs/common/common"
@@ -77,7 +77,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
             Item={item => {
               if (item.asPersonEndorsement) {
                 return (
-                  <Post_single_expert
+                  <Post_single_listItem_personEndorsement
                     {...shallowPick(item.asPersonEndorsement, "firstName", "lastName", "skills")}
                     avatarStyle={item.asPersonEndorsement.avatarStyle as object}
                     location={item.location}

@@ -12,7 +12,13 @@ type Props = {
   skills: NonNullable<Post_base["asPersonEndorsement"]>["skills"]
 }
 
-export function Post_single_expert({ avatarStyle, firstName, lastName, location, skills }: Props) {
+export function Post_single_listItem_personEndorsement({
+  avatarStyle,
+  firstName,
+  lastName,
+  location,
+  skills,
+}: Props) {
   const { typography } = useTheme()
   return (
     <Box sx={{ display: "flex", alignItems: "start" }}>
