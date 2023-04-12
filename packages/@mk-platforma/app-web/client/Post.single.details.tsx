@@ -116,7 +116,7 @@ export default function Post_single_details({
           </Box>
         )}
       </Container>
-      <Container sx={{ borderRadius: 2, p: 2, mt: 4, display: "flex" }}>
+      <Container sx={{ borderRadius: 2, mt: 4, display: "flex" }}>
         <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
         <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
       </Container>
