@@ -1,0 +1,77 @@
+import { Box, SxProps, Typography } from "@mui/material"
+import LocationIcon from "@mui/icons-material/LocationOn"
+import { ReactNode } from "react"
+
+type Post_image = {
+  url: string
+  isMain?: string
+}
+
+type Post_common_listItem_details_Props = {
+  sx?: SxProps
+  title: string
+  location?: string
+  images?: Post_image[]
+  description: string
+  contact?: string
+  title_left?: ReactNode
+  title_right?: ReactNode
+  afterDescription?: ReactNode
+}
+
+export function Post_single_details({
+  sx,
+  title,
+  location,
+  images,
+  description,
+  contact,
+  title_left,
+  title_right,
+  afterDescription,
+}: Post_common_listItem_details_Props) {
+  const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
+
+  return (
+    <Box sx={sx}>
+      <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex" }}>
+          {title_left}
+          <Box>
+            <Typography fontWeight={500} variant="h5">
+              {title}
+            </Typography>
+            {location && (
+              <Box sx={{ color: "text.secondary" }}>
+                <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
+                  <LocationIcon fontSize="small" sx={{ mr: 1 }} />
+                  <Typography>{location}</Typography>
+                </Box>
+              </Box>
+            )}
+          </Box>
+        </Box>
+        {title_right}
+      </Box>
+      {mainImage && (
+        <Box sx={{ display: "flex", justifyContent: "center", mb: 4, mt: 3 }}>
+          <img src={mainImage.url} />
+        </Box>
+      )}
+      <Typography>{description}</Typography>
+      {afterDescription}
+      {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
+      {!!images?.length && (
+        <Box sx={{ display: "flex", justifyContent: "end" }}>
+          <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", marginTop: 4 }}>
+            {images
+              .filter(p => p)
+              .map((image, index) => (
+                <img key={index} width={100} height={100} src={image.url} />
+              ))}
+          </Box>
+        </Box>
+      )}
+    </Box>
+  )
+}
