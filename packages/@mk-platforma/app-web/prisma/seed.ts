@@ -9,19 +9,7 @@ const db = new PrismaClient()
 
 async function main() {
   await seedCategories()
-
-  await db.user.upsert({
-    where: { name: "Mladen" },
-    update: {
-      name: "Mladen",
-      avatarStyle: { background: "green", color: "white" },
-    },
-    create: {
-      name: "Mladen",
-      avatarStyle: { background: "green", color: "white" },
-    },
-  })
-
+  await upsertUser("Mladen", { background: "green", color: "white" })
   const locations = await seedLocations()
 
   const posts_notCreated = generatePosts()
@@ -38,6 +26,20 @@ async function main() {
       locations.map(l => l.id)
     )
   }
+}
+
+async function upsertUser(name: string, avatarStyle: object) {
+  await db.user.upsert({
+    where: { name },
+    update: {
+      name,
+      avatarStyle,
+    },
+    create: {
+      name,
+      avatarStyle,
+    },
+  })
 }
 
 async function seedCategories() {
