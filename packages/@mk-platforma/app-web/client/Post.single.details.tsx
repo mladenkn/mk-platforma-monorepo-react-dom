@@ -1,44 +1,70 @@
 import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
-import { ReactNode } from "react"
 import { Comment_listItem } from "./Comment.common"
-import { Post_asPersonEndorsement, Post_asPersonEndorsement_skill } from "../prisma/generated/zod"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import DataOrQuery from "../utils"
 import { UseQueryResult } from "@tanstack/react-query"
+import { Prisma } from "@prisma/client"
+import { ReactNode } from "react"
 
-type Post_image = {
-  url: string
-  isMain?: string
+export const Post_single_details_PostSelect = {
+  id: true,
+  title: true,
+  location: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+  contact: true,
+  description: true,
+  images: {
+    select: {
+      id: true,
+      url: true,
+    },
+  },
+  asPersonEndorsement: {
+    select: {
+      firstName: true,
+      lastName: true,
+      avatarStyle: true,
+      skills: {
+        select: {
+          id: true,
+          label: true,
+          level: true,
+        },
+      },
+    },
+  },
+  comments: {
+    select: {
+      id: true,
+      content: true,
+      author: {
+        select: {
+          name: true,
+          avatarStyle: true,
+        },
+      },
+    },
+  },
+} satisfies Prisma.PostSelect
+
+type Post_base = Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
+type Comment = Post_base["comments"][number] & {
+  canEdit: boolean
+  canDelete: boolean
+}
+type Post = Omit<Post_base, "comments"> & {
+  comments?: Comment[] | null
 }
 
-type Comment = {
-  id: number
-  author: {
-    avatarStyle: any
-    userName: string
-  }
-  content: string
-  canEdit?: boolean
-  canDelete?: boolean
-}
-
-type Post_common_listItem_details_Props = {
+type Post_common_listItem_details_Props = Post & {
   sx?: SxProps
-  title: string
-  location?: string
-  images?: Post_image[]
-  description: string
-  contact?: string
   title_right?: ReactNode
-  comments?: Comment[] | UseQueryResult<Comment[]>
   usePaperSections?: boolean
-  asPersonEndorsement?:
-    | (Pick<Post_asPersonEndorsement, "firstName" | "lastName"> & {
-        avatarStyle: any
-        skills: Pick<Post_asPersonEndorsement_skill, "id" | "label" | "level">[]
-      })
-    | null
 }
 
 export default function Post_single_details({
@@ -53,7 +79,7 @@ export default function Post_single_details({
   comments,
   asPersonEndorsement,
 }: Post_common_listItem_details_Props) {
-  const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
+  const mainImage = images[0]
   const Container = (usePaperSections ? Paper : Box) as typeof Box
   const { typography } = useTheme()
 
@@ -76,7 +102,7 @@ export default function Post_single_details({
                 <Box sx={{ color: "text.secondary" }}>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
                     <LocationIcon fontSize="small" sx={{ mr: 1 }} />
-                    <Typography>{location}</Typography>
+                    <Typography>{location.name}</Typography>
                   </Box>
                 </Box>
               )}
@@ -124,7 +150,7 @@ export default function Post_single_details({
         <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
         <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
       </Container>
-      {comments && (
+      {/* {comments && (
         <DataOrQuery
           input={comments}
           render={comments => (
@@ -137,7 +163,7 @@ export default function Post_single_details({
             </Box>
           )}
         />
-      )}
+      )} */}
     </Box>
   )
 }

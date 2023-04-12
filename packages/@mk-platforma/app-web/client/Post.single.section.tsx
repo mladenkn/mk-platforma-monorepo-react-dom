@@ -31,7 +31,7 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
   const post = asNonNil(postQuery.data)
   const [isEdit, setIsEdit] = useState(false)
 
-  const a = post.asPersonEndorsement
+  const a = post.comments
 
   const goBack = useRouter().back
   const { typography } = useTheme()
@@ -104,7 +104,7 @@ function Post_edit({
   sx?: SxProps
   cancel(): void
 }) {
-  const form_base = use_Post_form_base({ initialValues: post })
+  const form_base = use_Post_form_base({ initialValues: post as any })
 
   const form_expert = use_Post_form_expertOnly({})
   const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")

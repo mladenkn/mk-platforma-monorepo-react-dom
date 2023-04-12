@@ -4,6 +4,7 @@ import Post_api_create from "./Post.api.create"
 import { Prisma, PrismaClient } from "@prisma/client"
 import { Post_category_labelSchema } from "../prisma/generated/zod"
 import { assertIsNonNil } from "@mk-libs/common/common"
+import { Post_single_details_PostSelect } from "../client/Post.single.details"
 
 const Post_select = {
   id: true,
@@ -78,36 +79,13 @@ const Post_api = router({
     .query(async ({ input }) => {
       const post = await db.post.findUnique({
         where: { id: input.id },
-        select: {
-          ...Post_select,
-          comments: {
-            select: {
-              id: true,
-              content: true,
-              author: {
-                select: {
-                  id: true,
-                  name: true,
-                  avatarStyle: true,
-                },
-              },
-            },
-          },
-        },
+        select: Post_single_details_PostSelect,
       })
       assertIsNonNil(post)
       return {
         ...post,
-        location: post.location?.name,
-        categories: post.categories.map(({ label }) => label),
         comments: post.comments.map(c => ({
-          id: c.id,
-          content: c.content,
-          author: {
-            id: true,
-            userName: c.author.name,
-            avatarStyle: c.author.avatarStyle as object,
-          },
+          ...c,
           canEdit: true,
           canDelete: true,
         })),
