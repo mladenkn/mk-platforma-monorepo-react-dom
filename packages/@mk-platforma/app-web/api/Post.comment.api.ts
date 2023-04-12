@@ -21,6 +21,7 @@ const Post_comment_api = router({
     )
     .query(({ input }) => {
       return db.post_comment.findMany({
+        // fali canEdit, canDelete
         where: {
           postId: input.post_id,
         },
