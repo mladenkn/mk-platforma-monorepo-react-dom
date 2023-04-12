@@ -7,8 +7,8 @@ type Comment = {
     avatarStyle: object
     userName: string
   }
-  canEdit: boolean
-  canDelete: boolean
+  canEdit?: boolean
+  canDelete?: boolean
   content: string
 }
 

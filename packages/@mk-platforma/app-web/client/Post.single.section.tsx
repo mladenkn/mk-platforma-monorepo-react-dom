@@ -74,62 +74,45 @@ export default function Post_single_section({ post_initial }: { post_initial: Po
       </Header_root>
       {postQuery.isLoading ? <>Učitavanje...</> : <></>}
       {!isEdit ? (
-        <Box sx={{ p: 1 }}>
-          <Paper sx={{ px: 2.5, py: 2, borderRadius: 2 }}>
-            <Post_single_details
-              {...post}
-              title_left={
-                <Box mr={1.2} display="flex" alignItems="center">
-                  {renderAvatar()}
-                </Box>
-              }
-              title_right={
-                <Box>
-                  <IconButton onClick={() => setIsEdit(true)}>
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </Box>
-              }
-              afterDescription={eva(() => {
-                if (post.asPersonEndorsement) {
-                  return post.asPersonEndorsement.skills?.length ? (
-                    <Box sx={{ mt: 4 }}>
-                      <Box sx={{ display: "flex", alignItems: "start" }}>
-                        <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
-                        <Box>
-                          {post.asPersonEndorsement.skills.map(s => (
-                            <Typography key={s.label}>
-                              {s.label}
-                              {` `}({s.level}/5)
-                            </Typography>
-                          ))}
-                        </Box>
-                      </Box>
-                    </Box>
-                  ) : undefined
-                }
-              })}
-            />
-          </Paper>
-          <Paper sx={{ borderRadius: 2, p: 2, mt: 4, display: "flex" }}>
-            <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
-            <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
-          </Paper>
-          {post.comments?.length ? (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
-              {post.comments.map(comment => (
-                <Paper key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
-                  <Comment_listItem comment={comment} />
-                </Paper>
-              ))}
+        <Post_single_details
+          sx={{ p: 1 }}
+          {...post}
+          usePaperSections
+          title_left={
+            <Box mr={1.2} display="flex" alignItems="center">
+              {renderAvatar()}
             </Box>
-          ) : (
-            <></>
-          )}
-        </Box>
+          }
+          title_right={
+            <Box>
+              <IconButton onClick={() => setIsEdit(true)}>
+                <EditIcon />
+              </IconButton>
+              <IconButton>
+                <DeleteIcon />
+              </IconButton>
+            </Box>
+          }
+          afterDescription={eva(() => {
+            if (post.asPersonEndorsement) {
+              return post.asPersonEndorsement.skills?.length ? (
+                <Box sx={{ mt: 4 }}>
+                  <Box sx={{ display: "flex", alignItems: "start" }}>
+                    <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
+                    <Box>
+                      {post.asPersonEndorsement.skills.map(s => (
+                        <Typography key={s.label}>
+                          {s.label}
+                          {` `}({s.level}/5)
+                        </Typography>
+                      ))}
+                    </Box>
+                  </Box>
+                </Box>
+              ) : undefined
+            }
+          })}
+        />
       ) : (
         <></>
       )}

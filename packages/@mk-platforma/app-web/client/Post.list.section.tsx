@@ -106,22 +106,6 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                     }
                   })}
                 />
-                <Box sx={{ mr: 2 }}>
-                  <Box sx={{ borderRadius: 2, mt: 4, display: "flex", mb: 6 }}>
-                    <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
-                    <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
-                  </Box>
-                  {/* {item.comments?.length ? (
-                    <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 3 }}>
-                      {item.comments.map(comment => (
-                        <Comment_listItem key={comment.id} comment={comment} />
-                      ))}
-                    </Box>
-                  ) : (
-                    <></>
-                  )} */}
-                  TODO: comments
-                </Box>
               </Box>
             )}
           />
