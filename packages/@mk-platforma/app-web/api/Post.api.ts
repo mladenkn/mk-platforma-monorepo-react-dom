@@ -101,7 +101,6 @@ const post_single2_base = createMethod(select =>
     })
 )
 
-type A = Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
 const post_single_2 = createMethod(post_single2_base)<
   Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
 >(Post_single_details_PostSelect)
