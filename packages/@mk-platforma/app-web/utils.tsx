@@ -19,5 +19,5 @@ export default function DataOrQuery<TData>({
     else if (query.error) return error
     else render((input as any).data)
   } else return render(input)
-  throw new Error("DataOrQuery: invalid param")
+  return <></> // čudno
 }
