@@ -20,11 +20,15 @@ const Prisma_api = {
         resolve,
       }: {
         input: z.ZodType<TInput>
-        resolve: (ctx: any, input: TInput, moreArgs: any) => any
+        resolve: (ctx: any, input: TInput, moreArgs: Prisma.PostFindUniqueArgs) => any
       }) =>
-      <TMoreArgs extends Partial<Prisma.PostFindUniqueArgs>>(args: Partial<TMoreArgs>) =>
-      (input: any) =>
-        ({} as any as Promise<Prisma.PostGetPayload<TMoreArgs>>),
+      <TMoreArgs extends Partial<Prisma.PostFindUniqueArgs>>(args: TMoreArgs) =>
+      (input: any) => {
+        const procedure = publicProcedure
+          .input(input)
+          .query(({ ctx, input }) => resolve(null as any, input as any, args as any))
+        return procedure
+      },
   },
 }
 
@@ -34,12 +38,14 @@ const Api_abstract = {
       input: z.object({
         id: z.number(),
       }),
-      resolve(ctx: any, input, moreArgs: any) {
+      resolve(_, input, moreArgs) {
+        const { where, ..._moreArgs } = moreArgs
         return db.post.findUnique({
           where: {
             id: input.id,
+            ...where,
           },
-          ...moreArgs,
+          ..._moreArgs,
         })
       },
     }),
