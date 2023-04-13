@@ -71,7 +71,7 @@ export default function Post_single_section({
       {post && isEdit ? (
         <Post_edit
           sx={{ p: 2, m: 1 }}
-          post={{ ...post, asPersonEndorsement: { ...post.asPersonEndorsement, skills: [] } }}
+          post={nullsToUndefined(post)}
           onSubmit={() => {}}
           cancel={() => setIsEdit(false)}
         />
@@ -80,6 +80,27 @@ export default function Post_single_section({
       )}
     </Box>
   )
+}
+
+type RecursivelyReplaceNullWithUndefined<T> = T extends null
+  ? undefined
+  : T extends (infer U)[]
+  ? RecursivelyReplaceNullWithUndefined<U>[]
+  : T extends Record<string, unknown>
+  ? { [K in keyof T]: RecursivelyReplaceNullWithUndefined<T[K]> }
+  : T
+
+export function nullsToUndefined<T>(obj: T): RecursivelyReplaceNullWithUndefined<T> {
+  if (obj === null || obj === undefined) {
+    return undefined as any
+  }
+
+  if ((obj as any).constructor.name === "Object" || Array.isArray(obj)) {
+    for (const key in obj) {
+      obj[key] = nullsToUndefined(obj[key]) as any
+    }
+  }
+  return obj as any
 }
 
 function Post_edit({

@@ -121,7 +121,6 @@ async function seedPosts(
       ...post,
       categories: post.categories.map(label => ({ label })),
       location_id: faker.helpers.arrayElement(locations),
-      images: post.images.map(i => i.id),
     })
     for (const comment of post.comments) {
       await db.post_comment.create({

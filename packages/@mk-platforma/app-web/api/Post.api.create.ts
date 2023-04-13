@@ -1,6 +1,8 @@
 import { shallowPick } from "@mk-libs/common/common"
+import { avatarStyles } from "../data/data.common"
 import { publicProcedure } from "../trpc.server.utils"
 import { Post_api_create_input } from "./Post.api.cu.input"
+import { getRandomElement } from "@mk-libs/common/array"
 
 const Post_api_create = publicProcedure
   .input(Post_api_create_input)
@@ -14,7 +16,7 @@ const Post_api_create = publicProcedure
             connect: input.categories,
           },
           images: {
-            connect: input.images?.map(id => ({ id })),
+            connect: input.images,
           },
         },
       })
@@ -27,7 +29,8 @@ const Post_api_create = publicProcedure
             asPersonEndorsement: {
               create: {
                 post_id: post_created.id,
-                ...shallowPick(input.asPersonEndorsement, "firstName", "lastName", "avatarStyle"),
+                ...shallowPick(input.asPersonEndorsement, "firstName", "lastName"),
+                avatarStyle: getRandomElement(avatarStyles),
                 skills: {
                   create: input.asPersonEndorsement.skills,
                 },

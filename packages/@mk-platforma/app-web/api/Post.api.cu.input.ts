@@ -17,7 +17,6 @@ export const Post_api_cu_input_base = PostSchema.pick({
   asPersonEndorsement: Post_asPersonEndorsementSchema.pick({
     firstName: true,
     lastName: true,
-    avatarStyle: true,
   })
     .extend({
       skills: z
@@ -30,7 +29,7 @@ export const Post_api_cu_input_base = PostSchema.pick({
         .optional(),
     })
     .optional(),
-  images: z.array(ImageSchema.shape.id).optional(),
+  images: z.array(ImageSchema.pick({ id: true })).optional(),
 })
 
 export const Post_api_create_input = Post_api_cu_input_base
