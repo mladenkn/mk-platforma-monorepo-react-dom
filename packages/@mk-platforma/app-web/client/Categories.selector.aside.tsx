@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@mui/material"
 import type { Post_category_labelType } from "../prisma/generated/zod"
-import { allCategories, getCategoryLabel, CategoryIcon } from "./Categories.common"
+import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import React from "react"
 import Api from "./trpc.client"

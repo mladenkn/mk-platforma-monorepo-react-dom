@@ -54,14 +54,3 @@ export function CategoryIcon({
       throw new Error(`Parameter ${name} not matched as Category`)
   }
 }
-
-export const allCategories: Post_category_labelType[] = [
-  "job",
-  "accommodation",
-  "gathering",
-  "personEndorsement",
-  "sellable",
-  "gathering_spirituality",
-  "gathering_work",
-  "gathering_hangout",
-]

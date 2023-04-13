@@ -54,7 +54,7 @@ export default function Post_create_section({ sx }: Props) {
           </IconButton>
         </Box>
         <TextField {...form_base.components_props.label} />
-        <CategoryDropdown {...form_base.components_props.category} />
+        {/* <CategoryDropdown {...form_base.components_props.category} /> */}
         <TextField {...form_base.components_props.description} />
         <TextField {...form_base.components_props.location} />
         <TextField {...form_base.components_props.contact} />

@@ -59,7 +59,7 @@ export default function use_Post_form_base({ initialValues = initialValues_defau
       } satisfies Partial<TextFieldProps>,
 
       category: {
-        value: values.categories[0],
+        // value: values.categories[0],
         onChange: (e, value) => form.setFieldValue("categories", [value]),
       } satisfies Partial<ComponentProps<typeof CategoryDropdown>>,
 
