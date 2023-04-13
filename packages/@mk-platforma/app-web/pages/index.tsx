@@ -13,7 +13,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   assertIsNonNil(category)
   return {
     props: {
-      selectedCategory: category.id,
+      selectedCategory: category,
       posts_initial: await Api_ss({ db, userId: 1 }).post.many({ categories: [category.id] }),
     },
   }

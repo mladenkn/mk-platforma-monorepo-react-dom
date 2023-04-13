@@ -55,8 +55,3 @@ export function CategoryIcon({
       throw new Error(`Parameter ${name} not matched as Category`)
   }
 }
-
-export function use_Category(id: number) {
-  const categories = Api.post.category.many.useQuery()
-  return categories.data?.find(c => c.id === id)
-}

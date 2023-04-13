@@ -8,9 +8,10 @@ import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import React, { useState, useEffect } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
-import { getCategoryLabel, CategoryIcon, use_Category } from "./Categories.common"
+import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
 import type { Prisma } from "@prisma/client"
+import { Post_category_labelType } from "../prisma/generated/zod"
 
 export const PostList_section_PostSelect = {
   id: true,
@@ -48,14 +49,14 @@ type Post = Prisma.PostGetPayload<{
   select: typeof PostList_section_PostSelect
 }>
 
-type Props = { selectedCategory: number; posts_initial: Post[] }
+type Props = {
+  selectedCategory: { id: number; label: Post_category_labelType }
+  posts_initial: Post[]
+}
 
-export default function PostList_section({
-  selectedCategory: selectedCategory_id,
-  posts_initial,
-}: Props) {
+export default function PostList_section({ selectedCategory, posts_initial }: Props) {
   const posts = Api.post.many.useQuery(
-    { categories: selectedCategory_id ? [selectedCategory_id] : [] },
+    { categories: selectedCategory.id ? [selectedCategory.id] : [] },
     { initialData: posts_initial }
   )
 
@@ -71,8 +72,6 @@ export default function PostList_section({
     { post_id: selectedItem! },
     { enabled: !!selectedItem }
   )
-
-  const selectedCategory = use_Category(selectedCategory_id)
 
   return (
     <Box
@@ -103,7 +102,7 @@ export default function PostList_section({
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
-          <Categories_selector_aside selectedItem={selectedCategory_id} />
+          <Categories_selector_aside selectedItem={selectedCategory.id} />
         </Drawer>
       )}
       <Fab
