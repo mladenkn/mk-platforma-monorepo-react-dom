@@ -4,7 +4,7 @@ import Post_list_base from "./Post.list.base"
 import { Post_single_listItem } from "./Post.single.listItem"
 import Post_single_details from "./Post.single.details"
 import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
-import trpc from "./trpc"
+import Api from "./trpc.client"
 import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import { useState } from "react"
@@ -53,7 +53,7 @@ type Post = Prisma.PostGetPayload<{
 type Props = { selectedCategory: Post_category_labelType; posts_initial: Post[] }
 
 export default function PostList_section({ selectedCategory, posts_initial }: Props) {
-  const posts = trpc.post.many.useQuery(
+  const posts = Api.post.many.useQuery(
     { categories: selectedCategory ? [selectedCategory] : [] },
     { initialData: posts_initial }
   )
@@ -61,7 +61,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
   const [selectedItem, setSelectedItem] = useState<number>()
 
-  const details_comments = trpc.post_comment.many.useQuery(
+  const details_comments = Api.post_comment.many.useQuery(
     { post_id: selectedItem! },
     { enabled: !!selectedItem }
   )

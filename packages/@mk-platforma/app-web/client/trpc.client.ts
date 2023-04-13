@@ -21,7 +21,7 @@ function getBaseUrl() {
   return `http://localhost:${process.env.PORT ?? 3000}`
 }
 
-const trpc: CreateTRPCNext<ApiRouter_type, NextPageContext, unknown> =
+const Api: CreateTRPCNext<ApiRouter_type, NextPageContext, unknown> =
   createTRPCNext<ApiRouter_type>({
     config({ ctx }) {
       return {
@@ -47,4 +47,4 @@ const trpc: CreateTRPCNext<ApiRouter_type, NextPageContext, unknown> =
     ssr: false,
   })
 
-export default trpc
+export default Api

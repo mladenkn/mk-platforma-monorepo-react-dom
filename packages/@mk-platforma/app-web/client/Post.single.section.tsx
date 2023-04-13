@@ -2,7 +2,7 @@ import Post_single_details, { Post_common_listItem_details_PostModel } from "./P
 import { useRouter } from "next/router"
 import { Header_root, Header_moreOptions } from "./Header"
 import { Box, Button, IconButton, SxProps, TextField, Paper, Typography } from "@mui/material"
-import trpc from "./trpc"
+import Api from "./trpc.client"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import CloseIcon from "@mui/icons-material/Close"
@@ -22,7 +22,7 @@ export default function Post_single_section({
 }) {
   const router = useRouter()
   const itemId = parseInt(router.query.id as string)!
-  const postQuery = trpc.post.single.useQuery({ id: itemId }, { initialData: post_initial })
+  const postQuery = Api.post.single.useQuery({ id: itemId }, { initialData: post_initial })
   const post = asNonNil(postQuery.data)
   const [isEdit, setIsEdit] = useState(false)
   const goBack = useRouter().back
