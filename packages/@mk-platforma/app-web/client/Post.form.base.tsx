@@ -1,45 +1,38 @@
 import { useFormik } from "formik"
-import React, { ComponentProps } from "react"
+import React from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import { TextFieldProps, TextField, Box } from "@mui/material"
+import { TextField, Box } from "@mui/material"
 import CategoryDropdown from "./Categories.dropdown"
 import { z } from "zod"
-import { Post_category_labelSchema } from "../prisma/generated/zod"
+import { Post_api_cu_input_base } from "../api/Post.api.cu.input"
 
-const Post_zod = z.object({
-  title: z.string(),
-  description: z.string(),
-  categories: z.array(Post_category_labelSchema),
-  location: z.string().optional(),
-  contact: z.string().optional(),
-})
-
-type Post = z.infer<typeof Post_zod>
+type PostInput = z.infer<typeof Post_api_cu_input_base>
 
 type Props = {
-  initialValues?: Post
+  initialValues?: PostInput
 }
 
 const initialValues_default = {
   title: "",
   description: "",
-  location: "",
+  contact: "",
+  location_id: undefined,
   categories: [],
-} satisfies Post
+} satisfies PostInput
 
 // Treba validacija da nemože selektirat bilo koju kombinaciju sekcija
 
-export function Post_form_base({ initialValues = initialValues_default }: Props) {
+export default function Post_form_base({ initialValues = initialValues_default }: Props) {
   const form = useFormik({
     initialValues,
-    validationSchema: toFormikValidationSchema(Post_zod),
+    validationSchema: toFormikValidationSchema(Post_api_cu_input_base),
     onSubmit() {},
   })
 
   const { values, handleChange } = form
 
   return (
-    <Box>
+    <>
       <TextField
         label="Naziv"
         variant="outlined"
@@ -55,74 +48,12 @@ export function Post_form_base({ initialValues = initialValues_default }: Props)
         onChange={handleChange}
       />
       <TextField
-        label="Lokacija"
-        variant="outlined"
-        name="location"
-        value={values.location}
-        onChange={handleChange}
-      />
-      <TextField
         label="Kontakt"
         variant="outlined"
         name="contact"
         value={values.contact}
         onChange={handleChange}
       />
-    </Box>
+    </>
   )
-}
-
-export default function use_Post_form_base({ initialValues = initialValues_default }: Props) {
-  const form = useFormik({
-    initialValues,
-    validationSchema: toFormikValidationSchema(Post_zod),
-    onSubmit() {},
-  })
-
-  const { values, handleChange } = form
-
-  return {
-    control: form,
-    components_props: {
-      label: {
-        label: "Naziv",
-        variant: "outlined",
-        name: "title",
-        value: values.title,
-        onChange: handleChange,
-      } satisfies Partial<TextFieldProps>,
-
-      description: {
-        label: "Opis",
-        variant: "outlined",
-        multiline: true,
-        name: "description",
-        value: values.description,
-        onChange: handleChange,
-      } satisfies Partial<TextFieldProps>,
-
-      category: {
-        // value: values.categories[0],
-        onChange: (e, value) => form.setFieldValue("categories", [value]),
-      } satisfies Partial<ComponentProps<typeof CategoryDropdown>>,
-
-      location: {
-        label: "Lokacija",
-        variant: "outlined",
-        name: "location",
-        value: values.location,
-        onChange: handleChange,
-      } satisfies Partial<TextFieldProps>,
-
-      contact: {
-        label: "Kontakt",
-        variant: "outlined",
-        name: "contact",
-        value: values.contact,
-        onChange: handleChange,
-      } satisfies Partial<TextFieldProps>,
-
-      // TODO: images, contact
-    },
-  }
 }

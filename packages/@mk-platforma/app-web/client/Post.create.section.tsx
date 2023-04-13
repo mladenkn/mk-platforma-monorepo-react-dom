@@ -1,7 +1,5 @@
-import { Box, IconButton, SxProps, TextField, Button, Paper, Typography } from "@mui/material"
-import use_Post_form_expertOnly from "./Post.form.expertOnly"
-import CategoryDropdown from "./Categories.dropdown"
-import use_Post_form_base from "./Post.form.base"
+import { Box, IconButton, SxProps, Button, Paper, Typography } from "@mui/material"
+import Post_form_base from "./Post.form.base"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
@@ -14,11 +12,6 @@ type Props = {
 }
 
 export default function Post_create_section({ sx }: Props) {
-  const form_base = use_Post_form_base({})
-
-  const form_expert = use_Post_form_expertOnly({})
-  const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")
-
   function onSubmit() {}
 
   const goBack = useRouter().back
@@ -53,20 +46,7 @@ export default function Post_create_section({ sx }: Props) {
             <CloseIcon fontSize="medium" />
           </IconButton>
         </Box>
-        <TextField {...form_base.components_props.label} />
-        {/* <CategoryDropdown {...form_base.components_props.category} /> */}
-        <TextField {...form_base.components_props.description} />
-        <TextField {...form_base.components_props.location} />
-        <TextField {...form_base.components_props.contact} />
-        {form_expert_isActive ? (
-          <>
-            <TextField {...form_expert.components_props.firstName} />
-            <TextField {...form_expert.components_props.lastName} />
-            <TextField {...form_expert.components_props.skills} />
-          </>
-        ) : (
-          <></>
-        )}
+        <Post_form_base />
         <Button
           variant="contained"
           sx={{ mt: 4, display: "flex", alignItems: "center", gap: 1 }}
