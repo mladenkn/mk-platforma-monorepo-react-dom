@@ -3,7 +3,7 @@ import { publicProcedure, router } from "../trpc.server.utils"
 import { Comment_listItem_CommentSelect } from "../client/Comment.common"
 import { Post_commentSchema } from "../prisma/generated/zod"
 
-export const Post_commonent_create_input_zod = Post_commentSchema.pick({
+export const Post_Comment_create_input_zod = Post_commentSchema.pick({
   content: true,
   post_id: true,
 })
@@ -26,7 +26,7 @@ const Post_comment_api = router({
     }),
 
   create: publicProcedure
-    .input(Post_commonent_create_input_zod)
+    .input(Post_Comment_create_input_zod)
     .mutation(({ ctx, input }) => ctx.db.post_comment.create({ data: { ...input, author_id: 1 } })),
 })
 
