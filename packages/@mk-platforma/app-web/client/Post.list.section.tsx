@@ -1,4 +1,3 @@
-import React from "react"
 import { Box, Drawer, Typography, Fab } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_single_listItem } from "./Post.single.listItem"
@@ -7,7 +6,7 @@ import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.p
 import Api from "./trpc.client"
 import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside from "./Categories.selector.aside"
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
@@ -57,6 +56,11 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
     { categories: selectedCategory ? [selectedCategory] : [] },
     { initialData: posts_initial }
   )
+
+  const ctx = Api.useContext()
+  useEffect(() => {
+    ctx.post.category.many.prefetch()
+  }, [])
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
   const [selectedItem, setSelectedItem] = useState<number>()
