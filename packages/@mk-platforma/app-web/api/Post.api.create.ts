@@ -65,7 +65,7 @@ const Post_api_create = publicProcedure
           data: {
             asPersonEndorsement: {
               create: {
-                postId: post_created.id,
+                post_id: post_created.id,
                 ...shallowPick(input.asPersonEndorsement, "firstName", "lastName", "avatarStyle"),
                 skills: {
                   create: input.asPersonEndorsement.skills,

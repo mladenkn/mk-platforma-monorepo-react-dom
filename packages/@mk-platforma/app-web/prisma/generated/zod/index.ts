@@ -66,7 +66,7 @@ export const isValidDecimalInput =
 // ENUMS
 /////////////////////////////////////////
 
-export const ImageScalarFieldEnumSchema = z.enum(['id','cloudinary_id','postId','url']);
+export const ImageScalarFieldEnumSchema = z.enum(['id','cloudinary_id','post_id','url']);
 
 export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]);
 
@@ -76,13 +76,13 @@ export const LocationScalarFieldEnumSchema = z.enum(['id','google_id','latitude'
 
 export const PostScalarFieldEnumSchema = z.enum(['id','title','description','contact','location_id','author_id','as_PersonEndorsement_id']);
 
-export const Post_asPersonEndorsementScalarFieldEnumSchema = z.enum(['id','postId','firstName','lastName','avatarStyle']);
+export const Post_asPersonEndorsementScalarFieldEnumSchema = z.enum(['id','post_id','firstName','lastName','avatarStyle']);
 
 export const Post_asPersonEndorsement_skillScalarFieldEnumSchema = z.enum(['id','label','level','as_PersonEndorsement_id']);
 
 export const Post_categoryScalarFieldEnumSchema = z.enum(['id','label','parent_id']);
 
-export const Post_commentScalarFieldEnumSchema = z.enum(['id','content','authorId','postId']);
+export const Post_commentScalarFieldEnumSchema = z.enum(['id','content','author_id','post_id']);
 
 export const QueryModeSchema = z.enum(['default','insensitive']);
 
@@ -122,7 +122,7 @@ export type Post = z.infer<typeof PostSchema>
 
 export const Post_asPersonEndorsementSchema = z.object({
   id: z.number().int(),
-  postId: z.number().int(),
+  post_id: z.number().int(),
   firstName: z.string(),
   lastName: z.string(),
   avatarStyle: InputJsonValue,
@@ -176,7 +176,7 @@ export type Location = z.infer<typeof LocationSchema>
 export const ImageSchema = z.object({
   id: z.number().int(),
   cloudinary_id: z.string().nullish(),
-  postId: z.number().int().nullish(),
+  post_id: z.number().int().nullish(),
   url: z.string(),
 })
 
@@ -189,8 +189,8 @@ export type Image = z.infer<typeof ImageSchema>
 export const Post_commentSchema = z.object({
   id: z.number().int(),
   content: z.string(),
-  authorId: z.number().int(),
-  postId: z.number().int(),
+  author_id: z.number().int(),
+  post_id: z.number().int(),
 })
 
 export type Post_comment = z.infer<typeof Post_commentSchema>

@@ -32,7 +32,7 @@ model Post {
 
 model Post_asPersonEndorsement {
   id          Int    @id @default(autoincrement())
-  postId      Int    @unique
+  post_id     Int    @unique
   firstName   String
   lastName    String
   avatarStyle Json
@@ -85,20 +85,20 @@ model Location {
 model Image {
   id            Int     @id @default(autoincrement())
   cloudinary_id String?
-  postId        Int?
+  post_id       Int?
   url           String
 
-  post Post? @relation(fields: [postId], references: [id])
+  post Post? @relation(fields: [post_id], references: [id])
 }
 
 model Post_comment {
-  id       Int    @id @default(autoincrement())
-  content  String
-  authorId Int
-  postId   Int
+  id        Int    @id @default(autoincrement())
+  content   String
+  author_id Int
+  post_id   Int
 
-  post   Post @relation(fields: [postId], references: [id])
-  author User @relation(fields: [authorId], references: [id])
+  post   Post @relation(fields: [post_id], references: [id])
+  author User @relation(fields: [author_id], references: [id])
 }
 
 model User {

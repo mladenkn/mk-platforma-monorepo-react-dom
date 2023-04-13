@@ -127,8 +127,8 @@ async function seedPosts(
       await db.post_comment.create({
         data: {
           content: comment.content,
-          postId: post_created.id,
-          authorId: faker.helpers.arrayElement(users),
+          post_id: post_created.id,
+          author_id: faker.helpers.arrayElement(users),
         },
       })
     }

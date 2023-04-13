@@ -6,7 +6,7 @@ import { Post_commentSchema } from "../prisma/generated/zod"
 
 export const Post_commonent_create_input_zod = Post_commentSchema.pick({
   content: true,
-  postId: true,
+  post_id: true,
 })
 
 const Post_comment_api = router({
@@ -20,7 +20,7 @@ const Post_comment_api = router({
       return ctx.db.post_comment.findMany({
         // fali canEdit, canDelete
         where: {
-          postId: input.post_id,
+          post_id: input.post_id,
         },
         select: Comment_listItem_CommentSelect,
       })
@@ -28,7 +28,7 @@ const Post_comment_api = router({
 
   create: publicProcedure
     .input(Post_commonent_create_input_zod)
-    .mutation(({ ctx, input }) => ctx.db.post_comment.create({ data: { ...input, authorId: 1 } })),
+    .mutation(({ ctx, input }) => ctx.db.post_comment.create({ data: { ...input, author_id: 1 } })),
 })
 
 export default Post_comment_api
