@@ -1,6 +1,6 @@
 import { publicProcedure, router } from "../trpc.server.utils"
 
-const Post_category_api = router({
+const Post_Category_api = router({
   many: publicProcedure.query(({ ctx }) => {
     return ctx.db.post_category.findMany({
       select: {
@@ -17,4 +17,4 @@ const Post_category_api = router({
   }),
 })
 
-export default Post_category_api
+export default Post_Category_api

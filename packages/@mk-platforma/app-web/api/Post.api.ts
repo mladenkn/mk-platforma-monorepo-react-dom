@@ -6,7 +6,7 @@ import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { PostList_section_PostSelect } from "../client/Post.list.section"
 import Post_comment_api from "./Post.Comment.api"
-import Post_category_api from "./Post.category.api"
+import Post_Category_api from "./Post.Category.api"
 
 const Post_api = router({
   many: publicProcedure
@@ -54,7 +54,7 @@ const Post_api = router({
   create: Post_api_create,
 
   comment: Post_comment_api,
-  category: Post_category_api,
+  category: Post_Category_api,
 })
 
 export default Post_api
