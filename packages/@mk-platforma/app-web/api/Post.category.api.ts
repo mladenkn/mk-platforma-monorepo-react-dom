@@ -1,7 +1,7 @@
 import { publicProcedure, router } from "../trpc.server.utils"
 
 const Post_category_api = router({
-  many: publicProcedure.query(({ ctx, input }) => {
+  many: publicProcedure.query(({ ctx }) => {
     return ctx.db.post_category.findMany({
       select: {
         id: true,
