@@ -1,11 +1,11 @@
 import { Post_category_label } from "@prisma/client"
-import generatePosts from "../data/data.generate"
+import generatePosts from "./data.generate"
 import { ApiRouter_type, Api_ss } from "../trpc.server"
-import locations from "../data/data.locations.json"
+import locations from "./data.locations.json"
 import { faker } from "@faker-js/faker"
 import { asNonNil } from "@mk-libs/common/common"
-import * as cro_dataset from "../data/data.cro.dataset"
-import { avatarStyles } from "../data/data.common"
+import * as cro_dataset from "./data.cro.dataset"
+import { avatarStyles } from "./data.common"
 import db from "../prisma/instance"
 
 async function main() {
