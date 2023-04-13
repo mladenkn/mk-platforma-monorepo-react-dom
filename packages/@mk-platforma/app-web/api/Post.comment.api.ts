@@ -1,11 +1,9 @@
 import React from "react"
 import { z } from "zod"
 import { publicProcedure, router } from "../trpc.utils"
-import { PrismaClient } from "@prisma/client"
 import { Comment_listItem_CommentSelect } from "../client/Comment.common"
 import { Post_commentSchema } from "../prisma/generated/zod"
-
-const db = new PrismaClient()
+import db from "../prisma/instance"
 
 export const Post_commonent_create_input_zod = Post_commentSchema.pick({
   content: true,

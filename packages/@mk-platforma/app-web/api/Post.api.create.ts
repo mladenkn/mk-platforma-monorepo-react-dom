@@ -1,5 +1,4 @@
 import { shallowPick } from "@mk-libs/common/common"
-import { PrismaClient } from "@prisma/client"
 import { z } from "zod"
 import {
   ImageSchema,
@@ -8,9 +7,8 @@ import {
   Post_asPersonEndorsement_skillSchema,
   Post_categorySchema,
 } from "../prisma/generated/zod"
+import db from "../prisma/instance"
 import { publicProcedure } from "../trpc.utils"
-
-const db = new PrismaClient()
 
 const Post_api_create = publicProcedure
   .input(

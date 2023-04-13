@@ -1,4 +1,4 @@
-import { Post_category_label, PrismaClient } from "@prisma/client"
+import { Post_category_label } from "@prisma/client"
 import generatePosts from "../data/data.generate"
 import { Api_ss } from "../trpc.router"
 import locations from "../data/data.locations.json"
@@ -6,8 +6,7 @@ import { faker } from "@faker-js/faker"
 import { asNonNil } from "@mk-libs/common/common"
 import * as cro_dataset from "../data/data.cro.dataset"
 import { avatarStyles } from "../data/data.common"
-
-const db = new PrismaClient()
+import db from "../prisma/instance"
 
 async function main() {
   await seedCategories()

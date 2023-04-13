@@ -1,13 +1,11 @@
 import { z } from "zod"
 import { publicProcedure, router } from "../trpc.utils"
 import Post_api_create from "./Post.api.create"
-import { PrismaClient } from "@prisma/client"
 import { Post_category_labelSchema } from "../prisma/generated/zod"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { PostList_section_PostSelect } from "../client/Post.list.section"
-
-const db = new PrismaClient()
+import db from "../prisma/instance"
 
 const Post_api = router({
   many: publicProcedure
