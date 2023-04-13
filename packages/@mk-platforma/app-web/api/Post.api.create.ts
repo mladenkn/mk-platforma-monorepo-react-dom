@@ -7,7 +7,7 @@ import {
   Post_asPersonEndorsement_skillSchema,
   Post_categorySchema,
 } from "../prisma/generated/zod"
-import { publicProcedure } from "../trpc.server"
+import { publicProcedure } from "../trpc.server.utils"
 
 const Post_api_create = publicProcedure
   .input(
