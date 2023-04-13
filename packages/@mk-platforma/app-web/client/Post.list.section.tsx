@@ -18,6 +18,12 @@ export const PostList_section_PostSelect = {
   title: true,
   description: true,
   contact: true,
+  categories: {
+    select: {
+      id: true,
+      label: true,
+    },
+  },
   location: {
     select: {
       name: true,
