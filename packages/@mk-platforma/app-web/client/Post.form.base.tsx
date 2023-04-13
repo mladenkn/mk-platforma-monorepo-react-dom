@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import React, { ComponentProps } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import { TextFieldProps } from "@mui/material"
+import { TextFieldProps, TextField, Box } from "@mui/material"
 import CategoryDropdown from "./Categories.dropdown"
 import { z } from "zod"
 import { Post_category_labelSchema } from "../prisma/generated/zod"
@@ -28,6 +28,49 @@ const initialValues_default = {
 } satisfies Post
 
 // Treba validacija da nemože selektirat bilo koju kombinaciju sekcija
+
+export function Post_form_base({ initialValues = initialValues_default }: Props) {
+  const form = useFormik({
+    initialValues,
+    validationSchema: toFormikValidationSchema(Post_zod),
+    onSubmit() {},
+  })
+
+  const { values, handleChange } = form
+
+  return (
+    <Box>
+      <TextField
+        label="Naziv"
+        variant="outlined"
+        name="title"
+        value={values.title}
+        onChange={handleChange}
+      />
+      <TextField
+        label="Opis"
+        variant="outlined"
+        name="description"
+        value={values.description}
+        onChange={handleChange}
+      />
+      <TextField
+        label="Lokacija"
+        variant="outlined"
+        name="location"
+        value={values.location}
+        onChange={handleChange}
+      />
+      <TextField
+        label="Kontakt"
+        variant="outlined"
+        name="contact"
+        value={values.contact}
+        onChange={handleChange}
+      />
+    </Box>
+  )
+}
 
 export default function use_Post_form_base({ initialValues = initialValues_default }: Props) {
   const form = useFormik({
