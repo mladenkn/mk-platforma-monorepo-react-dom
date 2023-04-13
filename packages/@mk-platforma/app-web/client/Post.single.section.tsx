@@ -8,7 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import CloseIcon from "@mui/icons-material/Close"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useState, ComponentProps } from "react"
-import { asNonNil } from "@mk-libs/common/common"
+import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"
 import SaveIcon from "@mui/icons-material/Save"
 import React from "react"
 import Post_form_base from "./Post.form.base"
@@ -71,7 +71,7 @@ export default function Post_single_section({
       {post && isEdit ? (
         <Post_edit
           sx={{ p: 2, m: 1 }}
-          post={nullsToUndefined(post)}
+          post={nullsToUndefinedDeep(post)}
           onSubmit={() => {}}
           cancel={() => setIsEdit(false)}
         />
@@ -80,27 +80,6 @@ export default function Post_single_section({
       )}
     </Box>
   )
-}
-
-type RecursivelyReplaceNullWithUndefined<T> = T extends null
-  ? undefined
-  : T extends (infer U)[]
-  ? RecursivelyReplaceNullWithUndefined<U>[]
-  : T extends Record<string, unknown>
-  ? { [K in keyof T]: RecursivelyReplaceNullWithUndefined<T[K]> }
-  : T
-
-export function nullsToUndefined<T>(obj: T): RecursivelyReplaceNullWithUndefined<T> {
-  if (obj === null || obj === undefined) {
-    return undefined as any
-  }
-
-  if ((obj as any).constructor.name === "Object" || Array.isArray(obj)) {
-    for (const key in obj) {
-      obj[key] = nullsToUndefined(obj[key]) as any
-    }
-  }
-  return obj as any
 }
 
 function Post_edit({
