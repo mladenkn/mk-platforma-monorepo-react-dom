@@ -8,8 +8,11 @@
     "start": "next start",
     "ts": "tsc --noEmit",
     "db.prisma.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' prisma",
+    "db.prisma.test": "DATABASE_URL='postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway' prisma",
     "db.dev.seed": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts ./data/data.seed.ts",
+    "db.test.seed": "DATABASE_URL='DATABASE_URL='postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway'' pnpm _exe-ts ./data/data.seed.ts",
     "db.psql.dev": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'",
+    "db.psql.test": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'",
     "postinstall": "pnpm prisma generate",
     "playground.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts ./playground.ts",
     "_exe-ts": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\", \\\"jsx\\\": \\\"react\\\"}\""
