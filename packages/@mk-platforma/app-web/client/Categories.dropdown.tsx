@@ -7,14 +7,20 @@ import {
   SxProps,
   useTheme,
 } from "@mui/material"
-import { CategoryIcon, getCategoryLabel, allCategories } from "./Categories.common"
+import { CategoryIcon, getCategoryLabel } from "./Categories.common"
 import React, { ReactElement } from "react"
-import type { Post_category_labelType } from "../prisma/generated/zod"
+import Api from "./trpc.client"
+import { Post_category_labelType } from "../prisma/generated/zod"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
-  value?: Post_category_labelType
-  onChange(event: any, c?: Post_category_labelType): void
+  value?: number
+  onChange(event: any, c?: number): void
+}
+
+type Category = {
+  id: number
+  label: Post_category_labelType
 }
 
 export default function CategoryDropdown({
@@ -24,6 +30,20 @@ export default function CategoryDropdown({
   ...props
 }: CategoriesDropdown_Props): ReactElement {
   const { typography } = useTheme()
+  const categories = Api.post.category.many.useQuery()
+
+  function findCategory(id: number) {
+    return categories.data?.find(c => c.id === id)
+  }
+  function getCategoryOption(cat: Category) {
+    return {
+      id: cat.id,
+      dbLabel: cat.label,
+      label: getCategoryLabel(cat.label),
+    }
+  }
+  const value_option =
+    value && categories.data ? getCategoryOption(findCategory(value)!) : undefined
 
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
@@ -44,10 +64,11 @@ export default function CategoryDropdown({
           },
           ...sx,
         }}
-        options={allCategories.map(c => ({ id: c, label: getCategoryLabel(c) }))}
+        loading={categories.isLoading}
+        options={categories.data?.map(getCategoryOption) || []}
         renderOption={(props, option) => (
           <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
-            <CategoryIcon fontSize="medium" name={option.id} sx={{ mr: 2 }} />
+            <CategoryIcon fontSize="medium" name={option.dbLabel} sx={{ mr: 2 }} />
             {option.label}
           </Box>
         )}
@@ -57,12 +78,16 @@ export default function CategoryDropdown({
             variant="outlined"
             InputProps={{
               ...params.InputProps,
-              startAdornment: value ? <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={value} /> : <></>,
+              startAdornment: value ? (
+                <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={findCategory(value)!.label} />
+              ) : (
+                <></>
+              ),
             }}
             placeholder="Kategorija"
           />
         )}
-        value={value ? { id: value, label: getCategoryLabel(value) } : undefined}
+        value={value_option}
         onChange={(event, value) => onChange(event, value?.id)}
         {...props}
       />
