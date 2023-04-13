@@ -1,7 +1,6 @@
 import { z } from "zod"
 import { publicProcedure, router } from "../trpc.server.utils"
 import Post_api_create from "./Post.api.create"
-import { Post_category_labelSchema } from "../prisma/generated/zod"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { PostList_section_PostSelect } from "../client/Post.list.section"
@@ -12,7 +11,7 @@ const Post_api = router({
   many: publicProcedure
     .input(
       z.object({
-        categories: z.array(Post_category_labelSchema).optional(),
+        categories: z.array(z.number()).optional(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -20,7 +19,7 @@ const Post_api = router({
         where: {
           categories: input.categories && {
             some: {
-              label: input.categories[0],
+              id: input.categories[0],
             },
           },
         },

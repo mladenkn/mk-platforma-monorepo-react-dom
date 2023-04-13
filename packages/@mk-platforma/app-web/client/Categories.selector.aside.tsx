@@ -8,13 +8,12 @@ import {
   Box,
   Typography,
 } from "@mui/material"
-import type { Post_category_labelType } from "../prisma/generated/zod"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import React from "react"
 import Api from "./trpc.client"
 
-type Props = { selectedItem?: Post_category_labelType }
+type Props = { selectedItem?: number }
 
 export default function Categories_selector_aside({ selectedItem }: Props) {
   const { palette, typography } = useTheme()
@@ -38,7 +37,7 @@ export default function Categories_selector_aside({ selectedItem }: Props) {
             key={category.id}
             disablePadding
             secondaryAction={
-              selectedItem === category.label ? (
+              selectedItem === category.id ? (
                 <RadioButtonCheckedIcon sx={{ color: "white" }} />
               ) : undefined
             }

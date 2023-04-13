@@ -8,9 +8,8 @@ import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import React, { useState, useEffect } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
-import { getCategoryLabel, CategoryIcon } from "./Categories.common"
+import { getCategoryLabel, CategoryIcon, use_Category } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
-import type { Post_category_labelType } from "../prisma/generated/zod"
 import type { Prisma } from "@prisma/client"
 
 export const PostList_section_PostSelect = {
@@ -49,11 +48,14 @@ type Post = Prisma.PostGetPayload<{
   select: typeof PostList_section_PostSelect
 }>
 
-type Props = { selectedCategory: Post_category_labelType; posts_initial: Post[] }
+type Props = { selectedCategory: number; posts_initial: Post[] }
 
-export default function PostList_section({ selectedCategory, posts_initial }: Props) {
+export default function PostList_section({
+  selectedCategory: selectedCategory_id,
+  posts_initial,
+}: Props) {
   const posts = Api.post.many.useQuery(
-    { categories: selectedCategory ? [selectedCategory] : [] },
+    { categories: selectedCategory_id ? [selectedCategory_id] : [] },
     { initialData: posts_initial }
   )
 
@@ -69,6 +71,8 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
     { post_id: selectedItem! },
     { enabled: !!selectedItem }
   )
+
+  const selectedCategory = use_Category(selectedCategory_id)
 
   return (
     <Box
@@ -90,16 +94,16 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
           }}
           onClick={() => set_SectionsDrawer_isActive(true)}
         >
-          <CategoryIcon fontSize="large" name={selectedCategory} />
+          {selectedCategory && <CategoryIcon fontSize="large" name={selectedCategory.label} />}
           <Typography variant="h2" fontWeight={400}>
-            {getCategoryLabel(selectedCategory)}
+            {selectedCategory && getCategoryLabel(selectedCategory.label)}
           </Typography>
         </Box>
         <Header_moreOptions options={["post.create", "profile", "devContact"]} />
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
-          <Categories_selector_aside selectedItem={selectedCategory} />
+          <Categories_selector_aside selectedItem={selectedCategory_id} />
         </Drawer>
       )}
       <Fab

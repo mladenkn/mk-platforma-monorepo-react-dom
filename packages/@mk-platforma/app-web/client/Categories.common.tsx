@@ -5,6 +5,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
 import React, { ComponentProps } from "react"
 import type { Post_category_labelType } from "../prisma/generated/zod"
+import Api from "./trpc.client"
 
 export function getCategoryLabel(category: Post_category_labelType) {
   switch (category) {
@@ -53,4 +54,9 @@ export function CategoryIcon({
     default:
       throw new Error(`Parameter ${name} not matched as Category`)
   }
+}
+
+export function use_Category(id: number) {
+  const categories = Api.post.category.many.useQuery()
+  return categories.data?.find(c => c.id === id)
 }
