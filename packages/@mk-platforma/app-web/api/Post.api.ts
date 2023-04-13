@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { publicProcedure, router } from "../trpc.utils"
+import { publicProcedure, router } from "../trpc.server"
 import Post_api_create from "./Post.api.create"
 import { Post_category_labelSchema } from "../prisma/generated/zod"
 import { assertIsNonNil } from "@mk-libs/common/common"

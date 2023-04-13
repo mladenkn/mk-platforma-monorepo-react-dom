@@ -1,5 +1,5 @@
 import Post_single_section from "../../client/Post.single.section"
-import { Api_ss } from "../../trpc.router"
+import { Api_ss } from "../../trpc.server"
 import { GetServerSidePropsContext } from "next/types"
 import db from "../../prisma/instance"
 

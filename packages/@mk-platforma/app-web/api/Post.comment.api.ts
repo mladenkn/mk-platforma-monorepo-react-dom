@@ -1,6 +1,6 @@
 import React from "react"
 import { z } from "zod"
-import { publicProcedure, router } from "../trpc.utils"
+import { publicProcedure, router } from "../trpc.server"
 import { Comment_listItem_CommentSelect } from "../client/Comment.common"
 import { Post_commentSchema } from "../prisma/generated/zod"
 
