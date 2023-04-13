@@ -5,7 +5,6 @@ import { Post_category_labelSchema } from "../prisma/generated/zod"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { PostList_section_PostSelect } from "../client/Post.list.section"
-import db from "../prisma/instance"
 
 const Post_api = router({
   many: publicProcedure
@@ -14,8 +13,8 @@ const Post_api = router({
         categories: z.array(Post_category_labelSchema).optional(),
       })
     )
-    .query(async ({ input }) => {
-      const posts = await db.post.findMany({
+    .query(async ({ ctx, input }) => {
+      const posts = await ctx.db.post.findMany({
         where: {
           categories: input.categories && {
             some: {
@@ -34,8 +33,8 @@ const Post_api = router({
         id: z.number(),
       })
     )
-    .query(async ({ input }) => {
-      const post = await db.post.findUnique({
+    .query(async ({ ctx, input }) => {
+      const post = await ctx.db.post.findUnique({
         where: { id: input.id },
         select: Post_single_details_PostSelect,
       })

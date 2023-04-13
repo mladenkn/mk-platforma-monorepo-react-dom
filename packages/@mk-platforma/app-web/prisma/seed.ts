@@ -1,6 +1,6 @@
 import { Post_category_label } from "@prisma/client"
 import generatePosts from "../data/data.generate"
-import { Api_ss } from "../trpc.router"
+import { ApiRouter_type, Api_ss } from "../trpc.router"
 import locations from "../data/data.locations.json"
 import { faker } from "@faker-js/faker"
 import { asNonNil } from "@mk-libs/common/common"
@@ -22,11 +22,14 @@ async function main() {
   const images_count = await db.image.count({})
   const posts_count = await db.post.count({})
 
+  const api = Api_ss({ db, userId: mladenUser.id })
+
   if (!images_count && !posts_count) {
     const posts_notCreated_withSavedImages = await posts_notCreated_map_withSaveImages(
       posts_notCreated
     )
     await seedPosts(
+      api,
       asNonNil(posts_notCreated_withSavedImages),
       locations.map(l => l.id),
       users_ids
@@ -107,9 +110,14 @@ async function posts_notCreated_map_withSaveImages(posts: Post_unsaved[]) {
 }
 type Post_withSavedImages = Awaited<ReturnType<typeof posts_notCreated_map_withSaveImages>>[number]
 
-async function seedPosts(posts: Post_withSavedImages[], locations: number[], users: number[]) {
+async function seedPosts(
+  api: ReturnType<typeof Api_ss>,
+  posts: Post_withSavedImages[],
+  locations: number[],
+  users: number[]
+) {
   for (const post of posts) {
-    const post_created = await Api_ss.post.create({
+    const post_created = await api.post.create({
       ...post,
       categories: post.categories.map(label => ({ label })),
       location_id: faker.helpers.arrayElement(locations),

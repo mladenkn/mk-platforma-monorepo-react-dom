@@ -3,7 +3,6 @@ import { z } from "zod"
 import { publicProcedure, router } from "../trpc.utils"
 import { Comment_listItem_CommentSelect } from "../client/Comment.common"
 import { Post_commentSchema } from "../prisma/generated/zod"
-import db from "../prisma/instance"
 
 export const Post_commonent_create_input_zod = Post_commentSchema.pick({
   content: true,
@@ -17,8 +16,8 @@ const Post_comment_api = router({
         post_id: z.number(),
       })
     )
-    .query(({ input }) => {
-      return db.post_comment.findMany({
+    .query(({ ctx, input }) => {
+      return ctx.db.post_comment.findMany({
         // fali canEdit, canDelete
         where: {
           postId: input.post_id,
@@ -29,7 +28,7 @@ const Post_comment_api = router({
 
   create: publicProcedure
     .input(Post_commonent_create_input_zod)
-    .mutation(({ input }) => db.post_comment.create({ data: { ...input, authorId: 1 } })),
+    .mutation(({ ctx, input }) => ctx.db.post_comment.create({ data: { ...input, authorId: 1 } })),
 })
 
 export default Post_comment_api

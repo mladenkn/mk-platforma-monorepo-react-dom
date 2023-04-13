@@ -7,7 +7,6 @@ import {
   Post_asPersonEndorsement_skillSchema,
   Post_categorySchema,
 } from "../prisma/generated/zod"
-import db from "../prisma/instance"
 import { publicProcedure } from "../trpc.utils"
 
 const Post_api_create = publicProcedure
@@ -45,11 +44,11 @@ const Post_api_create = publicProcedure
       })
   )
   .mutation(async ({ ctx, input }) => {
-    return await db.$transaction(async tx => {
+    return await ctx.db.$transaction(async tx => {
       const post_created = await tx.post.create({
         data: {
           ...shallowPick(input, "title", "description", "contact", "location_id"),
-          author_id: 1,
+          author_id: ctx.userId,
           categories: {
             connect: input.categories,
           },

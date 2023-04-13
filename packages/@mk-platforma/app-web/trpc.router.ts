@@ -7,7 +7,7 @@ export const ApiRouter = router({
   post_comment: Post_comment_api,
 })
 
-export const Api_ss = ApiRouter.createCaller({})
+export const Api_ss = ApiRouter.createCaller
 
 // Export type router type signature,
 // NOT the router itself.
