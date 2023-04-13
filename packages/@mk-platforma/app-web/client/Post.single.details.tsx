@@ -10,6 +10,12 @@ import React, { ReactNode } from "react"
 export const Post_single_details_PostSelect = {
   id: true,
   title: true,
+  categories: {
+    select: {
+      id: true,
+      label: true,
+    },
+  },
   location: {
     select: {
       name: true,

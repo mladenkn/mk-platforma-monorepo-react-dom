@@ -7,13 +7,11 @@ import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
 import CloseIcon from "@mui/icons-material/Close"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
-import { useState } from "react"
-import use_Post_form_base from "./Post.form.base"
-import use_Post_form_expertOnly from "./Post.form.expertOnly"
-import CategoryDropdown from "./Categories.dropdown"
+import { useState, ComponentProps } from "react"
 import { asNonNil } from "@mk-libs/common/common"
 import SaveIcon from "@mui/icons-material/Save"
 import React from "react"
+import Post_form_base from "./Post.form.base"
 
 export default function Post_single_section({
   post_initial,
@@ -73,7 +71,7 @@ export default function Post_single_section({
       {post && isEdit ? (
         <Post_edit
           sx={{ p: 2, m: 1 }}
-          post={post}
+          post={{ ...post, asPersonEndorsement: { ...post.asPersonEndorsement, skills: [] } }}
           onSubmit={() => {}}
           cancel={() => setIsEdit(false)}
         />
@@ -90,16 +88,11 @@ function Post_edit({
   sx,
   cancel,
 }: {
-  post: any
+  post: ComponentProps<typeof Post_form_base>["initialValues"]
   onSubmit(): void
   sx?: SxProps
   cancel(): void
 }) {
-  const form_base = use_Post_form_base({ initialValues: post }) // nevalja
-
-  const form_expert = use_Post_form_expertOnly({})
-  const form_expert_isActive = form_base.control.values.categories?.includes("personEndorsement")
-
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
       <Box sx={{ mb: 5, display: "flex", justifyContent: "space-between" }}>
@@ -108,20 +101,7 @@ function Post_edit({
           <CloseIcon fontSize="medium" />
         </IconButton>
       </Box>
-      <TextField {...form_base.components_props.label} />
-      {/* <CategoryDropdown {...form_base.components_props.category} /> */}
-      <TextField {...form_base.components_props.description} />
-      <TextField {...form_base.components_props.location} />
-      <TextField {...form_base.components_props.contact} />
-      {form_expert_isActive ? (
-        <>
-          <TextField {...form_expert.components_props.firstName} />
-          <TextField {...form_expert.components_props.lastName} />
-          <TextField {...form_expert.components_props.skills} />
-        </>
-      ) : (
-        <></>
-      )}
+      <Post_form_base initialValues={post} />
       <Button
         variant="contained"
         sx={{ mt: 4, display: "flex", alignItems: "center", gap: 1 }}
