@@ -2,7 +2,7 @@ import { publicProcedure, router } from "../trpc.server.utils"
 import { Client } from "@googlemaps/google-maps-services-js"
 import { z } from "zod"
 import { Location, Prisma, PrismaClient } from "@prisma/client"
-import { asNonNil, shallowPick } from "@mk-libs/common/common"
+import { asNonNil } from "@mk-libs/common/common"
 
 const client = new Client({})
 
@@ -39,7 +39,6 @@ const Location_api = router({
                 latitude: new Prisma.Decimal(p.geometry?.location.lat!),
               }))
           )
-        console.log(locations_googleSearch)
         const locations_saved = upsertLocations(ctx.db, locations_googleSearch)
         return locations_saved
       } else {
