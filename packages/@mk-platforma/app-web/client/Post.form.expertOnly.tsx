@@ -1,52 +1,31 @@
 import { TextFieldProps } from "@mui/material"
-import { useFormik } from "formik"
 import React from "react"
+import { z } from "zod"
+import { Post_api_cu_input_base } from "../api/Post.api.cu.input"
+
+type Input = z.infer<typeof Post_api_cu_input_base>["asPersonEndorsement"]
 
 type Props = {
-  initialValues?: {
-    firstName: string
-    lastName: string
-    skills: string
-  }
+  values: Input
 }
 
-const initialValues_default = {
-  firstName: "",
-  lastName: "",
-  skills: "",
-}
-
-export default function use_Post_form_expertOnly({ initialValues = initialValues_default }: Props) {
-  const expertForm = useFormik({
-    initialValues,
-    onSubmit() {},
-  })
-
+export default function Post_form_expertOnly({ values }: Props) {
   return {
-    control: expertForm,
     components_props: {
       firstName: {
         label: "Ime",
         variant: "outlined",
         name: "firstName",
-        value: expertForm.values.firstName,
-        onChange: expertForm.handleChange,
+        value: values.firstName,
+        onChange: handleChange,
       } satisfies Partial<TextFieldProps>,
 
       lastName: {
         label: "Prezime",
         variant: "outlined",
         name: "lastName",
-        value: expertForm.values.lastName,
-        onChange: expertForm.handleChange,
-      } satisfies Partial<TextFieldProps>,
-
-      skills: {
-        label: "Skills",
-        variant: "outlined",
-        name: "firstName",
-        value: expertForm.values.skills,
-        onChange: expertForm.handleChange,
+        value: values.lastName,
+        onChange: handleChange,
       } satisfies Partial<TextFieldProps>,
     },
   }
