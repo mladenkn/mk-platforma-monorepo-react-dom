@@ -2,10 +2,14 @@ import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme } from "@mui/m
 import LocationIcon from "@mui/icons-material/LocationOn"
 import { Comment_listItem } from "./Comment.common"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import DataOrQuery from "../utils"
+import DataOrQuery, { useWindowSize } from "../utils"
 import { UseQueryResult } from "@tanstack/react-query"
 import type { Prisma } from "@prisma/client"
 import React, { ReactNode } from "react"
+import Carousel from "react-material-ui-carousel"
+import NavigateNextIcon from "@mui/icons-material/NavigateNext"
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 export const Post_single_details_PostSelect = {
   id: true,
@@ -85,8 +89,12 @@ export default function Post_single_details({
   comments,
   expertEndorsement,
 }: Post_common_listItem_details_Props) {
-  const mainImage = images[0]
   const Container = (usePaperSections ? Paper : Box) as typeof Box
+
+  const { width } = useWindowSize()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
+
   const { typography } = useTheme()
 
   return (
@@ -116,11 +124,18 @@ export default function Post_single_details({
           </Box>
           {title_right}
         </Box>
-        {mainImage && (
-          <Box sx={{ display: "flex", justifyContent: "center", mb: 4, mt: 3 }}>
-            <img style={{ overflow: "auto" }} src={mainImage.url} />
-          </Box>
-        )}
+        <Carousel
+          sx={{ mt: 3, mb: 5 }}
+          NextIcon={<NavigateNextIcon />}
+          PrevIcon={<NavigateBeforeIcon />}
+          interval={30000}
+          animation="slide"
+          fullHeightHover
+        >
+          {images.map(image => (
+            <img key={image.id} style={{ overflow: "auto", height: 350 }} src={image.url} />
+          ))}
+        </Carousel>
         <Typography>{description}</Typography>
         {expertEndorsement?.skills?.length ? (
           <Box sx={{ mt: 4 }}>
@@ -140,17 +155,6 @@ export default function Post_single_details({
           <></>
         )}
         {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
-        {!!images?.length && (
-          <Box sx={{ display: "flex", justifyContent: "end" }}>
-            <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap", marginTop: 4 }}>
-              {images
-                .filter(p => p)
-                .map((image, index) => (
-                  <img key={index} width={100} height={100} src={image.url} />
-                ))}
-            </Box>
-          </Box>
-        )}
       </Container>
       <Container sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex" }}>
         <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />

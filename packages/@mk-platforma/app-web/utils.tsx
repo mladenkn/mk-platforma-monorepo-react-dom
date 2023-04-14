@@ -1,5 +1,5 @@
 import { UseQueryResult } from "@tanstack/react-query"
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 type DataOrQuery_Props<TData> = {
   input: TData | UseQueryResult<TData>
@@ -20,4 +20,30 @@ export default function DataOrQuery<TData>({
     else if (query.error) return error
     else return render((input as any).data)
   } else return render(input as any)
+}
+
+export function useWindowSize() {
+  // Initialize state with undefined width/height so server and client renders match
+  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
+  const [windowSize, setWindowSize] = useState({
+    width: -1,
+    height: -1,
+  })
+  useEffect(() => {
+    // Handler to call on window resize
+    function handleResize() {
+      // Set window width/height to state
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+    // Add event listener
+    window.addEventListener("resize", handleResize)
+    // Call handler right away so state gets updated with initial window size
+    handleResize()
+    // Remove event listener on cleanup
+    return () => window.removeEventListener("resize", handleResize)
+  }, []) // Empty array ensures that effect is only run on mount
+  return windowSize
 }
