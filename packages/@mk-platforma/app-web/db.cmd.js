@@ -1,12 +1,11 @@
-const { doFirstParse, db_doSecondParse, run } = require('./db.cmd.utils')
+const { doFirstParse, run } = require('./db.cmd.utils')
 
 const firstParse = doFirstParse()
 
 switch(firstParse.command){
   case 'prisma':
-    const { env, _unknown } = db_doSecondParse(firstParse._unknown)
-    const connectionString = getConnectionString(env)
-    run(`DATABASE_URL=${connectionString} prisma ${_unknown.join(' ')}`)
+    const connectionString = getConnectionString(firstParse.env)
+    run(`DATABASE_URL=${connectionString} prisma ${firstParse._unknown.join(' ')}`)
     break;
   default:
     console.log('Unsupported subcommand')

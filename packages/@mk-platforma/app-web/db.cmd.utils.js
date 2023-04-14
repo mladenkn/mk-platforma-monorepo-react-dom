@@ -1,12 +1,13 @@
 const commandLineArgs = require('command-line-args')
 const { execSync } = require('child_process')
 
-function doFirstParse(){
-  return commandLineArgs([{ name: 'command', defaultOption: true }], { stopAtFirstUnknown: true })
-}
+const options = [
+  { name: 'command', defaultOption: true },
+  { name: 'env', type: String }
+]
 
-function db_doSecondParse(firstParse_unknown){
-  return commandLineArgs([{ name: 'env', type: String }], { argv: firstParse_unknown, stopAtFirstUnknown: true })
+function doFirstParse(){
+  return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
 function run(cmd){
@@ -20,6 +21,5 @@ function run(cmd){
 
 module.exports = {
   doFirstParse,
-  db_doSecondParse,
   run
 }
