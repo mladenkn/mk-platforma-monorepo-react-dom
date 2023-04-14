@@ -1,17 +1,15 @@
 import Post_single_details, { Post_common_listItem_details_PostModel } from "./Post.single.details"
 import { useRouter } from "next/router"
 import { Header_root, Header_moreOptions } from "./Header"
-import { Box, Button, IconButton, SxProps, TextField, Paper, Typography } from "@mui/material"
+import { Box, IconButton, Typography } from "@mui/material"
 import Api from "./trpc.client"
 import EditIcon from "@mui/icons-material/Edit"
 import DeleteIcon from "@mui/icons-material/Delete"
-import CloseIcon from "@mui/icons-material/Close"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
-import { useState, ComponentProps } from "react"
+import { useState } from "react"
 import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"
-import SaveIcon from "@mui/icons-material/Save"
 import React from "react"
-import Post_form_fields from "./Post.form.fields"
+import Post_form from "./Post.form"
 
 export default function Post_single_section({
   post_initial,
@@ -69,47 +67,16 @@ export default function Post_single_section({
         <></>
       )}
       {post && isEdit ? (
-        <Post_edit
-          sx={{ p: 2, m: 1 }}
-          post={nullsToUndefinedDeep(post)}
+        <Post_form
+          sx={{ gap: 2, p: 2, m: 1 }}
+          title="Uredi objavu"
+          initialValues={nullsToUndefinedDeep(post)}
           onSubmit={() => {}}
-          cancel={() => setIsEdit(false)}
+          onCancel={() => setIsEdit(false)}
         />
       ) : (
         <></>
       )}
     </Box>
-  )
-}
-
-function Post_edit({
-  post,
-  onSubmit,
-  sx,
-  cancel,
-}: {
-  post: ComponentProps<typeof Post_form_fields>["initialValues"]
-  onSubmit(): void
-  sx?: SxProps
-  cancel(): void
-}) {
-  return (
-    <Paper sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
-      <Box sx={{ mb: 5, display: "flex", justifyContent: "space-between" }}>
-        <Typography variant="h2">Uredi oglas</Typography>
-        <IconButton onClick={cancel}>
-          <CloseIcon fontSize="medium" />
-        </IconButton>
-      </Box>
-      <Post_form_fields initialValues={post} />
-      <Button
-        variant="contained"
-        sx={{ mt: 4, display: "flex", alignItems: "center", gap: 1 }}
-        onClick={onSubmit}
-      >
-        <SaveIcon />
-        Spremi
-      </Button>
-    </Paper>
   )
 }
