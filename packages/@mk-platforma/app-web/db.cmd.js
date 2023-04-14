@@ -2,9 +2,10 @@ const { doFirstParse, run } = require('./db.cmd.utils')
 
 const firstParse = doFirstParse()
 
+const connectionString = getConnectionString(firstParse.env)
+
 switch(firstParse.command){
   case 'prisma':
-    const connectionString = getConnectionString(firstParse.env)
     run(`DATABASE_URL=${connectionString} prisma ${firstParse._unknown.join(' ')}`)
     break;
   default:
