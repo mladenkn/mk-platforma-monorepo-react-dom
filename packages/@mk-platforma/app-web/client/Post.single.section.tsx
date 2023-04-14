@@ -96,7 +96,7 @@ function Post_edit({
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", gap: 2, ...sx }}>
       <Box sx={{ mb: 5, display: "flex", justifyContent: "space-between" }}>
-        <Typography variant="h2">Uredi oglasi</Typography>
+        <Typography variant="h2">Uredi oglas</Typography>
         <IconButton onClick={cancel}>
           <CloseIcon fontSize="medium" />
         </IconButton>
