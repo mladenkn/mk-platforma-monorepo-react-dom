@@ -21,6 +21,7 @@
     "@faker-js/faker": "^7.6.0",
     "@fontsource/public-sans": "^4.5.12",
     "@fontsource/roboto": "^4.5.8",
+    "@googlemaps/google-maps-services-js": "^3.3.28",
     "@mk-libs/common": "workspace:*",
     "@mk-libs/react-common": "workspace:*",
     "@mui/icons-material": "^5.11.11",
