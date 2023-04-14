@@ -79,14 +79,14 @@ export default function Post_form_fields({ initialValues = initialValues_default
           <TextField
             label="Ime"
             variant="outlined"
-            name="personEndorsement.firstName"
+            name="expertEndorsement.firstName"
             value={values.expertEndorsement.firstName}
             onChange={handleChange}
           />
           <TextField
             label="Prezime"
             variant="outlined"
-            name="personEndorsement.lastName"
+            name="expertEndorsement.lastName"
             value={values.expertEndorsement.lastName}
             onChange={handleChange}
           />
