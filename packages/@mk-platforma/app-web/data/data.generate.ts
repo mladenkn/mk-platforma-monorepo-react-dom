@@ -4,7 +4,6 @@ import generateProducts from "./data.products"
 import generateJobs from "./data.jobs"
 import generateExpert from "./data.experts"
 import generateGatherings from "./data.gathering"
-import { post_id_getNext } from "./data._utils"
 import { generateComment } from "./data.common"
 import generateAccomodations from "./data.accommodations"
 import { WithId } from "./db.seed"
@@ -12,7 +11,6 @@ import { Post_category_labelType } from "../prisma/generated/zod"
 
 function data_common_generate(locations: WithId[]) {
   return {
-    id: post_id_getNext(),
     description: generateArray(() => "opis oglasa ", 30).join(""),
     location: faker.helpers.arrayElement(locations),
     contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
