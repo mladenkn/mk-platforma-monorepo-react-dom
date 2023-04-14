@@ -6,7 +6,7 @@ import CloseIcon from "@mui/icons-material/Close"
 
 type Props = {
   sx?: SxProps
-  initialValues: ComponentProps<typeof Post_form_fields>["initialValues"]
+  initialValues?: ComponentProps<typeof Post_form_fields>["initialValues"]
   onSubmit(): void
   onCancel(): void
   title: string

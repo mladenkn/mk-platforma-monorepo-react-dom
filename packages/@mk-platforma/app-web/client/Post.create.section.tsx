@@ -6,6 +6,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import { Header_root, Header_moreOptions } from "./Header"
 import { useRouter } from "next/router"
 import React from "react"
+import Post_form from "./Post.form"
 
 type Props = {
   sx?: SxProps
@@ -39,23 +40,12 @@ export default function Post_create_section({ sx }: Props) {
         </Box>
         <Header_moreOptions options={["profile", "post.list", "devContact"]} />
       </Header_root>
-      <Paper sx={{ px: 3, display: "flex", flexDirection: "column", gap: 2, m: 1, p: 2 }}>
-        <Box sx={{ mb: 3, display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="h3">Novi oglas</Typography>
-          <IconButton onClick={goBack}>
-            <CloseIcon fontSize="medium" />
-          </IconButton>
-        </Box>
-        <Post_form_fields />
-        <Button
-          variant="contained"
-          sx={{ mt: 4, display: "flex", alignItems: "center", gap: 1 }}
-          onClick={onSubmit}
-        >
-          <SaveIcon />
-          Spremi
-        </Button>
-      </Paper>
+      <Post_form
+        sx={{ gap: 2, p: 2, m: 1 }}
+        title="Novi oglas"
+        onSubmit={onSubmit}
+        onCancel={goBack}
+      />
     </Box>
   )
 }
