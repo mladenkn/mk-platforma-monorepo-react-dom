@@ -1,19 +1,21 @@
 const { doFirstParse, run } = require('./db.cmd.utils')
 
 const firstParse = doFirstParse()
-const connStr = getConnectionString(firstParse.env)
+
+const connectionString = getConnectionString(firstParse.env)
+const cs_env = `DATABASE_URL=${connectionString}`
 
 switch(firstParse.command){
   case 'prisma':
-    run(`DATABASE_URL=${connStr} prisma ${firstParse._unknown.join(' ')}`)
+    run(`${cs_env} prisma ${firstParse._unknown.join(' ')}`)
     break;
   
   case 'seed':
-    run(`DATABASE_URL=${connStr} pnpm _exe-ts ./data/db.seed.ts`)
+    run(`${cs_env} pnpm _exe-ts ./data/db.seed.ts`)
     break;
   
   case 'truncate':
-    run(`DATABASE_URL=${connStr} prisma db execute --file './db.truncate.sql'`)
+    run(`${cs_env} prisma db execute --file './db.truncate.sql'`)
     break;
   
   default:
