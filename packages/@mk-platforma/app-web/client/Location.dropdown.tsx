@@ -1,15 +1,7 @@
-import {
-  ThemeProvider,
-  createTheme,
-  Autocomplete,
-  Box,
-  TextField,
-  SxProps,
-  useTheme,
-} from "@mui/material"
+import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
 import React, { ReactElement, useState } from "react"
 import Api from "./trpc.client"
-import LocationOnIcon from "@mui/icons-material/LocationOn"
+import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
