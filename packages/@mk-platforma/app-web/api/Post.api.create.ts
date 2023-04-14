@@ -16,7 +16,7 @@ const Post_api_create = publicProcedure
             connect: input.categories,
           },
           images: {
-            connect: input.images,
+            create: input.images,
           },
         },
       })
