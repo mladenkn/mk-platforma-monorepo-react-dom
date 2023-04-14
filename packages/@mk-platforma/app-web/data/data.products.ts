@@ -1,7 +1,3 @@
-import { faker } from "@faker-js/faker"
-import * as cro_dataset from "./data.cro.dataset"
-import { post_id_getNext, post_image_id_getNext } from "./data._utils"
-
 const withRelatedProps = [
   {
     title: "Prodaja domaćih oraha",
@@ -150,7 +146,6 @@ export default function generateProducts<TMoreProps = {}>(
     description,
     images: [
       {
-        id: post_image_id_getNext(),
         url: image,
       },
     ],

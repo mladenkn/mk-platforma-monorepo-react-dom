@@ -1,9 +1,8 @@
 import { Post_category_label } from "@prisma/client"
 import generatePosts from "./data.generate"
-import { ApiRouter_type, Api_ss } from "../trpc.server"
+import { Api_ss } from "../trpc.server"
 import locations from "./data.locations.json"
 import { faker } from "@faker-js/faker"
-import { asNonNil } from "@mk-libs/common/common"
 import * as cro_dataset from "./data.cro.dataset"
 import { avatarStyles } from "./data.common"
 import db from "../prisma/instance"
@@ -14,6 +13,7 @@ export type WithId = {
 
 async function main() {
   const categories = await seedCategories()
+
   const mladenUser = await upsertUser("Mladen", { background: "green", color: "white" })
   const otherUsers = await seedUsers()
   const users = [mladenUser, ...otherUsers]
@@ -21,7 +21,7 @@ async function main() {
 
   const locations = await seedLocations()
 
-  const posts_notCreated = generatePosts(categories)
+  const posts = generatePosts(categories, locations)
 
   const images_count = await db.image.count({})
   const posts_count = await db.post.count({})
@@ -29,15 +29,7 @@ async function main() {
   const api = Api_ss({ db, userId: mladenUser.id })
 
   if (!images_count && !posts_count) {
-    const posts_notCreated_withSavedImages = await posts_notCreated_map_withSaveImages(
-      posts_notCreated
-    )
-    await seedPosts(
-      api,
-      asNonNil(posts_notCreated_withSavedImages),
-      locations.map(l => l.id),
-      users_ids
-    )
+    await seedPosts(api, posts, users_ids)
   }
 }
 
@@ -103,30 +95,15 @@ async function seedLocations() {
   )
 }
 
-type Post_unsaved = ReturnType<typeof generatePosts>[number] & { images?: { url: string }[] }
-async function posts_notCreated_map_withSaveImages(posts: Post_unsaved[]) {
-  return await Promise.all(
-    posts.map(async post => {
-      const images = await Promise.all(
-        (post.images || []).map(image => db.image.create({ data: { url: image.url } }))
-      )
-      return { ...post, images }
-    })
-  )
-}
-type Post_withSavedImages = Awaited<ReturnType<typeof posts_notCreated_map_withSaveImages>>[number]
-
 async function seedPosts(
   api: ReturnType<typeof Api_ss>,
-  posts: Post_withSavedImages[],
-  locations: number[],
+  posts: ReturnType<typeof generatePosts>,
   users: number[]
 ) {
   for (const post of posts) {
     const post_created = await api.post.create({
       ...post,
       categories: post.categories,
-      location_id: faker.helpers.arrayElement(locations),
     })
     for (const comment of post.comments) {
       await db.post_comment.create({

@@ -1,6 +1,5 @@
 import { faker } from "@faker-js/faker"
 import data_images from "./data.images.json"
-import { post_image_id_getNext } from "./data._utils"
 
 const withRelatedProps = [
   {
@@ -37,6 +36,6 @@ export default function generateGatherings<TMoreData>(
         data_images["nature gathering action work"],
         faker.datatype.number({ min: 1, max: 6 })
       )
-      .map(url => ({ url, id: post_image_id_getNext() })),
+      .map(url => ({ url })),
   }))
 }
