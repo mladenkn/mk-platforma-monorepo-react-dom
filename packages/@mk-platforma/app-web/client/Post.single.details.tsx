@@ -133,7 +133,11 @@ export default function Post_single_details({
           fullHeightHover
         >
           {images.map(image => (
-            <img key={image.id} style={{ overflow: "auto", height: 350 }} src={image.url} />
+            <img
+              key={image.id}
+              style={{ overflow: "auto", height: 350, width: "100%", objectFit: "contain" }}
+              src={image.url}
+            />
           ))}
         </Carousel>
         <Typography>{description}</Typography>
