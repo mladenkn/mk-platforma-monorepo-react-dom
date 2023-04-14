@@ -29,7 +29,7 @@ export default function Location_Dropdown({
   ...props
 }: CategoriesDropdown_Props): ReactElement {
   const { typography } = useTheme()
-  const locations = Api.location.many.useQuery({})
+  const locations = Api.location.many.useQuery({ query: "split" })
 
   function findLocation(id: number) {
     return locations.data?.find(c => c.id === id)

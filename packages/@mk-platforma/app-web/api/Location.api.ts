@@ -13,13 +13,21 @@ const Location_api = router({
     )
     .query(async ({ ctx, input }) => {
       if (input.query) {
-        // const places_fromGoogleSearch = await client.textSearch({
-        //   params: { query: input.query! },
-        //   key: "AIzaSyAlZmjA7GGwjG2A6b2lo6RmWE5FbIKu8eQ",
-        // })
-        const places_fromGoogleSearch = fetch(
-          "https://maps.googleapis.com/maps/api/js?key=AIzaSyAlZmjA7GGwjG2A6b2lo6RmWE5FbIKu8eQ&libraries=places"
-        )
+        const places_googleSearch = await client
+          .textSearch({
+            params: { query: input.query!, key: "AIzaSyAlZmjA7GGwjG2A6b2lo6RmWE5FbIKu8eQ" },
+          })
+          .then(r =>
+            r.data.results.map((p, i) => ({
+              id: i,
+              google_id: p.place_id,
+              name: p.name,
+              longitude: p.geometry?.location.lng,
+              latitude: p.geometry?.location.lat,
+            }))
+          )
+        console.log(places_googleSearch)
+        return places_googleSearch
       } else {
         return ctx.db.location.findMany({
           select: {
