@@ -79,7 +79,7 @@ model Location {
   longitude Decimal
   name      String
 
-  post Post[]
+  posts Post[]
 }
 
 model Image {
@@ -88,7 +88,7 @@ model Image {
   post_id       Int?
   url           String
 
-  post Post? @relation(fields: [post_id], references: [id])
+  posts Post[]
 }
 
 model Post_comment {
