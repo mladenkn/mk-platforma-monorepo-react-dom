@@ -7,7 +7,7 @@ import {
   SxProps,
   useTheme,
 } from "@mui/material"
-import React, { ReactElement } from "react"
+import React, { ReactElement, useState } from "react"
 import Api from "./trpc.client"
 import LocationOnIcon from "@mui/icons-material/LocationOn"
 
@@ -29,17 +29,21 @@ export default function Location_Dropdown({
   ...props
 }: CategoriesDropdown_Props): ReactElement {
   const { typography } = useTheme()
-  const locations = Api.location.many.useQuery({ query: "s" })
+
+  const [search, setSearch] = useState("")
+  const locations = Api.location.many.useQuery({ query: search })
 
   function findLocation(id: number) {
     return locations.data?.find(c => c.id === id)
   }
+
   function getLocationOptions(cat: Location) {
     return {
       id: cat.id,
       label: cat.name,
     }
   }
+
   const value_option =
     value && locations.data ? getLocationOptions(findLocation(value)!) : undefined
 
@@ -73,6 +77,8 @@ export default function Location_Dropdown({
           {...params}
           variant="outlined"
           placeholder="Lokacija"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
           InputProps={{
             ...params.InputProps,
             startAdornment: <LocationOnIcon sx={{ ml: 0.5, mr: 0.75 }} />,
