@@ -32,8 +32,6 @@ export default function Post_form_fields({ initialValues = initialValues_default
 
   const { values, handleChange, setFieldValue } = form
 
-  console.log(35, values)
-
   return (
     <>
       <TextField
