@@ -18,6 +18,12 @@ switch(firstParse.command){
     run(`${cs_env} prisma db execute --file './db.truncate.sql'`)
     break;
   
+  case 'reset':
+    run(`${cs_env} prisma db execute --file './db.truncate.sql'`)
+    run(`${cs_env} prisma db push --accept-data-loss`)
+    run(`${cs_env} pnpm _exe-ts ./data/db.seed.ts`)
+    break;
+  
   default:
     console.log('Unsupported subcommand')
     process.exit(1)
