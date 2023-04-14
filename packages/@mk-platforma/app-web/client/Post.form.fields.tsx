@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import React, { useEffect } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import { TextField } from "@mui/material"
+import { TextField, Box, SxProps } from "@mui/material"
 import { z } from "zod"
 import { Post_api_cu_input_base } from "../api/Post.api.cu.input"
 import Location_Dropdown from "./Location.dropdown"
@@ -11,6 +11,7 @@ import { useCategory } from "./Categories.common"
 type PostInput = z.infer<typeof Post_api_cu_input_base>
 
 type Props = {
+  sx?: SxProps
   initialValues?: Partial<PostInput>
 }
 
@@ -42,7 +43,7 @@ export default function Post_form_fields({ initialValues = initialValues_default
   }, [isExpert])
 
   return (
-    <>
+    <Box sx={sx}>
       <TextField
         label="Naziv"
         variant="outlined"
@@ -90,6 +91,6 @@ export default function Post_form_fields({ initialValues = initialValues_default
           />
         </>
       )}
-    </>
+    </Box>
   )
 }
