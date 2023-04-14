@@ -91,7 +91,7 @@ export default function Post_single_details({
 }: Post_common_listItem_details_Props) {
   const Container = (usePaperSections ? Paper : Box) as typeof Box
 
-  const { width } = useWindowSize()
+  const { height } = useWindowSize()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
 
@@ -100,7 +100,7 @@ export default function Post_single_details({
   return (
     <Box sx={sx}>
       <Container sx={{ p: 2 }}>
-        <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "space-between" }}>
+        <Box sx={{ display: "flex", alignItems: "center", mb: 2, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
             {expertEndorsement && (
               <Avatar
@@ -125,7 +125,7 @@ export default function Post_single_details({
           {title_right}
         </Box>
         <Carousel
-          sx={{ mt: 3, mb: 5 }}
+          sx={{ mt: 1.5, mb: 5 }}
           NextIcon={<NavigateNextIcon />}
           PrevIcon={<NavigateBeforeIcon />}
           interval={30000}
@@ -135,7 +135,7 @@ export default function Post_single_details({
           {images.map(image => (
             <img
               key={image.id}
-              style={{ overflow: "auto", height: 350, width: "100%", objectFit: "contain" }}
+              style={{ overflow: "auto", height: 340, width: "100%", objectFit: "contain" }}
               src={image.url}
             />
           ))}
