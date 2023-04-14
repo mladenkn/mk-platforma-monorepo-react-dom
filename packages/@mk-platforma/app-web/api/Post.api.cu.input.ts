@@ -3,8 +3,8 @@ import {
   ImageSchema,
   LocationSchema,
   PostSchema,
-  Post_asPersonEndorsementSchema,
-  Post_asPersonEndorsement_skillSchema,
+  Post_ExpertEndorsementSchema,
+  Post_ExpertEndorsement_skillSchema,
   Post_categorySchema,
 } from "../prisma/generated/zod"
 
@@ -14,14 +14,14 @@ export const Post_api_cu_input_base = PostSchema.pick({
   contact: true,
 }).extend({
   categories: z.array(Post_categorySchema.pick({ id: true })),
-  asPersonEndorsement: Post_asPersonEndorsementSchema.pick({
+  expertEndorsement: Post_ExpertEndorsementSchema.pick({
     firstName: true,
     lastName: true,
   })
     .extend({
       skills: z
         .array(
-          Post_asPersonEndorsement_skillSchema.pick({
+          Post_ExpertEndorsement_skillSchema.pick({
             label: true,
             level: true,
           })

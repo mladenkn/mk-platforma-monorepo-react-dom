@@ -36,7 +36,7 @@ export const PostList_section_PostSelect = {
       url: true,
     },
   },
-  asPersonEndorsement: {
+  expertEndorsement: {
     select: {
       firstName: true,
       lastName: true,
@@ -134,11 +134,11 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
             setSelectedItem={setSelectedItem}
             items={posts.data}
             Item={item => {
-              if (item.asPersonEndorsement) {
+              if (item.expertEndorsement) {
                 return (
                   <Post_single_listItem_personEndorsement
                     {...shallowPick(
-                      item.asPersonEndorsement,
+                      item.expertEndorsement,
                       "firstName",
                       "lastName",
                       "skills",

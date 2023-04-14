@@ -30,7 +30,7 @@ export default function generatePosts(
       () => ({
         ...data_common_generate(locations),
         ...generateExpert(),
-        categories: [asNonNil(categories.find(c => c.label === "personEndorsement"))],
+        categories: [asNonNil(categories.find(c => c.label === "expertEndorsement"))],
       }),
       faker.datatype.number({ min: 10, max: 50 })
     ),

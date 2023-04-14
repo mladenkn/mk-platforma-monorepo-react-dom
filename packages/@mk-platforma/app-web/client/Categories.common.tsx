@@ -13,7 +13,7 @@ export function getCategoryLabel(category: Post_category_labelType) {
       return "Smještaji"
     case "sellable":
       return "Nabava"
-    case "personEndorsement":
+    case "expertEndorsement":
       return "Majstori"
     case "job":
       return "Poslovi"
@@ -39,7 +39,7 @@ export function CategoryIcon({
       return <BedIcon {...otherProps} />
     case "sellable":
       return <ShoppingCartIcon {...otherProps} />
-    case "personEndorsement":
+    case "expertEndorsement":
       return <EngineeringIcon {...otherProps} />
     case "job":
       return <HandymanIcon {...otherProps} />

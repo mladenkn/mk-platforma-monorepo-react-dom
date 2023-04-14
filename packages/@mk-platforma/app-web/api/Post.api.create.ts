@@ -27,19 +27,19 @@ const Post_api_create = publicProcedure
           },
         },
       })
-      if (input.asPersonEndorsement) {
+      if (input.expertEndorsement) {
         await tx.post.update({
           where: {
             id: post_created.id,
           },
           data: {
-            asPersonEndorsement: {
+            expertEndorsement: {
               create: {
                 post_id: post_created.id,
-                ...shallowPick(input.asPersonEndorsement, "firstName", "lastName"),
+                ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                 avatarStyle: getRandomElement(avatarStyles),
                 skills: {
-                  create: input.asPersonEndorsement.skills,
+                  create: input.expertEndorsement.skills,
                 },
               },
             },

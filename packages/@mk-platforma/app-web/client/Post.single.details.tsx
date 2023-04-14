@@ -30,7 +30,7 @@ export const Post_single_details_PostSelect = {
       url: true,
     },
   },
-  asPersonEndorsement: {
+  expertEndorsement: {
     select: {
       firstName: true,
       lastName: true,
@@ -83,7 +83,7 @@ export default function Post_single_details({
   title_right,
   usePaperSections,
   comments,
-  asPersonEndorsement,
+  expertEndorsement,
 }: Post_common_listItem_details_Props) {
   const mainImage = images[0]
   const Container = (usePaperSections ? Paper : Box) as typeof Box
@@ -94,10 +94,10 @@ export default function Post_single_details({
       <Container sx={{ p: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 4, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
-            {asPersonEndorsement && (
+            {expertEndorsement && (
               <Avatar
-                sx={{ mr: 2, ...(asPersonEndorsement.avatarStyle as object) }}
-                children={asPersonEndorsement.firstName[0] + asPersonEndorsement.lastName[0]}
+                sx={{ mr: 2, ...(expertEndorsement.avatarStyle as object) }}
+                children={expertEndorsement.firstName[0] + expertEndorsement.lastName[0]}
               />
             )}
             <Box>
@@ -122,12 +122,12 @@ export default function Post_single_details({
           </Box>
         )}
         <Typography>{description}</Typography>
-        {asPersonEndorsement?.skills?.length ? (
+        {expertEndorsement?.skills?.length ? (
           <Box sx={{ mt: 4 }}>
             <Box sx={{ display: "flex", alignItems: "start" }}>
               <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
               <Box>
-                {asPersonEndorsement.skills.map(s => (
+                {expertEndorsement.skills.map(s => (
                   <Typography key={s.label}>
                     {s.label}
                     {` `}({s.level}/5)

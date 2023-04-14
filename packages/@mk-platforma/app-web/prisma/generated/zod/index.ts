@@ -74,11 +74,11 @@ export const JsonNullValueInputSchema = z.enum(['JsonNull',]);
 
 export const LocationScalarFieldEnumSchema = z.enum(['id','google_id','latitude','longitude','name']);
 
-export const PostScalarFieldEnumSchema = z.enum(['id','title','description','contact','location_id','author_id','as_PersonEndorsement_id']);
+export const PostScalarFieldEnumSchema = z.enum(['id','title','description','contact','location_id','author_id','expertEndorsement_id']);
 
-export const Post_asPersonEndorsementScalarFieldEnumSchema = z.enum(['id','post_id','firstName','lastName','avatarStyle']);
+export const Post_ExpertEndorsementScalarFieldEnumSchema = z.enum(['id','post_id','firstName','lastName','avatarStyle']);
 
-export const Post_asPersonEndorsement_skillScalarFieldEnumSchema = z.enum(['id','label','level','as_PersonEndorsement_id']);
+export const Post_ExpertEndorsement_skillScalarFieldEnumSchema = z.enum(['id','label','level','expertEndorsement_id']);
 
 export const Post_categoryScalarFieldEnumSchema = z.enum(['id','label','parent_id']);
 
@@ -92,7 +92,7 @@ export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCo
 
 export const UserScalarFieldEnumSchema = z.enum(['id','name','avatarStyle']);
 
-export const Post_category_labelSchema = z.enum(['job','accommodation','personEndorsement','sellable','gathering','gathering_spirituality','gathering_work','gathering_hangout']);
+export const Post_category_labelSchema = z.enum(['job','accommodation','expertEndorsement','sellable','gathering','gathering_spirituality','gathering_work','gathering_hangout']);
 
 export type Post_category_labelType = `${z.infer<typeof Post_category_labelSchema>}`
 
@@ -111,16 +111,16 @@ export const PostSchema = z.object({
   contact: z.string(),
   location_id: z.number().int().nullish(),
   author_id: z.number().int(),
-  as_PersonEndorsement_id: z.number().int().nullish(),
+  expertEndorsement_id: z.number().int().nullish(),
 })
 
 export type Post = z.infer<typeof PostSchema>
 
 /////////////////////////////////////////
-// POST AS PERSON ENDORSEMENT SCHEMA
+// POST EXPERT ENDORSEMENT SCHEMA
 /////////////////////////////////////////
 
-export const Post_asPersonEndorsementSchema = z.object({
+export const Post_ExpertEndorsementSchema = z.object({
   id: z.number().int(),
   post_id: z.number().int(),
   firstName: z.string(),
@@ -128,20 +128,20 @@ export const Post_asPersonEndorsementSchema = z.object({
   avatarStyle: InputJsonValue,
 })
 
-export type Post_asPersonEndorsement = z.infer<typeof Post_asPersonEndorsementSchema>
+export type Post_ExpertEndorsement = z.infer<typeof Post_ExpertEndorsementSchema>
 
 /////////////////////////////////////////
-// POST AS PERSON ENDORSEMENT SKILL SCHEMA
+// POST EXPERT ENDORSEMENT SKILL SCHEMA
 /////////////////////////////////////////
 
-export const Post_asPersonEndorsement_skillSchema = z.object({
+export const Post_ExpertEndorsement_skillSchema = z.object({
   id: z.number().int(),
   label: z.string(),
   level: z.number().int(),
-  as_PersonEndorsement_id: z.number().int().nullish(),
+  expertEndorsement_id: z.number().int().nullish(),
 })
 
-export type Post_asPersonEndorsement_skill = z.infer<typeof Post_asPersonEndorsement_skillSchema>
+export type Post_ExpertEndorsement_skill = z.infer<typeof Post_ExpertEndorsement_skillSchema>
 
 /////////////////////////////////////////
 // POST CATEGORY SCHEMA

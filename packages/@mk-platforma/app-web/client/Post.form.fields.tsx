@@ -36,10 +36,10 @@ export default function Post_form_fields({ initialValues = initialValues_default
   const selectedCategory = useCategory(
     values.categories?.length ? values.categories[0].id : undefined
   )
-  const isExpert = selectedCategory.data?.label === "personEndorsement"
+  const isExpert = selectedCategory.data?.label === "expertEndorsement"
   useEffect(() => {
-    if (!values.asPersonEndorsement) {
-      setFieldValue("asPersonEndorsement", { firstName: "", lastName: "", skills: [] })
+    if (!values.expertEndorsement) {
+      setFieldValue("expertEndorsement", { firstName: "", lastName: "", skills: [] })
     }
   }, [isExpert])
 
@@ -71,20 +71,20 @@ export default function Post_form_fields({ initialValues = initialValues_default
         onChange={handleChange}
       />
       <Location_Dropdown onChange={value => setFieldValue("location.name", value)} />
-      {isExpert && values.asPersonEndorsement && (
+      {isExpert && values.expertEndorsement && (
         <>
           <TextField
             label="Ime"
             variant="outlined"
             name="personEndorsement.firstName"
-            value={values.asPersonEndorsement.firstName}
+            value={values.expertEndorsement.firstName}
             onChange={handleChange}
           />
           <TextField
             label="Prezime"
             variant="outlined"
             name="personEndorsement.lastName"
-            value={values.asPersonEndorsement.lastName}
+            value={values.expertEndorsement.lastName}
             onChange={handleChange}
           />
         </>
