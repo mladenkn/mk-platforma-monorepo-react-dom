@@ -44,46 +44,44 @@ export default function Location_Dropdown({
     value && locations.data ? getLocationOptions(findLocation(value)!) : undefined
 
   return (
-    <ThemeProvider theme={createTheme({ spacing: 8 })}>
-      <Autocomplete
-        fullWidth
-        sx={{
-          ".MuiAutocomplete-popupIndicator": {
-            mb: 2,
-          },
-          ".MuiAutocomplete-clearIndicator": {
-            mb: 2,
-          },
-          ".MuiAutocomplete-popupIndicator svg": {
-            fontSize: typography.h4,
-          },
-          ".MuiAutocomplete-clearIndicator svg": {
-            fontSize: typography.h4,
-          },
-          ...sx,
-        }}
-        loading={locations.isLoading}
-        options={locations.data?.map(getLocationOptions) || []}
-        renderOption={(props, option) => (
-          <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
-            {option.label}
-          </Box>
-        )}
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="outlined"
-            placeholder="Lokacija"
-            InputProps={{
-              ...params.InputProps,
-              startAdornment: <LocationOnIcon sx={{ ml: 0.5, mr: 0.75 }} />,
-            }}
-          />
-        )}
-        value={value_option}
-        onChange={(event, value) => onChange(event, value?.id)}
-        {...props}
-      />
-    </ThemeProvider>
+    <Autocomplete
+      fullWidth
+      sx={{
+        ".MuiAutocomplete-popupIndicator": {
+          mb: 2,
+        },
+        ".MuiAutocomplete-clearIndicator": {
+          mb: 2,
+        },
+        ".MuiAutocomplete-popupIndicator svg": {
+          fontSize: typography.h4,
+        },
+        ".MuiAutocomplete-clearIndicator svg": {
+          fontSize: typography.h4,
+        },
+        ...sx,
+      }}
+      loading={locations.isLoading}
+      options={locations.data?.map(getLocationOptions) || []}
+      renderOption={(props, option) => (
+        <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
+          {option.label}
+        </Box>
+      )}
+      renderInput={params => (
+        <TextField
+          {...params}
+          variant="outlined"
+          placeholder="Lokacija"
+          InputProps={{
+            ...params.InputProps,
+            startAdornment: <LocationOnIcon sx={{ ml: 0.5, mr: 0.75 }} />,
+          }}
+        />
+      )}
+      value={value_option}
+      onChange={(event, value) => onChange(event, value?.id)}
+      {...props}
+    />
   )
 }
