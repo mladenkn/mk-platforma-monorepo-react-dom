@@ -39,7 +39,7 @@ const Location_api = router({
                 latitude: new Prisma.Decimal(p.geometry?.location.lat!),
               }))
           )
-        const locations_saved = upsertLocations(ctx.db, locations_googleSearch)
+        const locations_saved = await upsertLocations(ctx.db, locations_googleSearch)
         return locations_saved
       } else {
         return ctx.db.location.findMany({
