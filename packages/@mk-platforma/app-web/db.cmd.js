@@ -26,6 +26,6 @@ function getConnectionString(env){
     case 'dev': return 'postgresql://postgres:postgres@localhost:5432/za_brata?schema=public'
     case 'test': return 'postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway'
     default:
-      console.log(`Unsupported env: ${env}`)
+      throw new Error(`Unsupported env: ${env}`)
   }
 }
