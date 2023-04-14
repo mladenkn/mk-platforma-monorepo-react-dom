@@ -18,6 +18,7 @@ switch(firstParse.command){
   
   default:
     console.log('Unsupported subcommand')
+    process.exit(1)
 }
 
 function getConnectionString(env){
