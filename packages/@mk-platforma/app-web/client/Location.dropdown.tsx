@@ -31,16 +31,17 @@ export default function Location_Dropdown({
   const { typography } = useTheme()
   const locations = Api.location.many.useQuery()
 
-  function findCategory(id: number) {
+  function findLocation(id: number) {
     return locations.data?.find(c => c.id === id)
   }
-  function getCategoryOption(cat: Location) {
+  function getLocationOptions(cat: Location) {
     return {
       id: cat.id,
       label: cat.name,
     }
   }
-  const value_option = value && locations.data ? getCategoryOption(findCategory(value)!) : undefined
+  const value_option =
+    value && locations.data ? getLocationOptions(findLocation(value)!) : undefined
 
   return (
     <ThemeProvider theme={createTheme({ spacing: 8 })}>
@@ -62,7 +63,7 @@ export default function Location_Dropdown({
           ...sx,
         }}
         loading={locations.isLoading}
-        options={locations.data?.map(getCategoryOption) || []}
+        options={locations.data?.map(getLocationOptions) || []}
         renderOption={(props, option) => (
           <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
             {option.label}
