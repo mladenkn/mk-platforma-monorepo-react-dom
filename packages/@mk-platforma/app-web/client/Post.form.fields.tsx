@@ -1,24 +1,23 @@
 import { useFormik } from "formik"
 import React from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import { TextField, Box } from "@mui/material"
-import CategoryDropdown from "./Categories.dropdown"
+import { TextField } from "@mui/material"
 import { z } from "zod"
 import { Post_api_cu_input_base } from "../api/Post.api.cu.input"
 
 type PostInput = z.infer<typeof Post_api_cu_input_base>
 
 type Props = {
-  initialValues?: PostInput
+  initialValues?: Partial<PostInput>
 }
 
 const initialValues_default = {
   title: "",
   description: "",
   contact: "",
-  location_id: undefined,
+  location: undefined,
   categories: [],
-} satisfies PostInput
+} satisfies Partial<PostInput>
 
 // Treba validacija da nemože selektirat bilo koju kombinaciju sekcija
 

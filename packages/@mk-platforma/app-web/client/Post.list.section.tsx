@@ -26,6 +26,7 @@ export const PostList_section_PostSelect = {
   },
   location: {
     select: {
+      id: true,
       name: true,
     },
   },

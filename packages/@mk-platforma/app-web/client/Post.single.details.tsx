@@ -18,6 +18,7 @@ export const Post_single_details_PostSelect = {
   },
   location: {
     select: {
+      id: true,
       name: true,
     },
   },

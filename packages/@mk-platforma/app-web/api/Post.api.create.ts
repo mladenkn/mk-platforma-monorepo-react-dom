@@ -10,13 +10,16 @@ const Post_api_create = publicProcedure
     return await ctx.db.$transaction(async tx => {
       const post_created = await tx.post.create({
         data: {
-          ...shallowPick(input, "title", "description", "contact", "location_id"),
+          ...shallowPick(input, "title", "description", "contact"),
           author_id: ctx.userId,
           categories: {
             connect: input.categories,
           },
           images: {
             create: input.images,
+          },
+          location: {
+            connect: input.location,
           },
         },
       })
