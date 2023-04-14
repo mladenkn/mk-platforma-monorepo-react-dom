@@ -22,8 +22,6 @@ const initialValues_default = {
   categories: [],
 } satisfies Partial<PostInput>
 
-// Treba validacija da nemože selektirat bilo koju kombinaciju sekcija
-
 export default function Post_form_fields({ initialValues = initialValues_default }: Props) {
   const form = useFormik({
     initialValues,
