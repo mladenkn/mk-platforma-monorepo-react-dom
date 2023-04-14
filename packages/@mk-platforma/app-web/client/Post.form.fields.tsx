@@ -6,6 +6,7 @@ import { z } from "zod"
 import { Post_api_cu_input_base } from "../api/Post.api.cu.input"
 import Location_Dropdown from "./Location.dropdown"
 import CategoriesDropdown from "./Categories.dropdown"
+import { useCategory } from "./Categories.common"
 
 type PostInput = z.infer<typeof Post_api_cu_input_base>
 
@@ -31,6 +32,11 @@ export default function Post_form_fields({ initialValues = initialValues_default
   })
 
   const { values, handleChange, setFieldValue } = form
+
+  const selectedCategory = useCategory(
+    values.categories?.length ? values.categories[0].id : undefined
+  )
+  const isExpert = selectedCategory.data?.label === "personEndorsement"
 
   return (
     <>
@@ -60,6 +66,7 @@ export default function Post_form_fields({ initialValues = initialValues_default
         onChange={handleChange}
       />
       <Location_Dropdown onChange={value => setFieldValue("location.name", value)} />
+      {isExpert && "expert only fields"}
     </>
   )
 }

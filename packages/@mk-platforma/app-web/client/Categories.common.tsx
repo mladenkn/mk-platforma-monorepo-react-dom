@@ -55,3 +55,12 @@ export function CategoryIcon({
       throw new Error(`Parameter ${name} not matched as Category`)
   }
 }
+
+// TODO: fetch single if category.many not cached
+export function useCategory(id?: number) {
+  const categoriesQuery = Api.post.category.many.useQuery()
+  return {
+    ...categoriesQuery,
+    data: categoriesQuery.data?.find(c => c.id === id),
+  }
+}
