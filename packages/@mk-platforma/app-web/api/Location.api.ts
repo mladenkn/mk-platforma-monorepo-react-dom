@@ -1,6 +1,8 @@
 import { publicProcedure, router } from "../trpc.server.utils"
 import { Client } from "@googlemaps/google-maps-services-js"
 import { z } from "zod"
+import { Location, Prisma, PrismaClient } from "@prisma/client"
+import { asNonNil } from "@mk-libs/common/common"
 
 const client = new Client({})
 
@@ -13,21 +15,24 @@ const Location_api = router({
     )
     .query(async ({ ctx, input }) => {
       if (input.query) {
-        const places_googleSearch = await client
+        const locations_googleSearch = await client
           .textSearch({
             params: { query: input.query!, key: "AIzaSyAlZmjA7GGwjG2A6b2lo6RmWE5FbIKu8eQ" },
           })
           .then(r =>
-            r.data.results.map((p, i) => ({
-              id: i,
-              google_id: p.place_id,
-              name: p.name,
-              longitude: p.geometry?.location.lng,
-              latitude: p.geometry?.location.lat,
-            }))
+            r.data.results
+              .filter(
+                p => p.place_id && p.geometry?.location.lng && p.geometry?.location.lat && p.name
+              )
+              .map((p, i) => ({
+                google_id: asNonNil(p.place_id),
+                name: asNonNil(p.name),
+                longitude: new Prisma.Decimal(p.geometry?.location.lng!),
+                latitude: new Prisma.Decimal(p.geometry?.location.lat!),
+              }))
           )
-        console.log(places_googleSearch)
-        return places_googleSearch
+        const locations_saved = upsertLocations(ctx.db, locations_googleSearch)
+        return locations_saved
       } else {
         return ctx.db.location.findMany({
           select: {
@@ -38,5 +43,17 @@ const Location_api = router({
       }
     }),
 })
+
+async function upsertLocations(db: PrismaClient, locations: Omit<Location, "id">[]) {
+  return Promise.all(
+    locations.map(location =>
+      db.location.upsert({
+        where: { google_id: location.google_id },
+        update: location,
+        create: location,
+      })
+    )
+  )
+}
 
 export default Location_api
