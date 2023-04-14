@@ -22,7 +22,7 @@ const initialValues_default = {
 
 // Treba validacija da nemože selektirat bilo koju kombinaciju sekcija
 
-export default function Post_form_base({ initialValues = initialValues_default }: Props) {
+export default function Post_form_fields({ initialValues = initialValues_default }: Props) {
   const form = useFormik({
     initialValues,
     validationSchema: toFormikValidationSchema(Post_api_cu_input_base),

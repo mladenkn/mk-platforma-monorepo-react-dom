@@ -11,7 +11,7 @@ import { useState, ComponentProps } from "react"
 import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"
 import SaveIcon from "@mui/icons-material/Save"
 import React from "react"
-import Post_form_base from "./Post.form.base"
+import Post_form_fields from "./Post.form.fields"
 
 export default function Post_single_section({
   post_initial,
@@ -88,7 +88,7 @@ function Post_edit({
   sx,
   cancel,
 }: {
-  post: ComponentProps<typeof Post_form_base>["initialValues"]
+  post: ComponentProps<typeof Post_form_fields>["initialValues"]
   onSubmit(): void
   sx?: SxProps
   cancel(): void
@@ -101,7 +101,7 @@ function Post_edit({
           <CloseIcon fontSize="medium" />
         </IconButton>
       </Box>
-      <Post_form_base initialValues={post} />
+      <Post_form_fields initialValues={post} />
       <Button
         variant="contained"
         sx={{ mt: 4, display: "flex", alignItems: "center", gap: 1 }}

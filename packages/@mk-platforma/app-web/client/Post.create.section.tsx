@@ -1,5 +1,5 @@
 import { Box, IconButton, SxProps, Button, Paper, Typography } from "@mui/material"
-import Post_form_base from "./Post.form.base"
+import Post_form_fields from "./Post.form.fields"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
@@ -46,7 +46,7 @@ export default function Post_create_section({ sx }: Props) {
             <CloseIcon fontSize="medium" />
           </IconButton>
         </Box>
-        <Post_form_base />
+        <Post_form_fields />
         <Button
           variant="contained"
           sx={{ mt: 4, display: "flex", alignItems: "center", gap: 1 }}
