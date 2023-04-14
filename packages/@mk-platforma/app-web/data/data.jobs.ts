@@ -34,7 +34,6 @@ export default function generateJobs<TMoreData>(
 ) {
   return faker.helpers.shuffle(jobs).map(({ title }) => ({
     ...item_getMoreData(),
-    categories: ["job" as "job"],
     title,
     images: faker.helpers
       .arrayElements(

@@ -13,7 +13,7 @@ export const Post_api_cu_input_base = PostSchema.pick({
   contact: true,
   location_id: true,
 }).extend({
-  categories: z.array(Post_categorySchema.pick({ label: true })),
+  categories: z.array(Post_categorySchema.pick({ id: true })),
   asPersonEndorsement: Post_asPersonEndorsementSchema.pick({
     firstName: true,
     lastName: true,

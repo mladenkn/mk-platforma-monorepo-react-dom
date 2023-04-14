@@ -8,8 +8,12 @@ import * as cro_dataset from "./data.cro.dataset"
 import { avatarStyles } from "./data.common"
 import db from "../prisma/instance"
 
+export type WithId = {
+  id: number
+}
+
 async function main() {
-  await seedCategories()
+  const categories = await seedCategories()
   const mladenUser = await upsertUser("Mladen", { background: "green", color: "white" })
   const otherUsers = await seedUsers()
   const users = [mladenUser, ...otherUsers]
@@ -17,7 +21,7 @@ async function main() {
 
   const locations = await seedLocations()
 
-  const posts_notCreated = generatePosts()
+  const posts_notCreated = generatePosts(categories)
 
   const images_count = await db.image.count({})
   const posts_count = await db.post.count({})
@@ -75,6 +79,8 @@ async function seedCategories() {
     upsertCategory("gathering_work", gathering.id),
     upsertCategory("gathering_hangout", gathering.id),
   ])
+
+  return await db.post_category.findMany({})
 }
 
 async function upsertCategory(label: Post_category_label, parent_id?: number) {
@@ -119,7 +125,7 @@ async function seedPosts(
   for (const post of posts) {
     const post_created = await api.post.create({
       ...post,
-      categories: post.categories.map(label => ({ label })),
+      categories: post.categories,
       location_id: faker.helpers.arrayElement(locations),
     })
     for (const comment of post.comments) {

@@ -12,7 +12,6 @@ export default function generateExpert() {
   )
 
   return {
-    categories: ["personEndorsement" as "personEndorsement"],
     contact: faker.helpers.arrayElement([
       faker.phone.number(),
       faker.phone.number(),

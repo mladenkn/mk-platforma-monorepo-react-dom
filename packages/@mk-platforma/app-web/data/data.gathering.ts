@@ -31,7 +31,6 @@ export default function generateGatherings<TMoreData>(
 ) {
   return faker.helpers.shuffle(withRelatedProps).map(({ title }) => ({
     ...item_getMoreData(),
-    categories: ["gathering" as "gathering"],
     title,
     images: faker.helpers
       .arrayElements(

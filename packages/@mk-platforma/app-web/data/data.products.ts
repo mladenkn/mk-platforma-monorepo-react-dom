@@ -146,7 +146,6 @@ export default function generateProducts<TMoreProps = {}>(
 ) {
   return withRelatedProps.map(({ title, image, description }) => ({
     ...item_getMoreData(),
-    categories: ["sellable" as "sellable"],
     title,
     description,
     images: [

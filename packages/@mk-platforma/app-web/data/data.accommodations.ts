@@ -19,7 +19,6 @@ export default function generateAccomodations<TMoreData>(
 ) {
   return [...withRelatedProps, ...withRelatedProps].map(({ title }) => ({
     ...item_getMoreData(),
-    categories: ["accommodation" as "accommodation"],
     title,
     images: faker.helpers
       .arrayElements(
