@@ -9,6 +9,7 @@ import {
 } from "@mui/material"
 import React, { ReactElement } from "react"
 import Api from "./trpc.client"
+import LocationOnIcon from "@mui/icons-material/LocationOn"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
@@ -68,7 +69,15 @@ export default function Location_Dropdown({
           </Box>
         )}
         renderInput={params => (
-          <TextField {...params} variant="outlined" placeholder="Kategorija" />
+          <TextField
+            {...params}
+            variant="outlined"
+            placeholder="Lokacija"
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: <LocationOnIcon sx={{ ml: 0.5, mr: 0.75 }} />,
+            }}
+          />
         )}
         value={value_option}
         onChange={(event, value) => onChange(event, value?.id)}
