@@ -15,7 +15,7 @@ import { Post_category_labelType } from "../prisma/generated/zod"
 type CategoriesDropdown_Props = {
   sx?: SxProps
   value?: number
-  onChange(event: any, c?: number): void
+  onChange(c?: number): void
 }
 
 type Category = {
@@ -78,17 +78,18 @@ export default function CategoryDropdown({
             variant="outlined"
             InputProps={{
               ...params.InputProps,
-              startAdornment: value ? (
-                <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={findCategory(value)!.label} />
-              ) : (
-                <></>
-              ),
+              startAdornment:
+                value && categories.data ? (
+                  <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={findCategory(value)!.label} />
+                ) : (
+                  <></>
+                ),
             }}
             placeholder="Kategorija"
           />
         )}
         value={value_option}
-        onChange={(event, value) => onChange(event, value?.id)}
+        onChange={(e, value) => onChange(value?.id)}
         {...props}
       />
     </ThemeProvider>

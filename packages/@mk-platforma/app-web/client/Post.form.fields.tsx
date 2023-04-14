@@ -5,6 +5,7 @@ import { TextField } from "@mui/material"
 import { z } from "zod"
 import { Post_api_cu_input_base } from "../api/Post.api.cu.input"
 import Location_Dropdown from "./Location.dropdown"
+import CategoriesDropdown from "./Categories.dropdown"
 
 type PostInput = z.infer<typeof Post_api_cu_input_base>
 
@@ -31,6 +32,8 @@ export default function Post_form_fields({ initialValues = initialValues_default
 
   const { values, handleChange, setFieldValue } = form
 
+  console.log(35, values)
+
   return (
     <>
       <TextField
@@ -39,6 +42,10 @@ export default function Post_form_fields({ initialValues = initialValues_default
         name="title"
         value={values.title}
         onChange={handleChange}
+      />
+      <CategoriesDropdown
+        value={values.categories?.length ? values.categories[0].id : undefined}
+        onChange={value => setFieldValue("categories", [{ id: value }])}
       />
       <TextField
         label="Opis"
