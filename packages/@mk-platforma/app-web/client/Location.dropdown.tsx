@@ -77,8 +77,9 @@ export default function Location_Dropdown({
           }}
         />
       )}
-      value={value_option}
+      value={value_option || null}
       onChange={(event, value) => onChange(event, value?.id)}
+      isOptionEqualToValue={(option, value) => option.id === value.id}
       {...props}
     />
   )

@@ -70,7 +70,10 @@ export default function Post_form_fields({ initialValues = initialValues_default
         value={values.contact}
         onChange={handleChange}
       />
-      <Location_Dropdown onChange={value => setFieldValue("location.name", value)} />
+      <Location_Dropdown
+        value={values.location?.id}
+        onChange={value => setFieldValue("location.id", value)}
+      />
       {isExpert && values.expertEndorsement && (
         <>
           <TextField

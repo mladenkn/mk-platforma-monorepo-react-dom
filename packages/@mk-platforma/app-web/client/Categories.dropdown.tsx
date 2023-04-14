@@ -88,8 +88,9 @@ export default function CategoryDropdown({
             placeholder="Kategorija"
           />
         )}
-        value={value_option}
+        value={value_option || null}
         onChange={(e, value) => onChange(value?.id)}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         {...props}
       />
     </ThemeProvider>
