@@ -15,7 +15,7 @@ const Location_api = router({
       if (input.query) {
         const places_fromGoogleSearch = await client.textSearch({
           params: { query: input.query! },
-          key: "",
+          key: "AIzaSyAlZmjA7GGwjG2A6b2lo6RmWE5FbIKu8eQ",
         })
       } else {
         return ctx.db.location.findMany({
