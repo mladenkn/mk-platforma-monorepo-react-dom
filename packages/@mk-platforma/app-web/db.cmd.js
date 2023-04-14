@@ -8,6 +8,12 @@ switch(firstParse.command){
   case 'prisma':
     run(`DATABASE_URL=${connectionString} prisma ${firstParse._unknown.join(' ')}`)
     break;
+  case 'seed':
+    run(`DATABASE_URL=${connectionString} pnpm _exe-ts ./data/db.seed.ts`)
+    break;
+  case 'truncate':
+    run(`DATABASE_URL=${connectionString} prisma db execute --file './db.truncate.sql'`)
+    break;
   default:
     console.log('Unsupported subcommand')
 }
