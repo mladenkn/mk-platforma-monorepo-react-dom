@@ -47,6 +47,7 @@ const Location_api = router({
             id: true,
             name: true,
           },
+          take: 10,
         })
       }
     }),
