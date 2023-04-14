@@ -11,7 +11,11 @@ const Post_api_create = publicProcedure
       const post_created = await tx.post.create({
         data: {
           ...shallowPick(input, "title", "description", "contact"),
-          author_id: ctx.userId,
+          author: {
+            connect: {
+              id: ctx.userId,
+            },
+          },
           categories: {
             connect: input.categories,
           },
