@@ -1,5 +1,5 @@
 import { useFormik } from "formik"
-import React from "react"
+import React, { useEffect } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import { TextField } from "@mui/material"
 import { z } from "zod"
@@ -37,6 +37,11 @@ export default function Post_form_fields({ initialValues = initialValues_default
     values.categories?.length ? values.categories[0].id : undefined
   )
   const isExpert = selectedCategory.data?.label === "personEndorsement"
+  useEffect(() => {
+    if (!values.asPersonEndorsement) {
+      setFieldValue("asPersonEndorsement", { firstName: "", lastName: "", skills: [] })
+    }
+  }, [isExpert])
 
   return (
     <>
@@ -66,7 +71,24 @@ export default function Post_form_fields({ initialValues = initialValues_default
         onChange={handleChange}
       />
       <Location_Dropdown onChange={value => setFieldValue("location.name", value)} />
-      {isExpert && "expert only fields"}
+      {isExpert && values.asPersonEndorsement && (
+        <>
+          <TextField
+            label="Ime"
+            variant="outlined"
+            name="personEndorsement.firstName"
+            value={values.asPersonEndorsement.firstName}
+            onChange={handleChange}
+          />
+          <TextField
+            label="Prezime"
+            variant="outlined"
+            name="personEndorsement.lastName"
+            value={values.asPersonEndorsement.lastName}
+            onChange={handleChange}
+          />
+        </>
+      )}
     </>
   )
 }
