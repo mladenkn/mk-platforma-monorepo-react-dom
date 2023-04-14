@@ -109,14 +109,14 @@ export default function Post_single_details({
               />
             )}
             <Box>
-              <Typography fontWeight={500} variant="h5">
+              <Typography fontWeight={500} variant="h4">
                 {title}
               </Typography>
               {location && (
-                <Box sx={{ color: "text.secondary" }}>
+                <Box sx={{ color: "text.secondary", mt: 1 }}>
                   <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
-                    <LocationIcon fontSize="small" sx={{ mr: 1 }} />
-                    <Typography>{location.name}</Typography>
+                    <LocationIcon fontSize="medium" sx={{ mr: 1 }} />
+                    <Typography fontSize="large">{location.name}</Typography>
                   </Box>
                 </Box>
               )}
