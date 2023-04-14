@@ -14,23 +14,23 @@ generator zod {
 }
 
 model Post {
-  id                      Int    @id @default(autoincrement())
-  title                   String
-  description             String
-  contact                 String
-  location_id             Int?
-  author_id               Int
-  as_PersonEndorsement_id Int?   @unique
+  id                   Int    @id @default(autoincrement())
+  title                String
+  description          String
+  contact              String
+  location_id          Int?
+  author_id            Int
+  expertEndorsement_id Int?   @unique
 
-  location            Location?                 @relation(fields: [location_id], references: [id])
-  images              Image[]
-  comments            Post_comment[]
-  categories          Post_category[]
-  author              User                      @relation(fields: [author_id], references: [id])
-  asPersonEndorsement Post_asPersonEndorsement? @relation(fields: [as_PersonEndorsement_id], references: [id])
+  location          Location?               @relation(fields: [location_id], references: [id])
+  images            Image[]
+  comments          Post_comment[]
+  categories        Post_category[]
+  author            User                    @relation(fields: [author_id], references: [id])
+  expertEndorsement Post_ExpertEndorsement? @relation(fields: [expertEndorsement_id], references: [id])
 }
 
-model Post_asPersonEndorsement {
+model Post_ExpertEndorsement {
   id          Int    @id @default(autoincrement())
   post_id     Int    @unique
   firstName   String
@@ -38,23 +38,23 @@ model Post_asPersonEndorsement {
   avatarStyle Json
 
   post   Post?
-  skills Post_asPersonEndorsement_skill[]
+  skills Post_ExpertEndorsement_skill[]
 }
 
-model Post_asPersonEndorsement_skill {
-  id                      Int                       @id @default(autoincrement())
-  label                   String
-  level                   Int
-  as_PersonEndorsement    Post_asPersonEndorsement? @relation(fields: [as_PersonEndorsement_id], references: [id])
-  as_PersonEndorsement_id Int?
+model Post_ExpertEndorsement_skill {
+  id                   Int                     @id @default(autoincrement())
+  label                String
+  level                Int
+  expertEndorsement    Post_ExpertEndorsement? @relation(fields: [expertEndorsement_id], references: [id])
+  expertEndorsement_id Int?
 
-  @@unique([as_PersonEndorsement_id, label])
+  @@unique([expertEndorsement_id, label])
 }
 
 enum Post_category_label {
   job
   accommodation
-  personEndorsement
+  expertEndorsement
   sellable
   gathering
   gathering_spirituality
