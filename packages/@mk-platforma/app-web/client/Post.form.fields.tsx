@@ -23,7 +23,7 @@ const initialValues_default = {
   categories: [],
 } satisfies Partial<PostInput>
 
-export default function Post_form_fields({ initialValues = initialValues_default }: Props) {
+export default function Post_form_fields({ sx, initialValues = initialValues_default }: Props) {
   const form = useFormik({
     initialValues,
     validationSchema: toFormikValidationSchema(Post_api_cu_input_base),
@@ -61,6 +61,7 @@ export default function Post_form_fields({ initialValues = initialValues_default
         name="description"
         value={values.description}
         onChange={handleChange}
+        multiline
       />
       <TextField
         label="Kontakt"

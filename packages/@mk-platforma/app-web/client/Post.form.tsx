@@ -21,10 +21,13 @@ export default function Post_form({ sx, initialValues, onSubmit, onCancel, title
           <CloseIcon fontSize="medium" />
         </IconButton>
       </Box>
-      <Post_form_fields initialValues={initialValues} />
+      <Post_form_fields
+        sx={{ gap: 3.5, display: "flex", flexDirection: "column" }}
+        initialValues={initialValues}
+      />
       <Button
         variant="contained"
-        sx={{ mt: 4, display: "flex", alignItems: "center", gap: 1 }}
+        sx={{ mt: 6, display: "flex", alignItems: "center", gap: 1 }}
         onClick={onSubmit}
       >
         <SaveIcon />

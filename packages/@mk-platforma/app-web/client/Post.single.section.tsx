@@ -68,7 +68,7 @@ export default function Post_single_section({
       )}
       {post && isEdit ? (
         <Post_form
-          sx={{ gap: 2, p: 2, m: 1 }}
+          sx={{ p: 2, m: 1 }}
           title="Uredi objavu"
           initialValues={nullsToUndefinedDeep(post)}
           onSubmit={() => {}}
