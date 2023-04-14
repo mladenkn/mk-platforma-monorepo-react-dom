@@ -2,14 +2,13 @@ import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme } from "@mui/m
 import LocationIcon from "@mui/icons-material/LocationOn"
 import { Comment_listItem } from "./Comment.common"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import DataOrQuery, { useWindowSize } from "../utils"
+import DataOrQuery from "../utils"
 import { UseQueryResult } from "@tanstack/react-query"
 import type { Prisma } from "@prisma/client"
 import React, { ReactNode } from "react"
 import Carousel from "react-material-ui-carousel"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
-import useMediaQuery from "@mui/material/useMediaQuery"
 
 export const Post_single_details_PostSelect = {
   id: true,
@@ -91,9 +90,7 @@ export default function Post_single_details({
 }: Post_common_listItem_details_Props) {
   const Container = (usePaperSections ? Paper : Box) as typeof Box
 
-  const { height } = useWindowSize()
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
 
   const { typography } = useTheme()
 
