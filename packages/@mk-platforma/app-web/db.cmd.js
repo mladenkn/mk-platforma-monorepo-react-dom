@@ -16,7 +16,7 @@ switch(firstParse.command){
     run(`DATABASE_URL=${connStr} prisma db execute --file './db.truncate.sql'`)
     break;
   
-    default:
+  default:
     console.log('Unsupported subcommand')
 }
 

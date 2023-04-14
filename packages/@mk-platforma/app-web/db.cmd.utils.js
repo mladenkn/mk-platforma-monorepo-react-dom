@@ -16,10 +16,11 @@ function run(cmd){
     console.log(stdout)
   } catch (error) {
     console.error(`Error executing the command: ${error.message}`)
+    process.exit(1)
   }
 }
 
 module.exports = {
   doFirstParse,
-  run
+  run,
 }
