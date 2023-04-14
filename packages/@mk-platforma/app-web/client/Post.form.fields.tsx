@@ -4,6 +4,7 @@ import { toFormikValidationSchema } from "zod-formik-adapter"
 import { TextField } from "@mui/material"
 import { z } from "zod"
 import { Post_api_cu_input_base } from "../api/Post.api.cu.input"
+import Location_Dropdown from "./Location.dropdown"
 
 type PostInput = z.infer<typeof Post_api_cu_input_base>
 
@@ -28,7 +29,7 @@ export default function Post_form_fields({ initialValues = initialValues_default
     onSubmit() {},
   })
 
-  const { values, handleChange } = form
+  const { values, handleChange, setFieldValue } = form
 
   return (
     <>
@@ -53,6 +54,7 @@ export default function Post_form_fields({ initialValues = initialValues_default
         value={values.contact}
         onChange={handleChange}
       />
+      <Location_Dropdown onChange={value => setFieldValue("location.name", value)} />
     </>
   )
 }
