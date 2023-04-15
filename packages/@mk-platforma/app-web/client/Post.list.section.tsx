@@ -1,4 +1,4 @@
-import { Box, Drawer, Typography, Fab, IconButton } from "@mui/material"
+import { Box, Drawer, Typography, Fab, IconButton, Container } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_single_listItem } from "./Post.single.listItem"
 import Post_single_details from "./Post.single.details"
@@ -92,21 +92,31 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
       }}
     >
       <Header_root sx={{ pl: 3 }}>
-        <Box
+        <Container
+          maxWidth="md"
           sx={{
             display: "flex",
             alignItems: "center",
-            color: "white",
-            gap: 2.5,
+            justifyContent: "space-between",
           }}
-          onClick={() => set_SectionsDrawer_isActive(true)}
         >
-          {selectedCategory && <CategoryIcon fontSize="large" name={selectedCategory.label} />}
-          <Typography variant="h2" fontWeight={400}>
-            {selectedCategory && getCategoryLabel(selectedCategory.label)}
-          </Typography>
-        </Box>
-        <Header_moreOptions options={["post.create", "profile", "devContact"]} />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              color: "white",
+              gap: 2.5,
+              width: "100%",
+            }}
+            onClick={() => set_SectionsDrawer_isActive(true)}
+          >
+            {selectedCategory && <CategoryIcon fontSize="large" name={selectedCategory.label} />}
+            <Typography variant="h2" fontWeight={400}>
+              {selectedCategory && getCategoryLabel(selectedCategory.label)}
+            </Typography>
+          </Box>
+          <Header_moreOptions options={["post.create", "profile", "devContact"]} />
+        </Container>
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
@@ -120,7 +130,8 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
       >
         <ManageSearchIcon />
       </Fab>
-      <Box
+      <Container
+        maxWidth="md"
         sx={{
           p: 1,
           pt: 2,
@@ -165,7 +176,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
         ) : (
           <>Učitavanje...</>
         )}
-      </Box>
+      </Container>
     </Box>
   )
 }
