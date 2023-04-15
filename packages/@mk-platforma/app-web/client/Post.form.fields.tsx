@@ -1,12 +1,13 @@
 import { useFormik } from "formik"
 import React, { useEffect } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import { TextField, Box, SxProps } from "@mui/material"
+import { TextField, Box, SxProps, Grid } from "@mui/material"
 import { z } from "zod"
 import { Post_api_cu_input_base } from "../api/Post.api.cu.input"
 import Location_Dropdown from "./Location.dropdown"
 import CategoriesDropdown from "./Categories.dropdown"
 import { useCategory } from "./Categories.common"
+import TitlebarImageList from "./TitlebarImageList"
 
 type PostInput = z.infer<typeof Post_api_cu_input_base>
 
@@ -92,6 +93,11 @@ export default function Post_form_fields({ sx, initialValues = initialValues_def
           />
         </>
       )}
+      <Box sx={{ display: "flex", flexDirection: "row", flexWrap: "wrap", gap: 3 }}>
+        {values.images?.map(image => (
+          <img key={image.url} style={{ objectFit: "contain" }} src={image.url} />
+        ))}
+      </Box>
     </Box>
   )
 }
