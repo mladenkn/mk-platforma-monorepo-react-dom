@@ -1,4 +1,4 @@
-import { Box, Drawer, Typography, Fab } from "@mui/material"
+import { Box, Drawer, Typography, Fab, IconButton } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_single_listItem } from "./Post.single.listItem"
 import Post_single_details from "./Post.single.details"
@@ -12,6 +12,7 @@ import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
 import type { Prisma } from "@prisma/client"
 import { Post_category_labelType } from "../prisma/generated/zod"
+import EditIcon from "@mui/icons-material/Edit"
 
 export const PostList_section_PostSelect = {
   id: true,
@@ -149,7 +150,17 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 )
               } else return <Post_single_listItem {...item} location={item.location?.name} />
             }}
-            Item_details={post => <Post_single_details {...post} comments={details_comments} />}
+            Item_details={post => (
+              <Post_single_details
+                {...post}
+                comments={details_comments}
+                editAction={
+                  <IconButton>
+                    <EditIcon />
+                  </IconButton>
+                }
+              />
+            )}
           />
         ) : (
           <>Učitavanje...</>
