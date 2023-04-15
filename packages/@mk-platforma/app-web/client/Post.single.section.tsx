@@ -70,18 +70,18 @@ export default function Post_single_section({
         ) : (
           <></>
         )}
+        {post && isEdit ? (
+          <Post_form
+            sx={{ p: 2, m: 1 }}
+            title="Uredi objavu"
+            initialValues={nullsToUndefinedDeep(post)}
+            onSubmit={() => {}}
+            onCancel={() => setIsEdit(false)}
+          />
+        ) : (
+          <></>
+        )}
       </Container>
-      {post && isEdit ? (
-        <Post_form
-          sx={{ p: 2, m: 1 }}
-          title="Uredi objavu"
-          initialValues={nullsToUndefinedDeep(post)}
-          onSubmit={() => {}}
-          onCancel={() => setIsEdit(false)}
-        />
-      ) : (
-        <></>
-      )}
     </Box>
   )
 }
