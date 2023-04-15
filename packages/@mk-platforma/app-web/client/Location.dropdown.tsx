@@ -23,11 +23,8 @@ export default function Location_Dropdown({
   const { typography } = useTheme()
 
   const [search, setSearch] = useState("")
-  const locations = Api.location.many.useQuery({ query: search })
-
-  function findLocation(id: number) {
-    return locations.data?.find(c => c.id === id)
-  }
+  const suggestions = Api.location.many.useQuery({ query: search })
+  const selectedLocation = Api.location.single.useQuery({ id: value! }, { enabled: !!value })
 
   function getLocationOptions(cat: Location) {
     return {
@@ -37,7 +34,7 @@ export default function Location_Dropdown({
   }
 
   const value_option =
-    value && locations.data ? getLocationOptions(findLocation(value)!) : undefined
+    (value && selectedLocation.data && getLocationOptions(selectedLocation.data)) || null
 
   return (
     <Autocomplete
@@ -57,8 +54,8 @@ export default function Location_Dropdown({
         },
         ...sx,
       }}
-      loading={locations.isLoading}
-      options={locations.data?.map(getLocationOptions) || []}
+      loading={suggestions.isLoading}
+      options={suggestions.data?.map(getLocationOptions) || []}
       renderOption={(props, option) => (
         <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
           {option.label}
@@ -77,7 +74,7 @@ export default function Location_Dropdown({
           }}
         />
       )}
-      value={value_option || null}
+      value={value_option}
       onChange={(event, value) => onChange(event, value?.id)}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       {...props}

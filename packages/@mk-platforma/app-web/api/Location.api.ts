@@ -51,6 +51,9 @@ const Location_api = router({
         })
       }
     }),
+  single: publicProcedure.input(z.object({ id: z.number() })).query(({ ctx, input }) => {
+    return ctx.db.location.findUnique({ where: { id: input.id } })
+  }),
 })
 
 async function upsertLocations(db: PrismaClient, locations: Omit<Location, "id">[]) {
