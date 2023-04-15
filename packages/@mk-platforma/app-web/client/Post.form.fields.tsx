@@ -106,8 +106,8 @@ export default function Post_form_fields({ sx, initialValues = initialValues_def
         }}
       >
         {values.images?.map(image => (
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <img key={image.url} style={{ objectFit: "contain" }} src={image.url} />
+          <Box key={image.url} sx={{ display: "flex", flexDirection: "column" }}>
+            <img style={{ objectFit: "contain" }} src={image.url} />
             <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <Box>
                 <IconButton>
