@@ -3,7 +3,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import RemoveIcon from "@mui/icons-material/Close"
-import { IconButton, Box, useTheme } from "@mui/material"
+import { IconButton, Box, useTheme, useMediaQuery } from "@mui/material"
 
 type Props = {
   images: {
@@ -14,8 +14,12 @@ type Props = {
 export default function Post_form_images({ images }: Props) {
   const { breakpoints } = useTheme()
 
-  const Sort_icon_up = breakpoints.down("sm") ? KeyboardArrowUpIcon : NavigateBeforeIcon
-  const Sort_icon_down = breakpoints.down("sm") ? KeyboardArrowDownIcon : NavigateNextIcon
+  const Sort_icon_up = useMediaQuery(breakpoints.down("sm"))
+    ? KeyboardArrowUpIcon
+    : NavigateBeforeIcon
+  const Sort_icon_down = useMediaQuery(breakpoints.down("sm"))
+    ? KeyboardArrowDownIcon
+    : NavigateNextIcon
 
   return (
     <Box
@@ -23,7 +27,10 @@ export default function Post_form_images({ images }: Props) {
         display: "flex",
         [breakpoints.down("sm")]: {
           flexDirection: "column",
-          gap: 1,
+        },
+        [breakpoints.up("sm")]: {
+          flexWrap: "wrap",
+          gap: 2,
         },
       }}
     >
@@ -34,6 +41,9 @@ export default function Post_form_images({ images }: Props) {
             display: "flex",
             [breakpoints.down("sm")]: {
               flexDirection: "row",
+            },
+            [breakpoints.up("sm")]: {
+              flexDirection: "column",
             },
           }}
         >
