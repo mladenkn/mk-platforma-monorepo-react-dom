@@ -27,6 +27,7 @@ export default function Post_form_images({ images }: Props) {
         display: "flex",
         [breakpoints.down("sm")]: {
           flexDirection: "column",
+          gap: 1,
         },
         [breakpoints.up("sm")]: {
           flexWrap: "wrap",
@@ -51,9 +52,13 @@ export default function Post_form_images({ images }: Props) {
           <Box
             sx={{
               display: "flex",
+              justifyContent: "space-between",
               [breakpoints.down("sm")]: {
                 flexDirection: "column",
-                justifyContent: "space-between",
+                ml: 2,
+              },
+              [breakpoints.up("sm")]: {
+                mt: 0.5,
               },
             }}
           >
