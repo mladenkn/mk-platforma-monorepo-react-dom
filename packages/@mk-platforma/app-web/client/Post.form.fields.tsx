@@ -9,6 +9,7 @@ import CategoriesDropdown from "./Categories.dropdown"
 import { useCategory } from "./Categories.common"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
+import RemoveIcon from "@mui/icons-material/Close"
 
 type PostInput = z.infer<typeof Post_api_cu_input_base>
 
@@ -107,12 +108,17 @@ export default function Post_form_fields({ sx, initialValues = initialValues_def
         {values.images?.map(image => (
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <img key={image.url} style={{ objectFit: "contain" }} src={image.url} />
-            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+              <Box>
+                <IconButton>
+                  <NavigateBeforeIcon />
+                </IconButton>
+                <IconButton>
+                  <NavigateNextIcon />
+                </IconButton>
+              </Box>
               <IconButton>
-                <NavigateBeforeIcon />
-              </IconButton>
-              <IconButton>
-                <NavigateNextIcon />
+                <RemoveIcon />
               </IconButton>
             </Box>
           </Box>
