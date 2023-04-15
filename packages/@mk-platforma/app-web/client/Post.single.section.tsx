@@ -4,7 +4,6 @@ import { Header_root, Header_moreOptions } from "./Header"
 import { Box, IconButton, Typography } from "@mui/material"
 import Api from "./trpc.client"
 import EditIcon from "@mui/icons-material/Edit"
-import DeleteIcon from "@mui/icons-material/Delete"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useState } from "react"
 import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"
@@ -52,15 +51,10 @@ export default function Post_single_section({
           sx={{ p: 1 }}
           {...post}
           usePaperSections
-          title_right={
-            <Box>
-              <IconButton onClick={() => setIsEdit(true)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
-            </Box>
+          editAction={
+            <IconButton onClick={() => setIsEdit(true)}>
+              <EditIcon />
+            </IconButton>
           }
         />
       ) : (

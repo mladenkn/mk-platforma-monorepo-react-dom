@@ -1,4 +1,4 @@
-import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme } from "@mui/material"
+import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme, IconButton } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import { Comment_listItem } from "./Comment.common"
 import HandymanIcon from "@mui/icons-material/Handyman"
@@ -9,6 +9,7 @@ import React, { ReactNode } from "react"
 import Carousel from "react-material-ui-carousel"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
+import DeleteIcon from "@mui/icons-material/Delete"
 
 export const Post_single_details_PostSelect = {
   id: true,
@@ -72,7 +73,7 @@ export type Post_common_listItem_details_PostModel = Omit<Post_base, "comments">
 
 type Post_common_listItem_details_Props = Post_common_listItem_details_PostModel & {
   sx?: SxProps
-  title_right?: ReactNode
+  editAction?: ReactNode
   usePaperSections?: boolean
 }
 
@@ -83,7 +84,7 @@ export default function Post_single_details({
   images,
   description,
   contact,
-  title_right,
+  editAction,
   usePaperSections,
   comments,
   expertEndorsement,
@@ -119,7 +120,12 @@ export default function Post_single_details({
               )}
             </Box>
           </Box>
-          {title_right}
+          <Box>
+            {editAction}
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Box>
         </Box>
         <Carousel
           sx={{ mt: 1.5, mb: 5 }}
