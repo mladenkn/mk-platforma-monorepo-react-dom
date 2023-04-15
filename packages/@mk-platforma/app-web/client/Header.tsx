@@ -59,14 +59,16 @@ export function Header_moreOptions({ options }: Header_moreOptions_props) {
           </MenuItem>
         )}
         {options.includes("devContact") && (
-          <MenuItem>
-            <EngineeringIcon
-              sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
-            />
-            <Typography sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}>
-              Kontaktiraj razvojni tim
-            </Typography>
-          </MenuItem>
+          <a href="/kontaktiraj-razvojni-tim" style={{ textDecoration: "none" }}>
+            <MenuItem>
+              <EngineeringIcon
+                sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
+              />
+              <Typography sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}>
+                Kontaktiraj razvojni tim
+              </Typography>
+            </MenuItem>
+          </a>
         )}
       </Menu>
     </>
