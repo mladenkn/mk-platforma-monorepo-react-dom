@@ -1,7 +1,7 @@
 import Post_single_details, { Post_common_listItem_details_PostModel } from "./Post.single.details"
 import { useRouter } from "next/router"
 import { Header_root, Header_moreOptions } from "./Header"
-import { Box, IconButton, Typography } from "@mui/material"
+import { Box, IconButton, Typography, Container } from "@mui/material"
 import Api from "./trpc.client"
 import EditIcon from "@mui/icons-material/Edit"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
@@ -25,41 +25,52 @@ export default function Post_single_section({
   return (
     <Box>
       <Header_root sx={{ pr: 1.5 }}>
-        <Box
+        <Container
+          maxWidth="lg"
           sx={{
             display: "flex",
             alignItems: "center",
-            color: "white",
-            gap: 2,
+            justifyContent: "space-between",
           }}
         >
-          <IconButton sx={{ color: "white" }} onClick={goBack}>
-            <ArrowBackIosOutlinedIcon />
-          </IconButton>
-          <a style={{ color: "white", textDecoration: "none" }} href="/">
-            <Typography variant="h3">ZaBrata</Typography>
-            <Box sx={{ color: "white" }}>
-              <Typography variant="h5">Loza kontribucionizma</Typography>
-            </Box>
-          </a>
-        </Box>
-        <Header_moreOptions options={["post.create", "profile", "post.list", "devContact"]} />
-      </Header_root>
-      {postQuery.isLoading ? <>Učitavanje...</> : <></>}
-      {!isEdit ? (
-        <Post_single_details
-          sx={{ p: 1 }}
-          {...post}
-          usePaperSections
-          editAction={
-            <IconButton onClick={() => setIsEdit(true)}>
-              <EditIcon />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              color: "white",
+              gap: 2,
+            }}
+          >
+            <IconButton sx={{ color: "white" }} onClick={goBack}>
+              <ArrowBackIosOutlinedIcon />
             </IconButton>
-          }
-        />
-      ) : (
-        <></>
-      )}
+            <a style={{ color: "white", textDecoration: "none" }} href="/">
+              <Typography variant="h3">ZaBrata</Typography>
+              <Box sx={{ color: "white" }}>
+                <Typography variant="h5">Loza kontribucionizma</Typography>
+              </Box>
+            </a>
+          </Box>
+          <Header_moreOptions options={["post.create", "profile", "post.list", "devContact"]} />
+        </Container>
+      </Header_root>
+      <Container maxWidth="lg">
+        {postQuery.isLoading ? <>Učitavanje...</> : <></>}
+        {!isEdit ? (
+          <Post_single_details
+            sx={{ p: 1 }}
+            {...post}
+            usePaperSections
+            editAction={
+              <IconButton onClick={() => setIsEdit(true)}>
+                <EditIcon />
+              </IconButton>
+            }
+          />
+        ) : (
+          <></>
+        )}
+      </Container>
       {post && isEdit ? (
         <Post_form
           sx={{ p: 2, m: 1 }}
