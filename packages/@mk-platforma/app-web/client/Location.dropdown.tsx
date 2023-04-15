@@ -2,6 +2,7 @@ import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
 import React, { ReactElement, useState } from "react"
 import Api from "./trpc.client"
 import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
+import type { Prisma } from "@prisma/client"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
@@ -9,10 +10,15 @@ type CategoriesDropdown_Props = {
   onChange(event: any, c?: number): void
 }
 
-type Location = {
-  id: number
-  name: string
-}
+export const Location_Dropdown_locationsQuery = {
+  select: {
+    id: true,
+    name: true,
+  },
+  take: 10,
+} satisfies Prisma.LocationFindManyArgs
+
+type Location = Prisma.LocationGetPayload<typeof Location_Dropdown_locationsQuery>
 
 export default function Location_Dropdown({
   sx,

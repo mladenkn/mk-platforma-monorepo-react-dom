@@ -3,6 +3,7 @@ import { Client } from "@googlemaps/google-maps-services-js"
 import { z } from "zod"
 import { Location, Prisma, PrismaClient } from "@prisma/client"
 import { asNonNil } from "@mk-libs/common/common"
+import { Location_Dropdown_locationsQuery } from "../client/Location.dropdown"
 
 const client = new Client({})
 
@@ -41,15 +42,7 @@ const Location_api = router({
           )
         const locations_saved = await upsertLocations(ctx.db, locations_googleSearch)
         return locations_saved
-      } else {
-        return ctx.db.location.findMany({
-          select: {
-            id: true,
-            name: true,
-          },
-          take: 10,
-        })
-      }
+      } else return ctx.db.location.findMany(Location_Dropdown_locationsQuery)
     }),
   single: publicProcedure.input(z.object({ id: z.number() })).query(({ ctx, input }) => {
     return ctx.db.location.findUnique({ where: { id: input.id } })
@@ -63,6 +56,7 @@ async function upsertLocations(db: PrismaClient, locations: Omit<Location, "id">
         where: { google_id: location.google_id },
         update: location,
         create: location,
+        select: Location_Dropdown_locationsQuery.select,
       })
     )
   )
