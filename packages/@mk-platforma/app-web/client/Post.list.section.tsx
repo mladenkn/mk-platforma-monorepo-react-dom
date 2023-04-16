@@ -54,7 +54,7 @@ type Props = {
 
 export default function PostList_section({ selectedCategory, posts_initial }: Props) {
   const posts = Api.post.many.useQuery(
-    { categories: selectedCategory.id ? [selectedCategory.id] : [] },
+    { categories: selectedCategory?.id ? [selectedCategory.id] : [] },
     { initialData: posts_initial }
   )
 
@@ -105,7 +105,7 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
-          <Categories_selector_aside selectedItem={selectedCategory.id} />
+          <Categories_selector_aside selectedItem={selectedCategory.id} onSelect={() => {}} />
         </Drawer>
       )}
       <Fab

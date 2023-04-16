@@ -16,9 +16,12 @@ import Api from "./trpc.client"
 import { mapQueryData } from "../utils"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 
-type Props = { selectedItem?: number }
+type Props = { selectedItem?: number; onSelect?(id: number): void }
 
-export default function Categories_selector_aside({ selectedItem: selectedItem_id }: Props) {
+export default function Categories_selector_aside({
+  selectedItem: selectedItem_id,
+  onSelect,
+}: Props) {
   const { palette, typography } = useTheme()
   const categories = Api.post.category.many.useQuery()
 
@@ -105,7 +108,7 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
               ) : undefined
             }
           >
-            <ListItemButton href={`?category=${category.label}`} sx={{ px: 0 }}>
+            <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category.id)}>
               <ListItemIcon sx={{ color: "white" }}>
                 <CategoryIcon sx={{ fontSize: typography.h4 }} name={category.label} />
               </ListItemIcon>
