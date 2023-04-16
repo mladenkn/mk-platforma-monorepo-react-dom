@@ -58,6 +58,7 @@ export default function PostList_section({
   posts_initial,
 }: PostList_section_Props) {
   const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
+  const categories = Api.post.category.many.useQuery()
   const selectedCategory = useCategory(selectedCategory_id)
 
   const posts = Api.post.many.useQuery(
@@ -65,17 +66,10 @@ export default function PostList_section({
     { initialData: posts_initial }
   )
 
-  const ctx = Api.useContext()
-  useEffect(() => {
-    ctx.post.category.many.prefetch()
-  }, [])
-
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
   const [selectedItem, setSelectedItem] = useState<number>()
 
   const setUrlParams_shallow = use_setUrlParams_shallow()
-
-  const categories = Api.post.category.many.useQuery()
 
   return (
     <Box
