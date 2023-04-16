@@ -31,9 +31,15 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
   const cateogires_displayed = mapQueryData(selectedItem, selectedItem => {
     if (selectedItem?.parent)
       return categories.data!.filter(category => category.parent?.id === selectedItem.parent?.id)
-    else if (selectedItem.children.length)
+    else if (selectedItem?.children.length)
       return categories.data!.filter(category => category.parent?.id === selectedItem_id)
     else if (selectedItem) return categories.data!.filter(category => !category.parent)
+  })
+
+  const selectedItem_main = mapQueryData(selectedItem, selectedItem => {
+    if (selectedItem?.children?.length) return selectedItem
+    else if (cateogires_displayed.data![0].parent) return cateogires_displayed.data![0].parent
+    else return null
   })
 
   return (
@@ -48,12 +54,13 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
           </Typography>
         </Box>
       </a>
-      {selectedItem.data?.children?.length ? (
+      {selectedItem_main.data ? (
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             mb: 2,
+            mt: 4,
             ml: 1,
             borderBottomColor: "white",
             borderBottomWidth: 2.5,
@@ -63,10 +70,10 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
         >
           <CategoryIcon
             sx={{ fontSize: typography.h3, color: "white", mr: 2 }}
-            name={selectedItem.data.label!}
+            name={selectedItem_main.data.label!}
           />
           <Typography sx={{ color: "white", fontSize: typography.h5 }}>
-            {getCategoryLabel(selectedItem.data.label!)}
+            {getCategoryLabel(selectedItem_main.data.label!)}
           </Typography>
         </Box>
       ) : (
