@@ -20,14 +20,20 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
   const { palette, typography } = useTheme()
   const categories = Api.post.category.many.useQuery()
 
-  const cateogires_render = mapQueryData(categories, categories => {
+  const selectedItem = mapQueryData(categories, categories => {
     const selectedItem = categories.find(c => c.id === selectedItem_id)
-    const selectedItem_children = categories.filter(c => c.parent?.id === selectedItem_id)
+    return {
+      ...selectedItem,
+      children: categories.filter(c => c.parent?.id === selectedItem_id),
+    }
+  })
+
+  const cateogires_displayed = mapQueryData(selectedItem, selectedItem => {
     if (selectedItem?.parent)
-      return categories.filter(category => category.id === selectedItem.parent?.id)
-    else if (selectedItem_children.length)
-      return categories.filter(category => category.parent?.id === selectedItem_id)
-    else if (selectedItem) return categories.filter(category => !category.parent)
+      return categories.data!.filter(category => category.id === selectedItem.parent?.id)
+    else if (selectedItem.children.length)
+      return categories.data!.filter(category => category.parent?.id === selectedItem_id)
+    else if (selectedItem) return categories.data!.filter(category => !category.parent)
   })
 
   return (
@@ -42,9 +48,22 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
           </Typography>
         </Box>
       </a>
-      <List sx={{ mt: 4, ml: 1 }} disablePadding>
-        {cateogires_render.isLoading && "Učitavanje..."}
-        {cateogires_render.data?.map(category => (
+      {selectedItem.data?.children?.length ? (
+        <Box sx={{ display: "flex", alignItems: "center", mt: 4, mb: 1, ml: 1 }}>
+          <CategoryIcon
+            sx={{ fontSize: typography.h3, color: "white", mr: 1 }}
+            name={selectedItem.data.label!}
+          />
+          <Typography sx={{ color: "white", fontSize: typography.h5 }}>
+            {getCategoryLabel(selectedItem.data.label!)}
+          </Typography>
+        </Box>
+      ) : (
+        <></>
+      )}
+      <List sx={{ ml: 1 }} disablePadding>
+        {cateogires_displayed.isLoading && "Učitavanje..."}
+        {cateogires_displayed.data?.map(category => (
           <ListItem
             key={category.id}
             disablePadding

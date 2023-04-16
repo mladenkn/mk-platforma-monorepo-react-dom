@@ -6,6 +6,9 @@ import GroupsIcon from "@mui/icons-material/Groups"
 import React, { ComponentProps } from "react"
 import type { Post_category_labelType } from "../prisma/generated/zod"
 import Api from "./trpc.client"
+import ConstructionIcon from "@mui/icons-material/Construction"
+import Diversity3Icon from "@mui/icons-material/Diversity3"
+import SelfImprovementIcon from "@mui/icons-material/SelfImprovement"
 
 export function getCategoryLabel(category: Post_category_labelType) {
   switch (category) {
@@ -46,11 +49,11 @@ export function CategoryIcon({
     case "gathering":
       return <GroupsIcon {...otherProps} />
     case "gathering_spirituality":
-      return <GroupsIcon {...otherProps} />
+      return <SelfImprovementIcon {...otherProps} />
     case "gathering_work":
-      return <GroupsIcon {...otherProps} />
+      return <ConstructionIcon {...otherProps} />
     case "gathering_hangout":
-      return <GroupsIcon {...otherProps} />
+      return <Diversity3Icon {...otherProps} />
     default:
       throw new Error(`Parameter ${name} not matched as Category`)
   }
