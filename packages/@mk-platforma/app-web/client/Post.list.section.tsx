@@ -76,11 +76,6 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
   const [selectedItem, setSelectedItem] = useState<number>()
 
-  const details_comments = Api.post.comment.many.useQuery(
-    { post_id: selectedItem! },
-    { enabled: !!selectedItem }
-  )
-
   return (
     <Box
       sx={{
