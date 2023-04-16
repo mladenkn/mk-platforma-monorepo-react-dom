@@ -126,7 +126,7 @@ export default function Categories_selector_aside({
             <IconButton onClick={onBack}>
               <ArrowBackIosOutlinedIcon sx={{ color: "white", mr: 2 }} />
             </IconButton>,
-            <ExpandMoreIcon />
+            <ExpandMoreIcon sx={{ color: "white" }} />
           )
         ) : (
           <></>
@@ -153,7 +153,7 @@ export default function Categories_selector_aside({
         ) : (
           <></>
         )}
-        {!selectedItem || !selectedItem?.children || selectedItem?.parent ? (
+        {!selectedItem || !selectedItem?.children || !selectedItem?.parent ? (
           categories.filter(c => !c.parent).map(c => renderCategory(c))
         ) : (
           <></>
