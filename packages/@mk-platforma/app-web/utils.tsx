@@ -47,3 +47,13 @@ export function useWindowSize() {
   }, []) // Empty array ensures that effect is only run on mount
   return windowSize
 }
+
+export function mapQueryData<TQueryData, TMappedData>(
+  query: UseQueryResult<TQueryData>,
+  map: (data: TQueryData) => TMappedData
+) {
+  return {
+    ...query,
+    data: query.data && map(query.data),
+  } as UseQueryResult<TMappedData>
+}
