@@ -60,22 +60,6 @@ export default function Categories_selector_aside({
       : undefined
   })
 
-  const cateogires_displayed = eva(() => {
-    if (selectedItem?.parent)
-      return categories.filter(category => category.parent?.id === selectedItem.parent?.id)
-    else if (selectedItem?.children.length)
-      return categories.filter(category => category.parent?.id === selectedItem_id)
-    else if (selectedItem) return categories.filter(category => !category.parent)
-    else return categories.filter(c => !c.parent)
-  })
-
-  const selectedItem_main = eva(() => {
-    if (selectedItem?.children?.length) return selectedItem
-    else if (cateogires_displayed?.length && cateogires_displayed[0].parent)
-      return cateogires_displayed[0].parent
-    else return null
-  })
-
   function getChildrenOf(id: number) {
     return categories.filter(c => c.parent?.id === id)
   }
@@ -106,15 +90,6 @@ export default function Categories_selector_aside({
     else selectedItem?.parent
     return selectedItem?.parent
   })
-
-  console.log(
-    118,
-    selectedItem,
-    // !selectedItem || selectedItem?.children?.length === 0 || !selectedItem?.parent,
-    // !selectedItem,
-    // selectedItem?.children?.length === 0,
-    !selectedItem?.parent
-  )
 
   return (
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
