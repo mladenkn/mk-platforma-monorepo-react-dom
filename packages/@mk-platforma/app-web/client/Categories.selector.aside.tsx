@@ -7,12 +7,14 @@ import {
   useTheme,
   Box,
   Typography,
+  IconButton,
 } from "@mui/material"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import React from "react"
 import Api from "./trpc.client"
 import { mapQueryData } from "../utils"
+import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 
 type Props = { selectedItem?: number }
 
@@ -57,24 +59,36 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
       {selectedItem_main.data ? (
         <Box
           sx={{
-            display: "flex",
-            alignItems: "center",
             mb: 2,
             mt: 4,
-            ml: 1,
-            borderBottomColor: "white",
-            borderBottomWidth: 2.5,
-            borderBottomStyle: "solid",
-            maxWidth: 230,
+            display: "flex",
+            alignItems: "center",
+            ml: -1,
           }}
         >
-          <CategoryIcon
-            sx={{ fontSize: typography.h3, color: "white", mr: 2 }}
-            name={selectedItem_main.data.label!}
-          />
-          <Typography sx={{ color: "white", fontSize: typography.h5 }}>
-            {getCategoryLabel(selectedItem_main.data.label!)}
-          </Typography>
+          <IconButton sx={{ mr: 1.2 }}>
+            <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
+          </IconButton>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              borderBottomColor: "white",
+              borderBottomWidth: 2.5,
+              borderBottomStyle: "solid",
+              maxWidth: 200,
+              flex: 1,
+              pl: 1,
+            }}
+          >
+            <CategoryIcon
+              sx={{ fontSize: typography.h3, color: "white", mr: 2 }}
+              name={selectedItem_main.data.label!}
+            />
+            <Typography sx={{ color: "white", fontSize: typography.h5 }}>
+              {getCategoryLabel(selectedItem_main.data.label!)}
+            </Typography>
+          </Box>
         </Box>
       ) : (
         <></>
