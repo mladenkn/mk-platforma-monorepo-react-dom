@@ -75,6 +75,30 @@ export default function Categories_selector_aside({
     else return null
   })
 
+  function renderCategory(category: Categories_selector_aside_CategoryModelCategory) {
+    return (
+      <ListItem
+        key={category.id}
+        disablePadding
+        secondaryAction={
+          selectedItem?.id === category.id ? (
+            <RadioButtonCheckedIcon sx={{ color: "white" }} />
+          ) : undefined
+        }
+      >
+        <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
+          <ListItemIcon>
+            <CategoryIcon sx={{ fontSize: typography.h3, color: "white" }} name={category.label} />
+          </ListItemIcon>
+          <ListItemText
+            sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
+            primary={getCategoryLabel(category.label)}
+          />
+        </ListItemButton>
+      </ListItem>
+    )
+  }
+
   return (
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
       <a style={{ color: "white", textDecoration: "none" }} href="/">
@@ -88,49 +112,11 @@ export default function Categories_selector_aside({
         </Box>
       </a>
       <List sx={{ mt: 4, ml: 1 }} disablePadding>
-        {categories
-          .filter(c => !c.parent)
-          .map(category => (
-            <ListItem
-              key={category.id}
-              disablePadding
-              secondaryAction={
-                selectedItem?.id === category.id ? (
-                  <RadioButtonCheckedIcon sx={{ color: "white" }} />
-                ) : undefined
-              }
-            >
-              <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
-                <ListItemIcon>
-                  <CategoryIcon
-                    sx={{ fontSize: typography.h3, color: "white" }}
-                    name={category.label}
-                  />
-                </ListItemIcon>
-                <ListItemText
-                  sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
-                  primary={getCategoryLabel(category.label)}
-                />
-              </ListItemButton>
-            </ListItem>
-          ))}
+        {categories.filter(c => !c.parent).map(renderCategory)}
         {selectedItem?.children?.length ? (
-          <Collapse in={true} timeout="auto" unmountOnExit>
+          <Collapse in={true} timeout="auto" unmountOnExit sx={{ pl: 4 }}>
             <List component="div" disablePadding>
-              {selectedItem.children.map(childCategory => (
-                <ListItemButton key={childCategory.id} sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <CategoryIcon
-                      sx={{ fontSize: typography.h3, color: "white" }}
-                      name={childCategory.label}
-                    />
-                  </ListItemIcon>
-                  <ListItemText
-                    sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
-                    primary={getCategoryLabel(childCategory.label)}
-                  />
-                </ListItemButton>
-              ))}
+              {selectedItem.children.map(renderCategory)}
             </List>
           </Collapse>
         ) : (
