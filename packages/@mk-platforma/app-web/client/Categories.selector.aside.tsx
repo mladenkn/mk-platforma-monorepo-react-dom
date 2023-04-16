@@ -30,7 +30,7 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
 
   const cateogires_displayed = mapQueryData(selectedItem, selectedItem => {
     if (selectedItem?.parent)
-      return categories.data!.filter(category => category.id === selectedItem.parent?.id)
+      return categories.data!.filter(category => category.parent?.id === selectedItem.parent?.id)
     else if (selectedItem.children.length)
       return categories.data!.filter(category => category.parent?.id === selectedItem_id)
     else if (selectedItem) return categories.data!.filter(category => !category.parent)
@@ -53,7 +53,6 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
           sx={{
             display: "flex",
             alignItems: "center",
-            mt: 4,
             mb: 2,
             ml: 1,
             borderBottomColor: "white",
@@ -73,7 +72,7 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
       ) : (
         <></>
       )}
-      <List sx={{ ml: 2 }} disablePadding>
+      <List sx={{ ml: 2, mt: 4 }} disablePadding>
         {cateogires_displayed.isLoading && "Učitavanje..."}
         {cateogires_displayed.data?.map(category => (
           <ListItem
