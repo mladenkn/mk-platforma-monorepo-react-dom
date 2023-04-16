@@ -12,10 +12,11 @@ import {
 } from "@mui/material"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
-import React from "react"
+import React, { ReactNode } from "react"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import type { Prisma } from "@prisma/client"
 import { eva } from "@mk-libs/common/common"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 
 export const Categories_selector_aside_Category_queryParams = {
   select: {
@@ -75,18 +76,19 @@ export default function Categories_selector_aside({
     else return null
   })
 
-  function renderCategory(category: Categories_selector_aside_CategoryModelCategory) {
+  function getChildrenOf(id: number) {
+    return categories.filter(c => c.parent?.id === id)
+  }
+
+  function renderCategory(
+    category: Omit<Categories_selector_aside_CategoryModelCategory, "parent">,
+    startAdornament?: ReactNode,
+    endAdornament?: ReactNode
+  ) {
     return (
-      <ListItem
-        key={category.id}
-        disablePadding
-        secondaryAction={
-          selectedItem?.id === category.id ? (
-            <RadioButtonCheckedIcon sx={{ color: "white" }} />
-          ) : undefined
-        }
-      >
-        <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
+      <ListItem key={category.id} disablePadding secondaryAction={endAdornament}>
+        <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category as any)}>
+          {startAdornament}
           <ListItemIcon>
             <CategoryIcon sx={{ fontSize: typography.h3, color: "white" }} name={category.label} />
           </ListItemIcon>
@@ -98,6 +100,12 @@ export default function Categories_selector_aside({
       </ListItem>
     )
   }
+
+  const rootItem = eva(() => {
+    if (selectedItem?.children?.length) return selectedItem
+    else selectedItem?.parent
+    return selectedItem?.parent
+  })
 
   return (
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
@@ -111,14 +119,42 @@ export default function Categories_selector_aside({
           </Typography>
         </Box>
       </a>
-      <List sx={{ mt: 4, ml: 1 }} disablePadding>
-        {categories.filter(c => !c.parent).map(renderCategory)}
-        {selectedItem?.children?.length ? (
-          <Collapse in={true} timeout="auto" unmountOnExit sx={{ pl: 4 }}>
-            <List component="div" disablePadding>
-              {selectedItem.children.map(renderCategory)}
-            </List>
-          </Collapse>
+      <List sx={{ mt: 4 }} disablePadding>
+        {rootItem ? (
+          renderCategory(
+            rootItem,
+            <IconButton onClick={onBack}>
+              <ArrowBackIosOutlinedIcon sx={{ color: "white", mr: 2 }} />
+            </IconButton>,
+            <ExpandMoreIcon />
+          )
+        ) : (
+          <></>
+        )}
+        {selectedItem?.parent ? (
+          <>
+            <Collapse in={true} timeout="auto" unmountOnExit sx={{ pl: 4 }}>
+              <List component="div" disablePadding>
+                {getChildrenOf(selectedItem.parent!.id).map(c => renderCategory(c))}
+              </List>
+            </Collapse>
+          </>
+        ) : (
+          <></>
+        )}
+        {selectedItem?.children.length ? (
+          <>
+            <Collapse in={true} timeout="auto" unmountOnExit sx={{ pl: 4 }}>
+              <List component="div" disablePadding>
+                {selectedItem?.children?.map(c => renderCategory(c))}
+              </List>
+            </Collapse>
+          </>
+        ) : (
+          <></>
+        )}
+        {!selectedItem || !selectedItem?.children || selectedItem?.parent ? (
+          categories.filter(c => !c.parent).map(c => renderCategory(c))
         ) : (
           <></>
         )}
