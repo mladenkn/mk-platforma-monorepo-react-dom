@@ -101,8 +101,11 @@ export default function Categories_selector_aside({
               }
             >
               <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
-                <ListItemIcon sx={{ color: "white" }}>
-                  <CategoryIcon sx={{ fontSize: typography.h3 }} name={category.label} />
+                <ListItemIcon>
+                  <CategoryIcon
+                    sx={{ fontSize: typography.h3, color: "white" }}
+                    name={category.label}
+                  />
                 </ListItemIcon>
                 <ListItemText
                   sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
@@ -116,9 +119,15 @@ export default function Categories_selector_aside({
             <List component="div" disablePadding>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
-                  <CategoryIcon sx={{ fontSize: typography.h3 }} name={selectedItem.label} />
+                  <CategoryIcon
+                    sx={{ fontSize: typography.h3, color: "white" }}
+                    name={selectedItem.label}
+                  />
                 </ListItemIcon>
-                <ListItemText primary={getCategoryLabel(selectedItem.label)} />
+                <ListItemText
+                  sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
+                  primary={getCategoryLabel(selectedItem.label)}
+                />
               </ListItemButton>
             </List>
           </Collapse>
