@@ -16,7 +16,6 @@ import Api from "./trpc.client"
 import { mapQueryData } from "../utils"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import type { Post_category_label } from "@prisma/client"
-import { useRouter } from "next/router"
 
 type Category = {
   id: number
@@ -35,10 +34,12 @@ export default function Categories_selector_aside({
 
   const selectedItem = mapQueryData(categories, categories => {
     const selectedItem = categories.find(c => c.id === selectedItem_id)
-    return {
-      ...selectedItem,
-      children: categories.filter(c => c.parent?.id === selectedItem_id),
-    }
+    return selectedItem
+      ? {
+          ...selectedItem,
+          children: categories.filter(c => c.parent?.id === selectedItem_id),
+        }
+      : undefined
   })
 
   const cateogires_displayed = mapQueryData(selectedItem, selectedItem => {
@@ -54,6 +55,8 @@ export default function Categories_selector_aside({
     else if (cateogires_displayed.data![0].parent) return cateogires_displayed.data![0].parent
     else return null
   })
+
+  console.log(58, selectedItem_main)
 
   return (
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
