@@ -64,6 +64,6 @@ export function useCategory(id?: number) {
   const categoriesQuery = Api.post.category.many.useQuery()
   return {
     ...categoriesQuery,
-    data: categoriesQuery.data?.find(c => c.id === id),
+    data: id ? categoriesQuery.data?.find(c => c.id === id) : null,
   }
 }

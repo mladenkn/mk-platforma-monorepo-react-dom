@@ -1,4 +1,4 @@
-import PostList_section from "../client/Post.list.section"
+import PostList_section, { PostList_section_Props } from "../client/Post.list.section"
 import type { Post_category_labelType } from "../prisma/generated/zod"
 import { Api_ss } from "../trpc.server"
 import { GetServerSidePropsContext } from "next/types"
@@ -11,11 +11,12 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
     : ("gathering" as "gathering")
   const category = await db.post_category.findFirst({ where: { label: category_label } })
   assertIsNonNil(category)
+  const props: PostList_section_Props = {
+    selectedCategory_initial: category,
+    posts_initial: await Api_ss({ db, userId: 1 }).post.many({ categories: [category.id] }),
+  }
   return {
-    props: {
-      selectedCategory: category,
-      posts_initial: await Api_ss({ db, userId: 1 }).post.many({ categories: [category.id] }),
-    },
+    props,
   }
 }
 

@@ -7,7 +7,7 @@ import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside from "./Categories.selector.aside"
 import React, { useState, useEffect } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
-import { getCategoryLabel, CategoryIcon } from "./Categories.common"
+import { getCategoryLabel, CategoryIcon, useCategory } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
 import type { Prisma } from "@prisma/client"
 import { Post_category_labelType } from "../prisma/generated/zod"
@@ -48,14 +48,20 @@ type Post = Prisma.PostGetPayload<{
   select: typeof PostList_section_PostSelect
 }>
 
-type Props = {
-  selectedCategory: { id: number; label: Post_category_labelType }
+export type PostList_section_Props = {
+  selectedCategory_initial: { id: number; label: Post_category_labelType }
   posts_initial: Post[]
 }
 
-export default function PostList_section({ selectedCategory, posts_initial }: Props) {
+export default function PostList_section({
+  selectedCategory_initial,
+  posts_initial,
+}: PostList_section_Props) {
+  const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
+  const selectedCategory = useCategory(selectedCategory_id)
+
   const posts = Api.post.many.useQuery(
-    { categories: selectedCategory?.id ? [selectedCategory.id] : [] },
+    { categories: selectedCategory_id ? [selectedCategory_id] : [] },
     { initialData: posts_initial }
   )
 
@@ -98,9 +104,11 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
             }}
             onClick={() => set_SectionsDrawer_isActive(true)}
           >
-            {selectedCategory && <CategoryIcon fontSize="large" name={selectedCategory.label} />}
+            {selectedCategory.data && (
+              <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
+            )}
             <Typography variant="h2" fontWeight={400}>
-              {selectedCategory && getCategoryLabel(selectedCategory.label)}
+              {selectedCategory.data && getCategoryLabel(selectedCategory.data.label)}
             </Typography>
           </Box>
           <Header_moreOptions options={["post.create", "profile", "devContact"]} />
@@ -109,10 +117,11 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
           <Categories_selector_aside
-            selectedItem={selectedCategory.id}
+            selectedItem={selectedCategory.data?.id}
             onSelect={category => {
               setUrlParams_shallow({ category: category.label })
               set_SectionsDrawer_isActive(false)
+              setSelectedCategory(category.id)
             }}
           />
         </Drawer>
