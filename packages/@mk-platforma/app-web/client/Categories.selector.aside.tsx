@@ -117,18 +117,20 @@ export default function Categories_selector_aside({
         {selectedItem?.children?.length ? (
           <Collapse in={true} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <CategoryIcon
-                    sx={{ fontSize: typography.h3, color: "white" }}
-                    name={selectedItem.label}
+              {selectedItem.children.map(childCategory => (
+                <ListItemButton key={childCategory.id} sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <CategoryIcon
+                      sx={{ fontSize: typography.h3, color: "white" }}
+                      name={childCategory.label}
+                    />
+                  </ListItemIcon>
+                  <ListItemText
+                    sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
+                    primary={getCategoryLabel(childCategory.label)}
                   />
-                </ListItemIcon>
-                <ListItemText
-                  sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
-                  primary={getCategoryLabel(selectedItem.label)}
-                />
-              </ListItemButton>
+                </ListItemButton>
+              ))}
             </List>
           </Collapse>
         ) : (
