@@ -1,4 +1,5 @@
 import { UseQueryResult } from "@tanstack/react-query"
+import { useRouter } from "next/router"
 import React, { useState, useEffect } from "react"
 
 type DataOrQuery_Props<TData> = {
@@ -56,4 +57,18 @@ export function mapQueryData<TQueryData, TMappedData>(
     ...query,
     data: query.data && map(query.data),
   } as UseQueryResult<TMappedData>
+}
+
+export function use_setUrlParams_shallow() {
+  const router = useRouter()
+  return (params: object) => {
+    router.push(
+      {
+        pathname: router.pathname,
+        query: params as any,
+      },
+      undefined,
+      { shallow: true }
+    )
+  }
 }
