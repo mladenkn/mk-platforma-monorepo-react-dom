@@ -56,7 +56,7 @@ export default function Categories_selector_aside({
     else if (selectedItem?.children.length)
       return categories.filter(category => category.parent?.id === selectedItem_id)
     else if (selectedItem) return categories.filter(category => !category.parent)
-    else return []
+    else return categories.filter(c => !c.parent)
   })
 
   const selectedItem_main = eva(() => {
