@@ -107,6 +107,15 @@ export default function Categories_selector_aside({
     return selectedItem?.parent
   })
 
+  console.log(
+    118,
+    selectedItem,
+    // !selectedItem || selectedItem?.children?.length === 0 || !selectedItem?.parent,
+    // !selectedItem,
+    // selectedItem?.children?.length === 0,
+    !selectedItem?.parent
+  )
+
   return (
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
       <a style={{ color: "white", textDecoration: "none" }} href="/">
@@ -123,7 +132,12 @@ export default function Categories_selector_aside({
         {rootItem ? (
           renderCategory(
             rootItem,
-            <IconButton onClick={onBack}>
+            <IconButton
+              onClick={e => {
+                onBack()
+                e.stopPropagation()
+              }}
+            >
               <ArrowBackIosOutlinedIcon sx={{ color: "white", mr: 2 }} />
             </IconButton>,
             <ExpandMoreIcon sx={{ color: "white" }} />
@@ -135,7 +149,17 @@ export default function Categories_selector_aside({
           <>
             <Collapse in={true} timeout="auto" unmountOnExit sx={{ pl: 4 }}>
               <List component="div" disablePadding>
-                {getChildrenOf(selectedItem.parent!.id).map(c => renderCategory(c))}
+                {getChildrenOf(selectedItem.parent!.id).map(category =>
+                  renderCategory(
+                    category,
+                    undefined,
+                    selectedItem?.id === category.id ? (
+                      <RadioButtonCheckedIcon sx={{ color: "white" }} />
+                    ) : (
+                      <></>
+                    )
+                  )
+                )}
               </List>
             </Collapse>
           </>
@@ -153,8 +177,18 @@ export default function Categories_selector_aside({
         ) : (
           <></>
         )}
-        {!selectedItem || !selectedItem?.children || !selectedItem?.parent ? (
-          categories.filter(c => !c.parent).map(c => renderCategory(c))
+        {!selectedItem || (selectedItem?.children?.length === 0 && !selectedItem?.parent) ? (
+          categories
+            .filter(c => !c.parent)
+            .map(category =>
+              renderCategory(
+                category,
+                undefined,
+                selectedItem?.id === category.id ? (
+                  <RadioButtonCheckedIcon sx={{ color: "white" }} />
+                ) : undefined
+              )
+            )
         ) : (
           <></>
         )}
