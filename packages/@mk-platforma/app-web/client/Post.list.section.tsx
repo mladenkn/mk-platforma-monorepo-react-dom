@@ -49,7 +49,7 @@ type Post = Prisma.PostGetPayload<{
 }>
 
 export type PostList_section_Props = {
-  selectedCategory_initial: { id: number; label: Post_category_labelType }
+  selectedCategory_initial?: { id: number; label: Post_category_labelType }
   posts_initial: Post[]
 }
 
@@ -123,6 +123,7 @@ export default function PostList_section({
               set_SectionsDrawer_isActive(false)
               setSelectedCategory(category.id)
             }}
+            onBack={() => setSelectedCategory(undefined)}
           />
         </Drawer>
       )}

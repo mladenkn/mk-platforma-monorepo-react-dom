@@ -16,17 +16,19 @@ import Api from "./trpc.client"
 import { mapQueryData } from "../utils"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import type { Post_category_label } from "@prisma/client"
+import { useRouter } from "next/router"
 
 type Category = {
   id: number
   label: Post_category_label
 }
 
-type Props = { selectedItem?: number; onSelect?(id: Category): void }
+type Props = { selectedItem?: number; onSelect?(id: Category): void; onBack(): void }
 
 export default function Categories_selector_aside({
   selectedItem: selectedItem_id,
   onSelect,
+  onBack,
 }: Props) {
   const { palette, typography } = useTheme()
   const categories = Api.post.category.many.useQuery()
@@ -75,7 +77,7 @@ export default function Categories_selector_aside({
             ml: -1,
           }}
         >
-          <IconButton sx={{ mr: 1.2 }}>
+          <IconButton sx={{ mr: 1.2 }} onClick={onBack}>
             <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
           </IconButton>
           <Box
