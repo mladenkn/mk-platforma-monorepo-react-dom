@@ -4,7 +4,9 @@ import { Post_single_listItem } from "./Post.single.listItem"
 import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
 import Api from "./trpc.client"
 import { shallowPick } from "@mk-libs/common/common"
-import Categories_selector_aside from "./Categories.selector.aside"
+import Categories_selector_aside, {
+  Categories_selector_aside_CategoryModelCategory,
+} from "./Categories.selector.aside"
 import React, { useState, useEffect } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { getCategoryLabel, CategoryIcon, useCategory } from "./Categories.common"
@@ -51,14 +53,16 @@ type Post = Prisma.PostGetPayload<{
 export type PostList_section_Props = {
   selectedCategory_initial?: { id: number; label: Post_category_labelType }
   posts_initial: Post[]
+  categories_initial: Categories_selector_aside_CategoryModelCategory[]
 }
 
 export default function PostList_section({
   selectedCategory_initial,
+  categories_initial,
   posts_initial,
 }: PostList_section_Props) {
   const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
-  const categories = Api.post.category.many.useQuery()
+  const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
 
   const posts = Api.post.many.useQuery(

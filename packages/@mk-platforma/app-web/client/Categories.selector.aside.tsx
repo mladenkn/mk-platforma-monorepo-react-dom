@@ -13,22 +13,30 @@ import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import React from "react"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
-import type { Post_category_label } from "@prisma/client"
+import type { Prisma } from "@prisma/client"
 import { eva } from "@mk-libs/common/common"
 
-type Category = {
-  id: number
-  label: Post_category_label
-  parent?: {
-    id: number
-    label: Post_category_label
-  } | null
-}
+export const Categories_selector_aside_Category_queryParams = {
+  select: {
+    id: true,
+    label: true,
+    parent: {
+      select: {
+        id: true,
+        label: true,
+      },
+    },
+  },
+} satisfies Prisma.Post_categoryArgs
+
+export type Categories_selector_aside_CategoryModelCategory = Prisma.Post_categoryGetPayload<
+  typeof Categories_selector_aside_Category_queryParams
+>
 
 type Props = {
-  categories: Category[]
+  categories: Categories_selector_aside_CategoryModelCategory[]
   selectedItem?: number
-  onSelect?(id: Category): void
+  onSelect?(id: Categories_selector_aside_CategoryModelCategory): void
   onBack(): void
 }
 

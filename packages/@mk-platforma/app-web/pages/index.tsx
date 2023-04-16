@@ -11,9 +11,11 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
     : ("gathering" as "gathering")
   const category = await db.post_category.findFirst({ where: { label: category_label } })
   assertIsNonNil(category)
+  const api = Api_ss({ db, userId: 1 })
   const props: PostList_section_Props = {
     selectedCategory_initial: category,
-    posts_initial: await Api_ss({ db, userId: 1 }).post.many({ categories: [category.id] }),
+    posts_initial: await api.post.many({ categories: [category.id] }),
+    categories_initial: await api.post.category.many(),
   }
   return {
     props,
