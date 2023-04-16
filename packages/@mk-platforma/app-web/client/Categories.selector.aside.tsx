@@ -12,27 +12,35 @@ import {
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import React from "react"
-import Api from "./trpc.client"
-import { mapQueryData } from "../utils"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import type { Post_category_label } from "@prisma/client"
+import { eva } from "@mk-libs/common/common"
 
 type Category = {
   id: number
   label: Post_category_label
+  parent?: {
+    id: number
+    label: Post_category_label
+  } | null
 }
 
-type Props = { selectedItem?: number; onSelect?(id: Category): void; onBack(): void }
+type Props = {
+  categories: Category[]
+  selectedItem?: number
+  onSelect?(id: Category): void
+  onBack(): void
+}
 
 export default function Categories_selector_aside({
   selectedItem: selectedItem_id,
   onSelect,
   onBack,
+  categories,
 }: Props) {
   const { palette, typography } = useTheme()
-  const categories = Api.post.category.many.useQuery()
 
-  const selectedItem = mapQueryData(categories, categories => {
+  const selectedItem = eva(() => {
     const selectedItem = categories.find(c => c.id === selectedItem_id)
     return selectedItem
       ? {
@@ -42,21 +50,21 @@ export default function Categories_selector_aside({
       : undefined
   })
 
-  const cateogires_displayed = mapQueryData(selectedItem, selectedItem => {
+  const cateogires_displayed = eva(() => {
     if (selectedItem?.parent)
-      return categories.data!.filter(category => category.parent?.id === selectedItem.parent?.id)
+      return categories.filter(category => category.parent?.id === selectedItem.parent?.id)
     else if (selectedItem?.children.length)
-      return categories.data!.filter(category => category.parent?.id === selectedItem_id)
-    else if (selectedItem) return categories.data!.filter(category => !category.parent)
+      return categories.filter(category => category.parent?.id === selectedItem_id)
+    else if (selectedItem) return categories.filter(category => !category.parent)
+    else return []
   })
 
-  const selectedItem_main = mapQueryData(selectedItem, selectedItem => {
+  const selectedItem_main = eva(() => {
     if (selectedItem?.children?.length) return selectedItem
-    else if (cateogires_displayed.data![0].parent) return cateogires_displayed.data![0].parent
+    else if (cateogires_displayed?.length && cateogires_displayed[0].parent)
+      return cateogires_displayed[0].parent
     else return null
   })
-
-  console.log(58, selectedItem_main)
 
   return (
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
@@ -70,7 +78,7 @@ export default function Categories_selector_aside({
           </Typography>
         </Box>
       </a>
-      {selectedItem_main.data ? (
+      {selectedItem_main ? (
         <Box
           sx={{
             mb: 2,
@@ -97,10 +105,10 @@ export default function Categories_selector_aside({
           >
             <CategoryIcon
               sx={{ fontSize: typography.h3, color: "white", mr: 2 }}
-              name={selectedItem_main.data.label!}
+              name={selectedItem_main.label}
             />
             <Typography sx={{ color: "white", fontSize: typography.h5 }}>
-              {getCategoryLabel(selectedItem_main.data.label!)}
+              {getCategoryLabel(selectedItem_main.label)}
             </Typography>
           </Box>
         </Box>
@@ -108,8 +116,7 @@ export default function Categories_selector_aside({
         <></>
       )}
       <List sx={{ ml: 2, mt: 4 }} disablePadding>
-        {cateogires_displayed.isLoading && "Učitavanje..."}
-        {cateogires_displayed.data?.map(category => (
+        {cateogires_displayed.map(category => (
           <ListItem
             key={category.id}
             disablePadding

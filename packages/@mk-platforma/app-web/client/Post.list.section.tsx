@@ -75,6 +75,8 @@ export default function PostList_section({
 
   const setUrlParams_shallow = use_setUrlParams_shallow()
 
+  const categories = Api.post.category.many.useQuery()
+
   return (
     <Box
       sx={{
@@ -116,15 +118,18 @@ export default function PostList_section({
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
-          <Categories_selector_aside
-            selectedItem={selectedCategory.data?.id}
-            onSelect={category => {
-              setUrlParams_shallow({ category: category.label })
-              set_SectionsDrawer_isActive(false)
-              setSelectedCategory(category.id)
-            }}
-            onBack={() => setSelectedCategory(undefined)}
-          />
+          {categories.data && (
+            <Categories_selector_aside
+              categories={categories.data}
+              selectedItem={selectedCategory.data?.id}
+              onSelect={category => {
+                setUrlParams_shallow({ category: category.label })
+                set_SectionsDrawer_isActive(false)
+                setSelectedCategory(category.id)
+              }}
+              onBack={() => setSelectedCategory(undefined)}
+            />
+          )}
         </Drawer>
       )}
       <Fab
