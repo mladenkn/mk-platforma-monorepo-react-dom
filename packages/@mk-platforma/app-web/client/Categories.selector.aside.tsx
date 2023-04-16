@@ -49,9 +49,21 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
         </Box>
       </a>
       {selectedItem.data?.children?.length ? (
-        <Box sx={{ display: "flex", alignItems: "center", mt: 4, mb: 1, ml: 1 }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            mt: 4,
+            mb: 2,
+            ml: 1,
+            borderBottomColor: "white",
+            borderBottomWidth: 2.5,
+            borderBottomStyle: "solid",
+            maxWidth: 230,
+          }}
+        >
           <CategoryIcon
-            sx={{ fontSize: typography.h3, color: "white", mr: 1 }}
+            sx={{ fontSize: typography.h3, color: "white", mr: 2 }}
             name={selectedItem.data.label!}
           />
           <Typography sx={{ color: "white", fontSize: typography.h5 }}>
@@ -61,7 +73,7 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
       ) : (
         <></>
       )}
-      <List sx={{ ml: 1 }} disablePadding>
+      <List sx={{ ml: 2 }} disablePadding>
         {cateogires_displayed.isLoading && "Učitavanje..."}
         {cateogires_displayed.data?.map(category => (
           <ListItem
@@ -75,10 +87,10 @@ export default function Categories_selector_aside({ selectedItem: selectedItem_i
           >
             <ListItemButton href={`?category=${category.label}`} sx={{ px: 0 }}>
               <ListItemIcon sx={{ color: "white" }}>
-                <CategoryIcon sx={{ fontSize: typography.h3 }} name={category.label} />
+                <CategoryIcon sx={{ fontSize: typography.h4 }} name={category.label} />
               </ListItemIcon>
               <ListItemText
-                sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
+                sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h6 } }}
                 primary={getCategoryLabel(category.label)}
               />
             </ListItemButton>
