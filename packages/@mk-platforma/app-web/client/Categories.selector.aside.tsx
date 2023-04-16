@@ -8,6 +8,7 @@ import {
   Box,
   Typography,
   IconButton,
+  Collapse,
 } from "@mui/material"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
@@ -36,7 +37,7 @@ export type Categories_selector_aside_CategoryModelCategory = Prisma.Post_catego
 type Props = {
   categories: Categories_selector_aside_CategoryModelCategory[]
   selectedItem?: number
-  onSelect?(id: Categories_selector_aside_CategoryModelCategory): void
+  onSelect?(c: Categories_selector_aside_CategoryModelCategory): void
   onBack(): void
 }
 
@@ -86,65 +87,44 @@ export default function Categories_selector_aside({
           </Typography>
         </Box>
       </a>
-      {selectedItem_main ? (
-        <Box
-          sx={{
-            mb: 2,
-            mt: 4,
-            display: "flex",
-            alignItems: "center",
-            ml: -1,
-          }}
-        >
-          <IconButton sx={{ mr: 1.2 }} onClick={onBack}>
-            <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
-          </IconButton>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              borderBottomColor: "white",
-              borderBottomWidth: 2.5,
-              borderBottomStyle: "solid",
-              maxWidth: 200,
-              flex: 1,
-              pl: 1,
-            }}
-          >
-            <CategoryIcon
-              sx={{ fontSize: typography.h3, color: "white", mr: 2 }}
-              name={selectedItem_main.label}
-            />
-            <Typography sx={{ color: "white", fontSize: typography.h5 }}>
-              {getCategoryLabel(selectedItem_main.label)}
-            </Typography>
-          </Box>
-        </Box>
-      ) : (
-        <></>
-      )}
-      <List sx={{ ml: 2, mt: 4 }} disablePadding>
-        {cateogires_displayed.map(category => (
-          <ListItem
-            key={category.id}
-            disablePadding
-            secondaryAction={
-              selectedItem_id === category.id ? (
-                <RadioButtonCheckedIcon sx={{ color: "white" }} />
-              ) : undefined
-            }
-          >
-            <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
-              <ListItemIcon sx={{ color: "white" }}>
-                <CategoryIcon sx={{ fontSize: typography.h4 }} name={category.label} />
-              </ListItemIcon>
-              <ListItemText
-                sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h6 } }}
-                primary={getCategoryLabel(category.label)}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
+      <List sx={{ mt: 4, ml: 1 }} disablePadding>
+        {categories
+          .filter(c => !c.parent)
+          .map(category => (
+            <ListItem
+              key={category.id}
+              disablePadding
+              secondaryAction={
+                selectedItem?.id === category.id ? (
+                  <RadioButtonCheckedIcon sx={{ color: "white" }} />
+                ) : undefined
+              }
+            >
+              <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
+                <ListItemIcon sx={{ color: "white" }}>
+                  <CategoryIcon sx={{ fontSize: typography.h3 }} name={category.label} />
+                </ListItemIcon>
+                <ListItemText
+                  sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
+                  primary={getCategoryLabel(category.label)}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        {selectedItem?.children?.length ? (
+          <Collapse in={true} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemIcon>
+                  <CategoryIcon sx={{ fontSize: typography.h3 }} name={selectedItem.label} />
+                </ListItemIcon>
+                <ListItemText primary={getCategoryLabel(selectedItem.label)} />
+              </ListItemButton>
+            </List>
+          </Collapse>
+        ) : (
+          <></>
+        )}
       </List>
     </Box>
   )
