@@ -161,17 +161,6 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 )
               } else return <Post_single_listItem {...item} location={item.location?.name} />
             }}
-            Item_details={post => (
-              <Post_single_details
-                {...post}
-                comments={details_comments}
-                editAction={
-                  <IconButton>
-                    <EditIcon />
-                  </IconButton>
-                }
-              />
-            )}
           />
         ) : (
           <>Učitavanje...</>
