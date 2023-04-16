@@ -11,7 +11,7 @@ type Item = {
 export type Section_base_Props<TItem extends Item> = {
   items: TItem[]
   Item: ComponentType<TItem>
-  Item_details: ComponentType<TItem & { sx?: SxProps }>
+  Item_details?: ComponentType<TItem & { sx?: SxProps }>
   selectedItem?: number
   setSelectedItem(id?: number): void
 }
@@ -58,11 +58,11 @@ export default function Post_list_base<TItem extends Item>({
           </Paper>
         ))}
       </Box>
-      {selectedItem && (
+      {/* {selectedItem && (
         <Dialog open onClose={() => setSelectedItem(undefined)} maxWidth="lg">
           <Item_details sx={{ p: 3 }} {...selectedItem} />
         </Dialog>
-      )}
+      )} */}
     </>
   )
 }
