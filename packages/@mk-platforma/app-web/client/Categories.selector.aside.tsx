@@ -15,8 +15,14 @@ import React from "react"
 import Api from "./trpc.client"
 import { mapQueryData } from "../utils"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
+import type { Post_category_label } from "@prisma/client"
 
-type Props = { selectedItem?: number; onSelect?(id: number): void }
+type Category = {
+  id: number
+  label: Post_category_label
+}
+
+type Props = { selectedItem?: number; onSelect?(id: Category): void }
 
 export default function Categories_selector_aside({
   selectedItem: selectedItem_id,
@@ -108,7 +114,7 @@ export default function Categories_selector_aside({
               ) : undefined
             }
           >
-            <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category.id)}>
+            <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
               <ListItemIcon sx={{ color: "white" }}>
                 <CategoryIcon sx={{ fontSize: typography.h4 }} name={category.label} />
               </ListItemIcon>

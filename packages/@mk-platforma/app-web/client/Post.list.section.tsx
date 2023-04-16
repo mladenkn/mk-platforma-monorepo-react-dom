@@ -11,6 +11,7 @@ import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
 import type { Prisma } from "@prisma/client"
 import { Post_category_labelType } from "../prisma/generated/zod"
+import { useRouter } from "next/router"
 
 export const PostList_section_PostSelect = {
   id: true,
@@ -66,6 +67,8 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
   const [selectedItem, setSelectedItem] = useState<number>()
 
+  const router = useRouter()
+
   return (
     <Box
       sx={{
@@ -105,7 +108,20 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
-          <Categories_selector_aside selectedItem={selectedCategory.id} onSelect={() => {}} />
+          <Categories_selector_aside
+            selectedItem={selectedCategory.id}
+            onSelect={category => {
+              router.push(
+                {
+                  pathname: "/",
+                  query: { category: category.label },
+                },
+                undefined,
+                { shallow: true }
+              )
+              set_SectionsDrawer_isActive(false)
+            }}
+          />
         </Drawer>
       )}
       <Fab
