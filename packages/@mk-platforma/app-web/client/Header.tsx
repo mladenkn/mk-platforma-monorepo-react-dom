@@ -9,7 +9,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering"
 
 export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
   background: theme.palette.primary.main,
-  padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
+  padding: `${theme.spacing(2)} ${theme.spacing(0)}`,
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",

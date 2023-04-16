@@ -85,7 +85,7 @@ export default function PostList_section({
         height: "100%",
       }}
     >
-      <Header_root sx={{ pl: 3 }}>
+      <Header_root sx={{ pl: 1 }}>
         <Container
           maxWidth="md"
           sx={{
