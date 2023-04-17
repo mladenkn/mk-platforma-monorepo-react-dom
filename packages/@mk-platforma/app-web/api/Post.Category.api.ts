@@ -3,7 +3,27 @@ import { publicProcedure, router } from "../trpc.server.utils"
 
 const Post_Category_api = router({
   many: publicProcedure.query(({ ctx }) => {
-    return ctx.db.post_category.findMany(Categories_selector_aside_Category_queryParams)
+    return ctx.db.post_category.findMany({
+      where: {
+        OR: [
+          {
+            posts: {
+              some: {},
+            },
+          },
+          {
+            children: {
+              some: {
+                posts: {
+                  some: {},
+                },
+              },
+            },
+          },
+        ],
+      },
+      ...Categories_selector_aside_Category_queryParams,
+    })
   }),
 })
 
