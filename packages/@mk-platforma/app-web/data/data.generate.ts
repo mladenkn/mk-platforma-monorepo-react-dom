@@ -3,10 +3,11 @@ import { asNonNil, generateArray } from "@mk-libs/common/common"
 import generateProducts from "./data.products"
 import generateJobs from "./data.jobs"
 import generateExpert from "./data.experts"
-import generateGatherings from "./data.gathering"
+import generateGatheringsWork from "./data.gathering.work"
 import generateAccomodations from "./data.accommodations"
 import { WithId } from "./db.seed"
 import { Post_category_labelType } from "../prisma/generated/zod"
+import generateGatheringsHangout from "./data.gathering.hangout"
 
 function data_common_generate(locations: WithId[]) {
   return {
@@ -42,9 +43,13 @@ export default function generatePosts(
       ...data_common_generate(locations),
       categories: [asNonNil(categories.find(c => c.label === "sellable"))],
     })),
-    gatherings: generateGatherings(() => ({
+    gatherings_work: generateGatheringsWork({ categories }).map(i => ({
       ...data_common_generate(locations),
-      categories: [asNonNil(categories.find(c => c.label === "gathering"))],
+      ...i,
+    })),
+    gatherings_hangout: generateGatheringsHangout({ categories }).map(i => ({
+      ...data_common_generate(locations),
+      ...i,
     })),
     accommodations: generateAccomodations().map(i => ({
       ...data_common_generate(locations),

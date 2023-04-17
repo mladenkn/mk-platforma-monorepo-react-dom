@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker"
+import { ModelGeneratorParams } from "./data.generate._utils"
 import data_images from "./data.images.json"
 
 const withRelatedProps = [
@@ -14,22 +15,20 @@ const withRelatedProps = [
   {
     title: "Izrada ograde od šiblja",
   },
-  {
-    title: "Duhovno okupljanje, meditacija...",
-  },
-  {
-    title: "Druženje, proslava rođendana",
-  },
-  {
-    title: "Proslava godišnjice mreže ZaBrata",
-  },
+  // {
+  //   title: "Duhovno okupljanje, meditacija...",
+  // },
+  // {
+  //   title: "Druženje, proslava rođendana",
+  // },
+  // {
+  //   title: "Proslava godišnjice mreže ZaBrata",
+  // },
 ]
 
-export default function generateGatherings<TMoreData>(
-  item_getMoreData: () => TMoreData = () => ({} as any)
-) {
+export default function generateGatheringsWork({ categories }: ModelGeneratorParams) {
   return faker.helpers.shuffle(withRelatedProps).map(({ title }) => ({
-    ...item_getMoreData(),
+    category: categories.find(c => c.label === "gathering_work"),
     title,
     images: faker.helpers
       .arrayElements(
