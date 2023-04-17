@@ -5,7 +5,7 @@ import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.p
 import Api from "./trpc.client"
 import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside, {
-  Categories_selector_aside_CategoryModelCategory,
+  Categories_selector_aside_CategoryModel,
 } from "./Categories.selector.aside"
 import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
@@ -54,7 +54,7 @@ type Post = Prisma.PostGetPayload<{
 export type PostList_section_Props = {
   selectedCategory_initial?: { id: number; label: Post_category_labelType } | null
   posts_initial: Post[]
-  categories_initial: Categories_selector_aside_CategoryModelCategory[]
+  categories_initial: Categories_selector_aside_CategoryModel[]
 }
 
 export default function PostList_section({
@@ -75,6 +75,12 @@ export default function PostList_section({
   const [selectedItem, setSelectedItem] = useState<number>()
 
   const setUrlParams_shallow = use_setUrlParams_shallow()
+
+  function onCategorySelect(category: Categories_selector_aside_CategoryModel) {
+    setUrlParams_shallow({ category: category.label })
+    if (!category.children?.length) set_SectionsDrawer_isActive(false)
+    setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
+  }
 
   return (
     <Box
@@ -132,11 +138,7 @@ export default function PostList_section({
             <Categories_selector_aside
               categories={categories.data}
               selectedItem={selectedCategory.data?.id}
-              onSelect={category => {
-                setUrlParams_shallow({ category: category.label })
-                set_SectionsDrawer_isActive(false)
-                setSelectedCategory(category.id)
-              }}
+              onSelect={onCategorySelect}
               onBack={() => setSelectedCategory(undefined)}
             />
           )}

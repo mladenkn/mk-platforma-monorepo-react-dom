@@ -26,19 +26,43 @@ export const Categories_selector_aside_Category_queryParams = {
       select: {
         id: true,
         label: true,
+        children: {
+          select: {
+            id: true,
+            label: true,
+          },
+        },
+        parent: {
+          select: {
+            id: true,
+            label: true,
+          },
+        },
+      },
+    },
+    children: {
+      select: {
+        id: true,
+        label: true,
+        parent: {
+          select: {
+            id: true,
+            label: true,
+          },
+        },
       },
     },
   },
 } satisfies Prisma.Post_categoryArgs
 
-export type Categories_selector_aside_CategoryModelCategory = Prisma.Post_categoryGetPayload<
+export type Categories_selector_aside_CategoryModel = Prisma.Post_categoryGetPayload<
   typeof Categories_selector_aside_Category_queryParams
 >
 
 type Props = {
-  categories: Categories_selector_aside_CategoryModelCategory[]
+  categories: Categories_selector_aside_CategoryModel[]
   selectedItem?: number
-  onSelect?(c: Categories_selector_aside_CategoryModelCategory): void
+  onSelect?(c: Categories_selector_aside_CategoryModel): void
   onBack(): void
 }
 
@@ -65,13 +89,13 @@ export default function Categories_selector_aside({
   }
 
   function renderCategory(
-    category: Omit<Categories_selector_aside_CategoryModelCategory, "parent">,
+    category: Categories_selector_aside_CategoryModel,
     startAdornament?: ReactNode,
     endAdornament?: ReactNode
   ) {
     return (
       <ListItem key={category.id} disablePadding secondaryAction={endAdornament}>
-        <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category as any)}>
+        <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
           {startAdornament}
           <ListItemIcon>
             <CategoryIcon sx={{ fontSize: typography.h3, color: "white" }} name={category.label} />
@@ -106,7 +130,7 @@ export default function Categories_selector_aside({
       <List sx={{ mt: 4 }} disablePadding>
         {rootItem ? (
           renderCategory(
-            rootItem,
+            rootItem as any,
             <IconButton
               onClick={e => {
                 onBack()
