@@ -46,9 +46,10 @@ export default function generatePosts(
       ...data_common_generate(locations),
       categories: [asNonNil(categories.find(c => c.label === "gathering"))],
     })),
-    accommodations: generateAccomodations(() => ({
+    accommodations: generateAccomodations().map(i => ({
       ...data_common_generate(locations),
       categories: [asNonNil(categories.find(c => c.label === "accommodation"))],
+      ...i,
     })),
   }
 
