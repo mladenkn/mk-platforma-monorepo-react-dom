@@ -13,7 +13,7 @@ const withRelatedProps = [
 
 export default function generateGatheringsHangout({ categories }: ModelGeneratorParams) {
   return faker.helpers.shuffle(withRelatedProps).map(({ title }) => ({
-    category: categories.find(c => c.label === "gathering_hangout"),
+    categories: [categories.find(c => c.label === "gathering_hangout")!],
     title,
     images: faker.helpers
       .arrayElements(
