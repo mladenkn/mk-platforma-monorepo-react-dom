@@ -19,7 +19,7 @@ const Post_api = router({
         where: {
           categories: input.categories && {
             some: {
-              id: input.categories[0],
+              OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
             },
           },
         },
