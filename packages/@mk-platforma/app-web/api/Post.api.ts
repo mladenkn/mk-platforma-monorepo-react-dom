@@ -17,11 +17,13 @@ const Post_api = router({
     .query(async ({ ctx, input }) => {
       const posts = await ctx.db.post.findMany({
         where: {
-          categories: input.categories && {
-            some: {
-              OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
-            },
-          },
+          categories: input.categories?.length
+            ? {
+                some: {
+                  OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
+                },
+              }
+            : undefined,
         },
         select: PostList_section_PostSelect,
       })
