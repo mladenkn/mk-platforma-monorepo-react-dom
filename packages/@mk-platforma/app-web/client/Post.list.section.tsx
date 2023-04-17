@@ -7,13 +7,14 @@ import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside, {
   Categories_selector_aside_CategoryModelCategory,
 } from "./Categories.selector.aside"
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { getCategoryLabel, CategoryIcon, useCategory } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
 import type { Prisma } from "@prisma/client"
 import { Post_category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
+import MenuIcon from "@mui/icons-material/Menu"
 
 export const PostList_section_PostSelect = {
   id: true,
@@ -85,7 +86,7 @@ export default function PostList_section({
         height: "100%",
       }}
     >
-      <Header_root sx={{ pl: 1 }}>
+      <Header_root>
         <Container
           maxWidth="md"
           sx={{
@@ -107,15 +108,19 @@ export default function PostList_section({
             {selectedCategory.data ? (
               <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
             ) : (
-              <a style={{ color: "white", textDecoration: "none" }} href="/">
-                <Typography variant="h3">ZaBrata</Typography>
-                <Box sx={{ color: "white" }}>
-                  <Typography variant="h5">Loza kontribucionizma</Typography>
-                </Box>
-              </a>
+              <MenuIcon fontSize="large" />
             )}
             <Typography variant="h2" fontWeight={400}>
-              {selectedCategory.data && getCategoryLabel(selectedCategory.data.label)}
+              {selectedCategory.data ? (
+                getCategoryLabel(selectedCategory.data.label)
+              ) : (
+                <a style={{ color: "white", textDecoration: "none" }} href="/">
+                  <Typography variant="h3">ZaBrata</Typography>
+                  <Box sx={{ color: "white" }}>
+                    <Typography variant="h5">Loza kontribucionizma</Typography>
+                  </Box>
+                </a>
+              )}
             </Typography>
           </Box>
           <Header_moreOptions options={["post.create", "profile", "devContact"]} />
