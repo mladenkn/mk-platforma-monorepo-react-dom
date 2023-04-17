@@ -104,8 +104,15 @@ export default function PostList_section({
             }}
             onClick={() => set_SectionsDrawer_isActive(true)}
           >
-            {selectedCategory.data && (
+            {selectedCategory.data ? (
               <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
+            ) : (
+              <a style={{ color: "white", textDecoration: "none" }} href="/">
+                <Typography variant="h3">ZaBrata</Typography>
+                <Box sx={{ color: "white" }}>
+                  <Typography variant="h5">Loza kontribucionizma</Typography>
+                </Box>
+              </a>
             )}
             <Typography variant="h2" fontWeight={400}>
               {selectedCategory.data && getCategoryLabel(selectedCategory.data.label)}
