@@ -11,7 +11,7 @@ switch(firstParse.command){
     break;
   
   case 'seed':
-    run(`${cs_env} pnpm _exe-ts ./data/db.seed.ts`)
+    run(`${cs_env} pnpm _exe-ts ./data.gen/db.seed.ts`)
     break;
   
   case 'truncate':
@@ -21,7 +21,7 @@ switch(firstParse.command){
   case 'reset':
     run(`${cs_env} prisma db execute --file './db.truncate.sql'`)
     run(`${cs_env} prisma db push --accept-data-loss`)
-    run(`${cs_env} pnpm _exe-ts ./data/db.seed.ts`)
+    run(`${cs_env} pnpm _exe-ts ./data.gen/db.seed.ts`)
     break;
   
   default:
