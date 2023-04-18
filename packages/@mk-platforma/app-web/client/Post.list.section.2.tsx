@@ -179,7 +179,7 @@ export default function PostList_section({
       )}
       bottomSheet={({ sx }) =>
         queryEditor_isActive && (
-          <BottomSheet sx={sx}>
+          <BottomSheet sx={{ background: "#E4E6EB", ...sx }}>
             <Query_editor />
           </BottomSheet>
         )
