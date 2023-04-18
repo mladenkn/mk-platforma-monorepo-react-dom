@@ -12,6 +12,7 @@ const Post_api = router({
     .input(
       z.object({
         categories: z.array(z.number()).optional(),
+        search: z.string().optional(),
       })
     )
     .query(async ({ ctx, input }) => {
@@ -23,6 +24,19 @@ const Post_api = router({
                   OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
                 },
               }
+            : undefined,
+          OR: input?.search
+            ? [
+                {
+                  title: { contains: input?.search },
+                },
+                {
+                  description: { contains: input?.search },
+                },
+                {
+                  contact: { contains: input?.search },
+                },
+              ]
             : undefined,
         },
         select: PostList_section_PostSelect,

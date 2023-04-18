@@ -73,7 +73,7 @@ export default function PostList_section({
   const selectedCategory = useCategory(selectedCategory_id)
 
   const posts = Api.post.many.useQuery(
-    { categories: selectedCategory_id ? [selectedCategory_id] : [] },
+    { categories: selectedCategory_id ? [selectedCategory_id] : [], search },
     { initialData: posts_initial }
   )
 
