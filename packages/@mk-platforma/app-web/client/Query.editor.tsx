@@ -58,14 +58,21 @@ export default function Query_editor({
           </IconButton>
           <Breadcrumbs
             separator={
-              <Box sx={{ color: "white", fontSize: typography.h5, fontWeight: 900 }}>/</Box>
+              <Box sx={{ color: "white", fontSize: typography.h4, fontWeight: 900, mx: 0.5 }}>
+                /
+              </Box>
             }
           >
-            {path.map((category, index) => (
+            {path.map(category => (
               <Typography
                 key={category.id}
                 variant="h5"
-                sx={{ display: "flex", gap: 1.5, alignItems: "center", color: "white" }}
+                sx={{
+                  display: "flex",
+                  gap: 1.5,
+                  alignItems: "center",
+                  color: "white",
+                }}
                 color="text.primary"
               >
                 <CategoryIcon sx={{ color: "white" }} fontSize="medium" name={category.label} />
