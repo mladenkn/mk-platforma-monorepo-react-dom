@@ -32,14 +32,12 @@ export default function generatePosts(
       categories: [asNonNil(categories.find(c => c.label === "expertEndorsement"))],
       ...generateExpert(),
     })),
-    jobs: generateJobs().map(i => ({
+    jobs: generateJobs({ categories }).map(i => ({
       ...data_common_generate(locations),
-      categories: [asNonNil(categories.find(c => c.label === "job"))],
       ...i,
     })),
-    sellableItems: generateProducts().map(i => ({
+    sellableItems: generateProducts({ categories }).map(i => ({
       ...data_common_generate(locations),
-      categories: [asNonNil(categories.find(c => c.label === "sellable"))],
       ...i,
     })),
     gatherings_work: generateGatheringsWork({ categories }).map(i => ({
@@ -50,9 +48,8 @@ export default function generatePosts(
       ...data_common_generate(locations),
       ...i,
     })),
-    accommodations: generateAccomodations().map(i => ({
+    accommodations: generateAccomodations({ categories }).map(i => ({
       ...data_common_generate(locations),
-      categories: [asNonNil(categories.find(c => c.label === "accommodation"))],
       ...i,
     })),
   }

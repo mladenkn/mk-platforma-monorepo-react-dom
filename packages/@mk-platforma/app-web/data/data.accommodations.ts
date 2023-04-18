@@ -1,4 +1,6 @@
 import { faker } from "@faker-js/faker"
+import { asNonNil } from "@mk-libs/common/common"
+import { ModelGeneratorParams } from "./data.generate._utils"
 import data_images from "./data.images.json"
 
 const withRelatedProps = [
@@ -13,11 +15,9 @@ const withRelatedProps = [
   },
 ]
 
-export default function generateAccomodations<TMoreData>(
-  item_getMoreData: () => TMoreData = () => ({} as any)
-) {
+export default function generateAccomodations({ categories }: ModelGeneratorParams) {
   return [...withRelatedProps, ...withRelatedProps].map(({ title }) => ({
-    ...item_getMoreData(),
+    categories: [asNonNil(categories.find(c => c.label === "accommodation"))],
     title,
     images: faker.helpers
       .arrayElements(

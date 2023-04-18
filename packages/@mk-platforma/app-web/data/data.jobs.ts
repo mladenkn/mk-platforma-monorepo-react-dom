@@ -1,4 +1,6 @@
 import { faker } from "@faker-js/faker"
+import { asNonNil } from "@mk-libs/common/common"
+import { ModelGeneratorParams } from "./data.generate._utils"
 import data_images from "./data.images.json"
 
 const jobs = [
@@ -28,11 +30,9 @@ const jobs = [
   },
 ]
 
-export default function generateJobs<TMoreData>(
-  item_getMoreData: () => TMoreData = () => ({} as any)
-) {
+export default function generateJobs({ categories }: ModelGeneratorParams) {
   return faker.helpers.shuffle(jobs).map(({ title }) => ({
-    ...item_getMoreData(),
+    categories: [asNonNil(categories.find(c => c.label === "job"))],
     title,
     images: faker.helpers
       .arrayElements(

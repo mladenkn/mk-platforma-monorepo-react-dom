@@ -1,3 +1,6 @@
+import { asNonNil } from "@mk-libs/common/common"
+import { ModelGeneratorParams } from "./data.generate._utils"
+
 const withRelatedProps = [
   {
     title: "Prodaja domaćih oraha",
@@ -137,11 +140,9 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default function generateProducts<TMoreProps = {}>(
-  item_getMoreData: () => TMoreProps = () => ({} as any)
-) {
+export default function generateProducts({ categories }: ModelGeneratorParams) {
   return withRelatedProps.map(({ title, image, description }) => ({
-    ...item_getMoreData(),
+    categories: [asNonNil(categories.find(c => c.label === "sellable"))],
     title,
     description,
     images: [
