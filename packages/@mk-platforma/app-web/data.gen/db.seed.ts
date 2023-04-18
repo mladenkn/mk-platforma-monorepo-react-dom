@@ -21,7 +21,7 @@ async function main() {
 
   const locations = await seedLocations()
 
-  const posts = generatePosts({ categories, locations })
+  const posts = faker.helpers.shuffle(generatePosts({ categories, locations }))
 
   const images_count = await db.image.count({})
   const posts_count = await db.post.count({})
