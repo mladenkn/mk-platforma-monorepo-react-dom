@@ -18,6 +18,7 @@ import MenuIcon from "@mui/icons-material/Menu"
 import { BottomSheet } from "./BottomSheet"
 import Layout1 from "./layout1"
 import { Backdrop } from "./common"
+import Query_editor from "./Query.editor"
 
 export const PostList_section_PostSelect = {
   id: true,
@@ -179,7 +180,7 @@ export default function PostList_section({
       bottomSheet={({ sx }) =>
         queryEditor_isActive && (
           <BottomSheet sx={sx}>
-            <Input placeholder="Pretraži" />
+            <Query_editor />
           </BottomSheet>
         )
       }
