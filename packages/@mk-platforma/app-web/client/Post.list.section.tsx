@@ -1,4 +1,4 @@
-import { Box, Drawer, Typography, Fab, IconButton, Container } from "@mui/material"
+import { Box, Drawer, Typography, Fab, IconButton, Container, Input } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_single_listItem } from "./Post.single.listItem"
 import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
@@ -15,6 +15,7 @@ import type { Prisma } from "@prisma/client"
 import { Post_category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
 import MenuIcon from "@mui/icons-material/Menu"
+import { BottomSheet } from "./BottomSheet"
 
 export const PostList_section_PostSelect = {
   id: true,
@@ -71,14 +72,14 @@ export default function PostList_section({
     { initialData: posts_initial }
   )
 
-  const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
+  const [queryEditor_isActive, set_queryEditor_isActive] = useState(false)
   const [selectedItem, setSelectedItem] = useState<number>()
 
   const setUrlParams_shallow = use_setUrlParams_shallow()
 
   function onCategorySelect(category: Categories_selector_aside_CategoryModel) {
     setUrlParams_shallow({ category: category.label })
-    if (!category.children?.length) set_SectionsDrawer_isActive(false)
+    if (!category.children?.length) set_queryEditor_isActive(false)
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
 
@@ -109,7 +110,6 @@ export default function PostList_section({
               gap: 2.5,
               width: "100%",
             }}
-            onClick={() => set_SectionsDrawer_isActive(true)}
           >
             {selectedCategory.data ? (
               <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
@@ -132,25 +132,18 @@ export default function PostList_section({
           <Header_moreOptions options={["post.create", "profile", "devContact"]} />
         </Container>
       </Header_root>
-      {sectionsDrawer_isActive && (
-        <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
-          {categories.data && (
-            <Categories_selector_aside
-              categories={categories.data}
-              selectedItem={selectedCategory.data?.id}
-              onSelect={onCategorySelect}
-              onBack={() => setSelectedCategory(undefined)}
-            />
-          )}
-        </Drawer>
-      )}
       <Fab
         color="primary"
         sx={{ position: "absolute", bottom: 14, right: 14 }}
-        onClick={() => set_SectionsDrawer_isActive(true)}
+        onClick={() => set_queryEditor_isActive(true)}
       >
         <ManageSearchIcon />
       </Fab>
+      {queryEditor_isActive && (
+        <BottomSheet>
+          <Input placeholder="Pretraži" />
+        </BottomSheet>
+      )}
       <Container
         maxWidth="md"
         sx={{

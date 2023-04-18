@@ -12,7 +12,6 @@ export function BottomSheet({ sx, children, onClickAway = () => {} }: BottomShee
   return (
     <ClickAwayListener onClickAway={onClickAway}>
       <Paper
-        className="BottomSheet"
         sx={{
           pt: 1.5,
           pr: 1.2,
