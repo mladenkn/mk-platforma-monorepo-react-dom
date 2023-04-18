@@ -13,10 +13,7 @@ export function BottomSheet({ sx, children, onClickAway = () => {} }: BottomShee
     <ClickAwayListener onClickAway={onClickAway}>
       <Paper
         sx={{
-          pt: 1.5,
-          pr: 1.2,
-          pb: 2.5,
-          pl: 1.2,
+          p: 2,
           borderTopRightRadius: spacing(1.5),
           borderTopLeftRadius: spacing(1.5),
           ...sx,

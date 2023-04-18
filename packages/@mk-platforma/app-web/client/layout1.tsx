@@ -29,7 +29,7 @@ export default function Layout1({
         flex: 3,
         zIndex: 2000,
         overflowY: "auto",
-        width: "95%",
+        width: "92%",
         margin: "auto",
       },
     })
