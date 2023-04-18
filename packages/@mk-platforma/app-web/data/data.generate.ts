@@ -26,33 +26,32 @@ export default function generatePosts(
   categories: (WithId & { label: Post_category_labelType })[],
   locations: WithId[]
 ) {
-  const data = {
-    experts: generateArray(() => {}, faker.datatype.number({ min: 10, max: 50 })).map(() => ({
+  const data = [
+    ...generateArray(() => {}, faker.datatype.number({ min: 10, max: 50 })).map(() => ({
       ...data_common_generate(locations),
       categories: [asNonNil(categories.find(c => c.label === "expertEndorsement"))],
       ...generateExpert(),
     })),
-    jobs: generateJobs({ categories }).map(i => ({
+    ...generateJobs({ categories }).map(i => ({
       ...data_common_generate(locations),
       ...i,
     })),
-    sellableItems: generateProducts({ categories }).map(i => ({
+    ...generateProducts({ categories }).map(i => ({
       ...data_common_generate(locations),
       ...i,
     })),
-    gatherings_work: generateGatheringsWork({ categories }).map(i => ({
+    ...generateGatheringsWork({ categories }).map(i => ({
       ...data_common_generate(locations),
       ...i,
     })),
-    gatherings_hangout: generateGatheringsHangout({ categories }).map(i => ({
+    ...generateGatheringsHangout({ categories }).map(i => ({
       ...data_common_generate(locations),
       ...i,
     })),
-    accommodations: generateAccomodations({ categories }).map(i => ({
+    ...generateAccomodations({ categories }).map(i => ({
       ...data_common_generate(locations),
       ...i,
     })),
-  }
-
-  return faker.helpers.shuffle(Object.values(data).flat())
+  ]
+  return data
 }
