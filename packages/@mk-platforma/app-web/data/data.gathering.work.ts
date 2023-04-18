@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { ModelGeneratorParams } from "./data.generate._utils"
+import { PostGeneratorParams } from "./data.generate._utils"
 import data_images from "./data.images.json"
 
 const withRelatedProps = [
@@ -17,7 +17,7 @@ const withRelatedProps = [
   },
 ]
 
-export default function generateGatheringsWork({ categories }: ModelGeneratorParams) {
+export default function generateGatheringsWork({ categories }: PostGeneratorParams) {
   return faker.helpers.shuffle(withRelatedProps).map(({ title }) => ({
     categories: [categories.find(c => c.label === "gathering_work")!],
     title,

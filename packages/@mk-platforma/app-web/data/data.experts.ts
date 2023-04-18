@@ -3,9 +3,9 @@ import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { uniq } from "lodash"
 import { avatarStyles } from "./data.common"
 import * as cro_dataset from "./data.cro.dataset"
-import { ModelGeneratorParams } from "./data.generate._utils"
+import { PostGeneratorParams } from "./data.generate._utils"
 
-function generateSingle({ categories }: ModelGeneratorParams) {
+function generateSingle({ categories }: PostGeneratorParams) {
   const firstName = faker.helpers.arrayElement(cro_dataset.firstNames)
   const lastName = faker.helpers.arrayElement(cro_dataset.lastNames)
 
@@ -39,8 +39,8 @@ function generateSingle({ categories }: ModelGeneratorParams) {
   }
 }
 
-export default function generateExperts({ categories }: ModelGeneratorParams) {
+export default function generateExperts(params: PostGeneratorParams) {
   return generateArray(() => {}, faker.datatype.number({ min: 8, max: 20 })).map(() =>
-    generateSingle({ categories })
+    generateSingle(params)
   )
 }

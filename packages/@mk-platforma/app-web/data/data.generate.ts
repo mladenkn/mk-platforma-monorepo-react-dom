@@ -1,13 +1,13 @@
 import { faker } from "@faker-js/faker"
-import { asNonNil, generateArray } from "@mk-libs/common/common"
+import { generateArray } from "@mk-libs/common/common"
 import generateProducts from "./data.products"
 import generateJobs from "./data.jobs"
 import generateExperts from "./data.experts"
 import generateGatheringsWork from "./data.gathering.work"
 import generateAccomodations from "./data.accommodations"
 import { WithId } from "./db.seed"
-import { Post_category_labelType } from "../prisma/generated/zod"
 import generateGatheringsHangout from "./data.gathering.hangout"
+import { PostGeneratorParams } from "./data.generate._utils"
 
 function data_common_generate(locations: WithId[]) {
   return {
@@ -22,33 +22,30 @@ function data_common_generate(locations: WithId[]) {
   }
 }
 
-export default function generatePosts(
-  categories: (WithId & { label: Post_category_labelType })[],
-  locations: WithId[]
-) {
+export default function generatePosts(params: PostGeneratorParams) {
   const data = [
-    ...generateExperts({ categories }).map(i => ({
-      ...data_common_generate(locations),
+    ...generateExperts(params).map(i => ({
+      ...data_common_generate(params.locations),
       ...i,
     })),
-    ...generateJobs({ categories }).map(i => ({
-      ...data_common_generate(locations),
+    ...generateJobs(params).map(i => ({
+      ...data_common_generate(params.locations),
       ...i,
     })),
-    ...generateProducts({ categories }).map(i => ({
-      ...data_common_generate(locations),
+    ...generateProducts(params).map(i => ({
+      ...data_common_generate(params.locations),
       ...i,
     })),
-    ...generateGatheringsWork({ categories }).map(i => ({
-      ...data_common_generate(locations),
+    ...generateGatheringsWork(params).map(i => ({
+      ...data_common_generate(params.locations),
       ...i,
     })),
-    ...generateGatheringsHangout({ categories }).map(i => ({
-      ...data_common_generate(locations),
+    ...generateGatheringsHangout(params).map(i => ({
+      ...data_common_generate(params.locations),
       ...i,
     })),
-    ...generateAccomodations({ categories }).map(i => ({
-      ...data_common_generate(locations),
+    ...generateAccomodations(params).map(i => ({
+      ...data_common_generate(params.locations),
       ...i,
     })),
   ]

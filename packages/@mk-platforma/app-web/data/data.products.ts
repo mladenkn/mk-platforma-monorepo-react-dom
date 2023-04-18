@@ -1,5 +1,5 @@
 import { asNonNil } from "@mk-libs/common/common"
-import { ModelGeneratorParams } from "./data.generate._utils"
+import { PostGeneratorParams } from "./data.generate._utils"
 
 const withRelatedProps = [
   {
@@ -140,7 +140,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default function generateProducts({ categories }: ModelGeneratorParams) {
+export default function generateProducts({ categories }: PostGeneratorParams) {
   return withRelatedProps.map(({ title, image, description }) => ({
     categories: [asNonNil(categories.find(c => c.label === "sellable"))],
     title,
