@@ -26,7 +26,7 @@ export default function Layout1({
     bottomSheet &&
     bottomSheet({
       sx: {
-        flex: 6,
+        flex: 3,
         zIndex: 2000,
         overflowY: "auto",
         width: "90%",
