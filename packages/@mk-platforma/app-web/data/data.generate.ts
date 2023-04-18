@@ -27,9 +27,8 @@ export default function generatePosts(
   locations: WithId[]
 ) {
   const data = [
-    ...generateExperts().map(i => ({
+    ...generateExperts({ categories }).map(i => ({
       ...data_common_generate(locations),
-      categories: [asNonNil(categories.find(c => c.label === "expertEndorsement"))],
       ...i,
     })),
     ...generateJobs({ categories }).map(i => ({
