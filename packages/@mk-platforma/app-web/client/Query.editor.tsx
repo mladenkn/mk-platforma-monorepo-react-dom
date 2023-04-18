@@ -4,6 +4,7 @@ import { useState } from "react"
 import { CategoryIcon, getCategoryLabel, useCategory } from "./Categories.common"
 import Api from "./trpc.client"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
+import SearchIcon from "@mui/icons-material/Search"
 
 type Props = {}
 
@@ -30,11 +31,19 @@ export default function Query_editor({}: Props) {
   }
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column" }}>
-      <Input placeholder="Pretraži" value={search} onChange={e => setSearch(e.target.value)} />
+    <Box sx={{ display: "flex", flexDirection: "column", pl: 1, pr: 2 }}>
+      <Input
+        placeholder="Pretraži"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        sx={{ color: "white", mb: 0.5 }}
+        disableUnderline
+        startAdornment={<SearchIcon sx={{ mr: 2 }} />}
+      />
+      <Box sx={{ background: "white", height: 1.1, mb: 3, color: "white" }} />
       {path.length ? (
-        <Box sx={{ display: "flex", alignItems: "center", mt: 4, ml: -1, gap: 1.5 }}>
-          <IconButton onClick={onBack}>
+        <Box sx={{ display: "flex", alignItems: "center", ml: -1, gap: 1.5, mb: 2 }}>
+          <IconButton sx={{ color: "white" }} onClick={onBack}>
             <ArrowBackIosOutlinedIcon />
           </IconButton>
           <Breadcrumbs>
@@ -42,10 +51,10 @@ export default function Query_editor({}: Props) {
               <Typography
                 key={category.id}
                 variant="h4"
-                sx={{ display: "flex", gap: 1.5, alignItems: "center" }}
+                sx={{ display: "flex", gap: 1.5, alignItems: "center", color: "white" }}
                 color="text.primary"
               >
-                <CategoryIcon fontSize="large" name={category.label} />
+                <CategoryIcon sx={{ color: "white" }} fontSize="large" name={category.label} />
                 {getCategoryLabel(category.label)}
               </Typography>
             ))}
@@ -54,15 +63,17 @@ export default function Query_editor({}: Props) {
       ) : (
         <></>
       )}
-      <Box sx={{ mt: 3, display: "flex", flexDirection: "column", gap: 1.5, ml: 3 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1.5, ml: 2 }}>
         {filteredCategories.data?.map(category => (
           <Box
             key={category.id}
             sx={{ display: "flex", alignItems: "center", gap: 1.3 }}
             onClick={() => set_selectedCategory(category.id)}
           >
-            <CategoryIcon name={category.label} />
-            <Typography variant="h5">{getCategoryLabel(category.label)}</Typography>
+            <CategoryIcon sx={{ color: "white" }} name={category.label} />
+            <Typography sx={{ color: "white" }} variant="h5">
+              {getCategoryLabel(category.label)}
+            </Typography>
           </Box>
         ))}
       </Box>
