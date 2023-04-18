@@ -80,10 +80,11 @@ export default function PostList_section({
 
   const setUrlParams_shallow = use_setUrlParams_shallow()
 
-  function onCategorySelect(category: Categories_selector_aside_CategoryModel) {
-    setUrlParams_shallow({ category: category.label })
-    if (!category.children?.length) set_queryEditor_isActive(false)
-    setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
+  function onCategorySelect(
+    category?: Omit<Categories_selector_aside_CategoryModel, "parent" | "children">
+  ) {
+    setUrlParams_shallow({ category: category?.label })
+    setSelectedCategory(selectedCategory.data?.id === category?.id ? undefined : category?.id)
   }
 
   return (
@@ -180,7 +181,10 @@ export default function PostList_section({
       bottomSheet={({ sx }) =>
         queryEditor_isActive && (
           <BottomSheet sx={{ background: "#1976d2", ...sx }}>
-            <Query_editor />
+            <Query_editor
+              selectedCategory={selectedCategory_id}
+              set_selectedCategory={onCategorySelect}
+            />
           </BottomSheet>
         )
       }

@@ -5,12 +5,20 @@ import { CategoryIcon, getCategoryLabel, useCategory } from "./Categories.common
 import Api from "./trpc.client"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import SearchIcon from "@mui/icons-material/Search"
+import { Categories_selector_aside_CategoryModel } from "./Categories.selector.aside"
 
-type Props = {}
+type Props = {
+  selectedCategory?: number
+  set_selectedCategory(
+    c?: Omit<Categories_selector_aside_CategoryModel, "parent" | "children">
+  ): void
+}
 
-export default function Query_editor({}: Props) {
+export default function Query_editor({
+  selectedCategory: selectedCategory_id,
+  set_selectedCategory,
+}: Props) {
   const [search, setSearch] = useState("")
-  const [selectedCategory_id, set_selectedCategory] = useState<number>()
 
   const filteredCategories = Api.post.category.many.useQuery({
     search,
@@ -27,7 +35,7 @@ export default function Query_editor({}: Props) {
   )
 
   function onBack() {
-    set_selectedCategory(selectedCategory.data?.parent?.id)
+    set_selectedCategory(selectedCategory.data?.parent || undefined)
   }
 
   return (
@@ -68,7 +76,7 @@ export default function Query_editor({}: Props) {
           <Box
             key={category.id}
             sx={{ display: "flex", alignItems: "center", gap: 1.3 }}
-            onClick={() => set_selectedCategory(category.id)}
+            onClick={() => set_selectedCategory(category)}
           >
             <CategoryIcon sx={{ color: "white" }} name={category.label} />
             <Typography sx={{ color: "white" }} variant="h5">
