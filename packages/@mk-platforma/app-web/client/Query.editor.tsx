@@ -1,4 +1,5 @@
-import { Input, Box, Typography } from "@mui/material"
+import { withNoNils } from "@mk-libs/common/array"
+import { Input, Box, Typography, Breadcrumbs } from "@mui/material"
 import { useState } from "react"
 import { mapQueryData } from "../utils"
 import { CategoryIcon, getCategoryLabel, useCategory } from "./Categories.common"
@@ -16,20 +17,30 @@ export default function Query_editor({}: Props) {
   })
 
   const selectedCategory = useCategory(selectedCategory_id)
-  const path = [
-    selectedCategory.data?.label,
-    selectedCategory.data?.parent?.label,
-    selectedCategory.data?.parent?.parent?.label,
-  ]
-    .filter(i => i)
-    .reverse()
+  const path = withNoNils(
+    [selectedCategory.data, selectedCategory.data?.parent, selectedCategory.data?.parent?.parent]
+      .filter(i => i)
+      .reverse()
+  )
 
   console.log(29, selectedCategory_id, selectedCategory, path, categories)
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       <Input placeholder="Pretraži" value={search} onChange={e => setSearch(e.target.value)} />
-      {path.join(",")}
+      <Breadcrumbs sx={{ mt: 4, ml: 0.5 }}>
+        {path.map((category, index) => (
+          <Typography
+            key={category.id}
+            variant="h5"
+            sx={{ display: "flex", gap: 1.5 }}
+            color="text.primary"
+          >
+            <CategoryIcon name={category.label} />
+            {getCategoryLabel(category.label)}
+          </Typography>
+        ))}
+      </Breadcrumbs>
       <Box sx={{ mt: 4, display: "flex", flexDirection: "column", gap: 1.5, ml: 0.5 }}>
         {categories.data?.map(category => (
           <Box
