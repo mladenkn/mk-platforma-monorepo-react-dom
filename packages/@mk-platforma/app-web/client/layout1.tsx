@@ -27,7 +27,7 @@ export default function Layout1({
     bottomSheet({
       sx: {
         flex: 3,
-        zIndex: 5,
+        zIndex: 2000,
         overflowY: "auto",
         width: "95%",
         margin: "auto",

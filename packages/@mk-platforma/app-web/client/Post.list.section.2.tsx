@@ -1,4 +1,4 @@
-import { Box, Drawer, Typography, Fab, IconButton, Container, Input, Backdrop } from "@mui/material"
+import { Box, Drawer, Typography, Fab, IconButton, Container, Input } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_single_listItem } from "./Post.single.listItem"
 import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
@@ -17,6 +17,7 @@ import { use_setUrlParams_shallow } from "../utils"
 import MenuIcon from "@mui/icons-material/Menu"
 import { BottomSheet } from "./BottomSheet"
 import Layout1 from "./layout1"
+import { Backdrop } from "./common"
 
 export const PostList_section_PostSelect = {
   id: true,
@@ -183,7 +184,7 @@ export default function PostList_section({
         )
       }
       backdrop={() =>
-        queryEditor_isActive && <Backdrop open onClick={() => set_queryEditor_isActive(false)} />
+        queryEditor_isActive && <Backdrop onClick={() => set_queryEditor_isActive(false)} />
       }
     />
   )
