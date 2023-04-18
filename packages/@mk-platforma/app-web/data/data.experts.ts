@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { generateArray } from "@mk-libs/common/common"
+import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { uniq } from "lodash"
 import { avatarStyles } from "./data.common"
 import * as cro_dataset from "./data.cro.dataset"
@@ -14,6 +14,8 @@ function generateSingle({ categories }: ModelGeneratorParams) {
   )
 
   return {
+    categories: [asNonNil(categories.find(c => c.label === "expertEndorsement"))],
+
     contact: faker.helpers.arrayElement([
       faker.phone.number(),
       faker.phone.number(),
