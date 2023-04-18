@@ -8,6 +8,8 @@ import SearchIcon from "@mui/icons-material/Search"
 import { Categories_selector_aside_CategoryModel } from "./Categories.selector.aside"
 
 type Props = {
+  search: string
+  setSearch(s: string): void
   selectedCategory?: number
   set_selectedCategory(
     c?: Omit<Categories_selector_aside_CategoryModel, "parent" | "children">
@@ -15,10 +17,10 @@ type Props = {
 }
 
 export default function Query_editor({
+  search, setSearch,
   selectedCategory: selectedCategory_id,
   set_selectedCategory,
 }: Props) {
-  const [search, setSearch] = useState("")
 
   const filteredCategories = Api.post.category.many.useQuery({
     search,

@@ -67,6 +67,8 @@ export default function PostList_section({
   posts_initial,
 }: PostList_section_Props) {
   const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
+  const [search, setSearch] = useState("")
+
   const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
 
@@ -182,6 +184,8 @@ export default function PostList_section({
         queryEditor_isActive && (
           <BottomSheet sx={{ background: "#1976d2", ...sx }}>
             <Query_editor
+              search={search}
+              setSearch={setSearch}
               selectedCategory={selectedCategory_id}
               set_selectedCategory={onCategorySelect}
             />
