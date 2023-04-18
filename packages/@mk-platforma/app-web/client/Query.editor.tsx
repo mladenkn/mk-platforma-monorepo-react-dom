@@ -7,13 +7,18 @@ type Props = {}
 
 export default function Query_editor({}: Props) {
   const [search, setSearch] = useState("")
-  const categories = Api.post.category.many.useQuery({ search })
+  const [selectedCategory, set_selectedCategory] = useState<number>()
+  const categories = Api.post.category.many.useQuery({ search, parent: { id: selectedCategory } })
   return (
     <>
       <Input placeholder="Pretraži" value={search} onChange={e => setSearch(e.target.value)} />
       <Box sx={{ mt: 4, display: "flex", flexDirection: "column", gap: 1.5, ml: 0.5 }}>
         {categories.data?.map(category => (
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.3 }}>
+          <Box
+            key={category.id}
+            sx={{ display: "flex", alignItems: "center", gap: 1.3 }}
+            onClick={() => set_selectedCategory(category.id)}
+          >
             <CategoryIcon name={category.label} />
             <Typography variant="h5">{getCategoryLabel(category.label)}</Typography>
           </Box>

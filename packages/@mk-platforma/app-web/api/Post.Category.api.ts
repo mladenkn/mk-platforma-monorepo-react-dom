@@ -8,6 +8,11 @@ const Post_Category_api = router({
       z
         .object({
           search: z.string().optional(),
+          parent: z
+            .object({
+              id: z.number().optional(),
+            })
+            .optional(),
         })
         .optional()
     )
@@ -33,6 +38,9 @@ const Post_Category_api = router({
       return ctx.db.post_category.findMany({
         where: {
           ...hasPosts,
+          parent: {
+            id: input?.parent?.id,
+          },
           posts: {
             some: {
               OR: [
