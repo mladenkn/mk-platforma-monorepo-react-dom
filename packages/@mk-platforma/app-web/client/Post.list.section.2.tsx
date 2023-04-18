@@ -109,7 +109,7 @@ export default function PostList_section({
               {selectedCategory.data ? (
                 <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
               ) : (
-                <MenuIcon fontSize="large" />
+                <></>
               )}
               <Typography variant="h2" fontWeight={400}>
                 {selectedCategory.data ? (
