@@ -58,7 +58,6 @@ export default function Layout1({
       {_bottomSheet}
       {fav({
         sx: {
-          // background: "transparent",
           position: "fixed",
           bottom: 2.4,
           right: 2.4,
