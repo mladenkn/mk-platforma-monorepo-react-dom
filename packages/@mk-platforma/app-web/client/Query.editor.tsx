@@ -1,5 +1,5 @@
 import { withNoNils } from "@mk-libs/common/array"
-import { Input, Box, Typography, Breadcrumbs, IconButton } from "@mui/material"
+import { Input, Box, Typography, Breadcrumbs, IconButton, useTheme } from "@mui/material"
 import { useState } from "react"
 import { CategoryIcon, getCategoryLabel, useCategory } from "./Categories.common"
 import Api from "./trpc.client"
@@ -22,7 +22,7 @@ export default function Query_editor({
 
   const filteredCategories = Api.post.category.many.useQuery({
     search,
-    parent: { id: selectedCategory_id },
+    parent: selectedCategory_id ? { id: selectedCategory_id } : null,
   })
 
   const selectedCategory = useCategory(selectedCategory_id)
@@ -38,6 +38,8 @@ export default function Query_editor({
     set_selectedCategory(selectedCategory.data?.parent || undefined)
   }
 
+  const { typography } = useTheme()
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", pl: 1, pr: 2 }}>
       <Input
@@ -52,17 +54,19 @@ export default function Query_editor({
       {path.length ? (
         <Box sx={{ display: "flex", alignItems: "center", ml: -1, gap: 1.5, mb: 2 }}>
           <IconButton sx={{ color: "white" }} onClick={onBack}>
-            <ArrowBackIosOutlinedIcon />
+            <ArrowBackIosOutlinedIcon fontSize="small" />
           </IconButton>
-          <Breadcrumbs>
+          <Breadcrumbs
+            sx={{ ".MuiBreadcrumbs-separator": { color: "white", fontSize: typography.h5 } }}
+          >
             {path.map((category, index) => (
               <Typography
                 key={category.id}
-                variant="h4"
+                variant="h5"
                 sx={{ display: "flex", gap: 1.5, alignItems: "center", color: "white" }}
                 color="text.primary"
               >
-                <CategoryIcon sx={{ color: "white" }} fontSize="large" name={category.label} />
+                <CategoryIcon sx={{ color: "white" }} fontSize="medium" name={category.label} />
                 {getCategoryLabel(category.label)}
               </Typography>
             ))}
