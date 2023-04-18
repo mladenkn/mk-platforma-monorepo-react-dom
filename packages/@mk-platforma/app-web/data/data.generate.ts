@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 import { asNonNil, generateArray } from "@mk-libs/common/common"
 import generateProducts from "./data.products"
 import generateJobs from "./data.jobs"
-import generateExpert from "./data.experts"
+import generateExperts from "./data.experts"
 import generateGatheringsWork from "./data.gathering.work"
 import generateAccomodations from "./data.accommodations"
 import { WithId } from "./db.seed"
@@ -27,10 +27,10 @@ export default function generatePosts(
   locations: WithId[]
 ) {
   const data = [
-    ...generateArray(() => {}, faker.datatype.number({ min: 10, max: 50 })).map(() => ({
+    ...generateExperts().map(i => ({
       ...data_common_generate(locations),
       categories: [asNonNil(categories.find(c => c.label === "expertEndorsement"))],
-      ...generateExpert(),
+      ...i,
     })),
     ...generateJobs({ categories }).map(i => ({
       ...data_common_generate(locations),

@@ -1,9 +1,10 @@
 import { faker } from "@faker-js/faker"
+import { generateArray } from "@mk-libs/common/common"
 import { uniq } from "lodash"
 import { avatarStyles } from "./data.common"
 import * as cro_dataset from "./data.cro.dataset"
 
-export default function generateExpert() {
+function generateSingle() {
   const firstName = faker.helpers.arrayElement(cro_dataset.firstNames)
   const lastName = faker.helpers.arrayElement(cro_dataset.lastNames)
 
@@ -33,4 +34,8 @@ export default function generateExpert() {
       avatarStyle: faker.helpers.arrayElement(avatarStyles),
     },
   }
+}
+
+export default function generateExperts() {
+  return generateArray(() => {}, faker.datatype.number({ min: 10, max: 50 })).map(generateSingle)
 }
