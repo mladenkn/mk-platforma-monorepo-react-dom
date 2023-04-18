@@ -38,24 +38,28 @@ const Post_Category_api = router({
       return ctx.db.post_category.findMany({
         where: {
           ...hasPosts,
-          parent: {
-            id: input?.parent?.id,
-          },
-          posts: {
-            some: {
-              OR: [
-                {
-                  title: { contains: input?.search },
+          parent: input?.parent?.id
+            ? {
+                id: input?.parent?.id,
+              }
+            : null,
+          posts: input?.search
+            ? {
+                some: {
+                  OR: [
+                    {
+                      title: { contains: input?.search },
+                    },
+                    {
+                      description: { contains: input?.search },
+                    },
+                    {
+                      contact: { contains: input?.search },
+                    },
+                  ],
                 },
-                {
-                  description: { contains: input?.search },
-                },
-                {
-                  contact: { contains: input?.search },
-                },
-              ],
-            },
-          },
+              }
+            : undefined,
         },
         ...Categories_selector_aside_Category_queryParams,
       })
