@@ -17,11 +17,11 @@ type Props = {
 }
 
 export default function Query_editor({
-  search, setSearch,
+  search,
+  setSearch,
   selectedCategory: selectedCategory_id,
   set_selectedCategory,
 }: Props) {
-
   const filteredCategories = Api.post.category.many.useQuery({
     search,
     parent: selectedCategory_id ? { id: selectedCategory_id } : null,
@@ -40,7 +40,7 @@ export default function Query_editor({
     set_selectedCategory(selectedCategory.data?.parent || undefined)
   }
 
-  const { typography } = useTheme()
+  const { typography, spacing } = useTheme()
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", pl: 1, pr: 2 }}>
@@ -48,11 +48,11 @@ export default function Query_editor({
         placeholder="Pretraži"
         value={search}
         onChange={e => setSearch(e.target.value)}
-        sx={{ color: "white", mb: 0.5 }}
+        sx={{ color: "white", mb: 0.0, fontSize: typography.h5 }}
         disableUnderline
         startAdornment={<SearchIcon sx={{ mr: 2 }} />}
       />
-      <Box sx={{ background: "white", height: 1.1, mb: 3, color: "white" }} />
+      <Box sx={{ background: "white", height: spacing(0.1), mb: 3, color: "white" }} />
       {path.length ? (
         <Box sx={{ display: "flex", alignItems: "center", ml: -1, gap: 1.5, mb: 2 }}>
           <IconButton sx={{ color: "white" }} onClick={onBack}>
