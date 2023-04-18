@@ -27,21 +27,20 @@ export default function generatePosts(
   locations: WithId[]
 ) {
   const data = {
-    experts: generateArray(
-      () => ({
-        ...data_common_generate(locations),
-        ...generateExpert(),
-        categories: [asNonNil(categories.find(c => c.label === "expertEndorsement"))],
-      }),
-      faker.datatype.number({ min: 10, max: 50 })
-    ),
-    jobs: generateJobs(() => ({
+    experts: generateArray(() => {}, faker.datatype.number({ min: 10, max: 50 })).map(() => ({
+      ...data_common_generate(locations),
+      categories: [asNonNil(categories.find(c => c.label === "expertEndorsement"))],
+      ...generateExpert(),
+    })),
+    jobs: generateJobs().map(i => ({
       ...data_common_generate(locations),
       categories: [asNonNil(categories.find(c => c.label === "job"))],
+      ...i,
     })),
-    sellableItems: generateProducts(() => ({
+    sellableItems: generateProducts().map(i => ({
       ...data_common_generate(locations),
       categories: [asNonNil(categories.find(c => c.label === "sellable"))],
+      ...i,
     })),
     gatherings_work: generateGatheringsWork({ categories }).map(i => ({
       ...data_common_generate(locations),
