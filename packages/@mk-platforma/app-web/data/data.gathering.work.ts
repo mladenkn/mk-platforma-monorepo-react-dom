@@ -15,15 +15,6 @@ const withRelatedProps = [
   {
     title: "Izrada ograde od šiblja",
   },
-  // {
-  //   title: "Duhovno okupljanje, meditacija...",
-  // },
-  // {
-  //   title: "Druženje, proslava rođendana",
-  // },
-  // {
-  //   title: "Proslava godišnjice mreže ZaBrata",
-  // },
 ]
 
 export default function generateGatheringsWork({ categories }: ModelGeneratorParams) {
