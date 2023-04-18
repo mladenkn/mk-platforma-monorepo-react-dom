@@ -24,30 +24,22 @@ function data_common_generate(locations: WithId[]) {
 
 export default function generatePosts(params: PostGeneratorParams) {
   const data = [
-    ...generateExperts(params).map(i => ({
-      ...data_common_generate(params.locations),
-      ...i,
-    })),
-    ...generateJobs(params).map(i => ({
-      ...data_common_generate(params.locations),
-      ...i,
-    })),
-    ...generateProducts(params).map(i => ({
-      ...data_common_generate(params.locations),
-      ...i,
-    })),
-    ...generateGatheringsWork(params).map(i => ({
-      ...data_common_generate(params.locations),
-      ...i,
-    })),
-    ...generateGatheringsHangout(params).map(i => ({
-      ...data_common_generate(params.locations),
-      ...i,
-    })),
-    ...generateAccomodations(params).map(i => ({
-      ...data_common_generate(params.locations),
-      ...i,
-    })),
+    ...generatePosts_base(params, generateExperts),
+    ...generatePosts_base(params, generateJobs),
+    ...generatePosts_base(params, generateProducts),
+    ...generatePosts_base(params, generateGatheringsWork),
+    ...generatePosts_base(params, generateGatheringsHangout),
+    ...generatePosts_base(params, generateAccomodations),
   ]
   return data
+}
+
+function generatePosts_base<T>(
+  params: PostGeneratorParams,
+  generateFirst: (p: PostGeneratorParams) => T[]
+) {
+  return generateFirst(params).map(i => ({
+    ...data_common_generate(params.locations),
+    ...i,
+  }))
 }
