@@ -57,7 +57,9 @@ export default function Query_editor({
             <ArrowBackIosOutlinedIcon fontSize="small" />
           </IconButton>
           <Breadcrumbs
-            sx={{ ".MuiBreadcrumbs-separator": { color: "white", fontSize: typography.h5 } }}
+            separator={
+              <Box sx={{ color: "white", fontSize: typography.h5, fontWeight: 900 }}>/</Box>
+            }
           >
             {path.map((category, index) => (
               <Typography
