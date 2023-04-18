@@ -88,7 +88,7 @@ export default function PostList_section({
   return (
     <Layout1
       header={({ sx }) => (
-        <Header_root sx={sx}>
+        <Header_root sx={{ ...sx, pl: 1 }}>
           <Container
             maxWidth="md"
             sx={{
