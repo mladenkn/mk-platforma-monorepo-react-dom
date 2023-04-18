@@ -1,13 +1,13 @@
 import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
-import generateProducts from "./data.products"
-import generateJobs from "./data.jobs"
-import generateExperts from "./data.experts"
-import generateGatheringsWork from "./data.gathering.work"
-import generateAccomodations from "./data.accommodations"
+import generateProducts from "./post.products.gen"
+import generateJobs from "./post.jobs.gen"
+import generateExperts from "./post.experts.gen"
+import generateGatheringsWork from "./post.gathering.work.gen"
+import generateAccomodations from "./post.accommodation.gen"
 import { WithId } from "./db.seed"
-import generateGatheringsHangout from "./data.gathering.hangout"
-import { PostGeneratorParams } from "./data.generate._utils"
+import generateGatheringsHangout from "./post.gathering.hangout.gen"
+import { PostGeneratorParams } from "./data.gen._utils"
 
 function data_common_generate(locations: WithId[]) {
   return {

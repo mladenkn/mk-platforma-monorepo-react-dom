@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { asNonNil } from "@mk-libs/common/common"
-import { PostGeneratorParams } from "./data.generate._utils"
-import data_images from "./data.images.json"
+import { PostGeneratorParams } from "./data.gen._utils"
+import data_images from "./data.gen.images.json"
 
 const withRelatedProps = [
   {
