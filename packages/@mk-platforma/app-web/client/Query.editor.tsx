@@ -18,9 +18,11 @@ export default function Query_editor({}: Props) {
 
   const selectedCategory = useCategory(selectedCategory_id)
   const path = withNoNils(
-    [selectedCategory.data, selectedCategory.data?.parent, selectedCategory.data?.parent?.parent]
-      .filter(i => i)
-      .reverse()
+    [
+      selectedCategory.data,
+      selectedCategory.data?.parent,
+      selectedCategory.data?.parent?.parent,
+    ].reverse()
   )
 
   function onBack() {
