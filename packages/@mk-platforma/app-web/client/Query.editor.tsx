@@ -90,7 +90,7 @@ export default function Query_editor({
         {filteredCategories.data?.map(category => (
           <Box
             key={category.id}
-            sx={{ display: "flex", alignItems: "center", gap: 1.3 }}
+            sx={{ display: "flex", alignItems: "center", gap: 1.3, cursor: "pointer" }}
             onClick={() => set_selectedCategory(category)}
           >
             <CategoryIcon sx={{ color: "white" }} name={category.label} />
