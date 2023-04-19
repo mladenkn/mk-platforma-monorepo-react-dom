@@ -16,6 +16,7 @@ import { Post_category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
 import MenuIcon from "@mui/icons-material/Menu"
 import SearchIcon from "@mui/icons-material/Search"
+import CloseIcon from "@mui/icons-material/Close"
 import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 
@@ -85,6 +86,8 @@ export default function PostList_section({
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
 
+  const [search, set_search] = useState<null | "">(null)
+
   const { typography, spacing } = useTheme()
 
   return (
@@ -97,7 +100,7 @@ export default function PostList_section({
         height: "100%",
       }}
     >
-      <Header_root>
+      <Header_root sx={{ pb: 1 }}>
         <Container
           maxWidth="md"
           sx={{
@@ -140,9 +143,12 @@ export default function PostList_section({
                 )}
               </Typography>
             </Box>
+            <IconButton onClick={() => set_search("")}>
+              <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
+            </IconButton>
             <Header_moreOptions options={["post.create", "profile", "devContact"]} />
           </Box>
-          <Box sx={{ mt: 1, mb: 1, display: "flex", flexDirection: "column" }}>
+          <Box sx={{ mt: 0.5, display: "flex", flexDirection: "column" }}>
             <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
               <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
                 50 km
@@ -150,18 +156,25 @@ export default function PostList_section({
               </IconButton>
               <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
                 <LocationOnIcon /> Novi Vinodolski
-                <KeyboardArrowDownOutlinedIcon />
+                <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
               </IconButton>
             </Box>
-            <Box>
-              <Input
-                placeholder="Pretraži"
-                sx={{ color: "white", fontSize: typography.h5 }}
-                disableUnderline
-                startAdornment={<SearchIcon sx={{ mr: 2 }} />}
-              />
-              <Box sx={{ background: "white", height: spacing(0.1), color: "white" }} />
-            </Box>
+            {search !== null && (
+              <Box sx={{ mt: 1, mb: 1 }}>
+                <Input
+                  placeholder="Pretraži"
+                  sx={{ color: "white", fontSize: typography.h5, width: "100%" }}
+                  disableUnderline
+                  startAdornment={<SearchIcon sx={{ mr: 2 }} />}
+                  endAdornment={
+                    <IconButton onClick={() => set_search(null)}>
+                      <CloseIcon sx={{ color: "white" }} />
+                    </IconButton>
+                  }
+                />
+                <Box sx={{ background: "white", height: spacing(0.1), color: "white" }} />
+              </Box>
+            )}
           </Box>
         </Container>
       </Header_root>
