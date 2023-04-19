@@ -14,11 +14,7 @@ import { Header_root, Header_moreOptions } from "./Header"
 import type { Prisma } from "@prisma/client"
 import { Post_category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
-import MenuIcon from "@mui/icons-material/Menu"
-import SearchIcon from "@mui/icons-material/Search"
-import CloseIcon from "@mui/icons-material/Close"
-import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
+import Post_list_section_header from "./Post.list.section.header"
 
 export const PostList_section_PostSelect = {
   id: true,
@@ -86,10 +82,6 @@ export default function PostList_section({
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
 
-  const [search, set_search] = useState<null | "">(null)
-
-  const { typography, spacing } = useTheme()
-
   return (
     <Box
       sx={{
@@ -100,84 +92,10 @@ export default function PostList_section({
         height: "100%",
       }}
     >
-      <Header_root sx={{ pb: 1 }}>
-        <Container
-          maxWidth="md"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                color: "white",
-                gap: 2.5,
-                width: "100%",
-              }}
-              onClick={() => set_SectionsDrawer_isActive(true)}
-            >
-              {selectedCategory.data ? (
-                <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
-              ) : (
-                <MenuIcon fontSize="large" />
-              )}
-              <Typography variant="h2" fontWeight={400}>
-                {selectedCategory.data ? (
-                  getCategoryLabel(selectedCategory.data.label)
-                ) : (
-                  <a style={{ color: "white", textDecoration: "none" }} href="/">
-                    <Typography variant="h3">ZaBrata</Typography>
-                    <Box sx={{ color: "white" }}>
-                      <Typography variant="h5">Loza kontribucionizma</Typography>
-                    </Box>
-                  </a>
-                )}
-              </Typography>
-            </Box>
-            <IconButton onClick={() => set_search("")}>
-              <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
-            </IconButton>
-            <Header_moreOptions options={["post.create", "profile", "devContact"]} />
-          </Box>
-          <Box sx={{ mt: 0.5, display: "flex", flexDirection: "column" }}>
-            <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
-              <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
-                50 km
-                <KeyboardArrowDownOutlinedIcon />
-              </IconButton>
-              <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
-                <LocationOnIcon /> Novi Vinodolski
-                <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
-              </IconButton>
-            </Box>
-            {search !== null && (
-              <Box sx={{ mt: 1, mb: 1 }}>
-                <Input
-                  placeholder="Pretraži"
-                  sx={{ color: "white", fontSize: typography.h5, width: "100%" }}
-                  disableUnderline
-                  startAdornment={<SearchIcon sx={{ mr: 2 }} />}
-                  endAdornment={
-                    <IconButton onClick={() => set_search(null)}>
-                      <CloseIcon sx={{ color: "white" }} />
-                    </IconButton>
-                  }
-                />
-                <Box sx={{ background: "white", height: spacing(0.1), color: "white" }} />
-              </Box>
-            )}
-          </Box>
-        </Container>
-      </Header_root>
+      <Post_list_section_header
+        selectedCategory={selectedCategory}
+        onShowCategories={() => set_SectionsDrawer_isActive(true)}
+      />
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
           {categories.data && (
