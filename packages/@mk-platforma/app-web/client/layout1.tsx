@@ -59,11 +59,8 @@ export default function Layout1({
       {fav({
         sx: {
           position: "fixed",
-          bottom: 2.4,
-          right: 2.4,
-          display: "flex",
-          flexDirection: "column",
-          gap: 2.5,
+          bottom: 16,
+          right: 16,
         },
       })}
     </Box>

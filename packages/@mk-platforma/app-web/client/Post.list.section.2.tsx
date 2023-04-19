@@ -169,11 +169,7 @@ export default function PostList_section({
       )}
       fav={({ sx }) =>
         !queryEditor_isActive && (
-          <Fab
-            color="primary"
-            sx={{ bottom: 14, right: 14, ...sx }}
-            onClick={() => set_queryEditor_isActive(true)}
-          >
+          <Fab color="primary" sx={sx} onClick={() => set_queryEditor_isActive(true)}>
             <ManageSearchIcon />
           </Fab>
         )
