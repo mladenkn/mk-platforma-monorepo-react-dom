@@ -167,15 +167,17 @@ export default function PostList_section({
           )}
         </Container>
       )}
-      fav={({ sx }) => (
-        <Fab
-          color="primary"
-          sx={{ bottom: 14, right: 14, ...sx }}
-          onClick={() => set_queryEditor_isActive(true)}
-        >
-          <ManageSearchIcon />
-        </Fab>
-      )}
+      fav={({ sx }) =>
+        !queryEditor_isActive && (
+          <Fab
+            color="primary"
+            sx={{ bottom: 14, right: 14, ...sx }}
+            onClick={() => set_queryEditor_isActive(true)}
+          >
+            <ManageSearchIcon />
+          </Fab>
+        )
+      }
       bottomSheet={({ sx }) =>
         queryEditor_isActive && (
           <BottomSheet sx={{ background: "#1976d2", ...sx }}>
