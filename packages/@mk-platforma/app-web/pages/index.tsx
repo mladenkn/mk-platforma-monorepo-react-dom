@@ -13,7 +13,6 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const props: PostList_section_Props = {
     selectedCategory_initial: category,
     posts_initial: await api.post.many({ categories: category ? [category.id] : undefined }),
-    categories_initial: await api.post.category.many(),
   }
   return {
     props,
