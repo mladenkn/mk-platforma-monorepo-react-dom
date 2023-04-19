@@ -6,6 +6,7 @@ import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { PostList_section_PostSelect } from "../client/Post.list.section"
 import Post_comment_api from "./Post.Comment.api"
 import Post_Category_api from "./Post.Category.api"
+import { Prisma } from "@prisma/client"
 
 const Post_api = router({
   many: publicProcedure
@@ -25,19 +26,7 @@ const Post_api = router({
                 },
               }
             : undefined,
-          OR: input?.search
-            ? [
-                {
-                  title: { contains: input?.search },
-                },
-                {
-                  description: { contains: input?.search },
-                },
-                {
-                  contact: { contains: input?.search },
-                },
-              ]
-            : undefined,
+          ...(input?.search ? Post_queryChunks_search(input.search) : {}),
         },
         select: PostList_section_PostSelect,
       })
@@ -71,5 +60,21 @@ const Post_api = router({
   comment: Post_comment_api,
   category: Post_Category_api,
 })
+
+export function Post_queryChunks_search(search: string): Prisma.PostWhereInput {
+  return {
+    OR: [
+      {
+        title: { contains: search },
+      },
+      {
+        description: { contains: search },
+      },
+      {
+        contact: { contains: search },
+      },
+    ],
+  }
+}
 
 export default Post_api

@@ -1,6 +1,7 @@
 import { z } from "zod"
 import { Categories_selector_aside_Category_queryParams } from "../client/Categories.selector.aside"
 import { publicProcedure, router } from "../trpc.server.utils"
+import { Post_queryChunks_search } from "./Post.api"
 
 const Post_Category_api = router({
   many: publicProcedure
@@ -18,45 +19,25 @@ const Post_Category_api = router({
         .optional()
     )
     .query(({ ctx, input }) => {
-      const hasPosts = {
-        OR: [
-          {
-            posts: {
-              some: {},
+      return ctx.db.post_category.findMany({
+        where: {
+          OR: [
+            {
+              posts: {
+                some: input?.search ? Post_queryChunks_search(input.search) : {},
+              },
             },
-          },
-          {
-            children: {
-              some: {
-                posts: {
-                  some: {},
+            {
+              children: {
+                some: {
+                  posts: {
+                    some: input?.search ? Post_queryChunks_search(input.search) : {},
+                  },
                 },
               },
             },
-          },
-        ],
-      }
-      return ctx.db.post_category.findMany({
-        where: {
-          ...hasPosts,
+          ],
           parent: input?.parent,
-          posts: input?.search
-            ? {
-                some: {
-                  OR: [
-                    {
-                      title: { contains: input?.search },
-                    },
-                    {
-                      description: { contains: input?.search },
-                    },
-                    {
-                      contact: { contains: input?.search },
-                    },
-                  ],
-                },
-              }
-            : undefined,
         },
         ...Categories_selector_aside_Category_queryParams,
       })
