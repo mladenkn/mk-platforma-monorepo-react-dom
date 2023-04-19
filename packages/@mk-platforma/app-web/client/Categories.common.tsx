@@ -9,6 +9,12 @@ import Api from "./trpc.client"
 import ConstructionIcon from "@mui/icons-material/Construction"
 import Diversity3Icon from "@mui/icons-material/Diversity3"
 import SelfImprovementIcon from "@mui/icons-material/SelfImprovement"
+import FastfoodIcon from "@mui/icons-material/Fastfood"
+import ChairIcon from "@mui/icons-material/Chair"
+import CheckroomIcon from "@mui/icons-material/Checkroom"
+import HardwareIcon from "@mui/icons-material/Hardware"
+import DevicesOtherIcon from "@mui/icons-material/DevicesOther"
+import FoundationIcon from "@mui/icons-material/Foundation"
 
 export function getCategoryLabel(category: Post_category_labelType) {
   switch (category) {
@@ -55,17 +61,17 @@ export function CategoryIcon({
     case "sellable":
       return <ShoppingCartIcon {...otherProps} />
     case "sellable_food":
-      return <ShoppingCartIcon {...otherProps} />
+      return <FastfoodIcon {...otherProps} />
     case "sellable_clothes":
-      return <ShoppingCartIcon {...otherProps} />
+      return <CheckroomIcon {...otherProps} />
     case "sellable_furniture":
-      return <ShoppingCartIcon {...otherProps} />
+      return <ChairIcon {...otherProps} />
     case "sellable_tool":
-      return <ShoppingCartIcon {...otherProps} />
+      return <HardwareIcon {...otherProps} />
     case "sellable_gadget":
-      return <ShoppingCartIcon {...otherProps} />
+      return <DevicesOtherIcon {...otherProps} />
     case "sellable_buildingMaterial":
-      return <ShoppingCartIcon {...otherProps} />
+      return <FoundationIcon {...otherProps} />
     case "expertEndorsement":
       return <EngineeringIcon {...otherProps} />
     case "job":
