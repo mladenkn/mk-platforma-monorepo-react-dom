@@ -13,7 +13,7 @@ import type { Prisma } from "@prisma/client"
 import { Post_category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
 import { BottomSheet } from "./BottomSheet"
-import Layout1 from "./layout1"
+import Layout1 from "./Layout1"
 import { Backdrop } from "./common"
 import Query_editor from "./Query.editor"
 
