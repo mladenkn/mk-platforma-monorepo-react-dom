@@ -1,5 +1,5 @@
 import { Box, SxProps } from "@mui/material"
-import { ReactNode } from "react"
+import React, { ReactNode } from "react"
 
 type WithSx = {
   sx?: SxProps

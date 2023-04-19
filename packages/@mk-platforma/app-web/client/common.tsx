@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles"
 import { Box } from "@mui/material"
+import React from "react"
 
 export const Backdrop: typeof Box = styled(Box)({
   backgroundColor: "rgba(0, 0, 0, 0.3)",

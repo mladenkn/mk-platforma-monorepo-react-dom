@@ -56,6 +56,12 @@ enum Post_category_label {
   accommodation
   expertEndorsement
   sellable
+  sellable_food
+  sellable_clothes
+  sellable_furniture
+  sellable_tool
+  sellable_gadget
+  sellable_buildingMaterial
   gathering
   gathering_spirituality
   gathering_work

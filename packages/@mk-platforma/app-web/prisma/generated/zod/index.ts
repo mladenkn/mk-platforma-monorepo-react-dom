@@ -92,7 +92,7 @@ export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCo
 
 export const UserScalarFieldEnumSchema = z.enum(['id','name','avatarStyle']);
 
-export const Post_category_labelSchema = z.enum(['job','accommodation','expertEndorsement','sellable','gathering','gathering_spirituality','gathering_work','gathering_hangout']);
+export const Post_category_labelSchema = z.enum(['job','accommodation','expertEndorsement','sellable','sellable_food','sellable_clothes','sellable_furniture','sellable_tool','sellable_gadget','sellable_buildingMaterial','gathering','gathering_spirituality','gathering_work','gathering_hangout']);
 
 export type Post_category_labelType = `${z.infer<typeof Post_category_labelSchema>}`
 

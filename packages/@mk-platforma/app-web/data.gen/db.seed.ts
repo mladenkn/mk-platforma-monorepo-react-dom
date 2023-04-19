@@ -62,7 +62,6 @@ async function seedCategories() {
   await upsertCategory("job")
   await upsertCategory("accommodation")
   await upsertCategory("expertEndorsement")
-  await upsertCategory("sellable")
 
   const gathering = await upsertCategory("gathering")
 
@@ -70,6 +69,16 @@ async function seedCategories() {
     upsertCategory("gathering_spirituality", gathering.id),
     upsertCategory("gathering_work", gathering.id),
     upsertCategory("gathering_hangout", gathering.id),
+  ])
+
+  const sellable = await upsertCategory("sellable")
+  await Promise.all([
+    upsertCategory("sellable_food", sellable.id),
+    upsertCategory("sellable_clothes", sellable.id),
+    upsertCategory("sellable_furniture", sellable.id),
+    upsertCategory("sellable_tool", sellable.id),
+    upsertCategory("sellable_gadget", sellable.id),
+    upsertCategory("sellable_buildingMaterial", sellable.id),
   ])
 
   return await db.post_category.findMany({})
