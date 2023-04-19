@@ -28,6 +28,18 @@ export function getCategoryLabel(category: Post_category_labelType) {
       return "Radne akcije"
     case "gathering_hangout":
       return "Druženja"
+    case "sellable_food":
+      return "Hrana"
+    case "sellable_clothes":
+      return "Odjeća"
+    case "sellable_furniture":
+      return "Namještaj"
+    case "sellable_tool":
+      return "Alat"
+    case "sellable_gadget":
+      return "Gadgeti"
+    case "sellable_buildingMaterial":
+      return "Građevinski materijal"
     default:
       throw new Error(`Parameter ${category} not matched as Category`)
   }
@@ -41,6 +53,18 @@ export function CategoryIcon({
     case "accommodation":
       return <BedIcon {...otherProps} />
     case "sellable":
+      return <ShoppingCartIcon {...otherProps} />
+    case "sellable_food":
+      return <ShoppingCartIcon {...otherProps} />
+    case "sellable_clothes":
+      return <ShoppingCartIcon {...otherProps} />
+    case "sellable_furniture":
+      return <ShoppingCartIcon {...otherProps} />
+    case "sellable_tool":
+      return <ShoppingCartIcon {...otherProps} />
+    case "sellable_gadget":
+      return <ShoppingCartIcon {...otherProps} />
+    case "sellable_buildingMaterial":
       return <ShoppingCartIcon {...otherProps} />
     case "expertEndorsement":
       return <EngineeringIcon {...otherProps} />
