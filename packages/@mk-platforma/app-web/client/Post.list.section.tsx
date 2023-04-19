@@ -1,4 +1,4 @@
-import { Box, Typography, Fab, Container } from "@mui/material"
+import { Box, Typography, Fab, Container, useTheme } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_single_listItem } from "./Post.single.listItem"
 import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
@@ -82,6 +82,8 @@ export default function PostList_section({
     setUrlParams_shallow({ category: category?.label })
     setSelectedCategory(selectedCategory.data?.id === category?.id ? undefined : category?.id)
   }
+
+  const { palette } = useTheme()
 
   return (
     <Layout1
@@ -174,7 +176,7 @@ export default function PostList_section({
       }
       bottomSheet={({ sx }) =>
         queryEditor_isActive && (
-          <BottomSheet sx={{ background: "#1976d2", ...sx }}>
+          <BottomSheet sx={{ background: palette.primary.main, ...sx }}>
             <Query_editor
               search={search}
               setSearch={setSearch}
