@@ -1,7 +1,7 @@
 import { z } from "zod"
-import { publicProcedure, router } from "../trpc.utils"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { Prisma, PrismaClient } from "@prisma/client"
+import { publicProcedure, router } from "../trpc.server.utils"
 
 const db = new PrismaClient()
 
@@ -72,6 +72,6 @@ const Api = router({
   }),
 })
 
-const Api_ss = Api.createCaller({})
+const Api_ss = Api.createCaller({ db, userId: 1 })
 
 const post = Api_ss.post.findUnique({ id: 2 })
