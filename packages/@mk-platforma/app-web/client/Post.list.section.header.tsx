@@ -56,9 +56,6 @@ export default function Post_list_section_header({ selectedCategory, onShowCateg
               ) : (
                 <a style={{ color: "white", textDecoration: "none" }} href="/">
                   <Typography variant="h3">ZaBrata</Typography>
-                  <Box sx={{ color: "white" }}>
-                    <Typography variant="h5">Loza kontribucionizma</Typography>
-                  </Box>
                 </a>
               )}
             </Typography>
