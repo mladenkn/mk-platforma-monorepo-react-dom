@@ -1,26 +1,27 @@
-import { Box, Drawer, Typography, Fab } from "@mui/material"
+import { Box, Drawer, Typography, Fab, IconButton, Container } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_single_listItem } from "./Post.single.listItem"
-import Post_single_details from "./Post.single.details"
 import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
-import trpc from "./trpc"
-import type { Id } from "../data.types"
+import Api from "./trpc.client"
 import { shallowPick } from "@mk-libs/common/common"
-import Categories_selector_aside from "./Categories.selector.aside"
-import { useState } from "react"
+import Categories_selector_aside, {
+  Categories_selector_aside_CategoryModel,
+} from "./Categories.selector.aside"
+import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
-import { getCategoryLabel, CategoryIcon } from "./Categories.common"
+import { getCategoryLabel, CategoryIcon, useCategory } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
-import type { Post_category_labelType } from "../prisma/generated/zod"
 import type { Prisma } from "@prisma/client"
+import { Post_category_labelType } from "../prisma/generated/zod"
+import { use_setUrlParams_shallow } from "../utils"
+import MenuIcon from "@mui/icons-material/Menu"
 
 export const PostList_section_PostSelect = {
   id: true,
   title: true,
-  description: true,
-  contact: true,
   location: {
     select: {
+      id: true,
       name: true,
     },
   },
@@ -30,7 +31,7 @@ export const PostList_section_PostSelect = {
       url: true,
     },
   },
-  asPersonEndorsement: {
+  expertEndorsement: {
     select: {
       firstName: true,
       lastName: true,
@@ -50,16 +51,36 @@ type Post = Prisma.PostGetPayload<{
   select: typeof PostList_section_PostSelect
 }>
 
-type Props = { selectedCategory: Post_category_labelType; posts_initial: Post[] }
+export type PostList_section_Props = {
+  selectedCategory_initial?: { id: number; label: Post_category_labelType } | null
+  posts_initial: Post[]
+  categories_initial: Categories_selector_aside_CategoryModel[]
+}
 
-export default function PostList_section({ selectedCategory, posts_initial }: Props) {
-  const posts = trpc.post.many.useQuery(
-    { categories: selectedCategory ? [selectedCategory] : [] },
+export default function PostList_section({
+  selectedCategory_initial,
+  categories_initial,
+  posts_initial,
+}: PostList_section_Props) {
+  const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
+  const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
+  const selectedCategory = useCategory(selectedCategory_id)
+
+  const posts = Api.post.many.useQuery(
+    { categories: selectedCategory_id ? [selectedCategory_id] : [] },
     { initialData: posts_initial }
   )
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<Id>()
+  const [selectedItem, setSelectedItem] = useState<number>()
+
+  const setUrlParams_shallow = use_setUrlParams_shallow()
+
+  function onCategorySelect(category: Categories_selector_aside_CategoryModel) {
+    setUrlParams_shallow({ category: category.label })
+    if (!category.children?.length) set_SectionsDrawer_isActive(false)
+    setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
+  }
 
   return (
     <Box
@@ -71,26 +92,56 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
         height: "100%",
       }}
     >
-      <Header_root sx={{ pl: 3 }}>
-        <Box
+      <Header_root>
+        <Container
+          maxWidth="md"
           sx={{
             display: "flex",
             alignItems: "center",
-            color: "white",
-            gap: 2.5,
+            justifyContent: "space-between",
           }}
-          onClick={() => set_SectionsDrawer_isActive(true)}
         >
-          <CategoryIcon fontSize="large" name={selectedCategory} />
-          <Typography variant="h2" fontWeight={400}>
-            {getCategoryLabel(selectedCategory)}
-          </Typography>
-        </Box>
-        <Header_moreOptions options={["post.create", "profile", "devContact"]} />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              color: "white",
+              gap: 2.5,
+              width: "100%",
+            }}
+            onClick={() => set_SectionsDrawer_isActive(true)}
+          >
+            {selectedCategory.data ? (
+              <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
+            ) : (
+              <MenuIcon fontSize="large" />
+            )}
+            <Typography variant="h2" fontWeight={400}>
+              {selectedCategory.data ? (
+                getCategoryLabel(selectedCategory.data.label)
+              ) : (
+                <a style={{ color: "white", textDecoration: "none" }} href="/">
+                  <Typography variant="h3">ZaBrata</Typography>
+                  <Box sx={{ color: "white" }}>
+                    <Typography variant="h5">Loza kontribucionizma</Typography>
+                  </Box>
+                </a>
+              )}
+            </Typography>
+          </Box>
+          <Header_moreOptions options={["post.create", "profile", "devContact"]} />
+        </Container>
       </Header_root>
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
-          <Categories_selector_aside selectedItem={selectedCategory} />
+          {categories.data && (
+            <Categories_selector_aside
+              categories={categories.data}
+              selectedItem={selectedCategory.data?.id}
+              onSelect={onCategorySelect}
+              onBack={() => setSelectedCategory(undefined)}
+            />
+          )}
         </Drawer>
       )}
       <Fab
@@ -100,7 +151,8 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
       >
         <ManageSearchIcon />
       </Fab>
-      <Box
+      <Container
+        maxWidth="md"
         sx={{
           p: 1,
           pt: 2,
@@ -115,11 +167,11 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
             setSelectedItem={setSelectedItem}
             items={posts.data}
             Item={item => {
-              if (item.asPersonEndorsement) {
+              if (item.expertEndorsement) {
                 return (
                   <Post_single_listItem_personEndorsement
                     {...shallowPick(
-                      item.asPersonEndorsement,
+                      item.expertEndorsement,
                       "firstName",
                       "lastName",
                       "skills",
@@ -130,12 +182,11 @@ export default function PostList_section({ selectedCategory, posts_initial }: Pr
                 )
               } else return <Post_single_listItem {...item} location={item.location?.name} />
             }}
-            Item_details={Post_single_details}
           />
         ) : (
           <>Učitavanje...</>
         )}
-      </Box>
+      </Container>
     </Box>
   )
 }

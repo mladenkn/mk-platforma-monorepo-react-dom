@@ -1,9 +1,4 @@
 import { initTRPC } from "@trpc/server"
+import { CreateNextContextOptions } from "@trpc/server/adapters/next"
 import superjson from "superjson"
-
-const t = initTRPC.create({
-  transformer: superjson,
-})
-
-export const router = t.router
-export const publicProcedure = t.procedure
+import db from "./prisma/instance"

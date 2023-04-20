@@ -1,86 +1,52 @@
 import { shallowPick } from "@mk-libs/common/common"
-import { PrismaClient } from "@prisma/client"
-import { z } from "zod"
-import {
-  ImageSchema,
-  PostSchema,
-  Post_asPersonEndorsementSchema,
-  Post_asPersonEndorsement_skillSchema,
-  Post_categorySchema,
-} from "../prisma/generated/zod"
-import { publicProcedure } from "../trpc.utils"
-
-const db = new PrismaClient()
+import { avatarStyles } from "../data.gen/data.common"
+import { publicProcedure } from "../trpc.server.utils"
+import { Post_api_create_input } from "./Post.api.cu.input"
+import { getRandomElement } from "@mk-libs/common/array"
 
 const Post_api_create = publicProcedure
-  .input(
-    PostSchema.pick({
-      title: true,
-      description: true,
-      contact: true,
-      location_id: true,
-    })
-      .extend({
-        categories: z.array(Post_categorySchema.pick({ label: true })),
-        asPersonEndorsement: Post_asPersonEndorsementSchema.pick({
-          firstName: true,
-          lastName: true,
-          avatarStyle: true,
-        })
-          .extend({
-            skills: z
-              .array(
-                Post_asPersonEndorsement_skillSchema.pick({
-                  label: true,
-                  level: true,
-                })
-              )
-              .optional(),
-          })
-          .optional(),
-        images: z.array(ImageSchema.shape.id).optional(),
-      })
-      .refine(input => {
-        if (input.categories.some(({ label }) => label === "personEndorsement"))
-          return !!input.asPersonEndorsement
-        return true
-      })
-  )
+  .input(Post_api_create_input)
   .mutation(async ({ ctx, input }) => {
-    await db.$transaction(async tx => {
+    return await ctx.db.$transaction(async tx => {
       const post_created = await tx.post.create({
         data: {
-          ...shallowPick(input, "title", "description", "contact", "location_id"),
-          author_id: 1,
+          ...shallowPick(input, "title", "description", "contact"),
+          author: {
+            connect: {
+              id: ctx.userId,
+            },
+          },
           categories: {
             connect: input.categories,
           },
           images: {
-            connect: input.images?.map(id => ({ id })),
+            create: input.images,
+          },
+          location: {
+            connect: input.location,
           },
         },
       })
-      if (input.asPersonEndorsement) {
+      if (input.expertEndorsement) {
         await tx.post.update({
           where: {
             id: post_created.id,
           },
           data: {
-            asPersonEndorsement: {
+            expertEndorsement: {
               create: {
-                postId: post_created.id,
-                ...shallowPick(input.asPersonEndorsement, "firstName", "lastName", "avatarStyle"),
+                post_id: post_created.id,
+                ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
+                avatarStyle: getRandomElement(avatarStyles),
                 skills: {
-                  create: input.asPersonEndorsement.skills?.map(({ label, level }) => ({
-                    label,
-                    level,
-                  })),
+                  create: input.expertEndorsement.skills,
                 },
               },
             },
           },
         })
       }
+      return post_created
     })
   })
 

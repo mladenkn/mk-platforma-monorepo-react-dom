@@ -1,29 +1,32 @@
 import { z } from "zod"
-import { publicProcedure, router } from "../trpc.utils"
+import { publicProcedure, router } from "../trpc.server.utils"
 import Post_api_create from "./Post.api.create"
-import { PrismaClient } from "@prisma/client"
-import { Post_category_labelSchema } from "../prisma/generated/zod"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { PostList_section_PostSelect } from "../client/Post.list.section"
-
-const db = new PrismaClient()
+import Post_comment_api from "./Post.Comment.api"
+import Post_Category_api from "./Post.Category.api"
+import { Prisma } from "@prisma/client"
 
 const Post_api = router({
   many: publicProcedure
     .input(
       z.object({
-        categories: z.array(Post_category_labelSchema).optional(),
+        categories: z.array(z.number()).optional(),
+        search: z.string().optional(),
       })
     )
-    .query(async ({ input }) => {
-      const posts = await db.post.findMany({
+    .query(async ({ ctx, input }) => {
+      const posts = await ctx.db.post.findMany({
         where: {
-          categories: input.categories && {
-            some: {
-              label: input.categories[0],
-            },
-          },
+          categories: input.categories?.length
+            ? {
+                some: {
+                  OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
+                },
+              }
+            : undefined,
+          ...(input?.search ? Post_queryChunks_search(input.search) : {}),
         },
         select: PostList_section_PostSelect,
       })
@@ -36,8 +39,8 @@ const Post_api = router({
         id: z.number(),
       })
     )
-    .query(async ({ input }) => {
-      const post = await db.post.findUnique({
+    .query(async ({ ctx, input }) => {
+      const post = await ctx.db.post.findUnique({
         where: { id: input.id },
         select: Post_single_details_PostSelect,
       })
@@ -53,6 +56,25 @@ const Post_api = router({
     }),
 
   create: Post_api_create,
+
+  comment: Post_comment_api,
+  category: Post_Category_api,
 })
+
+export function Post_queryChunks_search(search: string): Prisma.PostWhereInput {
+  return {
+    OR: [
+      {
+        title: { contains: search },
+      },
+      {
+        description: { contains: search },
+      },
+      {
+        contact: { contains: search },
+      },
+    ],
+  }
+}
 
 export default Post_api

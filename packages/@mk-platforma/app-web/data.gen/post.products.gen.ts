@@ -1,11 +1,11 @@
-import { faker } from "@faker-js/faker"
-import * as cro_dataset from "./data.cro.dataset"
-import { post_id_getNext, post_image_id_getNext } from "./data._utils"
+import { asNonNil } from "@mk-libs/common/common"
+import { PostGeneratorParams } from "./data.gen._utils"
 
-const withRelatedProps = [
+const withRelatedProps = ({ categories }: PostGeneratorParams) => [
   {
     title: "Prodaja domaćih oraha",
     image: "https://www.njuskalo.hr/image-200x150/orasi/prodaja-domacih-oraha-slika-188755044.jpg",
+    categories: [asNonNil(categories.find(c => c.label === "sellable_food"))],
     description: `Prodaju se domaći, kvalitetni i zdravi orasi, ručno brani u rujnu i listopadu 2022. Orasi su ručno očišćeni te su sačuvane cijele polovice jezgri.
 Nasad oraha u skopu OPG-a se nalazi na području Međimurja.
 Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i Međimurja.
@@ -18,6 +18,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
     title: "KOCHA kućni set za pripremu kombuche",
     image:
       "https://www.njuskalo.hr/image-200x150/cajevi/kocha-kucni-set-pripremu-kombuche-slika-188395758.jpg",
+    categories: [asNonNil(categories.find(c => c.label === "sellable_food"))],
     description: `Kućni set za pripremu kombuche uključuje sve što vam je potrebno da počnete pripremati ukusnu kombuchu bogatu probioticima u vlastitoj kuhinji.
 
     Bez obzira jeste li iskusni konzument kombuche ili ste novi u trendu, ovaj pribor olakšava stvaranje vlastitih jedinstvenih mješavina koristeći vaše omiljene čajeve, začine i voće. Započnite svoju kombucha pustolovinu već danas!
@@ -28,6 +29,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
     title: "prašak za točeni sladoled mješavina",
     image:
       "https://www.njuskalo.hr/image-200x150/hrana-pice-ostalo/prasak-toceni-sladoled-mjesavina-slika-34994516.jpg",
+    categories: [asNonNil(categories.find(c => c.label === "sellable_food"))],
     description: `prašak za točeni sladoled mješavina:
     Mješavina pripremlena za uporabo u strojevima za soft sladoled.
     Dozacija 5 l vode na 2 kg smjese
@@ -51,6 +53,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
   {
     title: "Protein konoplje (protein 50%+) 400 g - u prahu - 100% hrvatsko",
+    categories: [asNonNil(categories.find(c => c.label === "sellable_food"))],
     image:
       "https://www.njuskalo.hr/image-200x150/orasasti-plodovi-sjemenke/protein-konoplje-protein-50-400-g-prahu-100-hr-slika-94315389.jpg",
     description: `Protein konoplje izvrstan je izvor bjelančevina koji sadrži esencijalne aminokiseline (EAA), te je stoga najkompletniji biljni protein.
@@ -63,6 +66,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
   {
     title: "UKC odvodne cijevi i pribor 110, 125, 160...",
+    categories: [asNonNil(categories.find(c => c.label === "sellable_buildingMaterial"))],
     image:
       "https://www.njuskalo.hr/image-200x150/odvodne-cijevi/ukc-odvodne-cijevi-pribor-110-125-160-slika-188733751.jpg",
     description: `UKC odvodne cijevi i fiting za podzemnu ugradnju.
@@ -82,23 +86,27 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
     title: "Luster",
     image: "https://www.njuskalo.hr/image-200x150/lusteri/luster-slika-187392586.jpg",
     description: `Starinski luster, ispravan.`,
+    categories: [asNonNil(categories.find(c => c.label === "sellable_furniture"))],
   },
   {
     title: "Ormari za spavaću sobu-očuvano",
     image:
       "https://www.njuskalo.hr/image-200x150/spavace-sobe-ormari/ormari-spavacu-sobu-ocuvano-slika-187322925.jpg",
     description: `Prodajem ormar za spavaću sobu ,očuvan, u dobrom stanju, malo oštećen`,
+    categories: [asNonNil(categories.find(c => c.label === "sellable_furniture"))],
   },
   {
     title: "ICEPEAK VANCE jakna plava NOVO %OUTLET% RAČUN 36 RATA",
     image:
       "https://www.njuskalo.hr/image-200x150/muske-jakne-kaputi/icepeak-vance-muska-skijaska-jakna-plava-outlet-racun-36-rata-slika-181977557.jpg",
+    categories: [asNonNil(categories.find(c => c.label === "sellable_clothes"))],
     description: ``,
   },
   {
     title: "Pliš crna M/L suknja duga skoro do gležnja NOVO Marks& Spencer",
     image:
       "https://www.njuskalo.hr/image-200x150/suknje/plis-crna-m-l-suknja-duga-skoro-gleznja-marks-spencer-slika-185069563.jpg",
+    categories: [asNonNil(categories.find(c => c.label === "sellable_clothes"))],
     description: `Novo zapakirano, Icepeak Vance muška jakna najnoviji model, tamno plava, najnoviji model 2023g. Obucite se za zimu po %OUTLET% Cijenama!
 
     AKCIJSKE CIJENE RASPRODAJA DO KRAJA 01/2023!
@@ -115,6 +123,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
     title: "Skejtbord Skateboard Penny, svjetleci kotaci i daska, NOV, dostava",
     image:
       "https://www.njuskalo.hr/image-200x150/skateboard/skejtbord-skateboard-svjetlecim-kotacima-potpuno-nov-slika-127897137.jpg",
+    categories: [asNonNil(categories.find(c => c.label === "sellable_gadget"))],
     description: `U ponudi su 3 razlicita modela skateboarda. Sve 3 su potpuno nova i nekoristena i razlicitih su boja....
 
     01. Skejt sa obicnim silikonskim kotacima - cijena 16 € / 120,55 kn (zadnja slika)
@@ -129,6 +138,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
     title: "BATERIJSKA LAMPA SVJETILJKA profesionalna s 2 baterijska uloška",
     image:
       "https://www.njuskalo.hr/image-200x150/sportska-oprema-ostalo/baterijska-lampa-profesionalna-2-baterijska-uloska-slika-147901611.jpg",
+    categories: [asNonNil(categories.find(c => c.label === "sellable_gadget"))],
     description: `BATERIJSKA LAMPA - SVJETILJKA - profesionalna, kao nova.
 
     Pogodno za razne poslove gdje treba baterijska svjetiljka koja dugo svijetli: noćni čuvari, ophodnja, zaštitari ali i druge namjene: lov, ribolov, kampiranje i sl.
@@ -141,17 +151,11 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default function generateProducts<TMoreProps = {}>(
-  item_getMoreData: () => TMoreProps = () => ({} as any)
-) {
-  return withRelatedProps.map(({ title, image, description }) => ({
-    ...item_getMoreData(),
-    categories: ["sellable" as "sellable"],
-    title,
-    description,
+export default function generateProducts(params: PostGeneratorParams) {
+  return withRelatedProps(params).map(({ image, ...props }) => ({
+    ...props,
     images: [
       {
-        id: post_image_id_getNext(),
         url: image,
       },
     ],

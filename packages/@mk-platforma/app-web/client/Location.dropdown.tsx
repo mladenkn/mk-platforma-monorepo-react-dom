@@ -1,41 +1,46 @@
 import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
-import { CategoryIcon, getCategoryLabel } from "./Categories.common"
-import React, { ReactElement } from "react"
+import React, { ReactElement, useState } from "react"
 import Api from "./trpc.client"
-import { Post_category_labelType } from "../prisma/generated/zod"
+import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
+import type { Prisma } from "@prisma/client"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
   value?: number
-  onChange(c?: number): void
+  onChange(event: any, c?: number): void
 }
 
-type Category = {
-  id: number
-  label: Post_category_labelType
-}
+export const Location_Dropdown_locationsQuery = {
+  select: {
+    id: true,
+    name: true,
+  },
+  take: 10,
+} satisfies Prisma.LocationFindManyArgs
 
-export default function CategoryDropdown({
+type Location = Prisma.LocationGetPayload<typeof Location_Dropdown_locationsQuery>
+
+export default function Location_Dropdown({
   sx,
   value,
   onChange,
   ...props
 }: CategoriesDropdown_Props): ReactElement {
   const { typography } = useTheme()
-  const categories = Api.post.category.many.useQuery()
 
-  function findCategory(id: number) {
-    return categories.data?.find(c => c.id === id)
-  }
-  function getCategoryOption(cat: Category) {
+  const [search, setSearch] = useState("")
+  const suggestions = Api.location.many.useQuery({ query: search })
+  const selectedLocation = Api.location.single.useQuery({ id: value! }, { enabled: !!value })
+
+  function getLocationOptions(cat: Location) {
     return {
       id: cat.id,
-      dbLabel: cat.label,
-      label: getCategoryLabel(cat.label),
+      label: cat.name,
     }
   }
+
   const value_option =
-    value && categories.data ? getCategoryOption(findCategory(value)!) : undefined
+    (value && selectedLocation.data && getLocationOptions(selectedLocation.data)) || null
 
   return (
     <Autocomplete
@@ -55,11 +60,10 @@ export default function CategoryDropdown({
         },
         ...sx,
       }}
-      loading={categories.isLoading}
-      options={categories.data?.map(getCategoryOption) || []}
+      loading={suggestions.isLoading}
+      options={suggestions.data?.map(getLocationOptions) || []}
       renderOption={(props, option) => (
         <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
-          <CategoryIcon fontSize="medium" name={option.dbLabel} sx={{ mr: 2 }} />
           {option.label}
         </Box>
       )}
@@ -67,20 +71,17 @@ export default function CategoryDropdown({
         <TextField
           {...params}
           variant="outlined"
+          placeholder="Lokacija"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
           InputProps={{
             ...params.InputProps,
-            startAdornment:
-              value && categories.data ? (
-                <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={findCategory(value)!.label} />
-              ) : (
-                <></>
-              ),
+            startAdornment: <LocationOnIcon sx={{ ml: 0.5, mr: 0.75 }} />,
           }}
-          placeholder="Kategorija"
         />
       )}
-      value={value_option || null}
-      onChange={(e, value) => onChange(value?.id)}
+      value={value_option}
+      onChange={(event, value) => onChange(event, value?.id)}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       {...props}
     />

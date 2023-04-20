@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme, IconButton, Menu, MenuItem } from "@mui/material"
-import { useState } from "react"
+import React, { useState } from "react"
 import { styled } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import PostAddIcon from "@mui/icons-material/PostAdd"
@@ -9,7 +9,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering"
 
 export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
   background: theme.palette.primary.main,
-  padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
+  padding: `${theme.spacing(2)} ${theme.spacing(0)}`,
   display: "flex",
   alignItems: "center",
   justifyContent: "space-between",
@@ -59,14 +59,16 @@ export function Header_moreOptions({ options }: Header_moreOptions_props) {
           </MenuItem>
         )}
         {options.includes("devContact") && (
-          <MenuItem>
-            <EngineeringIcon
-              sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
-            />
-            <Typography sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}>
-              Kontaktiraj razvojni tim
-            </Typography>
-          </MenuItem>
+          <a href="/kontaktiraj-razvojni-tim" style={{ textDecoration: "none" }}>
+            <MenuItem>
+              <EngineeringIcon
+                sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
+              />
+              <Typography sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}>
+                Kontaktiraj razvojni tim
+              </Typography>
+            </MenuItem>
+          </a>
         )}
       </Menu>
     </>

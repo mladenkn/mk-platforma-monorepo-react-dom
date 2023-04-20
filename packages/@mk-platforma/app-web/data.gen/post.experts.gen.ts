@@ -1,9 +1,11 @@
 import { faker } from "@faker-js/faker"
+import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { uniq } from "lodash"
 import { avatarStyles } from "./data.common"
-import * as cro_dataset from "./data.cro.dataset"
+import * as cro_dataset from "./data.gen.cro.dataset"
+import { PostGeneratorParams } from "./data.gen._utils"
 
-export default function generateExpert() {
+function generateSingle({ categories }: PostGeneratorParams) {
   const firstName = faker.helpers.arrayElement(cro_dataset.firstNames)
   const lastName = faker.helpers.arrayElement(cro_dataset.lastNames)
 
@@ -12,7 +14,8 @@ export default function generateExpert() {
   )
 
   return {
-    categories: ["personEndorsement" as "personEndorsement"],
+    categories: [asNonNil(categories.find(c => c.label === "expertEndorsement"))],
+
     contact: faker.helpers.arrayElement([
       faker.phone.number(),
       faker.phone.number(),
@@ -22,7 +25,7 @@ export default function generateExpert() {
 
     title: `${firstName} ${lastName}`,
 
-    asPersonEndorsement: {
+    expertEndorsement: {
       firstName,
       lastName,
 
@@ -34,4 +37,10 @@ export default function generateExpert() {
       avatarStyle: faker.helpers.arrayElement(avatarStyles),
     },
   }
+}
+
+export default function generateExperts(params: PostGeneratorParams) {
+  return generateArray(() => {}, faker.datatype.number({ min: 8, max: 20 })).map(() =>
+    generateSingle(params)
+  )
 }

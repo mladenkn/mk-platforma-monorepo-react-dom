@@ -1,6 +1,4 @@
-import { PrismaClient } from "@prisma/client"
-
-const db = new PrismaClient()
+import db from "./prisma/instance"
 
 async function main() {
   console.log(await db.post_category.findMany({}))

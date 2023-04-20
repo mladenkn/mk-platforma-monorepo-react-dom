@@ -106,3 +106,24 @@ export const generateArray = <T>(getNext: (index: number) => T, count: number) =
 export function castIf<T>(it: any, isIt: boolean): it is T {
   return isIt
 }
+
+export type NullsToUndefinedDeep<T> = T extends null
+  ? undefined
+  : T extends (infer U)[]
+  ? NullsToUndefinedDeep<U>[]
+  : T extends Record<string, unknown>
+  ? { [K in keyof T]: NullsToUndefinedDeep<T[K]> }
+  : T
+
+export function nullsToUndefinedDeep<T>(obj: T): NullsToUndefinedDeep<T> {
+  if (obj === null || obj === undefined) {
+    return undefined as any
+  }
+
+  if ((obj as any).constructor.name === "Object" || Array.isArray(obj)) {
+    for (const key in obj) {
+      obj[key] = nullsToUndefinedDeep(obj[key]) as any
+    }
+  }
+  return obj as any
+}
