@@ -10,12 +10,14 @@ import { Prisma } from "@prisma/client"
 import { Post_api_abstract } from "./Post.api.abstract"
 
 const Post_api = router({
-  many: Post_api_abstract.list(async (ctx, _, mapped1) => {
-    const posts = await ctx.db.post.findMany({
-      ...mapped1,
-      select: PostList_section_PostSelect,
-    })
-    return posts
+  list: router({
+    fields_main: Post_api_abstract.list(async (ctx, _, mapped1) => {
+      const posts = await ctx.db.post.findMany({
+        ...mapped1,
+        select: PostList_section_PostSelect,
+      })
+      return posts
+    }),
   }),
 
   single: publicProcedure
