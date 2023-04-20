@@ -7,31 +7,16 @@ import { PostList_section_PostSelect } from "../client/Post.list.section"
 import Post_comment_api from "./Post.Comment.api"
 import Post_Category_api from "./Post.Category.api"
 import { Prisma } from "@prisma/client"
+import { Post_api_abstract } from "./Post.api.advanced.2"
 
 const Post_api = router({
-  many: publicProcedure
-    .input(
-      z.object({
-        categories: z.array(z.number()).optional(),
-        search: z.string().optional(),
-      })
-    )
-    .query(async ({ ctx, input }) => {
-      const posts = await ctx.db.post.findMany({
-        where: {
-          categories: input.categories?.length
-            ? {
-                some: {
-                  OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
-                },
-              }
-            : undefined,
-          ...(input?.search ? Post_queryChunks_search(input.search) : {}),
-        },
-        select: PostList_section_PostSelect,
-      })
-      return posts
-    }),
+  many: Post_api_abstract.list(async (ctx, _, mapped1) => {
+    const posts = await ctx.db.post.findMany({
+      ...mapped1,
+      select: PostList_section_PostSelect,
+    })
+    return posts
+  }),
 
   single: publicProcedure
     .input(

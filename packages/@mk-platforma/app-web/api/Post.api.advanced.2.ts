@@ -1,7 +1,7 @@
 import { z } from "zod"
-import prisma_dbInstance from "../prisma/instance"
 import { Api_context } from "../trpc.server"
-import { publicProcedure, router } from "../trpc.server.utils"
+import { publicProcedure } from "../trpc.server.utils"
+import { Post_queryChunks_search } from "./Post.api"
 
 export function SuperData_query<TInput, TFirstOutput>(
   input_zod: z.ZodType<TInput>,
@@ -22,14 +22,28 @@ export function SuperData_query<TInput, TFirstOutput>(
   }
 }
 
-const Post_api = router({
-  post: router({
-    list: SuperData_query(z.object({}), async (ctx, input) => {
-      return "ovo je od prvoga" as "ovo je od prvoga"
-    })(async (ctx, input, firstMapped) => "ovo je od drugoga" as "ovo je od drugoga"),
-  }),
+const input_zod = z.object({
+  categories: z.array(z.number()).optional(),
+  search: z.string().optional(),
 })
 
-const Post_api_ss = Post_api.createCaller({ db: prisma_dbInstance, userId: 1 })
+export const Post_api_abstract = {
+  list: SuperData_query(input_zod, async ({ db }, input) => {
+    return {
+      where: {
+        categories: input.categories?.length
+          ? {
+              some: {
+                OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
+              },
+            }
+          : undefined,
+        ...(input?.search ? Post_queryChunks_search(input.search) : {}),
+      },
+    }
+  }),
+}
 
-const posts = Post_api_ss.post.list({})
+// const Post_api_ss = Post_api.createCaller({ db: prisma_dbInstance, userId: 1 })
+
+// const posts = Post_api_ss.post.list({})
