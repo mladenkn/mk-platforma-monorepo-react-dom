@@ -11,7 +11,7 @@ import { Post_api_abstract } from "./Post.api.abstract"
 
 const Post_api = router({
   list: router({
-    fields_main: Post_api_abstract.list((ctx, _, mapped1, selectors) =>
+    fields_main: Post_api_abstract.list((_, __, mapped1, selectors) =>
       selectors.post.list(mapped1, {
         select: PostList_section_PostSelect,
       })
