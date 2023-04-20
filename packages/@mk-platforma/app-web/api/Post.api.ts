@@ -7,7 +7,7 @@ import { PostList_section_PostSelect } from "../client/Post.list.section"
 import Post_comment_api from "./Post.Comment.api"
 import Post_Category_api from "./Post.Category.api"
 import { Prisma } from "@prisma/client"
-import { Post_api_abstract } from "./Post.api.advanced.2"
+import { Post_api_abstract } from "./Post.api.abstract"
 
 const Post_api = router({
   many: Post_api_abstract.list(async (ctx, _, mapped1) => {
