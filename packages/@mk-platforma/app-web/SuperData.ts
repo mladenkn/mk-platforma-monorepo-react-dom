@@ -1,5 +1,4 @@
 import { z } from "zod"
-import { DataSelectors, Prisma_paramsMerger_create } from "./SuperData.generated"
 import { Api_context } from "./trpc.server"
 import { publicProcedure } from "./trpc.server.utils"
 
@@ -9,16 +8,15 @@ export function SuperData_query<TInput, TFirstOutput>(
 ) {
   return function <TSecondOutput>(
     mapSecond: (
-      ctx: Api_context,
-      input: TInput,
-      firstOutput: TFirstOutput,
-      dataSelectors: DataSelectors
+      ctx: Api_context & {
+        input: TInput
+        firstOutput: TFirstOutput
+      }
     ) => Promise<TSecondOutput>
   ) {
     return publicProcedure.input(input_zod).query(async ({ ctx, input }) => {
-      const paramMerger = Prisma_paramsMerger_create(ctx)
       const mapped1 = await mapFirst(ctx, input as any)
-      const mapped2 = await mapSecond(ctx, input as any, mapped1, paramMerger)
+      const mapped2 = await mapSecond({ ...ctx, firstOutput: mapped1, input: input as any })
       return mapped2
     })
   }

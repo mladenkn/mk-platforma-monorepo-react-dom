@@ -3,7 +3,6 @@ import { publicProcedure, router } from "../trpc.server.utils"
 import Post_api_create from "./Post.api.create"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
-import { PostList_section_PostSelect } from "../client/Post.list.section"
 import Post_comment_api from "./Post.Comment.api"
 import Post_Category_api from "./Post.Category.api"
 import { Prisma } from "@prisma/client"
@@ -11,9 +10,10 @@ import { Post_api_abstract } from "./Post.api.abstract"
 
 const Post_api = router({
   list: router({
-    fields_main: Post_api_abstract.list((_, __, mapped1, paramMerger) =>
-      paramMerger.post.list(mapped1, {
-        select: PostList_section_PostSelect,
+    fields_main: Post_api_abstract.list(({ db, firstOutput }) =>
+      db.post.findMany({
+        ...firstOutput,
+        select: Post_single_details_PostSelect,
       })
     ),
   }),
