@@ -15,8 +15,8 @@ export function SuperData_query<TInput, TFirstOutput>(
   ) {
     return publicProcedure.input(input_zod).query(async ({ ctx, input }) => {
       const mapped1 = await mapFirst(ctx, input as any)
-      const mapped2 = mapSecond(ctx, input as any, mapped1)
-      return mapped2 as TSecondOutput
+      const mapped2 = await mapSecond(ctx, input as any, mapped1)
+      return mapped2
     })
   }
 }
