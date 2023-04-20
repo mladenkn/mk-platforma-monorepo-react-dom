@@ -10,9 +10,9 @@ import { Post_api_abstract } from "./Post.api.abstract"
 
 const Post_api = router({
   list: router({
-    fields_main: Post_api_abstract.list(({ db, firstOutput }) =>
+    fields_main: Post_api_abstract.list(({ db, firstMap }) =>
       db.post.findMany({
-        ...firstOutput,
+        ...firstMap,
         select: Post_single_details_PostSelect,
       })
     ),

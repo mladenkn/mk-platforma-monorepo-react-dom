@@ -10,13 +10,13 @@ export function SuperData_query<TInput, TFirstOutput>(
     mapSecond: (
       ctx: Api_context & {
         input: TInput
-        firstOutput: TFirstOutput
+        firstMap: TFirstOutput
       }
     ) => Promise<TSecondOutput>
   ) {
     return publicProcedure.input(input_zod).query(async ({ ctx, input }) => {
       const mapped1 = await mapFirst(ctx, input as any)
-      const mapped2 = await mapSecond({ ...ctx, firstOutput: mapped1, input: input as any })
+      const mapped2 = await mapSecond({ ...ctx, firstMap: mapped1, input: input as any })
       return mapped2
     })
   }
