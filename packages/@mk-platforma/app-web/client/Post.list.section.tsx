@@ -68,7 +68,7 @@ export default function PostList_section({
   const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
 
-  const posts = Api.post.many.useQuery(
+  const posts = Api.post.list.fieldSet_main.useQuery(
     {
       categories: selectedCategory_id ? [selectedCategory_id] : [],
       search: search === null ? undefined : search,

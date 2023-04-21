@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "pnpm app build",
-    "start": "pnpm app start",
+    "start": "pnpm app start.prod",
     "app": "pnpm --filter @mk-platforma/app-web",
     "db": "pnpm --filter @mk-platforma/app-web db",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

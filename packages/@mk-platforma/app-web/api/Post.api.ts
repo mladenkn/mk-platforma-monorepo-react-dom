@@ -3,35 +3,20 @@ import { publicProcedure, router } from "../trpc.server.utils"
 import Post_api_create from "./Post.api.create"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
-import { PostList_section_PostSelect } from "../client/Post.list.section"
 import Post_comment_api from "./Post.Comment.api"
 import Post_Category_api from "./Post.Category.api"
 import { Prisma } from "@prisma/client"
+import { Post_api_abstract } from "./Post.api.abstract"
 
 const Post_api = router({
-  many: publicProcedure
-    .input(
-      z.object({
-        categories: z.array(z.number()).optional(),
-        search: z.string().optional(),
+  list: router({
+    fieldSet_main: Post_api_abstract.list(({ db, firstMap }) =>
+      db.post.findMany({
+        ...firstMap,
+        select: Post_single_details_PostSelect,
       })
-    )
-    .query(async ({ ctx, input }) => {
-      const posts = await ctx.db.post.findMany({
-        where: {
-          categories: input.categories?.length
-            ? {
-                some: {
-                  OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
-                },
-              }
-            : undefined,
-          ...(input?.search ? Post_queryChunks_search(input.search) : {}),
-        },
-        select: PostList_section_PostSelect,
-      })
-      return posts
-    }),
+    ),
+  }),
 
   single: publicProcedure
     .input(

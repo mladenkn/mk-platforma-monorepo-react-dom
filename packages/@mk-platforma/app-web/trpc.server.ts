@@ -2,7 +2,7 @@ import Location_api from "./api/Location.api"
 import Post_api from "./api/Post.api"
 import { createContext, router } from "./trpc.server.utils"
 
-export type Api_context = ReturnType<typeof createContext>
+export type Api_context = Awaited<ReturnType<typeof createContext>>
 
 export const ApiRouter = router({
   post: Post_api,
