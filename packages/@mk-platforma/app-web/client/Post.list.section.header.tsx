@@ -105,7 +105,7 @@ export default function Post_list_section_header({
           >
             <Box sx={{ display: "flex" }}>
               <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
-                <LocationOnIcon /> Novi Vinodolski
+                <LocationOnIcon /> Split
                 <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
               </IconButton>
               <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
