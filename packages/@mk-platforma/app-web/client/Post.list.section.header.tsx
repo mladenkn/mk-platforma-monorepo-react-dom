@@ -118,8 +118,10 @@ export default function Post_list_section_header({
           {search !== null && (
             <Box sx={{ mt: 1, mb: 1 }}>
               <Input
-                placeholder="Pretraži"
                 sx={{ color: "white", fontSize: typography.h5, width: "100%" }}
+                value={search}
+                onChange={e => set_search(e.target.value)}
+                placeholder="Pretraži"
                 disableUnderline
                 startAdornment={<SearchIcon sx={{ mr: 2 }} />}
                 endAdornment={
