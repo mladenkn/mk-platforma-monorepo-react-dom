@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme, IconButton, Menu, MenuItem } from "@mui/material"
 import React, { useState } from "react"
-import { styled } from "@mui/material/styles"
+import { styled, SxProps } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
@@ -16,15 +16,16 @@ export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
 }))
 
 type Header_moreOptions_props = {
+  sx?: SxProps
   options: ("post.create" | "post.list" | "profile" | "devContact")[]
 }
 
-export function Header_moreOptions({ options }: Header_moreOptions_props) {
+export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
   const { typography, palette } = useTheme()
   const [optionsAnchorEl, set_optionsAnchorEl] = useState<HTMLButtonElement | null>(null)
   return (
     <>
-      <IconButton onClick={e => set_optionsAnchorEl(e.target as any)}>
+      <IconButton sx={sx} onClick={e => set_optionsAnchorEl(e.target as any)}>
         <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
       </IconButton>
       <Menu
