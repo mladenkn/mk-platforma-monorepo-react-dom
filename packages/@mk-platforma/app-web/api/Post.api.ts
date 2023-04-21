@@ -50,13 +50,13 @@ export function Post_queryChunks_search(search: string): Prisma.PostWhereInput {
   return {
     OR: [
       {
-        title: { contains: search },
+        title: { contains: search, mode: "insensitive" },
       },
       {
-        description: { contains: search },
+        description: { contains: search, mode: "insensitive" },
       },
       {
-        contact: { contains: search },
+        contact: { contains: search, mode: "insensitive" },
       },
     ],
   }
