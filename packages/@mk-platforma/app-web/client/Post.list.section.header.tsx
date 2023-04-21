@@ -85,7 +85,7 @@ export default function Post_list_section_header({
                   </Typography>
                 ) : (
                   <a style={{ color: "white", textDecoration: "none" }} href="/">
-                    <Typography sx={{ fontSize: 42 }} fontWeight={400}>
+                    <Typography variant="h2" fontWeight={400}>
                       Domaći oglasnik
                     </Typography>
                   </a>
