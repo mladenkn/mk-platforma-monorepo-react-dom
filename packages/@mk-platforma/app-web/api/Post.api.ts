@@ -17,7 +17,6 @@ const Post_api = router({
       })
     )
     .query(async ({ ctx, input }) => {
-      console.log(20, input)
       const posts = await ctx.db.post.findMany({
         where: {
           categories: input.categories?.length
