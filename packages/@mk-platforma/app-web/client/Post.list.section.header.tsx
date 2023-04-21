@@ -12,11 +12,17 @@ import { Post_category_label } from "@prisma/client"
 
 type Props = {
   onShowCategories(): void
-  selectedCategory: UseQueryResult<{ label: Post_category_label }>
+  selectedCategory: UseQueryResult<{ label: Post_category_label } | null>
+  search: string
+  set_search(s: string): void
 }
 
-export default function Post_list_section_header({ selectedCategory, onShowCategories }: Props) {
-  const [search, set_search] = useState<null | "">(null)
+export default function Post_list_section_header({
+  selectedCategory,
+  onShowCategories,
+  search,
+  set_search,
+}: Props) {
   const { typography, spacing } = useTheme()
 
   const heading = selectedCategory.data
@@ -117,7 +123,7 @@ export default function Post_list_section_header({ selectedCategory, onShowCateg
                 disableUnderline
                 startAdornment={<SearchIcon sx={{ mr: 2 }} />}
                 endAdornment={
-                  <IconButton onClick={() => set_search(null)}>
+                  <IconButton onClick={() => set_search("")}>
                     <CloseIcon sx={{ color: "white" }} />
                   </IconButton>
                 }

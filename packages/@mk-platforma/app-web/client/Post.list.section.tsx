@@ -63,11 +63,13 @@ export default function PostList_section({
   posts_initial,
 }: PostList_section_Props) {
   const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
+  const [search, set_search] = useState("")
+
   const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
 
   const posts = Api.post.many.useQuery(
-    { categories: selectedCategory_id ? [selectedCategory_id] : [] },
+    { categories: selectedCategory_id ? [selectedCategory_id] : [], search },
     { initialData: posts_initial }
   )
 
@@ -93,7 +95,9 @@ export default function PostList_section({
       }}
     >
       <Post_list_section_header
-        selectedCategory={selectedCategory}
+        search={search}
+        set_search={set_search}
+        selectedCategory={selectedCategory as any}
         onShowCategories={() => set_SectionsDrawer_isActive(true)}
       />
       {sectionsDrawer_isActive && (
