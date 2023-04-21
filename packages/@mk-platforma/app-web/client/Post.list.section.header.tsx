@@ -19,6 +19,20 @@ export default function Post_list_section_header({ selectedCategory, onShowCateg
   const [search, set_search] = useState<null | "">(null)
   const { typography, spacing } = useTheme()
 
+  const heading = selectedCategory.data
+    ? getCategoryLabel(selectedCategory.data.label)
+    : "Domaći oglasnik"
+  const searchAndMore_position = heading.length > 13 ? "down" : "up"
+
+  const searchAndMore = (
+    <Box sx={{ display: "flex" }}>
+      <IconButton onClick={() => set_search("")}>
+        <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
+      </IconButton>
+      <Header_moreOptions options={["post.create", "profile", "devContact"]} />
+    </Box>
+  )
+
   return (
     <Header_root sx={{ pb: 1 }}>
       <Container
@@ -39,42 +53,61 @@ export default function Post_list_section_header({ selectedCategory, onShowCateg
             sx={{
               display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
               color: "white",
-              gap: 2.5,
               width: "100%",
             }}
             onClick={onShowCategories}
           >
-            {selectedCategory.data ? (
-              <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
-            ) : (
-              <MenuIcon fontSize="large" />
-            )}
-            <Typography variant="h2" fontWeight={400}>
-              {selectedCategory.data ? (
-                getCategoryLabel(selectedCategory.data.label)
-              ) : (
-                <a style={{ color: "white", textDecoration: "none" }} href="/">
-                  <Typography variant="h3">ZaBrata</Typography>
-                </a>
-              )}
-            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flex: 1,
+                justifyContent: "space-between",
+              }}
+            >
+              <Box sx={{ display: "flex", gap: 2.5, alignItems: "center" }}>
+                {selectedCategory.data ? (
+                  <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
+                ) : (
+                  <MenuIcon fontSize="large" fontWeight={400} />
+                )}
+                {selectedCategory.data ? (
+                  <Typography variant="h2" fontWeight={400}>
+                    {getCategoryLabel(selectedCategory.data.label)}
+                  </Typography>
+                ) : (
+                  <a style={{ color: "white", textDecoration: "none" }} href="/">
+                    <Typography sx={{ fontSize: 42 }} fontWeight={400}>
+                      Domaći oglasnik
+                    </Typography>
+                  </a>
+                )}
+              </Box>
+              {searchAndMore_position === "up" && searchAndMore}
+            </Box>
           </Box>
-          <IconButton onClick={() => set_search("")}>
-            <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
-          </IconButton>
-          <Header_moreOptions options={["post.create", "profile", "devContact"]} />
         </Box>
-        <Box sx={{ mt: 0.5, display: "flex", flexDirection: "column" }}>
-          <Box sx={{ display: "flex", flexDirection: "row-reverse" }}>
-            <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
-              50 km
-              <KeyboardArrowDownOutlinedIcon />
-            </IconButton>
-            <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
-              <LocationOnIcon /> Novi Vinodolski
-              <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
-            </IconButton>
+        <Box sx={{ mt: 1.5, display: "flex", flexDirection: "column" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: searchAndMore_position === "up" ? "row-reverse" : "row",
+              justifyContent: searchAndMore_position === "down" ? "space-between" : undefined,
+            }}
+          >
+            <Box sx={{ display: "flex" }}>
+              <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
+                <LocationOnIcon /> Novi Vinodolski
+                <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
+              </IconButton>
+              <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
+                50 km
+                <KeyboardArrowDownOutlinedIcon />
+              </IconButton>
+            </Box>
+            {searchAndMore_position === "down" && searchAndMore}
           </Box>
           {search !== null && (
             <Box sx={{ mt: 1, mb: 1 }}>
