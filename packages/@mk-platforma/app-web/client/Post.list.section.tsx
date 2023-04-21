@@ -63,13 +63,16 @@ export default function PostList_section({
   posts_initial,
 }: PostList_section_Props) {
   const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
-  const [search, set_search] = useState("")
+  const [search, set_search] = useState<string | null>(null)
 
   const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
 
   const posts = Api.post.many.useQuery(
-    { categories: selectedCategory_id ? [selectedCategory_id] : [], search },
+    {
+      categories: selectedCategory_id ? [selectedCategory_id] : [],
+      search: search === null ? undefined : search,
+    },
     { initialData: posts_initial }
   )
 

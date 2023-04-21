@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
@@ -13,8 +13,8 @@ import { Post_category_label } from "@prisma/client"
 type Props = {
   onShowCategories(): void
   selectedCategory: UseQueryResult<{ label: Post_category_label } | null>
-  search: string
-  set_search(s: string): void
+  search: string | null
+  set_search(s: string | null): void
 }
 
 export default function Post_list_section_header({
@@ -32,7 +32,7 @@ export default function Post_list_section_header({
 
   const searchAndMore = (
     <Box sx={{ display: "flex" }}>
-      <IconButton onClick={() => set_search("")}>
+      <IconButton onClick={() => set_search(search === null ? "" : null)}>
         <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
       </IconButton>
       <Header_moreOptions options={["post.create", "profile", "devContact"]} />
@@ -123,7 +123,7 @@ export default function Post_list_section_header({
                 disableUnderline
                 startAdornment={<SearchIcon sx={{ mr: 2 }} />}
                 endAdornment={
-                  <IconButton onClick={() => set_search("")}>
+                  <IconButton onClick={() => set_search(null)}>
                     <CloseIcon sx={{ color: "white" }} />
                   </IconButton>
                 }
