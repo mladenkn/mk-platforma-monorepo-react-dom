@@ -31,6 +31,8 @@ export default function Post_single_section({
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            pl: 1,
+            pr: 0,
           }}
         >
           <Box

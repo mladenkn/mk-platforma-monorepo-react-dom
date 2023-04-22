@@ -19,13 +19,14 @@ export default function Post_create_section({ sx }: Props) {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
-      <Header_root sx={{ pr: 1.5 }}>
+      <Header_root sx={{ pl: 0.5, pr: 0.7 }}>
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
             color: "white",
-            gap: 2,
+            gap: 1,
+            justifyContent: "start",
           }}
         >
           <IconButton sx={{ color: "white" }} onClick={goBack}>
