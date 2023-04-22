@@ -53,7 +53,7 @@ export default function Post_single_section({
           <Header_moreOptions options={["post.create", "profile", "post.list", "devContact"]} />
         </Container>
       </Header_root>
-      <Container maxWidth="lg">
+      <Container sx={{ px: 0 }} maxWidth="lg">
         {postQuery.isLoading ? <>Učitavanje...</> : <></>}
         {!isEdit ? (
           <Post_single_details
