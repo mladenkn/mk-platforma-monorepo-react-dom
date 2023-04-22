@@ -45,10 +45,7 @@ export default function Post_single_section({
               <ArrowBackIosOutlinedIcon />
             </IconButton>
             <a style={{ color: "white", textDecoration: "none" }} href="/">
-              <Typography variant="h3">ZaBrata</Typography>
-              <Box sx={{ color: "white" }}>
-                <Typography variant="h5">Loza kontribucionizma</Typography>
-              </Box>
+              <Typography variant="h3">Domaći oglasnik</Typography>
             </a>
           </Box>
           <Header_moreOptions options={["post.create", "profile", "post.list", "devContact"]} />

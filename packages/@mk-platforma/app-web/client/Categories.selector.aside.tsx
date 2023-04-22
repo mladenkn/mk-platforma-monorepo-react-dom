@@ -17,6 +17,7 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import type { Prisma } from "@prisma/client"
 import { eva } from "@mk-libs/common/common"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import { sizing } from "@mui/system"
 
 export const Categories_selector_aside_Category_queryParams = {
   select: {
@@ -72,7 +73,7 @@ export default function Categories_selector_aside({
   onBack,
   categories,
 }: Props) {
-  const { palette, typography } = useTheme()
+  const { palette, typography, breakpoints } = useTheme()
 
   const selectedItem = eva(() => {
     const selectedItem = categories.find(c => c.id === selectedItem_id)
@@ -119,13 +120,8 @@ export default function Categories_selector_aside({
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
       <a style={{ color: "white", textDecoration: "none" }} href="/">
         <Typography variant="h2" fontWeight={400}>
-          ZaBrata
+          Domaći Oglasnik
         </Typography>
-        <Box sx={{ color: "white" }}>
-          <Typography variant="h4" fontWeight={400}>
-            Loza kontribucionizma
-          </Typography>
-        </Box>
       </a>
       <List sx={{ mt: 4 }} disablePadding>
         {rootItem ? (

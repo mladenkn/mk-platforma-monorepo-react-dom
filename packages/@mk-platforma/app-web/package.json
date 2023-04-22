@@ -26,6 +26,7 @@
     "@mk-libs/react-common": "workspace:*",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.10",
+    "@mui/system": "^5.12.1",
     "@prisma/client": "4.13.0",
     "@tanstack/react-query": "^4.24.4",
     "@trpc/client": "^10.16.0",
