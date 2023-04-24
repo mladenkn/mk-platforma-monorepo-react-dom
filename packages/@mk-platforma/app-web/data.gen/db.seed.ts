@@ -26,10 +26,8 @@ async function main() {
   const images_count = await db.image.count({})
   const posts_count = await db.post.count({})
 
-  const api = Api_ss({ db, userId: mladenUser.id })
-
   if (!images_count && !posts_count) {
-    await seedPosts(api, posts, users_ids)
+    await seedPosts(posts, users_ids)
   }
 }
 
@@ -104,12 +102,9 @@ async function seedLocations() {
   )
 }
 
-async function seedPosts(
-  api: ReturnType<typeof Api_ss>,
-  posts: ReturnType<typeof generatePosts>,
-  users: number[]
-) {
+async function seedPosts(posts: ReturnType<typeof generatePosts>, users: number[]) {
   for (const post of posts) {
+    const api = Api_ss({ db, userId: faker.helpers.arrayElement(users) })
     const post_created = await api.post.create({
       ...post,
       categories: post.categories,
