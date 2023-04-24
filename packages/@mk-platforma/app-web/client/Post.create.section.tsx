@@ -18,7 +18,7 @@ export default function Post_create_section({ sx }: Props) {
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
       <Header_root sx={{ pl: 0.5, pr: 0.7 }}>
         <Container
-          maxWidth="md"
+          maxWidth="lg"
           sx={{
             display: "flex",
             alignItems: "center",
@@ -46,7 +46,7 @@ export default function Post_create_section({ sx }: Props) {
           <Header_moreOptions options={["profile", "post.list", "devContact"]} />
         </Container>
       </Header_root>
-      <Container sx={{ px: 0 }} maxWidth="md">
+      <Container sx={{ px: 0 }} maxWidth="lg">
         <Post_form
           sx={{ gap: 2, p: 2, m: 1 }}
           title="Novi oglas"
