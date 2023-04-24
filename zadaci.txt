@@ -1,3 +1,6 @@
+- pagiranje
+- login
+- registracija
 - lokacija
 - još responsive
 - kategorija: Potražnja
