@@ -1,11 +1,13 @@
-import { Box, Typography, useTheme, IconButton, Menu, MenuItem } from "@mui/material"
-import React, { useState } from "react"
+import { Box, Typography, useTheme, IconButton, Menu, MenuItem, Container } from "@mui/material"
+import React, { ComponentProps, useState } from "react"
 import { styled, SxProps } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import EngineeringIcon from "@mui/icons-material/Engineering"
+import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
+import { useRouter } from "next/router"
 
 export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
   background: theme.palette.primary.main,
@@ -73,5 +75,48 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
         )}
       </Menu>
     </>
+  )
+}
+
+type Header_full_common__props = {
+  sx?: SxProps
+  moreOptions_props?: Partial<ComponentProps<typeof Header_moreOptions>>
+}
+
+export function Header_full_common({ sx, moreOptions_props }: Header_full_common__props) {
+  return (
+    <Header_root sx={{ pl: 0.5, pr: 0.7 }}>
+      <Container
+        maxWidth="lg"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          pl: 1,
+          pr: 0,
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            color: "white",
+            gap: 1,
+            justifyContent: "start",
+          }}
+        >
+          <IconButton sx={{ color: "white" }} onClick={useRouter().back}>
+            <ArrowBackIosOutlinedIcon />
+          </IconButton>
+          <a style={{ color: "white", textDecoration: "none" }} href="/">
+            <Typography variant="h3">Domaći oglasnik</Typography>
+          </a>
+        </Box>
+        <Header_moreOptions
+          options={["profile", "post.list", "devContact"]}
+          {...moreOptions_props}
+        />
+      </Container>
+    </Header_root>
   )
 }
