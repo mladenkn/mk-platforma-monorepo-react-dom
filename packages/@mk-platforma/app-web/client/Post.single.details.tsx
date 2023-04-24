@@ -60,6 +60,13 @@ export const Post_single_details_PostSelect = {
       },
     },
   },
+  author: {
+    select: {
+      id: true,
+      name: true,
+      avatarStyle: true,
+    },
+  },
 } satisfies Prisma.PostSelect
 
 type Post_base = Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
@@ -88,24 +95,30 @@ export default function Post_single_details({
   usePaperSections,
   comments,
   expertEndorsement,
+  author,
 }: Post_common_listItem_details_Props) {
   const Container = (usePaperSections ? Paper : Box) as typeof Box
 
-  const theme = useTheme()
+  const {} = useTheme()
 
   const { typography } = useTheme()
+
+  const avatarProps = expertEndorsement
+    ? {
+        sx: expertEndorsement.avatarStyle as object,
+        children: expertEndorsement.firstName[0] + expertEndorsement.lastName[0],
+      }
+    : {
+        sx: author.avatarStyle as object,
+        children: author.name[0],
+      }
 
   return (
     <Box sx={sx}>
       <Container sx={{ p: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
-            {expertEndorsement && (
-              <Avatar
-                sx={{ mr: 2, ...(expertEndorsement.avatarStyle as object) }}
-                children={expertEndorsement.firstName[0] + expertEndorsement.lastName[0]}
-              />
-            )}
+            <Avatar sx={{ mr: 2, ...avatarProps.sx }} children={avatarProps.children} />
             <Box>
               <Typography fontWeight={500} variant="h4">
                 {title}
