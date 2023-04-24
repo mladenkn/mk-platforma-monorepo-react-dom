@@ -26,7 +26,7 @@ export default function Post_single_section({
     <Box>
       <Header_root sx={{ pr: 1.5 }}>
         <Container
-          maxWidth="lg"
+          maxWidth="md"
           sx={{
             display: "flex",
             alignItems: "center",
