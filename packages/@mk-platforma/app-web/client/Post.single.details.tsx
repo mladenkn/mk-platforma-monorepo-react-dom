@@ -10,6 +10,7 @@ import Carousel from "react-material-ui-carousel"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
+import Link from "next/link"
 
 export const Post_single_details_PostSelect = {
   id: true,
@@ -118,7 +119,9 @@ export default function Post_single_details({
       <Container sx={{ p: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
-            <Avatar sx={{ mr: 2, ...avatarProps.sx }} children={avatarProps.children} />
+            <Link style={{ textDecoration: "none" }} href={`/user/${author.id}`}>
+              <Avatar sx={{ mr: 2, ...avatarProps.sx }} children={avatarProps.children} />
+            </Link>
             <Box>
               <Typography fontWeight={500} variant="h4">
                 {title}
