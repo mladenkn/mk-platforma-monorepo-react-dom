@@ -25,10 +25,7 @@ export default function User_profile_section({ sx, user_initial }: Props) {
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
       <Header_full_common />
       <Container sx={{ px: 0 }} maxWidth="lg">
-        <Paper>
-          user profile
-          {user.data?.name}
-        </Paper>
+        <Paper>{user.data?.name} profile</Paper>
       </Container>
     </Box>
   )
