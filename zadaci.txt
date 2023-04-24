@@ -1,9 +1,7 @@
 - lokacija
-- search
 - još responsive
 - kategorija: Potražnja
 - GDPR i cookies
-- createTrpcLoader
 
 MOŽDA
-- kad tek dođe u app, i kategorija nije odabrana, otvorit sve kategorije
+- createTrpcLoader
