@@ -56,7 +56,12 @@ export default function User_profile_section({ sx, user_initial }: Props) {
               <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4, ml: 0 }}>
                 {posts_byCategories?.map(([category_id, posts]) => (
                   <Box key={category_id}>
-                    <Typography>{getCategoryLabel(posts[0].categories[0].label)}</Typography>
+                    <Link
+                      style={{ textDecoration: "none", color: "unset" }}
+                      href={`/?category=${posts[0].categories[0].label}`}
+                    >
+                      <Typography>{getCategoryLabel(posts[0].categories[0].label)}</Typography>
+                    </Link>
                     <Box sx={{ ml: 2, mt: 0.5 }}>
                       {posts.map(post => (
                         <Link
