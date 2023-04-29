@@ -40,7 +40,11 @@ export default function User_profile_section({ sx, user_initial }: Props) {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
-      <Header_full_common />
+      <Header_full_common
+        moreOptions_props={{
+          options: ["post.create", "profile", "post.list", "devContact"],
+        }}
+      />
       <Container sx={{ px: 0 }} maxWidth="lg">
         <Paper sx={{ p: 2, m: 1 }}>
           {user.isLoading ? (

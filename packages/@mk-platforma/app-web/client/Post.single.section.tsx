@@ -22,7 +22,11 @@ export default function Post_single_section({
 
   return (
     <Box>
-      <Header_full_common />
+      <Header_full_common
+        moreOptions_props={{
+          options: ["post.create", "profile", "post.list", "devContact"],
+        }}
+      />
       <Container sx={{ px: 0 }} maxWidth="lg">
         {postQuery.isLoading ? <>Učitavanje...</> : <></>}
         {!isEdit ? (
