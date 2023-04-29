@@ -52,7 +52,7 @@ export default function User_profile_section({ sx, user_initial }: Props) {
                 <Typography>{user.data?.name}</Typography>
               </Box>
 
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4, ml: 0 }}>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4 }}>
                 {posts_byCategories?.map(([category_id, posts]) => (
                   <Box key={category_id}>
                     <Link
