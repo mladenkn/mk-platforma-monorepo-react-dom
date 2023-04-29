@@ -36,7 +36,6 @@ type Props = {
 
 export default function User_profile_section({ sx, user_initial }: Props) {
   const user = Api.user.single.useQuery(user_initial.id, { initialData: user_initial })
-  console.log(user.data)
   const posts_byCategories = Object.entries(groupBy(user.data?.posts, p => p.categories[0].id))
 
   return (
