@@ -1,4 +1,4 @@
-import { Box, SxProps, Container, Paper } from "@mui/material"
+import { Box, SxProps, Container, Paper, Avatar, Typography } from "@mui/material"
 import { Header_full_common } from "./Header"
 import React from "react"
 import Api from "./trpc.client"
@@ -9,6 +9,12 @@ export const User_profile_section_select = {
     id: true,
     name: true,
     avatarStyle: true,
+    posts: {
+      select: {
+        id: true,
+        title: true,
+      },
+    },
   },
 } satisfies Prisma.UserArgs
 
@@ -25,7 +31,24 @@ export default function User_profile_section({ sx, user_initial }: Props) {
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
       <Header_full_common />
       <Container sx={{ px: 0 }} maxWidth="lg">
-        <Paper>{user.data?.name} profile</Paper>
+        <Paper sx={{ p: 2 }}>
+          {user.isLoading ? (
+            "Loading..."
+          ) : (
+            <>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                <Avatar sx={{}} />
+                <Typography>{user.data?.name}</Typography>
+              </Box>
+
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 4, ml: 0 }}>
+                {user.data?.posts.map(post => (
+                  <Typography key={post.id}>{post.title}</Typography>
+                ))}
+              </Box>
+            </>
+          )}
+        </Paper>
       </Container>
     </Box>
   )
