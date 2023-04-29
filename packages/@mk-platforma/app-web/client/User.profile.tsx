@@ -4,6 +4,8 @@ import React from "react"
 import Api from "./trpc.client"
 import { Prisma } from "@prisma/client"
 import Link from "next/link"
+import { groupBy } from "lodash"
+import { getCategoryLabel } from "./Categories.common"
 
 export const User_profile_section_select = {
   select: {
@@ -14,6 +16,12 @@ export const User_profile_section_select = {
       select: {
         id: true,
         title: true,
+        categories: {
+          select: {
+            id: true,
+            label: true,
+          },
+        },
       },
     },
   },
@@ -28,6 +36,9 @@ type Props = {
 
 export default function User_profile_section({ sx, user_initial }: Props) {
   const user = Api.user.single.useQuery(user_initial.id, { initialData: user_initial })
+  console.log(user.data)
+  const posts_byCategories = Object.entries(groupBy(user.data?.posts, p => p.categories[0].id))
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
       <Header_full_common />
@@ -42,15 +53,22 @@ export default function User_profile_section({ sx, user_initial }: Props) {
                 <Typography>{user.data?.name}</Typography>
               </Box>
 
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 4, ml: 0 }}>
-                {user.data?.posts.map(post => (
-                  <Link
-                    style={{ textDecoration: "none", color: "unset" }}
-                    href={`/post/${post.id}`}
-                    key={post.id}
-                  >
-                    <Typography>{post.title}</Typography>
-                  </Link>
+              <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4, ml: 0 }}>
+                {posts_byCategories?.map(([category_id, posts]) => (
+                  <Box key={category_id}>
+                    <Typography>{getCategoryLabel(posts[0].categories[0].label)}</Typography>
+                    <Box sx={{ ml: 2, mt: 0.5 }}>
+                      {posts.map(post => (
+                        <Link
+                          style={{ textDecoration: "none", color: "unset" }}
+                          href={`/post/${post.id}`}
+                          key={post.id}
+                        >
+                          <Typography>{post.title}</Typography>
+                        </Link>
+                      ))}
+                    </Box>
+                  </Box>
                 ))}
               </Box>
             </>
