@@ -1,10 +1,9 @@
 import Post_single_details, { Post_common_listItem_details_PostModel } from "./Post.single.details"
 import { useRouter } from "next/router"
-import { Header_root, Header_moreOptions } from "./Header"
-import { Box, IconButton, Typography, Container } from "@mui/material"
+import { Header_full_common } from "./Header"
+import { Box, IconButton, Container } from "@mui/material"
 import Api from "./trpc.client"
 import EditIcon from "@mui/icons-material/Edit"
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useState } from "react"
 import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"
 import React from "react"
@@ -20,39 +19,10 @@ export default function Post_single_section({
   const postQuery = Api.post.single.useQuery({ id: itemId }, { initialData: post_initial })
   const post = asNonNil(postQuery.data)
   const [isEdit, setIsEdit] = useState(false)
-  const goBack = useRouter().back
 
   return (
     <Box>
-      <Header_root sx={{ pr: 1.5 }}>
-        <Container
-          maxWidth="lg"
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            pl: 1,
-            pr: 0,
-          }}
-        >
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              color: "white",
-              gap: 2,
-            }}
-          >
-            <IconButton sx={{ color: "white" }} onClick={goBack}>
-              <ArrowBackIosOutlinedIcon />
-            </IconButton>
-            <a style={{ color: "white", textDecoration: "none" }} href="/">
-              <Typography variant="h3">Domaći oglasnik</Typography>
-            </a>
-          </Box>
-          <Header_moreOptions options={["post.create", "profile", "post.list", "devContact"]} />
-        </Container>
-      </Header_root>
+      <Header_full_common />
       <Container sx={{ px: 0 }} maxWidth="lg">
         {postQuery.isLoading ? <>Učitavanje...</> : <></>}
         {!isEdit ? (
