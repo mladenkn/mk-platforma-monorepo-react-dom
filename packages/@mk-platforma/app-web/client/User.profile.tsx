@@ -3,6 +3,7 @@ import { Header_full_common } from "./Header"
 import React from "react"
 import Api from "./trpc.client"
 import { Prisma } from "@prisma/client"
+import Link from "next/link"
 
 export const User_profile_section_select = {
   select: {
@@ -43,7 +44,13 @@ export default function User_profile_section({ sx, user_initial }: Props) {
 
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 4, ml: 0 }}>
                 {user.data?.posts.map(post => (
-                  <Typography key={post.id}>{post.title}</Typography>
+                  <Link
+                    style={{ textDecoration: "none", color: "unset" }}
+                    href={`/post/${post.id}`}
+                    key={post.id}
+                  >
+                    <Typography>{post.title}</Typography>
+                  </Link>
                 ))}
               </Box>
             </>
