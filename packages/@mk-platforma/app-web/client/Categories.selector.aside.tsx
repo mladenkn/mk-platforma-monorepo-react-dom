@@ -120,8 +120,13 @@ export default function Categories_selector_aside({
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
       <a style={{ color: "white", textDecoration: "none" }} href="/">
         <Typography variant="h2" fontWeight={400}>
-          Domaći Oglasnik
+          ZaBrata
         </Typography>
+        <Box sx={{ color: "white" }}>
+          <Typography variant="h4" fontWeight={400}>
+            Loza kontribucionizma
+          </Typography>
+        </Box>
       </a>
       <List sx={{ mt: 4 }} disablePadding>
         {rootItem ? (

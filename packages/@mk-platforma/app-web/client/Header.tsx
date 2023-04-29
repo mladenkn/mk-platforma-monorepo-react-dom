@@ -109,7 +109,14 @@ export function Header_full_common({ sx, moreOptions_props }: Header_full_common
             <ArrowBackIosOutlinedIcon />
           </IconButton>
           <a style={{ color: "white", textDecoration: "none" }} href="/">
-            <Typography variant="h3">Domaći oglasnik</Typography>
+            <Typography variant="h2" fontWeight={400}>
+              ZaBrata
+            </Typography>
+            <Box sx={{ color: "white" }}>
+              <Typography variant="h4" fontWeight={400}>
+                Loza kontribucionizma
+              </Typography>
+            </Box>
           </a>
         </Box>
         <Header_moreOptions

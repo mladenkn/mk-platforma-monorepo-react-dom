@@ -25,10 +25,22 @@ export default function Post_list_section_header({
 }: Props) {
   const { typography, spacing } = useTheme()
 
-  const heading = selectedCategory.data
-    ? getCategoryLabel(selectedCategory.data.label)
-    : "Domaći oglasnik"
-  const searchAndMore_position = heading.length > 13 ? "down" : "up"
+  const heading = selectedCategory.data ? (
+    getCategoryLabel(selectedCategory.data.label)
+  ) : (
+    <a style={{ color: "white", textDecoration: "none" }} href="/">
+      <Typography variant="h2" fontWeight={400}>
+        ZaBrata
+      </Typography>
+      <Box sx={{ color: "white" }}>
+        <Typography variant="h4" fontWeight={400}>
+          Loza kontribucionizma
+        </Typography>
+      </Box>
+    </a>
+  )
+  const heading_size = typeof heading === "string" ? heading.length : 100
+  const searchAndMore_position = heading_size > 13 ? "down" : "up"
 
   const searchAndMore = (
     <Box sx={{ display: "flex" }}>
@@ -86,8 +98,13 @@ export default function Post_list_section_header({
                 ) : (
                   <a style={{ color: "white", textDecoration: "none" }} href="/">
                     <Typography variant="h2" fontWeight={400}>
-                      Domaći oglasnik
+                      ZaBrata
                     </Typography>
+                    <Box sx={{ color: "white" }}>
+                      <Typography variant="h4" fontWeight={400}>
+                        Loza kontribucionizma
+                      </Typography>
+                    </Box>
                   </a>
                 )}
               </Box>
