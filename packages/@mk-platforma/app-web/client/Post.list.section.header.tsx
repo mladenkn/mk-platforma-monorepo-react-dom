@@ -81,8 +81,8 @@ export default function Post_list_section_header({
               sx={{
                 display: "flex",
                 alignItems: "center",
-                flex: 1,
                 justifyContent: "space-between",
+                flex: 1,
               }}
             >
               <Box sx={{ display: "flex", gap: 2.5, alignItems: "center" }}>
