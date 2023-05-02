@@ -28,7 +28,7 @@ export default function Post_list_section_header({
   onShowCategories,
   search,
   set_search,
-  selectedLocation: selectedLocation_id,
+  selectedLocation,
   set_selectedLocation,
 }: Props) {
   const { typography, spacing } = useTheme()
@@ -66,7 +66,7 @@ export default function Post_list_section_header({
       {locationSelect_isActive && (
         <Dialog open fullScreen>
           <Location_select_screen
-            selectedLocation={selectedLocation_id}
+            selectedLocation={selectedLocation}
             set_selectedLocation={set_selectedLocation}
             onClose={() => set_locationSelect_isActive(false)}
           />
