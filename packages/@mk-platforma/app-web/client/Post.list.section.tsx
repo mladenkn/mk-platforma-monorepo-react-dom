@@ -56,18 +56,26 @@ export type PostList_section_Props = {
   selectedCategory_initial?: { id: number; label: Post_category_labelType } | null
   posts_initial: Post[]
   categories_initial: Categories_selector_aside_CategoryModel[]
+  location_initial?: number
+  location_radius_initial?: number
 }
 
 export default function PostList_section({
   selectedCategory_initial,
   categories_initial,
   posts_initial,
+  location_initial,
+  location_radius_initial,
 }: PostList_section_Props) {
   const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
   const [search, set_search] = useState<string | null>(null)
-  const [selectedLocation, set_selectedLocation] = useNumberCookie("Post_list__location")
+  const [selectedLocation, set_selectedLocation] = useNumberCookie(
+    "Post_list__location",
+    location_initial
+  )
   const [selectedLocation_radius_km, set__selectedLocation_radius_km] = useNumberCookie(
-    "Post_list__location_radius"
+    "Post_list__location_radius",
+    location_radius_initial
   )
 
   const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
