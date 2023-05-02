@@ -16,8 +16,8 @@ type Props = {
   selectedCategory: UseQueryResult<{ label: Post_category_label } | null>
   search: string | null
   set_search(s: string | null): void
-  selectedLocation: number
-  set_selectedLocation(l: number): void
+  selectedLocation?: number
+  set_selectedLocation(l?: number): void
 }
 
 export default function Post_list_section_header({
