@@ -15,6 +15,7 @@ import type { Prisma } from "@prisma/client"
 import { Post_category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
 import Post_list_section_header from "./Post.list.section.header"
+import { useNumberCookie } from "../cookies"
 
 export const PostList_section_PostSelect = {
   id: true,
@@ -64,10 +65,9 @@ export default function PostList_section({
 }: PostList_section_Props) {
   const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
   const [search, set_search] = useState<string | null>(null)
-  const [selectedLocation, set_selectedLocation] = useState<number | null>(null)
-
-  const [selectedLocation_radius_km, set__selectedLocation_radius_km] = useState<number | null>(
-    null
+  const [selectedLocation, set_selectedLocation] = useNumberCookie("Post_list__location")
+  const [selectedLocation_radius_km, set__selectedLocation_radius_km] = useNumberCookie(
+    "Post_list__location_radius"
   )
 
   const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
