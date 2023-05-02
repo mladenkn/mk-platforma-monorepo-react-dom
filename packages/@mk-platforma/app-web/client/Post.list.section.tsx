@@ -56,8 +56,8 @@ export type PostList_section_Props = {
   selectedCategory_initial?: { id: number; label: Post_category_labelType } | null
   posts_initial: Post[]
   categories_initial: Categories_selector_aside_CategoryModel[]
-  location_initial?: number
-  location_radius_initial?: number
+  location_initial: number | null
+  location_radius_initial: number | null
 }
 
 export default function PostList_section({
@@ -77,6 +77,8 @@ export default function PostList_section({
     "Post_list__location_radius",
     location_radius_initial
   )
+
+  console.log(81, location_initial, selectedLocation)
 
   const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
@@ -119,7 +121,7 @@ export default function PostList_section({
         onShowCategories={() => set_SectionsDrawer_isActive(true)}
         selectedLocation={selectedLocation}
         set_selectedLocation={set_selectedLocation}
-        selectedLocation_radius_km={selectedLocation_radius_km}
+        selectedLocation_radius_km={null}
         set__selectedLocation_radius_km={set__selectedLocation_radius_km}
       />
       {sectionsDrawer_isActive && (
