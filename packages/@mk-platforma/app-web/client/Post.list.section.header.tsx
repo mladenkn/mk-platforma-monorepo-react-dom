@@ -61,7 +61,7 @@ export default function Post_list_section_header({
   const [locationSelect_isActive, set_locationSelect_isActive] = useState(false)
 
   const [location_search, set__location_search] = useState("")
-  const suggestions = Api.location.many.useQuery({ query: location_search })
+  const location_suggestions = Api.location.many.useQuery({ query: location_search })
   const selectedLocation = Api.location.single.useQuery(
     { id: selectedLocation_id! },
     { enabled: !!selectedLocation_id }
@@ -90,7 +90,7 @@ export default function Post_list_section_header({
                 value={location_search}
                 onChange={e => set__location_search(e.target.value)}
               />
-              {suggestions.isLoading ? (
+              {location_suggestions.isLoading ? (
                 <Typography>Loading...</Typography>
               ) : (
                 <Box
@@ -100,7 +100,7 @@ export default function Post_list_section_header({
                     gap: 2,
                   }}
                 >
-                  {suggestions.data?.map(location => (
+                  {location_suggestions.data?.map(location => (
                     <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
                       <ArrowRightIcon />
                       <Typography variant="h4" key={location.id}>
