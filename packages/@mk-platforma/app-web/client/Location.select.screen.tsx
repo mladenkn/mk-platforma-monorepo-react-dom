@@ -7,7 +7,7 @@ import Api from "./trpc.client"
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
-import { mapQueryData } from "../utils"
+import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 
 type Props = {
   selectedLocation?: number
@@ -17,6 +17,7 @@ type Props = {
 
 export default function Location_select_screen({
   selectedLocation: selectedLocation_id,
+  set_selectedLocation,
   onClose,
 }: Props) {
   const [location_search, set__location_search] = useState("")
@@ -49,11 +50,14 @@ export default function Location_select_screen({
           onChange={e => set__location_search(e.target.value)}
         />
         {selectedLocation.data && (
-          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+          <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 4 }}>
             <ArrowRightIcon />
-            <Typography variant="h4" key={selectedLocation.data?.id}>
+            <Typography sx={{ mr: 1.5 }} variant="h4" key={selectedLocation.data?.id}>
               {selectedLocation.data?.name}
             </Typography>
+            <IconButton onClick={() => set_selectedLocation(undefined)}>
+              <RadioButtonCheckedIcon />
+            </IconButton>
           </Box>
         )}
         {location_suggestions.isLoading ? (
@@ -69,7 +73,10 @@ export default function Location_select_screen({
             {location_suggestions.data
               ?.filter(l => l.id !== selectedLocation_id)
               .map(location => (
-                <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+                <Box
+                  sx={{ display: "flex", gap: 1, alignItems: "center" }}
+                  onClick={() => set_selectedLocation(location.id)}
+                >
                   <ArrowRightIcon />
                   <Typography variant="h4" key={location.id}>
                     {location.name}
