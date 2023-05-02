@@ -34,6 +34,7 @@
     "@trpc/react-query": "^10.16.0",
     "@trpc/server": "^10.10.0",
     "command-line-args": "^5.2.1",
+    "cookie": "^0.5.0",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "next": "^13.2.4",
@@ -48,6 +49,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@mk-libs/tsconfig": "workspace:*",
+    "@types/cookie": "^0.5.1",
     "@types/lodash": "^4.14.186",
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.22",
