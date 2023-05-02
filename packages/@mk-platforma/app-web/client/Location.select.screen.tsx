@@ -44,10 +44,11 @@ export default function Location_select_screen({
       </Header_root>
       <Box sx={{ px: 2, mt: 2 }}>
         <Input
-          sx={{ mb: 3, width: "100%", fontSize: typography.h5 }}
+          sx={{ mb: 3, width: "100%", fontSize: typography.h5, pb: 0.2 }}
           placeholder="Pretraži"
           value={location_search}
           onChange={e => set__location_search(e.target.value)}
+          startAdornment={<SearchIcon sx={{ mr: 1.5 }} />}
         />
         {selectedLocation.data && (
           <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 4 }}>
