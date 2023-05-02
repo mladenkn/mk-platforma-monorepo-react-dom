@@ -30,6 +30,9 @@ export default function Post_list_section_header({
 }: Props) {
   const { typography, spacing } = useTheme()
 
+  const { selectedLocation: selectedLocation_id, selectedLocation_radius_km } =
+    Location_select_screen__props
+
   const heading = selectedCategory.data ? (
     getCategoryLabel(selectedCategory.data.label)
   ) : (
@@ -59,18 +62,16 @@ export default function Post_list_section_header({
   const [locationSelect_isActive, set_locationSelect_isActive] = useState(false)
 
   const selectedLocation = Api.location.single.useQuery(
-    { id: Location_select_screen__props.selectedLocation! },
-    { enabled: !!Location_select_screen__props.selectedLocation }
+    { id: selectedLocation_id! },
+    { enabled: !!selectedLocation_id }
   )
 
   const location_radius = eva(() => {
-    if (!Location_select_screen__props.selectedLocation) return undefined
-    else return Location_select_screen__props.selectedLocation_radius_km || 50
+    if (!selectedLocation_id) return undefined
+    else return selectedLocation_radius_km || 50
   })
 
-  const location_text = Location_select_screen__props.selectedLocation
-    ? selectedLocation.data?.name
-    : "Postavi lokaciju"
+  const location_text = selectedLocation_id ? selectedLocation.data?.name : "Postavi lokaciju"
 
   return (
     <Header_root sx={{ pb: 1 }}>
