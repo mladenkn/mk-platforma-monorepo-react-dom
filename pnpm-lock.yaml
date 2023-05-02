@@ -8,7 +8,7 @@ importers:
       turbo: latest
       typescript: ^4.9.5
     devDependencies:
-      prettier: 2.8.7
+      prettier: 2.8.8
       turbo: 1.9.3
       typescript: 4.9.5
 
@@ -176,6 +176,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0
       react-material-ui-carousel: ^3.4.2
+      react-use-cookie: ^1.4.0
       superjson: ^1.10.0
       ts-node: ^10.9.1
       typescript: ^4.9.5
@@ -208,6 +209,7 @@ importers:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-material-ui-carousel: 3.4.2_xz2ucwvrssm6i26waegbopbnri
+      react-use-cookie: 1.4.0_react@18.2.0
       superjson: 1.12.2
       zod: 3.20.3
       zod-formik-adapter: 1.2.0_formik@2.2.9+zod@3.20.3
@@ -2425,8 +2427,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier/2.8.7:
-    resolution: {integrity: sha512-yPngTo3aXUUmyuTjeTUT75txrf+aMh9FiD7q9ZE/i6r0bPb22g4FsE6Y338PQX1bmfy08i9QQCB7/rcUAVntfw==}
+  /prettier/2.8.8:
+    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
     engines: {node: '>=10.13.0'}
     hasBin: true
     dev: true
@@ -2557,6 +2559,15 @@ packages:
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /react-use-cookie/1.4.0_react@18.2.0:
+    resolution: {integrity: sha512-e21YFkimh8OX6Ctqq89YeeiwsIL1jr2GyCeBdkBKDWY5X5o2yonbQuqfFODK4opteJS3F7ya0OuYg06lOeqvJQ==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react/18.2.0:
