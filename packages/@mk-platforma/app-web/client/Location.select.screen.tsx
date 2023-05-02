@@ -1,4 +1,4 @@
-import { IconButton, Typography, Input, useTheme } from "@mui/material"
+import { IconButton, Typography, Input, useTheme, TextField } from "@mui/material"
 import { Box } from "@mui/system"
 import { Header_root } from "./Header"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
@@ -52,6 +52,16 @@ export default function Location_select_screen({
         </IconButton>
       </Header_root>
       <Box sx={{ px: 2, mt: 2 }}>
+        <TextField
+          sx={{ mb: 2, width: 50 }}
+          variant="standard"
+          label="Radius"
+          type="number"
+          InputProps={{
+            sx: { fontSize: typography.h5 },
+            endAdornment: <Typography>km</Typography>,
+          }}
+        />
         <Input
           sx={{ mb: 3, width: "100%", fontSize: typography.h5, pb: 0.2 }}
           placeholder="Pretraži"
