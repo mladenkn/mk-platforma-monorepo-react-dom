@@ -145,7 +145,7 @@ export default function Post_list_section_header({
                 sx={{ color: "white", fontSize: typography.h6 }}
                 onClick={() => set_locationSelect_isActive(true)}
               >
-                {Location_select_screen__props.selectedLocation_radius_km} km
+                {Location_select_screen__props.selectedLocation_radius_km || 50} km
                 <KeyboardArrowDownOutlinedIcon />
               </IconButton>
             </Box>
