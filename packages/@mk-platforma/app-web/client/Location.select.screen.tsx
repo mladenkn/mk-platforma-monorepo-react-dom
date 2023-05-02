@@ -7,7 +7,6 @@ import Api from "./trpc.client"
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
-import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import DoneIcon from "@mui/icons-material/Done"
 
 type Props = {
