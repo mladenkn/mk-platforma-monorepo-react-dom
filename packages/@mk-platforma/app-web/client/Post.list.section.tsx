@@ -77,6 +77,8 @@ export default function PostList_section({
     {
       categories: selectedCategory_id ? [selectedCategory_id] : [],
       search: search === null ? undefined : search,
+      location: selectedLocation ?? undefined,
+      location_radius: selectedLocation_radius_km ?? undefined,
     },
     { initialData: posts_initial }
   )
