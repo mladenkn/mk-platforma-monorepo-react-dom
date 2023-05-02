@@ -1,4 +1,4 @@
-import { IconButton, Typography, Input, useTheme, TextField } from "@mui/material"
+import { IconButton, Typography, Input, useTheme, Container } from "@mui/material"
 import { Box } from "@mui/system"
 import { Header_root } from "./Header"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
@@ -47,18 +47,29 @@ export default function Location_select_screen({
 
   return (
     <Box>
-      <Header_root sx={{ pl: 1, pr: 1.5 }}>
-        <IconButton onClick={handleClose}>
-          <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
-        </IconButton>
-        <Typography sx={{ color: "white" }} variant="h4">
-          Odaberi lokaciju
-        </Typography>
-        <IconButton onClick={onClose}>
-          <DoneIcon sx={{ color: "white" }} />
-        </IconButton>
+      <Header_root sx={{}}>
+        <Container
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            pl: 1,
+            pr: 1.5,
+          }}
+          maxWidth="md"
+        >
+          <IconButton onClick={handleClose}>
+            <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
+          </IconButton>
+          <Typography sx={{ color: "white" }} variant="h4">
+            Odaberi lokaciju
+          </Typography>
+          <IconButton onClick={onClose}>
+            <DoneIcon sx={{ color: "white" }} />
+          </IconButton>
+        </Container>
       </Header_root>
-      <Box sx={{ px: 2, mt: 2, mb: 2 }}>
+      <Container sx={{ px: 2, mt: 2, mb: 2 }} maxWidth="md">
         <Box sx={{ display: "flex", gap: 3 }}>
           <Input
             sx={{ mb: 3, width: "100%", fontSize: typography.h5, flex: 4.55 }}
@@ -118,7 +129,7 @@ export default function Location_select_screen({
               ))}
           </Box>
         )}
-      </Box>
+      </Container>
     </Box>
   )
 }
