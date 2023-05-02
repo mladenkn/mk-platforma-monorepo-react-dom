@@ -68,7 +68,9 @@ export default function Post_list_section_header({
     else return Location_select_screen__props.selectedLocation_radius_km || 50
   })
 
-  console.log(74, Location_select_screen__props)
+  const location_text = Location_select_screen__props.selectedLocation
+    ? selectedLocation.data?.name
+    : "Postavi lokaciju"
 
   return (
     <Header_root sx={{ pb: 1 }}>
@@ -152,7 +154,7 @@ export default function Post_list_section_header({
                 sx={{ color: "white", fontSize: typography.h6 }}
                 onClick={() => set_locationSelect_isActive(true)}
               >
-                <LocationOnIcon sx={{ mr: 0.75 }} /> {selectedLocation.data?.name}
+                <LocationOnIcon sx={{ mr: 0.75 }} /> {location_text}
                 <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
               </IconButton>
               {location_radius && (
