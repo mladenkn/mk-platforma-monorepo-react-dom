@@ -64,6 +64,7 @@ export default function PostList_section({
 }: PostList_section_Props) {
   const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
   const [search, set_search] = useState<string | null>(null)
+  const [selectedLocation, set_selectedLocation] = useState<number>()
 
   const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
@@ -102,6 +103,8 @@ export default function PostList_section({
         set_search={set_search}
         selectedCategory={selectedCategory as any}
         onShowCategories={() => set_SectionsDrawer_isActive(true)}
+        selectedLocation={selectedLocation}
+        set_selectedLocation={set_selectedLocation}
       />
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
@@ -6,7 +6,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
-import { Container, Box, Typography, IconButton, useTheme, Input } from "@mui/material"
+import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import { Post_category_label } from "@prisma/client"
 
@@ -15,6 +15,8 @@ type Props = {
   selectedCategory: UseQueryResult<{ label: Post_category_label } | null>
   search: string | null
   set_search(s: string | null): void
+  selectedLocation: number
+  set_selectedLocation(l: number): void
 }
 
 export default function Post_list_section_header({
@@ -22,6 +24,8 @@ export default function Post_list_section_header({
   onShowCategories,
   search,
   set_search,
+  selectedLocation,
+  set_selectedLocation,
 }: Props) {
   const { typography, spacing } = useTheme()
 
@@ -51,8 +55,11 @@ export default function Post_list_section_header({
     </Box>
   )
 
+  const [locationSelect_isActive, set_locationSelect_isActive] = useState(false)
+
   return (
     <Header_root sx={{ pb: 1 }}>
+      {locationSelect_isActive && <Dialog open fullScreen></Dialog>}
       <Container
         maxWidth="md"
         sx={{
@@ -121,7 +128,10 @@ export default function Post_list_section_header({
             }}
           >
             <Box sx={{ display: "flex" }}>
-              <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
+              <IconButton
+                sx={{ color: "white", fontSize: typography.h6 }}
+                onClick={() => set_locationSelect_isActive(true)}
+              >
                 <LocationOnIcon /> Split
                 <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
               </IconButton>
