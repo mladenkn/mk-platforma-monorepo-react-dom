@@ -147,7 +147,10 @@ export default function Post_list_section_header({
                 <LocationOnIcon /> Split
                 <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
               </IconButton>
-              <IconButton sx={{ color: "white", fontSize: typography.h6 }}>
+              <IconButton
+                sx={{ color: "white", fontSize: typography.h6 }}
+                onClick={() => set_locationSelect_isActive(true)}
+              >
                 50 km
                 <KeyboardArrowDownOutlinedIcon />
               </IconButton>
