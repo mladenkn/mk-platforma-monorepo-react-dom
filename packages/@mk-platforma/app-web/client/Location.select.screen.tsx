@@ -43,11 +43,7 @@ export default function Location_select_screen({
     set__selectedLocation_radius_km(null)
   }
 
-  const selectedLocation_input_value = selectedLocation_id
-    ? selectedLocation_radius_km ?? 50
-    : undefined
-
-  console.log(selectedLocation_input_value)
+  const selectedLocation_input_value = selectedLocation_id ? selectedLocation_radius_km ?? 50 : ""
 
   return (
     <Box>
