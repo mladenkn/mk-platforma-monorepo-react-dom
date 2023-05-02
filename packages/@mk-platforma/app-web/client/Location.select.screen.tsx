@@ -41,14 +41,14 @@ export default function Location_select_screen({
   return (
     <Box>
       <Header_root sx={{ pl: 1, pr: 1.5 }}>
-        <IconButton onClick={onClose}>
+        <IconButton onClick={handleClose}>
           <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
         </IconButton>
         <Typography sx={{ color: "white" }} variant="h4">
           Odaberi lokaciju
         </Typography>
-        <IconButton onClick={handleClose}>
-          <CloseIcon sx={{ color: "white" }} />
+        <IconButton onClick={onClose}>
+          <DoneIcon sx={{ color: "white" }} />
         </IconButton>
       </Header_root>
       <Box sx={{ px: 2, mt: 2, mb: 2 }}>
