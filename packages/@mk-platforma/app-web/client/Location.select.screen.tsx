@@ -38,9 +38,16 @@ export default function Location_select_screen({
     onClose()
   }
 
+  function handle_location_unselect() {
+    set_selectedLocation(undefined)
+    set__selectedLocation_radius_km(undefined)
+  }
+
   const selectedLocation_input_value = selectedLocation_id
-    ? selectedLocation_radius_km || 50
+    ? selectedLocation_radius_km ?? 50
     : undefined
+
+  console.log(selectedLocation_input_value)
 
   return (
     <Box>
@@ -84,7 +91,7 @@ export default function Location_select_screen({
               {selectedLocation.data?.name}
             </Typography>
             <DoneIcon sx={{ mr: 3 }} />
-            <IconButton onClick={() => set_selectedLocation(undefined)}>
+            <IconButton onClick={handle_location_unselect}>
               <CloseIcon />
             </IconButton>
           </Box>
@@ -103,6 +110,7 @@ export default function Location_select_screen({
               ?.filter(l => l.id !== selectedLocation_id)
               .map(location => (
                 <Box
+                  key={location.id}
                   sx={{ display: "flex", gap: 1, alignItems: "center" }}
                   onClick={() => set_selectedLocation(location.id)}
                 >
