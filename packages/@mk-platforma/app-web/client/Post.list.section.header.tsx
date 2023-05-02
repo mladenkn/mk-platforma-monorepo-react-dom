@@ -10,6 +10,7 @@ import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from 
 import { UseQueryResult } from "@tanstack/react-query"
 import { Post_category_label } from "@prisma/client"
 import Location_select_screen from "./Location.select.screen"
+import Api from "./trpc.client"
 
 type Props = {
   onShowCategories(): void
@@ -55,6 +56,11 @@ export default function Post_list_section_header({
   )
 
   const [locationSelect_isActive, set_locationSelect_isActive] = useState(false)
+
+  const selectedLocation = Api.location.single.useQuery(
+    { id: Location_select_screen__props.selectedLocation! },
+    { enabled: !!Location_select_screen__props.selectedLocation }
+  )
 
   return (
     <Header_root sx={{ pb: 1 }}>
@@ -138,7 +144,7 @@ export default function Post_list_section_header({
                 sx={{ color: "white", fontSize: typography.h6 }}
                 onClick={() => set_locationSelect_isActive(true)}
               >
-                <LocationOnIcon /> Split
+                <LocationOnIcon /> {selectedLocation.data?.name}
                 <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
               </IconButton>
               <IconButton
