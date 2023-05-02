@@ -54,17 +54,21 @@ export default function Location_select_screen({
       <Box sx={{ px: 2, mt: 2, mb: 2 }}>
         <Box sx={{ display: "flex", gap: 3 }}>
           <Input
-            sx={{ mb: 3, width: "100%", fontSize: typography.h5, flex: 2.75 }}
+            sx={{ mb: 3, width: "100%", fontSize: typography.h5, flex: 4.55 }}
             placeholder="Pretraži"
             value={location_search}
             onChange={e => set__location_search(e.target.value)}
             startAdornment={<SearchIcon sx={{ mr: 1.5 }} />}
           />
           <Input
-            sx={{ width: 50, flex: 1, mb: 3, fontSize: typography.h5 }}
+            sx={{ flex: 1, mb: 3, fontSize: typography.h5 }}
             placeholder="Radius"
             type="number"
-            endAdornment={selectedLocation_radius_km ? <Typography>km</Typography> : undefined}
+            endAdornment={
+              selectedLocation_radius_km ? (
+                <Typography color="text.secondary">km</Typography>
+              ) : undefined
+            }
             value={selectedLocation_radius_km}
             onChange={e => set__selectedLocation_radius_km(parseInt(e.target.value))}
           />
