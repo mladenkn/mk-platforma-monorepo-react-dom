@@ -51,24 +51,24 @@ export default function Location_select_screen({
           <CloseIcon sx={{ color: "white" }} />
         </IconButton>
       </Header_root>
-      <Box sx={{ px: 2, mt: 2 }}>
-        <TextField
-          sx={{ mb: 2, width: 50 }}
-          variant="standard"
-          label="Radius"
-          type="number"
-          InputProps={{
-            sx: { fontSize: typography.h5 },
-            endAdornment: <Typography>km</Typography>,
-          }}
-        />
-        <Input
-          sx={{ mb: 3, width: "100%", fontSize: typography.h5, pb: 0.2 }}
-          placeholder="Pretraži"
-          value={location_search}
-          onChange={e => set__location_search(e.target.value)}
-          startAdornment={<SearchIcon sx={{ mr: 1.5 }} />}
-        />
+      <Box sx={{ px: 2, mt: 2, mb: 2 }}>
+        <Box sx={{ display: "flex", gap: 3 }}>
+          <Input
+            sx={{ mb: 3, width: "100%", fontSize: typography.h5, flex: 2.75 }}
+            placeholder="Pretraži"
+            value={location_search}
+            onChange={e => set__location_search(e.target.value)}
+            startAdornment={<SearchIcon sx={{ mr: 1.5 }} />}
+          />
+          <Input
+            sx={{ width: 50, flex: 1, mb: 3, fontSize: typography.h5 }}
+            placeholder="Radius"
+            type="number"
+            endAdornment={selectedLocation_radius_km ? <Typography>km</Typography> : undefined}
+            value={selectedLocation_radius_km}
+            onChange={e => set__selectedLocation_radius_km(parseInt(e.target.value))}
+          />
+        </Box>
         {selectedLocation.data && (
           <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 4 }}>
             <ArrowRightIcon />
