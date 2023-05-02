@@ -9,6 +9,7 @@ import { Header_root, Header_moreOptions } from "./Header"
 import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import { Post_category_label } from "@prisma/client"
+import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 
 type Props = {
   onShowCategories(): void
@@ -59,7 +60,23 @@ export default function Post_list_section_header({
 
   return (
     <Header_root sx={{ pb: 1 }}>
-      {locationSelect_isActive && <Dialog open fullScreen></Dialog>}
+      {locationSelect_isActive && (
+        <Dialog open fullScreen>
+          <Box>
+            <Header_root sx={{ pl: 1, pr: 1.5 }}>
+              <IconButton onClick={() => set_locationSelect_isActive(false)}>
+                <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
+              </IconButton>
+              <Typography sx={{ color: "white" }} variant="h4">
+                Odaberi lokaciju
+              </Typography>
+              <IconButton onClick={() => set_locationSelect_isActive(false)}>
+                <CloseIcon sx={{ color: "white" }} />
+              </IconButton>
+            </Header_root>
+          </Box>
+        </Dialog>
+      )}
       <Container
         maxWidth="md"
         sx={{
