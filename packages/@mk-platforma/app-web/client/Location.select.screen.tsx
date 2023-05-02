@@ -1,5 +1,5 @@
-import { IconButton, Typography, Input } from "@mui/material"
-import { Box, typography } from "@mui/system"
+import { IconButton, Typography, Input, useTheme } from "@mui/material"
+import { Box } from "@mui/system"
 import { Header_root } from "./Header"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import ArrowRightIcon from "@mui/icons-material/ArrowRight"
@@ -7,6 +7,7 @@ import Api from "./trpc.client"
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
+import { mapQueryData } from "../utils"
 
 type Props = {
   selectedLocation?: number
@@ -24,6 +25,8 @@ export default function Location_select_screen({
     { id: selectedLocation_id! },
     { enabled: !!selectedLocation_id }
   )
+
+  const { typography } = useTheme()
 
   return (
     <Box>
@@ -45,6 +48,14 @@ export default function Location_select_screen({
           value={location_search}
           onChange={e => set__location_search(e.target.value)}
         />
+        {selectedLocation.data && (
+          <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+            <ArrowRightIcon />
+            <Typography variant="h4" key={selectedLocation.data?.id}>
+              {selectedLocation.data?.name}
+            </Typography>
+          </Box>
+        )}
         {location_suggestions.isLoading ? (
           <Typography>Loading...</Typography>
         ) : (
@@ -55,14 +66,16 @@ export default function Location_select_screen({
               gap: 2,
             }}
           >
-            {location_suggestions.data?.map(location => (
-              <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-                <ArrowRightIcon />
-                <Typography variant="h4" key={location.id}>
-                  {location.name}
-                </Typography>
-              </Box>
-            ))}
+            {location_suggestions.data
+              ?.filter(l => l.id !== selectedLocation_id)
+              .map(location => (
+                <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+                  <ArrowRightIcon />
+                  <Typography variant="h4" key={location.id}>
+                    {location.name}
+                  </Typography>
+                </Box>
+              ))}
           </Box>
         )}
       </Box>
