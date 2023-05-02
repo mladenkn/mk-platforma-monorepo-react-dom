@@ -30,6 +30,11 @@ export default function Location_select_screen({
 
   const { typography } = useTheme()
 
+  function handleClose() {
+    set_selectedLocation(undefined)
+    onClose()
+  }
+
   return (
     <Box>
       <Header_root sx={{ pl: 1, pr: 1.5 }}>
@@ -39,7 +44,7 @@ export default function Location_select_screen({
         <Typography sx={{ color: "white" }} variant="h4">
           Odaberi lokaciju
         </Typography>
-        <IconButton onClick={onClose}>
+        <IconButton onClick={handleClose}>
           <CloseIcon sx={{ color: "white" }} />
         </IconButton>
       </Header_root>
