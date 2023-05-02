@@ -8,6 +8,7 @@ import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
+import DoneIcon from "@mui/icons-material/Done"
 
 type Props = {
   selectedLocation?: number
@@ -53,11 +54,12 @@ export default function Location_select_screen({
         {selectedLocation.data && (
           <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 4 }}>
             <ArrowRightIcon />
-            <Typography sx={{ mr: 1.5 }} variant="h4" key={selectedLocation.data?.id}>
+            <Typography sx={{ mr: 6 }} variant="h4" key={selectedLocation.data?.id}>
               {selectedLocation.data?.name}
             </Typography>
+            <DoneIcon sx={{ mr: 3 }} />
             <IconButton onClick={() => set_selectedLocation(undefined)}>
-              <RadioButtonCheckedIcon />
+              <CloseIcon />
             </IconButton>
           </Box>
         )}
