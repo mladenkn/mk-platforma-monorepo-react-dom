@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { ComponentProps, useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
@@ -9,9 +9,6 @@ import { Header_root, Header_moreOptions } from "./Header"
 import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import { Post_category_label } from "@prisma/client"
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
-import Api from "./trpc.client"
-import ArrowRightIcon from "@mui/icons-material/ArrowRight"
 import Location_select_screen from "./Location.select.screen"
 
 type Props = {
@@ -19,8 +16,7 @@ type Props = {
   selectedCategory: UseQueryResult<{ label: Post_category_label } | null>
   search: string | null
   set_search(s: string | null): void
-  selectedLocation?: number
-  set_selectedLocation(l?: number): void
+  Location_select_screen__props: Omit<ComponentProps<typeof Location_select_screen>, "onClose">
 }
 
 export default function Post_list_section_header({
@@ -28,8 +24,7 @@ export default function Post_list_section_header({
   onShowCategories,
   search,
   set_search,
-  selectedLocation,
-  set_selectedLocation,
+  Location_select_screen__props,
 }: Props) {
   const { typography, spacing } = useTheme()
 
@@ -66,8 +61,7 @@ export default function Post_list_section_header({
       {locationSelect_isActive && (
         <Dialog open fullScreen>
           <Location_select_screen
-            selectedLocation={selectedLocation}
-            set_selectedLocation={set_selectedLocation}
+            {...Location_select_screen__props}
             onClose={() => set_locationSelect_isActive(false)}
           />
         </Dialog>

@@ -103,8 +103,10 @@ export default function PostList_section({
         set_search={set_search}
         selectedCategory={selectedCategory as any}
         onShowCategories={() => set_SectionsDrawer_isActive(true)}
-        selectedLocation={selectedLocation}
-        set_selectedLocation={set_selectedLocation}
+        Location_select_screen__props={{
+          selectedLocation,
+          set_selectedLocation,
+        }}
       />
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
