@@ -12,12 +12,16 @@ import DoneIcon from "@mui/icons-material/Done"
 type Props = {
   selectedLocation?: number
   set_selectedLocation(l?: number): void
+  selectedLocation_radius_km?: number
+  set__selectedLocation_radius_km(v?: number): void
   onClose(): void
 }
 
 export default function Location_select_screen({
   selectedLocation: selectedLocation_id,
   set_selectedLocation,
+  selectedLocation_radius_km,
+  set__selectedLocation_radius_km,
   onClose,
 }: Props) {
   const [location_search, set__location_search] = useState("")
