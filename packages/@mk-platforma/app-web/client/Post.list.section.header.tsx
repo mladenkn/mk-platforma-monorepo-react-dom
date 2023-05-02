@@ -6,20 +6,12 @@ import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
-import {
-  Container,
-  Box,
-  Typography,
-  IconButton,
-  useTheme,
-  Input,
-  Dialog,
-  TextField,
-} from "@mui/material"
+import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import { Post_category_label } from "@prisma/client"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import Api from "./trpc.client"
+import ArrowRightIcon from "@mui/icons-material/ArrowRight"
 
 type Props = {
   onShowCategories(): void
@@ -105,13 +97,16 @@ export default function Post_list_section_header({
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    gap: 1,
+                    gap: 2,
                   }}
                 >
                   {suggestions.data?.map(location => (
-                    <Typography variant="h3" key={location.id}>
-                      {location.name}
-                    </Typography>
+                    <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
+                      <ArrowRightIcon />
+                      <Typography variant="h4" key={location.id}>
+                        {location.name}
+                      </Typography>
+                    </Box>
                   ))}
                 </Box>
               )}
