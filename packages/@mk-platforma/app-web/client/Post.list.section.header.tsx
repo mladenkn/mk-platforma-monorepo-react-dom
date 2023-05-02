@@ -6,10 +6,20 @@ import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
-import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
+import {
+  Container,
+  Box,
+  Typography,
+  IconButton,
+  useTheme,
+  Input,
+  Dialog,
+  TextField,
+} from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import { Post_category_label } from "@prisma/client"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
+import Api from "./trpc.client"
 
 type Props = {
   onShowCategories(): void
@@ -25,7 +35,7 @@ export default function Post_list_section_header({
   onShowCategories,
   search,
   set_search,
-  selectedLocation,
+  selectedLocation: selectedLocation_id,
   set_selectedLocation,
 }: Props) {
   const { typography, spacing } = useTheme()
@@ -58,6 +68,13 @@ export default function Post_list_section_header({
 
   const [locationSelect_isActive, set_locationSelect_isActive] = useState(false)
 
+  const [location_search, set__location_search] = useState("")
+  const suggestions = Api.location.many.useQuery({ query: location_search })
+  const selectedLocation = Api.location.single.useQuery(
+    { id: selectedLocation_id! },
+    { enabled: !!selectedLocation_id }
+  )
+
   return (
     <Header_root sx={{ pb: 1 }}>
       {locationSelect_isActive && (
@@ -74,6 +91,24 @@ export default function Post_list_section_header({
                 <CloseIcon sx={{ color: "white" }} />
               </IconButton>
             </Header_root>
+            <Box sx={{ px: 2, mt: 2 }}>
+              <TextField
+                sx={{ mb: 2 }}
+                value={location_search}
+                onChange={e => set__location_search(e.target.value)}
+              />
+              {suggestions.isLoading ? (
+                <Typography>Loading...</Typography>
+              ) : (
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                  {suggestions.data?.map(location => (
+                    <Typography variant="h3" key={location.id}>
+                      {location.name}
+                    </Typography>
+                  ))}
+                </Box>
+              )}
+            </Box>
           </Box>
         </Dialog>
       )}
