@@ -18,7 +18,10 @@ type Props = {
   selectedCategory: UseQueryResult<{ label: Post_category_label } | null>
   search: string | null
   set_search(s: string | null): void
-  Location_select_screen__props: Omit<ComponentProps<typeof Location_select_screen>, "onClose">
+  selectedLocation: number | null
+  set_selectedLocation(l: number | null): void
+  selectedLocation_radius_km: number | null
+  set__selectedLocation_radius_km(v: number | null): void
 }
 
 export default function Post_list_section_header({
@@ -26,12 +29,12 @@ export default function Post_list_section_header({
   onShowCategories,
   search,
   set_search,
-  Location_select_screen__props,
+  selectedLocation: selectedLocation_id,
+  set_selectedLocation,
+  selectedLocation_radius_km,
+  set__selectedLocation_radius_km,
 }: Props) {
   const { typography, spacing } = useTheme()
-
-  const { selectedLocation: selectedLocation_id, selectedLocation_radius_km } =
-    Location_select_screen__props
 
   const heading = selectedCategory.data ? (
     getCategoryLabel(selectedCategory.data.label)
@@ -78,7 +81,10 @@ export default function Post_list_section_header({
       {locationSelect_isActive && (
         <Dialog open fullScreen>
           <Location_select_screen
-            {...Location_select_screen__props}
+            selectedLocation={selectedLocation_id}
+            set_selectedLocation={set_selectedLocation}
+            selectedLocation_radius_km={selectedLocation_radius_km}
+            set__selectedLocation_radius_km={set__selectedLocation_radius_km}
             onClose={() => set_locationSelect_isActive(false)}
           />
         </Dialog>
