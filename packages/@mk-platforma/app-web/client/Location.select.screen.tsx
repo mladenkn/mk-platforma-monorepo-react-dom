@@ -38,6 +38,10 @@ export default function Location_select_screen({
     onClose()
   }
 
+  const selectedLocation_input_value = selectedLocation_id
+    ? selectedLocation_radius_km || 50
+    : undefined
+
   return (
     <Box>
       <Header_root sx={{ pl: 1, pr: 1.5 }}>
@@ -65,11 +69,11 @@ export default function Location_select_screen({
             placeholder="Radius"
             type="number"
             endAdornment={
-              selectedLocation_radius_km ? (
+              selectedLocation_input_value ? (
                 <Typography color="text.secondary">km</Typography>
               ) : undefined
             }
-            value={selectedLocation_radius_km}
+            value={selectedLocation_input_value}
             onChange={e => set__selectedLocation_radius_km(parseInt(e.target.value))}
           />
         </Box>

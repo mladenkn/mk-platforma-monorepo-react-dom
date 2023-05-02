@@ -66,9 +66,7 @@ export default function PostList_section({
   const [search, set_search] = useState<string | null>(null)
   const [selectedLocation, set_selectedLocation] = useState<number>()
 
-  const [selectedLocation_radius_km, set__selectedLocation_radius_km] = useState<
-    number | undefined
-  >(50)
+  const [selectedLocation_radius_km, set__selectedLocation_radius_km] = useState<number>()
 
   const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
