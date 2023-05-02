@@ -10,10 +10,10 @@ import React, { useState } from "react"
 import DoneIcon from "@mui/icons-material/Done"
 
 type Props = {
-  selectedLocation?: number
-  set_selectedLocation(l?: number): void
-  selectedLocation_radius_km?: number
-  set__selectedLocation_radius_km(v?: number): void
+  selectedLocation: number | null
+  set_selectedLocation(l: number | null): void
+  selectedLocation_radius_km: number | null
+  set__selectedLocation_radius_km(v: number | null): void
   onClose(): void
 }
 
@@ -34,13 +34,13 @@ export default function Location_select_screen({
   const { typography } = useTheme()
 
   function handleClose() {
-    set_selectedLocation(undefined)
+    set_selectedLocation(null)
     onClose()
   }
 
   function handle_location_unselect() {
-    set_selectedLocation(undefined)
-    set__selectedLocation_radius_km(undefined)
+    set_selectedLocation(null)
+    set__selectedLocation_radius_km(null)
   }
 
   const selectedLocation_input_value = selectedLocation_id
