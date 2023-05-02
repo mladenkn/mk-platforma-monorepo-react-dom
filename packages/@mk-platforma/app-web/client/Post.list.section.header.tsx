@@ -12,6 +12,7 @@ import { Post_category_label } from "@prisma/client"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import Api from "./trpc.client"
 import ArrowRightIcon from "@mui/icons-material/ArrowRight"
+import Location_select_screen from "./Location.select.screen"
 
 type Props = {
   onShowCategories(): void
@@ -60,58 +61,15 @@ export default function Post_list_section_header({
 
   const [locationSelect_isActive, set_locationSelect_isActive] = useState(false)
 
-  const [location_search, set__location_search] = useState("")
-  const location_suggestions = Api.location.many.useQuery({ query: location_search })
-  const selectedLocation = Api.location.single.useQuery(
-    { id: selectedLocation_id! },
-    { enabled: !!selectedLocation_id }
-  )
-
   return (
     <Header_root sx={{ pb: 1 }}>
       {locationSelect_isActive && (
         <Dialog open fullScreen>
-          <Box>
-            <Header_root sx={{ pl: 1, pr: 1.5 }}>
-              <IconButton onClick={() => set_locationSelect_isActive(false)}>
-                <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
-              </IconButton>
-              <Typography sx={{ color: "white" }} variant="h4">
-                Odaberi lokaciju
-              </Typography>
-              <IconButton onClick={() => set_locationSelect_isActive(false)}>
-                <CloseIcon sx={{ color: "white" }} />
-              </IconButton>
-            </Header_root>
-            <Box sx={{ px: 2, mt: 2 }}>
-              <Input
-                sx={{ mb: 3, width: "100%", fontSize: typography.h5 }}
-                placeholder="Pretraži"
-                value={location_search}
-                onChange={e => set__location_search(e.target.value)}
-              />
-              {location_suggestions.isLoading ? (
-                <Typography>Loading...</Typography>
-              ) : (
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 2,
-                  }}
-                >
-                  {location_suggestions.data?.map(location => (
-                    <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
-                      <ArrowRightIcon />
-                      <Typography variant="h4" key={location.id}>
-                        {location.name}
-                      </Typography>
-                    </Box>
-                  ))}
-                </Box>
-              )}
-            </Box>
-          </Box>
+          <Location_select_screen
+            selectedLocation={selectedLocation_id}
+            set_selectedLocation={set_selectedLocation}
+            onClose={() => set_locationSelect_isActive(false)}
+          />
         </Dialog>
       )}
       <Container
