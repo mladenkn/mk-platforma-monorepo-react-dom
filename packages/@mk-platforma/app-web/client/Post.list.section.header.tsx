@@ -11,6 +11,7 @@ import { UseQueryResult } from "@tanstack/react-query"
 import { Post_category_label } from "@prisma/client"
 import Location_select_screen from "./Location.select.screen"
 import Api from "./trpc.client"
+import { eva } from "@mk-libs/common/common"
 
 type Props = {
   onShowCategories(): void
@@ -61,6 +62,13 @@ export default function Post_list_section_header({
     { id: Location_select_screen__props.selectedLocation! },
     { enabled: !!Location_select_screen__props.selectedLocation }
   )
+
+  const location_radius = eva(() => {
+    if (!Location_select_screen__props.selectedLocation) return undefined
+    else return Location_select_screen__props.selectedLocation_radius_km || 50
+  })
+
+  console.log(74, Location_select_screen__props)
 
   return (
     <Header_root sx={{ pb: 1 }}>
@@ -144,16 +152,18 @@ export default function Post_list_section_header({
                 sx={{ color: "white", fontSize: typography.h6 }}
                 onClick={() => set_locationSelect_isActive(true)}
               >
-                <LocationOnIcon /> {selectedLocation.data?.name}
+                <LocationOnIcon sx={{ mr: 0.75 }} /> {selectedLocation.data?.name}
                 <KeyboardArrowDownOutlinedIcon sx={{ ml: 0.5 }} />
               </IconButton>
-              <IconButton
-                sx={{ color: "white", fontSize: typography.h6 }}
-                onClick={() => set_locationSelect_isActive(true)}
-              >
-                {Location_select_screen__props.selectedLocation_radius_km || 50} km
-                <KeyboardArrowDownOutlinedIcon />
-              </IconButton>
+              {location_radius && (
+                <IconButton
+                  sx={{ color: "white", fontSize: typography.h6 }}
+                  onClick={() => set_locationSelect_isActive(true)}
+                >
+                  {location_radius} km
+                  <KeyboardArrowDownOutlinedIcon />
+                </IconButton>
+              )}
             </Box>
             {searchAndMore_position === "down" && searchAndMore}
           </Box>
