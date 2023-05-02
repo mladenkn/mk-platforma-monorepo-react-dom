@@ -6,12 +6,16 @@ import "@fontsource/roboto/300.css"
 import "@fontsource/roboto/400.css"
 import "@fontsource/roboto/500.css"
 import "@fontsource/roboto/700.css"
+import Head from "next/head"
 
 const theme = responsiveFontSizes(createTheme())
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <ThemeProvider theme={theme}>
+      <Head>
+        <title>Za Brata</title>
+      </Head>
       <Component {...pageProps} />
     </ThemeProvider>
   )
