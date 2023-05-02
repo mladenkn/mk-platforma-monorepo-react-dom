@@ -117,9 +117,9 @@ export default function PostList_section({
         set_search={set_search}
         selectedCategory={selectedCategory as any}
         onShowCategories={() => set_SectionsDrawer_isActive(true)}
-        selectedLocation={selectedLocation}
+        selectedLocation={selectedLocation || null}
         set_selectedLocation={set_selectedLocation}
-        selectedLocation_radius_km={selectedLocation_radius_km}
+        selectedLocation_radius_km={selectedLocation_radius_km || null}
         set__selectedLocation_radius_km={set__selectedLocation_radius_km}
       />
       {sectionsDrawer_isActive && (

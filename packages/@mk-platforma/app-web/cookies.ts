@@ -49,7 +49,7 @@ export function useNumberCookie(cookieName: CookieName, defaultValue_?: number |
     cookieName,
     defaultValue_ ? defaultValue_.toString() : undefined
   )
-  const value = parseInt(value_)
+  const value = (value_ && parseInt(value_)) || undefined
   function setValue(value: number) {
     setValue_(value?.toString())
   }
