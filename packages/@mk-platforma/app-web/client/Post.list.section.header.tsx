@@ -92,15 +92,22 @@ export default function Post_list_section_header({
               </IconButton>
             </Header_root>
             <Box sx={{ px: 2, mt: 2 }}>
-              <TextField
-                sx={{ mb: 2 }}
+              <Input
+                sx={{ mb: 3, width: "100%", fontSize: typography.h5 }}
+                placeholder="Pretraži"
                 value={location_search}
                 onChange={e => set__location_search(e.target.value)}
               />
               {suggestions.isLoading ? (
                 <Typography>Loading...</Typography>
               ) : (
-                <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 1,
+                  }}
+                >
                   {suggestions.data?.map(location => (
                     <Typography variant="h3" key={location.id}>
                       {location.name}
