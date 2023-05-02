@@ -1,17 +1,27 @@
 import { z } from "zod"
 import { Post_queryChunks_search } from "./Post.api"
 import { SuperData_query } from "../SuperData"
+import { asNonNil, eva } from "@mk-libs/common/common"
 
 export const Post_api_abstract = {
   list: SuperData_query(
     z.object({
       categories: z.array(z.number()).optional(),
       search: z.string().optional(),
+      location: z.number().optional(),
+      location_radius: z.number().optional().default(50),
     }),
     async ({ db }, input) => {
-      // const locations = await db.$queryRaw<{ id: number }[]>`
-      //   SELECT id FROM "Location" WHERE ST_DWithin(ST_MakePoint(longitude, latitude), ST_MakePoint(16.4435148, 43.5147118)::geography, 50 * 1000)
-      // `
+      const locations = await eva(async () => {
+        if (input.location) {
+          const { longitude, latitude } = await db.location
+            .findUnique({ where: { id: input.location } })
+            .then(asNonNil)
+          return await db.$queryRaw<{ id: number }[]>`
+            SELECT id FROM "Location" WHERE ST_DWithin(ST_MakePoint(longitude, latitude), ST_MakePoint(${longitude}, ${latitude})::geography, ${input.location_radius} * 1000)
+          `
+        }
+      })
       return {
         where: {
           categories: input.categories?.length
@@ -22,11 +32,11 @@ export const Post_api_abstract = {
               }
             : undefined,
           ...(input?.search ? Post_queryChunks_search(input.search) : {}),
-          // location: {
-          //   id: {
-          //     in: locations.map(({ id }) => id),
-          //   },
-          // },
+          location: locations && {
+            id: {
+              in: locations.map(({ id }) => id),
+            },
+          },
         },
       }
     }
