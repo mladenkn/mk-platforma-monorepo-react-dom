@@ -13,7 +13,6 @@ export function object_to_CookieString(obj: Record<string, Value>): string {
         .otherwise(v => encodeURIComponent(v.toString()))
 
       const keyValueString = encodeURIComponent(key) + "=" + value
-
       cookiePairs.push(keyValueString)
     }
   }
