@@ -14,7 +14,6 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
 
   const location = getCookie_ss(req.headers.cookie || "", "Post_list__location")
   const location_radius = getCookie_ss(req.headers.cookie || "", "Post_list__location_radius")
-  console.log(17, location, typeof location, location_radius, typeof location_radius)
 
   const posts_initial = await api.post.list.fieldSet_main({
     categories: category ? [category.id] : undefined,
