@@ -3,7 +3,7 @@ import type { Post_category_labelType } from "../prisma/generated/zod"
 import { Api_ss } from "../trpc.server"
 import { GetServerSidePropsContext } from "next/types"
 import db from "../prisma/instance"
-import { getNumberCookie_ss } from "../cookies"
+import { getCookie_ss } from "../cookies2"
 
 export async function getServerSideProps({ query, req }: GetServerSidePropsContext) {
   const category_label = query.category ? (query.category as Post_category_labelType) : undefined
@@ -12,8 +12,8 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
     : null
   const api = Api_ss({ db, userId: 1 })
 
-  const location = getNumberCookie_ss(req.headers.cookie || "", "Post_list__location")
-  const location_radius = getNumberCookie_ss(req.headers.cookie || "", "Post_list__location_radius")
+  const location = getCookie_ss(req.headers.cookie || "", "Post_list__location")
+  const location_radius = getCookie_ss(req.headers.cookie || "", "Post_list__location_radius")
   const posts_initial = await api.post.list.fieldSet_main({
     categories: category ? [category.id] : undefined,
     location: location || undefined,
