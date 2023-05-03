@@ -12,9 +12,11 @@ export function use_cookie<TName extends keyof Cookies>(
   name: TName,
   defaultValue?: Cookies[TName]
 ) {
-  const [value, setValue_] = useState<Cookies[TName]>(
-    () => (cookieString_to_object(document.cookie)[name] ?? defaultValue) as Cookies[TName]
-  )
+  const [value, setValue_] = useState<Cookies[TName]>(() => {
+    if (typeof window !== "undefined")
+      return (cookieString_to_object(document.cookie)[name] ?? defaultValue) as Cookies[TName]
+    else return defaultValue as Cookies[TName]
+  })
 
   function setValue(value: Cookies[TName]) {
     const cookies_all_obj = cookieString_to_object(document.cookie)
