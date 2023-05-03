@@ -2,7 +2,7 @@ import { match, P } from "ts-pattern"
 
 type Value = string | number | undefined | null
 
-export function object_to_CookieString(obj: Record<string, Value>): string {
+export function object_to_cookieString(obj: Record<string, Value>): string {
   const cookiePairs: string[] = []
 
   for (const key in obj) {
@@ -19,7 +19,7 @@ export function object_to_CookieString(obj: Record<string, Value>): string {
 
   return cookiePairs.join("; ")
 }
-if (typeof window !== "undefined") (window as any).object_to_CookieString = object_to_CookieString
+if (typeof window !== "undefined") (window as any).object_to_CookieString = object_to_cookieString
 
 export function cookieString_to_object(cookieString: string) {
   const cookieObject: Record<string, Value> = {}
