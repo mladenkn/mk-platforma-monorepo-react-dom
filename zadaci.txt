@@ -1,8 +1,6 @@
 - pagiranje
 - login
 - registracija
-- lokacija
-- još responsive
 - kategorija: Potražnja
 - GDPR i cookies
 
