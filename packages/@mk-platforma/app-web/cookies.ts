@@ -59,9 +59,11 @@ export function use_cookie<TName extends keyof Cookies>(
   const [value, setValue_] = useCookie(name, defaultValue as any)
   const value_mapped = mapValue(value) as Cookies[TName]
 
+  const zodType = Cookies_zod.shape[name]
+
   function setValue(value: Cookies[TName]) {
-    const mapped = isNaN(value as any) && null
-    setValue_(mapped as any)
+    zodType.parse(value)
+    setValue_(value as any)
   }
 
   return [value_mapped, setValue] as [typeof value_mapped, typeof setValue]
