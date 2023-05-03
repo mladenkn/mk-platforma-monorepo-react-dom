@@ -3,7 +3,7 @@ import type { Post_category_labelType } from "../prisma/generated/zod"
 import { Api_ss } from "../trpc.server"
 import { GetServerSidePropsContext } from "next/types"
 import db from "../prisma/instance"
-import { getCookie_ss } from "../cookies2"
+import { getCookie_ss } from "../cookies"
 
 export async function getServerSideProps({ query, req }: GetServerSidePropsContext) {
   const category_label = query.category ? (query.category as Post_category_labelType) : undefined

@@ -15,7 +15,7 @@ import type { Prisma } from "@prisma/client"
 import { Post_category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
 import Post_list_section_header from "./Post.list.section.header"
-import { use_cookie } from "../cookies2"
+import { use_cookie } from "../cookies"
 
 export const PostList_section_PostSelect = {
   id: true,

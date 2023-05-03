@@ -1,68 +1,36 @@
-import useCookie_ from "react-use-cookie"
-import cookie from "cookie"
-import { z, ZodNumber, ZodString } from "zod"
-import { match, P } from "ts-pattern"
-import { useCookies } from "react-cookie"
-import "./cookies.convert"
+import { useState } from "react"
+import { z } from "zod"
+import { cookieString_to_object, object_to_cookieString } from "./cookies.convert"
 
 const Cookies_zod = z.object({
   Post_list__location: z.number().nullable(),
   Post_list__location_radius: z.number().nullable(),
 })
-
 type Cookies = z.infer<typeof Cookies_zod>
 
-function useCookie2<TName extends keyof Cookies>(
+export function use_cookie<TName extends keyof Cookies>(
   name: TName,
-  defaultValue_: string | number | undefined | null
+  defaultValue?: Cookies[TName]
 ) {
-  const defaultValue = match(defaultValue_)
-    .with(P.string, v => v)
-    .with(P.number, v => v.toString())
-    .with(P._, v => v)
-    .run()
+  const [value, setValue_] = useState<Cookies[TName]>(() => {
+    if (typeof window !== "undefined")
+      return (cookieString_to_object(document.cookie)[name] ?? defaultValue) as Cookies[TName]
+    else return defaultValue as Cookies[TName]
+  })
 
-  const [cookies, setCookie] = useCookies([name])
-  const value_ = cookies[name]
+  // možda bi treba postavit state na prvom renderu na klijentu?
 
-  // const [value_, setValue_] = useCookie_(name, defaultValue)
-
-  const b = match(Cookies_zod.shape[name])
-    .with(
-      P.when(v => v instanceof ZodNumber),
-      () => parseInt(value_)
-    )
-    .with(
-      P.when(v => v instanceof ZodString),
-      () => value_
-    )
-    .run()
-}
-
-type CookieName = "Post_list__location" | "Post_list__location_radius"
-
-export function useCookie(cookieName: CookieName, defaultValue?: string | null) {
-  return useCookie_(cookieName, defaultValue ?? undefined)
-}
-
-export function useNumberCookie(cookieName: CookieName, defaultValue_?: number | null) {
-  const [value_, setValue_] = useCookie(
-    cookieName,
-    defaultValue_ ? defaultValue_.toString() : undefined
-  )
-  const value = (value_ && parseInt(value_)) || undefined
-  function setValue(value: number) {
-    setValue_(value?.toString())
+  function setValue(value: Cookies[TName]) {
+    const cookies_all_obj = cookieString_to_object(document.cookie)
+    const cookies_all_obj__updated = { ...cookies_all_obj, [name]: value }
+    document.cookie = object_to_cookieString(cookies_all_obj__updated)
+    setValue_(value)
   }
+
   return [value, setValue] as [typeof value, typeof setValue]
 }
 
-export function getCookie_ss(allCookies: string, cookieName: CookieName) {
-  const allCookies_parsed = cookie.parse(allCookies)
-  return allCookies_parsed[cookieName] || undefined
-}
-
-export function getNumberCookie_ss(allCookies: string, cookieName: CookieName) {
-  const cookie = getCookie_ss(allCookies, cookieName)
-  return cookie && parseInt(cookie)
+export function getCookie_ss<TName extends keyof Cookies>(allCookies: string, cookieName: TName) {
+  const allCookies_parsed = cookieString_to_object(allCookies)
+  return allCookies_parsed[cookieName] as Cookies[TName]
 }
