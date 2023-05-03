@@ -18,6 +18,8 @@ export function use_cookie<TName extends keyof Cookies>(
     else return defaultValue as Cookies[TName]
   })
 
+  // možda bi treba postavit state na prvom renderu na klijentu?
+
   function setValue(value: Cookies[TName]) {
     const cookies_all_obj = cookieString_to_object(document.cookie)
     const cookies_all_obj__updated = { ...cookies_all_obj, [name]: value }
