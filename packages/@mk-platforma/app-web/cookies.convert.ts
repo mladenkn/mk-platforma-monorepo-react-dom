@@ -2,7 +2,7 @@ import { match, P } from "ts-pattern"
 
 type Value = string | number | undefined | null
 
-export function object_to_CookieString(obj: { [key: string]: Value }): string {
+export function object_to_CookieString(obj: Record<string, Value>): string {
   // Create an empty array to store the key-value pairs as strings
   const cookiePairs: string[] = []
 
