@@ -3,6 +3,7 @@ import cookie from "cookie"
 import { z, ZodNumber, ZodString } from "zod"
 import { match, P } from "ts-pattern"
 import { useCookies } from "react-cookie"
+import "./cookies.convert"
 
 const Cookies_zod = z.object({
   Post_list__location: z.number().nullable(),
