@@ -33,16 +33,22 @@ export function use_cookie_2<TName extends keyof Cookies>(
   return [value, setValue] as [typeof value, typeof setValue]
 }
 
+function mapValue(value: string | number | undefined | null) {
+  return match(value)
+    .with("undefined", () => undefined)
+    .with("null", () => null)
+    .with(
+      P.when(v => typeof v === "string" && isStringANumber(v)),
+      parseFloat
+    )
+    .with(P.union(P.nullish, P.string, P.number), v => v)
+    .exhaustive()
+}
+
 export function getCookie_ss<TName extends keyof Cookies>(allCookies: string, cookieName: TName) {
   const allCookies_parsed = cookie.parse(allCookies)
   const value = allCookies_parsed[cookieName]
-  const value_mapped = match(value)
-    .with("undefined", () => undefined)
-    .with("null", () => null)
-    .with(P.nullish, v => v)
-    .with(P.when(isStringANumber), parseFloat)
-    .with(P.string, v => v)
-    .exhaustive() as Cookies[TName]
+  const value_mapped = mapValue(value) as Cookies[TName]
   return value_mapped
 }
 
@@ -51,14 +57,7 @@ export function use_cookie<TName extends keyof Cookies>(
   defaultValue?: Cookies[TName]
 ) {
   const [value, setValue_] = useCookie(name, defaultValue as any)
-
-  const value_mapped = match(value)
-    .with("undefined", () => undefined)
-    .with("null", () => null)
-    .with(P.nullish, v => v)
-    .with(P.when(isStringANumber), parseFloat)
-    .with(P.string, v => v)
-    .exhaustive() as Cookies[TName]
+  const value_mapped = mapValue(value) as Cookies[TName]
 
   function setValue(value: Cookies[TName]) {
     const mapped = isNaN(value as any) && null
