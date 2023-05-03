@@ -1,6 +1,9 @@
 import { useState } from "react"
+import useCookie from "react-use-cookie"
+import { match, P } from "ts-pattern"
 import { z } from "zod"
 import { cookieString_to_object, object_to_cookieString } from "./cookies.convert"
+import cookie from "cookie"
 
 const Cookies_zod = z.object({
   Post_list__location: z.number().nullable(),
@@ -8,7 +11,7 @@ const Cookies_zod = z.object({
 })
 type Cookies = z.infer<typeof Cookies_zod>
 
-export function use_cookie<TName extends keyof Cookies>(
+export function use_cookie_2<TName extends keyof Cookies>(
   name: TName,
   defaultValue?: Cookies[TName]
 ) {
@@ -31,6 +34,41 @@ export function use_cookie<TName extends keyof Cookies>(
 }
 
 export function getCookie_ss<TName extends keyof Cookies>(allCookies: string, cookieName: TName) {
-  const allCookies_parsed = cookieString_to_object(allCookies)
-  return allCookies_parsed[cookieName] as Cookies[TName]
+  const allCookies_parsed = cookie.parse(allCookies)
+  const value = allCookies_parsed[cookieName]
+  const value_mapped = match(value)
+    .with("undefined", () => undefined)
+    .with("null", () => null)
+    .with(P.nullish, v => v)
+    .with(P.when(isStringANumber), parseFloat)
+    .with(P.string, v => v)
+    .exhaustive() as Cookies[TName]
+  return value_mapped
+}
+
+export function use_cookie<TName extends keyof Cookies>(
+  name: TName,
+  defaultValue?: Cookies[TName]
+) {
+  const [value, setValue_] = useCookie(name, defaultValue as any)
+
+  const value_mapped = match(value)
+    .with("undefined", () => undefined)
+    .with("null", () => null)
+    .with(P.nullish, v => v)
+    .with(P.when(isStringANumber), parseFloat)
+    .with(P.string, v => v)
+    .exhaustive() as Cookies[TName]
+
+  function setValue(value: Cookies[TName]) {
+    const mapped = isNaN(value as any) && null
+    setValue_(mapped as any)
+  }
+
+  return [value_mapped, setValue] as [typeof value_mapped, typeof setValue]
+}
+
+function isStringANumber(str: string) {
+  const number = parseFloat(str)
+  return !isNaN(number)
 }
