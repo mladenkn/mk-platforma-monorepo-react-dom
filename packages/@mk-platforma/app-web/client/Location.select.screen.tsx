@@ -8,7 +8,9 @@ import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
 import React, { useState } from "react"
 import DoneIcon from "@mui/icons-material/Done"
-import { match, P } from "ts-pattern"
+import { useFormik } from "formik"
+import { z } from "zod"
+import { toFormikValidationSchema } from "zod-formik-adapter"
 
 type Props = {
   location_initial: number | null
@@ -17,36 +19,50 @@ type Props = {
   onDone(location: number | null, location_radius: number | null): void
 }
 
+const form_zod = z
+  .object({
+    location: z.number(),
+    radius: z.number(),
+  })
+  .or(
+    z.object({
+      location: z.null(),
+      radius: z.null(),
+    })
+  )
+
 export default function Location_select_screen({
   location_initial,
   location_radius_initial,
   onBack,
   onDone,
 }: Props) {
-  const [location_id, set_location] = useState<number | null>(location_initial)
-  const [location_radius, set_location_radius] = useState<number | null>(location_radius_initial)
+  const form = useFormik({
+    initialValues: {
+      location: location_initial,
+      radius: location_radius_initial,
+    },
+    onSubmit() {},
+    validationSchema: toFormikValidationSchema(form_zod),
+  })
 
   const [location_search, set__location_search] = useState("")
   const location_suggestions = Api.location.many.useQuery({ query: location_search })
   const selectedLocation = Api.location.single.useQuery(
-    { id: location_id! },
-    { enabled: !!location_id }
+    { id: form.values.location! },
+    { enabled: !!form.values.location }
   )
 
   const { typography } = useTheme()
 
   function handle_location_unselect() {
-    set_location(null)
-    set_location_radius(null)
+    form.setValues({ location: null, radius: null })
   }
 
-  const selectedLocation_input_radius_value = location_id ? location_radius ?? 50 : ""
+  const selectedLocation_input_radius_value = form.values.location ? form.values.radius ?? 50 : ""
 
   function handleDone() {
-    // match({ selectedLocation_id, selectedLocation_radius })
-    //   .with({ selectedLocation_id: null }, () => onDone(null, null) )
-    //   .with({ selectedLocation_id: P.number, selectedLocation_radius: P.union(P.nullish, P.when(radius => radius !== null && radius < 1)) }, () => {})
-    //   .with({ selectedLocation_id: P.number, selectedLocation_radius: P.union(P.number, P.when(radius => radius > 0)) }, () => onDone())
+    if (form.isValid) onDone(form.values.location, form.values.radius)
   }
 
   return (
@@ -92,9 +108,16 @@ export default function Location_select_screen({
               ) : undefined
             }
             value={selectedLocation_input_radius_value}
-            onChange={e => set_location_radius(parseInt(e.target.value))}
+            name="radius"
+            onChange={form.handleChange}
           />
         </Box>
+        {!form.isValid && (
+          <Box>
+            {form.errors.location && <Typography>{form.errors.location}</Typography>}
+            {form.errors.radius && <Typography>{form.errors.radius}</Typography>}
+          </Box>
+        )}
         {selectedLocation.data && (
           <Box sx={{ display: "flex", gap: 1, alignItems: "center", mb: 4 }}>
             <ArrowRightIcon />
@@ -118,12 +141,12 @@ export default function Location_select_screen({
             }}
           >
             {location_suggestions.data
-              ?.filter(l => l.id !== location_id)
+              ?.filter(l => l.id !== form.values.location)
               .map(location => (
                 <Box
                   key={location.id}
                   sx={{ display: "flex", gap: 1, alignItems: "center", cursor: "pointer" }}
-                  onClick={() => set_location(location.id)}
+                  onClick={() => form.setFieldValue("location", location.id)}
                 >
                   <ArrowRightIcon />
                   <Typography variant="h4" key={location.id}>

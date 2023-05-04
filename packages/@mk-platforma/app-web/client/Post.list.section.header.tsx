@@ -76,16 +76,20 @@ export default function Post_list_section_header({
 
   const location_text = selectedLocation_id ? selectedLocation.data?.name : "Postavi lokaciju"
 
+  function handle_location_set(location: number | null, radius: number | null) {
+    set_selectedLocation(location)
+    set__selectedLocation_radius_km(radius)
+  }
+
   return (
     <Header_root sx={{ pb: 1 }}>
       {locationSelect_isActive && (
         <Dialog open fullScreen>
           <Location_select_screen
-            selectedLocation={selectedLocation_id}
-            set_selectedLocation={set_selectedLocation}
-            selectedLocation_radius_km={selectedLocation_radius_km}
-            set__selectedLocation_radius_km={set__selectedLocation_radius_km}
-            onClose={() => set_locationSelect_isActive(false)}
+            location_initial={selectedLocation_id}
+            location_radius_initial={selectedLocation_radius_km}
+            onBack={() => set_locationSelect_isActive(false)}
+            onDone={handle_location_set}
           />
         </Dialog>
       )}
