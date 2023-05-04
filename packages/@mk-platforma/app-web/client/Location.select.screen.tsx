@@ -111,6 +111,9 @@ export default function Location_select_screen({
             value={selectedLocation_input_radius_value}
             name="radius"
             onChange={form.handleChange}
+            inputProps={{
+              min: 1,
+            }}
           />
         </Box>
         {!form.isValid && (
