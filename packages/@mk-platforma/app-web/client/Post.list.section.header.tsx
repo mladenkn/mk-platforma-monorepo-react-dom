@@ -79,6 +79,7 @@ export default function Post_list_section_header({
   function handle_location_set(location: number | null, radius: number | null) {
     set_selectedLocation(location)
     set__selectedLocation_radius_km(radius)
+    set_locationSelect_isActive(false)
   }
 
   return (

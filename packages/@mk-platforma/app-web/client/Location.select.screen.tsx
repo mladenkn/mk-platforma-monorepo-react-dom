@@ -22,7 +22,7 @@ type Props = {
 const form_zod = z
   .object({
     location: z.number(),
-    radius: z.number(),
+    radius: z.number().gte(1),
   })
   .or(
     z.object({
@@ -62,8 +62,11 @@ export default function Location_select_screen({
   const selectedLocation_input_radius_value = form.values.location ? form.values.radius ?? 50 : ""
 
   function handleDone() {
+    form.validateForm()
     if (form.isValid) onDone(form.values.location, form.values.radius)
   }
+
+  console.log(68, form.values, form.isValid, form.errors)
 
   return (
     <Box>
@@ -113,9 +116,16 @@ export default function Location_select_screen({
           />
         </Box>
         {!form.isValid && (
-          <Box>
-            {form.errors.location && <Typography>{form.errors.location}</Typography>}
-            {form.errors.radius && <Typography>{form.errors.radius}</Typography>}
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h5">Problemi sa unosom:</Typography>
+            <Box sx={{ ml: 2 }}>
+              {form.errors.location && <Typography variant="h5">{form.errors.location}</Typography>}
+              {form.errors.radius && (
+                <Typography sx={{ fontSize: 22, color: "red" }}>
+                  Radius: {form.errors.radius}
+                </Typography>
+              )}
+            </Box>
           </Box>
         )}
         {selectedLocation.data && (
