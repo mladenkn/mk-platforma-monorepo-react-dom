@@ -66,8 +66,6 @@ export default function Location_select_screen({
     if (form.isValid) onDone(form.values.location, form.values.radius)
   }
 
-  console.log(68, form.values, form.isValid, form.errors)
-
   return (
     <Box>
       <Header_root sx={{}}>
