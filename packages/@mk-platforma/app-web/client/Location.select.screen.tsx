@@ -120,7 +120,7 @@ export default function Location_select_screen({
               .map(location => (
                 <Box
                   key={location.id}
-                  sx={{ display: "flex", gap: 1, alignItems: "center" }}
+                  sx={{ display: "flex", gap: 1, alignItems: "center", cursor: "pointer" }}
                   onClick={() => set_selectedLocation(location.id)}
                 >
                   <ArrowRightIcon />
