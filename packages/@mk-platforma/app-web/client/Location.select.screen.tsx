@@ -62,9 +62,11 @@ export default function Location_select_screen({
   const selectedLocation_input_radius_value = form.values.location ? form.values.radius ?? 50 : ""
 
   async function handleDone() {
-    await form.validateForm()
-    if (form.isValid) onDone(form.values.location, form.values.radius)
+    const a = form_zod.safeParse(form.values)
+    if (a.success) onDone(form.values.location, form.values.radius)
   }
+
+  console.log(69, form.values, form.isValid, form.errors)
 
   return (
     <Box>
