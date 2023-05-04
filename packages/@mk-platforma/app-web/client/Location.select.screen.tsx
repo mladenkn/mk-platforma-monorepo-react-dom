@@ -47,6 +47,11 @@ export default function Location_select_screen({
     ? selectedLocation_radius_km ?? 50
     : ""
 
+  function handle_setRadius(radius: string) {
+    const parsed = parseInt(radius)
+    if (parsed > 0) set__selectedLocation_radius_km(parsed)
+  }
+
   return (
     <Box>
       <Header_root sx={{}}>
@@ -90,7 +95,7 @@ export default function Location_select_screen({
               ) : undefined
             }
             value={selectedLocation_input_radius_value}
-            onChange={e => set__selectedLocation_radius_km(parseInt(e.target.value))}
+            onChange={e => handle_setRadius(e.target.value)}
           />
         </Box>
         {selectedLocation.data && (
