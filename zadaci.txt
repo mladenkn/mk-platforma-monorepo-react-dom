@@ -3,6 +3,7 @@
 - registracija
 - kategorija: Potražnja
 - GDPR i cookies
+- file upload
 
 MOŽDA
 - createTrpcLoader
