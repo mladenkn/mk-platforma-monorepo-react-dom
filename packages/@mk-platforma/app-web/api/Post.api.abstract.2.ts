@@ -46,5 +46,5 @@ type A = ReturnType<typeof Post_list_abstract>
 
 const r = SuperData_TrpcCompose(
   Post_list_abstract,
-  SuperData_mapper(z.object({}), async (_, __, prev: Prisma.PostFindManyArgs) => 2)
+  SuperData_mapper(z.object({}), async (_, __) => 2)
 )
