@@ -31,8 +31,7 @@ export function SuperData_mapper<TInput, TOutput>(
   return f
 }
 
-// @ts-ignore
-export function SuperData_finalQuery<TInput1, TOutput1, TInput2, TOutput2>(
+export function SuperData_finalQuery<TInput1, TOutput1, TOutput2, TInput2>(
   map1: ((ctx: Api_context, i: TInput1) => Promise<TOutput1>) & { input_zod: z.ZodType<TInput1> },
   input_zod: z.ZodType<TInput2>,
   map2: (ctx: Api_context, output1: TOutput1, i: TInput2) => Promise<TOutput2>
