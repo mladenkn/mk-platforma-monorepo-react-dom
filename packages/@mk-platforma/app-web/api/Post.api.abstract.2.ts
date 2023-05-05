@@ -1,9 +1,8 @@
 import { z } from "zod"
 import { Post_queryChunks_search } from "./Post.api"
-import { SuperData_mapper, SuperData_finalQuery } from "../SuperData"
+import { SuperData_mapper } from "../SuperData"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import { Prisma } from "@prisma/client"
-import { Post_single_details_PostSelect } from "../client/Post.single.details"
 
 export const Post_list_abstract = SuperData_mapper(
   z.object({
