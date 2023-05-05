@@ -11,7 +11,7 @@ import { SuperData_finalQuery } from "../SuperData"
 
 const Post_api = router({
   list: router({
-    fieldSet_main: SuperData_finalQuery(Post_list_abstract, z.object({}), ({ db }, output1) =>
+    fieldSet_main: SuperData_finalQuery(Post_list_abstract, ({ db }, output1) =>
       db.post.findMany({
         ...output1,
         select: Post_single_details_PostSelect,
