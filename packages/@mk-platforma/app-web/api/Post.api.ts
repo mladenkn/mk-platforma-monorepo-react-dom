@@ -8,13 +8,14 @@ import Post_Category_api from "./Post.Category.api"
 import { Prisma } from "@prisma/client"
 import { Post_list_abstract } from "./Post.api.abstract"
 import { SuperData_query } from "../SuperData"
+import { PostList_section_PostSelect } from "../client/Post.list.section"
 
 const Post_api = router({
   list: router({
     fieldSet_main: SuperData_query(Post_list_abstract, ({ db }, output1) =>
       db.post.findMany({
         ...output1,
-        select: Post_single_details_PostSelect,
+        select: PostList_section_PostSelect,
       })
     ),
   }),
