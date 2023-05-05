@@ -22,17 +22,10 @@ export function SuperData_query<TInput, TFirstOutput>(
   }
 }
 
-export function SuperData_mapper<TInput, TOutput>(
-  input_zod: z.ZodType<TInput>,
-  mapFirst: (ctx: Api_context, input: TInput) => Promise<TOutput>
-): ((ctx: Api_context, input: TInput) => Promise<TOutput>) & { input_zod: z.ZodType<TInput> }
-
-export function SuperData_mapper<TInput, TThisOutput, TOutput1>(
-  input_zod: z.ZodType<TInput>,
-  mapFirst: (ctx: Api_context, input: TInput, output1: TOutput1) => Promise<TThisOutput>
-): ((ctx: Api_context, input: TInput, output1: TOutput1) => Promise<TThisOutput>) & {
-  input_zod: z.ZodType<TInput>
-}
+// export function SuperData_mapper<TInput, TOutput>(
+//   input_zod: z.ZodType<TInput>,
+//   mapFirst: (ctx: Api_context, input: TInput) => Promise<TOutput>
+// ): ((ctx: Api_context, input: TInput) => Promise<TOutput>) & { input_zod: z.ZodType<TInput> }
 
 export function SuperData_mapper<TInput, TOutput>(
   input_zod: z.ZodType<TInput>,
@@ -44,16 +37,15 @@ export function SuperData_mapper<TInput, TOutput>(
 }
 
 // @ts-ignore
-export function SuperData_TrpcCompose<TInput1, TOutput1, TInput2, TOutput2>(
+export function SuperData_finalQuery<TInput1, TOutput1, TInput2, TOutput2>(
   map1: ((ctx: Api_context, i: TInput1) => Promise<TOutput1>) & { input_zod: z.ZodType<TInput1> },
-  map2: ((ctx: Api_context, i: TInput2, output1: TOutput1) => Promise<TOutput2>) & {
-    input_zod: z.ZodType<TInput1>
-  }
+  input_zod: z.ZodType<TInput2>,
+  map2: (ctx: Api_context, output1: TOutput1, i: TInput2) => Promise<TOutput2>
 ) {
-  const input = map1.input_zod.and(map2.input_zod)
+  const input = map1.input_zod.and(input_zod)
   return publicProcedure.input(input).query(async ({ ctx, input }) => {
     const output1 = await map1(ctx, input as any)
-    const output2 = await map2(ctx, input as any, output1)
+    const output2 = await map2(ctx, output1, input as any)
     return output2
   })
 }
