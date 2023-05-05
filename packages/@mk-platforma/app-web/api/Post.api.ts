@@ -6,12 +6,12 @@ import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import Post_comment_api from "./Post.Comment.api"
 import Post_Category_api from "./Post.Category.api"
 import { Prisma } from "@prisma/client"
-import { Post_list_abstract } from "./Post.api.abstract.2"
-import { SuperData_finalQuery } from "../SuperData"
+import { Post_list_abstract } from "./Post.api.abstract"
+import { SuperData_query } from "../SuperData"
 
 const Post_api = router({
   list: router({
-    fieldSet_main: SuperData_finalQuery(Post_list_abstract, ({ db }, output1) =>
+    fieldSet_main: SuperData_query(Post_list_abstract, ({ db }, output1) =>
       db.post.findMany({
         ...output1,
         select: Post_single_details_PostSelect,
