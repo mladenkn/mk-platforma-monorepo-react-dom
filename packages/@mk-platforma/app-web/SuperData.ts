@@ -25,8 +25,20 @@ export function SuperData_query<TInput, TFirstOutput>(
 export function SuperData_mapper<TInput, TOutput>(
   input_zod: z.ZodType<TInput>,
   mapFirst: (ctx: Api_context, input: TInput) => Promise<TOutput>
+): ((ctx: Api_context, input: TInput) => Promise<TOutput>) & { input_zod: z.ZodType<TInput> }
+
+export function SuperData_mapper<TInput, TThisOutput, TOutput1>(
+  input_zod: z.ZodType<TInput>,
+  mapFirst: (ctx: Api_context, input: TInput, output1: TOutput1) => Promise<TThisOutput>
+): ((ctx: Api_context, input: TInput, output1: TOutput1) => Promise<TThisOutput>) & {
+  input_zod: z.ZodType<TInput>
+}
+
+export function SuperData_mapper<TInput, TOutput>(
+  input_zod: z.ZodType<TInput>,
+  mapFirst: (ctx: Api_context, input: TInput, output1?: unknown) => Promise<TOutput>
 ) {
-  const f = (ctx: Api_context, input: TInput) => mapFirst(ctx, input)
+  const f = (ctx: Api_context, input: TInput, output1?: unknown) => mapFirst(ctx, input, output1)
   f.input_zod = input_zod
   return f
 }

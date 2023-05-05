@@ -3,6 +3,7 @@ import { Post_queryChunks_search } from "./Post.api"
 import { SuperData_mapper, SuperData_TrpcCompose } from "../SuperData"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import { Prisma } from "@prisma/client"
+import { Api_context } from "../trpc.server"
 
 export const Post_list_abstract = SuperData_mapper(
   z.object({
@@ -42,9 +43,9 @@ export const Post_list_abstract = SuperData_mapper(
   }
 )
 
-type A = ReturnType<typeof Post_list_abstract>
+type A = Awaited<ReturnType<typeof Post_list_abstract>>
 
 const r = SuperData_TrpcCompose(
   Post_list_abstract,
-  SuperData_mapper(z.object({}), async (_, __) => 2)
+  SuperData_mapper(z.object({}), async (_: Api_context, __: {}, output1: A) => {})
 )
