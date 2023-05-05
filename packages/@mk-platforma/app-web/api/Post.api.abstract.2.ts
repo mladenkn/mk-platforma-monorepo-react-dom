@@ -4,6 +4,8 @@ import { SuperData_mapper, SuperData_TrpcCompose } from "../SuperData"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import { Prisma } from "@prisma/client"
 import { Api_context } from "../trpc.server"
+import { publicProcedure } from "../trpc.server.utils"
+import { Post_single_details_PostSelect } from "../client/Post.single.details"
 
 export const Post_list_abstract = SuperData_mapper(
   z.object({
@@ -45,7 +47,14 @@ export const Post_list_abstract = SuperData_mapper(
 
 type A = Awaited<ReturnType<typeof Post_list_abstract>>
 
-const r = SuperData_TrpcCompose(
-  Post_list_abstract,
-  SuperData_mapper(z.object({}), async (_: Api_context, __: {}, output1: A) => {})
-)
+// const r = SuperData_TrpcCompose(
+//   Post_list_abstract,
+//   SuperData_mapper(z.object({}), async (_: Api_context, __: {}, output1: A) => {})
+// )
+
+const query = publicProcedure.input(Post_list_abstract.input_zod).query(async ({ ctx, input }) => {
+  await ctx.db.post.findMany({
+    ...(await Post_list_abstract(ctx, input)),
+    select: Post_single_details_PostSelect,
+  })
+})
