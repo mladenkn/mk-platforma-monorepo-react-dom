@@ -42,12 +42,3 @@ export const Post_list_abstract = SuperData_mapper(
     } satisfies Prisma.PostFindManyArgs
   }
 )
-
-type A = Awaited<ReturnType<typeof Post_list_abstract>>
-
-const query = SuperData_finalQuery(Post_list_abstract, z.object({}), ({ db }, output1, input) =>
-  db.post.findMany({
-    ...output1,
-    select: Post_single_details_PostSelect,
-  })
-)
