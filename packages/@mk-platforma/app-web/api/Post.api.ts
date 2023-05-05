@@ -7,13 +7,14 @@ import Post_comment_api from "./Post.Comment.api"
 import Post_Category_api from "./Post.Category.api"
 import { Prisma } from "@prisma/client"
 import { Post_api_abstract } from "./Post.api.abstract"
+import { PostList_section_PostSelect } from "../client/Post.list.section"
 
 const Post_api = router({
   list: router({
     fieldSet_main: Post_api_abstract.list(({ db, firstMap }) =>
       db.post.findMany({
         ...firstMap,
-        select: Post_single_details_PostSelect,
+        select: PostList_section_PostSelect,
       })
     ),
   }),
