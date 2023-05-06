@@ -3,81 +3,15 @@ import LocationIcon from "@mui/icons-material/LocationOn"
 import { Comment_listItem } from "./Comment.common"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import DataOrQuery from "../utils"
-import { UseQueryResult } from "@tanstack/react-query"
-import type { Prisma } from "@prisma/client"
 import React, { ReactNode } from "react"
 import Carousel from "react-material-ui-carousel"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Link from "next/link"
+import { Api_outputs } from "../trpc.utils"
 
-export const Post_single_details_PostSelect = {
-  id: true,
-  title: true,
-  categories: {
-    select: {
-      id: true,
-      label: true,
-    },
-  },
-  location: {
-    select: {
-      id: true,
-      name: true,
-    },
-  },
-  contact: true,
-  description: true,
-  images: {
-    select: {
-      id: true,
-      url: true,
-    },
-  },
-  expertEndorsement: {
-    select: {
-      firstName: true,
-      lastName: true,
-      avatarStyle: true,
-      skills: {
-        select: {
-          id: true,
-          label: true,
-          level: true,
-        },
-      },
-    },
-  },
-  comments: {
-    select: {
-      id: true,
-      content: true,
-      author: {
-        select: {
-          name: true,
-          avatarStyle: true,
-        },
-      },
-    },
-  },
-  author: {
-    select: {
-      id: true,
-      name: true,
-      avatarStyle: true,
-    },
-  },
-} satisfies Prisma.PostSelect
-
-type Post_base = Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
-type Comment = Post_base["comments"][number] & {
-  canEdit: boolean
-  canDelete: boolean
-}
-export type Post_common_listItem_details_PostModel = Omit<Post_base, "comments"> & {
-  comments?: Comment[] | UseQueryResult<Comment[]>
-}
+export type Post_common_listItem_details_PostModel = Api_outputs["post"]["single"]
 
 type Post_common_listItem_details_Props = Post_common_listItem_details_PostModel & {
   sx?: SxProps

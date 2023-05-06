@@ -2,7 +2,6 @@ import { z } from "zod"
 import { publicProcedure, router } from "../trpc.server.utils"
 import Post_api_create from "./Post.api.create"
 import { assertIsNonNil } from "@mk-libs/common/common"
-import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { Post_list_abstract } from "./Post.api.abstract"
 import { SuperData_query } from "../SuperData"
 
@@ -54,7 +53,63 @@ const Post_api = router({
     .query(async ({ ctx, input }) => {
       const post = await ctx.db.post.findUnique({
         where: { id: input.id },
-        select: Post_single_details_PostSelect,
+        select: {
+          id: true,
+          title: true,
+          categories: {
+            select: {
+              id: true,
+              label: true,
+            },
+          },
+          location: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          contact: true,
+          description: true,
+          images: {
+            select: {
+              id: true,
+              url: true,
+            },
+          },
+          expertEndorsement: {
+            select: {
+              firstName: true,
+              lastName: true,
+              avatarStyle: true,
+              skills: {
+                select: {
+                  id: true,
+                  label: true,
+                  level: true,
+                },
+              },
+            },
+          },
+          comments: {
+            select: {
+              id: true,
+              content: true,
+              author: {
+                select: {
+                  name: true,
+                  avatarStyle: true,
+                },
+              },
+            },
+          },
+          author: {
+            select: {
+              id: true,
+              name: true,
+              avatarStyle: true,
+            },
+          },
+        },
       })
       assertIsNonNil(post)
       return {
