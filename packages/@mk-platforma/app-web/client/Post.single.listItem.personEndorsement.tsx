@@ -1,22 +1,10 @@
 import { Box, Typography, Avatar, useTheme } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import type { Prisma } from "@prisma/client"
 import React from "react"
+import { Api_outputs } from "../trpc.utils"
 
-type Props = Prisma.Post_ExpertEndorsementGetPayload<{
-  select: {
-    avatarStyle: true
-    firstName: true
-    lastName: true
-    skills: {
-      select: {
-        label: true
-        level: true
-      }
-    }
-  }
-}> & {
+type Props = NonNullable<Api_outputs["post"]["single"]["expertEndorsement"]> & {
   location?: {
     name: string
   } | null
