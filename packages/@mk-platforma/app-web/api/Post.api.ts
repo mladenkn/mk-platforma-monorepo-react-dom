@@ -3,8 +3,6 @@ import { publicProcedure, router } from "../trpc.server.utils"
 import Post_api_create from "./Post.api.create"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
-import Comment_api from "./Comment.api"
-import Category_api from "./Category.api"
 import { Prisma } from "@prisma/client"
 import { Post_list_abstract } from "./Post.api.abstract"
 import { SuperData_query } from "../SuperData"
@@ -43,9 +41,6 @@ const Post_api = router({
     }),
 
   create: Post_api_create,
-
-  comment: Comment_api,
-  category: Category_api,
 })
 
 export function Post_queryChunks_search(search: string): Prisma.PostWhereInput {
