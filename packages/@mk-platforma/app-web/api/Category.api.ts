@@ -1,47 +1,48 @@
 import { z } from "zod"
 import { Categories_selector_aside_Category_queryParams } from "../client/Categories.selector.aside"
-import { publicProcedure, router } from "../trpc.server.utils"
+import { SuperData_mapper, SuperData_query } from "../SuperData"
+import { router } from "../trpc.server.utils"
 import { Post_queryChunks_search } from "./Post.api.abstract"
 
-const Category_api = router({
-  many: publicProcedure
-    .input(
-      z
+const Category_api_many = SuperData_mapper(
+  z
+    .object({
+      search: z.string().optional(),
+      parent: z
         .object({
-          search: z.string().optional(),
-          parent: z
-            .object({
-              id: z.number().optional(),
-            })
-            .optional()
-            .nullable(),
+          id: z.number().optional(),
         })
         .optional()
-    )
-    .query(({ ctx, input }) => {
-      return ctx.db.post_category.findMany({
-        where: {
-          OR: [
-            {
+        .nullable(),
+    })
+    .optional(),
+  async (_, input) => ({
+    where: {
+      OR: [
+        {
+          posts: {
+            some: input?.search ? Post_queryChunks_search(input.search) : {},
+          },
+        },
+        {
+          children: {
+            some: {
               posts: {
                 some: input?.search ? Post_queryChunks_search(input.search) : {},
               },
             },
-            {
-              children: {
-                some: {
-                  posts: {
-                    some: input?.search ? Post_queryChunks_search(input.search) : {},
-                  },
-                },
-              },
-            },
-          ],
-          parent: input?.parent,
+          },
         },
-        ...Categories_selector_aside_Category_queryParams,
-      })
-    }),
+      ],
+      parent: input?.parent,
+    },
+  })
+)
+
+const Category_api = router({
+  many: SuperData_query(Category_api_many, ({ db }, output1) =>
+    db.post_category.findMany({ ...output1, ...Categories_selector_aside_Category_queryParams })
+  ),
 })
 
 export default Category_api
