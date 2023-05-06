@@ -1,8 +1,7 @@
 import { publicProcedure, router } from "../trpc.server.utils"
-// import { Client } from "@googlemaps/google-maps-services-js"
 import { z } from "zod"
 import { Location, PrismaClient } from "@prisma/client"
-import { Location_Dropdown_locationsQuery } from "../client/Location.dropdown"
+// import { Client } from "@googlemaps/google-maps-services-js"
 
 // const client = new Client({})
 
@@ -44,7 +43,11 @@ const Location_api = router({
       // } else return ctx.db.location.findMany(Location_Dropdown_locationsQuery)
       return ctx.db.location.findMany({
         where: { name: { contains: input.query, mode: "insensitive" } },
-        ...Location_Dropdown_locationsQuery,
+        select: {
+          id: true,
+          name: true,
+        },
+        take: 10,
       })
     }),
   single: publicProcedure.input(z.object({ id: z.number() })).query(({ ctx, input }) => {
@@ -59,7 +62,10 @@ async function upsertLocations(db: PrismaClient, locations: Omit<Location, "id">
         where: { google_id: location.google_id },
         update: location,
         create: location,
-        select: Location_Dropdown_locationsQuery.select,
+        select: {
+          id: true,
+          name: true,
+        },
       })
     )
   )
