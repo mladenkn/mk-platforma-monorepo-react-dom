@@ -5,14 +5,42 @@ import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import { Post_list_abstract } from "./Post.api.abstract"
 import { SuperData_query } from "../SuperData"
-import { PostList_section_PostSelect } from "../client/Post.list.section"
 
 const Post_api = router({
   list: router({
     fieldSet_main: SuperData_query(Post_list_abstract, ({ db }, output1) =>
       db.post.findMany({
         ...output1,
-        select: PostList_section_PostSelect,
+        select: {
+          id: true,
+          title: true,
+          location: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          images: {
+            select: {
+              id: true,
+              url: true,
+            },
+          },
+          expertEndorsement: {
+            select: {
+              firstName: true,
+              lastName: true,
+              avatarStyle: true,
+              skills: {
+                select: {
+                  id: true,
+                  label: true,
+                  level: true,
+                },
+              },
+            },
+          },
+        },
       })
     ),
   }),

@@ -1,4 +1,4 @@
-import { Box, Drawer, Typography, Fab, useTheme, Container, Input, IconButton } from "@mui/material"
+import { Box, Drawer, Fab, Container } from "@mui/material"
 import Post_list_base from "./Post.list.base"
 import { Post_single_listItem } from "./Post.single.listItem"
 import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
@@ -9,48 +9,14 @@ import Categories_selector_aside, {
 } from "./Categories.selector.aside"
 import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
-import { getCategoryLabel, CategoryIcon, useCategory } from "./Categories.common"
-import { Header_root, Header_moreOptions } from "./Header"
-import type { Prisma } from "@prisma/client"
+import { useCategory } from "./Categories.common"
 import { Post_category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
 import Post_list_section_header from "./Post.list.section.header"
 import { use_cookie } from "../cookies"
+import { RouterOutputs } from "../trpc.utils"
 
-export const PostList_section_PostSelect = {
-  id: true,
-  title: true,
-  location: {
-    select: {
-      id: true,
-      name: true,
-    },
-  },
-  images: {
-    select: {
-      id: true,
-      url: true,
-    },
-  },
-  expertEndorsement: {
-    select: {
-      firstName: true,
-      lastName: true,
-      avatarStyle: true,
-      skills: {
-        select: {
-          id: true,
-          label: true,
-          level: true,
-        },
-      },
-    },
-  },
-} satisfies Prisma.PostSelect
-
-type Post = Prisma.PostGetPayload<{
-  select: typeof PostList_section_PostSelect
-}>
+type Post = RouterOutputs["post"]["list"]["fieldSet_main"][number]
 
 export type PostList_section_Props = {
   selectedCategory_initial?: { id: number; label: Post_category_labelType } | null
