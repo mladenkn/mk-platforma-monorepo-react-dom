@@ -3,6 +3,3 @@
 - file upload
 - pravo
 - login
-
-MOŽDA
-- createTrpcLoader
