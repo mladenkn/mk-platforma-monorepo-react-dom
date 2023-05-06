@@ -18,12 +18,12 @@ import { eva } from "@mk-libs/common/common"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import type { RouterOutputs } from "../trpc.utils"
 
-export type Categories_selector_aside_CategoryModel = RouterOutputs["category"]["many"][number]
+export type Categories_selector_aside__CategoryModel = RouterOutputs["category"]["many"][number]
 
 type Props = {
-  categories: Categories_selector_aside_CategoryModel[]
+  categories: Categories_selector_aside__CategoryModel[]
   selectedItem?: number
-  onSelect?(c: Categories_selector_aside_CategoryModel): void
+  onSelect?(c: Categories_selector_aside__CategoryModel): void
   onBack(): void
 }
 
@@ -50,7 +50,7 @@ export default function Categories_selector_aside({
   }
 
   function renderCategory(
-    category: Categories_selector_aside_CategoryModel,
+    category: Categories_selector_aside__CategoryModel,
     startAdornament?: ReactNode,
     endAdornament?: ReactNode
   ) {

@@ -5,7 +5,7 @@ import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.p
 import Api from "./trpc.client"
 import { shallowPick } from "@mk-libs/common/common"
 import Categories_selector_aside, {
-  Categories_selector_aside_CategoryModel,
+  Categories_selector_aside__CategoryModel,
 } from "./Categories.selector.aside"
 import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
@@ -21,7 +21,7 @@ type Post = RouterOutputs["post"]["list"]["fieldSet_main"][number]
 export type PostList_section_Props = {
   selectedCategory_initial?: { id: number; label: Post_category_labelType } | null
   posts_initial: Post[]
-  categories_initial: Categories_selector_aside_CategoryModel[]
+  categories_initial: Categories_selector_aside__CategoryModel[]
   location_initial: number | null
   location_radius_initial: number | null
 }
@@ -62,7 +62,7 @@ export default function PostList_section({
 
   const setUrlParams_shallow = use_setUrlParams_shallow()
 
-  function onCategorySelect(category: Categories_selector_aside_CategoryModel) {
+  function onCategorySelect(category: Categories_selector_aside__CategoryModel) {
     setUrlParams_shallow({ category: category.label })
     if (!category.children?.length) set_SectionsDrawer_isActive(false)
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)

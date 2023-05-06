@@ -5,14 +5,14 @@ import { CategoryIcon, getCategoryLabel, useCategory } from "./Categories.common
 import Api from "./trpc.client"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import SearchIcon from "@mui/icons-material/Search"
-import { Categories_selector_aside_CategoryModel } from "./Categories.selector.aside"
+import { Categories_selector_aside__CategoryModel } from "./Categories.selector.aside"
 
 type Props = {
   search: string
   setSearch(s: string): void
   selectedCategory?: number
   set_selectedCategory(
-    c?: Omit<Categories_selector_aside_CategoryModel, "parent" | "children">
+    c?: Omit<Categories_selector_aside__CategoryModel, "parent" | "children">
   ): void
 }
 
