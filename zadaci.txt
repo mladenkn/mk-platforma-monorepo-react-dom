@@ -1,9 +1,8 @@
 - pagiranje
-- login
-- registracija
 - potražnja za sve
 - pravo
 - file upload
+- login
 
 MOŽDA
 - createTrpcLoader
