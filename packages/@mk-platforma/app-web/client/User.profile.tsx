@@ -2,32 +2,12 @@ import { Box, SxProps, Container, Paper, Avatar, Typography } from "@mui/materia
 import { Header_full_common } from "./Header"
 import React from "react"
 import Api from "./trpc.client"
-import { Prisma } from "@prisma/client"
 import Link from "next/link"
 import { groupBy } from "lodash"
 import { getCategoryLabel } from "./Categories.common"
+import { Api_outputs } from "../trpc.utils"
 
-export const User_profile_section_select = {
-  select: {
-    id: true,
-    name: true,
-    avatarStyle: true,
-    posts: {
-      select: {
-        id: true,
-        title: true,
-        categories: {
-          select: {
-            id: true,
-            label: true,
-          },
-        },
-      },
-    },
-  },
-} satisfies Prisma.UserArgs
-
-type User = Prisma.UserGetPayload<typeof User_profile_section_select>
+type User = NonNullable<Api_outputs["user"]["single"]>
 
 type Props = {
   sx?: SxProps
