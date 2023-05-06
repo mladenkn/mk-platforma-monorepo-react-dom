@@ -78,7 +78,7 @@ export default function PostList_section({
     location_radius_initial
   )
 
-  const categories = Api.post.category.many.useQuery(undefined, { initialData: categories_initial })
+  const categories = Api.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
 
   const posts = Api.post.list.fieldSet_main.useQuery(

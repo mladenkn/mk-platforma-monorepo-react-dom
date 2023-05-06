@@ -22,7 +22,7 @@ export default function CategoryDropdown({
   ...props
 }: CategoriesDropdown_Props): ReactElement {
   const { typography } = useTheme()
-  const categories = Api.post.category.many.useQuery()
+  const categories = Api.category.many.useQuery()
 
   function findCategory(id: number) {
     return categories.data?.find(c => c.id === id)

@@ -22,7 +22,7 @@ export default function Query_editor({
   selectedCategory: selectedCategory_id,
   set_selectedCategory,
 }: Props) {
-  const filteredCategories = Api.post.category.many.useQuery({
+  const filteredCategories = Api.category.many.useQuery({
     search,
     parent: selectedCategory_id ? { id: selectedCategory_id } : null,
   })

@@ -24,7 +24,7 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
   const props: PostList_section_Props = {
     selectedCategory_initial: category,
     posts_initial,
-    categories_initial: await api.post.category.many(),
+    categories_initial: await api.category.many(),
     location_initial: location || null,
     location_radius_initial: location_radius || null,
   }
