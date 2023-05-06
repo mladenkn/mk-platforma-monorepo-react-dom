@@ -21,19 +21,21 @@ const Post_Comment_create_input_zod = Post_commentSchema.pick({
 
 const Comment_api = router({
   many: SuperData_query(Comment_api_many, ({ db }, output1) =>
-    db.post_comment.findMany({
-      ...output1,
-      select: {
-        id: true,
-        content: true,
-        author: {
-          select: {
-            avatarStyle: true,
-            name: true,
+    db.post_comment
+      .findMany({
+        ...output1,
+        select: {
+          id: true,
+          content: true,
+          author: {
+            select: {
+              avatarStyle: true,
+              name: true,
+            },
           },
         },
-      },
-    })
+      })
+      .then(list => list.map(c => ({ ...c, canEdit: true, canDelete: true })))
   ),
 
   create: publicProcedure

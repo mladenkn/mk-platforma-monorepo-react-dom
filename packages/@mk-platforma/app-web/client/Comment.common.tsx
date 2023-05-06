@@ -4,10 +4,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { Api_outputs } from "../trpc.utils"
 
-type Comment = Api_outputs["comment"]["many"][number] & {
-  canEdit?: boolean
-  canDelete?: boolean
-}
+type Comment = Api_outputs["comment"]["many"][number]
 
 type Props = {
   sx?: SxProps

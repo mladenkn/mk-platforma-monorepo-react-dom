@@ -72,8 +72,8 @@ export const Post_single_details_PostSelect = {
 
 type Post_base = Prisma.PostGetPayload<{ select: typeof Post_single_details_PostSelect }>
 type Comment = Post_base["comments"][number] & {
-  canEdit?: boolean
-  canDelete?: boolean
+  canEdit: boolean
+  canDelete: boolean
 }
 export type Post_common_listItem_details_PostModel = Omit<Post_base, "comments"> & {
   comments?: Comment[] | UseQueryResult<Comment[]>
