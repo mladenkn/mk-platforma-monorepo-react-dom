@@ -2,22 +2,9 @@ import React from "react"
 import { Box, SxProps, IconButton, Typography, Avatar } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
-import type { Prisma } from "@prisma/client"
+import { Api_outputs } from "../trpc.utils"
 
-export const Comment_listItem_CommentSelect = {
-  id: true,
-  content: true,
-  author: {
-    select: {
-      avatarStyle: true,
-      name: true,
-    },
-  },
-}
-
-type Comment = Prisma.Post_commentGetPayload<{
-  select: typeof Comment_listItem_CommentSelect
-}> & {
+type Comment = Api_outputs["comment"]["many"][number] & {
   canEdit?: boolean
   canDelete?: boolean
 }
