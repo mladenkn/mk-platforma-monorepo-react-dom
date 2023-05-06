@@ -11,11 +11,11 @@ import { Post_category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
 import Post_list_section_header from "./Post.list.section.header"
 import { use_cookie } from "../cookies"
-import { RouterOutputs } from "../trpc.utils"
+import { Api_outputs } from "../trpc.utils"
 import Categories_selector_aside from "./Categories.selector.aside"
 
-type Post_model = RouterOutputs["post"]["list"]["fieldSet_main"][number]
-type Category_model = RouterOutputs["category"]["many"][number]
+type Post_model = Api_outputs["post"]["list"]["fieldSet_main"][number]
+type Category_model = Api_outputs["category"]["many"][number]
 
 export type PostList_section_Props = {
   selectedCategory_initial?: { id: number; label: Post_category_labelType } | null
