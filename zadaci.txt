@@ -1,8 +1,8 @@
 - pagiranje
 - login
 - registracija
-- kategorija: Potražnja
-- GDPR i cookies
+- potražnja za sve
+- pravo
 - file upload
 
 MOŽDA
