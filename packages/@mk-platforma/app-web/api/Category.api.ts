@@ -3,7 +3,7 @@ import { Categories_selector_aside_Category_queryParams } from "../client/Catego
 import { publicProcedure, router } from "../trpc.server.utils"
 import { Post_queryChunks_search } from "./Post.api"
 
-const Post_Category_api = router({
+const Category_api = router({
   many: publicProcedure
     .input(
       z
@@ -44,4 +44,4 @@ const Post_Category_api = router({
     }),
 })
 
-export default Post_Category_api
+export default Category_api

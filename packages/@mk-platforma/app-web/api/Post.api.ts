@@ -4,7 +4,7 @@ import Post_api_create from "./Post.api.create"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
 import Post_comment_api from "./Post.Comment.api"
-import Post_Category_api from "./Post.Category.api"
+import Category_api from "./Category.api"
 import { Prisma } from "@prisma/client"
 import { Post_list_abstract } from "./Post.api.abstract"
 import { SuperData_query } from "../SuperData"
@@ -45,7 +45,7 @@ const Post_api = router({
   create: Post_api_create,
 
   comment: Post_comment_api,
-  category: Post_Category_api,
+  category: Category_api,
 })
 
 export function Post_queryChunks_search(search: string): Prisma.PostWhereInput {
