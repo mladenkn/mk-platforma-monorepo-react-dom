@@ -2,28 +2,28 @@ import { z } from "zod"
 import { publicProcedure, router } from "../trpc.server.utils"
 import { Comment_listItem_CommentSelect } from "../client/Comment.common"
 import { Post_commentSchema } from "../prisma/generated/zod"
+import { SuperData_mapper, SuperData_query } from "../SuperData"
 
-export const Post_Comment_create_input_zod = Post_commentSchema.pick({
+const Comment_api_many = SuperData_mapper(
+  z.object({
+    post_id: z.number(),
+  }),
+  async (_, input) => ({
+    where: {
+      post_id: input.post_id,
+    },
+  })
+)
+
+const Post_Comment_create_input_zod = Post_commentSchema.pick({
   content: true,
   post_id: true,
 })
 
 const Comment_api = router({
-  many: publicProcedure
-    .input(
-      z.object({
-        post_id: z.number(),
-      })
-    )
-    .query(({ ctx, input }) => {
-      return ctx.db.post_comment.findMany({
-        // fali canEdit, canDelete
-        where: {
-          post_id: input.post_id,
-        },
-        select: Comment_listItem_CommentSelect,
-      })
-    }),
+  many: SuperData_query(Comment_api_many, ({ db }, output1) =>
+    db.post_comment.findMany({ ...output1, select: Comment_listItem_CommentSelect })
+  ),
 
   create: publicProcedure
     .input(Post_Comment_create_input_zod)
