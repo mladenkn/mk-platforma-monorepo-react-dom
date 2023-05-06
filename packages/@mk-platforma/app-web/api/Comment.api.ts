@@ -8,7 +8,7 @@ export const Post_Comment_create_input_zod = Post_commentSchema.pick({
   post_id: true,
 })
 
-const Post_comment_api = router({
+const Comment_api = router({
   many: publicProcedure
     .input(
       z.object({
@@ -30,4 +30,4 @@ const Post_comment_api = router({
     .mutation(({ ctx, input }) => ctx.db.post_comment.create({ data: { ...input, author_id: 1 } })),
 })
 
-export default Post_comment_api
+export default Comment_api
