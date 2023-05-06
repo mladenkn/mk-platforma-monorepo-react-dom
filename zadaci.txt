@@ -1,7 +1,7 @@
 - pagiranje
 - potražnja za sve
-- pravo
 - file upload
+- pravo
 - login
 
 MOŽDA
