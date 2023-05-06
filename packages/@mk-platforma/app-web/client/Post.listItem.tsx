@@ -14,7 +14,7 @@ type Post_common_listItem_props = {
   mainImage?: string
 }
 
-export function Post_single_listItem({ title, location, images }: Post_common_listItem_props) {
+export function Post_listItem({ title, location, images }: Post_common_listItem_props) {
   const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
 
   const { typography } = useTheme()

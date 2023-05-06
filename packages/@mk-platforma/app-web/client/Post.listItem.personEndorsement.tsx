@@ -10,7 +10,7 @@ type Props = NonNullable<Api_outputs["post"]["single"]["expertEndorsement"]> & {
   } | null
 }
 
-export function Post_single_listItem_personEndorsement({
+export function Post_listItem_personEndorsement({
   avatarStyle,
   firstName,
   lastName,

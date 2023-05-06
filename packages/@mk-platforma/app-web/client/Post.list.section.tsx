@@ -1,7 +1,7 @@
 import { Box, Drawer, Fab, Container } from "@mui/material"
 import Post_list_base from "./Post.list.base"
-import { Post_single_listItem } from "./Post.single.listItem"
-import { Post_single_listItem_personEndorsement } from "./Post.single.listItem.personEndorsement"
+import { Post_listItem } from "./Post.listItem"
+import { Post_listItem_personEndorsement } from "./Post.listItem.personEndorsement"
 import Api from "./trpc.client"
 import { shallowPick } from "@mk-libs/common/common"
 import React, { useState } from "react"
@@ -125,7 +125,7 @@ export default function PostList_section({
             Item={item => {
               if (item.expertEndorsement) {
                 return (
-                  <Post_single_listItem_personEndorsement
+                  <Post_listItem_personEndorsement
                     {...shallowPick(
                       item.expertEndorsement,
                       "firstName",
@@ -136,7 +136,7 @@ export default function PostList_section({
                     location={item.location}
                   />
                 )
-              } else return <Post_single_listItem {...item} location={item.location?.name} />
+              } else return <Post_listItem {...item} location={item.location?.name} />
             }}
           />
         ) : (
