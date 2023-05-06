@@ -14,51 +14,11 @@ import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import React, { ReactNode } from "react"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
-import type { Prisma } from "@prisma/client"
 import { eva } from "@mk-libs/common/common"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import { sizing } from "@mui/system"
+import type { RouterOutputs } from "../trpc.utils"
 
-export const Categories_selector_aside_Category_queryParams = {
-  select: {
-    id: true,
-    label: true,
-    parent: {
-      select: {
-        id: true,
-        label: true,
-        children: {
-          select: {
-            id: true,
-            label: true,
-          },
-        },
-        parent: {
-          select: {
-            id: true,
-            label: true,
-          },
-        },
-      },
-    },
-    children: {
-      select: {
-        id: true,
-        label: true,
-        parent: {
-          select: {
-            id: true,
-            label: true,
-          },
-        },
-      },
-    },
-  },
-} satisfies Prisma.Post_categoryArgs
-
-export type Categories_selector_aside_CategoryModel = Prisma.Post_categoryGetPayload<
-  typeof Categories_selector_aside_Category_queryParams
->
+export type Categories_selector_aside_CategoryModel = RouterOutputs["category"]["many"][number]
 
 type Props = {
   categories: Categories_selector_aside_CategoryModel[]

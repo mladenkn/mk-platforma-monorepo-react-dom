@@ -1,5 +1,4 @@
 import { z } from "zod"
-import { Categories_selector_aside_Category_queryParams } from "../client/Categories.selector.aside"
 import { SuperData_mapper, SuperData_query } from "../SuperData"
 import { router } from "../trpc.server.utils"
 import { Post_queryChunks_search } from "./Post.api.abstract"
@@ -41,7 +40,43 @@ const Category_api_many = SuperData_mapper(
 
 const Category_api = router({
   many: SuperData_query(Category_api_many, ({ db }, output1) =>
-    db.post_category.findMany({ ...output1, ...Categories_selector_aside_Category_queryParams })
+    db.post_category.findMany({
+      ...output1,
+      select: {
+        id: true,
+        label: true,
+        parent: {
+          select: {
+            id: true,
+            label: true,
+            children: {
+              select: {
+                id: true,
+                label: true,
+              },
+            },
+            parent: {
+              select: {
+                id: true,
+                label: true,
+              },
+            },
+          },
+        },
+        children: {
+          select: {
+            id: true,
+            label: true,
+            parent: {
+              select: {
+                id: true,
+                label: true,
+              },
+            },
+          },
+        },
+      },
+    })
   ),
 })
 
