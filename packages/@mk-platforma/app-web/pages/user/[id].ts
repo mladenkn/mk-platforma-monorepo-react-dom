@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next"
 import User_profile from "../../client/User.profile"
-import { Api_ss } from "../../trpc.server"
+import { Api_ss } from "../../api/api.root"
 import db from "../../prisma/instance"
 
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {

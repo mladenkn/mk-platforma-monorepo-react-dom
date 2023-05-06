@@ -1,9 +1,9 @@
-import Location_api from "./api/Location.api"
-import Post_api from "./api/Post.api"
-import { User_api } from "./api/User.api"
-import { createContext, router } from "./trpc.server.utils"
-import Comment_api from "./api/Comment.api"
-import Category_api from "./api/Category.api"
+import Location_api from "./Location.api"
+import Post_api from "./Post.api"
+import { User_api } from "./User.api"
+import { createContext, router } from "../trpc.server.utils"
+import Comment_api from "./Comment.api"
+import Category_api from "./Category.api"
 
 export type Api_context = Awaited<ReturnType<typeof createContext>>
 

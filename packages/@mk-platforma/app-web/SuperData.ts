@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { Api_context } from "./trpc.server"
+import { Api_context } from "./api/api.root"
 import { publicProcedure } from "./trpc.server.utils"
 
 export function SuperData_mapper<TInput, TOutput>(

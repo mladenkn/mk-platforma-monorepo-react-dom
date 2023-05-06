@@ -1,6 +1,6 @@
 import { Post_category_label } from "@prisma/client"
 import generatePosts from "./data.gen"
-import { Api_ss } from "../trpc.server"
+import { Api_ss } from "../api/api.root"
 import locations from "./locations.gen.json"
 import { faker } from "@faker-js/faker"
 import * as cro_dataset from "./data.gen.cro.dataset"
