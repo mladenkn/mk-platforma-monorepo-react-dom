@@ -3,7 +3,6 @@ import { publicProcedure, router } from "../trpc.server.utils"
 import Post_api_create from "./Post.api.create"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_single_details_PostSelect } from "../client/Post.single.details"
-import { Prisma } from "@prisma/client"
 import { Post_list_abstract } from "./Post.api.abstract"
 import { SuperData_query } from "../SuperData"
 import { PostList_section_PostSelect } from "../client/Post.list.section"
@@ -42,21 +41,5 @@ const Post_api = router({
 
   create: Post_api_create,
 })
-
-export function Post_queryChunks_search(search: string): Prisma.PostWhereInput {
-  return {
-    OR: [
-      {
-        title: { contains: search, mode: "insensitive" },
-      },
-      {
-        description: { contains: search, mode: "insensitive" },
-      },
-      {
-        contact: { contains: search, mode: "insensitive" },
-      },
-    ],
-  }
-}
 
 export default Post_api

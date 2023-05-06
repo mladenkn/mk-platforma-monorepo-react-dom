@@ -1,5 +1,4 @@
 import { z } from "zod"
-import { Post_queryChunks_search } from "./Post.api"
 import { SuperData_mapper } from "../SuperData"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import { Prisma } from "@prisma/client"
@@ -41,3 +40,19 @@ export const Post_list_abstract = SuperData_mapper(
     } satisfies Prisma.PostFindManyArgs
   }
 )
+
+export function Post_queryChunks_search(search: string): Prisma.PostWhereInput {
+  return {
+    OR: [
+      {
+        title: { contains: search, mode: "insensitive" },
+      },
+      {
+        description: { contains: search, mode: "insensitive" },
+      },
+      {
+        contact: { contains: search, mode: "insensitive" },
+      },
+    ],
+  }
+}
