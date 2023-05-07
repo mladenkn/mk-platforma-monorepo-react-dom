@@ -1,6 +1,6 @@
 import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme, IconButton } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
-import { Comment_listItem } from "./Comment.common"
+import { Comment_listItem } from "./Comment.listItem"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import DataOrQuery from "../utils"
 import React, { ReactNode } from "react"
