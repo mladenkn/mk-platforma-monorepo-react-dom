@@ -16,24 +16,12 @@ type Props = {
 
 export default function Layout1({
   sx,
-  header,
-  content,
-  bottomSheet,
+  header = () => <></>,
+  content = () => <></>,
+  bottomSheet = () => <></>,
   fav = () => <></>,
-  backdrop,
+  backdrop = () => <></>,
 }: Props) {
-  const _bottomSheet =
-    bottomSheet &&
-    bottomSheet({
-      sx: {
-        flex: 3,
-        zIndex: 2000,
-        overflowY: "auto",
-        width: "90%",
-        margin: "auto",
-      },
-    })
-
   return (
     <Box
       sx={{
@@ -44,7 +32,7 @@ export default function Layout1({
       }}
     >
       {header({})}
-      {backdrop && backdrop({})}
+      {backdrop({})}
       {content({
         sx: {
           pr: 1,
@@ -55,7 +43,15 @@ export default function Layout1({
           overflowY: "auto",
         },
       })}
-      {_bottomSheet}
+      {bottomSheet({
+        sx: {
+          flex: 3,
+          zIndex: 2000,
+          overflowY: "auto",
+          width: "90%",
+          margin: "auto",
+        },
+      })}
       {fav({
         sx: {
           position: "fixed",
