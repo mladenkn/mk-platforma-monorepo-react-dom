@@ -66,6 +66,10 @@ export const isValidDecimalInput =
 // ENUMS
 /////////////////////////////////////////
 
+export const CategoryScalarFieldEnumSchema = z.enum(['id','label','parent_id']);
+
+export const CommentScalarFieldEnumSchema = z.enum(['id','content','author_id','post_id']);
+
 export const ImageScalarFieldEnumSchema = z.enum(['id','cloudinary_id','post_id','url']);
 
 export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]);
@@ -80,10 +84,6 @@ export const Post_ExpertEndorsementScalarFieldEnumSchema = z.enum(['id','post_id
 
 export const Post_ExpertEndorsement_skillScalarFieldEnumSchema = z.enum(['id','label','level','expertEndorsement_id']);
 
-export const Post_categoryScalarFieldEnumSchema = z.enum(['id','label','parent_id']);
-
-export const Post_commentScalarFieldEnumSchema = z.enum(['id','content','author_id','post_id']);
-
 export const QueryModeSchema = z.enum(['default','insensitive']);
 
 export const SortOrderSchema = z.enum(['asc','desc']);
@@ -92,9 +92,9 @@ export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCo
 
 export const UserScalarFieldEnumSchema = z.enum(['id','name','avatarStyle']);
 
-export const Post_category_labelSchema = z.enum(['job','accommodation','expertEndorsement','sellable','sellable_food','sellable_clothes','sellable_furniture','sellable_tool','sellable_gadget','sellable_buildingMaterial','gathering','gathering_spirituality','gathering_work','gathering_hangout']);
+export const Category_labelSchema = z.enum(['job','accommodation','expertEndorsement','sellable','sellable_food','sellable_clothes','sellable_furniture','sellable_tool','sellable_gadget','sellable_buildingMaterial','gathering','gathering_spirituality','gathering_work','gathering_hangout']);
 
-export type Post_category_labelType = `${z.infer<typeof Post_category_labelSchema>}`
+export type Category_labelType = `${z.infer<typeof Category_labelSchema>}`
 
 /////////////////////////////////////////
 // MODELS
@@ -144,16 +144,16 @@ export const Post_ExpertEndorsement_skillSchema = z.object({
 export type Post_ExpertEndorsement_skill = z.infer<typeof Post_ExpertEndorsement_skillSchema>
 
 /////////////////////////////////////////
-// POST CATEGORY SCHEMA
+// CATEGORY SCHEMA
 /////////////////////////////////////////
 
-export const Post_categorySchema = z.object({
-  label: Post_category_labelSchema,
+export const CategorySchema = z.object({
+  label: Category_labelSchema,
   id: z.number().int(),
   parent_id: z.number().int().nullish(),
 })
 
-export type Post_category = z.infer<typeof Post_categorySchema>
+export type Category = z.infer<typeof CategorySchema>
 
 /////////////////////////////////////////
 // LOCATION SCHEMA
@@ -183,17 +183,17 @@ export const ImageSchema = z.object({
 export type Image = z.infer<typeof ImageSchema>
 
 /////////////////////////////////////////
-// POST COMMENT SCHEMA
+// COMMENT SCHEMA
 /////////////////////////////////////////
 
-export const Post_commentSchema = z.object({
+export const CommentSchema = z.object({
   id: z.number().int(),
   content: z.string(),
   author_id: z.number().int(),
   post_id: z.number().int(),
 })
 
-export type Post_comment = z.infer<typeof Post_commentSchema>
+export type Comment = z.infer<typeof CommentSchema>
 
 /////////////////////////////////////////
 // USER SCHEMA

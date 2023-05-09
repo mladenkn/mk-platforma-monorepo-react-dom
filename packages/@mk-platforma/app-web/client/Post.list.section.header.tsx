@@ -8,14 +8,14 @@ import { getCategoryLabel, CategoryIcon } from "./Categories.common"
 import { Header_root, Header_moreOptions } from "./Header"
 import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
-import { Post_category_label } from "@prisma/client"
+import { Category_label } from "@prisma/client"
 import Location_select_screen from "./Location.select.screen"
 import Api from "./trpc.client"
 import { eva } from "@mk-libs/common/common"
 
 type Props = {
   onShowCategories(): void
-  selectedCategory: UseQueryResult<{ label: Post_category_label } | null>
+  selectedCategory: UseQueryResult<{ label: Category_label } | null>
   search: string | null
   set_search(s: string | null): void
   selectedLocation: number | null

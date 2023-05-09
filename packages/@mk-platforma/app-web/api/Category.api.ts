@@ -40,7 +40,7 @@ const Category_api_many = SuperData_mapper(
 
 const Category_api = router({
   many: SuperData_query(Category_api_many, ({ db }, output1) =>
-    db.post_category.findMany({
+    db.category.findMany({
       ...output1,
       select: {
         id: true,

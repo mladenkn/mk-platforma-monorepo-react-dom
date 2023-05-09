@@ -1,4 +1,4 @@
-import { Post_category_label } from "@prisma/client"
+import { Category_label } from "@prisma/client"
 import generatePosts from "./data.gen"
 import { Api_ss } from "../api/api.root"
 import locations from "./locations.gen.json"
@@ -79,11 +79,11 @@ async function seedCategories() {
     upsertCategory("sellable_buildingMaterial", sellable.id),
   ])
 
-  return await db.post_category.findMany({})
+  return await db.category.findMany({})
 }
 
-async function upsertCategory(label: Post_category_label, parent_id?: number) {
-  return await db.post_category.upsert({
+async function upsertCategory(label: Category_label, parent_id?: number) {
+  return await db.category.upsert({
     where: { label },
     create: { label, parent_id },
     update: { label, parent_id },
@@ -110,7 +110,7 @@ async function seedPosts(posts: ReturnType<typeof generatePosts>, users: number[
       categories: post.categories,
     })
     for (const comment of post.comments) {
-      await db.post_comment.create({
+      await db.comment.create({
         data: {
           content: comment.content,
           post_id: post_created.id,

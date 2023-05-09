@@ -1,7 +1,7 @@
 import db from "./prisma/instance"
 
 async function main() {
-  console.log(await db.post_category.findMany({}))
+  console.log(await db.category.findMany({}))
 }
 
 main()

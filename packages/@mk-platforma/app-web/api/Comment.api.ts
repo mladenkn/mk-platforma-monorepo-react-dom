@@ -1,6 +1,6 @@
 import { z } from "zod"
 import { publicProcedure, router } from "../trpc.server.utils"
-import { Post_commentSchema } from "../prisma/generated/zod"
+import { CommentSchema } from "../prisma/generated/zod"
 import { SuperData_mapper, SuperData_query } from "../SuperData"
 
 const Comment_api_many = SuperData_mapper(
@@ -14,14 +14,14 @@ const Comment_api_many = SuperData_mapper(
   })
 )
 
-const Post_Comment_create_input_zod = Post_commentSchema.pick({
+const Post_Comment_create_input_zod = CommentSchema.pick({
   content: true,
   post_id: true,
 })
 
 const Comment_api = router({
   many: SuperData_query(Comment_api_many, ({ db }, output1) =>
-    db.post_comment
+    db.comment
       .findMany({
         ...output1,
         select: {
@@ -40,7 +40,7 @@ const Comment_api = router({
 
   create: publicProcedure
     .input(Post_Comment_create_input_zod)
-    .mutation(({ ctx, input }) => ctx.db.post_comment.create({ data: { ...input, author_id: 1 } })),
+    .mutation(({ ctx, input }) => ctx.db.comment.create({ data: { ...input, author_id: 1 } })),
 })
 
 export default Comment_api

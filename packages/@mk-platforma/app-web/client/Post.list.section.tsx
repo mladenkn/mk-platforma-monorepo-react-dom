@@ -7,7 +7,7 @@ import { shallowPick } from "@mk-libs/common/common"
 import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { useCategory } from "./Categories.common"
-import { Post_category_labelType } from "../prisma/generated/zod"
+import { Category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
 import Post_list_section_header from "./Post.list.section.header"
 import { use_cookie } from "../cookies"
@@ -18,7 +18,7 @@ type Post_model = Api_outputs["post"]["list"]["fieldSet_main"][number]
 type Category_model = Api_outputs["category"]["many"][number]
 
 export type PostList_section_Props = {
-  selectedCategory_initial?: { id: number; label: Post_category_labelType } | null
+  selectedCategory_initial?: { id: number; label: Category_labelType } | null
   posts_initial: Post_model[]
   categories_initial: Category_model[]
   location_initial: number | null

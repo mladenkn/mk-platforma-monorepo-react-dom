@@ -2,7 +2,7 @@ import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
 import { CategoryIcon, getCategoryLabel } from "./Categories.common"
 import React, { ReactElement } from "react"
 import Api from "./trpc.client"
-import { Post_category_labelType } from "../prisma/generated/zod"
+import { Category_labelType } from "../prisma/generated/zod"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
@@ -12,7 +12,7 @@ type CategoriesDropdown_Props = {
 
 type Category = {
   id: number
-  label: Post_category_labelType
+  label: Category_labelType
 }
 
 export default function CategoryDropdown({
