@@ -6,11 +6,12 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight"
 import Api from "./trpc.client"
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import DoneIcon from "@mui/icons-material/Done"
 import { useFormik } from "formik"
 import { z } from "zod"
 import { toFormikValidationSchema } from "zod-formik-adapter"
+import { match, P } from "ts-pattern"
 
 type Props = {
   location_initial: number | null
@@ -48,6 +49,13 @@ export default function Location_select_screen({
     onSubmit() {},
     validationSchema: toFormikValidationSchema(form_zod),
   })
+
+  useEffect(() => {
+    const newValues = match(form.values)
+      .with({ location: P.number, radius: null }, v => ({ location: v.location, radius: 50 }))
+      .otherwise(v => v)
+    form.setValues(newValues)
+  }, [form.values])
 
   const [location_search, set__location_search] = useState("")
   const location_suggestions = Api.location.many.useQuery({ query: location_search })

@@ -71,7 +71,7 @@ export default function Post_list_section_header({
 
   const location_radius = eva(() => {
     if (!selectedLocation_id) return undefined
-    else return selectedLocation_radius_km || 50
+    else return selectedLocation_radius_km!
   })
 
   const location_text = selectedLocation_id ? selectedLocation.data?.name : "Postavi lokaciju"
