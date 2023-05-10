@@ -1,7 +1,7 @@
 import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
 import { CategoryIcon, getCategoryLabel } from "./Categories.common"
 import React, { ReactElement } from "react"
-import Api from "./trpc.client"
+import Api from "./api.client"
 import { Category_labelType } from "../prisma/generated/zod"
 
 type CategoriesDropdown_Props = {

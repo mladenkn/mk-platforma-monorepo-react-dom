@@ -10,7 +10,7 @@ import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from 
 import { UseQueryResult } from "@tanstack/react-query"
 import { Category_label } from "@prisma/client"
 import Location_select_screen from "./Location.select.screen"
-import Api from "./trpc.client"
+import Api from "./api.client"
 import { eva } from "@mk-libs/common/common"
 
 type Props = {

@@ -1,7 +1,7 @@
 import { Box, SxProps, Container, Paper, Avatar, Typography } from "@mui/material"
 import { Header_full_common } from "./Header"
 import React from "react"
-import Api from "./trpc.client"
+import Api from "./api.client"
 import Link from "next/link"
 import { groupBy } from "lodash"
 import { getCategoryLabel } from "./Categories.common"
