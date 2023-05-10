@@ -1,6 +1,6 @@
 import { z } from "zod"
-import { SuperData_mapper, SuperData_query } from "../SuperData"
-import { router } from "../trpc.server.utils"
+import { SuperData_mapper, SuperData_query } from "../api.SuperData"
+import { router } from "../api.server.utils"
 import { Post_queryChunks_search } from "./Post.api.abstract"
 
 const Category_api_many = SuperData_mapper(

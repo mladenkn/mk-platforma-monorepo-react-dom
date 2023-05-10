@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { publicProcedure, router } from "../trpc.server.utils"
+import { publicProcedure, router } from "../api.server.utils"
 
 export const User_api = router({
   single: publicProcedure.input(z.number()).query(({ ctx, input }) =>

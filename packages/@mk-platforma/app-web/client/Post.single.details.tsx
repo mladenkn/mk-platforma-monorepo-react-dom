@@ -9,7 +9,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Link from "next/link"
-import { Api_outputs } from "../trpc.utils"
+import { Api_outputs } from "../api.utils"
 
 export type Post_common_listItem_details_PostModel = Api_outputs["post"]["single"]
 

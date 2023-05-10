@@ -2,7 +2,7 @@ import Post_single_details, { Post_common_listItem_details_PostModel } from "./P
 import { useRouter } from "next/router"
 import { Header_full_common } from "./Header"
 import { Box, IconButton, Container } from "@mui/material"
-import Api from "./api.client"
+import Api from "../api.client"
 import EditIcon from "@mui/icons-material/Edit"
 import { useState } from "react"
 import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"

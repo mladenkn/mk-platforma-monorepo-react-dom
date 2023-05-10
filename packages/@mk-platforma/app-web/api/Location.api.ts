@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "../trpc.server.utils"
+import { publicProcedure, router } from "../api.server.utils"
 import { z } from "zod"
 import { Location, PrismaClient } from "@prisma/client"
 // import { Client } from "@googlemaps/google-maps-services-js"

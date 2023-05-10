@@ -1,9 +1,9 @@
 import { z } from "zod"
-import { publicProcedure, router } from "../trpc.server.utils"
+import { publicProcedure, router } from "../api.server.utils"
 import Post_api_create from "./Post.api.create"
 import { assertIsNonNil } from "@mk-libs/common/common"
 import { Post_list_abstract } from "./Post.api.abstract"
-import { SuperData_query } from "../SuperData"
+import { SuperData_query } from "../api.SuperData"
 
 const Post_api = router({
   list: router({

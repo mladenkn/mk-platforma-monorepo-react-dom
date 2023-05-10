@@ -2,7 +2,7 @@ import React from "react"
 import { Box, SxProps, IconButton, Typography, Avatar } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
-import { Api_outputs } from "../trpc.utils"
+import { Api_outputs } from "../api.utils"
 
 type Comment = Api_outputs["comment"]["many"][number]
 
