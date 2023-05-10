@@ -3,7 +3,7 @@ import { SuperData_mapper } from "../api.SuperData"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import { Prisma } from "@prisma/client"
 
-export const Post_list_abstract = SuperData_mapper(
+export const Post_list_many = SuperData_mapper(
   z.object({
     categories: z.array(z.number()).optional(),
     search: z.string().optional(),

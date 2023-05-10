@@ -2,12 +2,12 @@ import { z } from "zod"
 import { publicProcedure, router } from "../api.server.utils"
 import Post_api_create from "./Post.api.create"
 import { assertIsNonNil } from "@mk-libs/common/common"
-import { Post_list_abstract } from "./Post.api.abstract"
+import { Post_list_many } from "./Post.api.abstract"
 import { SuperData_query } from "../api.SuperData"
 
 const Post_api = router({
   list: router({
-    fieldSet_main: SuperData_query(Post_list_abstract, ({ db }, output1) =>
+    fieldSet_main: SuperData_query(Post_list_many, ({ db }, output1) =>
       db.post.findMany({
         ...output1,
         select: {
