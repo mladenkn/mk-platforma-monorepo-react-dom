@@ -7,6 +7,7 @@ import generateGatheringsWork from "./post.gathering.work.gen"
 import generateAccomodations from "./post.accommodation.gen"
 import generateGatheringsHangout from "./post.gathering.hangout.gen"
 import { PostGeneratorParams } from "./data.gen._utils"
+import generate_accomodations_demand from "./post.accommodation.demand.gen"
 
 function post_common_generate({ locations }: PostGeneratorParams) {
   return {
@@ -29,6 +30,7 @@ export default function generatePosts(params: PostGeneratorParams) {
     ...generatePosts_base(params, generateGatheringsWork),
     ...generatePosts_base(params, generateGatheringsHangout),
     ...generatePosts_base(params, generateAccomodations),
+    ...generatePosts_base(params, generate_accomodations_demand),
   ]
   return data
 }
