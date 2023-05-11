@@ -3,3 +3,6 @@
 - file upload
 - pravo
 - login
+
+PLAN:
+- CategoryModel.label treba bit CategoryModel.code i to string
