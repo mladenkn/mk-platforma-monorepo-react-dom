@@ -54,9 +54,11 @@ model Post_ExpertEndorsement_skill {
 
 enum Category_label {
   job
+  job_demand
   accommodation
-  expertEndorsement
+  accommodation_demand
   sellable
+  sellable_demand
   sellable_food
   sellable_clothes
   sellable_furniture

@@ -59,7 +59,7 @@ async function upsertUser(name: string, avatarStyle: object) {
 async function seedCategories() {
   await upsertCategory("job")
   await upsertCategory("accommodation")
-  await upsertCategory("expertEndorsement")
+  await upsertCategory("job_demand")
 
   const gathering = await upsertCategory("gathering")
 

@@ -36,7 +36,7 @@ export default function Post_form_fields({ sx, initialValues = initialValues_def
   const selectedCategory = useCategory(
     values.categories?.length ? values.categories[0].id : undefined
   )
-  const isExpert = selectedCategory.data?.label === "expertEndorsement"
+  const isExpert = selectedCategory.data?.label === "job_demand"
   useEffect(() => {
     if (!values.expertEndorsement) {
       setFieldValue("expertEndorsement", { firstName: "", lastName: "", skills: [] })

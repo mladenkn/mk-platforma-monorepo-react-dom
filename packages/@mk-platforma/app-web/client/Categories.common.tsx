@@ -22,7 +22,7 @@ export function getCategoryLabel(category: Category_labelType) {
       return "Smještaji"
     case "sellable":
       return "Nabava"
-    case "expertEndorsement":
+    case "job_demand":
       return "Majstori"
     case "job":
       return "Poslovi"
@@ -72,7 +72,7 @@ export function CategoryIcon({
       return <DevicesOtherIcon {...otherProps} />
     case "sellable_buildingMaterial":
       return <FoundationIcon {...otherProps} />
-    case "expertEndorsement":
+    case "job_demand":
       return <EngineeringIcon {...otherProps} />
     case "job":
       return <HandymanIcon {...otherProps} />
