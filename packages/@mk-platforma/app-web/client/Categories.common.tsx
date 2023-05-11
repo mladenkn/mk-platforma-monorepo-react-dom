@@ -24,6 +24,8 @@ export function getCategoryLabel(category: Category_labelType) {
       return "Smještaji/potražnja"
     case "sellable":
       return "Nabava"
+    case "sellable_demand":
+      return "Nabava/potražnja"
     case "job_demand":
       return "Poslovi/potražnja"
     case "job":
@@ -63,6 +65,8 @@ export function CategoryIcon({
     case "accommodation_demand":
       return <BedIcon {...otherProps} />
     case "sellable":
+      return <ShoppingCartIcon {...otherProps} />
+    case "sellable_demand":
       return <ShoppingCartIcon {...otherProps} />
     case "sellable_food":
       return <FastfoodIcon {...otherProps} />

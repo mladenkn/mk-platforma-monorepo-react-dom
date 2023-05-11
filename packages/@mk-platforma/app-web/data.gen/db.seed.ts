@@ -58,8 +58,8 @@ async function upsertUser(name: string, avatarStyle: object) {
 
 async function seedCategories() {
   await upsertCategory("job")
-  await upsertCategory("accommodation")
   await upsertCategory("job_demand")
+  await upsertCategory("accommodation")
   await upsertCategory("accommodation_demand")
 
   const gathering = await upsertCategory("gathering")
@@ -71,6 +71,7 @@ async function seedCategories() {
   ])
 
   const sellable = await upsertCategory("sellable")
+  await upsertCategory("sellable_demand")
   await Promise.all([
     upsertCategory("sellable_food", sellable.id),
     upsertCategory("sellable_clothes", sellable.id),
