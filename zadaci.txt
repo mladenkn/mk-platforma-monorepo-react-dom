@@ -1,8 +1,9 @@
-- pagiranje
-- potražnja za sve
-- file upload
-- pravo
 - login
+- file upload
+- create i update
+- pagiranje
+
+- pravo
 
 PLAN:
 - CategoryModel.label treba bit CategoryModel.code i to string
