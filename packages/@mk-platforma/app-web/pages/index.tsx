@@ -4,6 +4,8 @@ import { Api_ss } from "../api/api.root"
 import { GetServerSidePropsContext } from "next/types"
 import db from "../prisma/instance"
 import { getCookie_ss } from "../cookies"
+import { useSession, signIn } from "next-auth/react"
+import { Box, Button, Typography } from "@mui/material"
 
 export async function getServerSideProps({ query, req }: GetServerSidePropsContext) {
   const category_label = query.category ? (query.category as Category_labelType) : undefined
@@ -33,4 +35,15 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
   }
 }
 
-export default PostList_section
+export default function (props: PostList_section_Props) {
+  const session = useSession()
+  console.log(40, session)
+  return session ? (
+    PostList_section(props)
+  ) : (
+    <Box>
+      <Typography>Niste prijavljeni</Typography>
+      <Button onClick={() => signIn()}>Prijavite se ovdje</Button>
+    </Box>
+  )
+}
