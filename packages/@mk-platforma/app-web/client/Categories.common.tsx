@@ -20,10 +20,12 @@ export function getCategoryLabel(category: Category_labelType) {
   switch (category) {
     case "accommodation":
       return "Smještaji"
+    case "accommodation_demand":
+      return "Smještaji/potražnja"
     case "sellable":
       return "Nabava"
     case "job_demand":
-      return "Majstori"
+      return "Poslovi/potražnja"
     case "job":
       return "Poslovi"
     case "gathering":
@@ -57,6 +59,8 @@ export function CategoryIcon({
 }: { name: Category_labelType } & ComponentProps<typeof BedIcon>) {
   switch (name) {
     case "accommodation":
+      return <BedIcon {...otherProps} />
+    case "accommodation_demand":
       return <BedIcon {...otherProps} />
     case "sellable":
       return <ShoppingCartIcon {...otherProps} />

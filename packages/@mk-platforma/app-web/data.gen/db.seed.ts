@@ -60,6 +60,7 @@ async function seedCategories() {
   await upsertCategory("job")
   await upsertCategory("accommodation")
   await upsertCategory("job_demand")
+  await upsertCategory("accommodation_demand")
 
   const gathering = await upsertCategory("gathering")
 
