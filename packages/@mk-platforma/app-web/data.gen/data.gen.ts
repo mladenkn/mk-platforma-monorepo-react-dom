@@ -8,7 +8,7 @@ import generateAccomodations from "./post.accommodation.gen"
 import generateGatheringsHangout from "./post.gathering.hangout.gen"
 import { PostGeneratorParams } from "./data.gen._utils"
 
-function data_common_generate({ locations }: PostGeneratorParams) {
+function post_common_generate({ locations }: PostGeneratorParams) {
   return {
     description: generateArray(() => "opis oglasa ", 30).join(""),
     location: faker.helpers.arrayElement(locations),
@@ -38,7 +38,7 @@ function generatePosts_base<T>(
   generateFirst: (p: PostGeneratorParams) => T[]
 ) {
   return generateFirst(params).map(i => ({
-    ...data_common_generate(params),
+    ...post_common_generate(params),
     ...i,
   }))
 }
