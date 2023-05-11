@@ -10,6 +10,7 @@ const Post_api = router({
     fieldSet_main: SuperData_query(Post_list_many, ({ db }, output1) =>
       db.post.findMany({
         ...output1,
+        take: 20,
         select: {
           id: true,
           title: true,
