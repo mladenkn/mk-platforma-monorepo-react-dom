@@ -1,13 +1,13 @@
-import { asNonNil } from "@mk-libs/common/common"
 import NextAuth from "next-auth"
-import GoogleProvider from "next-auth/providers/google"
+import EmailProvider from "next-auth/providers/email"
 
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [
-    GoogleProvider({
-      clientId: asNonNil(process.env.GOOGLE_CLIENT_ID),
-      clientSecret: asNonNil(process.env.GOOGLE_CLIENT_SECRET),
+    EmailProvider({
+      server:
+        "smtp://AKIAYF5HYUQSV2VCUGEK:BITIEuaABEn0B4N8MpNva0fkXZLXMLXQscxGIUn+Bt+t@email-smtp.eu-north-1.amazonaws.com",
+      from: "mladen.knezovic.1993@gmail.com",
     }),
     // ...add more providers here
   ],
