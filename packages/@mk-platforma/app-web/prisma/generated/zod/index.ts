@@ -66,6 +66,8 @@ export const isValidDecimalInput =
 // ENUMS
 /////////////////////////////////////////
 
+export const AccountScalarFieldEnumSchema = z.enum(['id','userId','type','provider','providerAccountId','refresh_token','access_token','expires_at','token_type','scope','id_token','session_state']);
+
 export const CategoryScalarFieldEnumSchema = z.enum(['id','label','parent_id']);
 
 export const CommentScalarFieldEnumSchema = z.enum(['id','content','author_id','post_id']);
@@ -86,11 +88,15 @@ export const Post_ExpertEndorsement_skillScalarFieldEnumSchema = z.enum(['id','l
 
 export const QueryModeSchema = z.enum(['default','insensitive']);
 
+export const SessionScalarFieldEnumSchema = z.enum(['id','sessionToken','userId','expires']);
+
 export const SortOrderSchema = z.enum(['asc','desc']);
 
 export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCommitted','RepeatableRead','Serializable']);
 
-export const UserScalarFieldEnumSchema = z.enum(['id','name','avatarStyle']);
+export const UserScalarFieldEnumSchema = z.enum(['id','name','avatarStyle','email','emailVerified']);
+
+export const VerificationTokenScalarFieldEnumSchema = z.enum(['identifier','token','expires']);
 
 export const Category_labelSchema = z.enum(['job','job_demand','accommodation','accommodation_demand','sellable','sellable_demand','sellable_food','sellable_clothes','sellable_furniture','sellable_tool','sellable_gadget','sellable_buildingMaterial','gathering','gathering_spirituality','gathering_work','gathering_hangout']);
 
@@ -203,6 +209,54 @@ export const UserSchema = z.object({
   id: z.number().int(),
   name: z.string(),
   avatarStyle: InputJsonValue,
+  email: z.string().nullish(),
+  emailVerified: z.coerce.date().nullish(),
 })
 
 export type User = z.infer<typeof UserSchema>
+
+/////////////////////////////////////////
+// ACCOUNT SCHEMA
+/////////////////////////////////////////
+
+export const AccountSchema = z.object({
+  id: z.string().cuid(),
+  userId: z.number().int(),
+  type: z.string(),
+  provider: z.string(),
+  providerAccountId: z.string(),
+  refresh_token: z.string().nullish(),
+  access_token: z.string().nullish(),
+  expires_at: z.number().int().nullish(),
+  token_type: z.string().nullish(),
+  scope: z.string().nullish(),
+  id_token: z.string().nullish(),
+  session_state: z.string().nullish(),
+})
+
+export type Account = z.infer<typeof AccountSchema>
+
+/////////////////////////////////////////
+// SESSION SCHEMA
+/////////////////////////////////////////
+
+export const SessionSchema = z.object({
+  id: z.string().cuid(),
+  sessionToken: z.string(),
+  userId: z.number().int(),
+  expires: z.coerce.date(),
+})
+
+export type Session = z.infer<typeof SessionSchema>
+
+/////////////////////////////////////////
+// VERIFICATION TOKEN SCHEMA
+/////////////////////////////////////////
+
+export const VerificationTokenSchema = z.object({
+  identifier: z.string(),
+  token: z.string(),
+  expires: z.coerce.date(),
+})
+
+export type VerificationToken = z.infer<typeof VerificationTokenSchema>
