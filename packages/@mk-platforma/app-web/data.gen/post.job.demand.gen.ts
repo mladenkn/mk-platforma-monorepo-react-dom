@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { uniq } from "lodash"
-import { avatarStyles } from "./data.common"
+import { avatarStyles } from "../api/User.api"
 import * as cro_dataset from "./data.gen.cro.dataset"
 import { PostGeneratorParams } from "./data.gen._utils"
 
