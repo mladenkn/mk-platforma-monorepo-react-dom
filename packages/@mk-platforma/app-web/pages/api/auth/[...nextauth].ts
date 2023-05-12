@@ -11,9 +11,10 @@ export const authOptions = {
   // Configure one or more authentication providers
   adapter: eva(() => {
     const adapter = PrismaAdapter(db)
+    const createUseer_wrapped = adapter.createUser
     adapter.createUser = function (data: Omit<AdapterUser, "id">) {
-      const data_updated = { ...data, avatarStyles: getRandomElement(avatarStyles) }
-      return adapter.createUser(data_updated)
+      const data_updated = { ...data, avatarStyle: getRandomElement(avatarStyles) }
+      return createUseer_wrapped(data_updated)
     }
     return adapter
   }),

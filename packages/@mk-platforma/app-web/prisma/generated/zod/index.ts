@@ -207,7 +207,7 @@ export type Comment = z.infer<typeof CommentSchema>
 
 export const UserSchema = z.object({
   id: z.number().int(),
-  name: z.string(),
+  name: z.string().nullish(),
   avatarStyle: InputJsonValue,
   email: z.string().nullish(),
   emailVerified: z.coerce.date().nullish(),
