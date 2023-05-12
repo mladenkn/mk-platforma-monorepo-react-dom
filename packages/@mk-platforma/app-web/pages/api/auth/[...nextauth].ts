@@ -10,10 +10,10 @@ import { getRandomElement } from "@mk-libs/common/array"
 export const authOptions = {
   adapter: eva(() => {
     const adapter = PrismaAdapter(db)
-    const createUseer_wrapped = adapter.createUser
+    const createUser_wrapped = adapter.createUser
     adapter.createUser = function (data: Omit<AdapterUser, "id">) {
       const data_updated = { ...data, avatarStyle: getRandomElement(avatarStyles) }
-      return createUseer_wrapped(data_updated)
+      return createUser_wrapped(data_updated)
     }
     return adapter
   }),
