@@ -9,7 +9,7 @@ export const authOptions = {
   providers: [
     EmailProvider({
       server:
-        "smtp://AKIAYF5HYUQSV2VCUGEK:BITIEuaABEn0B4N8MpNva0fkXZLXMLXQscxGIUn+Bt+t@email-smtp.eu-north-1.amazonaws.com",
+        "smtp://apikey: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@smtp.sendgrid.net",
       from: "mladen.knezovic.1993@gmail.com",
     }),
     // ...add more providers here
