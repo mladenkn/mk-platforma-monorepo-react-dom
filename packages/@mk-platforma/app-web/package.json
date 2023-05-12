@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' next dev",
+    "dev": "EMAIL_FROM=mladen.knezovic.1993@gmail.com EMAIL_SERVER=smtp://AKIAYF5HYUQSV2VCUGEK:BITIEuaABEn0B4N8MpNva0fkXZLXMLXQscxGIUn+Bt+t@email-smtp.eu-north-1.amazonaws.com DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' next dev",
     "build": "next build",
     "start.prod": "DATABASE_URL='postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway' next start",
     "ts": "tsc --noEmit",
