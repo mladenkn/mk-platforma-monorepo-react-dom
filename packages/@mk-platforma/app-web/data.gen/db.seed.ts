@@ -37,6 +37,8 @@ async function seedUsers() {
     .map(name => ({
       name,
       avatarStyle: faker.helpers.arrayElement(avatarStyles),
+      email: "fake:" + faker.internet.email(name),
+      emailVerified: new Date(),
     }))
   await db.user.createMany({ data: users })
   return await db.user.findMany({})
