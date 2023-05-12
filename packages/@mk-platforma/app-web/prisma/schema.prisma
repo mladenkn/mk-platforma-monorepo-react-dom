@@ -112,7 +112,7 @@ model Comment {
 
 model User {
   id            Int       @id @default(autoincrement())
-  name          String    @unique
+  name          String?   @unique
   avatarStyle   Json
   email         String?   @unique
   emailVerified DateTime?
