@@ -38,7 +38,6 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
 
 export default function (props: PostList_section_Props) {
   const session = useSession()
-  console.log(40, session)
   return match(session.status)
     .with("authenticated", () => <PostList_section {...props} />)
     .with("loading", () => <Box>Loading...</Box>)
