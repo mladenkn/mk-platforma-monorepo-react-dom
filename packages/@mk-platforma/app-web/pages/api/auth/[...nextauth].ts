@@ -2,10 +2,21 @@ import NextAuth from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import db from "../../../prisma/instance"
+import { eva } from "@mk-libs/common/common"
+import { AdapterUser } from "next-auth/adapters"
+import { avatarStyles } from "../../../api/User.api"
+import { getRandomElement } from "@mk-libs/common/array"
 
 export const authOptions = {
   // Configure one or more authentication providers
-  adapter: PrismaAdapter(db),
+  adapter: eva(() => {
+    const adapter = PrismaAdapter(db)
+    adapter.createUser = function (data: Omit<AdapterUser, "id">) {
+      const data_updated = { ...data, avatarStyles: getRandomElement(avatarStyles) }
+      return adapter.createUser(data_updated)
+    }
+    return adapter
+  }),
   providers: [
     EmailProvider({
       server:
