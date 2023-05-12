@@ -6,6 +6,7 @@ import db from "../prisma/instance"
 import { getCookie_ss } from "../cookies"
 import { useSession, signIn } from "next-auth/react"
 import { Box, Button, Typography } from "@mui/material"
+import { match } from "ts-pattern"
 
 export async function getServerSideProps({ query, req }: GetServerSidePropsContext) {
   const category_label = query.category ? (query.category as Category_labelType) : undefined
@@ -38,12 +39,14 @@ export async function getServerSideProps({ query, req }: GetServerSidePropsConte
 export default function (props: PostList_section_Props) {
   const session = useSession()
   console.log(40, session)
-  return session ? (
-    PostList_section(props)
-  ) : (
-    <Box>
-      <Typography>Niste prijavljeni</Typography>
-      <Button onClick={() => signIn()}>Prijavite se ovdje</Button>
-    </Box>
-  )
+  return match(session.status)
+    .with("authenticated", () => <PostList_section {...props} />)
+    .with("loading", () => <Box>Loading...</Box>)
+    .with("unauthenticated", () => (
+      <Box>
+        <Typography>Niste prijavljeni</Typography>
+        <Button onClick={() => signIn()}>Prijavite se ovdje</Button>
+      </Box>
+    ))
+    .exhaustive()
 }
