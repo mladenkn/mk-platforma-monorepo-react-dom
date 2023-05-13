@@ -23,7 +23,7 @@ export function Comment_listItem({ sx, comment }: Props) {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name[0]} />
+          <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name?.[0]} />
           <Typography fontWeight={500} variant="h6">
             {comment.author.name}
           </Typography>

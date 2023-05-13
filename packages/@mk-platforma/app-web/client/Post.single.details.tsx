@@ -45,7 +45,7 @@ export default function Post_single_details({
       }
     : {
         sx: author.avatarStyle as object,
-        children: author.name[0],
+        children: author.name?.[0],
       }
 
   return (
