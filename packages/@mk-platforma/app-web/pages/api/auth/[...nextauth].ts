@@ -7,7 +7,7 @@ import { AdapterUser } from "next-auth/adapters"
 import { avatarStyles } from "../../../api/User.api"
 import { getRandomElement } from "@mk-libs/common/array"
 
-export const authOptions = {
+export default NextAuth({
   adapter: eva(() => {
     const adapter = PrismaAdapter(db)
     const createUser_wrapped = adapter.createUser
@@ -24,6 +24,4 @@ export const authOptions = {
       from: "zabrata.app.login@gmail.com",
     }),
   ],
-}
-
-export default NextAuth(authOptions)
+})
