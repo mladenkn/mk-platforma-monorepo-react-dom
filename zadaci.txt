@@ -1,6 +1,7 @@
 - file upload
 - create i update
 - pagiranje
+- profile edit
 
 - pravo
 
