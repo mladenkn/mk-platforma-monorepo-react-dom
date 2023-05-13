@@ -1,4 +1,3 @@
-- login
 - file upload
 - create i update
 - pagiranje
