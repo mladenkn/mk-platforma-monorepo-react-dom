@@ -6,8 +6,9 @@ import { eva } from "@mk-libs/common/common"
 import { AdapterUser } from "next-auth/adapters"
 import { avatarStyles } from "../../../api/User.api"
 import { getRandomElement } from "@mk-libs/common/array"
+import type { NextAuthOptions } from "next-auth"
 
-export default NextAuth({
+export const auth_options = {
   providers: [
     EmailProvider({
       server:
@@ -24,4 +25,6 @@ export default NextAuth({
     }
     return adapter
   }),
-})
+} satisfies NextAuthOptions
+
+export default NextAuth(auth_options)
