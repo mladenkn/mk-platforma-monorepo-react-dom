@@ -11,7 +11,7 @@ export function create_getServerSideProps<T>(
       ? {}
       : {
           redirect: {
-            destination: "http://localhost:3000/api/auth/signin",
+            destination: "/api/auth/signin",
             permanent: false,
           },
         }
