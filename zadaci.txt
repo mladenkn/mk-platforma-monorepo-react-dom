@@ -6,4 +6,4 @@
 - pravo
 
 PLAN:
-- CategoryModel.label treba bit CategoryModel.code i to string
+- CategoryModel.label treba bit CategoryModel.code i to string?
