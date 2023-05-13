@@ -11,8 +11,7 @@ export function create_getServerSideProps<T>(
       ? {}
       : {
           redirect: {
-            destination:
-              "http://localhost:3000/api/auth/signin?callbackUrl=http%3A%2F%2Flocalhost%3A3000%2F",
+            destination: "http://localhost:3000/api/auth/signin",
           },
         }
     const res_wrapped = await wrapped(ctx)
