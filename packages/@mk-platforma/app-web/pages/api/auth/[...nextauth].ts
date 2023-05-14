@@ -66,6 +66,7 @@ export function session_ss_get(
   return getServerSession(req, res, auth_options)
 }
 
+// fix: only session user
 export async function user_id_ss_get(
   req: IncomingMessage & {
     cookies: NextApiRequestCookies
@@ -73,7 +74,15 @@ export async function user_id_ss_get(
   res: ServerResponse
 ) {
   const session = await getServerSession(req, res, auth_options)
-  return session?.user?.id || 1 // TODO: remove default
+  if (session?.user?.id) return session?.user?.id
+  else {
+    const user = await db.user.findUnique({ where: { name: "Mladen" } })
+    if (user) return user.id
+    else {
+      const firstUser = await db.user.findFirst({})
+      return firstUser
+    }
+  }
 }
 
 export default NextAuth(auth_options)
