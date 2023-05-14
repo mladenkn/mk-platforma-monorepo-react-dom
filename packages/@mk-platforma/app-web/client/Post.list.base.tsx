@@ -42,9 +42,6 @@ export default function Post_list_base<TItem extends Item>({
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          overflowY: "auto",
-          flex: 1,
-          minHeight: 0,
           width: "100%",
         }}
       >
