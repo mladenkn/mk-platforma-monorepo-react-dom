@@ -1,9 +1,5 @@
-import { Box, Drawer, Fab, Container } from "@mui/material"
-import Post_list_base from "./Post.list.base"
-import { Post_listItem } from "./Post.listItem"
-import { Post_listItem_personEndorsement } from "./Post.listItem.personEndorsement"
+import { Box, Drawer, Fab, Paper, Typography } from "@mui/material"
 import Api from "../api.client"
-import { shallowPick } from "@mk-libs/common/common"
 import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { useCategory } from "./Categories.common"
@@ -14,6 +10,8 @@ import { use_cookie } from "../cookies"
 import { Api_outputs } from "../api.utils"
 import Categories_selector_aside from "./Categories.selector.aside"
 import Layout from "./Layout"
+import Link from "next/link"
+import { Post_listItem } from "./Post.listItem"
 
 type Post_model = Api_outputs["post"]["list"]["fieldSet_main"][number]
 type Category_model = Api_outputs["category"]["many"][number]
@@ -58,7 +56,6 @@ export default function Post_list_page({
   )
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
-  const [selectedItem, setSelectedItem] = useState<number>()
 
   const setUrlParams_shallow = use_setUrlParams_shallow()
 
@@ -86,27 +83,28 @@ export default function Post_list_page({
         }
         content={
           posts.data ? (
-            <Post_list_base
-              items={posts.data}
-              Item={item => {
-                if (item.expertEndorsement) {
-                  return (
-                    <Post_listItem_personEndorsement
-                      {...shallowPick(
-                        item.expertEndorsement,
-                        "firstName",
-                        "lastName",
-                        "skills",
-                        "avatarStyle"
-                      )}
-                      location={item.location}
-                    />
-                  )
-                } else return <Post_listItem {...item} location={item.location?.name} />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 2,
+                width: "100%",
+                my: 1,
               }}
-            />
+            >
+              {posts.data.map(item => (
+                <Link href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
+                  <Paper
+                    key={item.id}
+                    sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}
+                  >
+                    <Post_listItem {...item} location={item.location?.name} />
+                  </Paper>
+                </Link>
+              ))}
+            </Box>
           ) : (
-            <>Učitavanje...</>
+            <Typography>Učitavanje...</Typography>
           )
         }
         fab={({ sx }) => (
