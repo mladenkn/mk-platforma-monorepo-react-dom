@@ -12,8 +12,6 @@ type Props = {
 export default function Post_create_page({ sx }: Props) {
   function onSubmit() {}
 
-  const goBack = useRouter().back
-
   return (
     <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
       <Layout
@@ -23,7 +21,7 @@ export default function Post_create_page({ sx }: Props) {
             sx={{ gap: 2, p: 2, mt: 1 }}
             title="Novi oglas"
             onSubmit={onSubmit}
-            onCancel={goBack}
+            onCancel={useRouter().back}
           />
         }
       />
