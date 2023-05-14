@@ -7,11 +7,13 @@ import { user_id_ss_get } from "../api/auth/[...nextauth]"
 export async function getServerSideProps({ query, req, res }: GetServerSidePropsContext) {
   const post_id = parseInt(query.id as string)
   const userId = await user_id_ss_get(req, res)
-  return {
-    props: {
-      post_initial: await Api_ss({ db, userId }).post.single({ id: post_id }),
-    },
-  }
+  const post = await Api_ss({
+    db,
+    userId,
+  }).post.single({ id: post_id })
+
+  if (post) return { props: { post_initial: post } }
+  else return { notFound: true }
 }
 
 export default Post_single_section

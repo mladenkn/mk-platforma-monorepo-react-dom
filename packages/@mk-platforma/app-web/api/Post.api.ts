@@ -112,15 +112,15 @@ const Post_api = router({
           },
         },
       })
-      assertIsNonNil(post)
-      return {
-        ...post,
-        comments: post.comments.map(c => ({
-          ...c,
-          canEdit: true,
-          canDelete: true,
-        })),
-      }
+      if (post)
+        return {
+          ...post,
+          comments: post.comments.map(c => ({
+            ...c,
+            canEdit: true,
+            canDelete: true,
+          })),
+        }
     }),
 
   create: Post_api_create,

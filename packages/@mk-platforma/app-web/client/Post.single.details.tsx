@@ -11,9 +11,9 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import Link from "next/link"
 import { Api_outputs } from "../api.utils"
 
-export type Post_common_listItem_details_PostModel = Api_outputs["post"]["single"]
+export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 
-type Post_common_listItem_details_Props = Post_common_listItem_details_PostModel & {
+type Post_single_details_Props = Post_single_details_PostModel & {
   sx?: SxProps
   editAction?: ReactNode
   usePaperSections?: boolean
@@ -31,7 +31,7 @@ export default function Post_single_details({
   comments,
   expertEndorsement,
   author,
-}: Post_common_listItem_details_Props) {
+}: Post_single_details_Props) {
   const Container = (usePaperSections ? Paper : Box) as typeof Box
 
   const {} = useTheme()
