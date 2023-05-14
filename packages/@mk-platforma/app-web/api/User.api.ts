@@ -10,7 +10,7 @@ export const avatarStyles = [
 ]
 
 export const User_api = router({
-  single: publicProcedure.input(z.number()).query(({ ctx, input }) =>
+  single_withPosts: publicProcedure.input(z.number()).query(({ ctx, input }) =>
     ctx.db.user.findUnique({
       where: { id: input },
       select: {
@@ -29,6 +29,16 @@ export const User_api = router({
             },
           },
         },
+      },
+    })
+  ),
+  single: publicProcedure.input(z.number()).query(({ ctx, input }) =>
+    ctx.db.user.findUnique({
+      where: { id: input },
+      select: {
+        id: true,
+        name: true,
+        avatarStyle: true,
       },
     })
   ),

@@ -127,3 +127,24 @@ export function nullsToUndefinedDeep<T>(obj: T): NullsToUndefinedDeep<T> {
   }
   return obj as any
 }
+
+export type UndefinedToNullsDeep<T> = T extends undefined
+  ? null
+  : T extends (infer U)[]
+  ? UndefinedToNullsDeep<U>[]
+  : T extends Record<string, unknown>
+  ? { [K in keyof T]: UndefinedToNullsDeep<T[K]> }
+  : T
+
+export function undefinedToNullsDeep<T>(obj: T): UndefinedToNullsDeep<T> {
+  if (obj === null || obj === undefined) {
+    return null as any
+  }
+
+  if ((obj as any).constructor.name === "Object" || Array.isArray(obj)) {
+    for (const key in obj) {
+      obj[key] = undefinedToNullsDeep(obj[key]) as any
+    }
+  }
+  return obj as any
+}

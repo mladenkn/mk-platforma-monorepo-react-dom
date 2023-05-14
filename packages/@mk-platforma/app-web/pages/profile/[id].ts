@@ -7,7 +7,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const user_id = parseInt(query.id as string)
   return {
     props: {
-      user_initial: await Api_ss({ db, userId: 1 }).user.single(user_id),
+      user_initial: await Api_ss({ db, userId: 1 }).user.single_withPosts(user_id),
     },
   }
 }

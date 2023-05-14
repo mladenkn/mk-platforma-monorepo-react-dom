@@ -7,7 +7,7 @@ import { groupBy } from "lodash"
 import { getCategoryLabel } from "./Categories.common"
 import { Api_outputs } from "../api.utils"
 
-type User = NonNullable<Api_outputs["user"]["single"]>
+type User = NonNullable<Api_outputs["user"]["single_withPosts"]>
 
 type Props = {
   sx?: SxProps
@@ -15,7 +15,7 @@ type Props = {
 }
 
 export default function User_profile_section({ sx, user_initial }: Props) {
-  const user = Api.user.single.useQuery(user_initial.id, { initialData: user_initial })
+  const user = Api.user.single_withPosts.useQuery(user_initial.id, { initialData: user_initial })
   const posts_byCategories = Object.entries(groupBy(user.data?.posts, p => p.categories[0].id))
 
   return (
