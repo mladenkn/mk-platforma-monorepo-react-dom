@@ -10,9 +10,9 @@ function doFirstParse(){
   return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
-function run(cmd){
+function run(...cmd){
   try {
-    const stdout = execSync(cmd).toString()
+    const stdout = execSync(cmd.join("&& ")).toString()
     console.log(stdout)
   } catch (error) {
     console.error(`Error executing the command: ${error.message}`)
