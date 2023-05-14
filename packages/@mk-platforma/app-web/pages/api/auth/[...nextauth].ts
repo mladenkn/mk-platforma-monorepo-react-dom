@@ -2,7 +2,7 @@ import NextAuth, { DefaultSession, getServerSession } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import db from "../../../prisma/instance"
-import { eva } from "@mk-libs/common/common"
+import { asNonNil, eva } from "@mk-libs/common/common"
 import { AdapterUser } from "next-auth/adapters"
 import { avatarStyles } from "../../../api/User.api.common"
 import { getRandomElement } from "@mk-libs/common/array"
@@ -80,7 +80,7 @@ export async function user_id_ss_get(
     if (user) return user.id
     else {
       const firstUser = await db.user.findFirst({})
-      return firstUser
+      return asNonNil(firstUser).id
     }
   }
 }
