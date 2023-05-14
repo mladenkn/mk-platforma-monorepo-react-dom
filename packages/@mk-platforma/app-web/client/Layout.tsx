@@ -7,8 +7,8 @@ type WithSx = {
 
 type Props = {
   sx?: SxProps
-  header(props: WithSx): ReactNode
-  content(props: WithSx): ReactNode
+  header?(props: WithSx): ReactNode
+  content?(props: WithSx): ReactNode
   bottomSheet?(props: WithSx): ReactNode | undefined | null
   fav?(props: WithSx): ReactNode
   backdrop?(props: WithSx): ReactNode
@@ -28,6 +28,7 @@ export default function Layout({
         height: "100%",
         display: "flex",
         flexDirection: "column",
+        flex: 1,
         ...sx,
       }}
     >
