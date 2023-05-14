@@ -93,11 +93,8 @@ export default function Post_list_page({
               }}
             >
               {posts.data.map(item => (
-                <Link href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
-                  <Paper
-                    key={item.id}
-                    sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}
-                  >
+                <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
+                  <Paper sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}>
                     <Post_listItem {...item} location={item.location?.name} />
                   </Paper>
                 </Link>
