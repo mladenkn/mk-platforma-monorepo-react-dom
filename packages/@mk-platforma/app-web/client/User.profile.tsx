@@ -1,4 +1,4 @@
-import { Box, SxProps, Container, Paper, Avatar, Typography } from "@mui/material"
+import { Box, SxProps, Paper, Avatar, Typography } from "@mui/material"
 import { Header_full_common } from "./Header"
 import React from "react"
 import Api from "../api.client"
@@ -6,6 +6,7 @@ import Link from "next/link"
 import { groupBy } from "lodash"
 import { getCategoryLabel } from "./Categories.common"
 import { Api_outputs } from "../api.utils"
+import Layout from "./Layout"
 
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>
 
@@ -19,20 +20,22 @@ export default function User_profile_section({ sx, user_initial }: Props) {
   const posts_byCategories = Object.entries(groupBy(user.data?.posts, p => p.categories[0].id))
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", width: "100%", ...sx }}>
-      <Header_full_common
-        moreOptions_props={{
-          options: ["post.create", "profile", "post.list", "devContact"],
-        }}
-      />
-      <Container sx={{ px: 0 }} maxWidth="lg">
+    <Layout
+      header={
+        <Header_full_common
+          moreOptions_props={{
+            options: ["post.create", "profile", "post.list", "devContact"],
+          }}
+        />
+      }
+      content={
         <Paper sx={{ p: 2, m: 1 }}>
           {user.isLoading ? (
             "Loading..."
           ) : (
             <>
               <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Avatar sx={{}} />
+                <Avatar />
                 <Typography>{user.data?.name}</Typography>
               </Box>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4 }}>
@@ -61,7 +64,7 @@ export default function User_profile_section({ sx, user_initial }: Props) {
             </>
           )}
         </Paper>
-      </Container>
-    </Box>
+      }
+    />
   )
 }
