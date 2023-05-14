@@ -1,12 +1,11 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
-import { getServerSession } from "next-auth/next"
-import { auth_options } from "./pages/api/auth/[...nextauth]"
+import { session_ss_get } from "./pages/api/auth/[...nextauth]"
 
 export function create_getServerSideProps<T>(
   wrapped: (ctx: GetServerSidePropsContext) => Promise<GetServerSidePropsResult<T>>
 ) {
   return async function (ctx: GetServerSidePropsContext) {
-    const session = await getServerSession(ctx.req, ctx.res, auth_options)
+    const session = await session_ss_get(ctx.req, ctx.res)
     const res: Partial<GetServerSidePropsResult<unknown>> = session
       ? {}
       : {
