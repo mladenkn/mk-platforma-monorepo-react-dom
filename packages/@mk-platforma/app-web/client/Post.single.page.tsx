@@ -1,5 +1,4 @@
 import Post_single_details, { Post_single_details_PostModel } from "./Post.single.details"
-import { useRouter } from "next/router"
 import { Header_full_common } from "./Header"
 import { Box, IconButton, Container } from "@mui/material"
 import Api from "../api.client"

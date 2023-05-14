@@ -1,4 +1,4 @@
-import Post_single_section from "../../client/Post.single.section"
+import Post_single_section from "../../client/Post.single.page"
 import { Api_ss } from "../../api/api.root"
 import { GetServerSidePropsContext } from "next/types"
 import db from "../../prisma/instance"

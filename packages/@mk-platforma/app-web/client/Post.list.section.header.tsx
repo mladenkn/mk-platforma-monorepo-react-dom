@@ -9,7 +9,7 @@ import { Header_root, Header_moreOptions } from "./Header"
 import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import { Category_label } from "@prisma/client"
-import Location_select_screen from "./Location.select.screen"
+import Location_select_screen from "./Location.select.page"
 import Api from "../api.client"
 import { eva } from "@mk-libs/common/common"
 

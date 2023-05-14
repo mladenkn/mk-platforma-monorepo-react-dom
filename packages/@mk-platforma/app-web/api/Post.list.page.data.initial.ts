@@ -1,4 +1,4 @@
-import { PostList_section_Props } from "../client/Post.list.section"
+import { PostList_section_Props } from "../client/Post.list.page"
 import type { Category_labelType } from "../prisma/generated/zod"
 import { Api_ss } from "../api/api.root"
 import { GetServerSidePropsContext } from "next/types"
