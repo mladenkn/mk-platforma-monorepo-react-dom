@@ -11,11 +11,10 @@ import Layout from "./Layout"
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>
 
 type Props = {
-  sx?: SxProps
   user_initial: User
 }
 
-export default function User_profile_section({ sx, user_initial }: Props) {
+export default function User_profile({ user_initial }: Props) {
   const user = Api.user.single_withPosts.useQuery(user_initial.id, { initialData: user_initial })
   const posts_byCategories = Object.entries(groupBy(user.data?.posts, p => p.categories[0].id))
 
