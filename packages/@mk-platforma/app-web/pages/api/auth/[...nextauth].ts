@@ -1,4 +1,4 @@
-import NextAuth, { getServerSession } from "next-auth"
+import NextAuth, { DefaultSession, getServerSession } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import db from "../../../prisma/instance"
@@ -9,6 +9,8 @@ import { getRandomElement } from "@mk-libs/common/array"
 import type { NextAuthOptions } from "next-auth"
 import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequestCookies } from "next/dist/server/api-utils"
+import { Prisma } from "@prisma/client"
+import { P, match } from "ts-pattern"
 
 const auth_options = {
   providers: [
@@ -27,7 +29,33 @@ const auth_options = {
     }
     return adapter
   }),
+  callbacks: {
+    session({ session, user }) {
+      if (session.user) {
+        session.user.avatarStyle = user.avatarStyle
+        session.user.id = match(user.id as string | number)
+          .with(P.string, i => parseInt(i))
+          .otherwise(i => i)
+      }
+      return session
+    },
+  },
 } satisfies NextAuthOptions
+
+declare module "next-auth/adapters" {
+  interface AdapterUser {
+    avatarStyle?: Prisma.JsonValue
+  }
+}
+
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    user?: DefaultSession["user"] & {
+      id: number
+      avatarStyle?: Prisma.JsonValue
+    }
+  }
+}
 
 export function session_ss_get(
   req: IncomingMessage & {
