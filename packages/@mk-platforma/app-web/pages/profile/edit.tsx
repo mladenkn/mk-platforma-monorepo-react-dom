@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from "next"
 import User_profile_edit from "../../client/User.profile.edit"
 import { session_ss_get } from "../api/auth/[...nextauth]"
 import { undefinedToNullsDeep } from "@mk-libs/common/common"
-import { create_getServerSideProps } from "../../create.page"
+import { create_getServerSideProps } from "../../create.getServerSideProps"
 
 export const getServerSideProps = create_getServerSideProps(
   async (ctx: GetServerSidePropsContext) => {
