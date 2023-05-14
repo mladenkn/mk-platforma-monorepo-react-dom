@@ -31,7 +31,5 @@ export async function Post_list_page_data_initial({ query, req, res }: GetServer
     location_initial: location || null,
     location_radius_initial: location_radius || null,
   }
-  return {
-    props,
-  }
+  return { props }
 }
