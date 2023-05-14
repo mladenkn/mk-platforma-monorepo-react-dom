@@ -66,4 +66,14 @@ export function session_ss_get(
   return getServerSession(req, res, auth_options)
 }
 
+export async function user_id_ss_get_temp(
+  req: IncomingMessage & {
+    cookies: NextApiRequestCookies
+  },
+  res: ServerResponse
+) {
+  const session = await getServerSession(req, res, auth_options)
+  return session?.user?.id || 1
+}
+
 export default NextAuth(auth_options)
