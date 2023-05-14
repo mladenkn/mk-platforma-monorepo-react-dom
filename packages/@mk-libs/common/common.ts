@@ -148,3 +148,7 @@ export function undefinedToNullsDeep<T>(obj: T): UndefinedToNullsDeep<T> {
   }
   return obj as any
 }
+
+export function typeCheck<T>(value: T) {
+  return value
+}

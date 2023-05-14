@@ -3,6 +3,8 @@ import { Api_ss } from "../../api/api.root"
 import { GetServerSidePropsContext } from "next/types"
 import db from "../../prisma/instance"
 import { user_id_ss_get } from "../api/auth/[...nextauth]"
+import { typeCheck } from "@mk-libs/common/common"
+import { ComponentProps } from "react"
 
 export async function getServerSideProps({ query, req, res }: GetServerSidePropsContext) {
   const post_id = parseInt(query.id as string)
@@ -12,7 +14,8 @@ export async function getServerSideProps({ query, req, res }: GetServerSideProps
     userId,
   }).post.single({ id: post_id })
 
-  if (post) return { props: { post_initial: post } }
+  if (post)
+    return { props: typeCheck<ComponentProps<typeof Post_single_section>>({ post_initial: post }) }
   else return { notFound: true }
 }
 
