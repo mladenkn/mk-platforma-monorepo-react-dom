@@ -12,6 +12,7 @@ type Props = {
   bottomSheet?(props: WithSx): ReactNode | undefined | null
   fab?(props: WithSx): ReactNode
   backdrop?(props: WithSx): ReactNode
+  onlyContentScrollable?: boolean
 }
 
 export default function Layout({
@@ -21,6 +22,7 @@ export default function Layout({
   bottomSheet,
   fab = () => <></>,
   backdrop = () => <></>,
+  onlyContentScrollable = false,
 }: Props) {
   const { palette } = useTheme()
   return (
@@ -48,10 +50,9 @@ export default function Layout({
         sx={{
           display: "flex",
           flexDirection: "column",
-          flex: 1,
-          minHeight: 0,
-          height: "100%",
-          overflowY: "auto",
+          ...(onlyContentScrollable
+            ? { flex: 1, minHeight: 0, height: "100%", overflowY: "auto" }
+            : {}),
         }}
       >
         {content}

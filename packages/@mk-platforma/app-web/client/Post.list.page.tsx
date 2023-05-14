@@ -71,6 +71,7 @@ export default function Post_list_page({
   return (
     <>
       <Layout
+        onlyContentScrollable
         header={
           <Post_list_section_header
             search={search}
