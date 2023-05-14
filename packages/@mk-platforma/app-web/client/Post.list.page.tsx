@@ -71,7 +71,7 @@ export default function Post_list_page({
   return (
     <>
       <Layout
-        header={() => (
+        header={
           <Post_list_section_header
             search={search}
             set_search={set_search}
@@ -82,43 +82,34 @@ export default function Post_list_page({
             selectedLocation_radius_km={selectedLocation_radius_km || null}
             set__selectedLocation_radius_km={set__selectedLocation_radius_km}
           />
-        )}
-        content={({ sx }) => (
-          <Container
-            maxWidth="md"
-            sx={{
-              ...sx,
-              p: 1,
-              pt: 2,
-            }}
-          >
-            {posts.data ? (
-              <Post_list_base
-                selectedItem={selectedItem}
-                setSelectedItem={setSelectedItem}
-                items={posts.data}
-                Item={item => {
-                  if (item.expertEndorsement) {
-                    return (
-                      <Post_listItem_personEndorsement
-                        {...shallowPick(
-                          item.expertEndorsement,
-                          "firstName",
-                          "lastName",
-                          "skills",
-                          "avatarStyle"
-                        )}
-                        location={item.location}
-                      />
-                    )
-                  } else return <Post_listItem {...item} location={item.location?.name} />
-                }}
-              />
-            ) : (
-              <>Učitavanje...</>
-            )}
-          </Container>
-        )}
+        }
+        content={
+          posts.data ? (
+            <Post_list_base
+              selectedItem={selectedItem}
+              setSelectedItem={setSelectedItem}
+              items={posts.data}
+              Item={item => {
+                if (item.expertEndorsement) {
+                  return (
+                    <Post_listItem_personEndorsement
+                      {...shallowPick(
+                        item.expertEndorsement,
+                        "firstName",
+                        "lastName",
+                        "skills",
+                        "avatarStyle"
+                      )}
+                      location={item.location}
+                    />
+                  )
+                } else return <Post_listItem {...item} location={item.location?.name} />
+              }}
+            />
+          ) : (
+            <>Učitavanje...</>
+          )
+        }
         fab={({ sx }) => (
           <Fab
             color="primary"

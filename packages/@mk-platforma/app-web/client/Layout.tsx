@@ -1,4 +1,4 @@
-import { Box, SxProps } from "@mui/material"
+import { Box, Container, SxProps } from "@mui/material"
 import React, { ReactNode } from "react"
 
 type WithSx = {
@@ -7,8 +7,8 @@ type WithSx = {
 
 type Props = {
   sx?: SxProps
-  header?(props: WithSx): ReactNode
-  content?(props: WithSx): ReactNode
+  header?: ReactNode
+  content?: ReactNode
   bottomSheet?(props: WithSx): ReactNode | undefined | null
   fab?(props: WithSx): ReactNode
   backdrop?(props: WithSx): ReactNode
@@ -16,8 +16,8 @@ type Props = {
 
 export default function Layout({
   sx,
-  header = () => <></>,
-  content = () => <></>,
+  header = <></>,
+  content = <></>,
   bottomSheet,
   fab = () => <></>,
   backdrop = () => <></>,
@@ -33,18 +33,21 @@ export default function Layout({
         ...sx,
       }}
     >
-      {header({})}
+      {header}
       {backdrop({})}
-      {content({
-        sx: {
+      <Container
+        sx={{
           display: "flex",
           flexDirection: "column",
           flex: 1,
           minHeight: 0,
           height: "100%",
           overflowY: "auto",
-        },
-      })}
+        }}
+        maxWidth="md"
+      >
+        {content}
+      </Container>
       {bottomSheet &&
         bottomSheet({
           sx: {
