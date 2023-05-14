@@ -53,7 +53,7 @@ export default function Post_single_details({
       <Container sx={{ p: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
-            <Link style={{ textDecoration: "none" }} href={`/user/${author.id}`}>
+            <Link style={{ textDecoration: "none" }} href={`/profile/${author.id}`}>
               <Avatar sx={{ mr: 2, ...avatarProps.sx }} children={avatarProps.children} />
             </Link>
             <Box>
