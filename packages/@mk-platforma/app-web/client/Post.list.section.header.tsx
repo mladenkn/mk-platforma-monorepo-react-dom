@@ -5,7 +5,7 @@ import CloseIcon from "@mui/icons-material/Close"
 import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import { getCategoryLabel, CategoryIcon } from "./Categories.common"
-import { Header_root, Header_moreOptions } from "./Header"
+import { Header_moreOptions } from "./Header"
 import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import { Category_label } from "@prisma/client"
@@ -35,7 +35,7 @@ export default function Post_list_section_header({
   selectedLocation_radius_km,
   set__selectedLocation_radius_km,
 }: Props) {
-  const { typography, spacing } = useTheme()
+  const { typography, spacing, palette } = useTheme()
 
   const heading = selectedCategory.data ? (
     getCategoryLabel(selectedCategory.data.label)
@@ -75,7 +75,7 @@ export default function Post_list_section_header({
   }
 
   return (
-    <Header_root sx={{ pb: 1 }}>
+    <>
       {locationSelect_isActive && (
         <Dialog open fullScreen>
           <Location_select_page
@@ -91,6 +91,9 @@ export default function Post_list_section_header({
         sx={{
           display: "flex",
           flexDirection: "column",
+          background: palette.primary.main,
+          pt: 1.2,
+          pb: 1,
         }}
       >
         <Box
@@ -184,6 +187,6 @@ export default function Post_list_section_header({
           )}
         </Box>
       </Container>
-    </Header_root>
+    </>
   )
 }
