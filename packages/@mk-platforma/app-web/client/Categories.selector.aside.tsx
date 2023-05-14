@@ -6,7 +6,6 @@ import {
   ListItemText,
   useTheme,
   Box,
-  Typography,
   IconButton,
   Collapse,
 } from "@mui/material"
@@ -17,7 +16,7 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { eva } from "@mk-libs/common/common"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import type { Api_outputs } from "../api.utils"
-import Link from "next/link"
+import { LogoLink } from "./common"
 
 export type Category_model = Api_outputs["category"]["many"][number]
 
@@ -79,16 +78,7 @@ export default function Categories_selector_aside({
 
   return (
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
-      <Link style={{ color: "white", textDecoration: "none" }} href="/">
-        <Typography variant="h2" fontWeight={400}>
-          ZaBrata
-        </Typography>
-        <Box sx={{ color: "white" }}>
-          <Typography variant="h4" fontWeight={400}>
-            Loza kontribucionizma
-          </Typography>
-        </Box>
-      </Link>
+      <LogoLink />
       <List sx={{ mt: 4 }} disablePadding>
         {rootItem ? (
           renderCategory(

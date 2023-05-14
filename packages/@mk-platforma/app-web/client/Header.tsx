@@ -9,6 +9,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useRouter } from "next/router"
 import Link from "next/link"
+import { LogoLink } from "./common"
 
 export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
   background: theme.palette.primary.main,
@@ -109,16 +110,7 @@ export function Header_full_common({ sx, moreOptions_props }: Header_full_common
           <IconButton sx={{ color: "white" }} onClick={useRouter().back}>
             <ArrowBackIosOutlinedIcon />
           </IconButton>
-          <Link style={{ color: "white", textDecoration: "none" }} href="/">
-            <Typography variant="h2" fontWeight={400}>
-              ZaBrata
-            </Typography>
-            <Box sx={{ color: "white" }}>
-              <Typography variant="h4" fontWeight={400}>
-                Loza kontribucionizma
-              </Typography>
-            </Box>
-          </Link>
+          <LogoLink />
         </Box>
         <Header_moreOptions
           options={["profile", "post.list", "devContact"]}

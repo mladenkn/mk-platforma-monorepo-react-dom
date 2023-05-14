@@ -1,4 +1,4 @@
-import React, { ComponentProps, useState } from "react"
+import React, { useState } from "react"
 import MenuIcon from "@mui/icons-material/Menu"
 import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
@@ -12,7 +12,7 @@ import { Category_label } from "@prisma/client"
 import Location_select_page from "./Location.select.page"
 import Api from "../api.client"
 import { eva } from "@mk-libs/common/common"
-import Link from "next/link"
+import { LogoLink } from "./common"
 
 type Props = {
   onShowCategories(): void
@@ -40,16 +40,7 @@ export default function Post_list_section_header({
   const heading = selectedCategory.data ? (
     getCategoryLabel(selectedCategory.data.label)
   ) : (
-    <Link style={{ color: "white", textDecoration: "none" }} href="/">
-      <Typography variant="h2" fontWeight={400}>
-        ZaBrata
-      </Typography>
-      <Box sx={{ color: "white" }}>
-        <Typography variant="h4" fontWeight={400}>
-          Loza kontribucionizma
-        </Typography>
-      </Box>
-    </Link>
+    <LogoLink />
   )
   const heading_size = typeof heading === "string" ? heading.length : 100
   const searchAndMore_position = heading_size > 13 ? "down" : "up"
@@ -138,16 +129,7 @@ export default function Post_list_section_header({
                     {getCategoryLabel(selectedCategory.data.label)}
                   </Typography>
                 ) : (
-                  <Link style={{ color: "white", textDecoration: "none" }} href="/">
-                    <Typography variant="h2" fontWeight={400}>
-                      ZaBrata
-                    </Typography>
-                    <Box sx={{ color: "white" }}>
-                      <Typography variant="h4" fontWeight={400}>
-                        Loza kontribucionizma
-                      </Typography>
-                    </Box>
-                  </Link>
+                  <LogoLink />
                 )}
               </Box>
               {searchAndMore_position === "up" && searchAndMore}

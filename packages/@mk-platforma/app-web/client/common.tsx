@@ -1,6 +1,7 @@
 import { styled } from "@mui/material/styles"
-import { Box } from "@mui/material"
+import { Box, Typography } from "@mui/material"
 import React from "react"
+import Link from "next/link"
 
 export const Backdrop: typeof Box = styled(Box)({
   backgroundColor: "rgba(0, 0, 0, 0.3)",
@@ -13,3 +14,18 @@ export const Backdrop: typeof Box = styled(Box)({
   height: "100%",
   zIndex: 4,
 })
+
+export function LogoLink() {
+  return (
+    <Link style={{ color: "white", textDecoration: "none" }} href="/">
+      <Typography variant="h2" fontWeight={400}>
+        ZaBrata
+      </Typography>
+      <Box sx={{ color: "white" }}>
+        <Typography variant="h4" fontWeight={400}>
+          Loza kontribucionizma
+        </Typography>
+      </Box>
+    </Link>
+  )
+}
