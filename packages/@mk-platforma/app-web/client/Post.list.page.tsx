@@ -13,6 +13,7 @@ import Post_list_section_header from "./Post.list.section.header"
 import { use_cookie } from "../cookies"
 import { Api_outputs } from "../api.utils"
 import Categories_selector_aside from "./Categories.selector.aside"
+import Layout from "./Layout"
 
 type Post_model = Api_outputs["post"]["list"]["fieldSet_main"][number]
 type Category_model = Api_outputs["category"]["many"][number]
@@ -68,24 +69,65 @@ export default function Post_list_page({
   }
 
   return (
-    <Box
-      sx={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        flex: 1,
-        height: "100%",
-      }}
-    >
-      <Post_list_section_header
-        search={search}
-        set_search={set_search}
-        selectedCategory={selectedCategory as any}
-        onShowCategories={() => set_SectionsDrawer_isActive(true)}
-        selectedLocation={selectedLocation || null}
-        set_selectedLocation={set_selectedLocation}
-        selectedLocation_radius_km={selectedLocation_radius_km || null}
-        set__selectedLocation_radius_km={set__selectedLocation_radius_km}
+    <>
+      <Layout
+        header={() => (
+          <Post_list_section_header
+            search={search}
+            set_search={set_search}
+            selectedCategory={selectedCategory as any}
+            onShowCategories={() => set_SectionsDrawer_isActive(true)}
+            selectedLocation={selectedLocation || null}
+            set_selectedLocation={set_selectedLocation}
+            selectedLocation_radius_km={selectedLocation_radius_km || null}
+            set__selectedLocation_radius_km={set__selectedLocation_radius_km}
+          />
+        )}
+        content={({ sx }) => (
+          <Container
+            maxWidth="md"
+            sx={{
+              ...sx,
+              p: 1,
+              pt: 2,
+            }}
+          >
+            {posts.data ? (
+              <Post_list_base
+                selectedItem={selectedItem}
+                setSelectedItem={setSelectedItem}
+                items={posts.data}
+                Item={item => {
+                  if (item.expertEndorsement) {
+                    return (
+                      <Post_listItem_personEndorsement
+                        {...shallowPick(
+                          item.expertEndorsement,
+                          "firstName",
+                          "lastName",
+                          "skills",
+                          "avatarStyle"
+                        )}
+                        location={item.location}
+                      />
+                    )
+                  } else return <Post_listItem {...item} location={item.location?.name} />
+                }}
+              />
+            ) : (
+              <>Učitavanje...</>
+            )}
+          </Container>
+        )}
+        fab={({ sx }) => (
+          <Fab
+            color="primary"
+            sx={{ ...sx, bottom: 14, right: 14 }}
+            onClick={() => set_SectionsDrawer_isActive(true)}
+          >
+            <ManageSearchIcon />
+          </Fab>
+        )}
       />
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
@@ -99,50 +141,6 @@ export default function Post_list_page({
           )}
         </Drawer>
       )}
-      <Fab
-        color="primary"
-        sx={{ position: "absolute", bottom: 14, right: 14 }}
-        onClick={() => set_SectionsDrawer_isActive(true)}
-      >
-        <ManageSearchIcon />
-      </Fab>
-      <Container
-        maxWidth="md"
-        sx={{
-          p: 1,
-          pt: 2,
-          display: "flex",
-          flexDirection: "column",
-          flex: 1,
-          minHeight: 0,
-        }}
-      >
-        {posts.data ? (
-          <Post_list_base
-            selectedItem={selectedItem}
-            setSelectedItem={setSelectedItem}
-            items={posts.data}
-            Item={item => {
-              if (item.expertEndorsement) {
-                return (
-                  <Post_listItem_personEndorsement
-                    {...shallowPick(
-                      item.expertEndorsement,
-                      "firstName",
-                      "lastName",
-                      "skills",
-                      "avatarStyle"
-                    )}
-                    location={item.location}
-                  />
-                )
-              } else return <Post_listItem {...item} location={item.location?.name} />
-            }}
-          />
-        ) : (
-          <>Učitavanje...</>
-        )}
-      </Container>
-    </Box>
+    </>
   )
 }

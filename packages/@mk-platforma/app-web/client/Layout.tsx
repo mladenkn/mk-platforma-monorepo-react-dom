@@ -10,7 +10,7 @@ type Props = {
   header?(props: WithSx): ReactNode
   content?(props: WithSx): ReactNode
   bottomSheet?(props: WithSx): ReactNode | undefined | null
-  fav?(props: WithSx): ReactNode
+  fab?(props: WithSx): ReactNode
   backdrop?(props: WithSx): ReactNode
 }
 
@@ -19,7 +19,7 @@ export default function Layout({
   header = () => <></>,
   content = () => <></>,
   bottomSheet,
-  fav = () => <></>,
+  fab = () => <></>,
   backdrop = () => <></>,
 }: Props) {
   return (
@@ -29,6 +29,7 @@ export default function Layout({
         display: "flex",
         flexDirection: "column",
         flex: 1,
+        width: "100%",
         ...sx,
       }}
     >
@@ -36,27 +37,27 @@ export default function Layout({
       {backdrop({})}
       {content({
         sx: {
-          pr: 1,
           display: "flex",
           flexDirection: "column",
+          flex: 1,
+          minHeight: 0,
           height: "100%",
-          flex: bottomSheet ? 3 : undefined,
           overflowY: "auto",
         },
       })}
       {bottomSheet &&
         bottomSheet({
           sx: {
-            flex: 3,
+            flex: 1,
             zIndex: 2000,
             overflowY: "auto",
             width: "90%",
             margin: "auto",
           },
         })}
-      {fav({
+      {fab({
         sx: {
-          position: "fixed",
+          position: "absolute",
           bottom: 16,
           right: 16,
         },
