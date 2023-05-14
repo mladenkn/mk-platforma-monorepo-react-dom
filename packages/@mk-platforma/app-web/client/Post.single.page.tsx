@@ -29,7 +29,7 @@ export default function Post_single_page({
           />
         }
         content={
-          <Box>
+          <>
             {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : <></>}
             {!isEdit ? (
               <Post_single_details
@@ -56,7 +56,7 @@ export default function Post_single_page({
             ) : (
               <></>
             )}
-          </Box>
+          </>
         }
       />
     </Box>
