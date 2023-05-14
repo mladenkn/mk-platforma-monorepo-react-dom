@@ -9,7 +9,7 @@ import { Header_root, Header_moreOptions } from "./Header"
 import { Container, Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import { Category_label } from "@prisma/client"
-import Location_select_screen from "./Location.select.page"
+import Location_select_page from "./Location.select.page"
 import Api from "../api.client"
 import { eva } from "@mk-libs/common/common"
 
@@ -86,7 +86,7 @@ export default function Post_list_section_header({
     <Header_root sx={{ pb: 1 }}>
       {locationSelect_isActive && (
         <Dialog open fullScreen>
-          <Location_select_screen
+          <Location_select_page
             location_initial={selectedLocation_id}
             location_radius_initial={selectedLocation_radius_km}
             onBack={() => set_locationSelect_isActive(false)}

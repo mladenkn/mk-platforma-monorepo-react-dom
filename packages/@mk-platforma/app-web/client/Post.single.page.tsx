@@ -8,7 +8,7 @@ import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"
 import React from "react"
 import Post_form from "./Post.form"
 
-export default function Post_single_section({
+export default function Post_single_page({
   post_initial,
 }: {
   post_initial: Post_single_details_PostModel

@@ -1,4 +1,4 @@
-import Post_single_section from "../../client/Post.single.page"
+import Post_single_page from "../../client/Post.single.page"
 import { Api_ss } from "../../api/api.root"
 import { GetServerSidePropsContext } from "next/types"
 import db from "../../prisma/instance"
@@ -12,8 +12,8 @@ export async function getServerSideProps({ query, req, res }: GetServerSideProps
   const post = await Api_ss({ db, user_id }).post.single({ id: post_id })
 
   if (post)
-    return { props: typeCheck<ComponentProps<typeof Post_single_section>>({ post_initial: post }) }
+    return { props: typeCheck<ComponentProps<typeof Post_single_page>>({ post_initial: post }) }
   else return { notFound: true }
 }
 
-export default Post_single_section
+export default Post_single_page

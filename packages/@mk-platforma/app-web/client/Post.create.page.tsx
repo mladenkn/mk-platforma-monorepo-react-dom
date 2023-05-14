@@ -8,7 +8,7 @@ type Props = {
   sx?: SxProps
 }
 
-export default function Post_create_section({ sx }: Props) {
+export default function Post_create_page({ sx }: Props) {
   function onSubmit() {}
 
   const goBack = useRouter().back

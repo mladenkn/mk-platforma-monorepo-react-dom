@@ -25,7 +25,7 @@ export type PostList_section_Props = {
   location_radius_initial: number | null
 }
 
-export default function PostList_section({
+export default function Post_list_page({
   selectedCategory_initial,
   categories_initial,
   posts_initial,

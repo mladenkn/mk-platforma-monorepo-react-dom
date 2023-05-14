@@ -35,7 +35,7 @@ const form_zod = z
 // Ima bug, kad je radius default 50, misli da nema unosa
 // TODO: error message za radius
 
-export default function Location_select_screen({
+export default function Location_select_page({
   location_initial,
   location_radius_initial,
   onBack,
