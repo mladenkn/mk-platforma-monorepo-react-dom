@@ -87,8 +87,6 @@ export default function Post_list_page({
         content={
           posts.data ? (
             <Post_list_base
-              selectedItem={selectedItem}
-              setSelectedItem={setSelectedItem}
               items={posts.data}
               Item={item => {
                 if (item.expertEndorsement) {
