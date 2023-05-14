@@ -1,6 +1,6 @@
 import { Box, Typography, useTheme, IconButton, Menu, MenuItem, Container } from "@mui/material"
 import React, { ComponentProps, useState } from "react"
-import { styled, SxProps } from "@mui/material/styles"
+import { SxProps } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
@@ -10,14 +10,6 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { LogoLink } from "./common"
-
-export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
-  background: theme.palette.primary.main,
-  padding: `${theme.spacing(2)} ${theme.spacing(0)}`,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-}))
 
 type Header_moreOptions_props = {
   sx?: SxProps
