@@ -108,7 +108,7 @@ async function seedLocations() {
 
 async function seedPosts(posts: ReturnType<typeof generatePosts>, users: number[]) {
   for (const post of posts) {
-    const api = Api_ss({ db, userId: faker.helpers.arrayElement(users) })
+    const api = Api_ss({ db, user_id: faker.helpers.arrayElement(users) })
     const post_created = await api.post.create({
       ...post,
       categories: post.categories,

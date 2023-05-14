@@ -7,7 +7,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 export const createContext = async (req: NextApiRequest, res: NextApiResponse) => {
   return {
     db,
-    userId: await user_id_ss_get(req, res),
+    user_id: await user_id_ss_get(req, res),
   }
 }
 

@@ -9,11 +9,11 @@ import { user_id_ss_get } from "../pages/api/auth/[...nextauth]"
 export async function Post_list_page_data_initial({ query, req, res }: GetServerSidePropsContext) {
   const category_label = query.category ? (query.category as Category_labelType) : undefined
 
-  const userId = await user_id_ss_get(req, res)
+  const user_id = await user_id_ss_get(req, res)
   const category = category_label
     ? await db.category.findFirst({ where: { label: category_label } })
     : null
-  const api = Api_ss({ db, userId })
+  const api = Api_ss({ db, user_id })
 
   const location = getCookie_ss(req.headers.cookie || "", "Post_list__location")
   const location_radius = getCookie_ss(req.headers.cookie || "", "Post_list__location_radius")

@@ -13,7 +13,7 @@ const Post_api_create = publicProcedure
           ...shallowPick(input, "title", "description", "contact"),
           author: {
             connect: {
-              id: ctx.userId,
+              id: ctx.user_id,
             },
           },
           categories: {
