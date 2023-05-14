@@ -17,6 +17,7 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { eva } from "@mk-libs/common/common"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import type { Api_outputs } from "../api.utils"
+import Link from "next/link"
 
 export type Category_model = Api_outputs["category"]["many"][number]
 
@@ -78,7 +79,7 @@ export default function Categories_selector_aside({
 
   return (
     <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
-      <a style={{ color: "white", textDecoration: "none" }} href="/">
+      <Link style={{ color: "white", textDecoration: "none" }} href="/">
         <Typography variant="h2" fontWeight={400}>
           ZaBrata
         </Typography>
@@ -87,7 +88,7 @@ export default function Categories_selector_aside({
             Loza kontribucionizma
           </Typography>
         </Box>
-      </a>
+      </Link>
       <List sx={{ mt: 4 }} disablePadding>
         {rootItem ? (
           renderCategory(

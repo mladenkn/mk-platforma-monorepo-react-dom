@@ -8,6 +8,7 @@ import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
 import EngineeringIcon from "@mui/icons-material/Engineering"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useRouter } from "next/router"
+import Link from "next/link"
 
 export const Header_root: typeof Box = styled(Box)(({ theme }) => ({
   background: theme.palette.primary.main,
@@ -36,22 +37,22 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
         onClose={() => set_optionsAnchorEl(null)}
       >
         {options.includes("post.list") && (
-          <a href="/" style={{ textDecoration: "none" }}>
+          <Link href="/" style={{ textDecoration: "none" }}>
             <MenuItem>
               <ListAltOutlinedIcon
                 sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
               />
               <Typography sx={{ color: palette.primary.main }}>Objave</Typography>
             </MenuItem>
-          </a>
+          </Link>
         )}
         {options.includes("post.create") && (
-          <a href="/post/create" style={{ textDecoration: "none" }}>
+          <Link href="/post/create" style={{ textDecoration: "none" }}>
             <MenuItem>
               <PostAddIcon sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }} />
               <Typography sx={{ color: palette.primary.main }}>Objavi</Typography>
             </MenuItem>
-          </a>
+          </Link>
         )}
         {options.includes("profile") && (
           <MenuItem>
@@ -62,7 +63,7 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
         {options.includes("devContact") && (
-          <a href="/kontaktiraj-razvojni-tim" style={{ textDecoration: "none" }}>
+          <Link href="/kontaktiraj-razvojni-tim" style={{ textDecoration: "none" }}>
             <MenuItem>
               <EngineeringIcon
                 sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
@@ -71,7 +72,7 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
                 Kontaktiraj razvojni tim
               </Typography>
             </MenuItem>
-          </a>
+          </Link>
         )}
       </Menu>
     </>
@@ -108,7 +109,7 @@ export function Header_full_common({ sx, moreOptions_props }: Header_full_common
           <IconButton sx={{ color: "white" }} onClick={useRouter().back}>
             <ArrowBackIosOutlinedIcon />
           </IconButton>
-          <a style={{ color: "white", textDecoration: "none" }} href="/">
+          <Link style={{ color: "white", textDecoration: "none" }} href="/">
             <Typography variant="h2" fontWeight={400}>
               ZaBrata
             </Typography>
@@ -117,7 +118,7 @@ export function Header_full_common({ sx, moreOptions_props }: Header_full_common
                 Loza kontribucionizma
               </Typography>
             </Box>
-          </a>
+          </Link>
         </Box>
         <Header_moreOptions
           options={["profile", "post.list", "devContact"]}

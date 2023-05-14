@@ -12,6 +12,7 @@ import { Category_label } from "@prisma/client"
 import Location_select_page from "./Location.select.page"
 import Api from "../api.client"
 import { eva } from "@mk-libs/common/common"
+import Link from "next/link"
 
 type Props = {
   onShowCategories(): void
@@ -39,7 +40,7 @@ export default function Post_list_section_header({
   const heading = selectedCategory.data ? (
     getCategoryLabel(selectedCategory.data.label)
   ) : (
-    <a style={{ color: "white", textDecoration: "none" }} href="/">
+    <Link style={{ color: "white", textDecoration: "none" }} href="/">
       <Typography variant="h2" fontWeight={400}>
         ZaBrata
       </Typography>
@@ -48,7 +49,7 @@ export default function Post_list_section_header({
           Loza kontribucionizma
         </Typography>
       </Box>
-    </a>
+    </Link>
   )
   const heading_size = typeof heading === "string" ? heading.length : 100
   const searchAndMore_position = heading_size > 13 ? "down" : "up"
@@ -137,7 +138,7 @@ export default function Post_list_section_header({
                     {getCategoryLabel(selectedCategory.data.label)}
                   </Typography>
                 ) : (
-                  <a style={{ color: "white", textDecoration: "none" }} href="/">
+                  <Link style={{ color: "white", textDecoration: "none" }} href="/">
                     <Typography variant="h2" fontWeight={400}>
                       ZaBrata
                     </Typography>
@@ -146,7 +147,7 @@ export default function Post_list_section_header({
                         Loza kontribucionizma
                       </Typography>
                     </Box>
-                  </a>
+                  </Link>
                 )}
               </Box>
               {searchAndMore_position === "up" && searchAndMore}
