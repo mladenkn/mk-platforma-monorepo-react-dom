@@ -86,12 +86,10 @@ export default function Post_list_section_header({
           />
         </Dialog>
       )}
-      <Container
-        maxWidth="md"
+      <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          background: palette.primary.main,
           pt: 1.2,
           pb: 1,
         }}
@@ -186,7 +184,7 @@ export default function Post_list_section_header({
             </Box>
           )}
         </Box>
-      </Container>
+      </Box>
     </>
   )
 }

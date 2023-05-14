@@ -1,4 +1,4 @@
-import { Box, Container, SxProps } from "@mui/material"
+import { Box, Container, SxProps, useTheme } from "@mui/material"
 import React, { ReactNode } from "react"
 
 type WithSx = {
@@ -22,6 +22,7 @@ export default function Layout({
   fab = () => <></>,
   backdrop = () => <></>,
 }: Props) {
+  const { palette } = useTheme()
   return (
     <Box
       sx={{
@@ -33,9 +34,17 @@ export default function Layout({
         ...sx,
       }}
     >
-      {header}
+      <Container
+        maxWidth="md"
+        sx={{
+          background: palette.primary.main,
+        }}
+      >
+        {header}
+      </Container>
       {backdrop({})}
       <Container
+        maxWidth="md"
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -44,7 +53,6 @@ export default function Layout({
           height: "100%",
           overflowY: "auto",
         }}
-        maxWidth="md"
       >
         {content}
       </Container>
