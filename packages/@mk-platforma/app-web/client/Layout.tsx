@@ -14,11 +14,11 @@ type Props = {
   backdrop?(props: WithSx): ReactNode
 }
 
-export default function Layout1({
+export default function Layout({
   sx,
   header = () => <></>,
   content = () => <></>,
-  bottomSheet = () => <></>,
+  bottomSheet,
   fav = () => <></>,
   backdrop = () => <></>,
 }: Props) {
@@ -39,19 +39,20 @@ export default function Layout1({
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          flex: 3,
+          flex: bottomSheet ? 3 : undefined,
           overflowY: "auto",
         },
       })}
-      {bottomSheet({
-        sx: {
-          flex: 3,
-          zIndex: 2000,
-          overflowY: "auto",
-          width: "90%",
-          margin: "auto",
-        },
-      })}
+      {bottomSheet &&
+        bottomSheet({
+          sx: {
+            flex: 3,
+            zIndex: 2000,
+            overflowY: "auto",
+            width: "90%",
+            margin: "auto",
+          },
+        })}
       {fav({
         sx: {
           position: "fixed",
