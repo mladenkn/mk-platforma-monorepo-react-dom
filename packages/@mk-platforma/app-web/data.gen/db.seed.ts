@@ -4,7 +4,7 @@ import { Api_ss } from "../api/api.root"
 import locations from "./locations.gen.json"
 import { faker } from "@faker-js/faker"
 import * as cro_dataset from "./data.gen.cro.dataset"
-import { avatarStyles } from "../api/User.api"
+import { avatarStyles } from "../api/User.api.common"
 import db from "../prisma/instance"
 
 export type WithId = {

@@ -1,5 +1,5 @@
 import { shallowPick } from "@mk-libs/common/common"
-import { avatarStyles } from "./User.api"
+import { avatarStyles } from "./User.api.common"
 import { publicProcedure } from "../api.server.utils"
 import { Post_api_create_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"

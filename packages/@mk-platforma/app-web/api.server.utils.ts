@@ -1,11 +1,13 @@
 import { initTRPC } from "@trpc/server"
 import superjson from "superjson"
 import db from "./prisma/instance"
+import { user_id_ss_get } from "./pages/api/auth/[...nextauth]"
+import { NextApiRequest, NextApiResponse } from "next"
 
-export const createContext = async () => {
+export const createContext = async (req: NextApiRequest, res: NextApiResponse) => {
   return {
     db,
-    userId: 1,
+    userId: await user_id_ss_get(req, res),
   }
 }
 
