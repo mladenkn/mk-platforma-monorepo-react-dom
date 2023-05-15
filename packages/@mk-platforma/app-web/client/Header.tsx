@@ -103,12 +103,15 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
                 Kontakt
               </Typography>
             </Link>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Link
+              href="/uvjeti-pravila"
+              style={{ display: "flex", alignItems: "center", textDecoration: "none" }}
+            >
               <ListAltOutlinedIcon sx={{ mr: 1.5, color: theme.other.font.color }} />
               <Typography sx={{ color: theme.other.font.color }} variant="h5">
                 Pravila i uvjeti korištenja
               </Typography>
-            </Box>
+            </Link>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <PolicyOutlinedIcon sx={{ mr: 1.5, color: theme.other.font.color }} />
               <Typography sx={{ color: theme.other.font.color }} variant="h5">
