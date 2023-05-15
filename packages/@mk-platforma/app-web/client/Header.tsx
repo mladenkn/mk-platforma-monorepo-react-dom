@@ -15,8 +15,21 @@ import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 import PolicyOutlinedIcon from "@mui/icons-material/PolicyOutlined"
 import { difference } from "lodash"
 
-type Option = "post.create" | "post.list" | "profile" | "devContact"
-const Option_all: Option[] = ["post.create", "post.list", "profile", "devContact"]
+type Option =
+  | "post.create"
+  | "post.list"
+  | "profile"
+  | "other.contact"
+  | "other.privacyPolicy"
+  | "other.termsAndConditions"
+const Option_all: Option[] = [
+  "post.create",
+  "post.list",
+  "profile",
+  "other.contact",
+  "other.privacyPolicy",
+  "other.termsAndConditions",
+]
 
 type Header_moreOptions_props = {
   sx?: SxProps
@@ -27,7 +40,9 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
   const { typography, palette } = useTheme()
   const [optionsAnchorEl, set_optionsAnchorEl] = useState<HTMLButtonElement | null>(null)
   const [moreOptionsActive, set_moreOptionsActive] = useState(false)
+
   const options = exclude?.length ? difference(Option_all, exclude) : Option_all
+  const hasOther = options.some(o => o.startsWith("other."))
 
   const theme = {
     font: {
@@ -80,7 +95,7 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
             <Typography sx={{ color: theme.font.color }}>Moj profil</Typography>
           </MenuItem>
         )}
-        {options.includes("devContact") && (
+        {hasOther && (
           <MenuItem onClick={handle_includeOther}>
             <ExpandMoreOutlinedIcon
               sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }}
