@@ -26,9 +26,9 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
 
   const theme = {
     other: {
-      background: palette.primary.main,
+      background: "#E4E6EB",
       font: {
-        color: "white",
+        color: palette.primary.dark,
       },
     },
   }
