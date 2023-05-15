@@ -29,7 +29,7 @@ export default function DevContact() {
         <Box sx={{ mt: 3 }}>
           <Paper sx={{ px: 3, py: 3 }}>
             <Typography variant="h5" sx={{ mb: 4 }}>
-              Razvojni programer: Mladen Knezović
+              Voditelj projekta: Mladen Knezović
             </Typography>
             <Typography variant="h5">Kontakt: mladen.knezovic.1993@gmail.com</Typography>
           </Paper>
