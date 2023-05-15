@@ -94,12 +94,15 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
             Ostali linkovi
           </Typography>
           <Box sx={{ ml: 1.5, mt: 2, display: "flex", flexDirection: "column", gap: 1.5 }}>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Link
+              href="/kontakt"
+              style={{ display: "flex", alignItems: "center", textDecoration: "none" }}
+            >
               <ContactPageOutlinedIcon sx={{ mr: 1.5, color: theme.other.font.color }} />
               <Typography sx={{ color: theme.other.font.color }} variant="h5">
                 Kontakt
               </Typography>
-            </Box>
+            </Link>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <ListAltOutlinedIcon sx={{ mr: 1.5, color: theme.other.font.color }} />
               <Typography sx={{ color: theme.other.font.color }} variant="h5">
