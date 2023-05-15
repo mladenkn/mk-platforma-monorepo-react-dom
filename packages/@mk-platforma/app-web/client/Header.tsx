@@ -69,16 +69,20 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
       </Menu>
-      <BottomSheet sx={{ px: 2, pt: 1.5, pb: 1 }}>
+      <BottomSheet sx={{ px: 2, pt: 1.5, pb: 1.5 }}>
         <Typography variant="h4">Ostali linkovi</Typography>
         <Box sx={{ ml: 2, mt: 1.5, display: "flex", flexDirection: "column", gap: 1.2 }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <ContactPageOutlinedIcon sx={{ mr: 1.5 }} />
-            <Typography variant="h4">Kontakt</Typography>
+            <Typography variant="h5">Kontakt</Typography>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <ListAltOutlinedIcon sx={{ mr: 1.5 }} />
+            <Typography variant="h5">Pravila i uvjeti korištenja</Typography>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <PolicyOutlinedIcon sx={{ mr: 1.5 }} />
-            <Typography variant="h4">Politika privatnosti</Typography>
+            <Typography variant="h5">Politika privatnosti</Typography>
           </Box>
         </Box>
       </BottomSheet>
