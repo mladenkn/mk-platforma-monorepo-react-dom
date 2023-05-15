@@ -112,12 +112,15 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
                 Pravila i uvjeti korištenja
               </Typography>
             </Link>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Link
+              href="/politika-privatnosti"
+              style={{ display: "flex", alignItems: "center", textDecoration: "none" }}
+            >
               <PolicyOutlinedIcon sx={{ mr: 1.5, color: theme.other.font.color }} />
               <Typography sx={{ color: theme.other.font.color }} variant="h5">
                 Politika privatnosti
               </Typography>
-            </Box>
+            </Link>
           </Box>
         </BottomSheet>
       )}
