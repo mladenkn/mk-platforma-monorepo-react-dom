@@ -71,7 +71,7 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
         )}
       </Menu>
       {moreOptionsActive && (
-        <BottomSheet sx={{ px: 2, pt: 1.5, pb: 1.5 }} onClose={() => set_moreOptionsActive(true)}>
+        <BottomSheet sx={{ px: 2, pt: 1.5, pb: 1.5 }} onClose={() => set_moreOptionsActive(false)}>
           <Typography variant="h4">Ostali linkovi</Typography>
           <Box sx={{ ml: 2, mt: 1.5, display: "flex", flexDirection: "column", gap: 1.2 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
