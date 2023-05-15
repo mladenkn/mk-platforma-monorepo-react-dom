@@ -1,13 +1,4 @@
-import {
-  Box,
-  Typography,
-  useTheme,
-  IconButton,
-  Menu,
-  MenuItem,
-  Container,
-  SwipeableDrawer,
-} from "@mui/material"
+import { Box, Typography, useTheme, IconButton, Menu, MenuItem } from "@mui/material"
 import React, { ComponentProps, useState } from "react"
 import { SxProps } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
@@ -19,6 +10,7 @@ import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { LogoLink } from "./common"
+import { BottomSheet } from "./BottomSheet"
 
 type Header_moreOptions_props = {
   sx?: SxProps
@@ -75,25 +67,7 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
       </Menu>
-      <SwipeableDrawer
-        // container={container}
-        anchor="bottom"
-        open
-        onClose={() => {}}
-        onOpen={() => {}}
-        // swipeAreaWidth={56}
-        // disableSwipeToOpen={false}
-        ModalProps={{
-          keepMounted: true,
-        }}
-        sx={{
-          ".MuiPaper-root": {
-            borderTopLeftRadius: 12,
-            borderTopRightRadius: 12,
-            mx: "2%",
-          },
-        }}
-      >
+      <BottomSheet>
         <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
         <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
         <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
@@ -104,7 +78,7 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
         <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
         <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
         <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-      </SwipeableDrawer>
+      </BottomSheet>
     </>
   )
 }

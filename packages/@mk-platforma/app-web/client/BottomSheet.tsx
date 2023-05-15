@@ -1,26 +1,34 @@
-import { SxProps, ClickAwayListener, Paper, useTheme } from "@mui/material"
+import { SxProps, Typography, SwipeableDrawer } from "@mui/material"
 import React, { ReactNode } from "react"
 
 type BottomSheet_Props = {
   sx?: SxProps
-  children: ReactNode
-  onClickAway?(e: any): void
+  children?: ReactNode
 }
 
-export function BottomSheet({ sx, children, onClickAway = () => {} }: BottomSheet_Props) {
-  const { spacing } = useTheme()
+export function BottomSheet({ sx, children }: BottomSheet_Props) {
   return (
-    <ClickAwayListener onClickAway={onClickAway}>
-      <Paper
-        sx={{
-          p: 2,
-          borderTopRightRadius: spacing(1.5),
-          borderTopLeftRadius: spacing(1.5),
+    <SwipeableDrawer
+      // container={container}
+      anchor="bottom"
+      open
+      onClose={() => {}}
+      onOpen={() => {}}
+      // swipeAreaWidth={56}
+      // disableSwipeToOpen={false}
+      ModalProps={{
+        keepMounted: true,
+      }}
+      sx={{
+        ".MuiPaper-root": {
+          borderTopLeftRadius: 12,
+          borderTopRightRadius: 12,
+          mx: "2%",
           ...sx,
-        }}
-      >
-        {children}
-      </Paper>
-    </ClickAwayListener>
+        },
+      }}
+    >
+      {children}
+    </SwipeableDrawer>
   )
 }
