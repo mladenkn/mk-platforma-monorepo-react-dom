@@ -71,26 +71,29 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
         )}
       </Menu>
       {moreOptionsActive && (
-        <BottomSheet sx={{ px: 2, pt: 1.5, pb: 1.5 }} onClose={() => set_moreOptionsActive(false)}>
-          <Typography sx={{ color: palette.primary.dark }} variant="h4">
+        <BottomSheet
+          sx={{ px: 2, pt: 1.7, pb: 2.5, background: palette.primary.main }}
+          onClose={() => set_moreOptionsActive(false)}
+        >
+          <Typography sx={{ color: "white" }} variant="h3">
             Ostali linkovi
           </Typography>
-          <Box sx={{ ml: 2, mt: 1.5, display: "flex", flexDirection: "column", gap: 1.5 }}>
+          <Box sx={{ ml: 2, mt: 2, display: "flex", flexDirection: "column", gap: 1.5 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <ContactPageOutlinedIcon sx={{ mr: 1.5, color: palette.primary.main }} />
-              <Typography sx={{ color: palette.primary.main }} variant="h5">
+              <ContactPageOutlinedIcon sx={{ mr: 1.5, color: "white" }} />
+              <Typography sx={{ color: "white" }} variant="h5">
                 Kontakt
               </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <ListAltOutlinedIcon sx={{ mr: 1.5, color: palette.primary.main }} />
-              <Typography sx={{ color: palette.primary.main }} variant="h5">
+              <ListAltOutlinedIcon sx={{ mr: 1.5, color: "white" }} />
+              <Typography sx={{ color: "white" }} variant="h5">
                 Pravila i uvjeti korištenja
               </Typography>
             </Box>
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <PolicyOutlinedIcon sx={{ mr: 1.5, color: palette.primary.main }} />
-              <Typography sx={{ color: palette.primary.main }} variant="h5">
+              <PolicyOutlinedIcon sx={{ mr: 1.5, color: "white" }} />
+              <Typography sx={{ color: "white" }} variant="h5">
                 Politika privatnosti
               </Typography>
             </Box>
