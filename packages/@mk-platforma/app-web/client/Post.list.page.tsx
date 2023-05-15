@@ -12,13 +12,13 @@ import Categories_selector_aside from "./Categories.selector.aside"
 import Layout from "./Layout"
 import Link from "next/link"
 import { Post_listItem } from "./Post.listItem"
+import { flatMap } from "lodash"
 
-type Post_model = Api_outputs["post"]["list"]["fieldSet_main"][number]
 type Category_model = Api_outputs["category"]["many"][number]
 
 export type PostList_section_Props = {
   selectedCategory_initial?: { id: number; label: Category_labelType } | null
-  posts_initial: Post_model[]
+  // posts_initial: Api_outputs["post"]["list"]["fieldSet_main"]
   categories_initial: Category_model[]
   location_initial: number | null
   location_radius_initial: number | null
@@ -27,7 +27,7 @@ export type PostList_section_Props = {
 export default function Post_list_page({
   selectedCategory_initial,
   categories_initial,
-  posts_initial,
+  // posts_initial,
   location_initial,
   location_radius_initial,
 }: PostList_section_Props) {
@@ -45,15 +45,16 @@ export default function Post_list_page({
   const categories = Api.category.many.useQuery(undefined, { initialData: categories_initial })
   const selectedCategory = useCategory(selectedCategory_id)
 
-  const posts = Api.post.list.fieldSet_main.useQuery(
+  const posts = Api.post.list.fieldSet_main.useInfiniteQuery(
     {
       categories: selectedCategory_id ? [selectedCategory_id] : [],
       search: search === null ? undefined : search,
       location: selectedLocation ?? undefined,
       location_radius: selectedLocation_radius_km ?? undefined,
-    },
-    { initialData: posts_initial }
+    }
+    // { initialData: { pages: [posts_initial.items], pageParams: undefined } }
   )
+  const posts_data = flatMap(posts.data?.pages, page => page.items)
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
@@ -82,7 +83,7 @@ export default function Post_list_page({
           />
         }
         content={
-          posts.data ? (
+          posts_data ? (
             <Box
               sx={{
                 display: "flex",
@@ -92,7 +93,7 @@ export default function Post_list_page({
                 my: 1,
               }}
             >
-              {posts.data.map(item => (
+              {posts_data.map(item => (
                 <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
                   <Paper sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}>
                     <Post_listItem {...item} location={item.location?.name} />

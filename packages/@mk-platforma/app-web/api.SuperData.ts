@@ -25,7 +25,7 @@ export function SuperData_query<TInput1, TOutput1, TOutput2>(
 export function SuperData_query2<TInput1, TOutput1, TOutput2, TInput2>(
   map1: ((ctx: Api_context, i: TInput1) => Promise<TOutput1>) & { input_zod: z.ZodType<TInput1> },
   input_zod: z.ZodType<TInput2>,
-  map2: (ctx: Api_context, output1: TOutput1, i: TInput2) => Promise<TOutput2>
+  map2: (ctx: Api_context, output1: TOutput1, i: TInput1 & TInput2) => Promise<TOutput2>
 ) {
   const input = map1.input_zod.and(input_zod)
   return publicProcedure.input(input).query(async ({ ctx, input }) => {

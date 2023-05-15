@@ -2,45 +2,60 @@ import { z } from "zod"
 import { publicProcedure, router } from "../api.server.utils"
 import Post_api_create from "./Post.api.create"
 import { Post_list_many } from "./Post.api.abstract"
-import { SuperData_query } from "../api.SuperData"
+import { SuperData_query2 } from "../api.SuperData"
 
 const Post_api = router({
   list: router({
-    fieldSet_main: SuperData_query(Post_list_many, ({ db }, output1) =>
-      db.post.findMany({
-        ...output1,
-        take: 20,
-        select: {
-          id: true,
-          title: true,
-          location: {
-            select: {
-              id: true,
-              name: true,
+    fieldSet_main: SuperData_query2(
+      Post_list_many,
+      z.object({
+        cursor: z.number().min(1).optional(),
+      }),
+      async ({ db }, output1, input) => {
+        const take = 11
+        const items = await db.post.findMany({
+          ...output1,
+          take,
+          cursor: input.cursor
+            ? {
+                id: input.cursor,
+              }
+            : undefined,
+          select: {
+            id: true,
+            title: true,
+            location: {
+              select: {
+                id: true,
+                name: true,
+              },
             },
-          },
-          images: {
-            select: {
-              id: true,
-              url: true,
+            images: {
+              select: {
+                id: true,
+                url: true,
+              },
             },
-          },
-          expertEndorsement: {
-            select: {
-              firstName: true,
-              lastName: true,
-              avatarStyle: true,
-              skills: {
-                select: {
-                  id: true,
-                  label: true,
-                  level: true,
+            expertEndorsement: {
+              select: {
+                firstName: true,
+                lastName: true,
+                avatarStyle: true,
+                skills: {
+                  select: {
+                    id: true,
+                    label: true,
+                    level: true,
+                  },
                 },
               },
             },
           },
-        },
-      })
+        })
+
+        const nextCursor = items.length > take ? items.pop()!.id : null
+        return { items, nextCursor }
+      }
     ),
   }),
 

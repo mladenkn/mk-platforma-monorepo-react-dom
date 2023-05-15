@@ -18,15 +18,15 @@ export async function Post_list_page_data_initial({ query, req, res }: GetServer
   const location = getCookie_ss(req.headers.cookie || "", "Post_list__location")
   const location_radius = getCookie_ss(req.headers.cookie || "", "Post_list__location_radius")
 
-  const posts_initial = await api.post.list.fieldSet_main({
-    categories: category ? [category.id] : undefined,
-    location: location || undefined,
-    location_radius: location_radius || undefined,
-  })
+  // const posts_initial = await api.post.list.fieldSet_main({
+  //   categories: category ? [category.id] : undefined,
+  //   location: location || undefined,
+  //   location_radius: location_radius || undefined,
+  // })
 
   const props: PostList_section_Props = {
     selectedCategory_initial: category,
-    posts_initial,
+    // posts_initial: posts_initial,
     categories_initial: await api.category.many(),
     location_initial: location || null,
     location_radius_initial: location_radius || null,
