@@ -22,6 +22,7 @@ type Header_moreOptions_props = {
 export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
   const { typography, palette } = useTheme()
   const [optionsAnchorEl, set_optionsAnchorEl] = useState<HTMLButtonElement | null>(null)
+  const [moreOptionsActive, set_moreOptionsActive] = useState(false)
   return (
     <>
       <IconButton sx={sx} onClick={e => set_optionsAnchorEl(e.target as any)}>
@@ -59,7 +60,7 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
         {options.includes("devContact") && (
-          <MenuItem>
+          <MenuItem onClick={() => set_moreOptionsActive(true)}>
             <ExpandMoreOutlinedIcon
               sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
             />
@@ -69,23 +70,25 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
       </Menu>
-      <BottomSheet sx={{ px: 2, pt: 1.5, pb: 1.5 }}>
-        <Typography variant="h4">Ostali linkovi</Typography>
-        <Box sx={{ ml: 2, mt: 1.5, display: "flex", flexDirection: "column", gap: 1.2 }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ContactPageOutlinedIcon sx={{ mr: 1.5 }} />
-            <Typography variant="h5">Kontakt</Typography>
+      {moreOptionsActive && (
+        <BottomSheet sx={{ px: 2, pt: 1.5, pb: 1.5 }} onClose={() => set_moreOptionsActive(true)}>
+          <Typography variant="h4">Ostali linkovi</Typography>
+          <Box sx={{ ml: 2, mt: 1.5, display: "flex", flexDirection: "column", gap: 1.2 }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <ContactPageOutlinedIcon sx={{ mr: 1.5 }} />
+              <Typography variant="h5">Kontakt</Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <ListAltOutlinedIcon sx={{ mr: 1.5 }} />
+              <Typography variant="h5">Pravila i uvjeti korištenja</Typography>
+            </Box>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <PolicyOutlinedIcon sx={{ mr: 1.5 }} />
+              <Typography variant="h5">Politika privatnosti</Typography>
+            </Box>
           </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <ListAltOutlinedIcon sx={{ mr: 1.5 }} />
-            <Typography variant="h5">Pravila i uvjeti korištenja</Typography>
-          </Box>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <PolicyOutlinedIcon sx={{ mr: 1.5 }} />
-            <Typography variant="h5">Politika privatnosti</Typography>
-          </Box>
-        </Box>
-      </BottomSheet>
+        </BottomSheet>
+      )}
     </>
   )
 }
