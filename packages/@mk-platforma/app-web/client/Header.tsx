@@ -33,6 +33,11 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
     },
   }
 
+  function handle_includeOther() {
+    set_moreOptionsActive(true)
+    set_optionsAnchorEl(null)
+  }
+
   return (
     <>
       <IconButton sx={sx} onClick={e => set_optionsAnchorEl(e.target as any)}>
@@ -70,7 +75,7 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
         {options.includes("devContact") && (
-          <MenuItem onClick={() => set_moreOptionsActive(true)}>
+          <MenuItem onClick={handle_includeOther}>
             <ExpandMoreOutlinedIcon
               sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
             />
