@@ -5,8 +5,8 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
-import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
+import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { LogoLink } from "./common"
@@ -56,16 +56,14 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
         {options.includes("devContact") && (
-          <Link href="/kontakt" style={{ textDecoration: "none" }}>
-            <MenuItem>
-              <ContactPageOutlinedIcon
-                sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
-              />
-              <Typography sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}>
-                Kontakt
-              </Typography>
-            </MenuItem>
-          </Link>
+          <MenuItem>
+            <ExpandMoreOutlinedIcon
+              sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
+            />
+            <Typography sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}>
+              Ostalo
+            </Typography>
+          </MenuItem>
         )}
       </Menu>
     </>
