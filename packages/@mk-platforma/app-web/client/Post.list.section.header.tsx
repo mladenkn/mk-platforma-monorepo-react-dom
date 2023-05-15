@@ -50,7 +50,7 @@ export default function Post_list_section_header({
       <IconButton onClick={() => set_search(search === null ? "" : null)}>
         <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
       </IconButton>
-      <Header_moreOptions options={["post.create", "profile", "devContact"]} />
+      <Header_moreOptions exclude={["post.list"]} />
     </Box>
   )
 

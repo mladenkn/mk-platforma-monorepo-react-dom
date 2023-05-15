@@ -20,13 +20,7 @@ export default function User_profile({ user_initial }: Props) {
 
   return (
     <Layout
-      header={
-        <Header_full_common
-          moreOptions_props={{
-            options: ["post.create", "profile", "post.list", "devContact"],
-          }}
-        />
-      }
+      header={<Header_full_common moreOptions_props={{ exclude: ["profile"] }} />}
       content={
         <Paper sx={{ p: 2, m: 1 }}>
           {user.isLoading ? (

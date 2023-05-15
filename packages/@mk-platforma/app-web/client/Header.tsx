@@ -13,16 +13,21 @@ import { LogoLink } from "./common"
 import { BottomSheet } from "./BottomSheet"
 import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 import PolicyOutlinedIcon from "@mui/icons-material/PolicyOutlined"
+import { difference } from "lodash"
+
+type Option = "post.create" | "post.list" | "profile" | "devContact"
+const Option_all: Option[] = ["post.create", "post.list", "profile", "devContact"]
 
 type Header_moreOptions_props = {
   sx?: SxProps
-  options: ("post.create" | "post.list" | "profile" | "devContact")[]
+  exclude?: Option[]
 }
 
-export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
+export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
   const { typography, palette } = useTheme()
   const [optionsAnchorEl, set_optionsAnchorEl] = useState<HTMLButtonElement | null>(null)
   const [moreOptionsActive, set_moreOptionsActive] = useState(false)
+  const options = exclude?.length ? difference(Option_all, exclude) : Option_all
 
   const theme = {
     font: {
@@ -159,7 +164,7 @@ export function Header_full_common({ sx, moreOptions_props }: Header_full_common
         </IconButton>
         <LogoLink />
       </Box>
-      <Header_moreOptions options={["profile", "post.list", "devContact"]} {...moreOptions_props} />
+      <Header_moreOptions {...moreOptions_props} />
     </Box>
   )
 }

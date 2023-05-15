@@ -21,13 +21,7 @@ export default function Post_single_page({
   return (
     <Box>
       <Layout
-        header={
-          <Header_full_common
-            moreOptions_props={{
-              options: ["post.create", "profile", "post.list", "devContact"],
-            }}
-          />
-        }
+        header={<Header_full_common />}
         content={
           <>
             {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : <></>}

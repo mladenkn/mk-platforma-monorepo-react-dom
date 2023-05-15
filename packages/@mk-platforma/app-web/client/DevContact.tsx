@@ -22,7 +22,7 @@ export default function DevContact() {
             </IconButton>
             <Typography variant="h3">Kontakt</Typography>
           </Box>
-          <Header_moreOptions options={["post.create", "profile", "post.list", "devContact"]} />
+          <Header_moreOptions exclude={["devContact"]} />
         </Box>
       }
       content={
