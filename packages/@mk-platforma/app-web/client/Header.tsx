@@ -51,7 +51,7 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
     other: {
       background: "#E4E6EB",
       font: {
-        color: palette.primary.dark,
+        color: palette.primary.main,
       },
     },
   }
