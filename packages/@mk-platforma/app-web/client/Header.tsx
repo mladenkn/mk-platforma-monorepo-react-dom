@@ -12,6 +12,7 @@ import Link from "next/link"
 import { LogoLink } from "./common"
 import { BottomSheet } from "./BottomSheet"
 import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
+import PolicyOutlinedIcon from "@mui/icons-material/PolicyOutlined"
 
 type Header_moreOptions_props = {
   sx?: SxProps
@@ -70,10 +71,14 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
       </Menu>
       <BottomSheet sx={{ px: 2, pt: 1.5, pb: 1 }}>
         <Typography variant="h4">Ostali linkovi</Typography>
-        <Box sx={{ ml: 2, mt: 1.5 }}>
+        <Box sx={{ ml: 2, mt: 1.5, display: "flex", flexDirection: "column", gap: 1.2 }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <ContactPageOutlinedIcon sx={{ mr: 1.5 }} />
             <Typography variant="h4">Kontakt</Typography>
+          </Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <PolicyOutlinedIcon sx={{ mr: 1.5 }} />
+            <Typography variant="h4">Politika privatnosti</Typography>
           </Box>
         </Box>
       </BottomSheet>
