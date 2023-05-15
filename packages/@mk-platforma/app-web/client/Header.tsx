@@ -11,6 +11,7 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import { LogoLink } from "./common"
 import { BottomSheet } from "./BottomSheet"
+import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 
 type Header_moreOptions_props = {
   sx?: SxProps
@@ -67,17 +68,14 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
       </Menu>
-      <BottomSheet>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
-        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+      <BottomSheet sx={{ px: 2, pt: 1.5, pb: 1 }}>
+        <Typography variant="h4">Ostali linkovi</Typography>
+        <Box sx={{ ml: 2, mt: 1.5 }}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <ContactPageOutlinedIcon sx={{ mr: 1.5 }} />
+            <Typography variant="h4">Kontakt</Typography>
+          </Box>
+        </Box>
       </BottomSheet>
     </>
   )
