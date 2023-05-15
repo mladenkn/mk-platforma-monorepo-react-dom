@@ -10,13 +10,10 @@ type BottomSheet_Props = {
 export function BottomSheet({ sx, children, onClose }: BottomSheet_Props) {
   return (
     <SwipeableDrawer
-      // container={container}
       anchor="bottom"
       open
       onClose={onClose}
       onOpen={() => {}}
-      // swipeAreaWidth={56}
-      // disableSwipeToOpen={false}
       ModalProps={{
         keepMounted: true,
       }}
