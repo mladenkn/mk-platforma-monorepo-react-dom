@@ -1,4 +1,13 @@
-import { Box, Typography, useTheme, IconButton, Menu, MenuItem, Container } from "@mui/material"
+import {
+  Box,
+  Typography,
+  useTheme,
+  IconButton,
+  Menu,
+  MenuItem,
+  Container,
+  SwipeableDrawer,
+} from "@mui/material"
 import React, { ComponentProps, useState } from "react"
 import { SxProps } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
@@ -66,6 +75,36 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
       </Menu>
+      <SwipeableDrawer
+        // container={container}
+        anchor="bottom"
+        open
+        onClose={() => {}}
+        onOpen={() => {}}
+        // swipeAreaWidth={56}
+        // disableSwipeToOpen={false}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          ".MuiPaper-root": {
+            borderTopLeftRadius: 12,
+            borderTopRightRadius: 12,
+            mx: "2%",
+          },
+        }}
+      >
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+        <Typography>ladkshf člasdfj čoasidfj očasdjf čoasdfj asčidfj</Typography>
+      </SwipeableDrawer>
     </>
   )
 }
