@@ -5,7 +5,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert"
 import PostAddIcon from "@mui/icons-material/PostAdd"
 import AccountCircleIcon from "@mui/icons-material/AccountCircle"
 import ListAltOutlinedIcon from "@mui/icons-material/ListAltOutlined"
-import EngineeringIcon from "@mui/icons-material/Engineering"
+import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { useRouter } from "next/router"
 import Link from "next/link"
@@ -56,13 +56,13 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           </MenuItem>
         )}
         {options.includes("devContact") && (
-          <Link href="/kontaktiraj-razvojni-tim" style={{ textDecoration: "none" }}>
+          <Link href="/kontakt" style={{ textDecoration: "none" }}>
             <MenuItem>
-              <EngineeringIcon
+              <ContactPageOutlinedIcon
                 sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
               />
               <Typography sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}>
-                Kontaktiraj razvojni tim
+                Kontakt
               </Typography>
             </MenuItem>
           </Link>
