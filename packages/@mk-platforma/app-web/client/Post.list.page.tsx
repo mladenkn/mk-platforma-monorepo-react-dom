@@ -5,7 +5,7 @@ import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { useCategory } from "./Categories.common"
 import { Category_labelType } from "../prisma/generated/zod"
 import { use_setUrlParams_shallow } from "../utils"
-import Post_list_section_header from "./Post.list.section.header"
+import Post_list_page_header from "./Post.list.page.header"
 import { use_cookie } from "../cookies"
 import { Api_outputs } from "../api.utils"
 import Categories_selector_aside from "./Categories.selector.aside"
@@ -70,7 +70,7 @@ export default function Post_list_page({
       <Layout
         onlyContentScrollable
         header={
-          <Post_list_section_header
+          <Post_list_page_header
             search={search}
             set_search={set_search}
             selectedCategory={selectedCategory as any}

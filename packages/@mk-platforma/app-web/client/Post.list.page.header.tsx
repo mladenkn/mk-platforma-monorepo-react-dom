@@ -25,7 +25,7 @@ type Props = {
   set__selectedLocation_radius_km(v: number | null): void
 }
 
-export default function Post_list_section_header({
+export default function Post_list_page_header({
   selectedCategory,
   onShowCategories,
   search,
