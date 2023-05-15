@@ -1,6 +1,6 @@
 import { Box, Drawer, Fab, Paper, Typography } from "@mui/material"
 import Api from "../api.client"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { useCategory } from "./Categories.common"
 import { Category_labelType } from "../prisma/generated/zod"
@@ -51,8 +51,11 @@ export default function Post_list_page({
       search: search === null ? undefined : search,
       location: selectedLocation ?? undefined,
       location_radius: selectedLocation_radius_km ?? undefined,
+    },
+    {
+      getNextPageParam: lastPage => lastPage.nextCursor,
+      // initialData: { pages: [posts_initial.items], pageParams: undefined },
     }
-    // { initialData: { pages: [posts_initial.items], pageParams: undefined } }
   )
   const posts_data = flatMap(posts.data?.pages, page => page.items)
 
@@ -65,6 +68,25 @@ export default function Post_list_page({
     if (!category.children?.length) set_SectionsDrawer_isActive(false)
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
+
+  function handleScroll() {
+    console.log(73)
+    if (
+      window.innerHeight + document.documentElement.scrollTop !==
+        document.documentElement.offsetHeight ||
+      posts.isLoading
+    ) {
+      console.log(79)
+    }
+    console.log(81)
+    posts.fetchNextPage()
+  }
+
+  useEffect(() => {
+    console.log(86)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [posts.isLoading])
 
   return (
     <>
