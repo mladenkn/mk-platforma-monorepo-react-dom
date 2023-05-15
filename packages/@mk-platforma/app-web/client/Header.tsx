@@ -25,6 +25,9 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
   const [moreOptionsActive, set_moreOptionsActive] = useState(false)
 
   const theme = {
+    font: {
+      color: palette.primary.dark,
+    },
     other: {
       background: "#E4E6EB",
       font: {
@@ -52,34 +55,32 @@ export function Header_moreOptions({ options, sx }: Header_moreOptions_props) {
           <Link href="/" style={{ textDecoration: "none" }}>
             <MenuItem>
               <ListAltOutlinedIcon
-                sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
+                sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }}
               />
-              <Typography sx={{ color: palette.primary.main }}>Objave</Typography>
+              <Typography sx={{ color: theme.font.color }}>Objave</Typography>
             </MenuItem>
           </Link>
         )}
         {options.includes("post.create") && (
           <Link href="/post/create" style={{ textDecoration: "none" }}>
             <MenuItem>
-              <PostAddIcon sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }} />
-              <Typography sx={{ color: palette.primary.main }}>Objavi</Typography>
+              <PostAddIcon sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }} />
+              <Typography sx={{ color: theme.font.color }}>Objavi</Typography>
             </MenuItem>
           </Link>
         )}
         {options.includes("profile") && (
           <MenuItem>
-            <AccountCircleIcon
-              sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
-            />
-            <Typography sx={{ color: palette.primary.main }}>Moj profil</Typography>
+            <AccountCircleIcon sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }} />
+            <Typography sx={{ color: theme.font.color }}>Moj profil</Typography>
           </MenuItem>
         )}
         {options.includes("devContact") && (
           <MenuItem onClick={handle_includeOther}>
             <ExpandMoreOutlinedIcon
-              sx={{ fontSize: typography.h3, mr: 1.5, color: palette.primary.main }}
+              sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }}
             />
-            <Typography sx={{ color: palette.primary.main, width: 120, whiteSpace: "pre-wrap" }}>
+            <Typography sx={{ color: theme.font.color, width: 120, whiteSpace: "pre-wrap" }}>
               Ostalo
             </Typography>
           </MenuItem>
