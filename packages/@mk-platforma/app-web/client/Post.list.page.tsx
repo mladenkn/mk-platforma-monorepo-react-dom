@@ -1,6 +1,6 @@
 import { Box, Drawer, Fab, Paper, Typography } from "@mui/material"
 import Api from "../api.client"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { useCategory } from "./Categories.common"
 import { Category_labelType } from "../prisma/generated/zod"
@@ -13,6 +13,7 @@ import Layout from "./Layout"
 import Link from "next/link"
 import { Post_listItem } from "./Post.listItem"
 import { flatMap } from "lodash"
+import { useDebounceCallback } from "@react-hook/debounce"
 
 type Category_model = Api_outputs["category"]["many"][number]
 
@@ -58,6 +59,13 @@ export default function Post_list_page({
     }
   )
   const posts_data = flatMap(posts.data?.pages, page => page.items)
+  const posts_fetchNextPage_debounced = useDebounceCallback(posts.fetchNextPage, 500)
+
+  function handleScroll(e: any) {
+    const diff = e.target.scrollHeight - (e.target.scrollTop + e.target.clientHeight)
+    const isOnBottom = diff < 100
+    if (isOnBottom && !posts.isLoading) posts_fetchNextPage_debounced()
+  }
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
@@ -67,12 +75,6 @@ export default function Post_list_page({
     setUrlParams_shallow({ category: category.label })
     if (!category.children?.length) set_SectionsDrawer_isActive(false)
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
-  }
-
-  function handleScroll(e: any) {
-    const diff = e.target.scrollHeight - (e.target.scrollTop + e.target.clientHeight)
-    const isOnBottom = diff < 100
-    if (isOnBottom && !posts.isLoading) posts.fetchNextPage()
   }
 
   return (
