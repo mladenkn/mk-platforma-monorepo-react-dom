@@ -1,6 +1,5 @@
 - file upload
 - create i update
-- pagiranje
 - profile edit
 - treba li User.id bit string?
 
