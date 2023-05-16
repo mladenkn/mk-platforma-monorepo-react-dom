@@ -59,10 +59,10 @@ export default function Post_list_page({
       // initialData: { pages: [posts_initial.items], pageParams: undefined },
     }
   )
-  const posts_status_history = use_history_uniques(posts.status)
-  const posts_isFirstLoading = posts_status_history.every(s => s === "loading")
-  const posts_query_data = flatMap(posts.data?.pages, page => page.items)
-  const posts_data = posts_isFirstLoading ? posts_initial : posts_query_data
+  const posts_isFirstLoading = use_history_uniques(posts.status).every(s => s === "loading")
+  const posts_data = posts_isFirstLoading
+    ? posts_initial
+    : flatMap(posts.data?.pages, page => page.items)
   const posts_fetchNextPage_debounced = useDebounceCallback(posts.fetchNextPage, 500)
 
   function handleScroll(e: any) {
