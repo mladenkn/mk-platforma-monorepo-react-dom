@@ -64,7 +64,10 @@ export default function Post_list_page({
   function handleScroll(e: any) {
     const diff = e.target.scrollHeight - (e.target.scrollTop + e.target.clientHeight)
     const isOnBottom = diff < 100
-    if (isOnBottom && !posts.isLoading) posts_fetchNextPage_debounced()
+    const lastPage = posts.data?.pages[posts.data?.pages.length - 1]
+    if (isOnBottom && !posts.isLoading && lastPage?.nextCursor) {
+      posts_fetchNextPage_debounced()
+    }
   }
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
