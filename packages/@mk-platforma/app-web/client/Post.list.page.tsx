@@ -14,12 +14,13 @@ import Link from "next/link"
 import { Post_listItem } from "./Post.listItem"
 import { flatMap } from "lodash"
 import { useDebounceCallback } from "@react-hook/debounce"
+import use_history_uniques from "@mk-libs/react-common/use.history.uniques"
 
 type Category_model = Api_outputs["category"]["many"][number]
 
 export type PostList_section_Props = {
   selectedCategory_initial?: { id: number; label: Category_labelType } | null
-  // posts_initial: Api_outputs["post"]["list"]["fieldSet_main"]
+  posts_initial: Api_outputs["post"]["list"]["fieldSet_main"]["items"]
   categories_initial: Category_model[]
   location_initial: number | null
   location_radius_initial: number | null
@@ -28,7 +29,7 @@ export type PostList_section_Props = {
 export default function Post_list_page({
   selectedCategory_initial,
   categories_initial,
-  // posts_initial,
+  posts_initial,
   location_initial,
   location_radius_initial,
 }: PostList_section_Props) {
@@ -58,7 +59,10 @@ export default function Post_list_page({
       // initialData: { pages: [posts_initial.items], pageParams: undefined },
     }
   )
-  const posts_data = flatMap(posts.data?.pages, page => page.items)
+  const posts_status_history = use_history_uniques(posts.status)
+  const posts_isFirstLoading = posts_status_history.every(s => s === "loading")
+  const posts_query_data = flatMap(posts.data?.pages, page => page.items)
+  const posts_data = posts_isFirstLoading ? posts_initial : posts_query_data
   const posts_fetchNextPage_debounced = useDebounceCallback(posts.fetchNextPage, 500)
 
   function handleScroll(e: any) {
