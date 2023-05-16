@@ -101,7 +101,6 @@ export default function Post_list_page({
             display: "flex",
             flexDirection: "column",
             gap: 2,
-            width: "100%",
             my: 1,
           },
           onScroll: handleScroll,
