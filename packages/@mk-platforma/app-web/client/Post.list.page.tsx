@@ -1,6 +1,6 @@
 import { Box, Drawer, Fab, Paper, Typography } from "@mui/material"
 import Api from "../api.client"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import { useCategory } from "./Categories.common"
 import { Category_labelType } from "../prisma/generated/zod"
@@ -69,8 +69,10 @@ export default function Post_list_page({
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
 
+  const handleScroll_isListening = useRef(false)
   function handleScroll() {
     console.log(73)
+    handleScroll_isListening.current = true
     if (
       window.innerHeight + document.documentElement.scrollTop !==
         document.documentElement.offsetHeight ||
@@ -84,8 +86,8 @@ export default function Post_list_page({
 
   useEffect(() => {
     console.log(86)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
+    if (handleScroll_isListening.current) document.addEventListener("scroll", handleScroll)
+    return () => document.removeEventListener("scroll", handleScroll)
   }, [posts.isLoading])
 
   return (
