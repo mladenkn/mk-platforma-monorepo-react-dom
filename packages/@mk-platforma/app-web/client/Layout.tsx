@@ -1,5 +1,6 @@
 import { Box, Container, SxProps, useTheme } from "@mui/material"
-import React, { ReactNode } from "react"
+import { omit } from "lodash"
+import React, { ComponentProps, ReactNode } from "react"
 
 type WithSx = {
   sx?: SxProps
@@ -9,6 +10,7 @@ type Props = {
   sx?: SxProps
   header?: ReactNode
   content?: ReactNode
+  contentWrapper_props?: Partial<ComponentProps<typeof Container>>
   bottomSheet?(props: WithSx): ReactNode | undefined | null
   fab?(props: WithSx): ReactNode
   backdrop?(props: WithSx): ReactNode
@@ -19,6 +21,7 @@ export default function Layout({
   sx,
   header = <></>,
   content = <></>,
+  contentWrapper_props,
   bottomSheet,
   fab = () => <></>,
   backdrop = () => <></>,
@@ -53,7 +56,9 @@ export default function Layout({
           ...(onlyContentScrollable
             ? { flex: 1, minHeight: 0, height: "100%", overflowY: "auto" }
             : {}),
+          ...contentWrapper_props?.sx,
         }}
+        {...omit(contentWrapper_props, "sx")}
       >
         {content}
       </Container>

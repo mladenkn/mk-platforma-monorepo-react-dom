@@ -69,26 +69,9 @@ export default function Post_list_page({
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
 
-  const handleScroll_isListening = useRef(false)
   function handleScroll() {
-    console.log(73)
-    handleScroll_isListening.current = true
-    if (
-      window.innerHeight + document.documentElement.scrollTop !==
-        document.documentElement.offsetHeight ||
-      posts.isLoading
-    ) {
-      console.log(79)
-    }
-    console.log(81)
-    posts.fetchNextPage()
+    console.log("scroll 74")
   }
-
-  useEffect(() => {
-    console.log(86)
-    if (handleScroll_isListening.current) document.addEventListener("scroll", handleScroll)
-    return () => document.removeEventListener("scroll", handleScroll)
-  }, [posts.isLoading])
 
   return (
     <>
@@ -106,17 +89,19 @@ export default function Post_list_page({
             set__selectedLocation_radius_km={set__selectedLocation_radius_km}
           />
         }
+        contentWrapper_props={{
+          sx: {
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            width: "100%",
+            my: 1,
+          },
+          onScroll: handleScroll,
+        }}
         content={
           posts_data ? (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 2,
-                width: "100%",
-                my: 1,
-              }}
-            >
+            <>
               {posts_data.map(item => (
                 <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
                   <Paper sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}>
@@ -124,7 +109,7 @@ export default function Post_list_page({
                   </Paper>
                 </Link>
               ))}
-            </Box>
+            </>
           ) : (
             <Typography>Učitavanje...</Typography>
           )
