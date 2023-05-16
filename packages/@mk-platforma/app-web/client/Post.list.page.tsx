@@ -77,7 +77,7 @@ export default function Post_list_page({
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
   const setUrlParams_shallow = use_setUrlParams_shallow()
-
+  // ovde bug?
   function onCategorySelect(category: Category_model) {
     setUrlParams_shallow({ category: category.label })
     if (!category.children?.length) set_SectionsDrawer_isActive(false)
