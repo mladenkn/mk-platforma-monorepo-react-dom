@@ -12,10 +12,10 @@ const Post_api = router({
         cursor: z.number().min(1).optional(),
       }),
       async ({ db }, output1, input) => {
-        const take = 11
+        const limit = 10
         const items = await db.post.findMany({
           ...output1,
-          take,
+          take: limit + 1,
           cursor: input.cursor
             ? {
                 id: input.cursor,
@@ -53,7 +53,7 @@ const Post_api = router({
           },
         })
 
-        const nextCursor = items.length > take ? items.pop()!.id : null
+        const nextCursor = items.length > limit ? items.pop()!.id : null
         return { items, nextCursor }
       }
     ),
