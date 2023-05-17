@@ -84,7 +84,7 @@ export default function Post_list_page({
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
 
-  const { breakpoints } = useTheme()
+  const { } = useTheme()
 
   return (
     <>
@@ -107,13 +107,8 @@ export default function Post_list_page({
             flexDirection: "column",
             gap: 1.25,
             my: 1,
-            [breakpoints.down("md")]: {
-              pl: 0.5,
-              pr: 1,
-            },
-            [breakpoints.up("md")]: {
-              pr: 0.5,
-            },
+            pl: 0.5,
+            pr: 1,
           },
           onScroll: handleScroll,
         }}
@@ -133,11 +128,7 @@ export default function Post_list_page({
           )
         }
         fab={({ sx }) => (
-          <Fab
-            color="primary"
-            sx={sx}
-            onClick={() => set_SectionsDrawer_isActive(true)}
-          >
+          <Fab color="primary" sx={sx} onClick={() => set_SectionsDrawer_isActive(true)}>
             <ManageSearchIcon />
           </Fab>
         )}

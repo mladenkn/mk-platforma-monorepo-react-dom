@@ -36,6 +36,12 @@ export default function Layout({
         flex: 1,
         width: "100%",
         position: "relative",
+        [breakpoints.down("sm")]: {
+          px: 0,
+        },
+        [breakpoints.up("xs")]: {
+          px: 0,
+        },
         ...sx,
       }}
     >
@@ -55,12 +61,6 @@ export default function Layout({
           ...(onlyContentScrollable
             ? { flex: 1, minHeight: 0, height: "100%", overflowY: "auto" }
             : {}),
-          [breakpoints.down("sm")]: {
-            px: 0,
-          },
-          [breakpoints.up("xs")]: {
-            px: 0,
-          },
           ...contentWrapper_props?.sx,
         }}
         {...omit(contentWrapper_props, "sx")}
