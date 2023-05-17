@@ -84,7 +84,7 @@ export default function Post_list_page({
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
 
-  const { } = useTheme()
+  const {} = useTheme()
 
   return (
     <>
@@ -102,19 +102,20 @@ export default function Post_list_page({
             set__selectedLocation_radius_km={set__selectedLocation_radius_km}
           />
         }
-        contentWrapper_props={{
-          sx: {
-            flexDirection: "column",
-            gap: 1.25,
-            my: 1,
-            pl: 0.5,
-            pr: 1,
-          },
-          onScroll: handleScroll,
-        }}
         content={
           posts_data ? (
-            <>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                gap: 1.25,
+                width: "100%",
+                my: 1,
+                pl: 1,
+                pr: 1.5,
+              }}
+              onScroll={handleScroll}
+            >
               {posts_data.map(item => (
                 <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
                   <Paper sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}>
@@ -122,7 +123,7 @@ export default function Post_list_page({
                   </Paper>
                 </Link>
               ))}
-            </>
+            </Box>
           ) : (
             <Typography>Učitavanje...</Typography>
           )
