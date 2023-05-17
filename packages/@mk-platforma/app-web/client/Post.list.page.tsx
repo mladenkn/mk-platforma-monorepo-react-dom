@@ -102,6 +102,12 @@ export default function Post_list_page({
             set__selectedLocation_radius_km={set__selectedLocation_radius_km}
           />
         }
+        contentWrapper_props={{
+          sx: {
+            mb: 1,
+          },
+          onScroll: handleScroll,
+        }}
         content={
           posts_data ? (
             <Box
@@ -110,11 +116,10 @@ export default function Post_list_page({
                 flexDirection: "column",
                 gap: 1.25,
                 width: "100%",
-                my: 1,
+                mt: 1,
                 pl: 1,
                 pr: 1.5,
               }}
-              onScroll={handleScroll}
             >
               {posts_data.map(item => (
                 <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
