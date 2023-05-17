@@ -71,7 +71,10 @@ export default function Layout({
         sx: {
           position: "absolute",
           bottom: 16,
-          right: 40,
+          right: 16,
+          [breakpoints.up("md")]: {
+            right: 40,
+          },
         },
       })}
     </Container>
