@@ -1,4 +1,4 @@
-import { Box, Drawer, Fab, Paper, Typography } from "@mui/material"
+import { Box, Drawer, Fab, Paper, Typography, useTheme } from "@mui/material"
 import Api from "../api.client"
 import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
@@ -84,6 +84,8 @@ export default function Post_list_page({
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
 
+  const { breakpoints } = useTheme()
+
   return (
     <>
       <Layout
@@ -105,8 +107,13 @@ export default function Post_list_page({
             flexDirection: "column",
             gap: 1.25,
             my: 1,
-            pl: 0.5,
-            pr: 1,
+            [breakpoints.down("md")]: {
+              pl: 0.5,
+              pr: 1,
+            },
+            [breakpoints.up("md")]: {
+              pr: 0.5,
+            },
           },
           onScroll: handleScroll,
         }}

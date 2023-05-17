@@ -11,7 +11,6 @@ type Props = {
   header?: ReactNode
   content?: ReactNode
   contentWrapper_props?: Partial<ComponentProps<typeof Container>>
-  bottomSheet?(props: WithSx): ReactNode | undefined | null
   fab?(props: WithSx): ReactNode
   backdrop?(props: WithSx): ReactNode
   onlyContentScrollable?: boolean
@@ -22,12 +21,11 @@ export default function Layout({
   header = <></>,
   content = <></>,
   contentWrapper_props,
-  bottomSheet,
   fab = () => <></>,
   backdrop = () => <></>,
   onlyContentScrollable = false,
 }: Props) {
-  const { palette } = useTheme()
+  const { palette, breakpoints } = useTheme()
   return (
     <Box
       sx={{
@@ -51,28 +49,23 @@ export default function Layout({
       <Container
         maxWidth="md"
         sx={{
-          px: "0 !important",
           display: "flex",
           width: "100%",
           ...(onlyContentScrollable
             ? { flex: 1, minHeight: 0, height: "100%", overflowY: "auto" }
             : {}),
+          [breakpoints.down("sm")]: {
+            px: 0,
+          },
+          [breakpoints.up("xs")]: {
+            px: 0,
+          },
           ...contentWrapper_props?.sx,
         }}
         {...omit(contentWrapper_props, "sx")}
       >
         {content}
       </Container>
-      {bottomSheet &&
-        bottomSheet({
-          sx: {
-            flex: 1,
-            zIndex: 2000,
-            overflowY: "auto",
-            width: "90%",
-            margin: "auto",
-          },
-        })}
       {fab({
         sx: {
           position: "absolute",
