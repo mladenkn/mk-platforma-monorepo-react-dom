@@ -10,7 +10,7 @@ type Props = {
   sx?: SxProps
   header?: ReactNode
   content?: ReactNode
-  contentWrapper_props?: Partial<ComponentProps<typeof Container>>
+  contentWrapper_props?: Partial<ComponentProps<typeof Box>>
   fab?(props: WithSx): ReactNode
   backdrop?(props: WithSx): ReactNode
   onlyContentScrollable?: boolean
@@ -27,7 +27,8 @@ export default function Layout({
 }: Props) {
   const { palette, breakpoints } = useTheme()
   return (
-    <Box
+    <Container
+      maxWidth="md"
       sx={{
         height: "100%",
         display: "flex",
@@ -37,17 +38,16 @@ export default function Layout({
         ...sx,
       }}
     >
-      <Container
-        maxWidth="md"
+      <Box
         sx={{
           background: palette.primary.main,
+          pl: 2,
         }}
       >
         {header}
-      </Container>
+      </Box>
       {backdrop({})}
-      <Container
-        maxWidth="md"
+      <Box
         sx={{
           display: "flex",
           width: "100%",
@@ -65,7 +65,7 @@ export default function Layout({
         {...omit(contentWrapper_props, "sx")}
       >
         {content}
-      </Container>
+      </Box>
       {fab({
         sx: {
           position: "absolute",
@@ -73,6 +73,6 @@ export default function Layout({
           right: 16,
         },
       })}
-    </Box>
+    </Container>
   )
 }

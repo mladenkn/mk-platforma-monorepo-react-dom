@@ -19,40 +19,38 @@ export default function Post_single_page({
   const [isEdit, setIsEdit] = useState(false)
 
   return (
-    <Box>
-      <Layout
-        header={<Header_full_common />}
-        content={
-          <>
-            {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : <></>}
-            {!isEdit ? (
-              <Post_single_details
-                sx={{ p: 1 }}
-                {...post}
-                usePaperSections
-                editAction={
-                  <IconButton onClick={() => setIsEdit(true)}>
-                    <EditIcon />
-                  </IconButton>
-                }
-              />
-            ) : (
-              <></>
-            )}
-            {post && isEdit ? (
-              <Post_form
-                sx={{ p: 2, m: 1 }}
-                title="Uredi objavu"
-                initialValues={nullsToUndefinedDeep(post)}
-                onSubmit={() => {}}
-                onCancel={() => setIsEdit(false)}
-              />
-            ) : (
-              <></>
-            )}
-          </>
-        }
-      />
-    </Box>
+    <Layout
+      header={<Header_full_common />}
+      content={
+        <>
+          {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : <></>}
+          {!isEdit ? (
+            <Post_single_details
+              sx={{ p: 1 }}
+              {...post}
+              usePaperSections
+              editAction={
+                <IconButton onClick={() => setIsEdit(true)}>
+                  <EditIcon />
+                </IconButton>
+              }
+            />
+          ) : (
+            <></>
+          )}
+          {post && isEdit ? (
+            <Post_form
+              sx={{ p: 2, m: 1, width: "100%" }}
+              title="Uredi objavu"
+              initialValues={nullsToUndefinedDeep(post)}
+              onSubmit={() => {}}
+              onCancel={() => setIsEdit(false)}
+            />
+          ) : (
+            <></>
+          )}
+        </>
+      }
+    />
   )
 }
