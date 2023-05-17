@@ -51,7 +51,7 @@ export default function Layout({
       <Container
         maxWidth="md"
         sx={{
-          px: 0,
+          px: "0 !important",
           display: "flex",
           width: "100%",
           ...(onlyContentScrollable
