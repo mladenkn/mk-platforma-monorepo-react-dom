@@ -102,7 +102,6 @@ export default function Post_list_page({
         }
         contentWrapper_props={{
           sx: {
-            display: "flex",
             flexDirection: "column",
             gap: 2,
             my: 1,

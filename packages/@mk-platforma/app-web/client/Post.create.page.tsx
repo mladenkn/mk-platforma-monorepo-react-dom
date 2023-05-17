@@ -14,7 +14,7 @@ export default function Post_create_page({}: Props) {
       header={<Header_full_common />}
       content={
         <Post_form
-          sx={{ gap: 2, p: 2, mt: 1 }}
+          sx={{ gap: 2, p: 2, mt: 1, width: "100%" }}
           title="Novi oglas"
           onSubmit={onSubmit}
           onCancel={useRouter().back}

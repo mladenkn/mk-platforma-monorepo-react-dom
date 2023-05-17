@@ -51,8 +51,9 @@ export default function Layout({
       <Container
         maxWidth="md"
         sx={{
+          px: 0,
           display: "flex",
-          flexDirection: "column",
+          width: "100%",
           ...(onlyContentScrollable
             ? { flex: 1, minHeight: 0, height: "100%", overflowY: "auto" }
             : {}),
