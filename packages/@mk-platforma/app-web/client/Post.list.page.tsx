@@ -135,7 +135,7 @@ export default function Post_list_page({
         fab={({ sx }) => (
           <Fab
             color="primary"
-            sx={{ ...sx, bottom: 14, right: 14 }}
+            sx={sx}
             onClick={() => set_SectionsDrawer_isActive(true)}
           >
             <ManageSearchIcon />

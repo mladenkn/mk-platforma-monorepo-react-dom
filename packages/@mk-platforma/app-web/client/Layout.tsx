@@ -35,6 +35,7 @@ export default function Layout({
         flexDirection: "column",
         flex: 1,
         width: "100%",
+        position: "relative",
         ...sx,
       }}
     >
@@ -70,7 +71,7 @@ export default function Layout({
         sx: {
           position: "absolute",
           bottom: 16,
-          right: 16,
+          right: 40,
         },
       })}
     </Container>
