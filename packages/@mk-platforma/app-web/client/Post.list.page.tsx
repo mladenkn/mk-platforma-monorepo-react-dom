@@ -103,8 +103,10 @@ export default function Post_list_page({
         contentWrapper_props={{
           sx: {
             flexDirection: "column",
-            gap: 2,
+            gap: 1.25,
             my: 1,
+            pl: 0.5,
+            pr: 1,
           },
           onScroll: handleScroll,
         }}
