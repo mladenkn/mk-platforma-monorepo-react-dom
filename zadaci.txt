@@ -3,6 +3,7 @@
 - profile edit
 - treba li User.id bit string?
 - pročitat ono na Vercelu i odlučit oću li njih
+- bolji header
 
 - pravo
 
