@@ -44,7 +44,7 @@ const auth_options = {
 
 declare module "next-auth/adapters" {
   interface AdapterUser {
-    avatarStyle?: Prisma.JsonValue
+    avatarStyle: Prisma.JsonValue
   }
 }
 
@@ -52,7 +52,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user?: DefaultSession["user"] & {
       id: number
-      avatarStyle?: Prisma.JsonValue
+      avatarStyle: Prisma.JsonValue
     }
   }
 }
