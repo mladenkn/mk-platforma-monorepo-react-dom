@@ -90,10 +90,14 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
           </Link>
         )}
         {options.includes("profile") && (
-          <MenuItem>
-            <AccountCircleIcon sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }} />
-            <Typography sx={{ color: theme.font.color }}>Moj profil</Typography>
-          </MenuItem>
+          <Link href="/profile/todo" style={{ textDecoration: "none" }}>
+            <MenuItem>
+              <AccountCircleIcon
+                sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }}
+              />
+              <Typography sx={{ color: theme.font.color }}>Moj profil</Typography>
+            </MenuItem>
+          </Link>
         )}
         {hasOther && (
           <MenuItem onClick={handle_includeOther}>
