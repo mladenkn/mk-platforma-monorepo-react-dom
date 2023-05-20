@@ -9,7 +9,7 @@ import {
   IconButton,
   Collapse,
 } from "@mui/material"
-import { getCategoryLabel, CategoryIcon } from "./Categories.common"
+import { getCategoryLabel, CategoryIcon } from "./Category.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import React, { ReactNode } from "react"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"

@@ -1,11 +1,11 @@
 import { withNoNils } from "@mk-libs/common/array"
 import { Input, Box, Typography, Breadcrumbs, IconButton, useTheme } from "@mui/material"
 import React from "react"
-import { CategoryIcon, getCategoryLabel, useCategory } from "./category/Categories.common"
+import { CategoryIcon, getCategoryLabel, useCategory } from "./category/Category.common"
 import Api from "~/api/api.client"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import SearchIcon from "@mui/icons-material/Search"
-import { Category_model } from "./category/Categories.selector.aside"
+import { Category_model } from "./category/Category.selector.aside"
 
 type Props = {
   search: string

@@ -1,5 +1,5 @@
 import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
-import { CategoryIcon, getCategoryLabel } from "./Categories.common"
+import { CategoryIcon, getCategoryLabel } from "./Category.common"
 import React, { ReactElement } from "react"
 import Api from "~/api/api.client"
 import { Category_labelType } from "~/prisma/generated/zod"
