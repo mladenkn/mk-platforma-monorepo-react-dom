@@ -10,7 +10,7 @@ import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequestCookies } from "next/dist/server/api-utils"
 import { Prisma } from "@prisma/client"
 import { P, match } from "ts-pattern"
-import { avatarStyles } from "~/domain/user/User.api.common"
+import { avatarStyles } from "~/domain/user/User.common"
 
 const auth_options = {
   providers: [
