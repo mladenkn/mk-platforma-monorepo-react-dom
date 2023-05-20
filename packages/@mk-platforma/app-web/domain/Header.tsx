@@ -14,6 +14,7 @@ import { BottomSheet } from "./BottomSheet"
 import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 import PolicyOutlinedIcon from "@mui/icons-material/PolicyOutlined"
 import { difference } from "lodash"
+import { useSession } from "next-auth/react"
 
 type Option =
   | "post.create"
@@ -61,6 +62,8 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
     set_optionsAnchorEl(null)
   }
 
+  const { data: session } = useSession()
+
   return (
     <>
       <IconButton sx={sx} onClick={e => set_optionsAnchorEl(e.target as any)}>
@@ -89,16 +92,18 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
             </MenuItem>
           </Link>
         )}
-        {options.includes("profile") && (
-          <Link href="/profile/todo" style={{ textDecoration: "none" }}>
-            <MenuItem>
-              <AccountCircleIcon
-                sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }}
-              />
-              <Typography sx={{ color: theme.font.color }}>Moj profil</Typography>
-            </MenuItem>
-          </Link>
-        )}
+        {session
+          ? options.includes("profile") && (
+              <Link href={`/profile/${session?.user?.id}`} style={{ textDecoration: "none" }}>
+                <MenuItem>
+                  <AccountCircleIcon
+                    sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }}
+                  />
+                  <Typography sx={{ color: theme.font.color }}>Moj profil</Typography>
+                </MenuItem>
+              </Link>
+            )
+          : undefined}
         {hasOther && (
           <MenuItem onClick={handle_includeOther}>
             <ExpandMoreOutlinedIcon
