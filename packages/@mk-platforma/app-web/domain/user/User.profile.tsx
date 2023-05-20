@@ -1,4 +1,4 @@
-import { Box, Paper, Avatar, Typography } from "@mui/material"
+import { Box, Paper, Avatar, Typography, IconButton } from "@mui/material"
 import React from "react"
 import Link from "next/link"
 import { groupBy } from "lodash"
@@ -7,6 +7,7 @@ import { Api_outputs } from "~/api/api.infer"
 import { Header_full_common } from "~/domain/Header"
 import Layout from "~/domain/Layout"
 import Api from "~/api/api.client"
+import EditIcon from "@mui/icons-material/Edit"
 
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>
 
@@ -22,14 +23,19 @@ export default function User_profile({ user_initial }: Props) {
     <Layout
       header={<Header_full_common moreOptions_props={{ exclude: ["profile"] }} />}
       content={
-        <Paper sx={{ p: 2, m: 1 }}>
+        <Paper sx={{ p: 2, m: 1, width: "100%" }}>
           {user.isLoading ? (
             "Loading..."
           ) : (
             <>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                <Avatar />
-                <Typography>{user.data?.name}</Typography>
+              <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+                  <Avatar />
+                  <Typography>{user.data?.name}</Typography>
+                </Box>
+                <IconButton>
+                  <EditIcon />
+                </IconButton>
               </Box>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4 }}>
                 {posts_byCategories?.map(([category_id, posts]) => (
