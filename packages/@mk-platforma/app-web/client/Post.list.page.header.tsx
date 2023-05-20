@@ -10,7 +10,7 @@ import { Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/mater
 import { UseQueryResult } from "@tanstack/react-query"
 import { Category_label } from "@prisma/client"
 import Location_select_page from "./Location.select.page"
-import Api from "../api.client"
+import Api from "~/api.infra/api.client"
 import { eva } from "@mk-libs/common/common"
 import { LogoLink } from "./common"
 

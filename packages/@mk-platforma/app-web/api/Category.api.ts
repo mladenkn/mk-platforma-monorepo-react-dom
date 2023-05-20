@@ -1,6 +1,6 @@
 import { z } from "zod"
-import { SuperData_mapper, SuperData_query } from "../api.SuperData"
-import { publicProcedure, router } from "../api.server.utils"
+import { SuperData_mapper, SuperData_query } from "~/api.infra/api.SuperData"
+import { publicProcedure, router } from "~/api.infra/api.server.utils"
 import { Post_queryChunks_search } from "./Post.api.abstract"
 
 const Category_api_many = SuperData_mapper(
