@@ -1,12 +1,12 @@
 import { Box, SxProps, Paper, Avatar, Typography } from "@mui/material"
-import { Header_full_common } from "./Header"
+import { Header_full_common } from "../../client/Header"
 import React from "react"
-import Api from "../api.infra/api.client"
+import Api from "../../api.infra/api.client"
 import Link from "next/link"
 import { groupBy } from "lodash"
-import { getCategoryLabel } from "./Categories.common"
+import { getCategoryLabel } from "../category/Categories.common"
 import { Api_outputs } from "~/api/api.infer"
-import Layout from "./Layout"
+import Layout from "../../client/Layout"
 
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>
 
