@@ -1,6 +1,6 @@
 import { z } from "zod"
 import { SuperData_mapper, SuperData_query } from "../api.SuperData"
-import { router } from "../api.server.utils"
+import { publicProcedure, router } from "../api.server.utils"
 import { Post_queryChunks_search } from "./Post.api.abstract"
 
 const Category_api_many = SuperData_mapper(
@@ -42,42 +42,49 @@ const Category_api = router({
   many: SuperData_query(Category_api_many, ({ db }, output1) =>
     db.category.findMany({
       ...output1,
-      select: {
-        id: true,
-        label: true,
-        parent: {
-          select: {
-            id: true,
-            label: true,
-            children: {
-              select: {
-                id: true,
-                label: true,
-              },
-            },
-            parent: {
-              select: {
-                id: true,
-                label: true,
-              },
-            },
-          },
-        },
-        children: {
-          select: {
-            id: true,
-            label: true,
-            parent: {
-              select: {
-                id: true,
-                label: true,
-              },
-            },
-          },
-        },
-      },
+      select: Category_select,
     })
   ),
+  single: publicProcedure
+    .input(z.number())
+    .query(({ ctx, input }) =>
+      ctx.db.category.findUnique({ where: { id: input }, select: Category_select })
+    ),
 })
+
+const Category_select = {
+  id: true,
+  label: true,
+  parent: {
+    select: {
+      id: true,
+      label: true,
+      children: {
+        select: {
+          id: true,
+          label: true,
+        },
+      },
+      parent: {
+        select: {
+          id: true,
+          label: true,
+        },
+      },
+    },
+  },
+  children: {
+    select: {
+      id: true,
+      label: true,
+      parent: {
+        select: {
+          id: true,
+          label: true,
+        },
+      },
+    },
+  },
+}
 
 export default Category_api
