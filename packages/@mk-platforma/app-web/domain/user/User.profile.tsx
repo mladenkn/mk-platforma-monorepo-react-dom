@@ -33,9 +33,11 @@ export default function User_profile({ user_initial }: Props) {
                   <Avatar />
                   <Typography>{user.data?.name}</Typography>
                 </Box>
-                <IconButton>
-                  <EditIcon />
-                </IconButton>
+                <Link href="/profile/edit">
+                  <IconButton>
+                    <EditIcon />
+                  </IconButton>
+                </Link>
               </Box>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4 }}>
                 {posts_byCategories?.map(([category_id, posts]) => (
