@@ -1,8 +1,6 @@
 import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme, IconButton } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
-import { Comment_listItem } from "./Comment.listItem"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import DataOrQuery from "../utils"
 import React, { ReactNode } from "react"
 import Carousel from "react-material-ui-carousel"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
@@ -10,6 +8,8 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Link from "next/link"
 import { Api_outputs } from "~/api/api.infer"
+import DataOrQuery from "~/utils"
+import { Comment_listItem } from "~/modules/Comment.listItem"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 

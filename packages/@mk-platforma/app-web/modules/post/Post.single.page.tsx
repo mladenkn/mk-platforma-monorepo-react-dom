@@ -1,5 +1,4 @@
 import Post_single_details, { Post_single_details_PostModel } from "./Post.single.details"
-import { Header_full_common } from "./Header"
 import { Box, IconButton, Typography } from "@mui/material"
 import Api from "~/api/api.client"
 import EditIcon from "@mui/icons-material/Edit"
@@ -7,7 +6,8 @@ import { useState } from "react"
 import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"
 import React from "react"
 import Post_form from "./Post.form"
-import Layout from "./Layout"
+import { Header_full_common } from "~/modules/Header"
+import Layout from "~/modules/Layout"
 
 export default function Post_single_page({
   post_initial,

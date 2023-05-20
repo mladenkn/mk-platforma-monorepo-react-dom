@@ -4,13 +4,13 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import db from "../../../prisma/instance"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import { AdapterUser } from "next-auth/adapters"
-import { avatarStyles } from "../../../api/User.api.common"
 import { getRandomElement } from "@mk-libs/common/array"
 import type { NextAuthOptions } from "next-auth"
 import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequestCookies } from "next/dist/server/api-utils"
 import { Prisma } from "@prisma/client"
 import { P, match } from "ts-pattern"
+import { avatarStyles } from "~/modules/user/User.api.common"
 
 const auth_options = {
   providers: [

@@ -6,7 +6,7 @@ import {
   Post_ExpertEndorsementSchema,
   Post_ExpertEndorsement_skillSchema,
   CategorySchema,
-} from "../prisma/generated/zod"
+} from "~/prisma/generated/zod"
 
 export const Post_api_cu_input_base = PostSchema.pick({
   title: true,

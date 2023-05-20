@@ -5,7 +5,7 @@ import { CategoryIcon, getCategoryLabel, useCategory } from "../modules/category
 import Api from "~/api/api.client"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import SearchIcon from "@mui/icons-material/Search"
-import { Category_model } from "./Categories.selector.aside"
+import { Category_model } from "./category/Categories.selector.aside"
 
 type Props = {
   search: string

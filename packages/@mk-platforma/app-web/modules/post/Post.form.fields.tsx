@@ -1,13 +1,13 @@
 import { useFormik } from "formik"
 import React, { useEffect } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import { TextField, Box, SxProps, IconButton, useTheme } from "@mui/material"
+import { TextField, Box, SxProps } from "@mui/material"
 import { z } from "zod"
-import { Post_api_cu_input_base } from "../api/Post.api.cu.input"
-import Location_Dropdown from "./Location.dropdown"
-import CategoriesDropdown from "./Categories.dropdown"
-import { useCategory } from "./Categories.common"
 import Post_form_images from "./Post.form.images"
+import Location_Dropdown from "~/modules/Location.dropdown"
+import { useCategory } from "~/modules/category/Categories.common"
+import CategoriesDropdown from "~/modules/category/Categories.dropdown"
+import { Post_api_cu_input_base } from "./Post.api.cu.input"
 
 type PostInput = z.infer<typeof Post_api_cu_input_base>
 

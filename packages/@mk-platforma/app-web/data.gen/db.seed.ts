@@ -1,11 +1,11 @@
 import { Category_label } from "@prisma/client"
-import generatePosts from "./data.gen"
-import { Api_ss } from "../api/api.root"
-import locations from "./locations.gen.json"
 import { faker } from "@faker-js/faker"
+import { Api_ss } from "~/api/api.root"
+import { avatarStyles } from "~/modules/user/User.api.common"
+import db from "~/prisma/instance"
+import generatePosts from "./data.gen"
+import locations from "./locations.gen.json"
 import * as cro_dataset from "./data.gen.cro.dataset"
-import { avatarStyles } from "../api/User.api.common"
-import db from "../prisma/instance"
 
 export type WithId = {
   id: number

@@ -1,2 +1,2 @@
-import TermsAndCodnitions from "../client/TermsAndCodnitions"
+import TermsAndCodnitions from "~/modules/TermsAndCodnitions"
 export default TermsAndCodnitions

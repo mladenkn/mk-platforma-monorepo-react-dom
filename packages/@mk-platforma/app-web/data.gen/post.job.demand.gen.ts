@@ -1,9 +1,9 @@
 import { faker } from "@faker-js/faker"
 import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { uniq } from "lodash"
-import { avatarStyles } from "../api/User.api.common"
-import * as cro_dataset from "./data.gen.cro.dataset"
 import { PostGeneratorParams } from "./data.gen._utils"
+import * as cro_dataset from "./data.gen.cro.dataset"
+import { avatarStyles } from "~/modules/user/User.api.common"
 
 function generateSingle({ categories }: PostGeneratorParams) {
   const firstName = faker.helpers.arrayElement(cro_dataset.firstNames)

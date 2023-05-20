@@ -1,10 +1,10 @@
-import { PostList_section_Props } from "../client/Post.list.page"
-import type { Category_labelType } from "../prisma/generated/zod"
-import { Api_ss } from "../api/api.root"
 import { GetServerSidePropsContext } from "next/types"
-import db from "../prisma/instance"
-import { getCookie_ss } from "../cookies"
-import { user_id_ss_get } from "../pages/api/auth/[...nextauth]"
+import { Api_ss } from "~/api/api.root"
+import { getCookie_ss } from "~/cookies"
+import { user_id_ss_get } from "~/pages/api/auth/[...nextauth]"
+import { Category_labelType } from "~/prisma/generated/zod"
+import db from "~/prisma/instance"
+import { PostList_section_Props } from "./Post.list.page"
 
 export async function Post_list_page_data_initial({ query, req, res }: GetServerSidePropsContext) {
   const category_label = query.category ? (query.category as Category_labelType) : undefined

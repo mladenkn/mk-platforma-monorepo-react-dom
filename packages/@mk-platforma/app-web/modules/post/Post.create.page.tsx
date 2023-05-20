@@ -1,9 +1,9 @@
-import { Header_full_common } from "../../client/Header"
 import { useRouter } from "next/router"
 import React from "react"
 import Post_form from "./Post.form"
-import Layout from "../../client/Layout"
 import { useTheme } from "@mui/material"
+import { Header_full_common } from "../Header"
+import Layout from "../Layout"
 
 type Props = {}
 
