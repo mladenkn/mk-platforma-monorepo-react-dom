@@ -5,7 +5,7 @@ import Api from "../api.infra/api.client"
 import Link from "next/link"
 import { groupBy } from "lodash"
 import { getCategoryLabel } from "./Categories.common"
-import { Api_outputs } from "~/api/api.types"
+import { Api_outputs } from "~/api/api.infer"
 import Layout from "./Layout"
 
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>
