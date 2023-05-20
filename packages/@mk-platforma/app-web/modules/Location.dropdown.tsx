@@ -1,6 +1,6 @@
 import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
 import React, { ReactElement, useState } from "react"
-import Api from "../api.infra/api.client"
+import Api from "../api/api.client"
 import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
 import { Api_outputs } from "~/api/api.infer"
 

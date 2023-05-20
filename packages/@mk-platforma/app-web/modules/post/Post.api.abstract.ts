@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { SuperData_mapper } from "~/api.infra/api.SuperData"
+import { SuperData_mapper } from "~/api/api.SuperData"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import { Prisma } from "@prisma/client"
 

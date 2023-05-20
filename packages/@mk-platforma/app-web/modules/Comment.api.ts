@@ -1,7 +1,7 @@
 import { z } from "zod"
-import { publicProcedure, router } from "~/api.infra/api.server.utils"
+import { publicProcedure, router } from "~/api/api.server.utils"
 import { CommentSchema } from "../prisma/generated/zod"
-import { SuperData_mapper, SuperData_query } from "~/api.infra/api.SuperData"
+import { SuperData_mapper, SuperData_query } from "~/api/api.SuperData"
 
 const Comment_api_many = SuperData_mapper(
   z.object({

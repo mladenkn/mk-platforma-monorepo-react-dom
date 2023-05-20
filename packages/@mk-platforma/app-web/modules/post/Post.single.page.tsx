@@ -1,7 +1,7 @@
 import Post_single_details, { Post_single_details_PostModel } from "./Post.single.details"
 import { Header_full_common } from "./Header"
 import { Box, IconButton, Typography } from "@mui/material"
-import Api from "~/api.infra/api.client"
+import Api from "~/api/api.client"
 import EditIcon from "@mui/icons-material/Edit"
 import { useState } from "react"
 import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"

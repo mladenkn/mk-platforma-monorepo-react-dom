@@ -1,7 +1,7 @@
 import Location_api from "./Location.api"
 import Post_api from "./Post.api"
 import { User_api } from "../modules/user/User.api"
-import { createContext, router } from "~/api.infra/api.server.utils"
+import { createContext, router } from "~/api/api.server.utils"
 import Comment_api from "./Comment.api"
 import Category_api from "../modules/category/Category.api"
 
