@@ -9,7 +9,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Link from "next/link"
-import { Api_outputs } from "~/modules/api.infer"
+import { Api_outputs } from "~/api/api.infer"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 

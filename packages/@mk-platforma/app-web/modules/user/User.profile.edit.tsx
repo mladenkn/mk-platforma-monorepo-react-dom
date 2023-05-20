@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 import Api from "../api.infra/api.client"
-import { Api_outputs } from "~/modules/api.infer"
+import { Api_outputs } from "~/api/api.infer"
 
 type User = NonNullable<Api_outputs["user"]["single"]>
 
