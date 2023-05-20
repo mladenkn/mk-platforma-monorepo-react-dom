@@ -5,7 +5,8 @@
   "types": "./index.tsx",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint *.ts*"
+    "lint": "eslint *.ts*",
+    "ts": "tsc --noEmit"
   },
   "devDependencies": {
     "@mk-libs/tsconfig": "*",

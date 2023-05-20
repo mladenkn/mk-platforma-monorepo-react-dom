@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react"
 import { Predicate, ValueOrMapValue } from "@mk-libs/common/types"
-import useState, { useState_Options } from "@mk-libs/react-common/use-state-with-middleware"
+import useState, { useState_Options } from "./use-state-with-middleware"
 
 export function createArrayUpdater<T>(set: Dispatch<SetStateAction<T[]>>): ArrayUpdater<T> {
   function _updateWhere(array: T[], filter: Predicate<T>, valueOrMapValue: ValueOrMapValue<T>) {
@@ -41,7 +41,8 @@ export function createArrayUpdater<T>(set: Dispatch<SetStateAction<T[]>>): Array
     push: (item: T) => set(l => [...l, item]),
     updateWhere,
     updateOrPush,
-    setAt: (index: number, value: T) => set(l => [...l.slice(0, index), value, ...l.slice(index + 1)]),
+    setAt: (index: number, value: T) =>
+      set(l => [...l.slice(0, index), value, ...l.slice(index + 1)]),
     removeWhere,
     removeAt: (index: number) => set(l => [...l.slice(0, index), ...l.slice(index + 1)]),
     filter: (predicate: Predicate<T>) => set(l => l.filter(predicate)),

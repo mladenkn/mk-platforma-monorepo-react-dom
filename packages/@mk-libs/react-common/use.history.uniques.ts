@@ -1,16 +1,19 @@
 import { useRef } from "react"
 import useEffect from "./use-effect"
+import { last } from "lodash"
 
 export default function use_history_uniques<T>(value: T) {
   const history = useRef<T[]>([])
+  const history_lastItem = last(history.current)
   useEffect(
     () => {
-      history.current.push(value)
+      if (history_lastItem !== value) {
+        history.current.push(value)
+      }
     },
     [value],
     { runOnFirstRender: true }
   )
-  const history_lastItem = history.current[history.current.length - 1]
   if (history_lastItem !== value) {
     return [...history.current, value]
   } else {
