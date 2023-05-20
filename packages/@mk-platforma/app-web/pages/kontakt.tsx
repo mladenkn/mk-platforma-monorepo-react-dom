@@ -1,2 +1,2 @@
-import DevContact from "~/modules/DevContact"
+import DevContact from "~/domain/DevContact"
 export default DevContact

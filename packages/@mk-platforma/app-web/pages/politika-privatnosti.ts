@@ -1,2 +1,2 @@
-import PrivacyPolicy from "~/modules/PrivacyPolicy"
+import PrivacyPolicy from "~/domain/PrivacyPolicy"
 export default PrivacyPolicy

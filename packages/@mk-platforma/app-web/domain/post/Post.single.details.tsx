@@ -9,7 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import Link from "next/link"
 import { Api_outputs } from "~/api/api.infer"
 import DataOrQuery from "~/utils"
-import { Comment_listItem } from "~/modules/Comment.listItem"
+import { Comment_listItem } from "~/domain/Comment.listItem"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 

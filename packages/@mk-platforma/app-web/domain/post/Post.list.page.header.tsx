@@ -9,10 +9,10 @@ import { UseQueryResult } from "@tanstack/react-query"
 import { Category_label } from "@prisma/client"
 import Api from "~/api/api.client"
 import { eva } from "@mk-libs/common/common"
-import { getCategoryLabel, CategoryIcon } from "~/modules/category/Categories.common"
-import { LogoLink } from "~/modules/common"
-import { Header_moreOptions } from "~/modules/Header"
-import Location_select_page from "~/modules/Location.select.page"
+import { getCategoryLabel, CategoryIcon } from "~/domain/category/Categories.common"
+import { LogoLink } from "~/domain/common"
+import { Header_moreOptions } from "~/domain/Header"
+import Location_select_page from "~/domain/Location.select.page"
 
 type Props = {
   onShowCategories(): void

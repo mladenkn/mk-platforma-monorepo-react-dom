@@ -12,9 +12,9 @@ import Api from "~/api/api.client"
 import { use_cookie } from "~/cookies"
 import { Category_labelType } from "~/prisma/generated/zod"
 import { use_setUrlParams_shallow } from "~/utils"
-import Layout from "~/modules/Layout"
-import { useCategory } from "~/modules/category/Categories.common"
-import Categories_selector_aside from "~/modules/category/Categories.selector.aside"
+import Layout from "~/domain/Layout"
+import { useCategory } from "~/domain/category/Categories.common"
+import Categories_selector_aside from "~/domain/category/Categories.selector.aside"
 
 type Category_model = Api_outputs["category"]["many"][number]
 

@@ -1,9 +1,9 @@
-import { User_api } from "../modules/user/User.api"
+import { User_api } from "../domain/user/User.api"
 import { createContext, router } from "~/api/api.server.utils"
-import Category_api from "../modules/category/Category.api"
-import Comment_api from "~/modules/Comment.api"
-import Location_api from "~/modules/Location.api"
-import Post_api from "~/modules/post/Post.api"
+import Category_api from "../domain/category/Category.api"
+import Comment_api from "~/domain/Comment.api"
+import Location_api from "~/domain/Location.api"
+import Post_api from "~/domain/post/Post.api"
 
 export type Api_context = Awaited<ReturnType<typeof createContext>>
 

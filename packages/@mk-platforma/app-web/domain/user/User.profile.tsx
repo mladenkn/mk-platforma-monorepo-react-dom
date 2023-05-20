@@ -2,10 +2,10 @@ import { Box, Paper, Avatar, Typography } from "@mui/material"
 import React from "react"
 import Link from "next/link"
 import { groupBy } from "lodash"
-import { getCategoryLabel } from "~/modules/category/Categories.common"
+import { getCategoryLabel } from "~/domain/category/Categories.common"
 import { Api_outputs } from "~/api/api.infer"
-import { Header_full_common } from "~/modules/Header"
-import Layout from "~/modules/Layout"
+import { Header_full_common } from "~/domain/Header"
+import Layout from "~/domain/Layout"
 import Api from "~/api/api.client"
 
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>

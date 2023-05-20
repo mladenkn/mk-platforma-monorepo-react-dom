@@ -4,9 +4,9 @@ import { toFormikValidationSchema } from "zod-formik-adapter"
 import { TextField, Box, SxProps } from "@mui/material"
 import { z } from "zod"
 import Post_form_images from "./Post.form.images"
-import Location_Dropdown from "~/modules/Location.dropdown"
-import { useCategory } from "~/modules/category/Categories.common"
-import CategoriesDropdown from "~/modules/category/Categories.dropdown"
+import Location_Dropdown from "~/domain/Location.dropdown"
+import { useCategory } from "~/domain/category/Categories.common"
+import CategoriesDropdown from "~/domain/category/Categories.dropdown"
 import { Post_api_cu_input_base } from "./Post.api.cu.input"
 
 type PostInput = z.infer<typeof Post_api_cu_input_base>

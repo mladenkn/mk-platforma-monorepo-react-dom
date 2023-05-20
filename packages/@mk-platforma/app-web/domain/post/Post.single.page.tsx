@@ -6,8 +6,8 @@ import { useState } from "react"
 import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"
 import React from "react"
 import Post_form from "./Post.form"
-import { Header_full_common } from "~/modules/Header"
-import Layout from "~/modules/Layout"
+import { Header_full_common } from "~/domain/Header"
+import Layout from "~/domain/Layout"
 
 export default function Post_single_page({
   post_initial,

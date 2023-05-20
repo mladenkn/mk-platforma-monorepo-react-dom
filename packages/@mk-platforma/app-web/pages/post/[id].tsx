@@ -2,7 +2,7 @@ import { GetServerSidePropsContext } from "next/types"
 import { typeCheck } from "@mk-libs/common/common"
 import { ComponentProps } from "react"
 import { Api_ss } from "~/api/api.root"
-import Post_single_page from "~/modules/post/Post.single.page"
+import Post_single_page from "~/domain/post/Post.single.page"
 import db from "~/prisma/instance"
 import { user_id_ss_get } from "~/pages/api/auth/[...nextauth]"
 
