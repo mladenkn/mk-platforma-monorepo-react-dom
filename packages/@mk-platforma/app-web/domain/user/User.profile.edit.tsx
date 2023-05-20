@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 import Api from "~/api/api.client"
 import { Api_outputs } from "~/api/api.infer"
-import { asNonNil, undefinedToNullsDeep } from "~/../../@mk-libs/common/common"
+import { asNonNil, undefinedToNullsDeep } from "@mk-libs/common/common"
 import { create_getServerSideProps } from "~/create.getServerSideProps"
 
 type User = NonNullable<Api_outputs["user"]["single"]>
