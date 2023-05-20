@@ -1,4 +1,4 @@
-import { Paper } from "@mui/material"
+import { Paper, Typography } from "@mui/material"
 import Api from "~/api/api.client"
 import { Api_outputs } from "~/api/api.infer"
 import Layout from "../Layout"
@@ -15,7 +15,11 @@ export default function User_profile_edit({ user_initial }: Props) {
   return (
     <Layout
       header={<Header_full_common moreOptions_props={{ exclude: ["profile"] }} />}
-      content={<Paper sx={{ width: "100%" }}>{JSON.stringify(user.data, null, 2)}</Paper>}
+      content={
+        <Paper sx={{ width: "100%", p: 2, m: 1 }}>
+          <Typography variant="h4">Uređivanje profila</Typography>
+        </Paper>
+      }
     />
   )
 }
