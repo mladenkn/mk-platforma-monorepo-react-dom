@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
-import { session_ss_get } from "./pages/api/auth/[...nextauth]"
+import { session_ss_get } from "~/pages/api/auth/[...nextauth]"
 import { Session } from "next-auth"
 
 export function create_getServerSideProps<T>(
