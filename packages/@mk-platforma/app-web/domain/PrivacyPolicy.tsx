@@ -6,7 +6,7 @@ export default function TermsAndCodnitions() {
   return (
     <Layout
       header={
-        <Header sx={{ py: 2 }}>
+        <Header>
           <Header_home />
           <Typography variant="h3" sx={{ color: "white" }}>
             Politika Privatnosti

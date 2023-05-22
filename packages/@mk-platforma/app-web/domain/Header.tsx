@@ -165,7 +165,7 @@ export const Header: typeof Box = styled(Box)(({ theme }) => ({
   gridTemplateColumns: "min-content 1fr min-content",
   alignItems: "center",
   justifyContent: "start",
-  padding: theme.spacing(1),
+  padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
   background: theme.palette.primary.main,
 }))
 

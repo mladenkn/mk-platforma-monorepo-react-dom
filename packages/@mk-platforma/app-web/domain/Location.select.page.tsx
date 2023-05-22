@@ -81,7 +81,7 @@ export default function Location_select_page({
   return (
     <Layout
       header={
-        <Header sx={{ display: "flex", justifyContent: "space-between", py: 2 }}>
+        <Header sx={{ display: "flex", justifyContent: "space-between" }}>
           <Header_back onClick={onBack} />
           <Typography sx={{ color: "white" }} variant="h4">
             Odaberi lokaciju
