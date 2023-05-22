@@ -8,20 +8,22 @@ export default function DevContact() {
   return (
     <Layout
       header={
-        <Box sx={{ display: "flex", justifyContent: "space-between", py: 2 }}>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              color: "white",
-              gap: 2,
-            }}
-          >
-            <IconButton sx={{ color: "white" }} onClick={useRouter().back}>
-              <ArrowBackIosOutlinedIcon />
-            </IconButton>
-            <Typography variant="h3">Kontakt</Typography>
-          </Box>
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: "min-content 1fr min-content",
+            alignItems: "center",
+            justifyContent: "start",
+            py: 1,
+            px: 1,
+          }}
+        >
+          <IconButton sx={{ color: "white", mr: 1.5 }} onClick={useRouter().back}>
+            <ArrowBackIosOutlinedIcon />
+          </IconButton>
+          <Typography sx={{ color: "white" }} variant="h3">
+            Kontakt
+          </Typography>
           <Header_moreOptions exclude={["other.contact"]} />
         </Box>
       }

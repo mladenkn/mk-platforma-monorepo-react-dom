@@ -48,7 +48,6 @@ export default function Layout({
       <Box
         sx={{
           background: palette.primary.main,
-          pl: 2,
         }}
       >
         {header}
