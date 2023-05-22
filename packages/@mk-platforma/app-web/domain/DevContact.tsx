@@ -1,7 +1,5 @@
-import { Box, IconButton, Typography, Paper } from "@mui/material"
-import { useRouter } from "next/router"
-import { Header, Header_moreOptions } from "./Header"
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
+import { Box, Typography, Paper } from "@mui/material"
+import { Header, Header_moreOptions, Header_home } from "./Header"
 import Layout from "./Layout"
 
 export default function DevContact() {
@@ -9,9 +7,7 @@ export default function DevContact() {
     <Layout
       header={
         <Header>
-          <IconButton sx={{ color: "white", mr: 1.5 }} onClick={useRouter().back}>
-            <ArrowBackIosOutlinedIcon />
-          </IconButton>
+          <Header_home />
           <Typography sx={{ color: "white" }} variant="h3">
             Kontakt
           </Typography>

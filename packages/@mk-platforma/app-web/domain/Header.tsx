@@ -13,6 +13,7 @@ import { LogoLink } from "./common"
 import { BottomSheet } from "./BottomSheet"
 import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 import PolicyOutlinedIcon from "@mui/icons-material/PolicyOutlined"
+import HomeIcon from "@mui/icons-material/Home"
 import { difference } from "lodash"
 import { useSession } from "next-auth/react"
 import { styled } from "@mui/material/styles"
@@ -207,6 +208,15 @@ export function Header_back() {
   return (
     <IconButton sx={{ color: "white", mr: 1.5 }} onClick={useRouter().back}>
       <ArrowBackIosOutlinedIcon />
+    </IconButton>
+  )
+}
+
+export function Header_home() {
+  const { typography } = useTheme()
+  return (
+    <IconButton sx={{ color: "white", mr: 1.5 }} onClick={useRouter().back}>
+      <HomeIcon sx={{ fontSize: typography.h3 }} />
     </IconButton>
   )
 }
