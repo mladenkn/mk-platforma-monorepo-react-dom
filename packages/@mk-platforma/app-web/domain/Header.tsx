@@ -15,6 +15,7 @@ import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 import PolicyOutlinedIcon from "@mui/icons-material/PolicyOutlined"
 import { difference } from "lodash"
 import { useSession } from "next-auth/react"
+import { styled } from "@mui/system"
 
 type Option =
   | "post.create"
@@ -192,3 +193,12 @@ export function Header_full_common({ sx, moreOptions_props }: Header_full_common
     </Box>
   )
 }
+
+export const Header: typeof Box = styled(Box)(({ theme }) => ({
+  display: "grid",
+  gridTemplateColumns: "min-content 1fr min-content",
+  alignItems: "center",
+  justifyContent: "start",
+  padding: theme.spacing(1),
+  background: theme.palette.primary.main,
+}))
