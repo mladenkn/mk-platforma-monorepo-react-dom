@@ -15,7 +15,7 @@ import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 import PolicyOutlinedIcon from "@mui/icons-material/PolicyOutlined"
 import { difference } from "lodash"
 import { useSession } from "next-auth/react"
-import { styled } from "@mui/system"
+import { styled } from "@mui/material/styles"
 
 type Option =
   | "post.create"
