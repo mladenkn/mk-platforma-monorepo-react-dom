@@ -92,6 +92,7 @@ export default function Post_list_page_header({
           flexDirection: "column",
           pt: 1.2,
           pb: 1,
+          pl: 2,
         }}
       >
         <Box
