@@ -180,8 +180,10 @@ export function Header_back() {
 export function Header_home() {
   const { typography } = useTheme()
   return (
-    <IconButton sx={{ color: "white", mr: 1.5 }} onClick={useRouter().back}>
-      <HomeIcon sx={{ fontSize: typography.h3 }} />
-    </IconButton>
+    <Link href="/" style={{ textDecoration: "none" }}>
+      <IconButton sx={{ color: "white", mr: 1.5 }}>
+        <HomeIcon sx={{ fontSize: typography.h3 }} />
+      </IconButton>
+    </Link>
   )
 }
