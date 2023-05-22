@@ -160,41 +160,6 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
   )
 }
 
-type Header_full_common__props = {
-  sx?: SxProps
-  moreOptions_props?: Partial<ComponentProps<typeof Header_moreOptions>>
-}
-
-export function Header_full_common({ sx, moreOptions_props }: Header_full_common__props) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        pr: 0,
-        py: 2,
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          color: "white",
-          gap: 1,
-          justifyContent: "start",
-        }}
-      >
-        <IconButton sx={{ color: "white" }} onClick={useRouter().back}>
-          <ArrowBackIosOutlinedIcon />
-        </IconButton>
-        <LogoLink />
-      </Box>
-      <Header_moreOptions {...moreOptions_props} />
-    </Box>
-  )
-}
-
 export const Header: typeof Box = styled(Box)(({ theme }) => ({
   display: "grid",
   gridTemplateColumns: "min-content 1fr min-content",

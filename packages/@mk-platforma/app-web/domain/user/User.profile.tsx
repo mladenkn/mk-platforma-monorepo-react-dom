@@ -4,7 +4,8 @@ import Link from "next/link"
 import { groupBy } from "lodash"
 import { getCategoryLabel } from "~/domain/category/Category.common"
 import { Api_outputs } from "~/api/api.infer"
-import { Header_full_common } from "~/domain/Header"
+import { Header, Header_back, Header_moreOptions } from "../Header"
+import { LogoLink } from "../common"
 import Layout from "~/domain/Layout"
 import Api from "~/api/api.client"
 import EditIcon from "@mui/icons-material/Edit"
@@ -21,7 +22,13 @@ export default function User_profile({ user_initial }: Props) {
 
   return (
     <Layout
-      header={<Header_full_common moreOptions_props={{ exclude: ["profile"] }} />}
+      header={
+        <Header>
+          <Header_back />
+          <LogoLink />
+          <Header_moreOptions exclude={["profile"]} />
+        </Header>
+      }
       content={
         <Paper sx={{ p: 2, m: 1, width: "100%" }}>
           {user.isLoading ? (
