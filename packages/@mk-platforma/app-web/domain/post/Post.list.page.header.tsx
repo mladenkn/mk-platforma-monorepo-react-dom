@@ -93,6 +93,7 @@ export default function Post_list_page_header({
           pt: 1.2,
           pb: 1,
           pl: 2,
+          background: palette.primary.main,
         }}
       >
         <Box

@@ -25,7 +25,7 @@ export default function Layout({
   backdrop = () => <></>,
   onlyContentScrollable = false,
 }: Props) {
-  const { palette, breakpoints } = useTheme()
+  const { breakpoints } = useTheme()
   return (
     <Container
       maxWidth="md"
@@ -45,13 +45,7 @@ export default function Layout({
         ...sx,
       }}
     >
-      <Box
-        sx={{
-          background: palette.primary.main,
-        }}
-      >
-        {header}
-      </Box>
+      {header}
       {backdrop({})}
       <Box
         sx={{
