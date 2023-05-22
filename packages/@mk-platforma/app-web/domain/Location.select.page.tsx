@@ -12,6 +12,8 @@ import { z } from "zod"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import { match, P } from "ts-pattern"
 import Layout from "./Layout"
+import { Header } from "./Header"
+import { Header_back } from "./Header"
 
 type Props = {
   location_initial: number | null
@@ -79,17 +81,15 @@ export default function Location_select_page({
   return (
     <Layout
       header={
-        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", py: 2 }}>
-          <IconButton onClick={onBack}>
-            <ArrowBackIosOutlinedIcon sx={{ color: "white" }} />
-          </IconButton>
+        <Header sx={{ display: "flex", justifyContent: "space-between", py: 2 }}>
+          <Header_back onClick={onBack} />
           <Typography sx={{ color: "white" }} variant="h4">
             Odaberi lokaciju
           </Typography>
           <IconButton onClick={handleDone}>
             <DoneIcon sx={{ color: "white" }} />
           </IconButton>
-        </Box>
+        </Header>
       }
       content={
         <Box sx={{ px: 2, mt: 2, mb: 2 }}>

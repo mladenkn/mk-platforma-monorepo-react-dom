@@ -169,9 +169,9 @@ export const Header: typeof Box = styled(Box)(({ theme }) => ({
   background: theme.palette.primary.main,
 }))
 
-export function Header_back() {
+export function Header_back(props: ComponentProps<typeof IconButton>) {
   return (
-    <IconButton sx={{ color: "white", mr: 1.5 }} onClick={useRouter().back}>
+    <IconButton sx={{ color: "white", mr: 1.5 }} onClick={useRouter().back} {...props}>
       <ArrowBackIosOutlinedIcon />
     </IconButton>
   )
