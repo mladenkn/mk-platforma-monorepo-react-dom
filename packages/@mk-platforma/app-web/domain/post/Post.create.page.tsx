@@ -1,10 +1,9 @@
 import { useRouter } from "next/router"
 import React from "react"
 import Post_form from "./Post.form"
-import { IconButton, useTheme } from "@mui/material"
-import { Header, Header_moreOptions } from "../Header"
+import { useTheme } from "@mui/material"
+import { Header, Header_moreOptions, Header_back } from "../Header"
 import Layout from "../Layout"
-import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { LogoLink } from "../common"
 
 type Props = {}
@@ -18,9 +17,7 @@ export default function Post_create_page({}: Props) {
     <Layout
       header={
         <Header>
-          <IconButton sx={{ color: "white", mr: 1.5 }} onClick={useRouter().back}>
-            <ArrowBackIosOutlinedIcon />
-          </IconButton>
+          <Header_back />
           <LogoLink />
           <Header_moreOptions exclude={["other.contact"]} />
         </Header>
