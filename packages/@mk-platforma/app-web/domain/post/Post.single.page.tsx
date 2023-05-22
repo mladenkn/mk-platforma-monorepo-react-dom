@@ -6,8 +6,9 @@ import { useState } from "react"
 import { asNonNil, nullsToUndefinedDeep } from "@mk-libs/common/common"
 import React from "react"
 import Post_form from "./Post.form"
-import { Header_full_common } from "~/domain/Header"
+import { Header, Header_back, Header_moreOptions } from "~/domain/Header"
 import Layout from "~/domain/Layout"
+import { LogoLink } from "../common"
 
 export default function Post_single_page({
   post_initial,
@@ -20,7 +21,13 @@ export default function Post_single_page({
 
   return (
     <Layout
-      header={<Header_full_common />}
+      header={
+        <Header>
+          <Header_back />
+          <LogoLink />
+          <Header_moreOptions />
+        </Header>
+      }
       content={
         <>
           {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : <></>}
