@@ -6,9 +6,9 @@ export default function TermsAndCodnitions() {
   return (
     <Layout
       header={
-        <Header>
+        <Header sx={{ py: 2 }}>
           <Header_home />
-          <Typography variant="h3" sx={{ color: "white", py: 2 }}>
+          <Typography variant="h3" sx={{ color: "white" }}>
             Uvjeti i pravila korištenja
           </Typography>
           <Header_moreOptions exclude={["other.privacyPolicy"]} />
