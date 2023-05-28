@@ -1,7 +1,6 @@
 const { parseCommand, run, getConnectionString } = require('./cmd.utils')
 
 const parsed = parseCommand()
-console.log(parsed)
 
 const cs_env = () => `DATABASE_URL=${getConnectionString(parsed.env)}`
 
