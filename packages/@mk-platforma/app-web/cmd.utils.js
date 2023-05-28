@@ -1,5 +1,6 @@
 const commandLineArgs = require('command-line-args')
 const { execSync } = require('child_process')
+const { match, P } = require('ts-pattern')
 
 const options = [
   { name: 'command', defaultOption: true },
@@ -10,9 +11,28 @@ function parseCommand(){
   return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
+function objectToEnvString(obj){
+  return Object.entries(obj).map(([key, value]) => `${key}=${value}`).join(' ')
+}
+
 function run(...cmd){
+  const command = match(cmd)
+    .with([{}, P.array], args => {
+      const envStr = objectToEnvString(args[0])
+      return `${envStr} ${args[1].join('&& ')}`
+    })
+    .with([{}, P.string], args => {
+      const envStr = objectToEnvString(args[0])
+      return `${envStr} ${args[1]}`
+    })
+    .with(P.array, cmd => cmd.join("&& "))
+    .with(P.string, cmd => cmd)
+    .run()
+
+  console.log(31, command)
+
   try {
-    const stdout = execSync(cmd.join("&& ")).toString()
+    const stdout = execSync(command).toString()
     console.log(stdout)
   } catch (error) {
     console.error(`Error executing the command: ${error.message}`)

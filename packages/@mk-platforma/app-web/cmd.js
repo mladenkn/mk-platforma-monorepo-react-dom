@@ -10,8 +10,10 @@ const db_command = name => _db_command.command(name).option(...cs_option)
 db_command('prisma')
   .argument('<string...>', 'command passed to prisma')
   .action((str, options) => {
-    const cs_env = `DATABASE_URL=${getConnectionString(options.dbInstance)}`
-    run(`${cs_env} prisma ${str.join(' ')}`)
+    run(
+      { DATABASE_URL: getConnectionString(options.dbInstance) },
+      `prisma ${str.join(' ')}`
+    )
   })
 
 db_command('seed')
