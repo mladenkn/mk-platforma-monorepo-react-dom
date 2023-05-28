@@ -36,6 +36,7 @@
     "@trpc/react-query": "^10.27.1",
     "@trpc/server": "^10.27.1",
     "command-line-args": "^5.2.1",
+    "commander": "^10.0.1",
     "cookie": "^0.5.0",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
