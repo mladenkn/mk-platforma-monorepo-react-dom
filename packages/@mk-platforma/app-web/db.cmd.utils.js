@@ -6,7 +6,7 @@ const options = [
   { name: 'env', type: String }
 ]
 
-function doFirstParse(){
+function parseCommand(){
   return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
@@ -20,7 +20,18 @@ function run(...cmd){
   }
 }
 
+function getConnectionString(env){
+  switch(env){
+    case 'dev': return 'postgresql://postgres:postgres@localhost:5432/za_brata?schema=public'
+    case 'test': return 'postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway'
+    default:
+      throw new Error(`Unsupported env: ${env}`)
+  }
+}
+
+
 module.exports = {
-  doFirstParse,
+  parseCommand,
   run,
+  getConnectionString,
 }
