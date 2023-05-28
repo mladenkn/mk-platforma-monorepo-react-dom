@@ -19,7 +19,7 @@ function run(...cmd){
   const command = match(cmd)
     .with([{}, P.array], args => {
       const envStr = objectToEnvString(args[0])
-      return `${envStr} ${args[1].join('&& ')}`
+      return args[1].map(str => `${envStr} ${str}`).join('&& ')
     })
     .with([{}, P.string], args => {
       const envStr = objectToEnvString(args[0])
