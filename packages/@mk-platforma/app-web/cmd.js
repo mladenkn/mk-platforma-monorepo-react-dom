@@ -4,36 +4,29 @@ const { Command } = require('commander')
 const program = new Command()
 
 const cs_option = ['-di --db-instance <string>', 'database instance', 'dev']
-const db_command = program.command('db')
+const _db_command = program.command('db')
+const db_command = name => _db_command.command(name).option(...cs_option)
 
-db_command
-  .command('prisma')
-  .option(...cs_option)
+db_command('prisma')
   .argument('<string...>', 'command passed to prisma')
   .action((str, options) => {
     const cs_env = `DATABASE_URL=${getConnectionString(options.dbInstance)}`
     run(`${cs_env} prisma ${str.join(' ')}`)
   })
 
-db_command
-  .command('seed')
-  .option(...cs_option)
+db_command('seed')
   .action(options => {
     const cs_env = `DATABASE_URL=${getConnectionString(options.dbInstance)}`
     run(`${cs_env} pnpm _exe-ts ./data.gen/db.seed.ts`)
   })
 
-db_command
-  .command('truncate')
-  .option(...cs_option)
+db_command('truncate')
   .action(options => {
     const cs_env = `DATABASE_URL=${getConnectionString(options.dbInstance)}`
     run(`${cs_env} prisma db execute --file './db.truncate.sql'`)
   })
 
-db_command
-  .command('reset')
-  .option(...cs_option)
+db_command('reset')
   .action(options => {
     const cs_env = `DATABASE_URL=${getConnectionString(options.dbInstance)}`
     run(
