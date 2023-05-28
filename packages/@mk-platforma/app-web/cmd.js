@@ -25,18 +25,22 @@ db_command('seed')
   )
 
 db_command('truncate')
-  .action(options => {
-    const cs_env = `DATABASE_URL=${getConnectionString(options.dbInstance)}`
-    run(`${cs_env} prisma db execute --file './db.truncate.sql'`)
-  })
+  .action(options =>
+    run(
+      { DATABASE_URL: getConnectionString(options.dbInstance) },
+      `prisma db execute --file './db.truncate.sql`
+    )
+  )
 
 db_command('reset')
   .action(options => {
-    const cs_env = `DATABASE_URL=${getConnectionString(options.dbInstance)}`
     run(
-      `${cs_env()} prisma db execute --file './db.truncate.sql'`,
-      `${cs_env()} prisma db push --accept-data-loss`,
-      `${cs_env()} pnpm _exe-ts ./data.gen/db.seed.ts`,
+      { DATABASE_URL: getConnectionString(options.dbInstance) },
+      [
+        `prisma db execute --file './db.truncate.sql'`,
+        `prisma db push --accept-data-loss`,
+        `pnpm _exe-ts ./data.gen/db.seed.ts`,
+      ]
     )
   })
 
