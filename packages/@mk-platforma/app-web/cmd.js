@@ -4,10 +4,12 @@ const { Command } = require('commander')
 const program = new Command()
 
 const cs_option = ['-di --db-instance <string>', 'database instance', 'dev']
-const _db_command = program.command('db')
-const db_command = name => _db_command.command(name).option(...cs_option)
+const db_command = program.command('db')
+// const db_command = name => _db_command.command(name).option(...cs_option)
 
-db_command('prisma')
+db_command
+  .command('prisma')
+  .option(...cs_option)
   .argument('<string...>', 'command passed to prisma')
   .action((str, options) =>
     run(
@@ -16,7 +18,9 @@ db_command('prisma')
     )
   )
 
-db_command('seed')
+db_command
+  .command('seed')
+  .option(...cs_option)
   .action(options =>
     run(
       { DATABASE_URL: getConnectionString(options.dbInstance) },
@@ -24,7 +28,9 @@ db_command('seed')
     )
   )
 
-db_command('truncate')
+db_command
+  .command('truncate')
+  .option(...cs_option)
   .action(options =>
     run(
       { DATABASE_URL: getConnectionString(options.dbInstance) },
@@ -32,7 +38,9 @@ db_command('truncate')
     )
   )
 
-db_command('reset')
+db_command
+  .command('reset')
+  .option(...cs_option)
   .action(options => {
     run(
       { DATABASE_URL: getConnectionString(options.dbInstance) },
