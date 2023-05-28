@@ -7,7 +7,7 @@
     "build": "next build",
     "start.prod": "NEXTAUTH_SECRET=FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc= DATABASE_URL='postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway' next start",
     "ts": "tsc --noEmit",
-    "db": "node db.cmd.js",
+    "_c": "node cmd.js",
     "db.psql.dev": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'",
     "db.psql.test": "psql -d 'postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway'",
     "db.dev.tables.list": "pnpm app-web db.psql.dev --command '\\dt'",
