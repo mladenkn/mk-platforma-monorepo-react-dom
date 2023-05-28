@@ -53,4 +53,12 @@ db_command
     run(`${cs_env} pnpm _exe-ts ./data.gen/db.seed.ts`)
   })
 
+db_command
+  .command('truncate')
+  .option(...cs_option)
+  .action(options => {
+    const cs_env = `DATABASE_URL=${getConnectionString(options.dbInstance)}`
+    run(`${cs_env} prisma db execute --file './db.truncate.sql'`)
+  })
+
 program.parse()
