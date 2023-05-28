@@ -5,7 +5,8 @@
   "scripts": {
     "build": "pnpm app build",
     "start": "pnpm app start.prod",
-    "app": "pnpm --filter @mk-platforma/app-web _c",
+    "app": "pnpm --filter @mk-platforma/app-web",
+    "app+": "pnpm --filter @mk-platforma/app-web _c",
     "db": "pnpm --filter @mk-platforma/app-web db",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "wipe": "find . -type d -name node_modules | xargs rm -rf && rm -f pnpm-lock.lock && rm -rf packages/*/*/.next",
