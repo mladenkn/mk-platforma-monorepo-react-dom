@@ -41,7 +41,6 @@ db_command
   .option(...cs_option)
   .argument('<string...>', 'command passed to prisma')
   .action((str, options) => {
-    console.log(43, options)
     const cs_env = `DATABASE_URL=${getConnectionString(options.dbInstance)}`
     run(`${cs_env} prisma ${str.join(' ')}`)
   })
