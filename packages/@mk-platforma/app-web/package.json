@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "start": "tsx cmd.ts start --db-instance test",
     "ts": "tsc --noEmit",
     "_c": "tsx cmd.ts",
     "postinstall": "pnpm prisma generate"
