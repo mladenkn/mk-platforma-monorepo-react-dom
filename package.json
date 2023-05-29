@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "pnpm app build",
-    "start": "pnpm app start.prod",
+    "start": "pnpm app+ start.prod",
     "app": "pnpm --filter @mk-platforma/app-web",
     "app+": "pnpm --filter @mk-platforma/app-web _c",
     "db": "pnpm --filter @mk-platforma/app-web db",
