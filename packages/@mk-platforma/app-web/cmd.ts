@@ -14,7 +14,7 @@ const run_args = match(parsed.command)
 
   .with("db.seed", () => [
     { DATABASE_URL: getConnectionString(dbInstance) },
-    "tsx ./data.gen/db.seed.ts",
+    () => require("./data.gen/db.seed.ts"),
   ])
 
   .with("db.truncate", () => [
@@ -27,7 +27,7 @@ const run_args = match(parsed.command)
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
-      "tsx ./data.gen/db.seed.ts",
+      () => require("./data.gen/db.seed.ts"),
     ],
   ])
 
@@ -43,10 +43,8 @@ const run_args = match(parsed.command)
   ])
 
   .with("playground", () => [
-    () => {
-      process.env.DATABASE_URL = getConnectionString(dbInstance)
-      require("./playground.ts")
-    },
+    { DATABASE_URL: getConnectionString(dbInstance) },
+    () => require("./playground.ts"),
   ])
 
   .exhaustive()
