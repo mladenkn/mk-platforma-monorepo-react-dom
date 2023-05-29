@@ -24,7 +24,7 @@ async function run(...cmd){
     for (const command of commands) {
       const result = await run_single(command, env) 
       if(result.code !== 0){
-        console.error(result?.error?.message || "Error")
+        console.error(result.error?.message || "Error")
         process.exit(result.code)
       }    
     }    
