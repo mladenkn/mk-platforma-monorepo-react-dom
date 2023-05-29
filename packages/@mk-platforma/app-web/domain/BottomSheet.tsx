@@ -1,5 +1,5 @@
 import { SxProps, SwipeableDrawer } from "@mui/material"
-import React, { ReactNode } from "react"
+import { ReactNode } from "react"
 
 type BottomSheet_Props = {
   sx?: SxProps
