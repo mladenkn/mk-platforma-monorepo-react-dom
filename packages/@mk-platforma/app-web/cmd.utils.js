@@ -31,6 +31,10 @@ function run(...cmd){
 }
 
 function run_single(command, env){
+  if(command.startsWith("pnpm exec ts-node")){
+    run_withExec(command, env)
+    return
+  }
   const command_words = command.split(' ')
   const cmd = spawn(command_words[0], [command_words.slice(1)], {
     env: { ...process.env, ...env },
@@ -42,6 +46,25 @@ function run_single(command, env){
   cmd.on?.("close", code => {
     console.log(`child process exited with code ${code}`)
   })
+}
+
+function run_withExec(command, env){
+  const command_ = `${objectToEnvString(env)} ${command}`
+  exec(command_, (error, stdout, stderr) => {
+    if (error) {
+      console.log(`error: ${error.message}`);
+      return;
+    }
+    if (stderr) {
+      console.log(`stderr: ${stderr}`);
+      return;
+    }
+    console.log(`stdout: ${stdout}`);
+  })
+}
+
+function objectToEnvString(obj){
+  return Object.entries(obj).map(([key, value]) => `${key}=${value}`).join(' ')
 }
 
 function getConnectionString(env){

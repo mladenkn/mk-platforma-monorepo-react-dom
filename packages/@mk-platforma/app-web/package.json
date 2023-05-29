@@ -8,7 +8,6 @@
     "_c": "node cmd.js",
     "db.dev.tables.list": "pnpm app-web db.psql.dev --command '\\dt'",
     "postinstall": "pnpm prisma generate",
-    "playground.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts ./playground.ts",
     "_exe-ts": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\", \\\"jsx\\\": \\\"react\\\"}\""
   },
   "dependencies": {

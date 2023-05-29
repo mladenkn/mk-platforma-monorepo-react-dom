@@ -47,6 +47,19 @@ const run_args = match(parsed.command)
     "next start"
   ])
 
+  .with("playground", () => [
+    { DATABASE_URL: getConnectionString(dbInstance) },
+    createCommand_exeTs("./playground.ts")
+  ])
+
   .exhaustive()
 
 run(...run_args)
+
+function createCommand_exeTs(more){
+  const options = JSON.stringify({
+    module: "CommonJS",
+    jsx: "react"
+  }).replace(/"/g, '\\"')
+  return `pnpm exec ts-node --compiler-options ${options} ${more}`
+}
