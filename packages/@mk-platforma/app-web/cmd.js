@@ -2,7 +2,7 @@ const { match } = require('ts-pattern')
 const { parseCommand, run, getConnectionString } = require('./cmd.utils')
 
 const parsed = parseCommand()
-const dbInstance = parsed["db-instance"]
+const dbInstance = parsed["db-instance"] || "dev"
 
 const run_args = match(parsed.command)
   
