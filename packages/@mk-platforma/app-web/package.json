@@ -5,7 +5,7 @@
   "scripts": {
     "build": "next build",
     "ts": "tsc --noEmit",
-    "_c": "node cmd.js",
+    "_c": "tsx cmd.ts",
     "postinstall": "pnpm prisma generate"
   },
   "dependencies": {
@@ -48,6 +48,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@mk-libs/tsconfig": "workspace:*",
+    "@types/command-line-args": "^5.2.0",
     "@types/cookie": "^0.5.1",
     "@types/lodash": "^4.14.186",
     "@types/node": "^17.0.45",

@@ -107,6 +107,7 @@ importers:
       '@trpc/next': ^10.27.1
       '@trpc/react-query': ^10.27.1
       '@trpc/server': ^10.27.1
+      '@types/command-line-args': ^5.2.0
       '@types/cookie': ^0.5.1
       '@types/lodash': ^4.14.186
       '@types/node': ^17.0.45
@@ -175,6 +176,7 @@ importers:
     devDependencies:
       '@babel/core': 7.20.12
       '@mk-libs/tsconfig': link:../../@mk-libs/tsconfig
+      '@types/command-line-args': 5.2.0
       '@types/cookie': 0.5.1
       '@types/lodash': 4.14.191
       '@types/node': 17.0.45
@@ -1470,6 +1472,10 @@ packages:
 
   /@tsconfig/node16/1.0.3:
     resolution: {integrity: sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==}
+    dev: true
+
+  /@types/command-line-args/5.2.0:
+    resolution: {integrity: sha512-UuKzKpJJ/Ief6ufIaIzr3A/0XnluX7RvFgwkV89Yzvm77wCh1kFaFmqN8XEnGcN62EuHdedQjEMb8mYxFLGPyA==}
     dev: true
 
   /@types/cookie/0.5.1:
