@@ -6,7 +6,6 @@
     "build": "next build",
     "ts": "tsc --noEmit",
     "_c": "node cmd.js",
-    "db.dev.tables.list": "pnpm app-web db.psql.dev --command '\\dt'",
     "postinstall": "pnpm prisma generate"
   },
   "dependencies": {
