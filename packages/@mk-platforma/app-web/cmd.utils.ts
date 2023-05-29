@@ -11,13 +11,13 @@ export function parseCommand() {
   return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
-export async function run(...cmd: string[]) {
+export async function run(...cmd: unknown[]) {
   const [env, commands] = match(cmd)
-    .with([{} as any, P.array(P.string)], args => [args[0], args[1]])
-    .with([{} as any, P.string], args => [args[0], [args[1]]])
+    .with([{}, P.array(P.string)], args => [args[0], args[1]])
+    .with([{}, P.string], args => [args[0], [args[1]]])
     .with(P.array(P.string), cmd => [{}, cmd])
     .with(P.string, cmd => [{}, [cmd]])
-    .run()
+    .run() as [Record<string, string>, string[]]
 
   try {
     for (const command of commands) {
