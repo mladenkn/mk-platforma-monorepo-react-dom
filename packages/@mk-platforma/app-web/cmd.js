@@ -35,7 +35,7 @@ const run_args = match(parsed.command)
     ]
   ])
 
-  // \dt == list out all tables
+  // \dt: list out all tables
   .with("db.psql", () => [
     `psql ${getConnectionString(dbInstance)}`
   ])
