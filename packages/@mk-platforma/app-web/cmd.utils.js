@@ -37,7 +37,7 @@ async function run(...cmd){
 function run_single(command, env){
   if(command.startsWith("pnpm exec ts-node")){
     run_withExec(command, env)
-    return
+    return { code: 0 }
   }
   const command_words = command.split(' ')
   const cmd = spawn(command_words[0], [command_words.slice(1)], {

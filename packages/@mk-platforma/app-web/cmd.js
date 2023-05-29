@@ -23,13 +23,13 @@ const run_args = match(parsed.command)
 
   .with('db.truncate', () => [
     { DATABASE_URL: getConnectionString(dbInstance) },
-    `prisma db execute --file './db.truncate.sql`
+    `prisma db execute --file ./db.truncate.sql`
   ])
 
   .with('db.reset', () => [
     { DATABASE_URL: getConnectionString(dbInstance) },
     [
-      `prisma db execute --file './db.truncate.sql'`,
+      `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
       createCommand_exeTs("./data.gen/db.seed.ts")
     ]
