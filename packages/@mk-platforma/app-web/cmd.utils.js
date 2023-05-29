@@ -29,8 +29,6 @@ function run(...cmd){
     .with(P.string, cmd => cmd)
     .run()
 
-  console.log(32, command)
-
   try {
     const stdout = execSync(command).toString()
     console.log(stdout)
