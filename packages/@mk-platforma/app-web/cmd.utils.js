@@ -14,7 +14,7 @@ function parseCommand(){
 
 function run(...cmd){
   const [env, commands] = match(cmd)
-    .with([{}, P.array], args => [args[0], args[1]])
+    .with([{}, P.array(P.string)], args => [args[0], args[1]])
     .with([{}, P.string], args => [args[0], [args[1]]])
     .with(P.array(P.string), cmd => [{}, cmd])
     .with(P.string, cmd => [{}, [cmd]])
