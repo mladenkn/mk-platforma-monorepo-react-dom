@@ -1,5 +1,5 @@
 const commandLineArgs = require('command-line-args')
-const { execSync } = require('child_process')
+const { spawn } = require("child_process")
 const { match, P } = require('ts-pattern')
 
 const options = [
@@ -11,27 +11,31 @@ function parseCommand(){
   return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
-function objectToEnvString(obj){
-  return Object.entries(obj).map(([key, value]) => `${key}=${value}`).join(' ')
-}
-
 function run(...cmd){
-  const command = match(cmd)
-    .with([{}, P.array], args => {
-      const envStr = objectToEnvString(args[0])
-      return args[1].map(str => `${envStr} ${str}`).join('&& ')
-    })
-    .with([{}, P.string], args => {
-      const envStr = objectToEnvString(args[0])
-      return `${envStr} ${args[1]}`
-    })
-    .with(P.array, cmd => cmd.join("&& "))
-    .with(P.string, cmd => cmd)
+  const [env, command] = match(cmd)
+    .with([{}, P.array], args => [args[0], args[1].join('&& ')])
+    .with([{}, P.string], args => [args[0], args[1]])
+    .with(P.array, cmd => [{}, cmd.join("&& ")])
+    .with(P.string, cmd => [{}, cmd])
     .run()
 
+  const command_words = command.split(' ')
+
+  console.log(24, command_words, env)
+
   try {
-    const stdout = execSync(command).toString()
-    console.log(stdout)
+    const cmd = spawn(command_words[0], [command_words.slice(1)], {
+      env: {
+        ...process.env,
+        ...env
+      }
+    })
+    cmd.stdout.on("data", data => process.stdout.write(data.toString()))
+    cmd.stderr.on("data", data => process.stderr.write(data.toString()))
+    cmd.on('error', (error) => process.stderr.write(error.message))
+    cmd.on("close", code => {
+      console.log(`child process exited with code ${code}`)
+    })
   } catch (error) {
     console.error(`Error executing the command: ${error.message}`)
     process.exit(1)
