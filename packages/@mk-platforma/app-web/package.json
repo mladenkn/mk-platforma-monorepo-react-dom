@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' next dev",
     "build": "next build",
-    "start.prod": "NEXTAUTH_SECRET=FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc= DATABASE_URL='postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway' next start",
     "ts": "tsc --noEmit",
     "_c": "node cmd.js",
     "db.psql.dev": "psql -d 'postgresql://postgres:postgres@localhost:5432/za_brata'",
