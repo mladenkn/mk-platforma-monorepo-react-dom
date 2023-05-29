@@ -1,6 +1,7 @@
 const commandLineArgs = require('command-line-args')
-const { spawn } = require("child_process")
+const { spawn, exec } = require("child_process")
 const { match, P } = require('ts-pattern')
+
 
 const options = [
   { name: 'command', defaultOption: true },
@@ -15,7 +16,7 @@ function run(...cmd){
   const [env, commands] = match(cmd)
     .with([{}, P.array], args => [args[0], args[1]])
     .with([{}, P.string], args => [args[0], [args[1]]])
-    .with(P.array, cmd => [{}, cmd])
+    .with(P.array(P.string), cmd => [{}, cmd])
     .with(P.string, cmd => [{}, [cmd]])
     .run()
 
@@ -44,7 +45,7 @@ function run_single(command, env){
 
 function getConnectionString(env){
   switch(env){
-    case 'dev': return 'postgresql://postgres:postgres@localhost:5432/za_brata?schema=public'
+    case 'dev': return 'postgresql://postgres:postgres@localhost:5432/za_brata'
     case 'test': return 'postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway'
     default:
       throw new Error(`Unsupported env: ${env}`)
