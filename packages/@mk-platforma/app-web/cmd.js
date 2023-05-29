@@ -18,7 +18,7 @@ const run_args = match(parsed.command)
 
   .with('db.seed', () => [
     { DATABASE_URL: getConnectionString(dbInstance) },
-    `pnpm _exe-ts ./data.gen/db.seed.ts`
+    createCommand_exeTs("./data.gen/db.seed.ts")
   ])
 
   .with('db.truncate', () => [
