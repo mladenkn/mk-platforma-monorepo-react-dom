@@ -1,5 +1,5 @@
 import type { AppType } from "next/app"
-import Api from "~/api/api.client"
+import Api from "~/my-api/api.client"
 import "../styles.global.css"
 import { createTheme, responsiveFontSizes, ThemeProvider } from "@mui/material/styles"
 import "@fontsource/roboto/300.css"

@@ -1,6 +1,6 @@
 import { Category_label } from "@prisma/client"
 import { faker } from "@faker-js/faker"
-import { Api_ss } from "~/api/api.root"
+import { Api_ss } from "~/my-api/api.root"
 import { avatarStyles } from "~/domain/user/User.common"
 import db from "~/prisma/instance"
 import generatePosts from "./data.gen"

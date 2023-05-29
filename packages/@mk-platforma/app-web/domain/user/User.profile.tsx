@@ -3,11 +3,11 @@ import React from "react"
 import Link from "next/link"
 import { groupBy } from "lodash"
 import { getCategoryLabel } from "~/domain/category/Category.common"
-import { Api_outputs } from "~/api/api.infer"
+import { Api_outputs } from "~/my-api/api.infer"
 import { Header, Header_back, Header_moreOptions } from "../Header"
 import { LogoLink } from "../common"
 import Layout from "~/domain/Layout"
-import Api from "~/api/api.client"
+import Api from "~/my-api/api.client"
 import EditIcon from "@mui/icons-material/Edit"
 
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>

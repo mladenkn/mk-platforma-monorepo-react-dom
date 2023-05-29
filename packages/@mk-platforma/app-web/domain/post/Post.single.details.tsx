@@ -7,7 +7,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Link from "next/link"
-import { Api_outputs } from "~/api/api.infer"
+import { Api_outputs } from "~/my-api/api.infer"
 import DataOrQuery from "~/utils"
 import { Comment_listItem } from "~/domain/Comment.listItem"
 

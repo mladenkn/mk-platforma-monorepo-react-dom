@@ -1,5 +1,5 @@
 import { GetServerSidePropsContext } from "next/types"
-import { Api_ss } from "~/api/api.root"
+import { Api_ss } from "~/my-api/api.root"
 import { getCookie_ss } from "~/cookies"
 import { user_id_ss_get } from "~/pages/api/auth/[...nextauth]"
 import { Category_labelType } from "~/prisma/generated/zod"
