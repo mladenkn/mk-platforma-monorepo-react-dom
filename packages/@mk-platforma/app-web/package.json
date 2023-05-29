@@ -6,8 +6,6 @@
     "build": "next build",
     "ts": "tsc --noEmit",
     "_c": "node cmd.js",
-    "db.psql.dev": "psql postgresql://postgres:postgres@localhost:5432/za_brata",
-    "db.psql.test": "psql -d 'postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway'",
     "db.dev.tables.list": "pnpm app-web db.psql.dev --command '\\dt'",
     "postinstall": "pnpm prisma generate",
     "playground.dev": "DATABASE_URL='postgresql://postgres:postgres@localhost:5432/za_brata?schema=public' pnpm _exe-ts ./playground.ts",
