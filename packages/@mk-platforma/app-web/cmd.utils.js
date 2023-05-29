@@ -12,15 +12,17 @@ function parseCommand(){
 }
 
 function run(...cmd){
-  const [env, command] = match(cmd)
-    .with([{}, P.array], args => [args[0], args[1].join('&& ')])
-    .with([{}, P.string], args => [args[0], args[1]])
-    .with(P.array, cmd => [{}, cmd.join("&& ")])
-    .with(P.string, cmd => [{}, cmd])
+  const [env, commands] = match(cmd)
+    .with([{}, P.array], args => [args[0], args[1]])
+    .with([{}, P.string], args => [args[0], [args[1]]])
+    .with(P.array, cmd => [{}, cmd])
+    .with(P.string, cmd => [{}, [cmd]])
     .run()
 
   try {
-    run_single(command, env)
+    for (const command of commands) {
+      run_single(command, env) 
+    }    
   } catch (error) {
     console.error(`Error executing the command: ${error.message}`)
     process.exit(1)
