@@ -88,9 +88,13 @@ function getConnectionString(env){
 function createCommand_exeTs(more){
   const options = JSON.stringify({
     module: "CommonJS",
-    jsx: "react"
+    jsx: "react",
+    baseUrl: "./",
+    paths: {
+      "~/*": ["./*"]
+    }
   }).replace(/"/g, '\\"')
-  return `pnpm exec ts-node --compiler-options ${options} ${more}`
+  return `pnpm exec ts-node -r tsconfig-paths/register --compiler-options ${options} ${more}`
 }
 
 module.exports = {

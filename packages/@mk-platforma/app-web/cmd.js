@@ -1,5 +1,5 @@
 const { match } = require('ts-pattern')
-const { parseCommand, run, getConnectionString, createCommand_exeTs } = require('./cmd.utils')
+const { parseCommand, run, getConnectionString } = require('./cmd.utils')
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"] || "dev"
@@ -18,7 +18,7 @@ const run_args = match(parsed.command)
 
   .with('db.seed', () => [
     { DATABASE_URL: getConnectionString(dbInstance) },
-    createCommand_exeTs("./data.gen/db.seed.ts")
+    "tsx ./data.gen/db.seed.ts"
   ])
 
   .with('db.truncate', () => [
@@ -31,7 +31,7 @@ const run_args = match(parsed.command)
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
-      createCommand_exeTs("./data.gen/db.seed.ts")
+      "tsx ./data.gen/db.seed.ts"
     ]
   ])
 
@@ -50,7 +50,7 @@ const run_args = match(parsed.command)
 
   .with("playground", () => [
     { DATABASE_URL: getConnectionString(dbInstance) },
-    createCommand_exeTs("./playground.ts")
+    "tsx ./playground.ts"
   ])
 
   .exhaustive()
