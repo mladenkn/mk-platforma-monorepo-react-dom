@@ -1,62 +1,49 @@
-const { run, getConnectionString } = require('./cmd.utils')
+const { parseCommand, run, getConnectionString } = require('./cmd.utils')
 
-const { Command } = require('commander')
-const program = new Command()
+const parsed = parseCommand()
+const dbInstance = parsed["db-instance"]
 
-const cs_option = ['-di --db-instance <string>', 'database instance', 'dev']
-const db_command = program.command('db')
-
-program
-  .command('dev')
-  .option(...cs_option)
-  .action(options => run(
-    { DATABASE_URL: getConnectionString(options.dbInstance) },
-    `next dev`
-  ))
-
-db_command
-  .command('prisma')
-  .option(...cs_option)
-  .argument('<string...>', 'command passed to prisma')
-  .action((str, options) =>
+switch(parsed.command){
+  case "dev":
     run(
-      { DATABASE_URL: getConnectionString(options.dbInstance) },
-      `prisma ${str.join(' ')}`
+      { DATABASE_URL: getConnectionString(dbInstance) },
+      `next dev`
     )
-  )
+    break;
 
-db_command
-  .command('seed')
-  .option(...cs_option)
-  .action(options =>
+  case 'db.prisma':
     run(
-      { DATABASE_URL: getConnectionString(options.dbInstance) },
+      { DATABASE_URL: getConnectionString(dbInstance) },
+      `prisma ${parsed._unknown.join(' ')}`
+    )
+    break;
+  
+  case 'db.seed':
+    run(
+      { DATABASE_URL: getConnectionString(dbInstance) },
       `pnpm _exe-ts ./data.gen/db.seed.ts`
     )
-  )
-
-db_command
-  .command('truncate')
-  .option(...cs_option)
-  .action(options =>
+    break;
+  
+  case 'db.truncate':
     run(
-      { DATABASE_URL: getConnectionString(options.dbInstance) },
+      { DATABASE_URL: getConnectionString(dbInstance) },
       `prisma db execute --file './db.truncate.sql`
     )
-  )
-
-db_command
-  .command('reset')
-  .option(...cs_option)
-  .action(options => {
+    break;
+  
+  case 'db.reset':
     run(
-      { DATABASE_URL: getConnectionString(options.dbInstance) },
+      { DATABASE_URL: getConnectionString(dbInstance) },
       [
         `prisma db execute --file './db.truncate.sql'`,
         `prisma db push --accept-data-loss`,
         `pnpm _exe-ts ./data.gen/db.seed.ts`,
       ]
     )
-  })
-
-program.parse()
+    break;
+  
+  default:
+    console.log('Unsupported subcommand')
+    process.exit(1)
+}

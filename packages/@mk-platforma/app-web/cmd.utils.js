@@ -4,7 +4,7 @@ const { match, P } = require('ts-pattern')
 
 const options = [
   { name: 'command', defaultOption: true },
-  { name: 'env', type: String }
+  { name: 'db-instance', type: String }
 ]
 
 function parseCommand(){
