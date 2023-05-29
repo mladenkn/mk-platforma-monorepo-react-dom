@@ -35,6 +35,10 @@ const run_args = match(parsed.command)
     ]
   ])
 
+  .with("db.psql", () => [
+    `psql ${getConnectionString(dbInstance)}`
+  ])
+
   .with('start.prod', () => [
     {
       DATABASE_URL: getConnectionString(dbInstance),
