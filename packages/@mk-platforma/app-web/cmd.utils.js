@@ -22,10 +22,14 @@ async function run(...cmd){
 
   try {
     for (const command of commands) {
-      await run_single(command, env) 
+      const result = await run_single(command, env) 
+      if(result.code !== 0){
+        console.error(result?.error?.message || "Error")
+        process.exit(result.code)
+      }    
     }    
   } catch (error) {
-    console.error(`Error executing the command: ${error.message}`)
+    console.error(`Error ${error?.message}`)
     process.exit(1)
   }
 }
@@ -44,13 +48,10 @@ function run_single(command, env){
     cmd.stdout?.on?.("data", data => process.stdout.write(data.toString()))
     cmd.stderr?.on?.("data", data => process.stderr.write(data.toString()))
     cmd.on?.('error', (error) => {
-      reject(error.message)
+      reject({ error, code: -1 })
       process.stderr.write(error.message)
     })
-    cmd.on?.("close", code => {
-      resolve(code)
-      console.log(`child process exited with code ${code}`)
-    })
+    cmd.on?.("close", code => resolve({ code }))
   })  
 }
 
