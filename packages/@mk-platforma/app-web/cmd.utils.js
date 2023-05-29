@@ -19,22 +19,25 @@ function run(...cmd){
     .with(P.string, cmd => [{}, cmd])
     .run()
 
-  const command_words = command.split(' ')
-
   try {
-    const cmd = spawn(command_words[0], [command_words.slice(1)], {
-      env: { ...process.env, ...env }
-    })
-    cmd.stdout.on("data", data => process.stdout.write(data.toString()))
-    cmd.stderr.on("data", data => process.stderr.write(data.toString()))
-    cmd.on('error', (error) => process.stderr.write(error.message))
-    cmd.on("close", code => {
-      console.log(`child process exited with code ${code}`)
-    })
+    run_single(command, env)
   } catch (error) {
     console.error(`Error executing the command: ${error.message}`)
     process.exit(1)
   }
+}
+
+function run_single(command, env){
+  const command_words = command.split(' ')
+  const cmd = spawn(command_words[0], [command_words.slice(1)], {
+    env: { ...process.env, ...env }
+  })
+  cmd.stdout.on("data", data => process.stdout.write(data.toString()))
+  cmd.stderr.on("data", data => process.stderr.write(data.toString()))
+  cmd.on('error', (error) => process.stderr.write(error.message))
+  cmd.on("close", code => {
+    console.log(`child process exited with code ${code}`)
+  })
 }
 
 function getConnectionString(env){
