@@ -76,9 +76,17 @@ function getConnectionString(env){
   }
 }
 
+function createCommand_exeTs(more){
+  const options = JSON.stringify({
+    module: "CommonJS",
+    jsx: "react"
+  }).replace(/"/g, '\\"')
+  return `pnpm exec ts-node --compiler-options ${options} ${more}`
+}
 
 module.exports = {
   parseCommand,
   run,
   getConnectionString,
+  createCommand_exeTs,
 }

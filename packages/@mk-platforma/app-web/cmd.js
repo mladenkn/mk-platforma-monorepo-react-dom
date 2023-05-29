@@ -1,5 +1,5 @@
 const { match } = require('ts-pattern')
-const { parseCommand, run, getConnectionString } = require('./cmd.utils')
+const { parseCommand, run, getConnectionString, createCommand_exeTs } = require('./cmd.utils')
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"] || "dev"
@@ -55,11 +55,3 @@ const run_args = match(parsed.command)
   .exhaustive()
 
 run(...run_args)
-
-function createCommand_exeTs(more){
-  const options = JSON.stringify({
-    module: "CommonJS",
-    jsx: "react"
-  }).replace(/"/g, '\\"')
-  return `pnpm exec ts-node --compiler-options ${options} ${more}`
-}
