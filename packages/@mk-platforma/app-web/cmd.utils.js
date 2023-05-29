@@ -12,7 +12,7 @@ function parseCommand(){
   return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
-function run(...cmd){
+async function run(...cmd){
   const [env, commands] = match(cmd)
     .with([{}, P.array(P.string)], args => [args[0], args[1]])
     .with([{}, P.string], args => [args[0], [args[1]]])
@@ -22,7 +22,7 @@ function run(...cmd){
 
   try {
     for (const command of commands) {
-      run_single(command, env) 
+      await run_single(command, env) 
     }    
   } catch (error) {
     console.error(`Error executing the command: ${error.message}`)
@@ -40,12 +40,18 @@ function run_single(command, env){
     env: { ...process.env, ...env },
     stdio: command_words[0] === 'psql' ? 'inherit' : undefined
   })
-  cmd.stdout?.on?.("data", data => process.stdout.write(data.toString()))
-  cmd.stderr?.on?.("data", data => process.stderr.write(data.toString()))
-  cmd.on?.('error', (error) => process.stderr.write(error.message))
-  cmd.on?.("close", code => {
-    console.log(`child process exited with code ${code}`)
-  })
+  return new Promise((resolve, reject) => {
+    cmd.stdout?.on?.("data", data => process.stdout.write(data.toString()))
+    cmd.stderr?.on?.("data", data => process.stderr.write(data.toString()))
+    cmd.on?.('error', (error) => {
+      reject(error.message)
+      process.stderr.write(error.message)
+    })
+    cmd.on?.("close", code => {
+      resolve(code)
+      console.log(`child process exited with code ${code}`)
+    })
+  })  
 }
 
 function run_withExec(command, env){

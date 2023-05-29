@@ -31,7 +31,7 @@ const run_args = match(parsed.command)
     [
       `prisma db execute --file './db.truncate.sql'`,
       `prisma db push --accept-data-loss`,
-      `pnpm _exe-ts ./data.gen/db.seed.ts`,
+      createCommand_exeTs("./data.gen/db.seed.ts")
     ]
   ])
 
