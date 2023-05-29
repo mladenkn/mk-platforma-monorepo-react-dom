@@ -21,14 +21,9 @@ function run(...cmd){
 
   const command_words = command.split(' ')
 
-  console.log(24, command_words, env)
-
   try {
     const cmd = spawn(command_words[0], [command_words.slice(1)], {
-      env: {
-        ...process.env,
-        ...env
-      }
+      env: { ...process.env, ...env }
     })
     cmd.stdout.on("data", data => process.stdout.write(data.toString()))
     cmd.stderr.on("data", data => process.stderr.write(data.toString()))
