@@ -1,7 +1,7 @@
 import * as trpcNext from "@trpc/server/adapters/next"
-import { ApiRouter } from "~/my-api/api.root"
+import { ApiRouter } from "~/api_/api.root"
 import { NextApiHandler } from "next"
-import { createContext } from "~/my-api/api.server.utils"
+import { createContext } from "~/api_/api.server.utils"
 
 // @see https://trpc.io/docs/api-handler
 const handler: NextApiHandler = trpcNext.createNextApiHandler({

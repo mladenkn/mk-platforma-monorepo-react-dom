@@ -2,7 +2,7 @@ import { Box, Typography, Avatar, useTheme } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import React from "react"
-import { Api_outputs } from "~/my-api/api.infer"
+import { Api_outputs } from "~/api_/api.infer"
 
 type Props = NonNullable<Api_outputs["post"]["single"]>["expertEndorsement"] & {
   location?: {

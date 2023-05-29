@@ -7,7 +7,7 @@ import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDown
 import { Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import { Category_label } from "@prisma/client"
-import Api from "~/my-api/api.client"
+import Api from "~/api_/api.client"
 import { eva } from "@mk-libs/common/common"
 import { getCategoryLabel, CategoryIcon } from "~/domain/category/Category.common"
 import { LogoLink } from "~/domain/common"

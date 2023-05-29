@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext } from "next"
 import User_profile from "../../domain/user/User.profile"
-import { Api_ss } from "../../my-api/api.root"
+import { Api_ss } from "../../api_/api.root"
 import db from "../../prisma/instance"
 import { user_id_ss_get } from "../api/auth/[...nextauth]"
 import { typeCheck } from "@mk-libs/common/common"

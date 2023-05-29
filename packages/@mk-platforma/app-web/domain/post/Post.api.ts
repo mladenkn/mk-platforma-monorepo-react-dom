@@ -1,8 +1,8 @@
 import { z } from "zod"
-import { publicProcedure, router } from "~/my-api/api.server.utils"
+import { publicProcedure, router } from "~/api_/api.server.utils"
 import Post_api_create from "./Post.api.create"
 import { Post_list_many } from "./Post.api.abstract"
-import { SuperData_query2 } from "~/my-api/api.SuperData"
+import { SuperData_query2 } from "~/api_/api.SuperData"
 
 const Post_api = router({
   list: router({

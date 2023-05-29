@@ -1,8 +1,8 @@
 import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
 import React, { ReactElement, useState } from "react"
-import Api from "../my-api/api.client"
+import Api from "../api_/api.client"
 import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
-import { Api_outputs } from "~/my-api/api.infer"
+import { Api_outputs } from "~/api_/api.infer"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps

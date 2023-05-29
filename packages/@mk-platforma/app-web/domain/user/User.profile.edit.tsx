@@ -1,6 +1,6 @@
 import { Paper, Typography } from "@mui/material"
-import Api from "~/my-api/api.client"
-import { Api_outputs } from "~/my-api/api.infer"
+import Api from "~/api_/api.client"
+import { Api_outputs } from "~/api_/api.infer"
 import Layout from "../Layout"
 import { Header, Header_back, Header_moreOptions } from "../Header"
 import { LogoLink } from "../common"
