@@ -36,8 +36,7 @@ async function run(...cmd){
 
 function run_single(command, env){
   if(command.startsWith("pnpm exec ts-node")){
-    run_withExec(command, env)
-    return { code: undefined }
+    return run_withExec(command, env)
   }
   const command_words = command.split(" ")
   const cmd = spawn(command_words[0], command_words.slice(1), {
@@ -57,17 +56,16 @@ function run_single(command, env){
 
 function run_withExec(command, env){
   const command_ = `${objectToEnvString(env)} ${command}`
-  exec(command_, (error, stdout, stderr) => {
-    if (error) {
-      console.log(`error: ${error.message}`);
-      return;
-    }
-    if (stderr) {
-      console.log(`stderr: ${stderr}`);
-      return;
-    }
-    console.log(`stdout: ${stdout}`);
-  })
+  return new Promise((resolve, reject) => {
+    exec(command_, (error, stdout, stderr) => {
+      if (error) {
+        console.error(error)
+        reject({error, code: -1})
+      }
+      console.log(stdout? stdout : stderr)
+      resolve({ code: 1 })
+    })
+  })  
 }
 
 function objectToEnvString(obj){
