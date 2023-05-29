@@ -43,8 +43,10 @@ const run_args = match(parsed.command)
   ])
 
   .with("playground", () => [
-    { DATABASE_URL: getConnectionString(dbInstance) },
-    "tsx ./playground.ts",
+    () => {
+      process.env.DATABASE_URL = getConnectionString(dbInstance)
+      require("./playground.ts")
+    },
   ])
 
   .exhaustive()

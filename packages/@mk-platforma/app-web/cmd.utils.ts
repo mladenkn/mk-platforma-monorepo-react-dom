@@ -11,20 +11,30 @@ export function parseCommand() {
   return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
+const command_type = P.union(
+  P.string,
+  P.when(it => typeof it === "function")
+)
+
 export async function run(...cmd: unknown[]) {
   const [env, commands] = match(cmd)
-    .with([{}, P.array(P.string)], args => [args[0], args[1]])
-    .with([{}, P.string], args => [args[0], [args[1]]])
-    .with(P.array(P.string), cmd => [{}, cmd])
-    .with(P.string, cmd => [{}, [cmd]])
-    .run() as [Record<string, string>, string[]]
+    .with([{}, P.array(command_type)], args => [args[0], args[1]])
+    .with([{}, command_type], args => [args[0], [args[1]]])
+    .with(P.array(command_type), cmd => [{}, cmd])
+    .with(command_type, cmd => [{}, [cmd]])
+    .run() as [Record<string, string>, (string | (() => void))[]]
 
   try {
     for (const command of commands) {
-      const result: any = await run_single(command, env)
-      if (result.code !== 0) {
-        result.error && console.error(result.error?.message || "Error")
-        process.exit(result.code)
+      if (typeof command === "function") {
+        process.env = { ...process.env, ...env }
+        await command()
+      } else {
+        const result: any = await run_single(command, env)
+        if (result.code !== 0) {
+          result.error && console.error(result.error?.message || "Error")
+          process.exit(result.code)
+        }
       }
     }
   } catch (error: any) {
