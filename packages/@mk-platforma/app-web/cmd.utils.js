@@ -39,8 +39,8 @@ function run_single(command, env){
     run_withExec(command, env)
     return { code: undefined }
   }
-  const command_words = command.split(' ')
-  const cmd = spawn(command_words[0], [command_words.slice(1)], {
+  const command_words = command.split(" ")
+  const cmd = spawn(command_words[0], command_words.slice(1), {
     env: { ...process.env, ...env },
     stdio: command_words[0] === 'psql' ? 'inherit' : undefined
   })
