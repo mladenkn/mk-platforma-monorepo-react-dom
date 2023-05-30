@@ -1,12 +1,21 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { session_ss_get } from "~/pages/api/auth/[...nextauth]"
 import { Session } from "next-auth"
+import { z } from "zod"
 
-export function create_getServerSideProps<T>(
+type Options<TInput> = {
+  access?: {
+    everyoneAuthed: boolean
+  }
+  params?: z.ZodType<TInput>
+}
+
+export function create_getServerSideProps<TOutput, TInput = undefined>(
   wrapped: (
     ctx: GetServerSidePropsContext,
     session: Session
-  ) => Promise<GetServerSidePropsResult<T>>
+  ) => Promise<GetServerSidePropsResult<TOutput>>,
+  options?: Options<TInput>
 ) {
   return async function (ctx: GetServerSidePropsContext) {
     const session = await session_ss_get(ctx.req, ctx.res)
