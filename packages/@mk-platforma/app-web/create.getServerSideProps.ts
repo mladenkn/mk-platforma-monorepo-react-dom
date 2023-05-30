@@ -3,7 +3,7 @@ import { session_ss_get_mock } from "~/pages/api/auth/[...nextauth]"
 import { Session } from "next-auth"
 import { z } from "zod"
 import { P, match } from "ts-pattern"
-import { asNonNil, tryParseInt } from "@mk-libs/common/common"
+import { tryParseInt } from "@mk-libs/common/common"
 
 type Options<TInput> = {
   queryParams?: z.ZodType<TInput>
