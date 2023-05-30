@@ -3,26 +3,28 @@ import { publicProcedure, router } from "~/api_/api.server.utils"
 
 export const User_api = router({
   single_withPosts: publicProcedure.input(z.number()).query(({ ctx, input }) =>
-    ctx.db.user.findUnique({
-      where: { id: input },
-      select: {
-        id: true,
-        name: true,
-        avatarStyle: true,
-        posts: {
-          select: {
-            id: true,
-            title: true,
-            categories: {
-              select: {
-                id: true,
-                label: true,
+    ctx.db.user
+      .findUnique({
+        where: { id: input },
+        select: {
+          id: true,
+          name: true,
+          avatarStyle: true,
+          posts: {
+            select: {
+              id: true,
+              title: true,
+              categories: {
+                select: {
+                  id: true,
+                  label: true,
+                },
               },
             },
           },
         },
-      },
-    })
+      })
+      .then(r => r && { ...r, canEdit: r.id === ctx.user_id })
   ),
   single: publicProcedure.input(z.number()).query(({ ctx, input }) =>
     ctx.db.user.findUnique({
