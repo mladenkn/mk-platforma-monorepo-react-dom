@@ -30,8 +30,12 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
     return match(args)
       .with([P_object, P_function], async ([options, wrapped]) => {
         const session = await session_ss_get_mock(ctx.req, ctx.res)
-        const queryParams_parsed = options.queryParams.parse(ctx.query)
-        if (session) return await wrapped(ctx, session, queryParams_parsed)
+        const queryParams_parsed = options.queryParams.safeParse(ctx.query)
+        if (!queryParams_parsed.success) {
+          ctx.res.statusCode = 400
+          ctx.res.end()
+        }
+        if (session) return await wrapped(ctx, session, (queryParams_parsed as any).data)
         else
           return {
             redirect: {
