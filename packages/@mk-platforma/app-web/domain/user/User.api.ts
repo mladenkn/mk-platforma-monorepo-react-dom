@@ -24,7 +24,7 @@ export const User_api = router({
           },
         },
       })
-      .then(r => r && { ...r, canEdit: r.id === ctx.user_id })
+      .then(r => r && { ...r, canEdit: r.id === ctx.user.id })
   ),
   single: publicProcedure.input(z.number()).query(({ ctx, input }) =>
     ctx.db.user.findUnique({

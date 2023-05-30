@@ -74,13 +74,13 @@ export async function user_id_ss_get(
   res: ServerResponse
 ) {
   const session = await getServerSession(req, res, auth_options)
-  if (session?.user?.id) return session?.user?.id
+  if (session?.user) return session?.user
   else {
     const user = await db.user.findUnique({ where: { name: "Mladen" } })
-    if (user) return user.id
+    if (user) return user
     else {
       const firstUser = await db.user.findFirst({})
-      return asNonNil(firstUser).id
+      return asNonNil(firstUser)
     }
   }
 }

@@ -13,7 +13,7 @@ export const createContext = async (
 ) => {
   return {
     db,
-    user_id: await user_id_ss_get(req, res),
+    user: await user_id_ss_get(req, res).then(u => ({ id: u.id })),
   }
 }
 
