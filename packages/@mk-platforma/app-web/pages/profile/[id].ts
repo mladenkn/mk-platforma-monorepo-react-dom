@@ -9,6 +9,7 @@ import { z } from "zod"
 export const getServerSideProps = create_getServerSideProps(
   {
     queryParams: z.object({ id: z.number() }),
+    requireAuth: true,
   },
   async (ctx, session, params) => {
     const user = await Api_ss({ db, user: session.user! }).user.single_withPosts(params.id)
