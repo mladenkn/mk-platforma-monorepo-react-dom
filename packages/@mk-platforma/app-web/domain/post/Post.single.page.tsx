@@ -37,9 +37,11 @@ export default function Post_single_page({
               {...post}
               usePaperSections
               editAction={
-                <IconButton onClick={() => setIsEdit(true)}>
-                  <EditIcon />
-                </IconButton>
+                post.canEdit ? (
+                  <IconButton onClick={() => setIsEdit(true)}>
+                    <EditIcon />
+                  </IconButton>
+                ) : undefined
               }
             />
           ) : (

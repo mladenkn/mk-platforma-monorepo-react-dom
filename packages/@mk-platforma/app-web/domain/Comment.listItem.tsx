@@ -29,12 +29,12 @@ export function Comment_listItem({ sx, comment }: Props) {
           </Typography>
         </Box>
         <Box>
-          {comment.canEdit && (
+          {comment.canDelete && (
             <IconButton>
               <DeleteIcon />
             </IconButton>
           )}
-          {comment.canDelete && (
+          {comment.canEdit && (
             <IconButton>
               <EditIcon />
             </IconButton>

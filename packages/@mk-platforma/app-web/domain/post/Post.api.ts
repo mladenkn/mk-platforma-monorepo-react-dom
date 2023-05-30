@@ -130,6 +130,7 @@ const Post_api = router({
       if (post)
         return {
           ...post,
+          canEdit: post.author.id === ctx.user_id,
           comments: post.comments.map(c => ({
             ...c,
             canEdit: c.author.id === ctx.user_id,
