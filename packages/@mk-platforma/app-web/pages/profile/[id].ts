@@ -5,11 +5,11 @@ import db from "../../prisma/instance"
 import { user_ss_get } from "../api/auth/[...nextauth]"
 import { typeCheck } from "@mk-libs/common/common"
 import { ComponentProps } from "react"
+import { create_getServerSideProps } from "~/create.getServerSideProps"
 
-export async function getServerSideProps({ query, req, res }: GetServerSidePropsContext) {
-  const user_id = parseInt(query.id as string)
-  const user_ = await user_ss_get(req, res)
-  const user = await Api_ss({ db, user: user_ }).user.single_withPosts(user_id)
+const a = create_getServerSideProps(async (ctx, session, params) => {
+  const user_id = parseInt(ctx.query.id as string)
+  const user = await Api_ss({ db, user: session.user! }).user.single_withPosts(user_id)
   if (user)
     return {
       props: typeCheck<ComponentProps<typeof User_profile>>({
@@ -17,6 +17,6 @@ export async function getServerSideProps({ query, req, res }: GetServerSideProps
       }),
     }
   else return { notFound: true }
-}
+})
 
 export default User_profile

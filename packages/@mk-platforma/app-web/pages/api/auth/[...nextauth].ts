@@ -68,6 +68,31 @@ export function session_ss_get(
   return getServerSession(req, res, auth_options)
 }
 
+export async function session_ss_get_mock(
+  req: IncomingMessage & {
+    cookies: NextApiRequestCookies
+  },
+  res: ServerResponse
+) {
+  const session = await getServerSession(req, res, auth_options)
+  if (session?.user) return session
+  else {
+    const user = await db.user.findUnique({ where: { name: "Mladen" } })
+    if (user)
+      return {
+        ...session,
+        user,
+      }
+    else {
+      const firstUser = await db.user.findFirst({})
+      return {
+        ...session,
+        user: asNonNil(firstUser),
+      }
+    }
+  }
+}
+
 // fix: only session user
 export async function user_ss_get(
   req: IncomingMessage & {
@@ -75,16 +100,7 @@ export async function user_ss_get(
   },
   res: ServerResponse
 ) {
-  const session = await getServerSession(req, res, auth_options)
-  if (session?.user) return session?.user
-  else {
-    const user = await db.user.findUnique({ where: { name: "Mladen" } })
-    if (user) return user
-    else {
-      const firstUser = await db.user.findFirst({})
-      return asNonNil(firstUser)
-    }
-  }
+  return (await session_ss_get_mock(req, res)).user
 }
 
 export default NextAuth(auth_options)

@@ -4,9 +4,6 @@ import { Session } from "next-auth"
 import { z } from "zod"
 
 type Options<TInput> = {
-  access?: {
-    everyoneAuthed: boolean
-  }
   params?: z.ZodType<TInput>
 }
 
