@@ -33,6 +33,7 @@ const auth_options = {
     session({ session, user }) {
       if (session.user) {
         session.user.avatarStyle = user.avatarStyle
+        session.user.canMutate = user.canMutate
         session.user.id = match(user.id as string | number)
           .with(P.string, i => parseInt(i))
           .otherwise(i => i)
