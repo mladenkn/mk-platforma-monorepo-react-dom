@@ -33,13 +33,14 @@ type Params_union<TInput, TOutput> =
 export function create_getServerSideProps<TOutput, TInput = undefined>(
   ...args: Params_union<TOutput, TInput>
 ) {
-  return async function (ctx: GetServerSidePropsContext) {
+  return async function (nextContext: GetServerSidePropsContext) {
+    const ctx = await createContext(nextContext.req, nextContext.res)
     return match(args)
       .with([{ queryParams: P_object }, P_function], async ([options, wrapped]) => {
-        const session = await session_ss_get_mock(ctx.req, ctx.res)
+        const session = await session_ss_get_mock(nextContext.req, nextContext.res)
 
         const ctx_query_mapped = Object.fromEntries(
-          Object.entries(ctx.query).map(([key, value]) => {
+          Object.entries(nextContext.query).map(([key, value]) => {
             if (typeof value === "string") {
               const parsed = tryParseInt(value)
               if (parsed.number) return [key, parsed.number]
@@ -53,13 +54,12 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
         }
 
         if (!queryParams_parsed.success) {
-          ctx.res.statusCode = 400
-          ctx.res.end()
+          nextContext.res.statusCode = 400
+          nextContext.res.end()
         }
         if (session || !options.requireAuth) {
-          const ctx_ = await createContext(ctx.req, ctx.res)
-          const api = Api_ss(ctx_)
-          return await wrapped(ctx_, api, (queryParams_parsed as any).data, ctx)
+          const api = Api_ss(ctx)
+          return await wrapped(ctx, api, (queryParams_parsed as any).data, nextContext)
         } else
           return {
             redirect: {
@@ -69,9 +69,8 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
           }
       })
       .with([P_function], async ([wrapped]) => {
-        const ctx_ = await createContext(ctx.req, ctx.res)
-        const api = Api_ss(ctx_)
-        return await wrapped(ctx_, api, ctx)
+        const api = Api_ss(ctx)
+        return await wrapped(ctx, api, nextContext)
       })
       .run()
   }
