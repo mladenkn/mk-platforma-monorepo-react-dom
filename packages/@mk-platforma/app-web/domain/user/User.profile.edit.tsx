@@ -5,6 +5,8 @@ import Layout from "../Layout"
 import { Header, Header_back, Header_moreOptions } from "../Header"
 import { LogoLink } from "../common"
 import DoneIcon from "@mui/icons-material/Done"
+import { asNonNil } from "~/../../@mk-libs/common/common"
+import { useState } from "react"
 
 type User = NonNullable<Api_outputs["user"]["single"]>
 
@@ -14,6 +16,8 @@ type Props = {
 
 export default function User_profile_edit({ user_initial }: Props) {
   const user = Api.user.single.useQuery(user_initial.id, { initialData: user_initial })
+  const user_data = asNonNil(user.data)
+  const [user_name, set__user_name] = useState(user_data.name || "")
   return (
     <Layout
       header={
@@ -27,7 +31,11 @@ export default function User_profile_edit({ user_initial }: Props) {
         <Paper sx={{ width: "100%", p: 2, pb: 3.5, m: 1 }}>
           <Typography variant="h4">Uređivanje profila</Typography>
           <Box sx={{ display: "flex", mt: 3 }}>
-            <TextField label="Korisničko ime" />
+            <TextField
+              label="Korisničko ime"
+              value={user_name}
+              onChange={e => set__user_name(e.target.value)}
+            />
             <IconButton sx={{ ml: 2 }}>
               <DoneIcon />
             </IconButton>
