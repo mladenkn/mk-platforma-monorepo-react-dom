@@ -29,7 +29,7 @@ type Params_union<TInput, TOutput> =
   | [Options<TInput>, Wrapped_withParams<TInput, TOutput>]
   | [Wrapped_noParams<TOutput>]
 
-export function create_getServerSideProps<TOutput, TInput = undefined>(
+export function create_get_ss_props<TOutput, TInput = undefined>(
   ...args: Params_union<TOutput, TInput>
 ) {
   return async function (nextContext: GetServerSidePropsContext) {
