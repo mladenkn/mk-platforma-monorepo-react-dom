@@ -9,7 +9,7 @@ const env = createEnv({
    */
   server: {
     DATABASE_URL: z.string().url(),
-    OPEN_AI_API_KEY: z.string().min(1),
+    NODE_ENV: z.string().optional(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -17,7 +17,6 @@ const env = createEnv({
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
   client: {
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -27,9 +26,7 @@ const env = createEnv({
    */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
-    OPEN_AI_API_KEY: process.env.OPEN_AI_API_KEY,
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
-      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NODE_ENV: process.env.NODE_ENV,
   },
 })
 
