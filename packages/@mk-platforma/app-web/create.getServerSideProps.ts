@@ -3,6 +3,7 @@ import { session_ss_get_mock } from "~/pages/api/auth/[...nextauth]"
 import { Session } from "next-auth"
 import { z } from "zod"
 import { P, match } from "ts-pattern"
+import { tryParseInt } from "@mk-libs/common/common"
 
 type Options<TInput> = {
   queryParams: z.ZodType<TInput>
@@ -30,7 +31,18 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
     return match(args)
       .with([P_object, P_function], async ([options, wrapped]) => {
         const session = await session_ss_get_mock(ctx.req, ctx.res)
-        const queryParams_parsed = options.queryParams.safeParse(ctx.query)
+
+        const ctx_query_mapped = Object.fromEntries(
+          Object.entries(ctx.query).map(([key, value]) => {
+            if (typeof value === "string") {
+              const parsed = tryParseInt(value)
+              if (parsed.number) return [key, parsed.number]
+            }
+            return [key, value]
+          })
+        )
+        const queryParams_parsed = options.queryParams.safeParse(ctx_query_mapped)
+
         if (!queryParams_parsed.success) {
           ctx.res.statusCode = 400
           ctx.res.end()

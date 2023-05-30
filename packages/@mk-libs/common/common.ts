@@ -1,4 +1,4 @@
-import { isEqual, isNil, isObject, transform } from "lodash"
+import { isEqual, isNil, isNumber, isObject, transform } from "lodash"
 import { DeepPartial, DeepRequired } from "utility-types"
 
 export function addNumbers(num1: number, num2: number) {
@@ -151,4 +151,10 @@ export function undefinedToNullsDeep<T>(obj: T): UndefinedToNullsDeep<T> {
 
 export function typeCheck<T>(value: T) {
   return value
+}
+
+export function tryParseInt(str: any) {
+  const parsed = parseInt(str)
+  if (isNaN(parsed)) return { error: "String is not a number." }
+  else return { number: parsed }
 }
