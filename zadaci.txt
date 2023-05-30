@@ -1,11 +1,8 @@
 - file upload
 - create i update
 - profile edit
-- treba li User.id bit string?
-- pročitat ono na Vercelu i odlučit oću li njih
-- bolji header
 
 - pravo
 
-PLAN:
+- treba li User.id bit string?
 - CategoryModel.label treba bit CategoryModel.code i to string?
