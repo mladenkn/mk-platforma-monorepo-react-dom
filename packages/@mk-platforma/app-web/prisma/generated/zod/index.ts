@@ -94,7 +94,7 @@ export const SortOrderSchema = z.enum(['asc','desc']);
 
 export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCommitted','RepeatableRead','Serializable']);
 
-export const UserScalarFieldEnumSchema = z.enum(['id','name','avatarStyle','email','emailVerified']);
+export const UserScalarFieldEnumSchema = z.enum(['id','name','avatarStyle','email','emailVerified','canMutate']);
 
 export const VerificationTokenScalarFieldEnumSchema = z.enum(['identifier','token','expires']);
 
@@ -211,6 +211,7 @@ export const UserSchema = z.object({
   avatarStyle: InputJsonValue,
   email: z.string().nullish(),
   emailVerified: z.coerce.date().nullish(),
+  canMutate: z.boolean(),
 })
 
 export type User = z.infer<typeof UserSchema>

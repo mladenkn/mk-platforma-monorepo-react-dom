@@ -45,6 +45,7 @@ const auth_options = {
 declare module "next-auth/adapters" {
   interface AdapterUser {
     avatarStyle: Prisma.JsonValue
+    canMutate: boolean
   }
 }
 
@@ -53,6 +54,7 @@ declare module "next-auth" {
     user?: DefaultSession["user"] & {
       id: number
       avatarStyle: Prisma.JsonValue
+      canMutate: boolean
     }
   }
 }
@@ -67,20 +69,20 @@ export function session_ss_get(
 }
 
 // fix: only session user
-export async function user_id_ss_get(
+export async function user_ss_get(
   req: IncomingMessage & {
     cookies: NextApiRequestCookies
   },
   res: ServerResponse
 ) {
   const session = await getServerSession(req, res, auth_options)
-  if (session?.user?.id) return session?.user?.id
+  if (session?.user) return session?.user
   else {
     const user = await db.user.findUnique({ where: { name: "Mladen" } })
-    if (user) return user.id
+    if (user) return user
     else {
       const firstUser = await db.user.findFirst({})
-      return asNonNil(firstUser).id
+      return asNonNil(firstUser)
     }
   }
 }

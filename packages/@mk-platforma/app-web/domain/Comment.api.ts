@@ -20,7 +20,7 @@ const Post_Comment_create_input_zod = CommentSchema.pick({
 })
 
 const Comment_api = router({
-  many: SuperData_query(Comment_api_many, ({ db, user_id }, output1) =>
+  many: SuperData_query(Comment_api_many, ({ db, user }, output1) =>
     db.comment
       .findMany({
         ...output1,
@@ -39,8 +39,8 @@ const Comment_api = router({
       .then(list =>
         list.map(c => ({
           ...c,
-          canEdit: c.author.id === user_id,
-          canDelete: c.author.id === user_id,
+          canEdit: user.canMutate && c.author.id === user.id,
+          canDelete: user.canMutate && c.author.id === user.id,
         }))
       )
   ),
