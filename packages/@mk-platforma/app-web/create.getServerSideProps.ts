@@ -13,7 +13,8 @@ type Options<TInput> = {
 export function create_getServerSideProps<TOutput, TInput = undefined>(
   wrapped: (
     ctx: GetServerSidePropsContext,
-    session: Session
+    session: Session,
+    params?: TInput
   ) => Promise<GetServerSidePropsResult<TOutput>>,
   options?: Options<TInput>
 ) {
