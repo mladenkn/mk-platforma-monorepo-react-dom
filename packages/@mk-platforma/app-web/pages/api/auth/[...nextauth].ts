@@ -45,6 +45,7 @@ const auth_options = {
 declare module "next-auth/adapters" {
   interface AdapterUser {
     avatarStyle: Prisma.JsonValue
+    canMutate: boolean
   }
 }
 
@@ -53,6 +54,7 @@ declare module "next-auth" {
     user?: DefaultSession["user"] & {
       id: number
       avatarStyle: Prisma.JsonValue
+      canMutate: boolean
     }
   }
 }
