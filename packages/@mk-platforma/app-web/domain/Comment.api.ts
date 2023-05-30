@@ -39,8 +39,8 @@ const Comment_api = router({
       .then(list =>
         list.map(c => ({
           ...c,
-          canEdit: c.author.id === user.id,
-          canDelete: c.author.id === user.id,
+          canEdit: user.canMutate && c.author.id === user.id,
+          canDelete: user.canMutate && c.author.id === user.id,
         }))
       )
   ),
