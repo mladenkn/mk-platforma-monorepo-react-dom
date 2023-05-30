@@ -35,6 +35,8 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
 ) {
   return async function (nextContext: GetServerSidePropsContext) {
     const ctx = await createContext(nextContext.req, nextContext.res)
+    const api = Api_ss(ctx)
+
     return match(args)
       .with([{ queryParams: P_object }, P_function], async ([options, wrapped]) => {
         const session = await session_ss_get_mock(nextContext.req, nextContext.res)
@@ -58,7 +60,6 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
           nextContext.res.end()
         }
         if (session || !options.requireAuth) {
-          const api = Api_ss(ctx)
           return await wrapped(ctx, api, (queryParams_parsed as any).data, nextContext)
         } else
           return {
@@ -68,10 +69,7 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
             },
           }
       })
-      .with([P_function], async ([wrapped]) => {
-        const api = Api_ss(ctx)
-        return await wrapped(ctx, api, nextContext)
-      })
+      .with([P_function], async ([wrapped]) => await wrapped(ctx, api, nextContext))
       .run()
   }
 }
