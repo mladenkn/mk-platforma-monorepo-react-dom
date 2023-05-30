@@ -31,7 +31,7 @@ const Api: CreateTRPCNext<ApiRouter_type, NextPageContext, unknown> =
              * If you want to use SSR, you need to use the server's full URL
              * @link https://trpc.io/docs/ssr
              **/
-            url: `${getBaseUrl()}/api/trpc`,
+            url: `${getBaseUrl()}/api/trpc`, // možda se može izbacit ovo base, jer neman SSR
           }),
         ],
         /**
