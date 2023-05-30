@@ -69,7 +69,7 @@ export function session_ss_get(
 }
 
 // fix: only session user
-export async function user_id_ss_get(
+export async function user_ss_get(
   req: IncomingMessage & {
     cookies: NextApiRequestCookies
   },
