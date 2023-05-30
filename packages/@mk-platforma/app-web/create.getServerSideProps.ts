@@ -8,29 +8,30 @@ type Options<TInput> = {
   queryParams: z.ZodType<TInput>
 }
 
-export function create_getServerSideProps<TOutput, TInput = undefined>(
-  options: Options<TInput>,
-  wrapped: (
-    ctx: GetServerSidePropsContext,
-    session: Session,
-    params: TInput
-  ) => Promise<GetServerSidePropsResult<TOutput>>
-): any
+type Wrapped_noParams<TOutput> = (
+  ctx: GetServerSidePropsContext,
+  session: Session
+) => Promise<GetServerSidePropsResult<TOutput>>
+
+type Wrapped_withParams<TInput, TOutput> = (
+  ctx: GetServerSidePropsContext,
+  session: Session,
+  params: TInput
+) => Promise<GetServerSidePropsResult<TOutput>>
+
+type FullParams<TInput, TOutput> =
+  | [Wrapped_noParams<TOutput>]
+  | [Options<TInput>, Wrapped_withParams<TInput, TOutput>]
 
 export function create_getServerSideProps<TOutput, TInput = undefined>(
-  wrapped: (
-    ctx: GetServerSidePropsContext,
-    session: Session
-  ) => Promise<GetServerSidePropsResult<TOutput>>
-): any
-
-export function create_getServerSideProps<TOutput, TInput = undefined>(...args: any[]) {
+  ...args: FullParams<TOutput, TInput>
+) {
   return async function (ctx: GetServerSidePropsContext) {
     return match(args)
       .with([P_object, P_function], async ([options, wrapped]) => {
         const session = await session_ss_get_mock(ctx.req, ctx.res)
-        const queryParams_parsed = (options as any).queryParams.parse(ctx.query)
-        if (session) return await (wrapped as any)(ctx, session, queryParams_parsed)
+        const queryParams_parsed = options.queryParams.parse(ctx.query)
+        if (session) return await wrapped(ctx, session, queryParams_parsed)
         else
           return {
             redirect: {
@@ -41,7 +42,7 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(...args: 
       })
       .with([P_function], async ([wrapped]) => {
         const session = await session_ss_get_mock(ctx.req, ctx.res)
-        if (session) return await (wrapped as any)(ctx, session)
+        if (session) return await wrapped(ctx, session)
         else
           return {
             redirect: {
@@ -50,6 +51,7 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(...args: 
             },
           }
       })
+      .run()
   }
 }
 
