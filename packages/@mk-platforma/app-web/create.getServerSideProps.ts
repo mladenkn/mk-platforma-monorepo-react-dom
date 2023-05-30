@@ -22,12 +22,12 @@ type Wrapped_withParams<TInput, TOutput> = (
   params: TInput
 ) => Returned<TOutput>
 
-type FullParams<TInput, TOutput> =
+type Params_union<TInput, TOutput> =
   | [Wrapped_noParams<TOutput>]
   | [Options<TInput>, Wrapped_withParams<TInput, TOutput>]
 
 export function create_getServerSideProps<TOutput, TInput = undefined>(
-  ...args: FullParams<TOutput, TInput>
+  ...args: Params_union<TOutput, TInput>
 ) {
   return async function (ctx: GetServerSidePropsContext) {
     return match(args)
