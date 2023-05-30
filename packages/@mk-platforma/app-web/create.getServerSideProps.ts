@@ -7,6 +7,7 @@ import { tryParseInt } from "@mk-libs/common/common"
 
 type Options<TInput> = {
   queryParams?: z.ZodType<TInput>
+  requireAuth?: boolean
 }
 
 type Returned<TOutput> = Promise<GetServerSidePropsResult<TOutput>>
@@ -52,7 +53,8 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
           ctx.res.statusCode = 400
           ctx.res.end()
         }
-        if (session) return await wrapped(ctx, session, (queryParams_parsed as any).data)
+        if (session || !options.requireAuth)
+          return await wrapped(ctx, session, (queryParams_parsed as any).data)
         else
           return {
             redirect: {
