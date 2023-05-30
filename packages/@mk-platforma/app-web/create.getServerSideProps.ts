@@ -39,8 +39,6 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
 
     return match(args)
       .with([{ queryParams: P_object }, P_function], async ([options, wrapped]) => {
-        const session = await session_ss_get_mock(nextContext.req, nextContext.res)
-
         const ctx_query_mapped = Object.fromEntries(
           Object.entries(nextContext.query).map(([key, value]) => {
             if (typeof value === "string") {
@@ -59,7 +57,7 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
           nextContext.res.statusCode = 400
           nextContext.res.end()
         }
-        if (session || !options.requireAuth) {
+        if (ctx.session || !options.requireAuth) {
           return await wrapped(ctx, api, (queryParams_parsed as any).data, nextContext)
         } else
           return {
