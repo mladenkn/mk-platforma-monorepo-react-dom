@@ -113,6 +113,7 @@ const Post_api = router({
                 select: {
                   name: true,
                   avatarStyle: true,
+                  id: true,
                 },
               },
             },
@@ -131,8 +132,8 @@ const Post_api = router({
           ...post,
           comments: post.comments.map(c => ({
             ...c,
-            canEdit: true,
-            canDelete: true,
+            canEdit: c.author.id === ctx.user_id,
+            canDelete: c.author.id === ctx.user_id,
           })),
         }
     }),
