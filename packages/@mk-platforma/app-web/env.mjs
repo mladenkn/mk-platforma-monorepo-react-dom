@@ -10,6 +10,7 @@ const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
     NODE_ENV: z.string().optional(),
+    USERS_WHO_CAN_MUTATE: z.string().optional(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -27,7 +28,13 @@ const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    USERS_WHO_CAN_MUTATE: process.env.USERS_WHO_CAN_MUTATE,
   },
 })
 
-export default env
+const env_mapped = {
+  ...env,
+  USERS_WHO_CAN_MUTATE: env.USERS_WHO_CAN_MUTATE?.split(",").map(strNum => parseInt(strNum)) ?? []
+}
+
+export default env_mapped
