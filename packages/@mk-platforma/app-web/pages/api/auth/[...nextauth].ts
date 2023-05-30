@@ -81,12 +81,14 @@ export async function session_ss_get_mock(
     if (user)
       return {
         ...session,
+        expires: session?.expires ?? "default expires haha",
         user,
       }
     else {
       const firstUser = await db.user.findFirst({})
       return {
         ...session,
+        expires: session?.expires ?? "default expires haha",
         user: asNonNil(firstUser),
       }
     }
@@ -100,7 +102,7 @@ export async function user_ss_get(
   },
   res: ServerResponse
 ) {
-  return (await session_ss_get_mock(req, res)).user
+  return (await session_ss_get_mock(req, res)).user!
 }
 
 export default NextAuth(auth_options)
