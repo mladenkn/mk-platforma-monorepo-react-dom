@@ -26,8 +26,8 @@ type Wrapped_noParams<TOutput> = (
 ) => Returned<TOutput>
 
 type Params_union<TInput, TOutput> =
-  | [Wrapped_noParams<TOutput>]
   | [Options<TInput>, Wrapped_withParams<TInput, TOutput>]
+  | [Wrapped_noParams<TOutput>]
 
 export function create_getServerSideProps<TOutput, TInput = undefined>(
   ...args: Params_union<TOutput, TInput>

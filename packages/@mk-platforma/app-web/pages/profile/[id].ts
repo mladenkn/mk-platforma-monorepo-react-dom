@@ -16,7 +16,7 @@ export const getServerSideProps = create_getServerSideProps(
           user_initial: user,
         }),
       }
-    else return { notFound: true, props: undefined }
+    else return { notFound: true, props: {} }
   }
 )
 
