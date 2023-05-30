@@ -9,16 +9,18 @@ type Options<TInput> = {
   queryParams: z.ZodType<TInput>
 }
 
+type Returned<TOutput> = Promise<GetServerSidePropsResult<TOutput>>
+
 type Wrapped_noParams<TOutput> = (
   ctx: GetServerSidePropsContext,
   session: Session
-) => Promise<GetServerSidePropsResult<TOutput>>
+) => Returned<TOutput>
 
 type Wrapped_withParams<TInput, TOutput> = (
   ctx: GetServerSidePropsContext,
   session: Session,
   params: TInput
-) => Promise<GetServerSidePropsResult<TOutput>>
+) => Returned<TOutput>
 
 type FullParams<TInput, TOutput> =
   | [Wrapped_noParams<TOutput>]
