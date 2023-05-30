@@ -1,23 +1,39 @@
 import { initTRPC } from "@trpc/server"
 import superjson from "superjson"
 import db from "~/prisma/instance"
-import { user_ss_get } from "~/pages/api/auth/[...nextauth]"
+import { session_ss_get_mock } from "~/pages/api/auth/[...nextauth]"
 import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequestCookies } from "next/dist/server/api-utils"
+import { Session } from "next-auth"
+import { PrismaClient } from "@prisma/client"
 
-export const createContext = async (
+export async function createContex(
   req: IncomingMessage & {
     cookies: NextApiRequestCookies
   },
   res: ServerResponse
-) => {
+): Promise<Api_context> {
+  const session = await session_ss_get_mock(req, res)
   return {
     db,
-    user: await user_ss_get(req, res).then(u => ({ id: u.id, canMutate: u.canMutate })),
+    session,
+    user: {
+      id: session.user!.id,
+      canMutate: session.user!.canMutate,
+    },
   }
 }
 
-const t = initTRPC.context<typeof createContext>().create({
+export type Api_context = {
+  db: PrismaClient
+  session?: Session | null | undefined
+  user: {
+    id: number
+    canMutate: boolean
+  }
+}
+
+const t = initTRPC.context<Api_context>().create({
   transformer: superjson,
 })
 

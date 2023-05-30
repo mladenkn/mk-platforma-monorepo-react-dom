@@ -1,6 +1,7 @@
 import { createServerSideHelpers } from "@trpc/react-query/server"
-import { ApiRouter, Api_context } from "~/api_/api.root"
+import { ApiRouter } from "~/api_/api.root"
 import superjson from "superjson"
+import { Api_context } from "./api.server.utils"
 
 export default function ss_utils_create(ctx: Api_context) {
   return createServerSideHelpers({

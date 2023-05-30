@@ -1,9 +1,10 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { session_ss_get_mock } from "~/pages/api/auth/[...nextauth]"
-import { Session } from "next-auth"
 import { z } from "zod"
 import { P, match } from "ts-pattern"
 import { tryParseInt } from "@mk-libs/common/common"
+import { Api_ss, Api_ss_type } from "./api_/api.root"
+import { Api_context, createContext } from "./api_/api.server.utils"
 
 type Options<TInput> = {
   queryParams?: z.ZodType<TInput>
@@ -12,15 +13,17 @@ type Options<TInput> = {
 
 type Returned<TOutput> = Promise<GetServerSidePropsResult<TOutput>>
 
-type Wrapped_noParams<TOutput> = (
-  ctx: GetServerSidePropsContext,
-  session: Session
+type Wrapped_withParams<TInput, TOutput> = (
+  ctx: Api_context,
+  api: Api_ss_type,
+  params: TInput,
+  nextContext: GetServerSidePropsContext
 ) => Returned<TOutput>
 
-type Wrapped_withParams<TInput, TOutput> = (
-  ctx: GetServerSidePropsContext,
-  session: Session,
-  params: TInput
+type Wrapped_noParams<TOutput> = (
+  ctx: Api_context,
+  api: Api_ss_type,
+  nextContext: GetServerSidePropsContext
 ) => Returned<TOutput>
 
 type Params_union<TInput, TOutput> =
@@ -53,9 +56,11 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
           ctx.res.statusCode = 400
           ctx.res.end()
         }
-        if (session || !options.requireAuth)
-          return await wrapped(ctx, session, (queryParams_parsed as any).data)
-        else
+        if (session || !options.requireAuth) {
+          const ctx_ = await createContext(ctx.req, ctx.res)
+          const api = Api_ss(ctx_)
+          return await wrapped(ctx_, api, (queryParams_parsed as any).data, ctx)
+        } else
           return {
             redirect: {
               destination: "/api/auth/signin",
@@ -64,15 +69,9 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
           }
       })
       .with([P_function], async ([wrapped]) => {
-        const session = await session_ss_get_mock(ctx.req, ctx.res)
-        if (session) return await wrapped(ctx, session)
-        else
-          return {
-            redirect: {
-              destination: "/api/auth/signin",
-              permanent: false,
-            },
-          }
+        const ctx_ = await createContext(ctx.req, ctx.res)
+        const api = Api_ss(ctx_)
+        return await wrapped(ctx_, api, ctx)
       })
       .run()
   }

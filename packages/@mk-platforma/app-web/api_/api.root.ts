@@ -1,11 +1,9 @@
 import { User_api } from "../domain/user/User.api"
-import { createContext, router } from "~/api_/api.server.utils"
+import { router } from "~/api_/api.server.utils"
 import Category_api from "../domain/category/Category.api"
 import Comment_api from "~/domain/Comment.api"
 import Location_api from "~/domain/Location.api"
 import Post_api from "~/domain/post/Post.api"
-
-export type Api_context = Awaited<ReturnType<typeof createContext>>
 
 export const ApiRouter = router({
   post: Post_api,
@@ -16,6 +14,7 @@ export const ApiRouter = router({
 })
 
 export const Api_ss = ApiRouter.createCaller
+export type Api_ss_type = ReturnType<typeof Api_ss>
 
 // Export type router type signature,
 // NOT the router itself.
