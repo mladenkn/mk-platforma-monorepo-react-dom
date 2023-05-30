@@ -7,7 +7,7 @@ import { NextApiRequestCookies } from "next/dist/server/api-utils"
 import { Session } from "next-auth"
 import { PrismaClient } from "@prisma/client"
 
-export async function createContex(
+export async function createContext(
   req: IncomingMessage & {
     cookies: NextApiRequestCookies
   },
