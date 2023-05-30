@@ -46,9 +46,7 @@ export default function User_profile({ user_initial }: Props) {
                       <EditIcon />
                     </IconButton>
                   </Link>
-                ) : (
-                  <></>
-                )}
+                ) : undefined}
               </Box>
               <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4 }}>
                 {posts_byCategories?.map(([category_id, posts]) => (
