@@ -26,17 +26,30 @@ export function create_getServerSideProps<TOutput, TInput = undefined>(
 
 export function create_getServerSideProps<TOutput, TInput = undefined>(...args: any[]) {
   return async function (ctx: GetServerSidePropsContext) {
-    return match(args).with([P_object, P_function], async ([options, wrapped]) => {
-      const session = await session_ss_get_mock(ctx.req, ctx.res)
-      if (session) return await (wrapped as any)(ctx, session)
-      else
-        return {
-          redirect: {
-            destination: "/api/auth/signin",
-            permanent: false,
-          },
-        }
-    })
+    return match(args)
+      .with([P_object, P_function], async ([options, wrapped]) => {
+        const session = await session_ss_get_mock(ctx.req, ctx.res)
+        const queryParams_parsed = (options as any).queryParams.parse(ctx.query)
+        if (session) return await (wrapped as any)(ctx, session, queryParams_parsed)
+        else
+          return {
+            redirect: {
+              destination: "/api/auth/signin",
+              permanent: false,
+            },
+          }
+      })
+      .with([P_function], async ([wrapped]) => {
+        const session = await session_ss_get_mock(ctx.req, ctx.res)
+        if (session) return await (wrapped as any)(ctx, session)
+        else
+          return {
+            redirect: {
+              destination: "/api/auth/signin",
+              permanent: false,
+            },
+          }
+      })
   }
 }
 

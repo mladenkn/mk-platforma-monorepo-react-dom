@@ -11,8 +11,7 @@ export const getServerSideProps = create_getServerSideProps(
     queryParams: z.object({ id: z.number() }),
   },
   async (ctx, session, params) => {
-    const user_id = parseInt(ctx.query.id as string)
-    const user = await Api_ss({ db, user: session.user! }).user.single_withPosts(user_id)
+    const user = await Api_ss({ db, user: session.user! }).user.single_withPosts(params.id)
     if (user)
       return {
         props: typeCheck<ComponentProps<typeof User_profile>>({
