@@ -17,7 +17,7 @@ export async function createContext(
   return {
     db,
     session,
-    user: {
+    user: session.user && {
       id: session.user!.id,
       canMutate: session.user!.canMutate,
     },
@@ -27,7 +27,7 @@ export async function createContext(
 export type Api_context = {
   db: PrismaClient
   session?: Session | null | undefined
-  user: {
+  user?: {
     id: number
     canMutate: boolean
   }

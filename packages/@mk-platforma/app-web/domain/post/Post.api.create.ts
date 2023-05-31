@@ -1,4 +1,4 @@
-import { shallowPick } from "@mk-libs/common/common"
+import { asNonNil, shallowPick } from "@mk-libs/common/common"
 import { publicProcedure } from "~/api_/api.server.utils"
 import { Post_api_create_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
@@ -13,7 +13,7 @@ const Post_api_create = publicProcedure
           ...shallowPick(input, "title", "description", "contact"),
           author: {
             connect: {
-              id: ctx.user.id,
+              id: asNonNil(ctx.user).id,
             },
           },
           categories: {

@@ -130,11 +130,11 @@ const Post_api = router({
       if (post)
         return {
           ...post,
-          canEdit: ctx.user.canMutate && post.author.id === ctx.user.id,
+          canEdit: ctx.user?.canMutate ? post.author.id === ctx.user?.id : false,
           comments: post.comments.map(c => ({
             ...c,
-            canEdit: ctx.user.canMutate && c.author.id === ctx.user.id,
-            canDelete: ctx.user.canMutate && c.author.id === ctx.user.id,
+            canEdit: ctx.user?.canMutate ? c.author.id === ctx.user?.id : false,
+            canDelete: ctx.user?.canMutate ? c.author.id === ctx.user?.id : false,
           })),
         }
     }),
