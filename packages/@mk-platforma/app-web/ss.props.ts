@@ -40,7 +40,7 @@ export default function create_get_ss_props<TOutput, TInput = undefined>(
       nextContext.res.statusCode = 400
       nextContext.res.end()
     }
-    if (ctx.session || !options.requireAuth) {
+    if (ctx.user || !options.requireAuth) {
       return await wrapped(ctx, (queryParams_parsed as any).data, nextContext)
     } else {
       return {
