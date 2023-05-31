@@ -12,15 +12,15 @@ type Options<TInput> = {
 export default function create_get_ss_props<TOutput, TInput = undefined>(
   options: Options<TInput>,
   wrapped: (
-    ctx: Api_context,
-    api: Api_ss_type,
+    ctx: Api_context & { api: Api_ss_type },
     params: TInput,
     nextContext: GetServerSidePropsContext
   ) => Promise<GetServerSidePropsResult<TOutput>>
 ) {
   return async function (nextContext: GetServerSidePropsContext) {
-    const ctx = await createContext(nextContext.req, nextContext.res)
-    const api = Api_ss(ctx)
+    const _ctx = await createContext(nextContext.req, nextContext.res)
+    const api = Api_ss(_ctx)
+    const ctx = { ..._ctx, api }
 
     const ctx_query_mapped = Object.fromEntries(
       Object.entries(nextContext.query).map(([key, value]) => {
@@ -41,7 +41,7 @@ export default function create_get_ss_props<TOutput, TInput = undefined>(
       nextContext.res.end()
     }
     if (ctx.session || !options.requireAuth) {
-      return await wrapped(ctx, api, (queryParams_parsed as any).data, nextContext)
+      return await wrapped(ctx, (queryParams_parsed as any).data, nextContext)
     } else {
       return {
         redirect: {

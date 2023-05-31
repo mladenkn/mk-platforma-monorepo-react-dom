@@ -8,7 +8,7 @@ export const getServerSideProps = create_get_ss_props(
   {
     queryParams: z.object({ id: z.number() }),
   },
-  async (ctx, api, params) => {
+  async ({ api }, params) => {
     const user = await api.user.single_withPosts(params.id)
     if (user)
       return {
