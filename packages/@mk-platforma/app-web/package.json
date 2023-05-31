@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "DATABASE_URL=postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway next build",
     "ts": "tsc --noEmit",
     "_c": "tsx cmd.ts",
     "postinstall": "pnpm prisma generate"
