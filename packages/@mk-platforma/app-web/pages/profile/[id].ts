@@ -1,7 +1,7 @@
 import User_profile from "../../domain/user/User.profile"
 import { typeCheck } from "@mk-libs/common/common"
 import { ComponentProps } from "react"
-import { create_get_ss_props } from "~/create.getServerSideProps"
+import create_get_ss_props from "~/create.getServerSideProps"
 import { z } from "zod"
 
 export const getServerSideProps = create_get_ss_props(
