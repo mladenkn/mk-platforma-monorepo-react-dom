@@ -1,7 +1,7 @@
 import { TRPCError, initTRPC } from "@trpc/server"
 import superjson from "superjson"
 import db from "~/prisma/instance"
-import { session_ss_get_mock } from "~/pages/api/auth/[...nextauth]"
+import { session_ss_get } from "~/pages/api/auth/[...nextauth]"
 import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequestCookies } from "next/dist/server/api-utils"
 import { PrismaClient } from "@prisma/client"
@@ -12,12 +12,12 @@ export async function createContext(
   },
   res: ServerResponse
 ): Promise<Api_context> {
-  const session = await session_ss_get_mock(req, res)
+  const session = await session_ss_get(req, res)
   return {
     db,
-    user: session.user && {
-      id: session.user!.id,
-      canMutate: session.user!.canMutate,
+    user: session?.user && {
+      id: session.user.id,
+      canMutate: session.user.canMutate,
     },
   }
 }
