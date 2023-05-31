@@ -103,7 +103,7 @@ export async function user_ss_get(
   },
   res: ServerResponse
 ) {
-  return (await session_ss_get_mock(req, res)).user!
+  return (await session_ss_get_mock(req, res)).user
 }
 
 export default NextAuth(auth_options)
