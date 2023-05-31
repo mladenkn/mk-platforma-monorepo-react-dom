@@ -1,4 +1,4 @@
-import { initTRPC } from "@trpc/server"
+import { TRPCError, initTRPC } from "@trpc/server"
 import superjson from "superjson"
 import db from "~/prisma/instance"
 import { session_ss_get_mock } from "~/pages/api/auth/[...nextauth]"
@@ -37,5 +37,19 @@ const t = initTRPC.context<Api_context>().create({
   transformer: superjson,
 })
 
+const isAuthed = t.middleware(opts => {
+  const { ctx } = opts
+  if (!ctx.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" })
+  }
+  return opts.next({
+    ctx: {
+      ...ctx,
+      user: ctx.user,
+    },
+  })
+})
+
 export const router = t.router
 export const publicProcedure = t.procedure
+export const protectedProcedure = t.procedure.use(isAuthed)
