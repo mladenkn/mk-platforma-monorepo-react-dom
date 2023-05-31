@@ -1,19 +1,17 @@
-import { GetServerSidePropsContext } from "next/types"
 import { typeCheck } from "@mk-libs/common/common"
 import { ComponentProps } from "react"
-import { Api_ss } from "~/api_/api.root"
 import Post_single_page from "~/domain/post/Post.single.page"
-import db from "~/prisma/instance"
-import { user_ss_get } from "~/pages/api/auth/[...nextauth]"
+import create_get_ss_props from "~/ss.props"
+import { z } from "zod"
 
-export async function getServerSideProps({ query, req, res }: GetServerSidePropsContext) {
-  const post_id = parseInt(query.id as string)
-  const user = await user_ss_get(req, res)
-  const post = await Api_ss({ db, user }).post.single({ id: post_id })
-
-  if (post)
-    return { props: typeCheck<ComponentProps<typeof Post_single_page>>({ post_initial: post }) }
-  else return { notFound: true }
-}
+export const getServerSideProps2 = create_get_ss_props(
+  { queryParams: z.object({ id: z.number() }) },
+  async ({ api }, params) => {
+    const post = await api.post.single({ id: params.id })
+    if (post)
+      return { props: typeCheck<ComponentProps<typeof Post_single_page>>({ post_initial: post }) }
+    else return { notFound: true }
+  }
+)
 
 export default Post_single_page
