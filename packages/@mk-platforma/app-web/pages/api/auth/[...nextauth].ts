@@ -60,7 +60,7 @@ declare module "next-auth" {
   }
 }
 
-export function session_ss_get(
+function session_ss_get(
   req: IncomingMessage & {
     cookies: NextApiRequestCookies
   },
