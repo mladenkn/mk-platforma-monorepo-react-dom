@@ -55,6 +55,8 @@ const run_args = match(parsed.command)
     () => require("./playground.ts"),
   ])
 
+  .with("ts", () => ["tsc --noEmit"])
+
   .exhaustive()
 
 run(...run_args)
