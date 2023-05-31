@@ -6,6 +6,7 @@ import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequestCookies } from "next/dist/server/api-utils"
 import { PrismaClient } from "@prisma/client"
 import { create_getCookie_ss } from "~/cookies"
+import { asNonNil } from "~/../../@mk-libs/common/common"
 
 export async function createContext(
   req: IncomingMessage & {
@@ -52,4 +53,23 @@ const isAuthed = t.middleware(opts => {
 
 export const router = t.router
 export const publicProcedure = t.procedure
-export const protectedProcedure = t.procedure.use(isAuthed)
+
+export function authorizedRoute(
+  check: (user: NonNullable<Api_context["user"]>) => boolean = () => true
+) {
+  return t.procedure.use(
+    t.middleware(opts => {
+      const { ctx } = opts
+      const isAuthorized = ctx.user && check(ctx.user)
+      if (!isAuthorized) {
+        throw new TRPCError({ code: "UNAUTHORIZED" })
+      }
+      return opts.next({
+        ctx: {
+          ...ctx,
+          user: asNonNil(ctx.user),
+        },
+      })
+    })
+  )
+}
