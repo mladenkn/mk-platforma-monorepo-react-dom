@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { publicProcedure, router } from "~/api_/api.server.utils"
+import { protectedProcedure, router } from "~/api_/api.server.utils"
 import { CommentSchema } from "../prisma/generated/zod"
 import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 
@@ -45,9 +45,11 @@ const Comment_api = router({
       )
   ),
 
-  create: publicProcedure
+  create: protectedProcedure
     .input(Post_Comment_create_input_zod)
-    .mutation(({ ctx, input }) => ctx.db.comment.create({ data: { ...input, author_id: 1 } })),
+    .mutation(({ ctx, input }) =>
+      ctx.db.comment.create({ data: { ...input, author_id: ctx.user.id } })
+    ),
 })
 
 export default Comment_api

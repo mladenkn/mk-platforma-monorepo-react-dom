@@ -1,10 +1,10 @@
-import { asNonNil, shallowPick } from "@mk-libs/common/common"
-import { publicProcedure } from "~/api_/api.server.utils"
+import { shallowPick } from "@mk-libs/common/common"
+import { protectedProcedure } from "~/api_/api.server.utils"
 import { Post_api_create_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 
-const Post_api_create = publicProcedure
+const Post_api_create = protectedProcedure
   .input(Post_api_create_input)
   .mutation(async ({ ctx, input }) => {
     return await ctx.db.$transaction(async tx => {
@@ -13,7 +13,7 @@ const Post_api_create = publicProcedure
           ...shallowPick(input, "title", "description", "contact"),
           author: {
             connect: {
-              id: asNonNil(ctx.user).id,
+              id: ctx.user.id,
             },
           },
           categories: {
