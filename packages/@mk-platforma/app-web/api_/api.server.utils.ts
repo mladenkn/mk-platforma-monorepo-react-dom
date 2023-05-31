@@ -4,7 +4,6 @@ import db from "~/prisma/instance"
 import { session_ss_get_mock } from "~/pages/api/auth/[...nextauth]"
 import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequestCookies } from "next/dist/server/api-utils"
-import { Session } from "next-auth"
 import { PrismaClient } from "@prisma/client"
 
 export async function createContext(
@@ -16,7 +15,6 @@ export async function createContext(
   const session = await session_ss_get_mock(req, res)
   return {
     db,
-    session,
     user: session.user && {
       id: session.user!.id,
       canMutate: session.user!.canMutate,
@@ -26,7 +24,6 @@ export async function createContext(
 
 export type Api_context = {
   db: PrismaClient
-  session?: Session | null | undefined
   user?: {
     id: number
     canMutate: boolean
