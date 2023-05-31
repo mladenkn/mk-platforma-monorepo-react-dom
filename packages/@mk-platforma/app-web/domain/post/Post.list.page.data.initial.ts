@@ -1,4 +1,3 @@
-import { getCookie_ss } from "~/cookies"
 import { Category_labelType } from "~/prisma/generated/zod"
 import { PostList_section_Props } from "./Post.list.page"
 import create_get_ss_props from "~/ss.props"
@@ -8,14 +7,11 @@ const Post_list_page_data_initial = create_get_ss_props(
   {
     queryParams: z.object({ category: z.string().nullish() }),
   },
-  async ({ api }, params, nextContext) => {
+  async ({ api, getCookie }, params) => {
     const category_label = params.category ? (params.category as Category_labelType) : undefined
 
-    const location = getCookie_ss(nextContext.req.headers.cookie || "", "Post_list__location")
-    const location_radius = getCookie_ss(
-      nextContext.req.headers.cookie || "",
-      "Post_list__location_radius"
-    )
+    const location = getCookie("Post_list__location")
+    const location_radius = getCookie("Post_list__location_radius")
 
     const categories_all = await api.category.many()
     const category = categories_all.find(c => c.label === category_label)
@@ -27,7 +23,7 @@ const Post_list_page_data_initial = create_get_ss_props(
     })
 
     const props: PostList_section_Props = {
-      selectedCategory_initial: category,
+      selectedCategory_initial: category ?? null,
       posts_initial: posts_initial.items,
       categories_initial: categories_all,
       location_initial: location || null,

@@ -5,6 +5,7 @@ import { user_ss_get } from "~/pages/api/auth/[...nextauth]"
 import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequestCookies } from "next/dist/server/api-utils"
 import { PrismaClient } from "@prisma/client"
+import { create_getCookie_ss } from "~/cookies"
 
 export async function createContext(
   req: IncomingMessage & {
@@ -19,6 +20,7 @@ export async function createContext(
       id: user.id,
       canMutate: user.canMutate,
     },
+    getCookie: create_getCookie_ss(req.headers.cookie ?? ""),
   }
 }
 
@@ -28,6 +30,7 @@ export type Api_context = {
     id: number
     canMutate: boolean
   }
+  getCookie: ReturnType<typeof create_getCookie_ss>
 }
 
 const t = initTRPC.context<Api_context>().create({

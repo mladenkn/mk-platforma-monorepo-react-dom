@@ -9,6 +9,12 @@ const Cookies_zod = z.object({
 })
 type Cookies = z.infer<typeof Cookies_zod>
 
+export function create_getCookie_ss(allCookies: string) {
+  return function <TName extends keyof Cookies>(name: TName) {
+    return getCookie_ss(allCookies, name)
+  }
+}
+
 export function getCookie_ss<TName extends keyof Cookies>(allCookies: string, name: TName) {
   const allCookies_parsed = cookie.parse(allCookies)
   const value = allCookies_parsed[name]
