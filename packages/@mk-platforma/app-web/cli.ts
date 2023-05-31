@@ -1,5 +1,5 @@
 import { match } from "ts-pattern"
-import { parseCommand, run, getConnectionString } from "./cmd.utils"
+import { parseCommand, run, getConnectionString } from "./cli.utils"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"] || "dev"
