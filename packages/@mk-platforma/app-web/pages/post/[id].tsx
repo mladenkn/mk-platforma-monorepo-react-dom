@@ -4,7 +4,7 @@ import Post_single_page from "~/domain/post/Post.single.page"
 import create_get_ss_props from "~/ss.props"
 import { z } from "zod"
 
-export const getServerSideProps2 = create_get_ss_props(
+export const getServerSideProps = create_get_ss_props(
   { queryParams: z.object({ id: z.number() }) },
   async ({ api }, params) => {
     const post = await api.post.single({ id: params.id })
