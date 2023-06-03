@@ -15,6 +15,7 @@ type Props = {
   user_initial: User
 }
 
+// ima bug
 export default function User_profile_edit({ user_initial }: Props) {
   const user = Api.user.single.useQuery(user_initial.id, { initialData: user_initial })
   const user_data = asNonNil(user.data)
