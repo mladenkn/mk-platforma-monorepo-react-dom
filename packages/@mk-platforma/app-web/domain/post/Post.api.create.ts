@@ -3,6 +3,7 @@ import { authorizedRoute } from "~/api_/api.server.utils"
 import { Post_api_create_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
+import "@mk-libs/common/server-only"
 
 const Post_api_create = authorizedRoute(u => u.canMutate)
   .input(Post_api_create_input)

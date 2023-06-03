@@ -1,6 +1,7 @@
 import commandLineArgs from "command-line-args"
 import { spawn, exec } from "child_process"
 import { match, P } from "ts-pattern"
+import "@mk-libs/common/server-only"
 
 const options = [
   { name: "command", defaultOption: true },

@@ -1,6 +1,7 @@
 import { publicProcedure, router } from "~/api_/api.server.utils"
 import { z } from "zod"
 import { Location, PrismaClient } from "@prisma/client"
+import "@mk-libs/common/server-only"
 // import { Client } from "@googlemaps/google-maps-services-js"
 
 // const client = new Client({})

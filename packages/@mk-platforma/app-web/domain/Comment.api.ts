@@ -2,6 +2,7 @@ import { z } from "zod"
 import { authorizedRoute, router } from "~/api_/api.server.utils"
 import { CommentSchema } from "../prisma/generated/zod"
 import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
+import "@mk-libs/common/server-only"
 
 const Comment_api_many = SuperData_mapper(
   z.object({

@@ -2,6 +2,7 @@ import { z } from "zod"
 import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 import { publicProcedure, router } from "~/api_/api.server.utils"
 import { Post_queryChunks_search } from "../post/Post.api.abstract"
+import "@mk-libs/common/server-only"
 
 const Category_api_many = SuperData_mapper(
   z

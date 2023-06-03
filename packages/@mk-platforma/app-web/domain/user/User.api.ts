@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { publicProcedure, router } from "~/api_/api.server.utils"
+import "@mk-libs/common/server-only"
 
 export const User_api = router({
   single_withPosts: publicProcedure.input(z.number()).query(({ ctx, input }) =>

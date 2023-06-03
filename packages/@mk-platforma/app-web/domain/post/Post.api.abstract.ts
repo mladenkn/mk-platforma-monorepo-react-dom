@@ -2,6 +2,7 @@ import { z } from "zod"
 import { SuperData_mapper } from "~/api_/api.SuperData"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import { Prisma } from "@prisma/client"
+import "@mk-libs/common/server-only"
 
 export const Post_list_many = SuperData_mapper(
   z.object({
