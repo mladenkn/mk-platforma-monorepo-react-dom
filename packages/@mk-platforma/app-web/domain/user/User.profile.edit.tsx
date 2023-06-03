@@ -1,4 +1,4 @@
-import { IconButton, Paper, TextField, Typography, Box } from "@mui/material"
+import { IconButton, Paper, TextField, Typography, Box, useTheme } from "@mui/material"
 import Api from "~/api_/api.client"
 import { Api_outputs } from "~/api_/api.infer"
 import Layout from "../Layout"
@@ -18,6 +18,14 @@ export default function User_profile_edit({ user_initial }: Props) {
   const user = Api.user.single.useQuery(user_initial.id, { initialData: user_initial })
   const user_data = asNonNil(user.data)
   const [user_name, set__user_name] = useState(user_data.name || "")
+
+  const mutation = Api.user.update.useMutation()
+  function updateUser() {
+    mutation.mutateAsync({ name: user_name })
+  }
+
+  const { palette } = useTheme()
+
   return (
     <Layout
       header={
@@ -36,10 +44,13 @@ export default function User_profile_edit({ user_initial }: Props) {
               value={user_name}
               onChange={e => set__user_name(e.target.value)}
             />
-            <IconButton sx={{ ml: 2 }}>
+            <IconButton sx={{ ml: 2 }} onClick={updateUser}>
               <DoneIcon />
             </IconButton>
           </Box>
+          {mutation.isError && (
+            <Typography sx={{ color: palette.error.main }}>{mutation.error.message}</Typography>
+          )}
         </Paper>
       }
     />

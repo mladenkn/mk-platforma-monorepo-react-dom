@@ -47,6 +47,7 @@ declare module "next-auth/adapters" {
   interface AdapterUser {
     avatarStyle: Prisma.JsonValue
     canMutate: boolean
+    name?: string
   }
 }
 
@@ -56,6 +57,7 @@ declare module "next-auth" {
       id: number
       avatarStyle: Prisma.JsonValue
       canMutate: boolean
+      name?: string
     }
   }
 }

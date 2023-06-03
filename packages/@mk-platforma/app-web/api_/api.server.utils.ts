@@ -21,6 +21,7 @@ export async function createContext(
     user: user && {
       id: user.id,
       canMutate: user.canMutate,
+      name: user.name,
     },
     getCookie: create_getCookie_ss(req.headers.cookie ?? ""),
   }
@@ -31,6 +32,7 @@ export type Api_context = {
   user?: {
     id: number
     canMutate: boolean
+    name?: string
   }
   getCookie: ReturnType<typeof create_getCookie_ss>
 }

@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { publicProcedure, router } from "~/api_/api.server.utils"
+import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import "@mk-libs/common/server-only"
 
 export const User_api = router({
@@ -37,4 +37,16 @@ export const User_api = router({
       },
     })
   ),
+  update: authorizedRoute(u => u.canMutate)
+    .input(z.object({ name: z.string() }))
+    .mutation(({ ctx, input }) =>
+      ctx.db.user.update({
+        where: {
+          id: ctx.user.id,
+        },
+        data: {
+          name: input.name,
+        },
+      })
+    ),
 })
