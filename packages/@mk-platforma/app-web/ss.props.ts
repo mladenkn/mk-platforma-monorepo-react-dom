@@ -12,7 +12,7 @@ type Options<TInput> = {
 
 export default function create_get_ss_props<TOutput, TInput = undefined>(
   options: Options<TInput>,
-  wrapped: (
+  wrapped?: (
     ctx: Api_context & { api: Api_ss_type },
     params: TInput,
     nextContext: GetServerSidePropsContext
@@ -58,7 +58,9 @@ export default function create_get_ss_props<TOutput, TInput = undefined>(
       nextContext.res.statusCode = 404
       nextContext.res.end()
     } else {
-      return await wrapped(ctx, (queryParams_parsed as any).data, nextContext)
+      return wrapped
+        ? await wrapped(ctx, (queryParams_parsed as any).data, nextContext)
+        : { props: {} }
     }
   }
 }
