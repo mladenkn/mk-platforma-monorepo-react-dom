@@ -123,12 +123,16 @@ export default function Post_list_page_header({
             >
               <Box sx={{ display: "flex", gap: 2.5, alignItems: "center" }}>
                 {selectedCategory.data ? (
-                  <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
+                  <CategoryIcon
+                    sx={{ cursor: "pointer" }}
+                    fontSize="large"
+                    name={selectedCategory.data.label}
+                  />
                 ) : (
                   <MenuIcon sx={{ cursor: "pointer" }} fontSize="large" fontWeight={400} />
                 )}
                 {selectedCategory.data ? (
-                  <Typography variant="h2" fontWeight={400}>
+                  <Typography variant="h2" fontWeight={400} sx={{ cursor: "default" }}>
                     {getCategoryLabel(selectedCategory.data.label)}
                   </Typography>
                 ) : (
