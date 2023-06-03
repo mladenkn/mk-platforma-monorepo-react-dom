@@ -1,4 +1,4 @@
-import { Box, Paper, Avatar, Typography, IconButton } from "@mui/material"
+import { Box, Paper, Avatar, Typography, IconButton, useTheme } from "@mui/material"
 import React from "react"
 import Link from "next/link"
 import { groupBy } from "lodash"
@@ -20,6 +20,8 @@ export default function User_profile({ user_initial }: Props) {
   const user = Api.user.single_withPosts.useQuery(user_initial.id, { initialData: user_initial })
   const posts_byCategories = Object.entries(groupBy(user.data?.posts, p => p.categories[0].id))
 
+  const { typography, palette } = useTheme()
+
   return (
     <Layout
       header={
@@ -30,11 +32,16 @@ export default function User_profile({ user_initial }: Props) {
         </Header>
       }
       content={
-        <Paper sx={{ p: 2, m: 1, width: "100%" }}>
+        <Paper sx={{ p: 2, pb: 3, m: 1, width: "100%" }}>
           {user.isLoading ? (
             "Loading..."
           ) : (
             <>
+              {!user.data?.name && (
+                <Typography sx={{ mb: 2, fontSize: typography.h6, color: palette.warning.light }}>
+                  Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj
+                </Typography>
+              )}
               <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <Avatar />
@@ -48,29 +55,31 @@ export default function User_profile({ user_initial }: Props) {
                   </Link>
                 ) : undefined}
               </Box>
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4 }}>
-                {posts_byCategories?.map(([category_id, posts]) => (
-                  <Box key={category_id}>
-                    <Link
-                      style={{ textDecoration: "none", color: "unset" }}
-                      href={`/?category=${posts[0].categories[0].label}`}
-                    >
-                      <Typography>{getCategoryLabel(posts[0].categories[0].label)}</Typography>
-                    </Link>
-                    <Box sx={{ ml: 2, mt: 0.5 }}>
-                      {posts.map(post => (
-                        <Link
-                          style={{ textDecoration: "none", color: "unset" }}
-                          href={`/post/${post.id}`}
-                          key={post.id}
-                        >
-                          <Typography>{post.title}</Typography>
-                        </Link>
-                      ))}
+              {posts_byCategories?.length ? (
+                <Box sx={{ display: "flex", flexDirection: "column", gap: 3, mt: 4 }}>
+                  {posts_byCategories?.map(([category_id, posts]) => (
+                    <Box key={category_id}>
+                      <Link
+                        style={{ textDecoration: "none", color: "unset" }}
+                        href={`/?category=${posts[0].categories[0].label}`}
+                      >
+                        <Typography>{getCategoryLabel(posts[0].categories[0].label)}</Typography>
+                      </Link>
+                      <Box sx={{ ml: 2, mt: 0.5 }}>
+                        {posts.map(post => (
+                          <Link
+                            style={{ textDecoration: "none", color: "unset" }}
+                            href={`/post/${post.id}`}
+                            key={post.id}
+                          >
+                            <Typography>{post.title}</Typography>
+                          </Link>
+                        ))}
+                      </Box>
                     </Box>
-                  </Box>
-                ))}
-              </Box>
+                  ))}
+                </Box>
+              ) : undefined}
             </>
           )}
         </Paper>

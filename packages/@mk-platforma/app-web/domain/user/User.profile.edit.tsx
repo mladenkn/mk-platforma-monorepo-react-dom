@@ -47,7 +47,14 @@ export default function User_profile_edit({ user_initial }: Props) {
       content={
         <Paper sx={{ width: "100%", p: 2, pb: 3.5, m: 1 }}>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-            <Typography variant="h4">Uređivanje profila</Typography>
+            <Box>
+              <Typography variant="h4">Uređivanje profila</Typography>
+              {!user_data.name && (
+                <Typography sx={{ mt: 1, fontSize: typography.h6, color: palette.warning.light }}>
+                  Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj
+                </Typography>
+              )}
+            </Box>
             <IconButton sx={{ ml: 2 }} onClick={updateUser}>
               <DoneIcon sx={{ fontSize: typography.h4 }} />
             </IconButton>
