@@ -6,7 +6,7 @@ import { Api_context, createContext } from "./api_/api.server.utils"
 
 type Options<TInput> = {
   queryParams?: z.ZodType<TInput>
-  requireAuth?: boolean
+  auth?: (c: Api_context & { api: Api_ss_type }) => boolean
 }
 
 export default function create_get_ss_props<TOutput, TInput = undefined>(
@@ -40,7 +40,8 @@ export default function create_get_ss_props<TOutput, TInput = undefined>(
       nextContext.res.statusCode = 400
       nextContext.res.end()
     }
-    if (ctx.user || !options.requireAuth) {
+    const isAuthed = options.auth ? options.auth(ctx) : true
+    if (isAuthed) {
       return await wrapped(ctx, (queryParams_parsed as any).data, nextContext)
     } else {
       return {
