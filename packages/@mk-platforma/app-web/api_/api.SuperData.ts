@@ -1,5 +1,6 @@
 import { z } from "zod"
 import { Api_context, publicProcedure } from "./api.server.utils"
+import "@mk-libs/common/server-only"
 
 export function SuperData_mapper<TInput, TOutput>(
   input_zod: z.ZodType<TInput>,

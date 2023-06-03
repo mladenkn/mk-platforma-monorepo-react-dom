@@ -7,6 +7,7 @@ import { NextApiRequestCookies } from "next/dist/server/api-utils"
 import { PrismaClient } from "@prisma/client"
 import { create_getCookie_ss } from "~/cookies"
 import { asNonNil } from "~/../../@mk-libs/common/common"
+import "@mk-libs/common/server-only"
 
 export async function createContext(
   req: IncomingMessage & {

@@ -4,6 +4,7 @@ import Category_api from "../domain/category/Category.api"
 import Comment_api from "~/domain/Comment.api"
 import Location_api from "~/domain/Location.api"
 import Post_api from "~/domain/post/Post.api"
+import "@mk-libs/common/server-only"
 
 export const ApiRouter = router({
   post: Post_api,
