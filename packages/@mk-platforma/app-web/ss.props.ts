@@ -1,12 +1,14 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { z } from "zod"
-import { tryParseInt } from "@mk-libs/common/common"
+import { shallowPick, tryParseInt } from "@mk-libs/common/common"
 import { Api_ss, Api_ss_type } from "./api_/api.root"
 import { Api_context, createContext } from "./api_/api.server.utils"
+import { P, match } from "ts-pattern"
 
 type Options<TInput> = {
   queryParams?: z.ZodType<TInput>
-  auth?: (c: Api_context & { api: Api_ss_type }) => boolean
+  authenticate?: boolean
+  authorize?: (c: Api_context & { api: Api_ss_type }) => boolean
 }
 
 export default function create_get_ss_props<TOutput, TInput = undefined>(
@@ -40,16 +42,24 @@ export default function create_get_ss_props<TOutput, TInput = undefined>(
       nextContext.res.statusCode = 400
       nextContext.res.end()
     }
-    const isAuthed = options.auth ? options.auth(ctx) : true
-    if (isAuthed) {
-      return await wrapped(ctx, (queryParams_parsed as any).data, nextContext)
-    } else {
+
+    const options_mapped = {
+      authenticate: options.authenticate ?? false,
+      authorize: options.authorize ?? (() => true),
+    }
+
+    if (options_mapped.authenticate && !ctx.user) {
       return {
         redirect: {
           destination: "/api/auth/signin",
           permanent: false,
         },
       }
+    } else if (!options_mapped.authorize(ctx)) {
+      nextContext.res.statusCode = 404
+      nextContext.res.end()
+    } else {
+      return await wrapped(ctx, (queryParams_parsed as any).data, nextContext)
     }
   }
 }
