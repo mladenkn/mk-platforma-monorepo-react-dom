@@ -125,7 +125,7 @@ export default function Post_list_page_header({
                 {selectedCategory.data ? (
                   <CategoryIcon fontSize="large" name={selectedCategory.data.label} />
                 ) : (
-                  <MenuIcon fontSize="large" fontWeight={400} />
+                  <MenuIcon sx={{ cursor: "pointer" }} fontSize="large" fontWeight={400} />
                 )}
                 {selectedCategory.data ? (
                   <Typography variant="h2" fontWeight={400}>
