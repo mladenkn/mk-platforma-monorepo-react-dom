@@ -9,11 +9,8 @@ import { useCategory } from "~/domain/category/Category.common"
 import CategoriesDropdown from "~/domain/category/Category.dropdown"
 import { Post_api_cu_input_base } from "./Post.api.cu.input"
 
-type PostInput = z.infer<typeof Post_api_cu_input_base>
-
 type Props = {
   sx?: SxProps
-  initialValues?: Partial<PostInput>
   eachField?: {
     disabled?: boolean
   }
@@ -94,6 +91,8 @@ export default function Post_form_fields({ sx, eachField = { disabled: false }, 
     </Box>
   )
 }
+
+type PostInput = z.infer<typeof Post_api_cu_input_base>
 
 const initialValues_default: PostInput = {
   title: "",

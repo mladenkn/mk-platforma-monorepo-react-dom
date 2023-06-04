@@ -1,12 +1,11 @@
 import { Box, Typography, IconButton, Button, SxProps, Paper } from "@mui/material"
-import { ComponentProps } from "react"
 import Post_form_fields, { Post_form_fields_useForm } from "./Post.form.fields"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
 import { useSession } from "next-auth/react"
 import { Warning_noUsername } from "../common"
 
-type Values = ComponentProps<typeof Post_form_fields>["initialValues"]
+type Values = ReturnType<typeof Post_form_fields_useForm>["initialValues"]
 
 type Props = {
   sx?: SxProps
@@ -18,7 +17,7 @@ type Props = {
 
 export default function Post_form({ sx, initialValues, onSubmit, onCancel, title }: Props) {
   const { data: session } = useSession()
-  const form = Post_form_fields_useForm()
+  const form = Post_form_fields_useForm(initialValues)
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Box sx={{ mb: 0.75, display: "flex", justifyContent: "space-between" }}>
@@ -30,7 +29,6 @@ export default function Post_form({ sx, initialValues, onSubmit, onCancel, title
       {!session?.user?.name && <Warning_noUsername sx={{ mb: 5 }} withSetAction />}
       <Post_form_fields
         sx={{ gap: 3.5, display: "flex", flexDirection: "column" }}
-        initialValues={initialValues}
         eachField={{
           disabled: !session?.user?.name,
         }}
