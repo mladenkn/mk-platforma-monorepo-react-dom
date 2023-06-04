@@ -1,4 +1,4 @@
-import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
+import { Autocomplete, Box, TextField, SxProps, useTheme, AutocompleteProps } from "@mui/material"
 import { CategoryIcon, getCategoryLabel } from "./Category.common"
 import React, { ReactElement } from "react"
 import Api from "~/api_/api.client"
@@ -8,6 +8,7 @@ type CategoriesDropdown_Props = {
   sx?: SxProps
   value?: number
   onChange(c?: number): void
+  disabled?: boolean
 }
 
 type Category = {

@@ -8,6 +8,7 @@ type CategoriesDropdown_Props = {
   sx?: SxProps
   value?: number
   onChange(event: any, c?: number): void
+  disabled?: boolean
 }
 
 type Location = Api_outputs["location"]["many"][number]

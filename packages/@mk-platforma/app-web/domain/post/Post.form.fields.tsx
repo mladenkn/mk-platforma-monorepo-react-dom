@@ -63,6 +63,7 @@ export default function Post_form_fields({
       <CategoriesDropdown
         value={values.categories?.length ? values.categories[0].id : undefined}
         onChange={value => setFieldValue("categories", [{ id: value }])}
+        disabled={eachField.disabled}
       />
       <TextField
         label="Opis"
@@ -84,6 +85,7 @@ export default function Post_form_fields({
       <Location_Dropdown
         value={values.location?.id}
         onChange={value => setFieldValue("location.id", value)}
+        disabled={eachField.disabled}
       />
       {isExpert && values.expertEndorsement && (
         <>
