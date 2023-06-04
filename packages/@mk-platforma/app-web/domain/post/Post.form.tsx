@@ -33,6 +33,7 @@ export default function Post_form({ sx, initialValues, onSubmit, onCancel, title
         variant="contained"
         sx={{ mt: 6, display: "flex", alignItems: "center", gap: 1 }}
         onClick={onSubmit}
+        disabled={!session?.user?.name}
       >
         <SaveIcon />
         Spremi
