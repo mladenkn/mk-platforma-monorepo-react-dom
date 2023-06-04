@@ -141,7 +141,7 @@ const Post_api = router({
         }
     }),
 
-  create: Post_api_create,
+  upsert: Post_api_create,
 })
 
 export default Post_api

@@ -9,24 +9,29 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(Post_api_create_input)
   .mutation(async ({ ctx, input }) => {
     return await ctx.db.$transaction(async tx => {
-      const post_created = await tx.post.create({
-        data: {
-          ...shallowPick(input, "title", "description", "contact"),
-          author: {
-            connect: {
-              id: ctx.user.id,
-            },
-          },
-          categories: {
-            connect: input.categories,
-          },
-          images: {
-            create: input.images || undefined,
-          },
-          location: {
-            connect: input.location || undefined,
+      const data = {
+        ...shallowPick(input, "title", "description", "contact"),
+        author: {
+          connect: {
+            id: ctx.user.id,
           },
         },
+        categories: {
+          connect: input.categories,
+        },
+        images: {
+          create: input.images || undefined,
+        },
+        location: {
+          connect: input.location || undefined,
+        },
+      }
+      const post_created = await tx.post.upsert({
+        where: {
+          id: input.id || 0,
+        },
+        update: data,
+        create: data,
       })
       if (input.expertEndorsement) {
         await tx.post.update({

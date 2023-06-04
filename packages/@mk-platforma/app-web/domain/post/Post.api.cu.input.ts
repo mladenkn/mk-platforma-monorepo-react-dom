@@ -13,6 +13,7 @@ export const Post_api_cu_input_base = PostSchema.pick({
   description: true,
   contact: true,
 }).extend({
+  id: PostSchema.shape.id.nullish(),
   categories: z.array(CategorySchema.pick({ id: true })),
   expertEndorsement: Post_ExpertEndorsementSchema.pick({
     firstName: true,
