@@ -5,11 +5,15 @@ import { useTheme } from "@mui/material"
 import { Header, Header_moreOptions, Header_back } from "../Header"
 import Layout from "../Layout"
 import { LogoLink } from "../common"
+import { z } from "zod"
+import { Post_api_cu_input_base } from "./Post.api.cu.input"
+
+type PostInput = z.infer<typeof Post_api_cu_input_base>
 
 type Props = {}
 
 export default function Post_create_page({}: Props) {
-  function onSubmit() {}
+  function onSubmit(value: PostInput) {}
 
   const { breakpoints } = useTheme()
 

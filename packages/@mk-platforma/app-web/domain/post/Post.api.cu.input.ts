@@ -30,7 +30,7 @@ export const Post_api_cu_input_base = PostSchema.pick({
     })
     .optional(),
   images: z.array(ImageSchema.pick({ url: true })).optional(),
-  location: LocationSchema.pick({ id: true }),
+  location: LocationSchema.pick({ id: true }).optional(),
 })
 
 export const Post_api_create_input = Post_api_cu_input_base

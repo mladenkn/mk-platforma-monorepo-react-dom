@@ -17,27 +17,10 @@ type Props = {
   eachField?: {
     disabled?: boolean
   }
+  form: ReturnType<typeof Post_form_fields_useForm>
 }
 
-const initialValues_default = {
-  title: "",
-  description: "",
-  contact: "",
-  location: undefined,
-  categories: [],
-} satisfies Partial<PostInput>
-
-export default function Post_form_fields({
-  sx,
-  initialValues = initialValues_default,
-  eachField = { disabled: false },
-}: Props) {
-  const form = useFormik({
-    initialValues,
-    validationSchema: toFormikValidationSchema(Post_api_cu_input_base),
-    onSubmit() {},
-  })
-
+export default function Post_form_fields({ sx, eachField = { disabled: false }, form }: Props) {
   const { values, handleChange, setFieldValue } = form
 
   const selectedCategory = useCategory(
@@ -110,4 +93,20 @@ export default function Post_form_fields({
       <Post_form_images images={values.images || []} />
     </Box>
   )
+}
+
+const initialValues_default: PostInput = {
+  title: "",
+  description: "",
+  contact: "",
+  location: undefined,
+  categories: [],
+}
+
+export function Post_form_fields_useForm(initialValues = initialValues_default) {
+  return useFormik({
+    initialValues,
+    validationSchema: toFormikValidationSchema(Post_api_cu_input_base),
+    onSubmit() {},
+  })
 }
