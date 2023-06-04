@@ -1,4 +1,3 @@
-- mora pitat korisnika username prije nego počne objavljivat
 - create i update
 - file upload
 - error handling

@@ -41,6 +41,9 @@ const auth_options = {
       return session
     },
   },
+  pages: {
+    newUser: "/profile/edit",
+  },
 } satisfies NextAuthOptions
 
 declare module "next-auth/adapters" {
