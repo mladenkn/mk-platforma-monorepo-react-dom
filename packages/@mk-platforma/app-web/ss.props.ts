@@ -47,10 +47,11 @@ export default function create_get_ss_props<TOutput, TInput = undefined>(
       authorize: options.authorize ?? (() => true),
     }
 
+    const { host } = nextContext.req.headers
     if (options_mapped.authenticate && !ctx.user) {
       return {
         redirect: {
-          destination: "/api/auth/signin",
+          destination: `${host}/api/auth/signin`,
           permanent: false,
         },
       }
