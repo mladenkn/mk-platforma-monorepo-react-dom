@@ -8,7 +8,7 @@ import {
   CategorySchema,
 } from "~/prisma/generated/zod"
 
-export const Post_api_cu_input_base = PostSchema.pick({
+export const Post_api_upsert_input = PostSchema.pick({
   title: true,
   description: true,
   contact: true,
@@ -33,7 +33,3 @@ export const Post_api_cu_input_base = PostSchema.pick({
   images: z.array(ImageSchema.pick({ url: true })).nullish(),
   location: LocationSchema.pick({ id: true }).nullish(),
 })
-
-export const Post_api_create_input = Post_api_cu_input_base
-
-export const Post_api_update_input = Post_api_cu_input_base

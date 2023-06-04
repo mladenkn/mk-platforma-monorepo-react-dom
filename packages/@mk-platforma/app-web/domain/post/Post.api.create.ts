@@ -1,12 +1,12 @@
 import { shallowPick } from "@mk-libs/common/common"
 import { authorizedRoute } from "~/api_/api.server.utils"
-import { Post_api_create_input } from "./Post.api.cu.input"
+import { Post_api_upsert_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
 
 const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
-  .input(Post_api_create_input)
+  .input(Post_api_upsert_input)
   .mutation(async ({ ctx, input }) => {
     return await ctx.db.$transaction(async tx => {
       const data = {
