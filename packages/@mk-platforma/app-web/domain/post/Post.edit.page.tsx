@@ -5,20 +5,22 @@ import { useTheme } from "@mui/material"
 import { Header, Header_moreOptions, Header_back } from "../Header"
 import Layout from "../Layout"
 import { LogoLink } from "../common"
-import { z } from "zod"
-import { Post_api_upsert_input } from "./Post.api.cu.input"
 import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
 
 type Post_details = NonNullable<Api_outputs["post"]["single"]>
-type PostInput = z.infer<typeof Post_api_upsert_input>
 
 type Props = {
   post_initial: Post_details
 }
 
 export default function Post_create_page({ post_initial }: Props) {
-  function onSubmit(value: PostInput) {}
+  const router = useRouter()
+  const mutation = Api.post.upsert.useMutation({
+    onSuccess(post) {
+      router.push(`post/${post.id}`)
+    },
+  })
 
   const { breakpoints } = useTheme()
 
@@ -43,7 +45,7 @@ export default function Post_create_page({ post_initial }: Props) {
           }}
           initialValues={post_initial}
           title="Novi oglas"
-          onSubmit={onSubmit}
+          onSubmit={v => mutation.mutate(v)}
           onCancel={useRouter().back}
         />
       }
