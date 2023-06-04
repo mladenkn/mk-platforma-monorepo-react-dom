@@ -51,7 +51,7 @@ export default function create_get_ss_props<TOutput, TInput = undefined>(
     if (options_mapped.authenticate && !ctx.user) {
       return {
         redirect: {
-          destination: `${host}/api/auth/signin`,
+          destination: `api/auth/signin`,
           permanent: false,
         },
       }
