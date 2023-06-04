@@ -5,7 +5,7 @@ import { groupBy } from "lodash"
 import { getCategoryLabel } from "~/domain/category/Category.common"
 import { Api_outputs } from "~/api_/api.infer"
 import { Header, Header_back, Header_moreOptions } from "../Header"
-import { LogoLink } from "../common"
+import { LogoLink, Warning_noUsername } from "../common"
 import Layout from "~/domain/Layout"
 import Api from "~/api_/api.client"
 import EditIcon from "@mui/icons-material/Edit"
@@ -20,7 +20,7 @@ export default function User_profile({ user_initial }: Props) {
   const user = Api.user.single_withPosts.useQuery(user_initial.id, { initialData: user_initial })
   const posts_byCategories = Object.entries(groupBy(user.data?.posts, p => p.categories[0].id))
 
-  const { typography, palette } = useTheme()
+  const {} = useTheme()
 
   return (
     <Layout
@@ -37,11 +37,7 @@ export default function User_profile({ user_initial }: Props) {
             "Loading..."
           ) : (
             <>
-              {!user.data?.name && (
-                <Typography sx={{ mb: 2, fontSize: typography.h6, color: palette.warning.light }}>
-                  Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj
-                </Typography>
-              )}
+              {!user.data?.name && <Warning_noUsername sx={{ mb: 3, mt: 1 }} />}
               <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <Avatar />

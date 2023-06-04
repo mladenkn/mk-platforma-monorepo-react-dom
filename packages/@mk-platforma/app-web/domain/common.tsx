@@ -1,4 +1,4 @@
-import { styled } from "@mui/material/styles"
+import { SxProps, styled, useTheme } from "@mui/material/styles"
 import { Box, Typography } from "@mui/material"
 import React from "react"
 import Link from "next/link"
@@ -27,5 +27,14 @@ export function LogoLink() {
         </Typography>
       </Box>
     </Link>
+  )
+}
+
+export function Warning_noUsername({ sx }: { sx: SxProps }) {
+  const { typography, palette } = useTheme()
+  return (
+    <Typography sx={{ fontSize: typography.h6, color: palette.warning.light, ...sx }}>
+      Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj
+    </Typography>
   )
 }
