@@ -34,7 +34,10 @@ export function Warning_noUsername({ sx }: { sx: SxProps }) {
   const { typography, palette } = useTheme()
   return (
     <Typography sx={{ fontSize: typography.h6, color: palette.warning.light, ...sx }}>
-      Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj
+      Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj.{" "}
+      <Link href="/profile/edit" style={{ color: "inherit" }}>
+        Postavi sada.
+      </Link>
     </Typography>
   )
 }
