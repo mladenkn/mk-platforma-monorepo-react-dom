@@ -14,6 +14,9 @@ type PostInput = z.infer<typeof Post_api_cu_input_base>
 type Props = {
   sx?: SxProps
   initialValues?: Partial<PostInput>
+  eachField?: {
+    disabled?: boolean
+  }
 }
 
 const initialValues_default = {
@@ -24,7 +27,11 @@ const initialValues_default = {
   categories: [],
 } satisfies Partial<PostInput>
 
-export default function Post_form_fields({ sx, initialValues = initialValues_default }: Props) {
+export default function Post_form_fields({
+  sx,
+  initialValues = initialValues_default,
+  eachField = { disabled: false },
+}: Props) {
   const form = useFormik({
     initialValues,
     validationSchema: toFormikValidationSchema(Post_api_cu_input_base),
@@ -51,6 +58,7 @@ export default function Post_form_fields({ sx, initialValues = initialValues_def
         name="title"
         value={values.title}
         onChange={handleChange}
+        {...eachField}
       />
       <CategoriesDropdown
         value={values.categories?.length ? values.categories[0].id : undefined}
@@ -63,6 +71,7 @@ export default function Post_form_fields({ sx, initialValues = initialValues_def
         value={values.description}
         onChange={handleChange}
         multiline
+        {...eachField}
       />
       <TextField
         label="Kontakt"
@@ -70,6 +79,7 @@ export default function Post_form_fields({ sx, initialValues = initialValues_def
         name="contact"
         value={values.contact}
         onChange={handleChange}
+        {...eachField}
       />
       <Location_Dropdown
         value={values.location?.id}
@@ -83,6 +93,7 @@ export default function Post_form_fields({ sx, initialValues = initialValues_def
             name="expertEndorsement.firstName"
             value={values.expertEndorsement.firstName}
             onChange={handleChange}
+            {...eachField}
           />
           <TextField
             label="Prezime"
@@ -90,6 +101,7 @@ export default function Post_form_fields({ sx, initialValues = initialValues_def
             name="expertEndorsement.lastName"
             value={values.expertEndorsement.lastName}
             onChange={handleChange}
+            {...eachField}
           />
         </>
       )}

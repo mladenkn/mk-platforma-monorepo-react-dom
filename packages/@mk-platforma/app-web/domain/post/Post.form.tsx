@@ -28,6 +28,9 @@ export default function Post_form({ sx, initialValues, onSubmit, onCancel, title
       <Post_form_fields
         sx={{ gap: 3.5, display: "flex", flexDirection: "column" }}
         initialValues={initialValues}
+        eachField={{
+          disabled: !session?.user?.name,
+        }}
       />
       <Button
         variant="contained"
