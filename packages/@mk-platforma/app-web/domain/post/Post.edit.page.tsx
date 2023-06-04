@@ -8,6 +8,7 @@ import { LogoLink } from "../common"
 import { z } from "zod"
 import { Post_api_cu_input_base } from "./Post.api.cu.input"
 import { Api_outputs } from "~/api_/api.infer"
+import Api from "~/api_/api.client"
 
 type Post_details = NonNullable<Api_outputs["post"]["single"]>
 type PostInput = z.infer<typeof Post_api_cu_input_base>

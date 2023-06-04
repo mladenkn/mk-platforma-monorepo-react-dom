@@ -5,13 +5,15 @@ import { useTheme } from "@mui/material"
 import { Header, Header_moreOptions, Header_back } from "../Header"
 import Layout from "../Layout"
 import { LogoLink } from "../common"
-import { z } from "zod"
-import { Post_api_cu_input_base } from "./Post.api.cu.input"
-
-type PostInput = z.infer<typeof Post_api_cu_input_base>
+import Api from "~/api_/api.client"
 
 export default function Post_create_page() {
-  function onSubmit(value: PostInput) {}
+  const router = useRouter()
+  const mutation = Api.post.create.useMutation({
+    onSuccess(post) {
+      router.push(`post/${post.id}`)
+    },
+  })
 
   const { breakpoints } = useTheme()
 
@@ -35,7 +37,7 @@ export default function Post_create_page() {
             [breakpoints.up("md")]: { mx: 0 },
           }}
           title="Novi oglas"
-          onSubmit={onSubmit}
+          onSubmit={v => mutation.mutate(v)}
           onCancel={useRouter().back}
         />
       }
