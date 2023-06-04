@@ -26,11 +26,11 @@ export const Post_api_cu_input_base = PostSchema.pick({
             level: true,
           })
         )
-        .optional(),
+        .nullish(),
     })
-    .optional(),
-  images: z.array(ImageSchema.pick({ url: true })).optional(),
-  location: LocationSchema.pick({ id: true }).optional(),
+    .nullish(),
+  images: z.array(ImageSchema.pick({ url: true })).nullish(),
+  location: LocationSchema.pick({ id: true }).nullish(),
 })
 
 export const Post_api_create_input = Post_api_cu_input_base

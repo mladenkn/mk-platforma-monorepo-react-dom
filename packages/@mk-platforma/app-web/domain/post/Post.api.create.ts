@@ -21,10 +21,10 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
             connect: input.categories,
           },
           images: {
-            create: input.images,
+            create: input.images || undefined,
           },
           location: {
-            connect: input.location,
+            connect: input.location || undefined,
           },
         },
       })
@@ -40,7 +40,7 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
                 ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                 avatarStyle: getRandomElement(avatarStyles),
                 skills: {
-                  create: input.expertEndorsement.skills,
+                  create: input.expertEndorsement.skills || undefined,
                 },
               },
             },
