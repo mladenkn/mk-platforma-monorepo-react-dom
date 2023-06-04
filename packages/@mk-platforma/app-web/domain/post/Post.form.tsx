@@ -24,7 +24,7 @@ export default function Post_form({ sx, initialValues, onSubmit, onCancel, title
           <CloseIcon fontSize="medium" />
         </IconButton>
       </Box>
-      {!session?.user?.name && <Warning_noUsername sx={{ mb: 5 }} />}
+      {!session?.user?.name && <Warning_noUsername sx={{ mb: 5 }} withSetAction />}
       <Post_form_fields
         sx={{ gap: 3.5, display: "flex", flexDirection: "column" }}
         initialValues={initialValues}

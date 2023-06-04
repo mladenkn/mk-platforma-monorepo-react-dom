@@ -30,14 +30,22 @@ export function LogoLink() {
   )
 }
 
-export function Warning_noUsername({ sx }: { sx: SxProps }) {
+export function Warning_noUsername({
+  sx,
+  withSetAction = false,
+}: {
+  sx?: SxProps
+  withSetAction?: boolean
+}) {
   const { typography, palette } = useTheme()
   return (
     <Typography sx={{ fontSize: typography.h6, color: palette.warning.light, ...sx }}>
       Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj.{" "}
-      <Link href="/profile/edit" style={{ color: "inherit" }}>
-        Postavi sada.
-      </Link>
+      {withSetAction && (
+        <Link href="/profile/edit" style={{ color: "inherit" }}>
+          Postavi sada.
+        </Link>
+      )}
     </Typography>
   )
 }

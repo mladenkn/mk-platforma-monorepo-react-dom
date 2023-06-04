@@ -37,7 +37,7 @@ export default function User_profile({ user_initial }: Props) {
             "Loading..."
           ) : (
             <>
-              {!user.data?.name && <Warning_noUsername sx={{ mb: 3, mt: 1 }} />}
+              {!user.data?.name && <Warning_noUsername sx={{ mb: 3, mt: 1 }} withSetAction />}
               <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <Avatar />

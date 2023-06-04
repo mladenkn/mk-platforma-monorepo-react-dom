@@ -3,7 +3,7 @@ import Api from "~/api_/api.client"
 import { Api_outputs } from "~/api_/api.infer"
 import Layout from "../Layout"
 import { Header, Header_back, Header_moreOptions } from "../Header"
-import { LogoLink } from "../common"
+import { LogoLink, Warning_noUsername } from "../common"
 import DoneIcon from "@mui/icons-material/Done"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import { useState } from "react"
@@ -49,11 +49,7 @@ export default function User_profile_edit({ user_initial }: Props) {
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box>
               <Typography variant="h4">Uređivanje profila</Typography>
-              {!user_data.name && (
-                <Typography sx={{ mt: 1, fontSize: typography.h6, color: palette.warning.light }}>
-                  Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj
-                </Typography>
-              )}
+              {!user_data.name && <Warning_noUsername sx={{ mt: 2 }} />}
             </Box>
             <IconButton sx={{ ml: 2 }} onClick={updateUser}>
               <DoneIcon sx={{ fontSize: typography.h4 }} />
