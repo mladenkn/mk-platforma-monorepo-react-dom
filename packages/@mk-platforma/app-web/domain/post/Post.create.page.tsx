@@ -10,9 +10,7 @@ import { Post_api_cu_input_base } from "./Post.api.cu.input"
 
 type PostInput = z.infer<typeof Post_api_cu_input_base>
 
-type Props = {}
-
-export default function Post_create_page({}: Props) {
+export default function Post_create_page() {
   function onSubmit(value: PostInput) {}
 
   const { breakpoints } = useTheme()
@@ -23,7 +21,7 @@ export default function Post_create_page({}: Props) {
         <Header>
           <Header_back />
           <LogoLink />
-          <Header_moreOptions exclude={["other.contact"]} />
+          <Header_moreOptions exclude={["post.create"]} />
         </Header>
       }
       content={
