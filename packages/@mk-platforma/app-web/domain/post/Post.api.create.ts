@@ -5,7 +5,7 @@ import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
 
-const Post_api_create = authorizedRoute(u => u.canMutate)
+const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(Post_api_create_input)
   .mutation(async ({ ctx, input }) => {
     return await ctx.db.$transaction(async tx => {
