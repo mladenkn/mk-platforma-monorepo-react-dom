@@ -39,7 +39,6 @@ const run_args = match(parsed.command)
     {
       DATABASE_URL: getConnectionString(dbInstance),
       NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
-      NEXTAUTH_URL: "/",
     },
     "next build",
   ])
@@ -48,7 +47,6 @@ const run_args = match(parsed.command)
     {
       DATABASE_URL: getConnectionString(dbInstance),
       NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
-      NEXTAUTH_URL: "/",
     },
     "next start",
   ])
