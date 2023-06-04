@@ -34,9 +34,7 @@ export default function Post_single_details({
   canComment,
 }: Post_single_details_Props) {
   const Container = (usePaperSections ? Paper : Box) as typeof Box
-
   const {} = useTheme()
-
   const { typography } = useTheme()
 
   const avatarProps = expertEndorsement
@@ -114,10 +112,12 @@ export default function Post_single_details({
         )}
         {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
       </Container>
-      {canComment && <Container sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex" }}>
-        <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
-        <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
-      </Container>}
+      {canComment && (
+        <Container sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex" }}>
+          <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
+          <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
+        </Container>
+      )}
       {comments && (
         <DataOrQuery
           input={comments}
