@@ -69,7 +69,7 @@ export default function Post_single_details({
               )}
             </Box>
           </Box>
-          <Box>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             {editAction}
             <IconButton>
               <DeleteIcon />

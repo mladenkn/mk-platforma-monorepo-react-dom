@@ -7,6 +7,7 @@ import { z } from "zod"
 export const getServerSideProps = create_get_ss_props(
   {
     authenticate: true,
+    authorize: ({ user }) => !!user?.canMutate, // treba da nemože onaj čiji post nije
     queryParams: z.object({ id: z.number() }),
   },
   async ({ api }, params) => {

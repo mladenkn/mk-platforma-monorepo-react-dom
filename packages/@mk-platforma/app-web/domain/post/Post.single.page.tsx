@@ -9,6 +9,7 @@ import Post_form from "./Post.form"
 import { Header, Header_back, Header_moreOptions } from "~/domain/Header"
 import Layout from "~/domain/Layout"
 import { LogoLink } from "../common"
+import Link from "next/link"
 
 export default function Post_single_page({
   post_initial,
@@ -17,7 +18,6 @@ export default function Post_single_page({
 }) {
   const postQuery = Api.post.single.useQuery({ id: post_initial.id }, { initialData: post_initial })
   const post = asNonNil(postQuery.data)
-  const [isEdit, setIsEdit] = useState(false)
 
   return (
     <Layout
@@ -31,33 +31,21 @@ export default function Post_single_page({
       content={
         <>
           {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : <></>}
-          {!isEdit ? (
-            <Post_single_details
-              sx={{ p: 1 }}
-              {...post}
-              usePaperSections
-              editAction={
-                post.canEdit ? (
-                  <IconButton onClick={() => setIsEdit(true)}>
-                    <EditIcon />
-                  </IconButton>
-                ) : undefined
-              }
-            />
-          ) : (
-            <></>
-          )}
-          {post && isEdit ? (
-            <Post_form
-              sx={{ p: 2, m: 1, width: "100%" }}
-              title="Uredi objavu"
-              initialValues={nullsToUndefinedDeep(post)}
-              onSubmit={() => {}}
-              onCancel={() => setIsEdit(false)}
-            />
-          ) : (
-            <></>
-          )}
+          <Post_single_details
+            sx={{ p: 1 }}
+            {...post}
+            usePaperSections
+            editAction={
+              post.canEdit ? (
+                <Link
+                  href={`/post/edit/${post.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <EditIcon />
+                </Link>
+              ) : undefined
+            }
+          />
         </>
       }
     />
