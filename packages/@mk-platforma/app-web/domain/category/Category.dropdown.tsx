@@ -41,21 +41,7 @@ export default function CategoryDropdown({
   return (
     <Autocomplete
       fullWidth
-      sx={{
-        ".MuiAutocomplete-popupIndicator": {
-          mb: 2,
-        },
-        ".MuiAutocomplete-clearIndicator": {
-          mb: 2,
-        },
-        ".MuiAutocomplete-popupIndicator svg": {
-          fontSize: typography.h4,
-        },
-        ".MuiAutocomplete-clearIndicator svg": {
-          fontSize: typography.h4,
-        },
-        ...sx,
-      }}
+      sx={sx}
       loading={categories.isLoading}
       options={categories.data?.map(getCategoryOption) || []}
       renderOption={(props, option) => (

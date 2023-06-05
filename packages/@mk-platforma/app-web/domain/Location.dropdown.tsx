@@ -38,21 +38,7 @@ export default function Location_Dropdown({
   return (
     <Autocomplete
       fullWidth
-      sx={{
-        ".MuiAutocomplete-popupIndicator": {
-          mb: 2,
-        },
-        ".MuiAutocomplete-clearIndicator": {
-          mb: 2,
-        },
-        ".MuiAutocomplete-popupIndicator svg": {
-          fontSize: typography.h4,
-        },
-        ".MuiAutocomplete-clearIndicator svg": {
-          fontSize: typography.h4,
-        },
-        ...sx,
-      }}
+      sx={sx}
       loading={suggestions.isLoading}
       options={suggestions.data?.map(getLocationOptions) || []}
       renderOption={(props, option) => (
