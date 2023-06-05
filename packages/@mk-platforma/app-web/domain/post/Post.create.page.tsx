@@ -11,7 +11,7 @@ export default function Post_create_page() {
   const router = useRouter()
   const mutation = Api.post.upsert.useMutation({
     onSuccess(post) {
-      router.push(`post/${post.id}`)
+      router.push(`/post/${post.id}`)
     },
   })
 
