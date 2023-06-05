@@ -3,7 +3,7 @@ import Api from "~/api_/api.client"
 import { Api_outputs } from "~/api_/api.infer"
 import Layout from "../Layout"
 import { Header, Header_back, Header_moreOptions } from "../Header"
-import { LogoLink, Warning_noUsername } from "../common"
+import { LogoLink, Warning_noUsername, use_noUsername_isDisplayed } from "../common"
 import DoneIcon from "@mui/icons-material/Done"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import { useState } from "react"
@@ -34,6 +34,7 @@ export default function User_profile_edit({ user_initial }: Props) {
   }
 
   const { palette, typography } = useTheme()
+  const noUsername_isDisplayed = use_noUsername_isDisplayed()
 
   return (
     <Layout
@@ -49,7 +50,7 @@ export default function User_profile_edit({ user_initial }: Props) {
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Box>
               <Typography variant="h4">Uređivanje profila</Typography>
-              {!user_data.name && <Warning_noUsername sx={{ mt: 2 }} />}
+              {noUsername_isDisplayed && <Warning_noUsername sx={{ mt: 2 }} />}
             </Box>
             <IconButton sx={{ ml: 2 }} onClick={updateUser}>
               <DoneIcon sx={{ fontSize: typography.h4 }} />

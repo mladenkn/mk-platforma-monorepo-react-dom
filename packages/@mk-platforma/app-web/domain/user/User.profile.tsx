@@ -5,7 +5,7 @@ import { groupBy } from "lodash"
 import { getCategoryLabel } from "~/domain/category/Category.common"
 import { Api_outputs } from "~/api_/api.infer"
 import { Header, Header_back, Header_moreOptions } from "../Header"
-import { LogoLink, Warning_noUsername } from "../common"
+import { LogoLink, Warning_noUsername, use_noUsername_isDisplayed } from "../common"
 import Layout from "~/domain/Layout"
 import Api from "~/api_/api.client"
 import EditIcon from "@mui/icons-material/Edit"
@@ -21,6 +21,7 @@ export default function User_profile({ user_initial }: Props) {
   const posts_byCategories = Object.entries(groupBy(user.data?.posts, p => p.categories[0].id))
 
   const {} = useTheme()
+  const noUsername_isDisplayed = use_noUsername_isDisplayed()
 
   return (
     <Layout
@@ -37,7 +38,7 @@ export default function User_profile({ user_initial }: Props) {
             "Loading..."
           ) : (
             <>
-              {!user.data?.name && <Warning_noUsername sx={{ mb: 3, mt: 1 }} withSetAction />}
+              {noUsername_isDisplayed && <Warning_noUsername sx={{ mb: 3, mt: 1 }} withSetAction />}
               <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
                   <Avatar />
