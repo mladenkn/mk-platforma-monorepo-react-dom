@@ -1,12 +1,27 @@
-import { shallowPick } from "@mk-libs/common/common"
+import { asNonNil, shallowPick } from "@mk-libs/common/common"
 import { authorizedRoute } from "~/api_/api.server.utils"
 import { Post_api_upsert_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
+import db from "~/prisma/instance"
+
+const allCategories = db.category.findMany()
+
+const input = Post_api_upsert_input.refine(async ({ categories, expertEndorsement }) => {
+  const _allCategories = await allCategories
+  const categories_withLabels = categories.map(post_category =>
+    asNonNil(_allCategories.find(c => c.id === post_category.id))
+  )
+  return categories_withLabels.every(
+    c =>
+      (c.label === "job_demand" && expertEndorsement) ||
+      (c.label !== "job_demand" && !expertEndorsement)
+  )
+})
 
 const Post_api_upsert = authorizedRoute(u => u.canMutate && !!u.name)
-  .input(Post_api_upsert_input)
+  .input(input)
   .mutation(async ({ ctx, input }) => {
     return await ctx.db.$transaction(async tx => {
       const data = {
