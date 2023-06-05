@@ -1,6 +1,7 @@
 - create i update
-- file upload
+- bug: postovi koji nisu job_demand imaju expertEndorsement
 - error handling
+- file upload
 
 - pravo
 
