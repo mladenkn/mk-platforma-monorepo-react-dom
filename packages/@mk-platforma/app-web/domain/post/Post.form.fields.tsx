@@ -26,8 +26,10 @@ export default function Post_form_fields({ sx, eachField = { disabled: false }, 
   const isExpert = selectedCategory.data?.label === "job_demand"
   useEffect(() => {
     // BUG
-    if (!values.expertEndorsement) {
+    if (isExpert && !values.expertEndorsement) {
       setFieldValue("expertEndorsement", { firstName: "", lastName: "", skills: [] })
+    } else if (!isExpert) {
+      setFieldValue("expertEndorsement", undefined)
     }
   }, [isExpert])
 
