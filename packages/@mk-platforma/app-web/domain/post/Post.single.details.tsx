@@ -32,20 +32,23 @@ export default function Post_single_details({
   expertEndorsement,
   author,
   canComment,
+  categories,
 }: Post_single_details_Props) {
   const Container = (usePaperSections ? Paper : Box) as typeof Box
   const {} = useTheme()
   const { typography } = useTheme()
 
-  const avatarProps = expertEndorsement
+  const avatarProps = categories.some(c => c.label === "job_demand")
     ? {
-        sx: expertEndorsement.avatarStyle as object,
-        children: expertEndorsement.firstName[0] + expertEndorsement.lastName[0],
+        sx: expertEndorsement!.avatarStyle as object,
+        children: expertEndorsement!.firstName[0] + expertEndorsement!.lastName[0],
       }
     : {
         sx: author.avatarStyle as object,
         children: author.name?.[0],
       }
+
+  console.log(50, expertEndorsement)
 
   return (
     <Box sx={sx}>
@@ -114,7 +117,7 @@ export default function Post_single_details({
       </Container>
       {canComment && (
         <Container sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex" }}>
-          <Avatar children="MK" sx={{ background: "blue", color: "white", mr: 2 }} />
+          <Avatar children={avatarProps.children} sx={{ mr: 2, ...avatarProps.sx }} />
           <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
         </Container>
       )}
