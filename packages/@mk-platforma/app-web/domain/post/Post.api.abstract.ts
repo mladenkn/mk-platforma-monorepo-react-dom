@@ -38,6 +38,9 @@ export const Post_list_many = SuperData_mapper(
           },
         },
       },
+      orderBy: {
+        id: "desc",
+      },
     } satisfies Prisma.PostFindManyArgs
   }
 )
