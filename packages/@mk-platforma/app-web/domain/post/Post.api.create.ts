@@ -5,7 +5,7 @@ import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
 
-const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
+const Post_api_upsert = authorizedRoute(u => u.canMutate && !!u.name)
   .input(Post_api_upsert_input)
   .mutation(async ({ ctx, input }) => {
     return await ctx.db.$transaction(async tx => {
@@ -26,7 +26,7 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
           connect: input.location || undefined,
         },
       }
-      const post_created = await tx.post.upsert({
+      const post_upserted = await tx.post.upsert({
         where: {
           id: input.id || 0,
         },
@@ -36,12 +36,12 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
       if (input.expertEndorsement) {
         await tx.post.update({
           where: {
-            id: post_created.id,
+            id: post_upserted.id,
           },
           data: {
             expertEndorsement: {
               create: {
-                post_id: post_created.id,
+                post_id: post_upserted.id,
                 ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                 avatarStyle: getRandomElement(avatarStyles),
                 skills: {
@@ -52,8 +52,8 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
           },
         })
       }
-      return post_created
+      return post_upserted
     })
   })
 
-export default Post_api_create
+export default Post_api_upsert
