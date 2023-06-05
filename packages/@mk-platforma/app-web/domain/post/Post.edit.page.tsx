@@ -44,7 +44,7 @@ export default function Post_create_page({ post_initial }: Props) {
             [breakpoints.up("md")]: { mx: 0 },
           }}
           initialValues={post_initial}
-          title="Novi oglas"
+          title="Uredi oglas"
           onSubmit={v => mutation.mutate(v)}
           onCancel={useRouter().back}
         />
