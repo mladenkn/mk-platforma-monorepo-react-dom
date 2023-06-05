@@ -55,12 +55,17 @@ const Post_api_upsert = authorizedRoute(u => u.canMutate && !!u.name)
           },
           data: {
             expertEndorsement: {
-              create: {
-                post_id: post_upserted.id,
-                ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
-                avatarStyle: getRandomElement(avatarStyles),
-                skills: {
-                  create: input.expertEndorsement.skills || undefined,
+              connectOrCreate: {
+                where: {
+                  post_id: post_upserted.id,
+                },
+                create: {
+                  post_id: post_upserted.id,
+                  ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
+                  avatarStyle: getRandomElement(avatarStyles),
+                  skills: {
+                    create: input.expertEndorsement.skills || undefined,
+                  },
                 },
               },
             },
