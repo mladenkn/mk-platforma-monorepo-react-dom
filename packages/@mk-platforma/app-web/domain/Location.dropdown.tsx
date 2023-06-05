@@ -7,7 +7,7 @@ import { Api_outputs } from "~/api_/api.infer"
 type CategoriesDropdown_Props = {
   sx?: SxProps
   value?: number
-  onChange(event: any, c?: number): void
+  onChange(c?: number): void
   disabled?: boolean
 }
 
@@ -74,7 +74,7 @@ export default function Location_Dropdown({
         />
       )}
       value={value_option}
-      onChange={(event, value) => onChange(event, value?.id)}
+      onChange={(event, value) => onChange(value?.id)}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       {...props}
     />
