@@ -19,7 +19,7 @@ export default function Location_Dropdown({
   onChange,
   ...props
 }: CategoriesDropdown_Props): ReactElement {
-  const { typography } = useTheme()
+  const {} = useTheme()
 
   const [search, setSearch] = useState("")
   const suggestions = Api.location.many.useQuery({ query: search })
