@@ -1,5 +1,6 @@
 - error handling
 - expert skills
+- category nesting u Category_dropdown
 - file upload
 
 - pravo
