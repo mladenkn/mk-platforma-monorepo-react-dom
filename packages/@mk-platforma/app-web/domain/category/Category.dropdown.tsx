@@ -14,7 +14,7 @@ type CategoriesDropdown_Props = {
 
 type Category = Api_outputs["category"]["many"][number]
 
-export default function CategoryDropdown({
+export default function Category_dropdown({
   sx,
   value,
   onChange,

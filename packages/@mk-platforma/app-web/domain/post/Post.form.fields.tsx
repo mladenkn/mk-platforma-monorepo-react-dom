@@ -6,7 +6,7 @@ import { z } from "zod"
 import Post_form_images from "./Post.form.images"
 import Location_Dropdown from "~/domain/Location.dropdown"
 import { useCategory } from "~/domain/category/Category.common"
-import CategoriesDropdown from "~/domain/category/Category.dropdown"
+import Category_dropdown from "~/domain/category/Category.dropdown"
 import { Post_api_upsert_input } from "./Post.api.cu.input"
 
 type Props = {
@@ -42,7 +42,7 @@ export default function Post_form_fields({ sx, eachField = { disabled: false }, 
         onChange={handleChange}
         {...eachField}
       />
-      <CategoriesDropdown
+      <Category_dropdown
         value={values.categories?.length ? values.categories[0].id : undefined}
         onChange={value => setFieldValue("categories", [{ id: value }])}
         disabled={eachField.disabled}
