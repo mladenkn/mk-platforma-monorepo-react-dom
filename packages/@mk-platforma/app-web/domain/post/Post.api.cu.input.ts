@@ -14,7 +14,7 @@ export const Post_api_upsert_input = PostSchema.pick({
   contact: true,
 }).extend({
   id: PostSchema.shape.id.nullish(),
-  categories: z.array(CategorySchema.pick({ id: true })),
+  categories: z.array(CategorySchema.pick({ id: true })).length(1),
   expertEndorsement: Post_ExpertEndorsementSchema.pick({
     firstName: true,
     lastName: true,

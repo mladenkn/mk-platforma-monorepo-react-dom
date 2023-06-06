@@ -8,9 +8,7 @@ import db from "~/prisma/instance"
 
 const allCategories = db.category.findMany()
 
-const input = Post_api_upsert_input.refine(({ categories }) => categories.length === 1, {
-  message: "Only one category per post is currently supported",
-}).refine(
+const input = Post_api_upsert_input.refine(
   async ({ categories, expertEndorsement }) => {
     const _allCategories = await allCategories
     const categories_withLabels = categories.map(post_category =>
