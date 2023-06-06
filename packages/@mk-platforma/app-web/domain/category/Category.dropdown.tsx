@@ -59,8 +59,19 @@ export default function Category_dropdown({
       loading={categories.isLoading}
       options={options}
       renderOption={(props, option) => (
-        <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
-          <CategoryIcon fontSize="medium" name={option.dbLabel} sx={{ mr: 2 }} />
+        <Box
+          component="li"
+          sx={{
+            "& > img": { mr: 2, flexShrink: 0 },
+            opacity: option.children?.length ? 0.85 : undefined,
+          }}
+          {...props}
+        >
+          <CategoryIcon
+            fontSize="medium"
+            name={option.dbLabel}
+            sx={{ mr: 2, opacity: option.children?.length ? 0.85 : undefined }}
+          />
           {option.label}
         </Box>
       )}
