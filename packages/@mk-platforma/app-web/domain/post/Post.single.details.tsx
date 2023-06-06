@@ -48,8 +48,6 @@ export default function Post_single_details({
         children: author.name?.[0],
       }
 
-  console.log(50, expertEndorsement)
-
   return (
     <Box sx={sx}>
       <Container sx={{ p: 2 }}>
