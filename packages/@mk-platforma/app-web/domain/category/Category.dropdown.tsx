@@ -39,13 +39,18 @@ export default function Category_dropdown({
         ? getCategoryLabel(cat.label) + " ostalo"
         : getCategoryLabel(cat.label),
       group,
+      children: cat.children,
     }
   }
   const value_option =
     value && categories.data ? getCategoryOption(findCategory(value)!) : undefined
 
   const options =
-    categories.data?.map(getCategoryOption).sort((a, b) => -b.group.localeCompare(a.group)) || []
+    categories.data?.map(getCategoryOption).sort((a, b) => {
+      if (a.children?.length && a.group === b.group) return 1
+      if (b.children?.length && a.group === b.group) return -1
+      return -b.group.localeCompare(a.group)
+    }) || []
 
   return (
     <Autocomplete
