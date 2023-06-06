@@ -34,9 +34,6 @@ const Post_api_upsert = authorizedRoute(u => u.canMutate && !!u.name)
             id: ctx.user.id,
           },
         },
-        categories: {
-          connect: input.categories,
-        },
         images: {
           create: input.images || undefined,
         },
@@ -48,8 +45,18 @@ const Post_api_upsert = authorizedRoute(u => u.canMutate && !!u.name)
         where: {
           id: input.id || 0,
         },
-        update: data,
-        create: data,
+        update: {
+          ...data,
+          categories: {
+            set: input.categories,
+          },
+        },
+        create: {
+          ...data,
+          categories: {
+            connect: input.categories,
+          },
+        },
       })
       if (input.expertEndorsement) {
         await tx.post.update({
