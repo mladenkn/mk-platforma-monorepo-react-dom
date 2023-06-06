@@ -14,13 +14,6 @@ type CategoriesDropdown_Props = {
 
 type Category = Api_outputs["category"]["many"][number]
 
-type Category_mapped = {
-  id: number
-  label: string
-  dbLabel: Category["label"]
-  parent?: Category_mapped | null
-}
-
 export default function CategoryDropdown({
   sx,
   value,
