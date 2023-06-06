@@ -1,3 +1,4 @@
+- bolje validacije, ne dozvoljavat više kategorija za sad, a inače samo određene kombinacije
 - create i update
 - error handling
 - file upload
