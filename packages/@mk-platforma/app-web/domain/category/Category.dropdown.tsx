@@ -35,7 +35,9 @@ export default function CategoryDropdown({
     return {
       id: cat.id,
       dbLabel: cat.label,
-      label: getCategoryLabel(cat.label),
+      label: cat.children?.length
+        ? getCategoryLabel(cat.label) + " ostalo"
+        : getCategoryLabel(cat.label),
       group,
     }
   }
@@ -43,9 +45,7 @@ export default function CategoryDropdown({
     value && categories.data ? getCategoryOption(findCategory(value)!) : undefined
 
   const options =
-    categories.data
-      ?.map(getCategoryOption)
-      .sort((a, b) => -(b.group ?? "").localeCompare(a.group ?? "")) || []
+    categories.data?.map(getCategoryOption).sort((a, b) => -b.group.localeCompare(a.group)) || []
 
   return (
     <Autocomplete
