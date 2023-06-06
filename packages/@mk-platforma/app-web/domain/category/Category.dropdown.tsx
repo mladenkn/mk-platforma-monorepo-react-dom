@@ -3,6 +3,7 @@ import { CategoryIcon, getCategoryLabel } from "./Category.common"
 import React, { ReactElement } from "react"
 import Api from "~/api_/api.client"
 import { Api_outputs } from "~/api_/api.infer"
+import { eva } from "~/../../@mk-libs/common/common"
 
 type CategoriesDropdown_Props = {
   sx?: SxProps
@@ -32,12 +33,17 @@ export default function CategoryDropdown({
   function findCategory(id: number) {
     return categories.data?.find(c => c.id === id)
   }
-  function getCategoryOption(cat: Category): Category_mapped {
+  function getCategoryOption(cat: Category) {
+    const group = eva(() => {
+      if (cat.children?.length) return getCategoryLabel(cat.label)
+      if (cat.parent) return getCategoryLabel(cat.parent.label)
+      else return ""
+    })
     return {
       id: cat.id,
       dbLabel: cat.label,
       label: getCategoryLabel(cat.label),
-      parent: cat.parent && getCategoryOption(cat.parent as Category),
+      group,
     }
   }
   const value_option =
@@ -45,8 +51,8 @@ export default function CategoryDropdown({
 
   const options =
     categories.data
-      ?.sort((a, b) => -(b.parent?.label ?? "").localeCompare(a.parent?.label ?? ""))
-      .map(getCategoryOption) ?? []
+      ?.map(getCategoryOption)
+      .sort((a, b) => -(b.group ?? "").localeCompare(a.group ?? "")) || []
 
   return (
     <Autocomplete
@@ -77,7 +83,7 @@ export default function CategoryDropdown({
       value={value_option || null}
       onChange={(e, value) => onChange(value?.id)}
       isOptionEqualToValue={(option, value) => option.id === value.id}
-      groupBy={o => o.parent?.label || ""}
+      groupBy={o => o.group}
       {...props}
     />
   )
