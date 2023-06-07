@@ -38,7 +38,7 @@ const create_expert = Post_ExpertEndorsementSchema.shape
 export const Post_api_update_input = z.object({
   id: PostSchema.shape.id,
   title: create.title.optional(),
-  description: create.title.optional(),
+  description: create.title.nullish(),
   contact: create.title.optional(),
   categories: create.categories.optional(),
   images: create.images,
@@ -56,7 +56,7 @@ export const Post_api_update_input = z.object({
         )
         .optional(),
     })
-    .optional(),
+    .nullish(),
 })
 
 export const Post_api_cu_input = Post_api_create_input.or(Post_api_update_input)
