@@ -56,7 +56,3 @@ export const Post_api_update_input = z.object({
     })
     .optional(),
 })
-
-export const Post_api_upsert_input = Post_api_create_input.or(Post_api_update_input)
-
-type a = z.infer<typeof Post_api_upsert_input>["title"]
