@@ -8,15 +8,21 @@ import { useCategory } from "~/domain/category/Category.common"
 import Category_dropdown from "~/domain/category/Category.dropdown"
 import { Post_api_cu_input } from "./Post.api.cu.input"
 
-type Props = {
+type Values = z.infer<typeof Post_api_cu_input>
+
+type Props<TValues extends Values> = {
   sx?: SxProps
   eachField?: {
     disabled?: boolean
   }
-  form: ReturnType<typeof useFormik<z.infer<typeof Post_api_cu_input>>>
+  form: ReturnType<typeof useFormik<TValues>>
 }
 
-export default function Post_form_fields({ sx, eachField = { disabled: false }, form }: Props) {
+export default function Post_form_fields<TValues extends Values>({
+  sx,
+  eachField = { disabled: false },
+  form,
+}: Props<TValues>) {
   const { values, handleChange, setFieldValue } = form
 
   const selectedCategory = useCategory(

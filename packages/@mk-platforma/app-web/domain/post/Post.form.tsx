@@ -9,15 +9,21 @@ import { Post_api_cu_input } from "./Post.api.cu.input"
 
 type Values = z.infer<typeof Post_api_cu_input>
 
-type Props = {
+type Props<TValues extends Values> = {
   sx?: SxProps
-  onSubmit(values: Values): void
+  onSubmit(values: TValues): void
   onCancel(): void
   title: string
-  form: ReturnType<typeof useFormik<Values>>
+  form: ReturnType<typeof useFormik<TValues>>
 }
 
-export default function Post_form({ sx, onSubmit, onCancel, title, form }: Props) {
+export default function Post_form<TValues extends Values>({
+  sx,
+  onSubmit,
+  onCancel,
+  title,
+  form,
+}: Props<TValues>) {
   const noUsername_isDisplayed = use_noUsername_isDisplayed()
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", ...sx }}>
