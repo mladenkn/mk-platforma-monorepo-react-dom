@@ -26,11 +26,11 @@ export const Post_api_create_input = PostSchema.pick({
             level: true,
           })
         )
-        .nullish(),
+        .optional(),
     })
-    .nullish(),
-  images: z.array(ImageSchema.pick({ url: true })).nullish(),
-  location: LocationSchema.pick({ id: true }).nullish(),
+    .optional(),
+  images: z.array(ImageSchema.pick({ url: true })).optional(),
+  location: LocationSchema.pick({ id: true }).optional(),
 })
 
 const create = Post_api_create_input.shape
@@ -47,12 +47,14 @@ export const Post_api_update_input = z.object({
     .object({
       firstName: create_expert.firstName,
       lastName: create_expert.lastName,
-      skills: z.array(
-        Post_ExpertEndorsement_skillSchema.pick({
-          label: true,
-          level: true,
-        })
-      ),
+      skills: z
+        .array(
+          Post_ExpertEndorsement_skillSchema.pick({
+            label: true,
+            level: true,
+          })
+        )
+        .optional(),
     })
     .optional(),
 })

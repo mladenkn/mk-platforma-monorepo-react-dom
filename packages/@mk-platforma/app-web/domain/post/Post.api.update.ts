@@ -1,4 +1,4 @@
-import { asNonNil, shallowPick } from "@mk-libs/common/common"
+import { shallowPick } from "@mk-libs/common/common"
 import { authorizedRoute } from "~/api_/api.server.utils"
 import { Post_api_update_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
@@ -12,7 +12,7 @@ const input = Post_api_update_input.refine(
   { message: "Category not matched with expertEndorsement field" }
 )
 
-const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
+const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
   .mutation(async ({ ctx, input }) => {
     return await ctx.db.$transaction(async tx => {
@@ -28,10 +28,10 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
             },
           },
           images: {
-            create: input.images || undefined,
+            create: input.images,
           },
           location: {
-            connect: input.location || undefined,
+            connect: input.location,
           },
           categories: {
             connect: input.categories,
@@ -50,7 +50,7 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
                 ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                 avatarStyle: getRandomElement(avatarStyles),
                 skills: {
-                  create: input.expertEndorsement.skills || undefined,
+                  create: input.expertEndorsement.skills,
                 },
               },
             },
@@ -61,4 +61,4 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
     })
   })
 
-export default Post_api_create
+export default Post_api_update
