@@ -74,7 +74,7 @@ const Post_api_upsert = authorizedRoute(u => u.canMutate && !!u.name)
                   ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                   avatarStyle: getRandomElement(avatarStyles),
                   skills: {
-                    create: input.expertEndorsement.skills || undefined,
+                    create: input.expertEndorsement.skills || undefined, // TODO
                   },
                 },
               },
