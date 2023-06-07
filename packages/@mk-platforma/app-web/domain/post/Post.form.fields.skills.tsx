@@ -2,6 +2,7 @@ import { Box, SxProps, TextField, Typography, useTheme, IconButton } from "@mui/
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import RemoveIcon from "@mui/icons-material/Remove"
+import { useState } from "react"
 
 type Skill = {
   label: string
@@ -26,6 +27,16 @@ export default function Post_form_fields_skills({
   removeItem,
 }: Props) {
   const { typography } = useTheme()
+
+  const [newItem_label, set__newItem_label] = useState("")
+  const [newItem_level, set__newItem_level] = useState("")
+
+  console.log(34, newItem_level, typeof newItem_level)
+
+  function on_addItem() {
+    if (newItem_label) addItem({ label: newItem_label, level: parseFloat(newItem_level) })
+  }
+
   return (
     <Box sx={sx}>
       <Box
@@ -65,9 +76,19 @@ export default function Post_form_fields_skills({
         ))}
       </Box>
       <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
-        <TextField label="Vještina" />
-        <TextField sx={{ width: 80 }} label="Level" type="number" />
-        <IconButton>
+        <TextField
+          label="Vještina"
+          value={newItem_label}
+          onChange={e => set__newItem_label(e.target.value)}
+        />
+        <TextField
+          sx={{ width: 80 }}
+          label="Level"
+          type="number"
+          value={newItem_level}
+          onChange={e => set__newItem_level(e.target.value)}
+        />
+        <IconButton onClick={on_addItem}>
           <AddCircleOutlineIcon sx={{ fontSize: typography.h3 }} />
         </IconButton>
       </Box>
