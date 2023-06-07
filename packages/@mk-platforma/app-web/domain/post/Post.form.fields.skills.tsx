@@ -1,4 +1,5 @@
-import { Box, SxProps, TextField, Typography, useTheme } from "@mui/material"
+import { Box, SxProps, TextField, Typography, useTheme, IconButton } from "@mui/material"
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 
 type Skill = {
   label: string
@@ -15,12 +16,17 @@ export default function Post_form_fields_skills({ sx }: Props) {
   const { typography } = useTheme()
   return (
     <Box sx={sx}>
-      <Typography
-        sx={{ fontSize: typography.h6, fontWeight: typography.fontWeightRegular, opacity: 0.8 }}
-      >
-        Vještine
-      </Typography>
-      <Box sx={{ display: "flex", gap: 3, mt: 1 }}>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Typography
+          sx={{ fontSize: typography.h6, fontWeight: typography.fontWeightRegular, opacity: 0.8 }}
+        >
+          Vještine
+        </Typography>
+        <IconButton>
+          <AddCircleOutlineIcon />
+        </IconButton>
+      </Box>
+      <Box sx={{ display: "flex", gap: 2, mt: 1 }}>
         <TextField label="Vještina" />
         <TextField sx={{ width: 100 }} label="Level" type="number" />
       </Box>
