@@ -13,7 +13,7 @@ type Props = {
   onChange(v: Skill[]): void
 }
 
-export default function Post_form_fields_skills({ sx }: Props) {
+export default function Post_form_fields_skills({ sx, value, onChange }: Props) {
   const { typography } = useTheme()
   return (
     <Box sx={sx}>
@@ -29,6 +29,17 @@ export default function Post_form_fields_skills({ sx }: Props) {
         <Typography sx={{ fontSize: typography.h5, fontWeight: typography.fontWeightRegular }}>
           Vještine
         </Typography>
+      </Box>
+      <Box sx={{ mt: 2, display: "column", gap: 1 }}>
+        {value.map(({ label, level }) => (
+          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+            <TextField label="Vještina" value={label} />
+            <TextField sx={{ width: 80 }} label="Level" type="number" value={level} />
+            <IconButton>
+              <AddCircleOutlineIcon sx={{ fontSize: typography.h3 }} />
+            </IconButton>
+          </Box>
+        ))}
       </Box>
       <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
         <TextField label="Vještina" />

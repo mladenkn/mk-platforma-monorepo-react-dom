@@ -89,7 +89,7 @@ export default function Post_form_fields({ sx, eachField = { disabled: false }, 
             {...eachField}
           />
           <Post_form_fields_skills
-            sx={{ ml: 0.5, mt: 1 }}
+            sx={{ ml: 0.5, mt: 0.75 }}
             value={values.expertEndorsement.skills || []}
             onChange={v => setFieldValue("skills", v)}
           />
