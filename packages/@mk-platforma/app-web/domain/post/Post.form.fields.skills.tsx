@@ -1,6 +1,7 @@
 import { Box, SxProps, TextField, Typography, useTheme, IconButton } from "@mui/material"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import HandymanIcon from "@mui/icons-material/Handyman"
+import RemoveIcon from "@mui/icons-material/Remove"
 
 type Skill = {
   label: string
@@ -32,11 +33,11 @@ export default function Post_form_fields_skills({ sx, value, onChange }: Props) 
       </Box>
       <Box sx={{ mt: 2, display: "column", gap: 1 }}>
         {value.map(({ label, level }) => (
-          <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+          <Box sx={{ display: "flex", gap: 2 }}>
             <TextField label="Vještina" value={label} />
             <TextField sx={{ width: 80 }} label="Level" type="number" value={level} />
             <IconButton>
-              <AddCircleOutlineIcon sx={{ fontSize: typography.h3 }} />
+              <RemoveIcon sx={{ fontSize: typography.h3 }} />
             </IconButton>
           </Box>
         ))}
