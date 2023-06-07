@@ -14,8 +14,8 @@ const input = Post_api_update_input.refine(
 
 const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
-  .mutation(({ ctx, input }) => {
-    return ctx.db.post.update({
+  .mutation(({ ctx, input }) =>
+    ctx.db.post.update({
       where: {
         id: input.id,
       },
@@ -49,6 +49,6 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
           : undefined,
       },
     })
-  })
+  )
 
 export default Post_api_update
