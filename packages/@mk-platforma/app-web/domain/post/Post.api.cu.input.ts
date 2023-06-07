@@ -23,7 +23,7 @@ export const Post_api_upsert_input = PostSchema.pick({
         .array(
           z.object({
             label: z.string(),
-            level: z.number().min(1).max(5),
+            level: z.number().min(1).max(5).nullish(),
           })
         )
         .nullish(),

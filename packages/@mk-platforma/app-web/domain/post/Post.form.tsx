@@ -17,6 +17,7 @@ type Props = {
 export default function Post_form({ sx, initialValues, onSubmit, onCancel, title }: Props) {
   const noUsername_isDisplayed = use_noUsername_isDisplayed()
   const form = Post_form_fields_useForm(initialValues)
+  console.log(20, form.isValid)
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Box sx={{ mb: 0.75, display: "flex", justifyContent: "space-between" }}>
@@ -37,7 +38,7 @@ export default function Post_form({ sx, initialValues, onSubmit, onCancel, title
         variant="contained"
         sx={{ mt: 6, display: "flex", alignItems: "center", gap: 1 }}
         onClick={() => onSubmit(form.values)}
-        disabled={noUsername_isDisplayed}
+        disabled={noUsername_isDisplayed || !form.isValid}
       >
         <SaveIcon />
         Spremi

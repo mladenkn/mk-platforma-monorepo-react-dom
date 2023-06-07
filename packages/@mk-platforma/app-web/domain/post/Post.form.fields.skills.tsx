@@ -4,7 +4,7 @@ import HandymanIcon from "@mui/icons-material/Handyman"
 
 type Skill = {
   label: string
-  level: number
+  level?: number | null
 }
 
 type Props = {
