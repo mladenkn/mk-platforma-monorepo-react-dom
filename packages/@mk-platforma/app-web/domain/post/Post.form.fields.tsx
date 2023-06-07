@@ -1,6 +1,5 @@
 import { useFormik } from "formik"
 import React, { useEffect } from "react"
-import { toFormikValidationSchema } from "zod-formik-adapter"
 import { TextField, Box, SxProps } from "@mui/material"
 import { z } from "zod"
 import Post_form_images from "./Post.form.images"
@@ -14,7 +13,7 @@ type Props = {
   eachField?: {
     disabled?: boolean
   }
-  form: ReturnType<typeof Post_form_fields_useForm>
+  form: ReturnType<typeof useFormik<z.infer<typeof Post_api_cu_input>>>
 }
 
 export default function Post_form_fields({ sx, eachField = { disabled: false }, form }: Props) {
@@ -92,22 +91,4 @@ export default function Post_form_fields({ sx, eachField = { disabled: false }, 
       <Post_form_images images={values.images || []} />
     </Box>
   )
-}
-
-type PostInput = z.infer<typeof Post_api_cu_input>
-
-const initialValues_default: PostInput = {
-  title: "",
-  description: "",
-  contact: "",
-  location: undefined,
-  categories: [],
-}
-
-export function Post_form_fields_useForm(initialValues = initialValues_default) {
-  return useFormik({
-    initialValues,
-    validationSchema: toFormikValidationSchema(Post_api_cu_input),
-    onSubmit() {},
-  })
 }

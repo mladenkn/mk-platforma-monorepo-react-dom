@@ -7,6 +7,9 @@ import Layout from "../Layout"
 import { LogoLink } from "../common"
 import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
+import { toFormikValidationSchema } from "zod-formik-adapter"
+import { Post_api_update_input } from "./Post.api.cu.input"
+import { useFormik } from "formik"
 
 type Post_details = NonNullable<Api_outputs["post"]["single"]>
 
@@ -16,13 +19,19 @@ type Props = {
 
 export default function Post_create_page({ post_initial }: Props) {
   const router = useRouter()
-  const mutation = Api.post.create.useMutation({
+  const mutation = Api.post.update.useMutation({
     onSuccess(post) {
       router.push(`/post/${post.id}`)
     },
   })
 
   const { breakpoints } = useTheme()
+
+  const form = useFormik({
+    initialValues: post_initial,
+    validationSchema: toFormikValidationSchema(Post_api_update_input),
+    onSubmit() {},
+  })
 
   return (
     <Layout
@@ -43,10 +52,10 @@ export default function Post_create_page({ post_initial }: Props) {
             width: "100%",
             [breakpoints.up("md")]: { mx: 0 },
           }}
-          initialValues={post_initial}
           title="Uredi oglas"
           onSubmit={v => mutation.mutate(v)}
           onCancel={useRouter().back}
+          form={form}
         />
       }
     />
