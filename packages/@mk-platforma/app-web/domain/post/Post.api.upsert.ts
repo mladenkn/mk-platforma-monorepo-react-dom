@@ -69,12 +69,13 @@ const Post_api_upsert = authorizedRoute(u => u.canMutate && !!u.name)
                 where: {
                   post_id: post_upserted.id,
                 },
+                // TODO: mislin da fali update
                 create: {
                   post_id: post_upserted.id,
                   ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                   avatarStyle: getRandomElement(avatarStyles),
                   skills: {
-                    create: input.expertEndorsement.skills || undefined, // TODO
+                    create: input.expertEndorsement.skills || undefined, // TODO fix
                   },
                 },
               },

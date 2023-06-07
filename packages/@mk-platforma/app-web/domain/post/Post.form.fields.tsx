@@ -1,4 +1,4 @@
-import { useFormik } from "formik"
+import { FieldArray, useFormik } from "formik"
 import React, { useEffect } from "react"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import { TextField, Box, SxProps } from "@mui/material"
@@ -88,11 +88,18 @@ export default function Post_form_fields({ sx, eachField = { disabled: false }, 
             onChange={handleChange}
             {...eachField}
           />
-          <Post_form_fields_skills
-            sx={{ ml: 0.5, mt: 0.75 }}
-            value={values.expertEndorsement.skills || []}
-            onChange={handleChange}
-            namePrefix="expertEndorsement.skills"
+          <FieldArray
+            name="expertEndorsement.skills"
+            render={helpers => (
+              <Post_form_fields_skills
+                sx={{ ml: 0.5, mt: 0.75 }}
+                value={values.expertEndorsement!.skills || []}
+                onChange={handleChange}
+                namePrefix="expertEndorsement.skills"
+                addItem={helpers.push}
+                removeItem={helpers.remove}
+              />
+            )}
           />
         </>
       )}

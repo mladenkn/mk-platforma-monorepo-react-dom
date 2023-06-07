@@ -13,9 +13,18 @@ type Props = {
   value: Skill[]
   onChange(event: any): void
   namePrefix?: string
+  addItem(i: Skill): void
+  removeItem(i: number): void
 }
 
-export default function Post_form_fields_skills({ sx, value, namePrefix, onChange }: Props) {
+export default function Post_form_fields_skills({
+  sx,
+  value,
+  namePrefix,
+  onChange,
+  addItem,
+  removeItem,
+}: Props) {
   const { typography } = useTheme()
   return (
     <Box sx={sx}>
@@ -49,7 +58,7 @@ export default function Post_form_fields_skills({ sx, value, namePrefix, onChang
               name={`${namePrefix}.${index}.level`}
               onChange={onChange}
             />
-            <IconButton>
+            <IconButton onClick={() => removeItem(index)}>
               <RemoveIcon sx={{ fontSize: typography.h3 }} />
             </IconButton>
           </Box>
