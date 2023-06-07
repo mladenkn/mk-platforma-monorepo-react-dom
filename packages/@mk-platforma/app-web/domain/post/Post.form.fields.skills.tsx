@@ -31,8 +31,6 @@ export default function Post_form_fields_skills({
   const [newItem_label, set__newItem_label] = useState("")
   const [newItem_level, set__newItem_level] = useState("")
 
-  console.log(34, newItem_level, typeof newItem_level)
-
   function on_addItem() {
     if (newItem_label) addItem({ label: newItem_label, level: parseFloat(newItem_level) })
   }
