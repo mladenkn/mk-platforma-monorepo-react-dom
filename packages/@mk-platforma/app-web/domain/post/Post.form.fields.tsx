@@ -8,6 +8,7 @@ import Location_Dropdown from "~/domain/Location.dropdown"
 import { useCategory } from "~/domain/category/Category.common"
 import Category_dropdown from "~/domain/category/Category.dropdown"
 import { Post_api_upsert_input } from "./Post.api.cu.input"
+import Post_form_fields_skills from "./Post.form.fields.skills"
 
 type Props = {
   sx?: SxProps
@@ -86,6 +87,11 @@ export default function Post_form_fields({ sx, eachField = { disabled: false }, 
             value={values.expertEndorsement.lastName}
             onChange={handleChange}
             {...eachField}
+          />
+          <Post_form_fields_skills
+            sx={{ ml: 0.5 }}
+            value={values.expertEndorsement.skills || []}
+            onChange={v => setFieldValue("skills", v)}
           />
         </>
       )}
