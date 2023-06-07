@@ -14,50 +14,40 @@ const input = Post_api_update_input.refine(
 
 const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
-  .mutation(async ({ ctx, input }) => {
-    return await ctx.db.$transaction(async tx => {
-      const post_upserted = await tx.post.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          ...shallowPick(input, "title", "description", "contact"),
-          author: {
-            connect: {
-              id: ctx.user.id,
-            },
-          },
-          images: {
-            create: input.images,
-          },
-          location: {
-            connect: input.location || undefined,
-          },
-          categories: {
-            connect: input.categories,
+  .mutation(({ ctx, input }) => {
+    return ctx.db.post.update({
+      where: {
+        id: input.id,
+      },
+      data: {
+        ...shallowPick(input, "title", "description", "contact"),
+        author: {
+          connect: {
+            id: ctx.user.id,
           },
         },
-      })
-      if (input.expertEndorsement) {
-        await tx.post.update({
-          where: {
-            id: post_upserted.id,
-          },
-          data: {
-            expertEndorsement: {
+        images: {
+          create: input.images,
+        },
+        location: {
+          connect: input.location || undefined,
+        },
+        categories: {
+          connect: input.categories,
+        },
+        expertEndorsement: input.expertEndorsement
+          ? {
               create: {
-                post_id: post_upserted.id,
+                post_id: input.id,
                 ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                 avatarStyle: getRandomElement(avatarStyles),
                 skills: {
                   create: input.expertEndorsement.skills,
                 },
               },
-            },
-          },
-        })
-      }
-      return post_upserted
+            }
+          : undefined,
+      },
     })
   })
 
