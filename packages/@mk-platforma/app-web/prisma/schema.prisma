@@ -17,7 +17,7 @@ generator zod {
 model Post {
   id                   Int     @id @default(autoincrement())
   title                String
-  description          String
+  description          String?
   contact              String
   location_id          Int?
   author_id            Int

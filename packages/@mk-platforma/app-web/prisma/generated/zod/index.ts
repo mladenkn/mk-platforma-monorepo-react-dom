@@ -113,7 +113,7 @@ export type Category_labelType = `${z.infer<typeof Category_labelSchema>}`
 export const PostSchema = z.object({
   id: z.number().int(),
   title: z.string(),
-  description: z.string(),
+  description: z.string().nullish(),
   contact: z.string(),
   location_id: z.number().int().nullish(),
   author_id: z.number().int(),

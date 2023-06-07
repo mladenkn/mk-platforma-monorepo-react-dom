@@ -10,15 +10,17 @@ const allCategories = db.category.findMany()
 
 const input = Post_api_upsert_input.refine(
   async ({ categories, expertEndorsement }) => {
-    const _allCategories = await allCategories
-    const categories_withLabels = categories.map(post_category =>
-      asNonNil(_allCategories.find(c => c.id === post_category.id))
-    )
-    return categories_withLabels.every(
-      c =>
-        (c.label === "job_demand" && expertEndorsement) ||
-        (c.label !== "job_demand" && !expertEndorsement)
-    )
+    if (categories && expertEndorsement) {
+      const _allCategories = await allCategories
+      const categories_withLabels = categories.map(post_category =>
+        asNonNil(_allCategories.find(c => c.id === post_category.id))
+      )
+      return categories_withLabels.every(
+        c =>
+          (c.label === "job_demand" && expertEndorsement) ||
+          (c.label !== "job_demand" && !expertEndorsement)
+      )
+    }
   },
   { message: "Category not matched with expertEndorsement field" }
 )
