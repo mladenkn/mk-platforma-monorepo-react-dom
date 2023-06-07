@@ -29,13 +29,13 @@ export default function Post_form_fields_skills({ sx }: Props) {
         <Typography sx={{ fontSize: typography.h5, fontWeight: typography.fontWeightRegular }}>
           Vještine
         </Typography>
-        <IconButton>
-          <AddCircleOutlineIcon sx={{ fontSize: typography.h4 }} />
-        </IconButton>
       </Box>
-      <Box sx={{ display: "flex", gap: 2, mt: 1 }}>
+      <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
         <TextField label="Vještina" />
-        <TextField sx={{ width: 100 }} label="Level" type="number" />
+        <TextField sx={{ width: 80 }} label="Level" type="number" />
+        <IconButton>
+          <AddCircleOutlineIcon sx={{ fontSize: typography.h3 }} />
+        </IconButton>
       </Box>
     </Box>
   )
