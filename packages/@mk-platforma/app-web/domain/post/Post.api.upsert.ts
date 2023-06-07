@@ -23,7 +23,7 @@ const input = Post_api_create_input.refine(
   { message: "Category not matched with expertEndorsement field" }
 )
 
-const Post_api_upsert = authorizedRoute(u => u.canMutate && !!u.name)
+const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
   .mutation(async ({ ctx, input }) => {
     return await ctx.db.$transaction(async tx => {
@@ -69,4 +69,4 @@ const Post_api_upsert = authorizedRoute(u => u.canMutate && !!u.name)
     })
   })
 
-export default Post_api_upsert
+export default Post_api_create

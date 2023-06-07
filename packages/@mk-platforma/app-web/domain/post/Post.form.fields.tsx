@@ -7,7 +7,7 @@ import Post_form_images from "./Post.form.images"
 import Location_Dropdown from "~/domain/Location.dropdown"
 import { useCategory } from "~/domain/category/Category.common"
 import Category_dropdown from "~/domain/category/Category.dropdown"
-import { Post_api_upsert_input } from "./Post.api.cu.input"
+import { Post_api_cu_input } from "./Post.api.cu.input"
 
 type Props = {
   sx?: SxProps
@@ -94,7 +94,7 @@ export default function Post_form_fields({ sx, eachField = { disabled: false }, 
   )
 }
 
-type PostInput = z.infer<typeof Post_api_upsert_input>
+type PostInput = z.infer<typeof Post_api_cu_input>
 
 const initialValues_default: PostInput = {
   title: "",
@@ -107,7 +107,7 @@ const initialValues_default: PostInput = {
 export function Post_form_fields_useForm(initialValues = initialValues_default) {
   return useFormik({
     initialValues,
-    validationSchema: toFormikValidationSchema(Post_api_upsert_input),
+    validationSchema: toFormikValidationSchema(Post_api_cu_input),
     onSubmit() {},
   })
 }

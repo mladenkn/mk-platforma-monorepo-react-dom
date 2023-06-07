@@ -9,7 +9,7 @@ import Api from "~/api_/api.client"
 
 export default function Post_create_page() {
   const router = useRouter()
-  const mutation = Api.post.upsert.useMutation({
+  const mutation = Api.post.create.useMutation({
     onSuccess(post) {
       router.push(`/post/${post.id}`)
     },

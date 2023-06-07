@@ -16,7 +16,7 @@ type Props = {
 
 export default function Post_create_page({ post_initial }: Props) {
   const router = useRouter()
-  const mutation = Api.post.upsert.useMutation({
+  const mutation = Api.post.create.useMutation({
     onSuccess(post) {
       router.push(`/post/${post.id}`)
     },

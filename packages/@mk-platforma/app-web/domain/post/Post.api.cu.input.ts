@@ -56,3 +56,5 @@ export const Post_api_update_input = z.object({
     })
     .optional(),
 })
+
+export const Post_api_cu_input = Post_api_create_input.or(Post_api_update_input)
