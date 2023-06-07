@@ -4,7 +4,6 @@ import {
   LocationSchema,
   PostSchema,
   Post_ExpertEndorsementSchema,
-  Post_ExpertEndorsement_skillSchema,
   CategorySchema,
 } from "~/prisma/generated/zod"
 
@@ -22,9 +21,9 @@ export const Post_api_upsert_input = PostSchema.pick({
     .extend({
       skills: z
         .array(
-          Post_ExpertEndorsement_skillSchema.pick({
-            label: true,
-            level: true,
+          z.object({
+            skill: z.string(),
+            level: z.number().min(1).max(5),
           })
         )
         .nullish(),
