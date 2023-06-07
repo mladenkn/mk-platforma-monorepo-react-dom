@@ -45,8 +45,8 @@ export const Post_api_update_input = z.object({
   location: create.location,
   expertEndorsement: z
     .object({
-      firstName: create_expert.firstName.optional(),
-      lastName: create_expert.lastName.optional(),
+      firstName: create_expert.firstName,
+      lastName: create_expert.lastName,
       skills: z.array(
         Post_ExpertEndorsement_skillSchema.pick({
           label: true,
