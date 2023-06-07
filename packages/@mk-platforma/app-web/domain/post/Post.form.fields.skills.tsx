@@ -11,10 +11,11 @@ type Skill = {
 type Props = {
   sx?: SxProps
   value: Skill[]
-  onChange(v: Skill[]): void
+  onChange(event: any): void
+  namePrefix?: string
 }
 
-export default function Post_form_fields_skills({ sx, value, onChange }: Props) {
+export default function Post_form_fields_skills({ sx, value, namePrefix, onChange }: Props) {
   const { typography } = useTheme()
   return (
     <Box sx={sx}>
@@ -32,10 +33,22 @@ export default function Post_form_fields_skills({ sx, value, onChange }: Props) 
         </Typography>
       </Box>
       <Box sx={{ mt: 2, display: "column", gap: 1 }}>
-        {value.map(({ label, level }) => (
-          <Box sx={{ display: "flex", gap: 2 }}>
-            <TextField label="Vještina" value={label} />
-            <TextField sx={{ width: 80 }} label="Level" type="number" value={level} />
+        {value.map(({ label, level }, index) => (
+          <Box key={index} sx={{ display: "flex", gap: 2 }}>
+            <TextField
+              label="Vještina"
+              value={label}
+              name={`${namePrefix}.${index}.label`}
+              onChange={onChange}
+            />
+            <TextField
+              sx={{ width: 80 }}
+              label="Level"
+              type="number"
+              value={level}
+              name={`${namePrefix}.${index}.level`}
+              onChange={onChange}
+            />
             <IconButton>
               <RemoveIcon sx={{ fontSize: typography.h3 }} />
             </IconButton>
