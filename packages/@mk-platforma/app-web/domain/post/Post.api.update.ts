@@ -53,8 +53,13 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
         },
       })
       const notValid =
-        post.categories.some(c => c.label === "job_demand") && !post.expertEndorsement
-      if (notValid) throw new TRPCError({ code: "BAD_REQUEST" })
+        (post.categories.some(c => c.label === "job_demand") && !post.expertEndorsement) ||
+        post.categories.length > 1
+      if (notValid)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Updated post was not at valid state",
+        })
 
       const shouldRemoveExpert =
         post.categories.some(c => c.label !== "job_demand") && post.expertEndorsement
