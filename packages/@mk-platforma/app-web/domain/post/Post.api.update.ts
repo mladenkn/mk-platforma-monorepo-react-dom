@@ -6,15 +6,8 @@ import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
 import { TRPCError } from "@trpc/server"
 
-const input = Post_api_update_input.refine(
-  async ({ categories, expertEndorsement }) => {
-    // TODO: check categories
-  },
-  { message: "Category not matched with expertEndorsement field" }
-)
-
 const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
-  .input(input)
+  .input(Post_api_update_input)
   .mutation(({ ctx, input }) =>
     ctx.db.$transaction(async tx => {
       const post = await tx.post.update({
@@ -30,7 +23,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
           expertEndorsement: true,
         },
         data: {
-          ...shallowPick(input, "title", "description", "contact"),
+          ...shallowPick(input, "title", "description", "contact", "isDeleted"),
           author: {
             connect: {
               id: ctx.user.id,

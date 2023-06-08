@@ -43,6 +43,7 @@ export const Post_api_update_input = z.object({
   categories: create.categories.optional(),
   images: create.images,
   location: create.location,
+  isDeleted: PostSchema.shape.isDeleted.optional(),
   expertEndorsement: z
     .object({
       firstName: create_expert.firstName,
