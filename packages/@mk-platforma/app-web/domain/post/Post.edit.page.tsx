@@ -32,7 +32,7 @@ export default function Post_create_page({ post_initial }: Props) {
         <Header>
           <Header_back />
           <LogoLink />
-          <Header_moreOptions exclude={["post.create"]} />
+          <Header_moreOptions />
         </Header>
       }
       content={

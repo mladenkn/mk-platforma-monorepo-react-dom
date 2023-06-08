@@ -33,7 +33,7 @@ export default function Post_form<TValues extends Values>({
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
         {form => (
           <>
-            <Box sx={{ mb: 0.75, display: "flex", justifyContent: "space-between" }}>
+            <Box sx={{ mb: 2, display: "flex", justifyContent: "space-between" }}>
               <Typography variant="h2">{title}</Typography>
               <IconButton onClick={onCancel}>
                 <CloseIcon fontSize="medium" />
