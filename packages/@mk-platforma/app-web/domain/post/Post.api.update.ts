@@ -36,7 +36,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
             connect: input.location || undefined,
           },
           categories: {
-            connect: input.categories,
+            set: input.categories,
           },
           expertEndorsement: input.expertEndorsement
             ? {
