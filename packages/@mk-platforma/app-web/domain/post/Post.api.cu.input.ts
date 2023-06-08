@@ -5,6 +5,7 @@ import {
   PostSchema,
   Post_ExpertEndorsementSchema,
   CategorySchema,
+  Post_ExpertEndorsement_skillSchema,
 } from "~/prisma/generated/zod"
 
 export const Post_api_create_input = PostSchema.pick({
