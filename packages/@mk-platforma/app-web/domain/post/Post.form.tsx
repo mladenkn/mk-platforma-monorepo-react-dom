@@ -45,7 +45,7 @@ export default function Post_form<TValues extends Values>({
         variant="contained"
         sx={{ mt: 6, display: "flex", alignItems: "center", gap: 1 }}
         onClick={() => onSubmit(form.values)}
-        disabled={noUsername_isDisplayed}
+        disabled={noUsername_isDisplayed || !form.isValid}
       >
         <SaveIcon />
         Spremi
