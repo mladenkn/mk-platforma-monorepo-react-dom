@@ -82,6 +82,7 @@ export default function Post_single_details({
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {editAction}
+            {/* TODO: confirm modal */}
             <IconButton onClick={handle_delete}>
               <DeleteIcon />
             </IconButton>
