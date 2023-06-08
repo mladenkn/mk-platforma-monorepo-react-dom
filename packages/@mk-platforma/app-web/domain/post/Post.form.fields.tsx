@@ -29,11 +29,11 @@ export default function Post_form_fields<TValues extends Values>({
   const selectedCategory = useCategory(
     values.categories?.length ? values.categories[0].id : undefined
   )
-  const isExpert = selectedCategory.data?.label === "job_demand"
+  const isExpert = selectedCategory.data ? selectedCategory.data.label === "job_demand" : undefined
   useEffect(() => {
     if (isExpert && !values.expertEndorsement) {
       setFieldValue("expertEndorsement", { firstName: "", lastName: "", skills: [] })
-    } else if (!isExpert) {
+    } else if (isExpert === false) {
       setFieldValue("expertEndorsement", undefined)
     }
   }, [isExpert])
