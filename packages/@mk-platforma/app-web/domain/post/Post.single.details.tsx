@@ -10,6 +10,8 @@ import Link from "next/link"
 import { Api_outputs } from "~/api_/api.infer"
 import DataOrQuery from "~/utils"
 import { Comment_listItem } from "~/domain/Comment.listItem"
+import Api from "~/api_/api.client"
+import { useRouter } from "next/router"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 
@@ -21,6 +23,7 @@ type Post_single_details_Props = Post_single_details_PostModel & {
 
 export default function Post_single_details({
   sx,
+  id,
   title,
   location,
   images,
@@ -48,6 +51,13 @@ export default function Post_single_details({
         children: author.name?.[0],
       }
 
+  const deletePost = Api.post.update.useMutation()
+  const router = useRouter()
+  async function handle_delete() {
+    await deletePost.mutateAsync({ id, isDeleted: true })
+    router.back()
+  }
+
   return (
     <Box sx={sx}>
       <Container sx={{ p: 2 }}>
@@ -72,7 +82,8 @@ export default function Post_single_details({
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             {editAction}
-            <IconButton>
+            {/* TODO: confirm modal */}
+            <IconButton onClick={handle_delete}>
               <DeleteIcon />
             </IconButton>
           </Box>
@@ -108,9 +119,7 @@ export default function Post_single_details({
               </Box>
             </Box>
           </Box>
-        ) : (
-          <></>
-        )}
+        ) : undefined}
         {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
       </Container>
       {canComment && (

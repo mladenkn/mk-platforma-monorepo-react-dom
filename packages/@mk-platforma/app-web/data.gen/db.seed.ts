@@ -113,7 +113,7 @@ async function seedPosts(posts: ReturnType<typeof generatePosts>, users: number[
       user: { id: faker.helpers.arrayElement(users), canMutate: true },
       getCookie: (() => {}) as any,
     })
-    const post_created = await api.post.upsert({
+    const post_created = await api.post.create({
       ...post,
       categories: post.categories,
     })

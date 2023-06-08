@@ -80,7 +80,7 @@ export const JsonNullValueInputSchema = z.enum(['JsonNull',]);
 
 export const LocationScalarFieldEnumSchema = z.enum(['id','google_id','latitude','longitude','name']);
 
-export const PostScalarFieldEnumSchema = z.enum(['id','title','description','contact','location_id','author_id','expertEndorsement_id']);
+export const PostScalarFieldEnumSchema = z.enum(['id','title','description','contact','location_id','author_id','expertEndorsement_id','isDeleted']);
 
 export const Post_ExpertEndorsementScalarFieldEnumSchema = z.enum(['id','post_id','firstName','lastName','avatarStyle']);
 
@@ -113,11 +113,12 @@ export type Category_labelType = `${z.infer<typeof Category_labelSchema>}`
 export const PostSchema = z.object({
   id: z.number().int(),
   title: z.string(),
-  description: z.string(),
+  description: z.string().nullish(),
   contact: z.string(),
   location_id: z.number().int().nullish(),
   author_id: z.number().int(),
   expertEndorsement_id: z.number().int().nullish(),
+  isDeleted: z.boolean(),
 })
 
 export type Post = z.infer<typeof PostSchema>

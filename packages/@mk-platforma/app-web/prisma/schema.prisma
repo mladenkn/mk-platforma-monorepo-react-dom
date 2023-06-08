@@ -15,13 +15,14 @@ generator zod {
 }
 
 model Post {
-  id                   Int    @id @default(autoincrement())
+  id                   Int     @id @default(autoincrement())
   title                String
-  description          String
+  description          String?
   contact              String
   location_id          Int?
   author_id            Int
-  expertEndorsement_id Int?   @unique
+  expertEndorsement_id Int?    @unique
+  isDeleted            Boolean @default(false)
 
   location          Location?               @relation(fields: [location_id], references: [id])
   images            Image[]

@@ -1,22 +1,30 @@
 import { Box, Typography, IconButton, Button, SxProps, Paper } from "@mui/material"
-import Post_form_fields, { Post_form_fields_useForm } from "./Post.form.fields"
+import Post_form_fields from "./Post.form.fields"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
 import { Warning_noUsername, use_noUsername_isDisplayed } from "../common"
+import { z } from "zod"
+import { useFormik } from "formik"
+import { Post_api_cu_input } from "./Post.api.cu.input"
 
-type Values = ReturnType<typeof Post_form_fields_useForm>["initialValues"]
+type Values = z.infer<typeof Post_api_cu_input>
 
-type Props = {
+type Props<TValues extends Values> = {
   sx?: SxProps
-  initialValues?: Values
-  onSubmit(values: Values): void
+  onSubmit(values: TValues): void
   onCancel(): void
   title: string
+  form: ReturnType<typeof useFormik<TValues>>
 }
 
-export default function Post_form({ sx, initialValues, onSubmit, onCancel, title }: Props) {
+export default function Post_form<TValues extends Values>({
+  sx,
+  onSubmit,
+  onCancel,
+  title,
+  form,
+}: Props<TValues>) {
   const noUsername_isDisplayed = use_noUsername_isDisplayed()
-  const form = Post_form_fields_useForm(initialValues)
   return (
     <Paper sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Box sx={{ mb: 0.75, display: "flex", justifyContent: "space-between" }}>

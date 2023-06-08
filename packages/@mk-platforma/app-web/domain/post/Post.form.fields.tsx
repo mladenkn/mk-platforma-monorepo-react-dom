@@ -1,24 +1,29 @@
 import { FieldArray, useFormik } from "formik"
 import React, { useEffect } from "react"
-import { toFormikValidationSchema } from "zod-formik-adapter"
 import { TextField, Box, SxProps } from "@mui/material"
 import { z } from "zod"
 import Post_form_images from "./Post.form.images"
 import Location_Dropdown from "~/domain/Location.dropdown"
 import { useCategory } from "~/domain/category/Category.common"
 import Category_dropdown from "~/domain/category/Category.dropdown"
-import { Post_api_upsert_input } from "./Post.api.cu.input"
 import Post_form_fields_skills from "./Post.form.fields.skills"
+import { Post_api_cu_input } from "./Post.api.cu.input"
 
-type Props = {
+type Values = z.infer<typeof Post_api_cu_input>
+
+type Props<TValues extends Values> = {
   sx?: SxProps
   eachField?: {
     disabled?: boolean
   }
-  form: ReturnType<typeof Post_form_fields_useForm>
+  form: ReturnType<typeof useFormik<TValues>>
 }
 
-export default function Post_form_fields({ sx, eachField = { disabled: false }, form }: Props) {
+export default function Post_form_fields<TValues extends Values>({
+  sx,
+  eachField = { disabled: false },
+  form,
+}: Props<TValues>) {
   const { values, handleChange, setFieldValue } = form
 
   const selectedCategory = useCategory(
@@ -106,22 +111,4 @@ export default function Post_form_fields({ sx, eachField = { disabled: false }, 
       <Post_form_images images={values.images || []} />
     </Box>
   )
-}
-
-type PostInput = z.infer<typeof Post_api_upsert_input>
-
-const initialValues_default: PostInput = {
-  title: "",
-  description: "",
-  contact: "",
-  location: undefined,
-  categories: [],
-}
-
-export function Post_form_fields_useForm(initialValues = initialValues_default) {
-  return useFormik({
-    initialValues,
-    validationSchema: toFormikValidationSchema(Post_api_upsert_input),
-    onSubmit() {},
-  })
 }

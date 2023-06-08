@@ -1,9 +1,10 @@
 import { z } from "zod"
 import { publicProcedure, router } from "~/api_/api.server.utils"
-import Post_api_upsert from "./Post.api.upsert"
+import Post_api_create from "./Post.api.create"
 import { Post_list_many } from "./Post.api.abstract"
 import { SuperData_query2 } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
+import Post_api_update from "./Post.api.update"
 
 const Post_api = router({
   list: router({
@@ -141,7 +142,8 @@ const Post_api = router({
         }
     }),
 
-  upsert: Post_api_upsert,
+  create: Post_api_create,
+  update: Post_api_update,
 })
 
 export default Post_api
