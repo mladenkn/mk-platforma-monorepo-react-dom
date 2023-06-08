@@ -14,7 +14,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
         where: {
           id: input.id,
         },
-        select: {
+        include: {
           categories: {
             select: {
               label: true,
@@ -52,12 +52,25 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
             : undefined,
         },
       })
-      const isValid = post.categories.every(
-        c =>
-          (c.label === "job_demand" && post.expertEndorsement) ||
-          (c.label !== "job_demand" && !post.expertEndorsement)
-      )
-      if (!isValid) throw new TRPCError({ code: "BAD_REQUEST" })
+      const notValid =
+        post.categories.some(c => c.label === "job_demand") && !post.expertEndorsement
+      if (notValid) throw new TRPCError({ code: "BAD_REQUEST" })
+
+      const shouldRemoveExpert =
+        post.categories.some(c => c.label !== "job_demand") && post.expertEndorsement
+      if (shouldRemoveExpert)
+        await tx.post.update({
+          where: {
+            id: post.id,
+          },
+          data: {
+            expertEndorsement: {
+              delete: true,
+            },
+          },
+        })
+
+      return post
     })
   )
 
