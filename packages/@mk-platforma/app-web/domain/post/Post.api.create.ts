@@ -14,11 +14,10 @@ const input = Post_api_create_input.refine(
     const categories_withLabels = categories.map(post_category =>
       asNonNil(_allCategories.find(c => c.id === post_category.id))
     )
-    return categories_withLabels.every(
-      c =>
-        (c.label === "job_demand" && expertEndorsement) ||
-        (c.label !== "job_demand" && !expertEndorsement)
-    )
+    return [
+      categories_withLabels.some(c => c.label === "job_demand") && expertEndorsement,
+      categories_withLabels.every(c => c.label !== "job_demand") && !expertEndorsement,
+    ].every(i => i)
   },
   { message: "Category not matched with expertEndorsement field" }
 )

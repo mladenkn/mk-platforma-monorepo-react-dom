@@ -62,7 +62,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
         })
 
       const shouldRemoveExpert =
-        post.categories.some(c => c.label !== "job_demand") && post.expertEndorsement
+        post.categories.every(c => c.label !== "job_demand") && post.expertEndorsement
       if (shouldRemoveExpert)
         await tx.post.update({
           where: {
