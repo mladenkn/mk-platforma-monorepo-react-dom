@@ -25,8 +25,8 @@ const input = Post_api_create_input.refine(
 
 const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
-  .mutation(async ({ ctx, input }) => {
-    return await ctx.db.$transaction(async tx => {
+  .mutation(({ ctx, input }) =>
+    ctx.db.$transaction(async tx => {
       const post_upserted = await tx.post.create({
         data: {
           ...shallowPick(input, "title", "description", "contact"),
@@ -67,6 +67,6 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
       }
       return post_upserted
     })
-  })
+  )
 
 export default Post_api_create
