@@ -9,7 +9,6 @@ import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import { Post_api_update_input } from "./Post.api.cu.input"
-import { useFormik } from "formik"
 
 type Post_details = NonNullable<Api_outputs["post"]["single"]>
 
@@ -26,12 +25,6 @@ export default function Post_create_page({ post_initial }: Props) {
   })
 
   const { breakpoints } = useTheme()
-
-  const form = useFormik({
-    initialValues: post_initial,
-    validationSchema: toFormikValidationSchema(Post_api_update_input),
-    onSubmit() {},
-  })
 
   return (
     <Layout
@@ -55,7 +48,8 @@ export default function Post_create_page({ post_initial }: Props) {
           title="Uredi oglas"
           onSubmit={v => mutation.mutate(v)}
           onCancel={useRouter().back}
-          form={form}
+          initialValues={post_initial}
+          validationSchema={toFormikValidationSchema(Post_api_update_input)}
         />
       }
     />

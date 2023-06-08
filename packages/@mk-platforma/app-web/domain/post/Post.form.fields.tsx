@@ -1,4 +1,4 @@
-import { FieldArray, useFormik } from "formik"
+import { FieldArray, FormikProps } from "formik"
 import React, { useEffect } from "react"
 import { TextField, Box, SxProps } from "@mui/material"
 import { z } from "zod"
@@ -16,7 +16,7 @@ type Props<TValues extends Values> = {
   eachField?: {
     disabled?: boolean
   }
-  form: ReturnType<typeof useFormik<TValues>>
+  form: FormikProps<TValues>
 }
 
 export default function Post_form_fields<TValues extends Values>({
