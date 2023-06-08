@@ -32,15 +32,15 @@ export default function Post_form<TValues extends Values>({
     <Paper sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
         {form => (
-          <form onSubmit={form.handleSubmit}>
-            <>
-              <Box sx={{ mb: 0.75, display: "flex", justifyContent: "space-between" }}>
-                <Typography variant="h2">{title}</Typography>
-                <IconButton onClick={onCancel}>
-                  <CloseIcon fontSize="medium" />
-                </IconButton>
-              </Box>
-              {noUsername_isDisplayed && <Warning_noUsername sx={{ mb: 5 }} withSetAction />}
+          <>
+            <Box sx={{ mb: 0.75, display: "flex", justifyContent: "space-between" }}>
+              <Typography variant="h2">{title}</Typography>
+              <IconButton onClick={onCancel}>
+                <CloseIcon fontSize="medium" />
+              </IconButton>
+            </Box>
+            {noUsername_isDisplayed && <Warning_noUsername sx={{ mb: 5 }} withSetAction />}
+            <form onSubmit={form.handleSubmit}>
               <Post_form_fields
                 sx={{ gap: 3.5, display: "flex", flexDirection: "column" }}
                 eachField={{
@@ -57,8 +57,8 @@ export default function Post_form<TValues extends Values>({
                 <SaveIcon />
                 Spremi
               </Button>
-            </>
-          </form>
+            </form>
+          </>
         )}
       </Formik>
     </Paper>
