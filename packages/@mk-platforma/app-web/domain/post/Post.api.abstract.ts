@@ -37,6 +37,7 @@ export const Post_list_many = SuperData_mapper(
             in: locations.map(({ id }) => id),
           },
         },
+        isDeleted: false,
       },
       orderBy: {
         id: "desc",
