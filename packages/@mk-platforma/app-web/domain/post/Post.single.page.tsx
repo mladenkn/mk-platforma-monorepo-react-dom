@@ -26,7 +26,7 @@ export default function Post_single_page({
       }
       content={
         <>
-          {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : <></>}
+          {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : undefined}
           <Post_single_details sx={{ p: 1, width: "100%" }} {...post} usePaperSections />
         </>
       }

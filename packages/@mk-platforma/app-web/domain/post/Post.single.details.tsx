@@ -149,9 +149,7 @@ export default function Post_single_details({
                   </Container>
                 ))}
               </Box>
-            ) : (
-              <></>
-            )
+            ) : undefined
           }
         />
       )}
