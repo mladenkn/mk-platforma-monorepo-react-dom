@@ -116,7 +116,7 @@ export default function Post_single_details({
         <Typography>{description}</Typography>
         {expertEndorsement?.skills?.length ? (
           <Box sx={{ mt: 4 }}>
-            <Box sx={{ display: "flex", alignItems: "start" }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
               <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
               <Box>
                 {expertEndorsement.skills.map(s => (
