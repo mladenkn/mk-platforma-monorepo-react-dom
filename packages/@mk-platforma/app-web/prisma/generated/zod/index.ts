@@ -144,7 +144,7 @@ export type Post_ExpertEndorsement = z.infer<typeof Post_ExpertEndorsementSchema
 export const Post_ExpertEndorsement_skillSchema = z.object({
   id: z.number().int(),
   label: z.string(),
-  level: z.number().int(),
+  level: z.number().int().nullish(),
   expertEndorsement_id: z.number().int().nullish(),
 })
 

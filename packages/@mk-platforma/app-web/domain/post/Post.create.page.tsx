@@ -6,9 +6,8 @@ import { Header, Header_moreOptions, Header_back } from "../Header"
 import Layout from "../Layout"
 import { LogoLink } from "../common"
 import Api from "~/api_/api.client"
-import { useFormik } from "formik"
-import { toFormikValidationSchema } from "zod-formik-adapter"
 import { Post_api_create_input } from "./Post.api.cu.input"
+import { toFormikValidationSchema } from "zod-formik-adapter"
 
 export default function Post_create_page() {
   const router = useRouter()
@@ -19,18 +18,6 @@ export default function Post_create_page() {
   })
 
   const { breakpoints } = useTheme()
-
-  const form = useFormik({
-    initialValues: {
-      title: "",
-      description: "",
-      contact: "",
-      location: undefined,
-      categories: [],
-    },
-    validationSchema: toFormikValidationSchema(Post_api_create_input),
-    onSubmit() {},
-  })
 
   return (
     <Layout
@@ -54,7 +41,14 @@ export default function Post_create_page() {
           title="Novi oglas"
           onSubmit={v => mutation.mutate(v)}
           onCancel={useRouter().back}
-          form={form}
+          initialValues={{
+            title: "",
+            description: "",
+            contact: "",
+            location: undefined,
+            categories: [],
+          }}
+          validationSchema={toFormikValidationSchema(Post_api_create_input)}
         />
       }
     />

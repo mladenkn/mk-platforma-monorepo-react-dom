@@ -1,4 +1,4 @@
-import { useFormik } from "formik"
+import { FieldArray, FormikProps } from "formik"
 import React, { useEffect } from "react"
 import { TextField, Box, SxProps } from "@mui/material"
 import { z } from "zod"
@@ -6,6 +6,7 @@ import Post_form_images from "./Post.form.images"
 import Location_Dropdown from "~/domain/Location.dropdown"
 import { useCategory } from "~/domain/category/Category.common"
 import Category_dropdown from "~/domain/category/Category.dropdown"
+import Post_form_fields_skills from "./Post.form.fields.skills"
 import { Post_api_cu_input } from "./Post.api.cu.input"
 
 type Values = z.infer<typeof Post_api_cu_input>
@@ -15,7 +16,7 @@ type Props<TValues extends Values> = {
   eachField?: {
     disabled?: boolean
   }
-  form: ReturnType<typeof useFormik<TValues>>
+  form: FormikProps<TValues>
 }
 
 export default function Post_form_fields<TValues extends Values>({
@@ -28,11 +29,11 @@ export default function Post_form_fields<TValues extends Values>({
   const selectedCategory = useCategory(
     values.categories?.length ? values.categories[0].id : undefined
   )
-  const isExpert = selectedCategory.data?.label === "job_demand"
+  const isExpert = selectedCategory.data ? selectedCategory.data.label === "job_demand" : undefined
   useEffect(() => {
     if (isExpert && !values.expertEndorsement) {
       setFieldValue("expertEndorsement", { firstName: "", lastName: "", skills: [] })
-    } else if (!isExpert) {
+    } else if (isExpert === false) {
       setFieldValue("expertEndorsement", undefined)
     }
   }, [isExpert])
@@ -91,6 +92,19 @@ export default function Post_form_fields<TValues extends Values>({
             value={values.expertEndorsement.lastName}
             onChange={handleChange}
             {...eachField}
+          />
+          <FieldArray
+            name="expertEndorsement.skills"
+            render={helpers => (
+              <Post_form_fields_skills
+                sx={{ ml: 0.5, mt: 0.75 }}
+                value={values.expertEndorsement!.skills || []}
+                onChange={handleChange}
+                namePrefix="expertEndorsement.skills"
+                addItem={helpers.push}
+                removeItem={helpers.remove}
+              />
+            )}
           />
         </>
       )}
