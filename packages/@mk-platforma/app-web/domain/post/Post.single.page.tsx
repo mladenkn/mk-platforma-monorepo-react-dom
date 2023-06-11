@@ -32,7 +32,7 @@ export default function Post_single_page({
         <>
           {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : <></>}
           <Post_single_details
-            sx={{ p: 1 }}
+            sx={{ p: 1, width: "100%" }}
             {...post}
             usePaperSections
             editAction={
