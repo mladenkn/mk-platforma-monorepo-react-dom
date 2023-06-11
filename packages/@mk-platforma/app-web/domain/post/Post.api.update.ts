@@ -54,24 +54,19 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
       })
 
       if (input.expertEndorsement?.skills?.length) {
-        for (const skill of input.expertEndorsement.skills) {
-          await tx.post_ExpertEndorsement_skill.upsert({
-            where: {
-              expertEndorsement_id_label: {
-                expertEndorsement_id: asNonNil(post.expertEndorsement).id,
-                label: skill.label,
-              },
-            },
-            update: {
-              label: skill.label,
-              level: skill.level || undefined,
-            },
-            create: {
-              label: skill.label,
-              level: skill.level || undefined,
-            },
-          })
-        }
+        await tx.post_ExpertEndorsement_skill.deleteMany({
+          where: {
+            expertEndorsement_id: asNonNil(post.expertEndorsement).id,
+          },
+        })
+
+        await tx.post_ExpertEndorsement_skill.createMany({
+          data: input.expertEndorsement!.skills!.map(s => ({
+            label: s.label,
+            level: s.level || undefined,
+            expertEndorsement_id: asNonNil(post.expertEndorsement).id,
+          })),
+        })
       }
 
       return omit(post, "expertEndorsement")
