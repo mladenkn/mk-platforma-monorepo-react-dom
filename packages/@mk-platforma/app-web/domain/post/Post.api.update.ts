@@ -4,6 +4,7 @@ import { Post_api_update_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
+import { omit } from "lodash"
 
 const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
   .input(Post_api_update_input)
@@ -73,7 +74,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
         }
       }
 
-      return post
+      return omit(post, "expertEndorsement")
     })
   )
 
