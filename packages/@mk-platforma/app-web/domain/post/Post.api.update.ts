@@ -15,11 +15,6 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
           id: input.id,
         },
         include: {
-          categories: {
-            select: {
-              label: true,
-            },
-          },
           expertEndorsement: true,
         },
         data: {
