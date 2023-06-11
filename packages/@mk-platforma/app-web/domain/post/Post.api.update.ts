@@ -54,7 +54,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
 
       if (input.expertEndorsement?.skills?.length) {
         for (const skill of input.expertEndorsement.skills) {
-          await ctx.db.post_ExpertEndorsement_skill.upsert({
+          await tx.post_ExpertEndorsement_skill.upsert({
             where: {
               expertEndorsement_id_label: {
                 expertEndorsement_id: asNonNil(post.expertEndorsement).id,
