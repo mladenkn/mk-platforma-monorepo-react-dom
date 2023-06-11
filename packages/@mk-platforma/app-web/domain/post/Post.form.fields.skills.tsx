@@ -32,7 +32,11 @@ export default function Post_form_fields_skills({
   const [newItem_level, set__newItem_level] = useState("")
 
   function on_addItem() {
-    if (newItem_label) addItem({ label: newItem_label, level: parseFloat(newItem_level) })
+    if (newItem_label) {
+      addItem({ label: newItem_label, level: parseFloat(newItem_level) })
+      set__newItem_label("")
+      set__newItem_level("")
+    }
   }
 
   return (
@@ -50,7 +54,7 @@ export default function Post_form_fields_skills({
           Vještine
         </Typography>
       </Box>
-      <Box sx={{ mt: 2, display: "column", gap: 1 }}>
+      <Box sx={{ mt: 2, display: "flex", flexDirection: "column", gap: 2 }}>
         {value.map(({ label, level }, index) => (
           <Box key={index} sx={{ display: "flex", gap: 2 }}>
             <TextField
@@ -73,7 +77,7 @@ export default function Post_form_fields_skills({
           </Box>
         ))}
       </Box>
-      <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+      <Box sx={{ display: "flex", gap: 2, mt: 3 }}>
         <TextField
           label="Vještina"
           value={newItem_label}

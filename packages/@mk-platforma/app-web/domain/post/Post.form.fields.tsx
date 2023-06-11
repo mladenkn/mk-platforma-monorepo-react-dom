@@ -26,6 +26,8 @@ export default function Post_form_fields<TValues extends Values>({
 }: Props<TValues>) {
   const { values, handleChange, setFieldValue } = form
 
+  console.log(29, values)
+
   const selectedCategory = useCategory(
     values.categories?.length ? values.categories[0].id : undefined
   )
