@@ -44,17 +44,8 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
                     post_id: input.id,
                     ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                     avatarStyle: getRandomElement(avatarStyles),
-                    // skills: {
-                    //   create: input.expertEndorsement.skills || undefined,
-                    // },
                   },
-                  update: {
-                    ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
-                    // TODO: skills
-                    // skills: {
-                    //   delete: true,
-                    // },
-                  },
+                  update: shallowPick(input.expertEndorsement, "firstName", "lastName"),
                 },
               }
             : undefined,
