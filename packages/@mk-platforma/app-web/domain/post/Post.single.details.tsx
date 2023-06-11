@@ -1,7 +1,7 @@
 import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme, IconButton } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import React, { ReactNode } from "react"
+import React from "react"
 import Carousel from "react-material-ui-carousel"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
