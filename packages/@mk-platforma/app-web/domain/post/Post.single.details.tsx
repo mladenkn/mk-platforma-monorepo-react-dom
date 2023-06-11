@@ -97,22 +97,24 @@ export default function Post_single_details({
             </IconButton>
           </Box>
         </Box>
-        <Carousel
-          sx={{ mt: 1.5, mb: 5 }}
-          NextIcon={<NavigateNextIcon />}
-          PrevIcon={<NavigateBeforeIcon />}
-          interval={30000}
-          animation="slide"
-          fullHeightHover
-        >
-          {images.map(image => (
-            <img
-              key={image.id}
-              style={{ overflow: "auto", height: 340, width: "100%", objectFit: "contain" }}
-              src={image.url}
-            />
-          ))}
-        </Carousel>
+        {images.length ? (
+          <Carousel
+            sx={{ mt: 1.5, mb: 5 }}
+            NextIcon={<NavigateNextIcon />}
+            PrevIcon={<NavigateBeforeIcon />}
+            interval={30000}
+            animation="slide"
+            fullHeightHover
+          >
+            {images.map(image => (
+              <img
+                key={image.id}
+                style={{ overflow: "auto", height: 340, width: "100%", objectFit: "contain" }}
+                src={image.url}
+              />
+            ))}
+          </Carousel>
+        ) : undefined}
         <Typography>{description}</Typography>
         {expertEndorsement?.skills?.length ? (
           <Box sx={{ mt: 4 }}>
