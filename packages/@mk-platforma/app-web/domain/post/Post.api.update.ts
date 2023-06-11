@@ -1,4 +1,4 @@
-import { shallowPick } from "@mk-libs/common/common"
+import { asNonNil, shallowPick } from "@mk-libs/common/common"
 import { authorizedRoute } from "~/api_/api.server.utils"
 import { Post_api_update_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
@@ -8,8 +8,8 @@ import "@mk-libs/common/server-only"
 const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
   .input(Post_api_update_input)
   .mutation(({ ctx, input }) =>
-    ctx.db.$transaction(tx =>
-      tx.post.update({
+    ctx.db.$transaction(async tx => {
+      const post = await tx.post.update({
         where: {
           id: input.id,
         },
@@ -44,20 +44,46 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
                     post_id: input.id,
                     ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                     avatarStyle: getRandomElement(avatarStyles),
-                    skills: {
-                      create: input.expertEndorsement.skills,
-                    },
+                    // skills: {
+                    //   create: input.expertEndorsement.skills || undefined,
+                    // },
                   },
                   update: {
                     ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                     // TODO: skills
+                    // skills: {
+                    //   delete: true,
+                    // },
                   },
                 },
               }
             : undefined,
         },
       })
-    )
+
+      if (input.expertEndorsement?.skills?.length) {
+        for (const skill of input.expertEndorsement.skills) {
+          await ctx.db.post_ExpertEndorsement_skill.upsert({
+            where: {
+              expertEndorsement_id_label: {
+                expertEndorsement_id: asNonNil(post.expertEndorsement).id,
+                label: skill.label,
+              },
+            },
+            update: {
+              label: skill.label,
+              level: skill.level || undefined,
+            },
+            create: {
+              label: skill.label,
+              level: skill.level || undefined,
+            },
+          })
+        }
+      }
+
+      return post
+    })
   )
 
 export default Post_api_update
