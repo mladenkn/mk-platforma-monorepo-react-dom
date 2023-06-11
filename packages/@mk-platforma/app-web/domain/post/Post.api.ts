@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { publicProcedure, router } from "~/api_/api.server.utils"
+import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import Post_api_create from "./Post.api.create"
 import { Post_list_many } from "./Post.api.abstract"
 import { SuperData_query2 } from "~/api_/api.SuperData"
@@ -144,6 +144,12 @@ const Post_api = router({
 
   create: Post_api_create,
   update: Post_api_update,
+
+  delete: authorizedRoute(u => u.canMutate)
+    .input(z.number())
+    .mutation(({ ctx, input }) =>
+      ctx.db.post.update({ where: { id: input }, data: { isDeleted: true } })
+    ),
 })
 
 export default Post_api

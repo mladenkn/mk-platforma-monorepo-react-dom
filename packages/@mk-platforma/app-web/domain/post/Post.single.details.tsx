@@ -51,10 +51,10 @@ export default function Post_single_details({
         children: author.name?.[0],
       }
 
-  const deletePost = Api.post.update.useMutation()
+  const deletePost = Api.post.delete.useMutation()
   const router = useRouter()
   async function handle_delete() {
-    await deletePost.mutateAsync({ id, isDeleted: true })
+    await deletePost.mutateAsync(id)
     router.back()
   }
 
