@@ -12,12 +12,12 @@ import DataOrQuery from "~/utils"
 import { Comment_listItem } from "~/domain/Comment.listItem"
 import Api from "~/api_/api.client"
 import { useRouter } from "next/router"
+import EditIcon from "@mui/icons-material/Edit"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 
 type Post_single_details_Props = Post_single_details_PostModel & {
   sx?: SxProps
-  editAction?: ReactNode
   usePaperSections?: boolean
 }
 
@@ -29,12 +29,12 @@ export default function Post_single_details({
   images,
   description,
   contact,
-  editAction,
   usePaperSections,
   comments,
   expertEndorsement,
   author,
   canComment,
+  canEdit,
   categories,
 }: Post_single_details_Props) {
   const Container = (usePaperSections ? Paper : Box) as typeof Box
@@ -81,7 +81,16 @@ export default function Post_single_details({
             </Box>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            {editAction}
+            {canEdit ? (
+              <IconButton>
+                <Link
+                  href={`/post/edit/${id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <EditIcon />
+                </Link>
+              </IconButton>
+            ) : undefined}
             {/* TODO: confirm modal */}
             <IconButton onClick={handle_delete}>
               <DeleteIcon />
