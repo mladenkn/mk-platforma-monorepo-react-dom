@@ -1,4 +1,3 @@
-- expert skills
 - file upload
 
 - pravo
