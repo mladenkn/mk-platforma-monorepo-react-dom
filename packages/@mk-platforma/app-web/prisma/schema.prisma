@@ -44,11 +44,11 @@ model Post_ExpertEndorsement {
 }
 
 model Post_ExpertEndorsement_skill {
-  id                   Int                     @id @default(autoincrement())
+  id                   Int                    @id @default(autoincrement())
   label                String
   level                Int?
-  expertEndorsement    Post_ExpertEndorsement? @relation(fields: [expertEndorsement_id], references: [id])
-  expertEndorsement_id Int?
+  expertEndorsement    Post_ExpertEndorsement @relation(fields: [expertEndorsement_id], references: [id])
+  expertEndorsement_id Int
 
   @@unique([expertEndorsement_id, label])
 }
