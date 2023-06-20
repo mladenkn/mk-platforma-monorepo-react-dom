@@ -8,7 +8,6 @@ import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import Link from "next/link"
 import { Api_outputs } from "~/api_/api.infer"
-import DataOrQuery from "~/utils"
 import { Comment_listItem } from "~/domain/Comment.listItem"
 import Api from "~/api_/api.client"
 import { useRouter } from "next/router"
@@ -139,24 +138,15 @@ export default function Post_single_details({
           <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
         </Container>
       )}
-      {comments && (
-        <DataOrQuery
-          input={comments}
-          render={comments =>
-            comments?.length > 0 ? (
-              <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
-                {comments.map(comment => (
-                  <Container key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
-                    <Comment_listItem comment={comment} />
-                  </Container>
-                ))}
-              </Box>
-            ) : (
-              <></>
-            )
-          }
-        />
-      )}
+      {comments?.length > 0 ? (
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
+          {comments.map(comment => (
+            <Container key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
+              <Comment_listItem comment={comment} />
+            </Container>
+          ))}
+        </Box>
+      ) : undefined}
     </Box>
   )
 }
