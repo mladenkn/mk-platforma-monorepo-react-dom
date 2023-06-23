@@ -4,7 +4,7 @@ import { create_get_ss_props } from "~/ss.props"
 import { z } from "zod"
 import "@mk-libs/common/server-only"
 
-const Post_list_page_data_initial = create_get_ss_props(
+const Post_list_page_props_initial_get = create_get_ss_props(
   {
     queryParams: z.object({ category: z.string().nullish() }),
   },
@@ -34,4 +34,4 @@ const Post_list_page_data_initial = create_get_ss_props(
   }
 )
 
-export default Post_list_page_data_initial
+export default Post_list_page_props_initial_get
