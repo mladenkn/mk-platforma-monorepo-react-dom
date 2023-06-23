@@ -13,7 +13,7 @@ type Options<TInput> = {
   authorize?: (c: Api_context & { api: Api_ss_type }) => boolean
 }
 
-export function create_get_ss_props<TOutput, TInput = undefined>(
+export function ss_props_get_create<TOutput, TInput = undefined>(
   options: Options<TInput>,
   wrapped?: (
     ctx: Api_context & { api: Api_ss_type },
@@ -63,8 +63,8 @@ export function create_get_ss_props<TOutput, TInput = undefined>(
   }
 }
 
-export function create_get_ss_props_next<TOutput, TInput = undefined>(
-  getInitialProps: Awaited<ReturnType<typeof create_get_ss_props<TOutput, TInput>>>
+export function ss_props_get_create_next<TOutput, TInput = undefined>(
+  getInitialProps: Awaited<ReturnType<typeof ss_props_get_create<TOutput, TInput>>>
 ) {
   return async function (nextContext: Pick<GetServerSidePropsContext, "req" | "res" | "query">) {
     const ctx = await createContext(nextContext.req, nextContext.res)
@@ -79,13 +79,13 @@ export function create_get_ss_props_next<TOutput, TInput = undefined>(
   }
 }
 
-export default function create_get_ss_props_full<TOutput, TInput = undefined>(
+export default function ss_props_get_create_full<TOutput, TInput = undefined>(
   options: Options<TInput>,
   wrapped?: (
     ctx: Api_context & { api: Api_ss_type },
     params: TInput
   ) => Promise<GetServerSidePropsResult<TOutput>>
 ) {
-  const get_ss_props = create_get_ss_props(options, wrapped)
-  return create_get_ss_props_next(get_ss_props)
+  const get_ss_props = ss_props_get_create(options, wrapped)
+  return ss_props_get_create_next(get_ss_props)
 }

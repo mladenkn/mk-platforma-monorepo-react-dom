@@ -1,10 +1,10 @@
 import { typeCheck } from "@mk-libs/common/common"
 import { ComponentProps } from "react"
 import Post_edit_page from "~/domain/post/Post.edit.page"
-import create_get_ss_props_full from "~/ss.props"
+import ss_props_get_create_full from "~/ss.props"
 import { z } from "zod"
 
-export const getServerSideProps = create_get_ss_props_full(
+export const getServerSideProps = ss_props_get_create_full(
   {
     authenticate: true,
     authorize: ({ user }) => !!user?.canMutate, // TODO: treba da nemože onaj čiji post nije

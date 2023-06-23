@@ -1,10 +1,10 @@
 import { Category_labelType } from "~/prisma/generated/zod"
 import { PostList_section_Props } from "./Post.list.page"
-import { create_get_ss_props } from "~/ss.props"
+import { ss_props_get_create } from "~/ss.props"
 import { z } from "zod"
 import "@mk-libs/common/server-only"
 
-const Post_list_page_props_initial_get = create_get_ss_props(
+const Post_list_page_props_initial_get = ss_props_get_create(
   {
     queryParams: z.object({ category: z.string().nullish() }),
   },
@@ -35,3 +35,7 @@ const Post_list_page_props_initial_get = create_get_ss_props(
 )
 
 export default Post_list_page_props_initial_get
+
+export type Post_list_page_props_initial = Awaited<
+  ReturnType<typeof Post_list_page_props_initial_get>
+>

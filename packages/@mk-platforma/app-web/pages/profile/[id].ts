@@ -1,10 +1,10 @@
 import User_profile from "../../domain/user/User.profile"
 import { typeCheck } from "@mk-libs/common/common"
 import { ComponentProps } from "react"
-import create_get_ss_props_full from "~/ss.props"
+import ss_props_get_create_full from "~/ss.props"
 import { z } from "zod"
 
-export const getServerSideProps = create_get_ss_props_full(
+export const getServerSideProps = ss_props_get_create_full(
   {
     queryParams: z.object({ id: z.number() }),
   },
