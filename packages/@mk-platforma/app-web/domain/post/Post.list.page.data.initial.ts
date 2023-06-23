@@ -1,6 +1,6 @@
 import { Category_labelType } from "~/prisma/generated/zod"
 import { PostList_section_Props } from "./Post.list.page"
-import create_get_ss_props from "~/ss.props"
+import { create_get_ss_props } from "~/ss.props"
 import { z } from "zod"
 import "@mk-libs/common/server-only"
 
