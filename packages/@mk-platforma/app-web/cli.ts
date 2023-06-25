@@ -2,6 +2,7 @@ import { match } from "ts-pattern"
 import { parseCommand, run, getConnectionString } from "./cli.utils"
 import "@mk-libs/common/server-only"
 import db from "./prisma/instance"
+import { isPromise } from "util/types"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"] || "dev"
@@ -10,6 +11,7 @@ const run_args = match(parsed.command)
   .with("dev", () => [{ DATABASE_URL: getConnectionString(dbInstance) }, `next dev`])
 
   .with("dev.test", async () => {
+    process.env.DATABASE_URL = getConnectionString("test.local")
     const user = await db.user.upsert({
       where: { name: "__test__" },
       create: {
@@ -76,4 +78,6 @@ const run_args = match(parsed.command)
 
   .exhaustive()
 
-run(...run_args)
+if (isPromise(run_args)) {
+  run_args.then((a: any) => run(...a))
+} else run(...run_args)

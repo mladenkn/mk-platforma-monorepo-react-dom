@@ -10,7 +10,7 @@ const env = createEnv({
   server: {
     DATABASE_URL: z.string().url().optional(),
     NODE_ENV: z.string().optional(),
-    MOCK_USER_ID: z.number().optional(),
+    MOCK_USER_ID: z.string().optional(),
   },
   /*
    * Environment variables available on the client (and server).
