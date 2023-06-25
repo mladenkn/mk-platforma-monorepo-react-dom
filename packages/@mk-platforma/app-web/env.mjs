@@ -40,4 +40,4 @@ const env = {
   NEXT_PUBLIC_MOCK_USER_ID: wrapped.NEXT_PUBLIC_MOCK_USER_ID ? parseInt(wrapped.NEXT_PUBLIC_MOCK_USER_ID) : undefined,
 }
 
-export default envenv 
+export default env 
