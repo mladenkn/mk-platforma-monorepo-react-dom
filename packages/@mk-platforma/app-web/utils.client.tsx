@@ -1,7 +1,10 @@
 import { UseQueryResult } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import React, { useState, useEffect } from "react"
-import { useSession as next_useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
+import env from "./env.mjs"
+import Api from "./api_/api.client"
+import { match } from "ts-pattern"
 
 type DataOrQuery_Props<TData> = {
   input: TData | UseQueryResult<TData>
@@ -71,5 +74,17 @@ export function use_setUrlParams_shallow() {
       undefined,
       { shallow: true }
     )
+  }
+}
+
+export function use_currentUser() {
+  const session = useSession()
+  const user = Api.user.single.useQuery(env.NEXT_PUBLIC_MOCK_USER_ID!, {
+    enabled: !!env.NEXT_PUBLIC_MOCK_USER_ID,
+  })
+  if (env.NEXT_PUBLIC_MOCK_USER_ID) {
+    return { data: user.data, isLoading: user.isLoading }
+  } else {
+    return { data: session.data?.user, isLoading: user.status === "loading" }
   }
 }

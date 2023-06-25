@@ -2,7 +2,7 @@ import { SxProps, styled, useTheme } from "@mui/material/styles"
 import { Box, Typography } from "@mui/material"
 import React from "react"
 import Link from "next/link"
-import { useSession } from "next-auth/react"
+import { use_currentUser } from "~/utils.client"
 
 export const Backdrop: typeof Box = styled(Box)({
   backgroundColor: "rgba(0, 0, 0, 0.3)",
@@ -52,7 +52,7 @@ export function Warning_noUsername({
 }
 
 export function use_noUsername_isDisplayed() {
-  const { data: session, status } = useSession()
-  if (status === "loading") return false
-  return !session?.user?.name
+  const { data, isLoading } = use_currentUser()
+  if (isLoading) return false
+  return data?.name
 }

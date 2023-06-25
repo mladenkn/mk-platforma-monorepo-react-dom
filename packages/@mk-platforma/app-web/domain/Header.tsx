@@ -9,14 +9,13 @@ import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined"
 import { useRouter } from "next/router"
 import Link from "next/link"
-import { LogoLink } from "./common"
 import { BottomSheet } from "./BottomSheet"
 import ContactPageOutlinedIcon from "@mui/icons-material/ContactPageOutlined"
 import PolicyOutlinedIcon from "@mui/icons-material/PolicyOutlined"
 import HomeIcon from "@mui/icons-material/Home"
 import { difference } from "lodash"
-import { useSession } from "next-auth/react"
 import { styled } from "@mui/material/styles"
+import { use_currentUser } from "~/utils.client"
 
 type Option =
   | "post.create"
@@ -64,7 +63,7 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
     set_optionsAnchorEl(null)
   }
 
-  const { data: session } = useSession()
+  const user = use_currentUser()
 
   return (
     <>
@@ -94,9 +93,9 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
             </MenuItem>
           </Link>
         )}
-        {session
+        {user.data
           ? options.includes("profile") && (
-              <Link href={`/profile/${session?.user?.id}`} style={{ textDecoration: "none" }}>
+              <Link href={`/profile/${user.data?.id}`} style={{ textDecoration: "none" }}>
                 <MenuItem>
                   <AccountCircleIcon
                     sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }}
