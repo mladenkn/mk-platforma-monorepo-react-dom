@@ -110,7 +110,7 @@ async function seedPosts(posts: ReturnType<typeof generatePosts>, users: number[
   for (const post of posts) {
     const api = Api_ss({
       db,
-      user: { id: faker.helpers.arrayElement(users), canMutate: true },
+      user: { id: faker.helpers.arrayElement(users), canMutate: true, name: "seed" },
       getCookie: (() => {}) as any,
     })
     const post_created = await api.post.create({
