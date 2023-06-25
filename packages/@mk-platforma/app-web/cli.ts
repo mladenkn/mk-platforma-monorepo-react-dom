@@ -23,7 +23,14 @@ const run_args = match(parsed.command)
       },
       update: {},
     })
-    return [{ DATABASE_URL: getConnectionString("test.local"), MOCK_USER_ID: user.id }, `next dev`]
+    return [
+      {
+        DATABASE_URL: getConnectionString("test.local"),
+        MOCK_USER_ID: user.id,
+        NEXT_PUBLIC__MOCK_USER_ID: user.id,
+      },
+      `next dev`,
+    ]
   })
 
   .with("db.prisma", () => [

@@ -2,7 +2,7 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
 
-const env = createEnv({
+const wrapped = createEnv({
   /*
    * Serverside Environment variables, not available on the client.
    * Will throw if you access these variables on the client.
@@ -18,6 +18,7 @@ const env = createEnv({
    * 💡 You'll get type errors if these are not prefixed with NEXT_PUBLIC_.
    */
   client: {
+    NEXT_PUBLIC_MOCK_USER_ID: z.string().optional(),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -29,7 +30,14 @@ const env = createEnv({
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     MOCK_USER_ID: process.env.MOCK_USER_ID,
+    NEXT_PUBLIC_MOCK_USER_ID: process.env.NEXT_PUBLIC_MOCK_USER_ID,
   },
 })
+
+const env = {
+  ...wrapped,
+  MOCK_USER_ID: wrapped.MOCK_USER_ID ? parseInt(env.MOCK_USER_ID) : undefined,
+  NEXT_PUBLIC_MOCK_USER_ID: wrapped.NEXT_PUBLIC_MOCK_USER_ID ? parseInt(env.NEXT_PUBLIC_MOCK_USER_ID) : undefined,
+}
 
 export default env
