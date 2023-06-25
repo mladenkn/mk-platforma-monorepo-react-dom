@@ -27,7 +27,7 @@ const run_args = match(parsed.command)
       {
         DATABASE_URL: getConnectionString("test.local"),
         MOCK_USER_ID: user.id,
-        NEXT_PUBLIC__MOCK_USER_ID: user.id,
+        NEXT_PUBLIC_MOCK_USER_ID: user.id,
       },
       `next dev`,
     ]

@@ -64,6 +64,7 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
   }
 
   const user = use_currentUser()
+  console.log(67, user)
 
   return (
     <>
