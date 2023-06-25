@@ -82,7 +82,6 @@ export function use_currentUser() {
   const mock_user_id = env.NEXT_PUBLIC_MOCK_USER_ID
     ? parseInt(env.NEXT_PUBLIC_MOCK_USER_ID)
     : undefined
-  console.log(env.NEXT_PUBLIC_MOCK_USER_ID, mock_user_id)
   const user = Api.user.single.useQuery(mock_user_id!, {
     enabled: !!mock_user_id,
   })
