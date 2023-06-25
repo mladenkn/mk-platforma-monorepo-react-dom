@@ -54,5 +54,5 @@ export function Warning_noUsername({
 export function use_noUsername_isDisplayed() {
   const { data, isLoading } = use_currentUser()
   if (isLoading) return false
-  return data?.name
+  return !data?.name
 }
