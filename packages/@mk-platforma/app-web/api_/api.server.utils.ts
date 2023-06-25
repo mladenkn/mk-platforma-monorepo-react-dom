@@ -32,7 +32,7 @@ export type Api_context = {
   user?: {
     id: number
     canMutate: boolean
-    name?: string
+    name?: string | null
   }
   getCookie: ReturnType<typeof create_getCookie_ss>
 }

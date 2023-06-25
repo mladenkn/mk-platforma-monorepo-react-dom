@@ -1,12 +1,28 @@
 import { match } from "ts-pattern"
 import { parseCommand, run, getConnectionString } from "./cli.utils"
 import "@mk-libs/common/server-only"
+import db from "./prisma/instance"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"] || "dev"
 
 const run_args = match(parsed.command)
   .with("dev", () => [{ DATABASE_URL: getConnectionString(dbInstance) }, `next dev`])
+
+  .with("dev.test", async () => {
+    const user = await db.user.upsert({
+      where: { name: "__test__" },
+      create: {
+        name: "__test__",
+        avatarStyle: {},
+        email: "test@test.hr",
+        emailVerified: new Date(),
+        canMutate: true,
+      },
+      update: {},
+    })
+    return [{ DATABASE_URL: getConnectionString("test.local"), MOCK_USER_ID: user.id }, `next dev`]
+  })
 
   .with("db.prisma", () => [
     { DATABASE_URL: getConnectionString(dbInstance) },

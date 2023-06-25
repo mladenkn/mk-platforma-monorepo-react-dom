@@ -2,7 +2,7 @@ import NextAuth, { DefaultSession, getServerSession } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import db from "../../../prisma/instance"
-import { eva } from "@mk-libs/common/common"
+import { asNonNil, eva } from "@mk-libs/common/common"
 import { AdapterUser } from "next-auth/adapters"
 import { getRandomElement } from "@mk-libs/common/array"
 import type { NextAuthOptions } from "next-auth"
@@ -11,6 +11,7 @@ import { NextApiRequestCookies } from "next/dist/server/api-utils"
 import { Prisma } from "@prisma/client"
 import { P, match } from "ts-pattern"
 import { avatarStyles } from "~/domain/user/User.common"
+import env from "~/env.mjs"
 
 const auth_options = {
   providers: [
@@ -81,6 +82,9 @@ export async function user_ss_get(
   },
   res: ServerResponse
 ) {
+  if (env.MOCK_USER_ID) {
+    return asNonNil(await db.user.findUnique({ where: { id: env.MOCK_USER_ID } }))
+  }
   return (await session_ss_get(req, res))?.user
 }
 
