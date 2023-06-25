@@ -36,8 +36,8 @@ const wrapped = createEnv({
 
 const env = {
   ...wrapped,
-  MOCK_USER_ID: wrapped.MOCK_USER_ID ? parseInt(env.MOCK_USER_ID) : undefined,
-  NEXT_PUBLIC_MOCK_USER_ID: wrapped.NEXT_PUBLIC_MOCK_USER_ID ? parseInt(env.NEXT_PUBLIC_MOCK_USER_ID) : undefined,
+  MOCK_USER_ID: wrapped.MOCK_USER_ID ? parseInt(wrapped.MOCK_USER_ID) : undefined,
+  NEXT_PUBLIC_MOCK_USER_ID: wrapped.NEXT_PUBLIC_MOCK_USER_ID ? parseInt(wrapped.NEXT_PUBLIC_MOCK_USER_ID) : undefined,
 }
 
-export default env
+export default envenv 
