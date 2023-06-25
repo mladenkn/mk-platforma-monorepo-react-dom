@@ -79,10 +79,13 @@ export function use_setUrlParams_shallow() {
 
 export function use_currentUser() {
   const session = useSession()
-  const user = Api.user.single.useQuery(env.NEXT_PUBLIC_MOCK_USER_ID!, {
-    enabled: !!env.NEXT_PUBLIC_MOCK_USER_ID,
+  const mock_user_id = env.NEXT_PUBLIC_MOCK_USER_ID
+    ? parseInt(env.NEXT_PUBLIC_MOCK_USER_ID)
+    : undefined
+  const user = Api.user.single.useQuery(mock_user_id!, {
+    enabled: !!mock_user_id,
   })
-  if (env.NEXT_PUBLIC_MOCK_USER_ID) {
+  if (mock_user_id) {
     return { data: user.data, isLoading: user.isLoading }
   } else {
     return { data: session.data?.user, isLoading: user.status === "loading" }
