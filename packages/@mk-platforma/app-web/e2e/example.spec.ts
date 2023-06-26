@@ -12,6 +12,9 @@ test("first", async ({ page }) => {
   await fields.locator("[name='description']").fill("post 1 description")
   await fields.locator("[name='contact']").fill("584484")
 
-  await fields.locator("[name='categories']").click()
-  await page.locator(".categories-dropdown-popper").getByText("Hrana").click()
+  await fields.locator("[name='category']").click()
+  await page.locator(".category-dropdown-popper").getByText("Hrana").click()
+
+  await fields.locator("[name='location']").click()
+  await page.locator(".location-dropdown-popper").getByText("Split").click()
 })

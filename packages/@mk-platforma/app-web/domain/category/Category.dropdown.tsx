@@ -57,7 +57,7 @@ export default function Category_dropdown({
       fullWidth
       sx={sx}
       classes={{
-        popper: "categories-dropdown-popper",
+        popper: "category-dropdown-popper",
       }}
       loading={categories.isLoading}
       options={options}
@@ -80,7 +80,7 @@ export default function Category_dropdown({
       )}
       renderInput={params => (
         <TextField
-          name="categories"
+          name="category"
           {...params}
           variant="outlined"
           InputProps={{
