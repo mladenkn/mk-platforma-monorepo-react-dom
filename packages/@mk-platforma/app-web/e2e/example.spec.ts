@@ -28,6 +28,6 @@ test("first", async ({ page }) => {
 
   await form.locator("button[type=submit]").click()
 
-  await page.waitForURL(/.*post/)
-  await expect(page).toHaveURL(/.*post/)
+  await page.waitForURL(/\/post\/\d+$/)
+  await expect(page).toHaveURL(/\/post\/\d+$/)
 })
