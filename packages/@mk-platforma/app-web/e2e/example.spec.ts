@@ -49,4 +49,11 @@ test("first", async ({ page }) => {
   await post_list_item.click()
   await page.waitForURL(`http://localhost:3000/post/${newPost_id}`)
   await expect(page).toHaveURL(`http://localhost:3000/post/${newPost_id}`)
+
+  const editLink = page.locator(`a[href="/post/edit/${newPost_id}"]`)
+  await expect(editLink).toBeVisible()
+
+  await editLink.click()
+  await page.waitForURL(`http://localhost:3000/post/edit/${newPost_id}`)
+  await expect(page).toHaveURL(`http://localhost:3000/post/edit/${newPost_id}`)
 })
