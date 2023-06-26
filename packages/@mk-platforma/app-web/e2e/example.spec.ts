@@ -11,4 +11,7 @@ test("first", async ({ page }) => {
   await fields.locator("[name='title']").fill("post 1 title")
   await fields.locator("[name='description']").fill("post 1 description")
   await fields.locator("[name='contact']").fill("584484")
+
+  await fields.locator("[name='categories']").click()
+  await page.locator(".categories-dropdown-popper").getByText("Hrana").click()
 })

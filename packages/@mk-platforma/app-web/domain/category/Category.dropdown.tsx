@@ -56,6 +56,9 @@ export default function Category_dropdown({
     <Autocomplete
       fullWidth
       sx={sx}
+      classes={{
+        popper: "categories-dropdown-popper",
+      }}
       loading={categories.isLoading}
       options={options}
       renderOption={(props, option) => (
@@ -77,6 +80,7 @@ export default function Category_dropdown({
       )}
       renderInput={params => (
         <TextField
+          name="categories"
           {...params}
           variant="outlined"
           InputProps={{
