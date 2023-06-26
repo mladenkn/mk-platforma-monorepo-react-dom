@@ -6,7 +6,8 @@
     "ts": "tsc --noEmit",
     "_c": "tsx cli.ts",
     "postinstall": "pnpm prisma generate",
-    "test.ui": "playwright test --ui"
+    "test.ui": "playwright test --ui",
+    "test": "playwright test"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
