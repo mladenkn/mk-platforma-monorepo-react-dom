@@ -31,5 +31,3 @@ yarn-error.log*
 
 # turbo
 .turbo
-packages/@mk-platforma/app-web/tsconfig.tsbuildinfo
-packages/@mk-platforma/app-web/test-results/e2e-example-first/trace.zip
