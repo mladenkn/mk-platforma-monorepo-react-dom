@@ -31,6 +31,8 @@ test("first", async ({ page }) => {
   await page.waitForURL(/\/post\/\d+$/)
   await expect(page).toHaveURL(/\/post\/\d+$/)
 
+  const newPost_id = parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
+
   const post_component = page.locator("_react=Post_single_details")
   await expect(post_component).toContainText(newPost.title)
   await expect(post_component).toContainText(newPost.description)
@@ -38,8 +40,13 @@ test("first", async ({ page }) => {
   await expect(post_component).toContainText(newPost.location)
 
   await page.goto("http://localhost:3000")
+  await page.waitForURL("http://localhost:3000")
 
-  // const post_list_item = page.locator(`_react=Post_listItem[title=${newPost.title}]]`)
+  const post_list_item = page.locator(`_react=Post_listItem[id = ${newPost_id}]`)
   // await expect(post_list_item).toContainText(newPost.title)
   // await expect(post_list_item).toContainText(newPost.location)
+
+  await post_list_item.click()
+  await page.waitForURL(`http://localhost:3000/post/${newPost_id}`)
+  await expect(page).toHaveURL(`http://localhost:3000/post/${newPost_id}`)
 })
