@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test"
 
+const baseUrl = "http://localhost:3000"
+
 test("first", async ({ page }) => {
-  await page.goto("http://localhost:3000")
+  await page.goto(baseUrl)
   await page.locator("_react=Header_moreOptions").click()
   await page.locator("_react=Header_moreOptions").locator("_react=PostAddIcon").click()
   await page.waitForURL(/.*post\/create/)
@@ -39,21 +41,21 @@ test("first", async ({ page }) => {
   await expect(post_component).toContainText(newPost.contact)
   await expect(post_component).toContainText(newPost.location)
 
-  await page.goto("http://localhost:3000")
-  await page.waitForURL("http://localhost:3000")
+  await page.goto(baseUrl)
+  await page.waitForURL(baseUrl)
 
   const post_list_item = page.locator(`_react=Post_listItem[id = ${newPost_id}]`)
   // await expect(post_list_item).toContainText(newPost.title)
   // await expect(post_list_item).toContainText(newPost.location)
 
   await post_list_item.click()
-  await page.waitForURL(`http://localhost:3000/post/${newPost_id}`)
-  await expect(page).toHaveURL(`http://localhost:3000/post/${newPost_id}`)
+  await page.waitForURL(`${baseUrl}/post/${newPost_id}`)
+  await expect(page).toHaveURL(`${baseUrl}/post/${newPost_id}`)
 
   const editLink = page.locator(`a[href="/post/edit/${newPost_id}"]`)
   await expect(editLink).toBeVisible()
 
   await editLink.click()
-  await page.waitForURL(`http://localhost:3000/post/edit/${newPost_id}`)
-  await expect(page).toHaveURL(`http://localhost:3000/post/edit/${newPost_id}`)
+  // await page.waitForURL(`${baseUrl}/post/edit/${newPost_id}`)
+  // await expect(page).toHaveURL(`${baseUrl}/post/edit/${newPost_id}`)
 })
