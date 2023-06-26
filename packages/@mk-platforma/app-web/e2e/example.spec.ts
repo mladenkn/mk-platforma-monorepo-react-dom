@@ -15,14 +15,19 @@ test("first", async ({ page }) => {
     location: "Split",
   }
 
-  const fields = page.locator("_react=Post_form_fields")
-  await fields.locator("[name='title']").fill(newPost.title)
-  await fields.locator("[name='description']").fill(newPost.description)
-  await fields.locator("[name='contact']").fill(newPost.contact)
+  const form = page.locator("_react=Post_form")
+  await form.locator("[name='title']").fill(newPost.title)
+  await form.locator("[name='description']").fill(newPost.description)
+  await form.locator("[name='contact']").fill(newPost.contact)
 
-  await fields.locator("[name='category']").click()
+  await form.locator("[name='category']").click()
   await page.locator(".category-dropdown-popper").getByText(newPost.category).click()
 
-  await fields.locator("[name='location']").click()
+  await form.locator("[name='location']").click()
   await page.locator(".location-dropdown-popper").getByText(newPost.location).click()
+
+  await form.locator("button[type=submit]").click()
+
+  await page.waitForURL(/.*post/)
+  await expect(page).toHaveURL(/.*post/)
 })
