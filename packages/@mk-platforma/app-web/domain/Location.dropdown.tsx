@@ -46,6 +46,9 @@ export default function Location_Dropdown({
           {option.label}
         </Box>
       )}
+      classes={{
+        popper: "location-dropdown-popper",
+      }}
       renderInput={params => (
         <TextField
           {...params}
@@ -57,6 +60,7 @@ export default function Location_Dropdown({
             ...params.InputProps,
             startAdornment: <LocationOnIcon sx={{ ml: 0.5, mr: 0.75 }} />,
           }}
+          name="location"
         />
       )}
       value={value_option}
