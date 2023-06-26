@@ -56,6 +56,6 @@ test("first", async ({ page }) => {
   await expect(editLink).toBeVisible()
 
   await editLink.click()
-  // await page.waitForURL(`${baseUrl}/post/edit/${newPost_id}`)
-  // await expect(page).toHaveURL(`${baseUrl}/post/edit/${newPost_id}`)
+  await page.waitForURL(`${baseUrl}/post/edit/${newPost_id}`)
+  await expect(page).toHaveURL(`${baseUrl}/post/edit/${newPost_id}`)
 })
