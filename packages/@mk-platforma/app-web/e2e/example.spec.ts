@@ -36,4 +36,10 @@ test("first", async ({ page }) => {
   await expect(post_component).toContainText(newPost.description)
   await expect(post_component).toContainText(newPost.contact)
   await expect(post_component).toContainText(newPost.location)
+
+  await page.goto("http://localhost:3000")
+
+  // const post_list_item = page.locator(`_react=Post_listItem[title=${newPost.title}]]`)
+  // await expect(post_list_item).toContainText(newPost.title)
+  // await expect(post_list_item).toContainText(newPost.location)
 })
