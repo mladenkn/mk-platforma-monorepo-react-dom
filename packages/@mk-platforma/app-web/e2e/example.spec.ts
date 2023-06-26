@@ -30,4 +30,10 @@ test("first", async ({ page }) => {
 
   await page.waitForURL(/\/post\/\d+$/)
   await expect(page).toHaveURL(/\/post\/\d+$/)
+
+  const post_component = page.locator("_react=Post_single_details")
+  await expect(post_component).toContainText(newPost.title)
+  await expect(post_component).toContainText(newPost.description)
+  await expect(post_component).toContainText(newPost.contact)
+  await expect(post_component).toContainText(newPost.location)
 })
