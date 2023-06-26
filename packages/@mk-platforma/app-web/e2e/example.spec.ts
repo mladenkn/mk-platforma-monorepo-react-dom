@@ -45,8 +45,8 @@ test("first", async ({ page }) => {
   await page.waitForURL(baseUrl)
 
   const post_list_item = page.locator(`_react=Post_listItem[id = ${newPost_id}]`)
-  // await expect(post_list_item).toContainText(newPost.title)
-  // await expect(post_list_item).toContainText(newPost.location)
+  await expect(post_list_item).toContainText(newPost.title)
+  await expect(post_list_item).toContainText(newPost.location)
 
   await post_list_item.click()
   await page.waitForURL(`${baseUrl}/post/${newPost_id}`)
