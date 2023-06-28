@@ -29,7 +29,7 @@ const run_args = match(parsed.command)
         MOCK_USER_ID: user.id,
         NEXT_PUBLIC_MOCK_USER_ID: user.id,
       },
-      `next dev`,
+      `next dev -p 3010`,
     ]
   })
 

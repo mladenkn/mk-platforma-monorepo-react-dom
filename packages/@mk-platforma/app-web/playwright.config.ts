@@ -8,8 +8,8 @@ export default defineConfig({
     baseURL: "http://localhost:3010",
   },
   webServer: {
-    command: "pnpm _c dev -p 3010",
+    command: "pnpm _c dev.test",
     url: "http://localhost:3010",
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
 })
