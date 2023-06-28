@@ -9,10 +9,6 @@ test("Post CRUD", async ({ page }) => {
   await page.locator("_react=Header_moreOptions").locator("_react=PostAddIcon").click()
   // end home
 
-  // create
-  await page.waitForURL(/.*post\/create/)
-  await expect(page).toHaveURL(/.*post\/create/)
-
   const newPost = {
     title: "post 1 title",
     description: "post 1 description",
@@ -20,6 +16,10 @@ test("Post CRUD", async ({ page }) => {
     category: "Hrana",
     location: "Split",
   }
+
+  // create
+  await page.waitForURL(/.*post\/create/)
+  await expect(page).toHaveURL(/.*post\/create/)
 
   const form = page.locator("_react=Post_form")
   await form.locator("[name='title']").fill(newPost.title)
@@ -35,11 +35,11 @@ test("Post CRUD", async ({ page }) => {
   await form.locator("button[type=submit]").click()
   // end create
 
+  const newPost_id = parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
+
   // details
   await page.waitForURL(/\/post\/\d+$/)
   await expect(page).toHaveURL(/\/post\/\d+$/)
-
-  const newPost_id = parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
 
   const post_component = page.locator("_react=Post_single_details")
   await expect(post_component).toContainText(newPost.title)
