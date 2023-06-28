@@ -68,11 +68,11 @@ test("Post CRUD", async ({ page }) => {
   // end details
 
   // edit
-  await page.waitForURL(`${baseUrl}/post/edit/${newPost_id}`, { timeout: 10000 })
+  await page.waitForURL(`${baseUrl}/post/edit/${newPost_id}`)
   await expect(page).toHaveURL(`${baseUrl}/post/edit/${newPost_id}`)
 
-  expect(form.locator("[name='title']")).toHaveValue(newPost.title, { timeout: 10000 })
+  expect(form.locator("[name='title']")).toHaveValue(newPost.title)
   expect(form.locator("[name='category']")).toHaveValue(newPost.category)
-  expect(form.locator("[name='location']")).toHaveValue(newPost.location, { timeout: 10000 })
+  expect(form.locator("[name='location']")).toHaveValue(newPost.location)
   // end edit
 })
