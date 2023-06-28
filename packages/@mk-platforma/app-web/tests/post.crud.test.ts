@@ -1,10 +1,8 @@
 import { test, expect } from "@playwright/test"
 
-const baseUrl = "http://localhost:3000"
-
 test("Post CRUD", async ({ page }) => {
   // home
-  await page.goto(baseUrl)
+  await page.goto("/")
   await page.locator("_react=Header_moreOptions").click()
   await page.locator("_react=Header_moreOptions").locator("_react=PostAddIcon").click()
   // end home
@@ -49,8 +47,8 @@ test("Post CRUD", async ({ page }) => {
   const newPost_id = parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
 
   // list
-  await page.goto(baseUrl)
-  await page.waitForURL(baseUrl)
+  await page.goto("/")
+  await page.waitForURL("/")
 
   const post_list_item = page.locator(`_react=Post_listItem[id = ${newPost_id}]`)
   await expect(post_list_item).toContainText(newPost.title)
@@ -59,8 +57,8 @@ test("Post CRUD", async ({ page }) => {
   // end list
 
   // details
-  await page.waitForURL(`${baseUrl}/post/${newPost_id}`)
-  await expect(page).toHaveURL(`${baseUrl}/post/${newPost_id}`)
+  await page.waitForURL(`/post/${newPost_id}`)
+  await expect(page).toHaveURL(`/post/${newPost_id}`)
 
   const editLink = page.locator(`a[href="/post/edit/${newPost_id}"]`)
   await expect(editLink).toBeVisible()
@@ -68,8 +66,8 @@ test("Post CRUD", async ({ page }) => {
   // end details
 
   // edit
-  await page.waitForURL(`${baseUrl}/post/edit/${newPost_id}`)
-  await expect(page).toHaveURL(`${baseUrl}/post/edit/${newPost_id}`)
+  await page.waitForURL(`/post/edit/${newPost_id}`)
+  await expect(page).toHaveURL(`/post/edit/${newPost_id}`)
 
   expect(form.locator("[name='title']")).toHaveValue(newPost.title)
   expect(form.locator("[name='category']")).toHaveValue(newPost.category)
