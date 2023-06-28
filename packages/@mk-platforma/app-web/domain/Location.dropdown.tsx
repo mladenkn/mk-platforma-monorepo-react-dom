@@ -59,8 +59,8 @@ export default function Location_Dropdown({
           InputProps={{
             ...params.InputProps,
             startAdornment: <LocationOnIcon sx={{ ml: 0.5, mr: 0.75 }} />,
+            name: "location",
           }}
-          name="location"
         />
       )}
       value={value_option}

@@ -80,7 +80,6 @@ export default function Category_dropdown({
       )}
       renderInput={params => (
         <TextField
-          name="category"
           {...params}
           variant="outlined"
           InputProps={{
@@ -89,6 +88,7 @@ export default function Category_dropdown({
               value && categories.data ? (
                 <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={findCategory(value)!.label} />
               ) : undefined,
+            name: "category",
           }}
           placeholder="Kategorija"
         />
