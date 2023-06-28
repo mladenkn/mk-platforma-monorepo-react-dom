@@ -1,3 +1,4 @@
+import { asNonNil } from "@mk-libs/common/common"
 import { defineConfig } from "@playwright/test"
 
 export default defineConfig({
@@ -8,7 +9,7 @@ export default defineConfig({
     baseURL: "http://localhost:3010",
   },
   webServer: {
-    command: "pnpm _c dev.test",
+    command: asNonNil(process.env.TEST_SERVER_COMMAND),
     url: "http://localhost:3010",
     reuseExistingServer: true,
   },

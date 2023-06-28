@@ -33,6 +33,8 @@ const run_args = match(parsed.command)
     ]
   })
 
+  .with("test", () => [{ TEST_SERVER_COMMAND: "pnpm _c dev.test" }, "playwright test --ui"])
+
   .with("db.prisma", () => [
     { DATABASE_URL: getConnectionString(dbInstance) },
     `prisma ${parsed._unknown!.join(" ")}`,
