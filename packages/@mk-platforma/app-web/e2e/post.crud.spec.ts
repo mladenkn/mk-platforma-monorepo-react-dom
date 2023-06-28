@@ -35,8 +35,6 @@ test("Post CRUD", async ({ page }) => {
   await form.locator("button[type=submit]").click()
   // end create
 
-  const newPost_id = parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
-
   // details
   await page.waitForURL(/\/post\/\d+$/)
   await expect(page).toHaveURL(/\/post\/\d+$/)
@@ -47,6 +45,8 @@ test("Post CRUD", async ({ page }) => {
   await expect(post_component).toContainText(newPost.contact)
   await expect(post_component).toContainText(newPost.location)
   // end details
+
+  const newPost_id = parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
 
   // list
   await page.goto(baseUrl)
