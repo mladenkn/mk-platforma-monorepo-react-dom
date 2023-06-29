@@ -90,8 +90,10 @@ export function getConnectionString(env: string) {
   switch (env) {
     case "dev":
       return "postgresql://postgres:postgres@localhost:5432/za_brata"
-    case "test":
+    case "test.server":
       return "postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway"
+    case "test.local":
+      return "postgresql://postgres:postgres@localhost:5432/za_brata_test"
     default:
       throw new Error(`Unsupported env: ${env}`)
   }
