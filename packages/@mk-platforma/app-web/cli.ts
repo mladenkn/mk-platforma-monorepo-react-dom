@@ -62,13 +62,7 @@ const run_args = match(parsed.command)
   // \dt: get all tables
   .with("db.psql", () => [`psql ${getConnectionString(dbInstance)}`])
 
-  .with("build", () => [
-    {
-      DATABASE_URL: getConnectionString(dbInstance),
-      NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
-    },
-    "next build",
-  ])
+  .with("build", () => ["next build"])
 
   .with("start", () => [
     {
