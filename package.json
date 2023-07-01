@@ -7,7 +7,9 @@
     "app+": "pnpm --filter @mk-platforma/app-web _c",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "wipe": "find . -type d -name node_modules | xargs rm -rf && rm -f pnpm-lock.lock && rm -rf packages/*/*/.next",
-    "reset": "pnpm wipe && pnpm install"
+    "reset": "pnpm wipe && pnpm install",
+    "build": "pnpm app build",
+    "start": "pnpm app start"
   },
   "devDependencies": {
     "prettier": "latest",
