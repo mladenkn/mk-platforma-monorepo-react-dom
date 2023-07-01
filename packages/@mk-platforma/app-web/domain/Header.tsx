@@ -67,7 +67,11 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
 
   return (
     <>
-      <IconButton sx={sx} onClick={e => set_optionsAnchorEl(e.target as any)}>
+      <IconButton
+        data-testid="Header_moreOptions"
+        sx={sx}
+        onClick={e => set_optionsAnchorEl(e.target as any)}
+      >
         <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
       </IconButton>
       <Menu
@@ -88,7 +92,10 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
         {options.includes("post.create") && (
           <Link href="/post/create" style={{ textDecoration: "none" }}>
             <MenuItem>
-              <PostAddIcon sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }} />
+              <PostAddIcon
+                data-testid="Header_moreOptions__PostAddIcon"
+                sx={{ fontSize: typography.h3, mr: 1.5, color: theme.font.color }}
+              />
               <Typography sx={{ color: theme.font.color }}>Objavi</Typography>
             </MenuItem>
           </Link>

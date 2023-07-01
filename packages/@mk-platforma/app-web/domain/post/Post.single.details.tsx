@@ -58,7 +58,7 @@ export default function Post_single_details({
   }
 
   return (
-    <Box sx={sx}>
+    <Box data-testid="Post_single_details" sx={sx}>
       <Container sx={{ p: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>

@@ -3,8 +3,8 @@ import { test, expect } from "@playwright/test"
 test("Post CRUD", async ({ page }) => {
   // home
   await page.goto("/")
-  await page.locator("_react=Header_moreOptions").click()
-  await page.locator("_react=Header_moreOptions").locator("_react=PostAddIcon").click()
+  await page.getByTestId("Header_moreOptions").click()
+  await page.getByTestId("Header_moreOptions__PostAddIcon").click()
   // end home
 
   const newPost = {
@@ -19,7 +19,7 @@ test("Post CRUD", async ({ page }) => {
   await page.waitForURL(/.*post\/create/)
   await expect(page).toHaveURL(/.*post\/create/)
 
-  const form = page.locator("_react=Post_form")
+  const form = page.getByTestId("Post_form")
   await form.locator("[name='title']").fill(newPost.title)
   await form.locator("[name='description']").fill(newPost.description)
   await form.locator("[name='contact']").fill(newPost.contact)
@@ -37,7 +37,7 @@ test("Post CRUD", async ({ page }) => {
   await page.waitForURL(/\/post\/\d+$/)
   await expect(page).toHaveURL(/\/post\/\d+$/)
 
-  const post_component = page.locator("_react=Post_single_details")
+  const post_component = page.getByTestId("Post_single_details")
   await expect(post_component).toContainText(newPost.title)
   await expect(post_component).toContainText(newPost.description)
   await expect(post_component).toContainText(newPost.contact)
@@ -50,7 +50,7 @@ test("Post CRUD", async ({ page }) => {
   await page.goto("/")
   await page.waitForURL("/")
 
-  const post_list_item = page.locator(`_react=Post_listItem[id = ${newPost_id}]`)
+  const post_list_item = page.getByTestId(`Post_listItem-${newPost_id}`)
   await expect(post_list_item).toContainText(newPost.title)
   await expect(post_list_item).toContainText(newPost.location)
   await post_list_item.click()
@@ -69,6 +69,7 @@ test("Post CRUD", async ({ page }) => {
   await page.waitForURL(`/post/edit/${newPost_id}`)
   await expect(page).toHaveURL(`/post/edit/${newPost_id}`)
 
+  // form je krivo
   expect(form.locator("[name='title']")).toHaveValue(newPost.title)
   expect(form.locator("[name='category']")).toHaveValue(newPost.category)
   expect(form.locator("[name='location']")).toHaveValue(newPost.location)

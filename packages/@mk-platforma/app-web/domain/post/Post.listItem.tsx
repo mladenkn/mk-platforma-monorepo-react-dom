@@ -8,19 +8,21 @@ type Post_image = {
 }
 
 type Post_common_listItem_props = {
+  id: number
   title: string
   location?: string
   images?: Post_image[]
   mainImage?: string
 }
 
-export function Post_listItem({ title, location, images }: Post_common_listItem_props) {
+export function Post_listItem({ id, title, location, images }: Post_common_listItem_props) {
   const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
 
   const { typography } = useTheme()
 
   return (
     <Box
+      data-testid={`Post_listItem-${id}`}
       sx={{
         flex: 1,
         display: "flex",
