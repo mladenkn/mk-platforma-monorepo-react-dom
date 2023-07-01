@@ -9,6 +9,7 @@ const run_args = match(parsed.command)
   .with("dev", () => [
     {
       DATABASE_URL: getConnectionString(dbInstance || "dev"),
+      POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev"),
     },
     `next dev`,
   ])
