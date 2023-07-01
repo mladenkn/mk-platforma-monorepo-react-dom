@@ -69,9 +69,9 @@ test("Post CRUD", async ({ page }) => {
   await page.waitForURL(`/post/edit/${newPost_id}`)
   await expect(page).toHaveURL(`/post/edit/${newPost_id}`)
 
-  // form je krivo
-  expect(form.locator("[name='title']")).toHaveValue(newPost.title)
-  expect(form.locator("[name='category']")).toHaveValue(newPost.category)
-  expect(form.locator("[name='location']")).toHaveValue(newPost.location)
+  const form2 = page.getByTestId("Post_form")
+  expect(form2.locator("[name='title']")).toHaveValue(newPost.title)
+  expect(form2.locator("[name='category']")).toHaveValue(newPost.category)
+  expect(form2.locator("[name='location']")).toHaveValue(newPost.location)
   // end edit
 })
