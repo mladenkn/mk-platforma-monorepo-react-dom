@@ -8,12 +8,8 @@ import { LogoLink } from "../common"
 import Api from "~/api_/api.client"
 import { Post_api_create_input } from "./Post.api.cu.input"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import { signIn, useSession } from "next-auth/react"
 
 export default function Post_create_page() {
-  const session = useSession()
-  if (session.status !== "loading" && !session.data?.user) signIn()
-
   const router = useRouter()
   const mutation = Api.post.create.useMutation({
     onSuccess(post) {
