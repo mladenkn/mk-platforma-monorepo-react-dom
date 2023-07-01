@@ -32,3 +32,4 @@ yarn-error.log*
 # turbo
 .turbo
 packages/@mk-platforma/app-web/tsconfig.tsbuildinfo
+.vercel
