@@ -11,6 +11,7 @@ export async function getServerSideProps({ req, res }: GetServerSidePropsContext
         permanent: false,
       },
     }
+  return {}
 }
 
 export default function Login() {
