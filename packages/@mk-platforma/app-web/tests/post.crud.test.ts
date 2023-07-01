@@ -71,6 +71,8 @@ test("Post CRUD", async ({ page }) => {
 
   const form2 = page.getByTestId("Post_form")
   expect(form2.locator("[name='title']")).toHaveValue(newPost.title)
+  expect(form2.locator("[name='contact']")).toHaveValue(newPost.contact)
+  expect(form2.locator("[name='description']")).toHaveValue(newPost.description)
   expect(form2.locator("[name='category']")).toHaveValue(newPost.category)
   expect(form2.locator("[name='location']")).toHaveValue(newPost.location)
   // end edit
