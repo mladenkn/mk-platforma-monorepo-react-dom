@@ -17,7 +17,6 @@ async function main() {
   const mladenUser = await upsertUser("Mladen", { background: "green", color: "white" })
   const otherUsers = await seedUsers()
   const users = [mladenUser, ...otherUsers]
-  const users_ids = users.map(u => u.id)
 
   const locations = await seedLocations()
 
@@ -27,7 +26,7 @@ async function main() {
   const posts_count = await db.post.count({})
 
   if (!images_count && !posts_count) {
-    await seedPosts(posts, users_ids)
+    await seedPosts(posts, users)
   }
 }
 
@@ -106,11 +105,15 @@ async function seedLocations() {
   )
 }
 
-async function seedPosts(posts: ReturnType<typeof generatePosts>, users: number[]) {
+async function seedPosts(
+  posts: ReturnType<typeof generatePosts>,
+  users: { id: number; name?: string | null }[]
+) {
   for (const post of posts) {
+    const user = faker.helpers.arrayElement(users)
     const api = Api_ss({
       db,
-      user: { id: faker.helpers.arrayElement(users), canMutate: true },
+      user: { id: user.id, name: user.name || "test user", canMutate: true },
       getCookie: (() => {}) as any,
     })
     const post_created = await api.post.create({
@@ -122,7 +125,7 @@ async function seedPosts(posts: ReturnType<typeof generatePosts>, users: number[
         data: {
           content: comment.content,
           post_id: post_created.id,
-          author_id: faker.helpers.arrayElement(users),
+          author_id: faker.helpers.arrayElement(users)!.id,
         },
       })
     }

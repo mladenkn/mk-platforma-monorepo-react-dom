@@ -65,7 +65,11 @@ export function authorizedRoute(
       const { ctx } = opts
       const isAuthorized = ctx.user && check(ctx.user)
       if (!isAuthorized) {
-        throw new TRPCError({ code: "UNAUTHORIZED" })
+        throw new TRPCError({
+          code: "UNAUTHORIZED",
+          message: "User not authorized in authorizedRoute.",
+          cause: "User not authorized in authorizedRoute.",
+        })
       }
       return opts.next({
         ctx: {

@@ -6,10 +6,18 @@ const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
 
 const run_args = match(parsed.command)
-  .with("dev", () => [{ DATABASE_URL: getConnectionString(dbInstance || "dev") }, `next dev`])
+  .with("dev", () => [
+    {
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
+    },
+    `next dev`,
+  ])
 
   .with("db.prisma", () => [
-    { DATABASE_URL: getConnectionString(dbInstance || "dev") },
+    {
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
+      POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev"),
+    },
     `prisma ${parsed._unknown!.join(" ")}`,
   ])
 
@@ -24,7 +32,10 @@ const run_args = match(parsed.command)
   ])
 
   .with("db.reset", () => [
-    { DATABASE_URL: getConnectionString(dbInstance || "dev") },
+    {
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
+      POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev"),
+    },
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
