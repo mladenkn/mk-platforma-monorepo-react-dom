@@ -6,8 +6,7 @@
     "ts": "tsc --noEmit",
     "+": "tsx cli.ts",
     "postinstall": "pnpm prisma generate",
-    "build": "pnpm next build",
-    "start": "pnpm + start --db-instance test.server"
+    "build": "pnpm next build"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
