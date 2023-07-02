@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "ts": "tsc --noEmit",
-    "_c": "tsx cli.ts",
+    "+": "tsx cli.ts",
     "postinstall": "pnpm prisma generate",
     "build": "pnpm next build",
-    "start": "pnpm _c start --db-instance test.server"
+    "start": "pnpm + start --db-instance test.server"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
