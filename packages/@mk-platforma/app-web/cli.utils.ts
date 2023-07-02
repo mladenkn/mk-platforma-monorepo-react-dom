@@ -90,11 +90,11 @@ export function getConnectionString(env: string) {
   switch (env) {
     case "dev":
       return "postgresql://postgres:postgres@localhost:5432/za_brata"
-    case "test.server":
+    case "staging.railway":
       return "postgresql://postgres:s9Z4LVTQYpYvGdLdhzyJ@containers-us-west-3.railway.app:7548/railway"
     case "test.local":
       return "postgresql://postgres:postgres@localhost:5432/za_brata_test"
-    case "test.vercel.postgres.prisma":
+    case "staging":
       return "postgres://default:dLkKj9hoY7WT@ep-long-rain-221377-pooler.us-east-1.postgres.vercel-storage.com/verceldb?pgbouncer=true&connect_timeout=15"
     default:
       throw new Error(`Unsupported env: ${env}`)
