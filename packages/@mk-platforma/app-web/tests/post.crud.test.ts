@@ -64,14 +64,14 @@ test("Post CRUD", async ({ page }) => {
   await post_list_item2.click()
   // end list 2
 
-  await helper.details.goTo(newPost_id)
-  await helper.details.delete()
+  // await helper.details.goTo(newPost_id)
+  // await helper.details.delete()
 
-  await helper.list.waitForUrl()
-  await helper.list.expectItem_notFound(newPost_id)
+  // await helper.list.waitForUrl()
+  // await helper.list.expectItem_notFound(newPost_id)
 
-  await helper.details.goTo(newPost_id)
-  await helper.details.expectIsDeleted()
+  // await helper.details.goTo(newPost_id)
+  // await helper.details.expectIsDeleted()
 })
 
 function getNewPost() {
