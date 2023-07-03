@@ -25,16 +25,10 @@ const Api: CreateTRPCNext<ApiRouter_type, NextPageContext, unknown> =
         // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
         queryClientConfig: {
           queryCache: new QueryCache({
-            onError: (error: any) =>
-              enqueueSnackbar(error?.message || "Nepoznata pogreška na serveru.", {
-                variant: "error",
-              }),
+            onError: () => enqueueSnackbar("Pogreška na serveru.", { variant: "error" }),
           }),
           mutationCache: new MutationCache({
-            onError: (error: any) =>
-              enqueueSnackbar(error?.message || "Nepoznata pogreška na serveru.", {
-                variant: "error",
-              }),
+            onError: () => enqueueSnackbar("Pogreška na serveru.", { variant: "error" }),
           }),
         },
         transformer: superjson,

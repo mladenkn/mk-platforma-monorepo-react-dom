@@ -2,6 +2,7 @@
 - post.images upload handle error
 - isključit auto logout
 - bolje errore
+- kad je server side error (kod 500), nesmi ga vratit na klijent
 - pravo
 
 - treba li User.id bit string?
