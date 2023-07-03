@@ -25,6 +25,9 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
 
       await tx.post_ExpertEndorsement_skill.deleteMany({
         where: {
+          expertEndorsement: {
+            id: input.id,
+          },
           id: {
             notIn: skills_forUpdate.map(s => s.id!),
           },
@@ -61,20 +64,20 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
                   create: {
                     post_id: input.id,
                     avatarStyle: getRandomElement(avatarStyles),
-                    // skills: {
-                    //   create: input.expertEndorsement.skills || undefined, // moraju svi bit bez id-ova
-                    // },
+                    skills: {
+                      create: input.expertEndorsement.skills || undefined, // moraju svi bit bez id-ova
+                    },
                     ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                   },
                   update: {
                     ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
-                    // skills: {
-                    //   set:
-                    //     input.expertEndorsement.skills
-                    //       ?.filter(s => s.id)
-                    //       .map(s => ({ id: s.id! })) || [],
-                    //   create: input.expertEndorsement.skills?.filter(s => !s.id),
-                    // },
+                    skills: {
+                      connect:
+                        input.expertEndorsement.skills
+                          ?.filter(s => s.id)
+                          .map(s => ({ id: s.id! })) || [],
+                      create: input.expertEndorsement.skills?.filter(s => !s.id),
+                    },
                   },
                 },
               }
