@@ -20,7 +20,7 @@ type Post_single_details_Props = Post_single_details_PostModel & {
   usePaperSections?: boolean
 }
 
-export default function Post_single_details({
+export default function Post_details({
   sx,
   id,
   title,
