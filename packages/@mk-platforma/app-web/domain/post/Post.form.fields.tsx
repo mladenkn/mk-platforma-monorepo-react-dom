@@ -115,6 +115,8 @@ export default function Post_form_fields<TValues extends Values>({
             images={values.images || []}
             addItem={helpers.push}
             removeItem={helpers.remove}
+            onChange={handleChange}
+            namePrefix="images"
           />
         )}
       />

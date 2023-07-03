@@ -185,7 +185,7 @@ export const ImageSchema = z.object({
   uploadthing_key: z.string().nullish(),
   post_id: z.number().int().nullish(),
   url: z.string(),
-  isMain: z.boolean().nullish(),
+  isMain: z.boolean(),
 })
 
 export type Image = z.infer<typeof ImageSchema>
