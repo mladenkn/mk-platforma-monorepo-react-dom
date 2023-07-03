@@ -66,8 +66,9 @@ export default function Post_crud_test_helper_create(page: Page) {
         await page.getByTestId("Post_single_details__delete").click()
       },
       async goTo(id: number) {
-        await page.goto(`/post/${id}`)
+        const res = await page.goto(`/post/${id}`)
         await details_waitForUrl(id)
+        return res
       },
       async expectIsDeleted() {
         const post_component = page.getByTestId("Post_single_details")
