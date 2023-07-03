@@ -14,7 +14,13 @@ test("Post CRUD", async ({ page }) => {
   await helper.list.gotoCreate()
   // end home
 
-  const newPost = getNewPost()
+  const newPost = {
+    title: "post 1 title",
+    description: "post 1 description",
+    contact: "5185184",
+    category: "Hrana",
+    location: "Split",
+  }
 
   // create
   await helper.create.waitForUrl()
@@ -82,13 +88,3 @@ test("Post CRUD", async ({ page }) => {
 test.afterAll(async () => {
   await db.post.delete({ where: { id: newPost_id } })
 })
-
-function getNewPost() {
-  return {
-    title: "post 1 title",
-    description: "post 1 description",
-    contact: "5185184",
-    category: "Hrana",
-    location: "Split",
-  }
-}
