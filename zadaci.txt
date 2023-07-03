@@ -1,5 +1,4 @@
-- post.images validacija da je samo jedna glavna slika
-_ post.images smanjivat kvalitetu
+- post.images smanjivat kvalitetu
 - post.form prikazat errore od validacije
 - isključit auto logout
 - kad je server side error (kod 500), nesmi ga vratit na klijent
