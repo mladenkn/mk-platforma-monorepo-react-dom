@@ -6,6 +6,7 @@ import RemoveIcon from "@mui/icons-material/Close"
 import { IconButton, Box, useTheme, useMediaQuery } from "@mui/material"
 import { UploadButton } from "~/file.upload"
 import "@uploadthing/react/styles.css"
+import { enqueueSnackbar } from "notistack"
 
 type Image = {
   uploadthing_key?: string | null
@@ -102,7 +103,9 @@ export default function Post_form_images({ images, addItem, removeItem }: Props)
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={handle_files_uploadComplete}
-        onUploadError={(error: Error) => alert(`ERROR! ${error.message}`)}
+        onUploadError={(error: Error) =>
+          enqueueSnackbar("Pogreška prilikom uploada datoteka/slika.", { variant: "error" })
+        }
       />
     </Box>
   )
