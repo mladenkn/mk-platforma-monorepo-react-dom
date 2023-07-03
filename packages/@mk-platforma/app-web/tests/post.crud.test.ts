@@ -86,5 +86,5 @@ test("Post CRUD", async ({ page }) => {
 })
 
 test.afterAll(async () => {
-  await db.post.delete({ where: { id: newPost_id } })
+  newPost_id && (await db.post.delete({ where: { id: newPost_id } }))
 })
