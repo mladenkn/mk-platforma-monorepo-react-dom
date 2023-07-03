@@ -71,7 +71,7 @@ export default function Post_crud_test_helper_create(page: Page) {
       },
       async expectIsDeleted() {
         const post_component = page.getByTestId("Post_single_details")
-        expect(post_component).toContainText("IZBRISANO")
+        await expect(post_component).toContainText("IZBRISANO")
       },
     },
     list: {
@@ -91,7 +91,7 @@ export default function Post_crud_test_helper_create(page: Page) {
         return post_list_item
       },
       async expectItem_notFound(id: number) {
-        expect(page.getByTestId(`Post_listItem-${id}`)).not.toBeVisible()
+        await expect(page.getByTestId(`Post_listItem-${id}`)).not.toBeVisible()
       },
       async gotoCreate() {
         await page.getByTestId("Header_moreOptions").click()
