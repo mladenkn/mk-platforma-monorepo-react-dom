@@ -28,11 +28,11 @@ export default function Post_crud_test_helper_create(page: Page) {
     },
     async expect(post: Post) {
       const form = page.getByTestId("Post_form")
-      expect(form.locator("[name='title']")).toHaveValue(post.title)
-      expect(form.locator("[name='contact']")).toHaveValue(post.contact)
-      expect(form.locator("[name='description']")).toHaveValue(post.description)
-      expect(form.locator("[name='category']")).toHaveValue(post.category)
-      expect(form.locator("[name='location']")).toHaveValue(post.location)
+      await expect(form.locator("[name='title']")).toHaveValue(post.title)
+      await expect(form.locator("[name='contact']")).toHaveValue(post.contact)
+      await expect(form.locator("[name='description']")).toHaveValue(post.description)
+      await expect(form.locator("[name='category']")).toHaveValue(post.category)
+      await expect(form.locator("[name='location']")).toHaveValue(post.location)
     },
   }
 
