@@ -3,7 +3,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import RemoveIcon from "@mui/icons-material/Close"
-import { IconButton, Box, useTheme, useMediaQuery } from "@mui/material"
+import { IconButton, Box, useTheme, useMediaQuery, Checkbox, Typography } from "@mui/material"
 import { UploadButton } from "~/file.upload"
 import "@uploadthing/react/styles.css"
 import { enqueueSnackbar } from "notistack"
@@ -79,20 +79,9 @@ export default function Post_form_images({ images, addItem, removeItem }: Props)
               },
             }}
           >
-            <Box
-              sx={{
-                display: "flex",
-                [breakpoints.down("sm")]: {
-                  flexDirection: "column",
-                },
-              }}
-            >
-              {/* <IconButton>
-                <Sort_icon_up />
-              </IconButton>
-              <IconButton>
-                <Sort_icon_down />
-              </IconButton> */}
+            <Box sx={{ display: "flex", alignItems: "center", ml: 1 }}>
+              <Typography>Jeli glavna slika</Typography>
+              <Checkbox />
             </Box>
             <IconButton onClick={() => removeItem(index)}>
               <RemoveIcon />
@@ -103,7 +92,7 @@ export default function Post_form_images({ images, addItem, removeItem }: Props)
       <UploadButton
         endpoint="imageUploader"
         onClientUploadComplete={handle_files_uploadComplete}
-        onUploadError={(error: Error) =>
+        onUploadError={() =>
           enqueueSnackbar("Pogreška prilikom uploada datoteka/slika.", { variant: "error" })
         }
       />

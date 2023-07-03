@@ -1,4 +1,4 @@
-- post.images sort
+- post.images validacija da je samo jedna glavna slika
 - isključit auto logout
 - kad je server side error (kod 500), nesmi ga vratit na klijent
 - pravo
