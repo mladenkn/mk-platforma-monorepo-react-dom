@@ -13,20 +13,18 @@ test("Post CRUD", async ({ page }) => {
   const newPost = getNewPost()
 
   // create
-  await page.waitForURL(/.*post\/create/)
-  await expect(page).toHaveURL(/.*post\/create/)
+  await helper.create.waitForUrl()
   const form = await helper.form.fill(newPost)
   await helper.form.expect(newPost)
   await form.submit()
   // end create
 
   // details
-  await page.waitForURL(/\/post\/\d+$/)
-  await expect(page).toHaveURL(/\/post\/\d+$/)
+  await helper.details.waitForUrl()
   await helper.details.expect(newPost)
   // end details
 
-  const newPost_id = parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
+  const newPost_id = helper.details.getUrl()
 
   // list
   await page.goto("/")
@@ -36,17 +34,14 @@ test("Post CRUD", async ({ page }) => {
   // end list
 
   // details
-  await page.waitForURL(`/post/${newPost_id}`)
-  await expect(page).toHaveURL(`/post/${newPost_id}`)
-
+  await helper.details.waitForUrl(newPost_id)
   const editLink = page.locator(`a[href="/post/edit/${newPost_id}"]`)
   await expect(editLink).toBeVisible()
   await editLink.click()
   // end details
 
   // edit
-  await page.waitForURL(`/post/edit/${newPost_id}`)
-  await expect(page).toHaveURL(`/post/edit/${newPost_id}`)
+  await helper.edit.waitForUrl(newPost_id)
   await helper.form.expect(newPost)
   const newPost_edited = {
     title: "post 1 title edited",
@@ -61,8 +56,7 @@ test("Post CRUD", async ({ page }) => {
   // end edit
 
   // details 2
-  await page.waitForURL(/\/post\/\d+$/)
-  await expect(page).toHaveURL(/\/post\/\d+$/)
+  await helper.details.waitForUrl(newPost_id)
   await helper.details.expect(newPost_edited)
   // end details 2
 

@@ -44,6 +44,18 @@ export default function Post_crud_test_helper_create(page: Page) {
         await expect(post_component).toContainText(post.contact)
         await expect(post_component).toContainText(post.location)
       },
+      async waitForUrl(id?: number) {
+        if (id) {
+          await page.waitForURL(`/post/${id}`)
+          await expect(page).toHaveURL(`/post/${id}`)
+        } else {
+          await page.waitForURL(/\/post\/\d+$/)
+          await expect(page).toHaveURL(/\/post\/\d+$/)
+        }
+      },
+      getUrl() {
+        return parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
+      },
     },
     list: {
       expectItem: async function (post: Post, id: number) {
@@ -51,6 +63,18 @@ export default function Post_crud_test_helper_create(page: Page) {
         await expect(post_list_item).toContainText(post.title)
         await expect(post_list_item).toContainText(post.location)
         return post_list_item
+      },
+    },
+    create: {
+      async waitForUrl() {
+        await page.waitForURL(/.*post\/create/)
+        await expect(page).toHaveURL(/.*post\/create/)
+      },
+    },
+    edit: {
+      async waitForUrl(id: number) {
+        await page.waitForURL(`/post/edit/${id}`)
+        await expect(page).toHaveURL(`/post/edit/${id}`)
       },
     },
   }
