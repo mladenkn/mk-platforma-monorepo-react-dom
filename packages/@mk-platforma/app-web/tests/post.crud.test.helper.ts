@@ -86,6 +86,10 @@ export default function Post_crud_test_helper_create(page: Page) {
         await expect(post_list_item).toContainText(post.location)
         return post_list_item
       },
+      async gotoCreate() {
+        await page.getByTestId("Header_moreOptions").click()
+        await page.getByTestId("Header_moreOptions__PostAddIcon").click()
+      },
     },
     create: {
       async waitForUrl() {

@@ -6,8 +6,7 @@ test("Post CRUD", async ({ page }) => {
 
   // home
   await helper.list.goto()
-  await page.getByTestId("Header_moreOptions").click()
-  await page.getByTestId("Header_moreOptions__PostAddIcon").click()
+  await helper.list.gotoCreate()
   // end home
 
   const newPost = getNewPost()
