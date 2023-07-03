@@ -1,4 +1,12 @@
-import { Box, Typography, IconButton, Button, SxProps, Paper } from "@mui/material"
+import {
+  Box,
+  Typography,
+  IconButton,
+  CircularProgress,
+  SxProps,
+  Paper,
+  Button,
+} from "@mui/material"
 import Post_form_fields from "./Post.form.fields"
 import SaveIcon from "@mui/icons-material/Save"
 import CloseIcon from "@mui/icons-material/Close"
@@ -50,10 +58,10 @@ export default function Post_form<TValues extends Values>({
               <Button
                 variant="contained"
                 sx={{ mt: 6, display: "flex", alignItems: "center", gap: 1, width: "100%" }}
-                disabled={noUsername_isDisplayed || !form.isValid}
+                disabled={noUsername_isDisplayed || !form.isValid || form.isSubmitting}
                 type="submit"
               >
-                <SaveIcon />
+                {form.isSubmitting ? <CircularProgress size="sm" /> : <SaveIcon />}
                 Spremi
               </Button>
             </form>
