@@ -126,16 +126,14 @@ export default function Post_list_page({
             >
               {posts_data.map(item => (
                 <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
-                  <Paper sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}>
-                    {item.expertEndorsement ? (
-                      <Post_listItem_personEndorsement
-                        {...item.expertEndorsement}
-                        location={item.location}
-                      />
-                    ) : (
-                      <Post_listItem {...item} location={item.location?.name} />
-                    )}
-                  </Paper>
+                  {item.expertEndorsement ? (
+                    <Post_listItem_personEndorsement
+                      {...item.expertEndorsement}
+                      location={item.location}
+                    />
+                  ) : (
+                    <Post_listItem {...item} location={item.location?.name} />
+                  )}
                 </Link>
               ))}
             </Box>

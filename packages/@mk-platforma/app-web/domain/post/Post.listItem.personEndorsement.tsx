@@ -1,4 +1,4 @@
-import { Box, Typography, Avatar, useTheme } from "@mui/material"
+import { Box, Typography, Avatar, useTheme, Paper } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import React from "react"
@@ -19,7 +19,15 @@ export function Post_listItem_personEndorsement({
 }: Props) {
   const { typography } = useTheme()
   return (
-    <Box sx={{ display: "flex", alignItems: "start" }}>
+    <Paper
+      sx={{
+        p: 1.5,
+        cursor: "pointer",
+        borderRadius: 2,
+        display: "flex",
+        alignItems: "start",
+      }}
+    >
       <Avatar
         sx={{
           marginRight: 3,
@@ -53,6 +61,6 @@ export function Post_listItem_personEndorsement({
           </Box>
         </Box>
       </Box>
-    </Box>
+    </Paper>
   )
 }
