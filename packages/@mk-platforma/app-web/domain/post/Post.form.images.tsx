@@ -50,7 +50,7 @@ export default function Post_form_images({ images, addItem, removeItem }: Props)
         },
       }}
     >
-      {images.map(image => (
+      {images.map((image, index) => (
         <Box
           key={image.url}
           sx={{
@@ -93,7 +93,7 @@ export default function Post_form_images({ images, addItem, removeItem }: Props)
                 <Sort_icon_down />
               </IconButton> */}
             </Box>
-            <IconButton>
+            <IconButton onClick={() => removeItem(index)}>
               <RemoveIcon />
             </IconButton>
           </Box>
