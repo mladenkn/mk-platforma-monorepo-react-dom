@@ -1,5 +1,5 @@
 import { SxProps, styled, useTheme } from "@mui/material/styles"
-import { Box, Typography } from "@mui/material"
+import { Box, Typography, Dialog, Button } from "@mui/material"
 import React from "react"
 import Link from "next/link"
 import { useSession } from "next-auth/react"
@@ -55,4 +55,25 @@ export function use_noUsername_isDisplayed() {
   const { data: session, status } = useSession()
   if (status === "loading") return false
   return !session?.user?.name
+}
+
+type ConfirmModalProps = {
+  message: string
+  onCancel(): void
+  onConfirm(): void
+}
+
+export default function ConfirmModal(props: ConfirmModalProps) {
+  return (
+    <Dialog open onClose={props.onCancel}>
+      <Box sx={{ px: 1.5, pt: 1, pb: 0.7 }}>
+        <Box>{props.message}</Box>
+        <Box sx={{ display: "flex", justifyContent: "end", mt: 0.5 }}>
+          <Button sx={{ mr: 1, mt: 1, outline: "none" }} onClick={props.onConfirm}>
+            OK
+          </Button>
+        </Box>
+      </Box>
+    </Dialog>
+  )
 }
