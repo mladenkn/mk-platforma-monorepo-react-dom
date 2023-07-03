@@ -69,6 +69,10 @@ export default function Post_crud_test_helper_create(page: Page) {
         await page.goto(`/post/${id}`)
         await details_waitForUrl(id)
       },
+      async expectIsDeleted() {
+        const post_component = page.getByTestId("Post_single_details")
+        expect(post_component).toContainText("IZBRISANO")
+      },
     },
     list: {
       async waitForUrl() {

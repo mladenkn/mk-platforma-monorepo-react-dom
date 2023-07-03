@@ -73,6 +73,7 @@ const Post_api = router({
         select: {
           id: true,
           title: true,
+          isDeleted: true,
           categories: {
             select: {
               id: true,
