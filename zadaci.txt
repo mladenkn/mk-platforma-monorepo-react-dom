@@ -1,6 +1,7 @@
 - expert skills fix
 - post.images sort
-- post.images upload error
+- post.images upload handle error
+- isključit auto logout
 - pravo
 
 - treba li User.id bit string?
