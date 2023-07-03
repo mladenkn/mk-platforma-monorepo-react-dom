@@ -15,6 +15,7 @@ import { use_setUrlParams_shallow } from "~/utils.client"
 import Layout from "~/domain/Layout"
 import { useCategory } from "~/domain/category/Category.common"
 import Categories_selector_aside from "~/domain/category/Category.selector.aside"
+import { Post_listItem_personEndorsement } from "./Post.listItem.personEndorsement"
 
 type Category_model = Api_outputs["category"]["many"][number]
 
@@ -86,6 +87,8 @@ export default function Post_list_page({
 
   const {} = useTheme()
 
+  console.log(89, posts_data)
+
   return (
     <>
       <Layout
@@ -124,7 +127,14 @@ export default function Post_list_page({
               {posts_data.map(item => (
                 <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
                   <Paper sx={{ p: 1.5, display: "flex", cursor: "pointer", borderRadius: 2 }}>
-                    <Post_listItem {...item} location={item.location?.name} />
+                    {item.expertEndorsement ? (
+                      <Post_listItem_personEndorsement
+                        {...item.expertEndorsement}
+                        location={item.location}
+                      />
+                    ) : (
+                      <Post_listItem {...item} location={item.location?.name} />
+                    )}
                   </Paper>
                 </Link>
               ))}
