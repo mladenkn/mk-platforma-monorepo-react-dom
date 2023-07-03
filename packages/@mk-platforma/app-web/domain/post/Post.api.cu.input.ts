@@ -38,6 +38,9 @@ export const Post_api_create_input = PostSchema.pick({
     .optional()
     .refine(images => (images?.length ? images?.filter(i => i.isMain).length === 1 : true), {
       message: "Mora biti jedna glavna slika",
+      params: {
+        code: "ONE_MAIN_IMAGE",
+      },
     }),
   location: LocationSchema.pick({ id: true }).nullish(),
 })

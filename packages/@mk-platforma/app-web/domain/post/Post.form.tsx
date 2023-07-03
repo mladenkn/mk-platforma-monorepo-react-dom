@@ -56,6 +56,14 @@ export default function Post_form<TValues extends Values>({
                 }}
                 form={form}
               />
+              {!form.isValid ? (
+                <Box sx={{ mt: 3 }}>
+                  <Typography variant="h5">Problemi</Typography>
+                  <Typography sx={{ ml: 1, mt: 1 }}>
+                    {JSON.stringify(form.errors, null, 2)}
+                  </Typography>
+                </Box>
+              ) : undefined}
               <Button
                 variant="contained"
                 sx={{ mt: 6, display: "flex", alignItems: "center", gap: 1, width: "100%" }}
