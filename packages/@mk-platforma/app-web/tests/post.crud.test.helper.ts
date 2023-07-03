@@ -35,6 +35,17 @@ export default function Post_crud_test_helper_create(page: Page) {
       expect(form.locator("[name='location']")).toHaveValue(post.location)
     },
   }
+
+  async function details_waitForUrl(id?: number) {
+    if (id) {
+      await page.waitForURL(`/post/${id}`)
+      await expect(page).toHaveURL(`/post/${id}`)
+    } else {
+      await page.waitForURL(/\/post\/\d+$/)
+      await expect(page).toHaveURL(/\/post\/\d+$/)
+    }
+  }
+
   return {
     details: {
       async expect(post: Post) {
@@ -44,20 +55,19 @@ export default function Post_crud_test_helper_create(page: Page) {
         await expect(post_component).toContainText(post.contact)
         await expect(post_component).toContainText(post.location)
       },
-      async waitForUrl(id?: number) {
-        if (id) {
-          await page.waitForURL(`/post/${id}`)
-          await expect(page).toHaveURL(`/post/${id}`)
-        } else {
-          await page.waitForURL(/\/post\/\d+$/)
-          await expect(page).toHaveURL(/\/post\/\d+$/)
-        }
-      },
+      waitForUrl: details_waitForUrl,
       getUrl() {
         return parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
       },
       editLink_find(id: number) {
         return page.locator(`a[href="/post/edit/${id}"]`)
+      },
+      async delete() {
+        await page.getByTestId("Post_single_details__delete").click()
+      },
+      async goTo(id: number) {
+        await page.goto(`/post/${id}`)
+        await details_waitForUrl(id)
       },
     },
     list: {

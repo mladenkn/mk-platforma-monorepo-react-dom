@@ -91,7 +91,7 @@ export default function Post_details({
               </IconButton>
             ) : undefined}
             {/* TODO: confirm modal */}
-            <IconButton onClick={handle_delete}>
+            <IconButton data-testid="Post_single_details__delete" onClick={handle_delete}>
               <DeleteIcon />
             </IconButton>
           </Box>

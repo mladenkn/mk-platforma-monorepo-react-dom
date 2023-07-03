@@ -67,6 +67,9 @@ test("Post CRUD", async ({ page }) => {
   const post_list_item2 = await helper.list.expectItem(newPost_edited, newPost_id)
   await post_list_item2.click()
   // end list 2
+
+  await helper.details.goTo(newPost_id)
+  await helper.details.delete()
 })
 
 function getNewPost() {
