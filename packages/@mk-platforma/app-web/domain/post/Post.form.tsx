@@ -19,7 +19,7 @@ type Values = z.infer<typeof Post_api_cu_input>
 
 type Props<TValues extends Values> = {
   sx?: SxProps
-  onSubmit(values: TValues): void
+  onSubmit(values: TValues): Promise<unknown>
   onCancel(): void
   title: string
   initialValues: TValues
@@ -35,6 +35,7 @@ export default function Post_form<TValues extends Values>({
   validationSchema,
 }: Props<TValues>) {
   const noUsername_isDisplayed = use_noUsername_isDisplayed()
+
   return (
     <Paper data-testid="Post_form" sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>

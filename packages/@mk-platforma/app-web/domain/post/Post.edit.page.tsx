@@ -46,7 +46,7 @@ export default function Post_create_page({ post_initial }: Props) {
             [breakpoints.up("md")]: { mx: 0 },
           }}
           title="Uredi oglas"
-          onSubmit={v => mutation.mutate(v)}
+          onSubmit={v => mutation.mutateAsync(v)}
           onCancel={useRouter().back}
           initialValues={post_initial}
           validationSchema={toFormikValidationSchema(Post_api_update_input)}

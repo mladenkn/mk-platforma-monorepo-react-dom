@@ -39,7 +39,7 @@ export default function Post_create_page() {
             [breakpoints.up("md")]: { mx: 0 },
           }}
           title="Novi oglas"
-          onSubmit={v => mutation.mutate(v)}
+          onSubmit={v => mutation.mutateAsync(v)}
           onCancel={useRouter().back}
           initialValues={{
             title: "",
