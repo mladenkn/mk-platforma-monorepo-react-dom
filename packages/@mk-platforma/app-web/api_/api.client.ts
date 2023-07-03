@@ -3,7 +3,7 @@ import { CreateTRPCNext, createTRPCNext } from "@trpc/next"
 import type { ApiRouter_type } from "./api.root"
 import { NextPageContext } from "next"
 import superjson from "superjson"
-import { QueryCache } from "@tanstack/react-query"
+import { MutationCache, QueryCache } from "@tanstack/react-query"
 import { enqueueSnackbar } from "notistack"
 
 const Api: CreateTRPCNext<ApiRouter_type, NextPageContext, unknown> =
@@ -26,7 +26,15 @@ const Api: CreateTRPCNext<ApiRouter_type, NextPageContext, unknown> =
         queryClientConfig: {
           queryCache: new QueryCache({
             onError: (error: any) =>
-              enqueueSnackbar(error?.message || "Nepoznata pogreška na serveru."),
+              enqueueSnackbar(error?.message || "Nepoznata pogreška na serveru.", {
+                variant: "error",
+              }),
+          }),
+          mutationCache: new MutationCache({
+            onError: (error: any) =>
+              enqueueSnackbar(error?.message || "Nepoznata pogreška na serveru.", {
+                variant: "error",
+              }),
           }),
         },
         transformer: superjson,
