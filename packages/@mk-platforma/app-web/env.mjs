@@ -8,7 +8,7 @@ const env = createEnv({
    * Will throw if you access these variables on the client.
    */
   server: {
-    DATABASE_URL: z.string().url().optional(),
+    POSTGRES_PRISMA_URL: z.string().url().optional(),
     NODE_ENV: z.string().optional(),
     MOCK_USER_ID: z.string().optional(),
   },
@@ -27,7 +27,7 @@ const env = createEnv({
    * 💡 You'll get type errors if not all variables from `server` & `client` are included here.
    */
   runtimeEnv: {
-    DATABASE_URL: process.env.DATABASE_URL,
+    POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
     NODE_ENV: process.env.NODE_ENV,
     MOCK_USER_ID: process.env.MOCK_USER_ID,
     NEXT_PUBLIC_MOCK_USER_ID: process.env.NEXT_PUBLIC_MOCK_USER_ID,
