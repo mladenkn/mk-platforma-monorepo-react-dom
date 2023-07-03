@@ -14,8 +14,8 @@ test("Post CRUD", async ({ page }) => {
 
   // create
   await helper.create.waitForUrl()
-  const form = await helper.form.fill(newPost)
-  await helper.form.expect(newPost)
+  const form = await helper.create.form.fill(newPost)
+  await helper.create.form.expect(newPost)
   await form.submit()
   // end create
 
@@ -42,7 +42,7 @@ test("Post CRUD", async ({ page }) => {
 
   // edit
   await helper.edit.waitForUrl(newPost_id)
-  await helper.form.expect(newPost)
+  await helper.edit.form.expect(newPost)
   const newPost_edited = {
     title: "post 1 title edited",
     description: "post 1 description edited",
@@ -50,8 +50,8 @@ test("Post CRUD", async ({ page }) => {
     category: "Gadgeti",
     location: "Zagreb",
   }
-  const form2 = await helper.form.fill(newPost_edited)
-  await helper.form.expect(newPost_edited)
+  const form2 = await helper.edit.form.fill(newPost_edited)
+  await helper.edit.form.expect(newPost_edited)
   await form2.submit()
   // end edit
 
