@@ -21,7 +21,6 @@ const run_args = match(parsed.command)
     return [
       {
         POSTGRES_PRISMA_URL: getConnectionString("test.local"),
-        MOCK_USER_ID: user.id,
         NEXT_PUBLIC_MOCK_USER_ID: user.id,
       },
       `next dev -p 3010`,
@@ -78,7 +77,6 @@ const run_args = match(parsed.command)
       {
         POSTGRES_PRISMA_URL: getConnectionString("test.local"),
         NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
-        MOCK_USER_ID: user.id,
         NEXT_PUBLIC_MOCK_USER_ID: user.id,
       },
       "next start --port 3010",

@@ -82,8 +82,10 @@ export async function user_ss_get(
   },
   res: ServerResponse
 ) {
-  if (env.MOCK_USER_ID) {
-    return asNonNil(await db.user.findUnique({ where: { id: parseInt(env.MOCK_USER_ID) } }))
+  if (env.NEXT_PUBLIC_MOCK_USER_ID) {
+    return asNonNil(
+      await db.user.findUnique({ where: { id: parseInt(env.NEXT_PUBLIC_MOCK_USER_ID) } })
+    )
   }
   return (await session_ss_get(req, res))?.user
 }

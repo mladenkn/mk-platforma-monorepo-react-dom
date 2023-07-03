@@ -10,7 +10,6 @@ const env = createEnv({
   server: {
     POSTGRES_PRISMA_URL: z.string().url().optional(),
     NODE_ENV: z.string().optional(),
-    MOCK_USER_ID: z.string().optional(),
   },
   /*
    * Environment variables available on the client (and server).
@@ -29,7 +28,6 @@ const env = createEnv({
   runtimeEnv: {
     POSTGRES_PRISMA_URL: process.env.POSTGRES_PRISMA_URL,
     NODE_ENV: process.env.NODE_ENV,
-    MOCK_USER_ID: process.env.MOCK_USER_ID,
     NEXT_PUBLIC_MOCK_USER_ID: process.env.NEXT_PUBLIC_MOCK_USER_ID,
   },
 })
