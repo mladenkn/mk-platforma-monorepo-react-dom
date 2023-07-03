@@ -2,6 +2,7 @@
 - post.images sort
 - post.images upload handle error
 - isključit auto logout
+- bolje errore
 - pravo
 
 - treba li User.id bit string?

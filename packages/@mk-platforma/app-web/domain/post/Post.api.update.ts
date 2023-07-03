@@ -10,6 +10,19 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
   .input(Post_api_update_input)
   .mutation(({ ctx, input }) =>
     ctx.db.$transaction(async tx => {
+      const skills_forUpdate = input.expertEndorsement?.skills?.filter(s => s.id)
+      for (const skill of skills_forUpdate || []) {
+        tx.post_ExpertEndorsement_skill.update({
+          where: {
+            id: skill.id,
+          },
+          data: {
+            label: skill.label,
+            level: skill.level,
+          },
+        })
+      }
+
       const post = await tx.post.update({
         where: {
           id: input.id,
@@ -39,31 +52,27 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
                 upsert: {
                   create: {
                     post_id: input.id,
-                    ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                     avatarStyle: getRandomElement(avatarStyles),
+                    skills: {
+                      create: input.expertEndorsement.skills || undefined, // moraju svi bit bez id-ova
+                    },
+                    ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                   },
-                  update: shallowPick(input.expertEndorsement, "firstName", "lastName"),
+                  update: {
+                    ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
+                    skills: {
+                      set:
+                        input.expertEndorsement.skills
+                          ?.filter(s => s.id)
+                          .map(s => ({ id: s.id! })) || [],
+                      create: input.expertEndorsement.skills?.filter(s => !s.id),
+                    },
+                  },
                 },
               }
             : undefined,
         },
       })
-
-      if (input.expertEndorsement?.skills?.length) {
-        await tx.post_ExpertEndorsement_skill.deleteMany({
-          where: {
-            expertEndorsement_id: asNonNil(post.expertEndorsement).id,
-          },
-        })
-
-        await tx.post_ExpertEndorsement_skill.createMany({
-          data: input.expertEndorsement!.skills!.map(s => ({
-            label: s.label,
-            level: s.level || undefined,
-            expertEndorsement_id: asNonNil(post.expertEndorsement).id,
-          })),
-        })
-      }
 
       return omit(post, "expertEndorsement")
     })

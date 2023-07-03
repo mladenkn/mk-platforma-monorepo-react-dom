@@ -21,6 +21,7 @@ export const Post_api_create_input = PostSchema.pick({
       skills: z
         .array(
           z.object({
+            id: z.number().optional(),
             label: z.string(),
             level: z.number().min(1).max(5).nullish(),
           })
