@@ -63,9 +63,9 @@ export default function Post_form_images({ images, addItem, removeItem }: Props)
               flexDirection: "column",
             },
             border: 1,
+            px: 0.5,
           }}
         >
-          <img style={{ objectFit: "contain", width: 250, height: 250 }} src={image.url} />
           <Box
             sx={{
               display: "flex",
@@ -79,7 +79,7 @@ export default function Post_form_images({ images, addItem, removeItem }: Props)
               },
             }}
           >
-            <Box sx={{ display: "flex", alignItems: "center", ml: 1 }}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography>Jeli glavna slika</Typography>
               <Checkbox />
             </Box>
@@ -87,6 +87,7 @@ export default function Post_form_images({ images, addItem, removeItem }: Props)
               <RemoveIcon />
             </IconButton>
           </Box>
+          <img style={{ objectFit: "contain", width: 250, height: 250 }} src={image.url} />
         </Box>
       ))}
       <UploadButton
