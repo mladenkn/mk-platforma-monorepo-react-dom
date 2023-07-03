@@ -10,7 +10,7 @@ type Post = {
 
 export default function Post_crud_test_helper_create(page: Page) {
   const form = {
-    fill: async function (post: Post) {
+    async fill(post: Post) {
       const form = page.getByTestId("Post_form")
       await form.locator("[name='title']").fill(post.title)
       await form.locator("[name='description']").fill(post.description)
@@ -26,7 +26,7 @@ export default function Post_crud_test_helper_create(page: Page) {
         submit: () => form.locator("button[type=submit]").click(),
       }
     },
-    expect: async function (post: Post) {
+    async expect(post: Post) {
       const form = page.getByTestId("Post_form")
       expect(form.locator("[name='title']")).toHaveValue(post.title)
       expect(form.locator("[name='contact']")).toHaveValue(post.contact)
@@ -37,7 +37,7 @@ export default function Post_crud_test_helper_create(page: Page) {
   }
   return {
     details: {
-      expect: async function (post: Post) {
+      async expect(post: Post) {
         const post_component = page.getByTestId("Post_single_details")
         await expect(post_component).toContainText(post.title)
         await expect(post_component).toContainText(post.description)
@@ -61,7 +61,7 @@ export default function Post_crud_test_helper_create(page: Page) {
       },
     },
     list: {
-      expectItem: async function (post: Post, id: number) {
+      async expectItem(post: Post, id: number) {
         const post_list_item = page.getByTestId(`Post_listItem-${id}`)
         await expect(post_list_item).toContainText(post.title)
         await expect(post_list_item).toContainText(post.location)
