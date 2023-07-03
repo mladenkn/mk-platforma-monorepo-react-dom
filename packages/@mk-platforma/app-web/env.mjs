@@ -10,6 +10,9 @@ const env = createEnv({
   server: {
     POSTGRES_PRISMA_URL: z.string().url().optional(),
     NODE_ENV: z.string().optional(),
+    UPLOADTHING_SECRET:
+    z.string().optional(),
+      UPLOADTHING_APP_ID: z.string().optional(),
   },
   /*
    * Environment variables available on the client (and server).

@@ -12,6 +12,9 @@ const run_args = match(parsed.command)
   .with("dev", () => [
     {
       POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev"),
+      UPLOADTHING_SECRET:
+        "sk_live_8f78c8c092e0657bb96f964c1527e3b5257969372b653a8b4d711cb7e1fc9cfb",
+      UPLOADTHING_APP_ID: "2axqlwskhd",
     },
     `next dev`,
   ])
