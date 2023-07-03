@@ -72,7 +72,7 @@ export const CategoryScalarFieldEnumSchema = z.enum(['id','label','parent_id']);
 
 export const CommentScalarFieldEnumSchema = z.enum(['id','content','author_id','post_id']);
 
-export const ImageScalarFieldEnumSchema = z.enum(['id','cloudinary_id','post_id','url']);
+export const ImageScalarFieldEnumSchema = z.enum(['id','uploadthing_key','post_id','url']);
 
 export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]);
 
@@ -182,7 +182,7 @@ export type Location = z.infer<typeof LocationSchema>
 
 export const ImageSchema = z.object({
   id: z.number().int(),
-  cloudinary_id: z.string().nullish(),
+  uploadthing_key: z.string().nullish(),
   post_id: z.number().int().nullish(),
   url: z.string(),
 })

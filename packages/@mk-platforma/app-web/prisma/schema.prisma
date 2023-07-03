@@ -93,10 +93,10 @@ model Location {
 }
 
 model Image {
-  id            Int     @id @default(autoincrement())
-  cloudinary_id String?
-  post_id       Int?
-  url           String
+  id              Int     @id @default(autoincrement())
+  uploadthing_key String?
+  post_id         Int?
+  url             String
 
   posts Post[]
 }
