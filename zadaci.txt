@@ -1,5 +1,6 @@
 - expert skills fix
 - post.images sort
+- post.images upload error
 - pravo
 
 - treba li User.id bit string?
