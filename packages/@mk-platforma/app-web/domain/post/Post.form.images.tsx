@@ -86,12 +86,12 @@ export default function Post_form_images({ images, addItem, removeItem }: Props)
                 },
               }}
             >
-              <IconButton>
+              {/* <IconButton>
                 <Sort_icon_up />
               </IconButton>
               <IconButton>
                 <Sort_icon_down />
-              </IconButton>
+              </IconButton> */}
             </Box>
             <IconButton>
               <RemoveIcon />
