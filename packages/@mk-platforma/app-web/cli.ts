@@ -61,8 +61,6 @@ const run_args = match(parsed.command)
   // \dt: get all tables
   .with("db.psql", () => `psql ${getConnectionString(dbInstance || "dev")}`)
 
-  .with("build", () => "next build")
-
   .with("start", () => [
     {
       POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev"),
@@ -88,8 +86,6 @@ const run_args = match(parsed.command)
     { POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev") },
     () => require("./playground.ts"),
   ])
-
-  .with("ts", () => "tsc --noEmit")
 
   .exhaustive()
 
