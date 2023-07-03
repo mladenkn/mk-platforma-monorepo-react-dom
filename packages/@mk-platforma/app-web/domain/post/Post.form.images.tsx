@@ -4,6 +4,8 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp"
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown"
 import RemoveIcon from "@mui/icons-material/Close"
 import { IconButton, Box, useTheme, useMediaQuery } from "@mui/material"
+import { UploadButton } from "~/file.upload"
+import "@uploadthing/react/styles.css"
 
 type Props = {
   images: {
@@ -83,6 +85,15 @@ export default function Post_form_images({ images }: Props) {
           </Box>
         </Box>
       ))}
+      <UploadButton
+        endpoint="imageUploader"
+        onClientUploadComplete={res => {
+          console.log("Files: ", res)
+        }}
+        onUploadError={(error: Error) => {
+          alert(`ERROR! ${error.message}`)
+        }}
+      />
     </Box>
   )
 }
