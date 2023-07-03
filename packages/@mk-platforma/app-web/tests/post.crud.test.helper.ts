@@ -86,6 +86,9 @@ export default function Post_crud_test_helper_create(page: Page) {
         await expect(post_list_item).toContainText(post.location)
         return post_list_item
       },
+      async expectItem_notFound(id: number) {
+        expect(page.getByTestId(`Post_listItem-${id}`)).not.toBeVisible()
+      },
       async gotoCreate() {
         await page.getByTestId("Header_moreOptions").click()
         await page.getByTestId("Header_moreOptions__PostAddIcon").click()

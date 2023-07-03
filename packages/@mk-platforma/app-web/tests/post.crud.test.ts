@@ -68,6 +68,9 @@ test("Post CRUD", async ({ page }) => {
   await helper.details.delete()
 
   await helper.list.waitForUrl()
+  await helper.list.expectItem_notFound(newPost_id)
+
+  await helper.details.goTo(newPost_id)
 })
 
 function getNewPost() {
