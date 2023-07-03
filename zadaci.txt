@@ -1,4 +1,3 @@
-- expert skills fix
 - post.images sort
 - post.images upload handle error
 - isključit auto logout
