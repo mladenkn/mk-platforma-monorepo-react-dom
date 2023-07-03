@@ -10,9 +10,9 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
   .input(Post_api_update_input)
   .mutation(({ ctx, input }) =>
     ctx.db.$transaction(async tx => {
-      const skills_forUpdate = input.expertEndorsement?.skills?.filter(s => s.id)
-      for (const skill of skills_forUpdate || []) {
-        tx.post_ExpertEndorsement_skill.update({
+      const skills_forUpdate = input.expertEndorsement?.skills?.filter(s => s.id) || []
+      for (const skill of skills_forUpdate) {
+        await tx.post_ExpertEndorsement_skill.update({
           where: {
             id: skill.id,
           },
@@ -22,6 +22,14 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
           },
         })
       }
+
+      await tx.post_ExpertEndorsement_skill.deleteMany({
+        where: {
+          id: {
+            notIn: skills_forUpdate.map(s => s.id!),
+          },
+        },
+      })
 
       const post = await tx.post.update({
         where: {
@@ -53,20 +61,20 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
                   create: {
                     post_id: input.id,
                     avatarStyle: getRandomElement(avatarStyles),
-                    skills: {
-                      create: input.expertEndorsement.skills || undefined, // moraju svi bit bez id-ova
-                    },
+                    // skills: {
+                    //   create: input.expertEndorsement.skills || undefined, // moraju svi bit bez id-ova
+                    // },
                     ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                   },
                   update: {
                     ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
-                    skills: {
-                      set:
-                        input.expertEndorsement.skills
-                          ?.filter(s => s.id)
-                          .map(s => ({ id: s.id! })) || [],
-                      create: input.expertEndorsement.skills?.filter(s => !s.id),
-                    },
+                    // skills: {
+                    //   set:
+                    //     input.expertEndorsement.skills
+                    //       ?.filter(s => s.id)
+                    //       .map(s => ({ id: s.id! })) || [],
+                    //   create: input.expertEndorsement.skills?.filter(s => !s.id),
+                    // },
                   },
                 },
               }
