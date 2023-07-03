@@ -3,6 +3,7 @@ import { parseCommand, run, getConnectionString } from "./cli.utils"
 import "@mk-libs/common/server-only"
 import db from "./prisma/instance"
 import { isPromise } from "util/types"
+import { isArray } from "lodash"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
@@ -58,9 +59,9 @@ const run_args = match(parsed.command)
   ])
 
   // \dt: get all tables
-  .with("db.psql", () => [`psql ${getConnectionString(dbInstance || "dev")}`])
+  .with("db.psql", () => `psql ${getConnectionString(dbInstance || "dev")}`)
 
-  .with("build", () => [{}, "next build"])
+  .with("build", () => "next build")
 
   .with("start", () => [
     {
@@ -88,13 +89,17 @@ const run_args = match(parsed.command)
     () => require("./playground.ts"),
   ])
 
-  .with("ts", () => ["tsc --noEmit"])
+  .with("ts", () => "tsc --noEmit")
 
   .exhaustive()
 
 if (isPromise(run_args)) {
   run_args.then((a: any) => run(...a))
-} else run(...run_args)
+} else if (!isArray(run_args)) {
+  run(run_args)
+} else {
+  run(...run_args)
+}
 
 function seedTestUser() {
   return db.user.upsert({
