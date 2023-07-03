@@ -100,15 +100,3 @@ export function getConnectionString(env: string) {
       throw new Error(`Unsupported env: ${env}`)
   }
 }
-
-function createCommand_exeTs(more: string) {
-  const options = JSON.stringify({
-    module: "CommonJS",
-    jsx: "react",
-    baseUrl: "./",
-    paths: {
-      "~/*": ["./*"],
-    },
-  }).replace(/"/g, '\\"')
-  return `pnpm exec ts-node -r tsconfig-paths/register --compiler-options ${options} ${more}`
-}
