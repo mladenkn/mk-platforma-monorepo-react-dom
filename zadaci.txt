@@ -1,5 +1,4 @@
-- file upload
-
+- post.images sort
 - pravo
 
 - treba li User.id bit string?
