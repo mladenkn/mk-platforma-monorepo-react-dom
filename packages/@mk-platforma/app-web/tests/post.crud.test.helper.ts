@@ -71,6 +71,10 @@ export default function Post_crud_test_helper_create(page: Page) {
       },
     },
     list: {
+      async goto() {
+        await page.goto("/")
+        await page.waitForURL("/")
+      },
       async expectItem(post: Post, id: number) {
         const post_list_item = page.getByTestId(`Post_listItem-${id}`)
         await expect(post_list_item).toContainText(post.title)
