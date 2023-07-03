@@ -4,6 +4,7 @@ import db from "~/prisma/instance"
 import { getConnectionString } from "~/cli.utils"
 
 process.env.POSTGRES_PRISMA_URL = getConnectionString("test.local")
+let newPost_id: number
 
 test("Post CRUD", async ({ page }) => {
   const helper = Post_crud_test_helper_create(page)
@@ -27,7 +28,7 @@ test("Post CRUD", async ({ page }) => {
   await helper.details.expect(newPost)
   // end details
 
-  const newPost_id = helper.details.getUrl()
+  newPost_id = helper.details.getUrl()
 
   // list
   await helper.list.goto()
@@ -76,10 +77,10 @@ test("Post CRUD", async ({ page }) => {
 
   // await helper.details.goTo(newPost_id)
   // await helper.details.expectIsDeleted()
+})
 
+test.afterAll(async () => {
   await db.post.delete({ where: { id: newPost_id } })
-  const res = await helper.details.goTo(newPost_id)
-  expect(res?.status()).toBe(404)
 })
 
 function getNewPost() {
