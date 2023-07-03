@@ -108,7 +108,16 @@ export default function Post_form_fields<TValues extends Values>({
           />
         </>
       )}
-      <Post_form_images images={values.images || []} />
+      <FieldArray
+        name="images"
+        render={helpers => (
+          <Post_form_images
+            images={values.images || []}
+            addItem={helpers.push}
+            removeItem={helpers.remove}
+          />
+        )}
+      />
     </Box>
   )
 }

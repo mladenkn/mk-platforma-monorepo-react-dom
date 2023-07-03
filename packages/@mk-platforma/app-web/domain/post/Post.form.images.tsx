@@ -7,13 +7,18 @@ import { IconButton, Box, useTheme, useMediaQuery } from "@mui/material"
 import { UploadButton } from "~/file.upload"
 import "@uploadthing/react/styles.css"
 
-type Props = {
-  images: {
-    url: string
-  }[]
+type Image = {
+  uploadthing_key?: string | null
+  url: string
 }
 
-export default function Post_form_images({ images }: Props) {
+type Props = {
+  images: Image[]
+  addItem(image: Image): void
+  removeItem(index: number): void
+}
+
+export default function Post_form_images({ images, addItem, removeItem }: Props) {
   const { breakpoints } = useTheme()
 
   const Sort_icon_up = useMediaQuery(breakpoints.down("sm"))
@@ -22,6 +27,14 @@ export default function Post_form_images({ images }: Props) {
   const Sort_icon_down = useMediaQuery(breakpoints.down("sm"))
     ? KeyboardArrowDownIcon
     : NavigateNextIcon
+
+  function handle_files_uploadComplete(files?: { fileUrl: string; fileKey: string }[]) {
+    if (!files) return
+    const mapped = files.map(f => ({ url: f.fileUrl, uploadthing_key: f.fileKey }))
+    for (const file of mapped) {
+      addItem(file)
+    }
+  }
 
   return (
     <Box
@@ -48,9 +61,10 @@ export default function Post_form_images({ images }: Props) {
             [breakpoints.up("sm")]: {
               flexDirection: "column",
             },
+            border: 1,
           }}
         >
-          <img style={{ objectFit: "contain" }} src={image.url} />
+          <img style={{ objectFit: "contain", width: 250, height: 250 }} src={image.url} />
           <Box
             sx={{
               display: "flex",
@@ -87,12 +101,8 @@ export default function Post_form_images({ images }: Props) {
       ))}
       <UploadButton
         endpoint="imageUploader"
-        onClientUploadComplete={res => {
-          console.log("Files: ", res)
-        }}
-        onUploadError={(error: Error) => {
-          alert(`ERROR! ${error.message}`)
-        }}
+        onClientUploadComplete={handle_files_uploadComplete}
+        onUploadError={(error: Error) => alert(`ERROR! ${error.message}`)}
       />
     </Box>
   )
