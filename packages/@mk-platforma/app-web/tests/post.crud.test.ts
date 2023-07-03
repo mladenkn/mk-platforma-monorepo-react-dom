@@ -6,6 +6,7 @@ test("Post CRUD", async ({ page }) => {
 
   // home
   await page.goto("/")
+  await page.waitForURL("/")
   await page.getByTestId("Header_moreOptions").click()
   await page.getByTestId("Header_moreOptions__PostAddIcon").click()
   // end home
@@ -35,7 +36,7 @@ test("Post CRUD", async ({ page }) => {
 
   // details
   await helper.details.waitForUrl(newPost_id)
-  const editLink = page.locator(`a[href="/post/edit/${newPost_id}"]`)
+  const editLink = helper.details.editLink_find(newPost_id)
   await expect(editLink).toBeVisible()
   await editLink.click()
   // end details

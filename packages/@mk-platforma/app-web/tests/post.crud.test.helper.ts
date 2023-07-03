@@ -56,6 +56,9 @@ export default function Post_crud_test_helper_create(page: Page) {
       getUrl() {
         return parseInt(page.url().match(/\/post\/(\d+)/)?.[1]!)
       },
+      editLink_find(id: number) {
+        return page.locator(`a[href="/post/edit/${id}"]`)
+      },
     },
     list: {
       expectItem: async function (post: Post, id: number) {
