@@ -56,6 +56,9 @@ export default function Category_dropdown({
     <Autocomplete
       fullWidth
       sx={sx}
+      classes={{
+        popper: "category-dropdown-popper",
+      }}
       loading={categories.isLoading}
       options={options}
       renderOption={(props, option) => (
@@ -85,6 +88,7 @@ export default function Category_dropdown({
               value && categories.data ? (
                 <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={findCategory(value)!.label} />
               ) : undefined,
+            name: "category",
           }}
           placeholder="Kategorija"
         />

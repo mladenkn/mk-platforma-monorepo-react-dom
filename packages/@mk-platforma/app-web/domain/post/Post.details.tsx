@@ -35,6 +35,7 @@ export default function Post_details({
   canComment,
   canEdit,
   categories,
+  isDeleted,
 }: Post_single_details_Props) {
   const Container = (usePaperSections ? Paper : Box) as typeof Box
   const {} = useTheme()
@@ -58,7 +59,7 @@ export default function Post_details({
   }
 
   return (
-    <Box sx={sx}>
+    <Box data-testid="Post_single_details" sx={sx}>
       <Container sx={{ p: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
@@ -80,6 +81,7 @@ export default function Post_details({
             </Box>
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>
+            {isDeleted === true ? <Box sx={{ mr: 2, color: "red" }}>IZBRISANO</Box> : undefined}
             {canEdit ? (
               <IconButton>
                 <Link
@@ -91,9 +93,11 @@ export default function Post_details({
               </IconButton>
             ) : undefined}
             {/* TODO: confirm modal */}
-            <IconButton onClick={handle_delete}>
-              <DeleteIcon />
-            </IconButton>
+            {!isDeleted && (
+              <IconButton data-testid="Post_single_details__delete" onClick={handle_delete}>
+                <DeleteIcon />
+              </IconButton>
+            )}
           </Box>
         </Box>
         {images.length ? (

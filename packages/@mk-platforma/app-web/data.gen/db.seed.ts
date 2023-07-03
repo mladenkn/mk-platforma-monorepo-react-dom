@@ -113,7 +113,7 @@ async function seedPosts(
     const user = faker.helpers.arrayElement(users)
     const api = Api_ss({
       db,
-      user: { id: user.id, name: user.name || "test user", canMutate: true },
+      user: { id: user.id, name: user.name || "seed user", canMutate: true },
       getCookie: (() => {}) as any,
     })
     const post_created = await api.post.create({

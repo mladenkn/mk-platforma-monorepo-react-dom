@@ -6,6 +6,8 @@
     "ts": "tsc --noEmit",
     "+": "tsx cli.ts",
     "postinstall": "pnpm prisma generate",
+    "test.ui": "playwright test --ui",
+    "test": "playwright test",
     "build": "pnpm next build"
   },
   "dependencies": {
@@ -51,6 +53,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@mk-libs/tsconfig": "workspace:*",
+    "@playwright/test": "^1.35.1",
     "@types/command-line-args": "^5.2.0",
     "@types/cookie": "^0.5.1",
     "@types/lodash": "^4.14.186",

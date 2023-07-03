@@ -28,7 +28,7 @@ export default function Post_form<TValues extends Values>({
 }: Props<TValues>) {
   const noUsername_isDisplayed = use_noUsername_isDisplayed()
   return (
-    <Paper sx={{ display: "flex", flexDirection: "column", ...sx }}>
+    <Paper data-testid="Post_form" sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
         {form => (
           <>
