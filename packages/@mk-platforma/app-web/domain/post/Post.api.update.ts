@@ -26,7 +26,9 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
       await tx.post_ExpertEndorsement_skill.deleteMany({
         where: {
           expertEndorsement: {
-            id: input.id,
+            post: {
+              id: input.id,
+            },
           },
           id: {
             notIn: skills_forUpdate.map(s => s.id!),
