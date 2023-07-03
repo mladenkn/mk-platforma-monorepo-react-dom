@@ -28,7 +28,11 @@ export const Post_api_create_input = PostSchema.pick({
         .nullish(),
     })
     .nullish(),
-  images: z.array(ImageSchema.pick({ url: true, uploadthing_key: true })).optional(),
+  images: z
+    .array(
+      ImageSchema.pick({ url: true, uploadthing_key: true }).extend({ id: z.number().optional() })
+    )
+    .optional(),
   location: LocationSchema.pick({ id: true }).nullish(),
 })
 

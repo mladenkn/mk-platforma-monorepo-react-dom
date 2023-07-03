@@ -25,7 +25,8 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
             },
           },
           images: {
-            create: input.images,
+            set: input.images?.filter(i => i.id),
+            create: input.images?.filter(i => !i.id),
           },
           location: {
             connect: input.location || undefined,
