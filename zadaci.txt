@@ -2,6 +2,7 @@
 - za sve treba login
 
 - post.images brisat neiskorištene
+- mobile app
 - post.images smanjivat kvalitetu
 
 - post.form.validacija prevest
