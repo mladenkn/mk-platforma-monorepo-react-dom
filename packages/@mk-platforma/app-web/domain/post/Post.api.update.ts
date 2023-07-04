@@ -35,9 +35,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
           },
         },
       })
-
-      const existingImages = input.images?.filter(i => i.id) || []
-      for (const image of existingImages) {
+      for (const image of input.images || []) {
         await tx.image.update({
           where: {
             id: image.id,
@@ -61,8 +59,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
             },
           },
           images: {
-            set: existingImages.map(i => ({ id: i.id! })),
-            create: input.images?.filter(i => !i.id),
+            set: input.images?.map(i => ({ id: i.id })),
           },
           location: {
             connect: input.location || undefined,

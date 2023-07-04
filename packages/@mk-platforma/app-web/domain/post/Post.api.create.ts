@@ -27,6 +27,14 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
   .mutation(({ ctx, input }) =>
     ctx.db.$transaction(async tx => {
+      for (const image of input.images || []) {
+        await tx.image.update({
+          where: {
+            id: image.id,
+          },
+          data: image,
+        })
+      }
       const post_upserted = await tx.post.create({
         data: {
           ...shallowPick(input, "title", "description", "contact"),
@@ -36,7 +44,7 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
             },
           },
           images: {
-            create: input.images,
+            connect: input.images?.map(i => ({ id: i.id })),
           },
           location: {
             connect: input.location || undefined,

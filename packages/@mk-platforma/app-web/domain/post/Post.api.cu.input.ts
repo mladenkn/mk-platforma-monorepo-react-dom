@@ -30,11 +30,7 @@ export const Post_api_create_input = PostSchema.pick({
     })
     .nullish(),
   images: z
-    .array(
-      ImageSchema.pick({ url: true, uploadthing_key: true, isMain: true }).extend({
-        id: z.number().optional(),
-      })
-    )
+    .array(ImageSchema.pick({ isMain: true, id: true }))
     .optional()
     .refine(images => (images?.length ? images?.filter(i => i.isMain).length === 1 : true), {
       message: "Mora biti jedna glavna slika",
