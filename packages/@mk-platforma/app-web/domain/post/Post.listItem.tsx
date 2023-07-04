@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material"
+import { Box, Typography, useTheme, Paper } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import React from "react"
 
@@ -21,12 +21,15 @@ export function Post_listItem({ id, title, location, images }: Post_common_listI
   const { typography } = useTheme()
 
   return (
-    <Box
+    <Paper
       data-testid={`Post_listItem-${id}`}
       sx={{
         flex: 1,
         display: "flex",
         flexDirection: "row",
+        p: 1.5,
+        cursor: "pointer",
+        borderRadius: 2,
       }}
     >
       {mainImage && (
@@ -47,6 +50,6 @@ export function Post_listItem({ id, title, location, images }: Post_common_listI
           </Box>
         )}
       </Box>
-    </Box>
+    </Paper>
   )
 }
