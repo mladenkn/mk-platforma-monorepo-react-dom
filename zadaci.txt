@@ -1,9 +1,11 @@
 - pravo
 - za sve treba login
+- spremat sve slike koje se uploadaju na uploadthing
 
 - post.images brisat neiskorištene
 - mobile app
 - post.images smanjivat kvalitetu
+- next.image
 
 - refactor da je brisanje zapravo skrivanje, a i dalje prikazivat ko brisanje
 - napravit pravo brisanje, a ovo gore prikazat ko skrivanje, ili tako nešto.... ?
@@ -12,6 +14,7 @@
 - lipši login
 
 - kad je server side error (kod 500), nesmi ga vratit na klijent
+
 
 - treba li User.id bit string?
 - CategoryModel.label treba bit CategoryModel.code i to string?
