@@ -2,22 +2,14 @@ import { Box, Typography, useTheme, Paper } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import React from "react"
 
-type Post_image = {
-  url: string
-  isMain?: string
-}
-
 type Post_common_listItem_props = {
   id: number
   title: string
   location?: string
-  images?: Post_image[]
-  mainImage?: string
+  image?: { url: string }
 }
 
-export function Post_listItem({ id, title, location, images }: Post_common_listItem_props) {
-  const mainImage = images?.length ? images?.find(image => image.isMain) || images[0] : null
-
+export function Post_listItem({ id, title, location, image }: Post_common_listItem_props) {
   const { typography } = useTheme()
 
   return (
@@ -32,9 +24,7 @@ export function Post_listItem({ id, title, location, images }: Post_common_listI
         borderRadius: 2,
       }}
     >
-      {mainImage && (
-        <img src={mainImage.url} width={100} height={100} style={{ marginRight: 24 }} />
-      )}
+      {image && <img src={image.url} width={100} height={100} style={{ marginRight: 24 }} />}
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography variant="h5" fontWeight={500}>

@@ -130,7 +130,11 @@ export default function Post_list_page({
                       location={item.location}
                     />
                   ) : (
-                    <Post_listItem {...item} location={item.location?.name} />
+                    <Post_listItem
+                      {...item}
+                      location={item.location?.name}
+                      image={item.images?.find(i => i.isMain) || item.images?.[0]}
+                    />
                   )}
                 </Link>
               ))}

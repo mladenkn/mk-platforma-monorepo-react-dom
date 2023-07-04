@@ -1,9 +1,11 @@
-- post.images smanjivat kvalitetu
-- isključit auto logout
-- logout
-- post.form.validacija prevest
-- kad je server side error (kod 500), nesmi ga vratit na klijent
 - pravo
+- za sve treba login
+- post.images smanjivat kvalitetu
+- post.images brisat neiskorištene
+
+- post.form.validacija prevest
+- lipši login
+- kad je server side error (kod 500), nesmi ga vratit na klijent
 
 - treba li User.id bit string?
 - CategoryModel.label treba bit CategoryModel.code i to string?

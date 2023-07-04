@@ -34,6 +34,7 @@ const Post_api = router({
             },
             images: {
               select: {
+                isMain: true,
                 id: true,
                 url: true,
               },
