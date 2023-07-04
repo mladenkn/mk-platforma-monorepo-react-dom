@@ -86,7 +86,7 @@ export default function Post_form_images({
               <Checkbox
                 name={`${namePrefix}.${index}.isMain`}
                 onChange={onChange}
-                value={image.isMain}
+                checked={image.isMain}
               />
             </Box>
             <IconButton onClick={() => removeItem(index)}>

@@ -36,6 +36,16 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
         },
       })
 
+      const existingImages = input.images?.filter(i => i.id) || []
+      for (const image of existingImages) {
+        await tx.image.update({
+          where: {
+            id: image.id,
+          },
+          data: image,
+        })
+      }
+
       const post = await tx.post.update({
         where: {
           id: input.id,
@@ -51,7 +61,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
             },
           },
           images: {
-            set: input.images?.filter(i => i.id).map(i => ({ id: i.id! })),
+            set: existingImages.map(i => ({ id: i.id! })),
             create: input.images?.filter(i => !i.id),
           },
           location: {
