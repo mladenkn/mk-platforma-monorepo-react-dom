@@ -45,6 +45,9 @@ const auth_options = {
   pages: {
     newUser: "/profile/edit",
   },
+  session: {
+    maxAge: 86400 * 30 * 24,
+  },
 } satisfies NextAuthOptions
 
 declare module "next-auth/adapters" {
