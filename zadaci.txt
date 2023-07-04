@@ -1,7 +1,8 @@
-- expert skills fix
-- post.images sort
-- post.images upload handle error
+- post.images smanjivat kvalitetu
 - isključit auto logout
+- logout
+- post.form.validacija prevest
+- kad je server side error (kod 500), nesmi ga vratit na klijent
 - pravo
 
 - treba li User.id bit string?

@@ -90,6 +90,7 @@ const Post_api = router({
           description: true,
           images: {
             select: {
+              isMain: true,
               id: true,
               url: true,
             },

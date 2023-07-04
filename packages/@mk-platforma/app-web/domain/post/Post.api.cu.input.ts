@@ -21,6 +21,7 @@ export const Post_api_create_input = PostSchema.pick({
       skills: z
         .array(
           z.object({
+            id: z.number().optional(),
             label: z.string(),
             level: z.number().min(1).max(5).nullish(),
           })
@@ -30,9 +31,17 @@ export const Post_api_create_input = PostSchema.pick({
     .nullish(),
   images: z
     .array(
-      ImageSchema.pick({ url: true, uploadthing_key: true }).extend({ id: z.number().optional() })
+      ImageSchema.pick({ url: true, uploadthing_key: true, isMain: true }).extend({
+        id: z.number().optional(),
+      })
     )
-    .optional(),
+    .optional()
+    .refine(images => (images?.length ? images?.filter(i => i.isMain).length === 1 : true), {
+      message: "Mora biti jedna glavna slika",
+      params: {
+        code: "ONE_MAIN_IMAGE",
+      },
+    }),
   location: LocationSchema.pick({ id: true }).nullish(),
 })
 

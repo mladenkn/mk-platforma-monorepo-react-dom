@@ -1,4 +1,4 @@
-import { asNonNil, shallowPick } from "@mk-libs/common/common"
+import { shallowPick } from "@mk-libs/common/common"
 import { authorizedRoute } from "~/api_/api.server.utils"
 import { Post_api_update_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
@@ -10,6 +10,42 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
   .input(Post_api_update_input)
   .mutation(({ ctx, input }) =>
     ctx.db.$transaction(async tx => {
+      const skills_forUpdate = input.expertEndorsement?.skills?.filter(s => s.id) || []
+      for (const skill of skills_forUpdate) {
+        await tx.post_ExpertEndorsement_skill.update({
+          where: {
+            id: skill.id,
+          },
+          data: {
+            label: skill.label,
+            level: skill.level,
+          },
+        })
+      }
+
+      await tx.post_ExpertEndorsement_skill.deleteMany({
+        where: {
+          expertEndorsement: {
+            post: {
+              id: input.id,
+            },
+          },
+          id: {
+            notIn: skills_forUpdate.map(s => s.id!),
+          },
+        },
+      })
+
+      const existingImages = input.images?.filter(i => i.id) || []
+      for (const image of existingImages) {
+        await tx.image.update({
+          where: {
+            id: image.id,
+          },
+          data: image,
+        })
+      }
+
       const post = await tx.post.update({
         where: {
           id: input.id,
@@ -25,7 +61,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
             },
           },
           images: {
-            set: input.images?.filter(i => i.id).map(i => ({ id: i.id! })),
+            set: existingImages.map(i => ({ id: i.id! })),
             create: input.images?.filter(i => !i.id),
           },
           location: {
@@ -39,31 +75,27 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
                 upsert: {
                   create: {
                     post_id: input.id,
-                    ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                     avatarStyle: getRandomElement(avatarStyles),
+                    skills: {
+                      create: input.expertEndorsement.skills || undefined, // moraju svi bit bez id-ova
+                    },
+                    ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                   },
-                  update: shallowPick(input.expertEndorsement, "firstName", "lastName"),
+                  update: {
+                    ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
+                    skills: {
+                      connect:
+                        input.expertEndorsement.skills
+                          ?.filter(s => s.id)
+                          .map(s => ({ id: s.id! })) || [],
+                      create: input.expertEndorsement.skills?.filter(s => !s.id),
+                    },
+                  },
                 },
               }
             : undefined,
         },
       })
-
-      if (input.expertEndorsement?.skills?.length) {
-        await tx.post_ExpertEndorsement_skill.deleteMany({
-          where: {
-            expertEndorsement_id: asNonNil(post.expertEndorsement).id,
-          },
-        })
-
-        await tx.post_ExpertEndorsement_skill.createMany({
-          data: input.expertEndorsement!.skills!.map(s => ({
-            label: s.label,
-            level: s.level || undefined,
-            expertEndorsement_id: asNonNil(post.expertEndorsement).id,
-          })),
-        })
-      }
 
       return omit(post, "expertEndorsement")
     })

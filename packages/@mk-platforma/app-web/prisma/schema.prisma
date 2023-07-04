@@ -97,6 +97,7 @@ model Image {
   uploadthing_key String?
   post_id         Int?
   url             String
+  isMain          Boolean @default(false)
 
   posts Post[]
 }

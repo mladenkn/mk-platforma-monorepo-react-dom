@@ -14,12 +14,13 @@ import { Warning_noUsername, use_noUsername_isDisplayed } from "../common"
 import { z } from "zod"
 import { Post_api_cu_input } from "./Post.api.cu.input"
 import { Formik } from "formik"
+import yaml from "yaml"
 
 type Values = z.infer<typeof Post_api_cu_input>
 
 type Props<TValues extends Values> = {
   sx?: SxProps
-  onSubmit(values: TValues): void
+  onSubmit(values: TValues): Promise<unknown>
   onCancel(): void
   title: string
   initialValues: TValues
@@ -35,6 +36,7 @@ export default function Post_form<TValues extends Values>({
   validationSchema,
 }: Props<TValues>) {
   const noUsername_isDisplayed = use_noUsername_isDisplayed()
+
   return (
     <Paper data-testid="Post_form" sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
@@ -55,6 +57,12 @@ export default function Post_form<TValues extends Values>({
                 }}
                 form={form}
               />
+              {!form.isValid ? (
+                <Box sx={{ mt: 3 }}>
+                  <Typography variant="h5">Problemi u unosu</Typography>
+                  <Typography sx={{ ml: 1, mt: 1 }}>{yaml.stringify(form.errors)}</Typography>
+                </Box>
+              ) : undefined}
               <Button
                 variant="contained"
                 sx={{ mt: 6, display: "flex", alignItems: "center", gap: 1, width: "100%" }}

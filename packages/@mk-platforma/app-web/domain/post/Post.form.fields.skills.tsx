@@ -5,6 +5,7 @@ import RemoveIcon from "@mui/icons-material/Remove"
 import { useState } from "react"
 
 type Skill = {
+  id?: number
   label: string
   level?: number | null
 }
