@@ -1,5 +1,6 @@
 - post.images smanjivat kvalitetu
 - isključit auto logout
+- logout
 - post.form.validacija prevest
 - kad je server side error (kod 500), nesmi ga vratit na klijent
 - pravo
