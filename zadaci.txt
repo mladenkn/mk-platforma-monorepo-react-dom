@@ -5,13 +5,12 @@
 - post.images brisat neiskorištene
 - mobile app
 - post.images smanjivat kvalitetu
+- lipši login
 - next.image
 
-- refactor da je brisanje zapravo skrivanje, a i dalje prikazivat ko brisanje
-- napravit pravo brisanje, a ovo gore prikazat ko skrivanje, ili tako nešto.... ?
+- možda nešto sa brisanjem
 
 - post.form.validacija prevest
-- lipši login
 
 - kad je server side error (kod 500), nesmi ga vratit na klijent
 
