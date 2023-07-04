@@ -87,8 +87,6 @@ export default function Post_list_page({
 
   const {} = useTheme()
 
-  console.log(89, posts_data)
-
   return (
     <>
       <Layout
