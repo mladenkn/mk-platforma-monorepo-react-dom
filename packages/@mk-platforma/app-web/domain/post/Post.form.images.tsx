@@ -34,6 +34,7 @@ export default function Post_form_images({
       uploadthing_key: f.fileKey,
       isMain: false,
     }))
+    // prvo ga spremit u app bazu, pa onda dobit id
     for (const file of mapped) {
       addItem(file)
     }
