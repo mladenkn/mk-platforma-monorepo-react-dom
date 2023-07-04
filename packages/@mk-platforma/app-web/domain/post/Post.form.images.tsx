@@ -3,6 +3,7 @@ import { IconButton, Box, useTheme, Checkbox, Typography } from "@mui/material"
 import { UploadButton } from "~/file.upload"
 import "@uploadthing/react/styles.css"
 import { enqueueSnackbar } from "notistack"
+import Api from "~/api_/api.client"
 
 type Image = {
   uploadthing_key?: string | null
@@ -27,16 +28,16 @@ export default function Post_form_images({
 }: Props) {
   const { breakpoints } = useTheme()
 
-  function handle_files_uploadComplete(files?: { fileUrl: string; fileKey: string }[]) {
+  const images_create = Api.image.create.useMutation()
+  async function handle_files_uploadComplete(files?: { fileUrl: string; fileKey: string }[]) {
     if (!files) return
     const mapped = files.map(f => ({
       url: f.fileUrl,
       uploadthing_key: f.fileKey,
-      isMain: false,
     }))
-    // prvo ga spremit u app bazu, pa onda dobit id
-    for (const file of mapped) {
-      addItem(file)
+    const images = await images_create.mutateAsync(mapped)
+    for (const image of images) {
+      addItem(image)
     }
   }
 
