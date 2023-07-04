@@ -16,6 +16,8 @@ import HomeIcon from "@mui/icons-material/Home"
 import { difference } from "lodash"
 import { styled } from "@mui/material/styles"
 import { use_currentUser } from "~/utils.client"
+import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew"
+import { signOut } from "next-auth/react"
 
 type Option =
   | "post.create"
@@ -131,7 +133,16 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
           <Typography sx={{ color: theme.other.font.color }} variant="h3">
             Ostali linkovi
           </Typography>
-          <Box sx={{ ml: 1.5, mt: 2, display: "flex", flexDirection: "column", gap: 1.5 }}>
+          <Box
+            sx={{
+              ml: 1.5,
+              mt: 2,
+              display: "flex",
+              flexDirection: "column",
+              gap: 1.5,
+              alignItems: "start",
+            }}
+          >
             <Link
               href="/kontakt"
               style={{ display: "flex", alignItems: "center", textDecoration: "none" }}
@@ -159,6 +170,17 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
                 Politika privatnosti
               </Typography>
             </Link>
+            {user.data ? (
+              <IconButton
+                sx={{ display: "flex", alignItems: "center", textDecoration: "none", p: 0 }}
+                onClick={() => signOut()}
+              >
+                <PowerSettingsNewIcon sx={{ mr: 1.5, color: theme.other.font.color }} />
+                <Typography sx={{ color: theme.other.font.color }} variant="h5">
+                  Odjavi se
+                </Typography>
+              </IconButton>
+            ) : undefined}
           </Box>
         </BottomSheet>
       )}
