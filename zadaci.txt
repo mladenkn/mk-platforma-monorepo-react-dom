@@ -1,5 +1,6 @@
 - pravo
 - za sve treba login
+- lokacije
 
 - treba li neke stupce u bazi prominit da su tipa Text a ne String?
 

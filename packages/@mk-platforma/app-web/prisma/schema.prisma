@@ -16,9 +16,9 @@ generator zod {
 
 model Post {
   id                   Int     @id @default(autoincrement())
-  title                String
-  description          String?
-  contact              String
+  title                String  @db.VarChar(256)
+  description          String? @db.Text
+  contact              String  @db.VarChar(256)
   location_id          Int?
   author_id            Int
   expertEndorsement_id Int?    @unique
@@ -35,8 +35,8 @@ model Post {
 model Post_ExpertEndorsement {
   id          Int    @id @default(autoincrement())
   post_id     Int    @unique
-  firstName   String
-  lastName    String
+  firstName   String @db.VarChar(64)
+  lastName    String @db.VarChar(64)
   avatarStyle Json
 
   post   Post?
@@ -104,7 +104,7 @@ model Image {
 
 model Comment {
   id        Int    @id @default(autoincrement())
-  content   String
+  content   String @db.Text
   author_id Int
   post_id   Int
 
@@ -147,7 +147,7 @@ model Account {
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique
+  sessionToken String   @unique @db.VarChar(128)
   userId       Int
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -155,7 +155,7 @@ model Session {
 
 model VerificationToken {
   identifier String
-  token      String   @unique
+  token      String   @unique @db.VarChar(128)
   expires    DateTime
 
   @@unique([identifier, token])
