@@ -28,7 +28,7 @@ export default function Post_form_images({
 }: Props) {
   const { breakpoints } = useTheme()
 
-  const images_create = Api.image.upsert.useMutation()
+  const images_create = Api.image.create.useMutation()
   async function handle_files_uploadComplete(files?: { fileUrl: string; fileKey: string }[]) {
     if (!files) return
     const mapped = files.map(f => ({

@@ -96,7 +96,7 @@ model Image {
   id              Int     @id @default(autoincrement())
   uploadthing_key String? @unique
   post_id         Int?
-  url             String  @unique
+  url             String
   isMain          Boolean @default(false)
 
   posts Post[]
