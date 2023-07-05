@@ -44,6 +44,7 @@ const auth_options = {
   },
   pages: {
     newUser: "/profile/edit",
+    signIn: "/login",
   },
   session: {
     maxAge: 86400 * 30 * 24,
