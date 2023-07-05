@@ -12,7 +12,7 @@ import { Comment_listItem } from "~/domain/Comment.listItem"
 import Api from "~/api_/api.client"
 import { useRouter } from "next/router"
 import EditIcon from "@mui/icons-material/Edit"
-import { sortBy } from "lodash"
+import { orderBy } from "lodash"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 
@@ -110,7 +110,7 @@ export default function Post_details({
             animation="slide"
             fullHeightHover
           >
-            {sortBy(images, i => i.isMain).map(image => (
+            {orderBy(images, i => i.isMain, "desc").map(image => (
               <img
                 key={image.id}
                 style={{ overflow: "auto", height: 340, width: "100%", objectFit: "contain" }}
