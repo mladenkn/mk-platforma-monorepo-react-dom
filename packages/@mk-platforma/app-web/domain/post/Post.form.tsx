@@ -14,7 +14,6 @@ import { Warning_noUsername, use_noUsername_isDisplayed } from "../common"
 import { z } from "zod"
 import { Post_api_cu_input } from "./Post.api.cu.input"
 import { Formik } from "formik"
-import yaml from "yaml"
 
 type Values = z.infer<typeof Post_api_cu_input>
 
@@ -62,12 +61,6 @@ export default function Post_form<TValues extends Values>({
                 }}
                 form={form}
               />
-              {!form.isValid ? (
-                <Box sx={{ mt: 3 }}>
-                  <Typography variant="h5">Problemi u unosu</Typography>
-                  <Typography sx={{ ml: 1, mt: 1 }}>{yaml.stringify(form.errors)}</Typography>
-                </Box>
-              ) : undefined}
               <Button
                 variant="contained"
                 sx={{ mt: 6, display: "flex", alignItems: "center", gap: 1, width: "100%" }}
