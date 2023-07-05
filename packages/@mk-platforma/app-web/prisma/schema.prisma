@@ -94,7 +94,7 @@ model Location {
 
 model Image {
   id              Int     @id @default(autoincrement())
-  uploadthing_key String? @unique
+  uploadthing_key String? @unique @db.VarChar(128)
   post_id         Int?
   url             String  @db.Text
   isMain          Boolean @default(false)
