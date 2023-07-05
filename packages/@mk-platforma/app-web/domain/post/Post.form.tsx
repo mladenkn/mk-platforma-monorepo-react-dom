@@ -39,7 +39,12 @@ export default function Post_form<TValues extends Values>({
 
   return (
     <Paper data-testid="Post_form" sx={{ display: "flex", flexDirection: "column", ...sx }}>
-      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={onSubmit}
+        validationSchema={validationSchema}
+        validateOnMount
+      >
         {form => (
           <>
             <Box sx={{ mb: 2, display: "flex", justifyContent: "space-between" }}>

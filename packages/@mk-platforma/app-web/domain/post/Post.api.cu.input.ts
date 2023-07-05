@@ -1,11 +1,5 @@
 import { z } from "zod"
-import {
-  ImageSchema,
-  LocationSchema,
-  PostSchema,
-  Post_ExpertEndorsementSchema,
-  CategorySchema,
-} from "~/prisma/generated/zod"
+import { ImageSchema, LocationSchema, PostSchema, CategorySchema } from "~/prisma/generated/zod"
 
 export const Post_api_create_input = z
   .object({
