@@ -34,7 +34,8 @@ export default function generatePosts(params: PostGeneratorParams) {
     ...generatePosts_base(params, generate_accomodations_demand),
     ...generatePosts_base(params, generate_products_demand),
   ]
-  return data
+  type Item = (typeof data)[number] & { images?: { url: string }[] }
+  return data as Item[]
 }
 
 function generatePosts_base<T>(

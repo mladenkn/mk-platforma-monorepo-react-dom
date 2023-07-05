@@ -1,4 +1,4 @@
-import { Category_label } from "@prisma/client"
+import { Category_label, Prisma, User } from "@prisma/client"
 import { faker } from "@faker-js/faker"
 import { Api_ss } from "~/api_/api.root"
 import { avatarStyles } from "~/domain/user/User.common"
@@ -6,6 +6,7 @@ import db from "~/prisma/instance"
 import generatePosts from "./data.gen"
 import locations from "./locations.gen.json"
 import * as cro_dataset from "./data.gen.cro.dataset"
+import { eva } from "@mk-libs/common/common"
 
 export type WithId = {
   id: number
@@ -14,20 +15,17 @@ export type WithId = {
 async function main() {
   const categories = await seedCategories()
 
-  const mladenUser = await upsertUser("Mladen", { background: "green", color: "white" })
+  const mladenUser = await upsertUser({
+    name: "Mladen",
+    avatarStyle: { background: "green", color: "white" },
+  })
   const otherUsers = await seedUsers()
   const users = [mladenUser, ...otherUsers]
 
   const locations = await seedLocations()
 
   const posts = faker.helpers.shuffle(generatePosts({ categories, locations }))
-
-  const images_count = await db.image.count({})
-  const posts_count = await db.post.count({})
-
-  if (!images_count && !posts_count) {
-    await seedPosts(posts, users)
-  }
+  await seedPosts(posts, users)
 }
 
 async function seedUsers() {
@@ -43,17 +41,14 @@ async function seedUsers() {
   return await db.user.findMany({})
 }
 
-async function upsertUser(name: string, avatarStyle: object) {
+async function upsertUser(user: {
+  name: string
+  avatarStyle: Prisma.JsonNullValueInput | Prisma.InputJsonValue
+}) {
   return await db.user.upsert({
-    where: { name },
-    update: {
-      name,
-      avatarStyle,
-    },
-    create: {
-      name,
-      avatarStyle,
-    },
+    where: { name: user.name },
+    update: user,
+    create: user,
   })
 }
 
@@ -111,15 +106,30 @@ async function seedPosts(
 ) {
   for (const post of posts) {
     const user = faker.helpers.arrayElement(users)
+
     const api = Api_ss({
       db,
       user: { id: user.id, name: user.name || "seed user", canMutate: true },
       getCookie: (() => {}) as any,
     })
+
+    const images = await eva(async () => {
+      if (!post.images?.length) return undefined
+      const images_created = await api.image.create(post.images!)
+      const images_withIsMain = images_created.map(i => ({
+        ...i,
+        isMain: false,
+      }))
+      const mainImage = faker.helpers.arrayElement(images_withIsMain)
+      mainImage.isMain = true
+      return images_withIsMain
+    })
+
     const post_created = await api.post.create({
       ...post,
-      categories: post.categories,
+      images,
     })
+
     for (const comment of post.comments) {
       await db.comment.create({
         data: {
