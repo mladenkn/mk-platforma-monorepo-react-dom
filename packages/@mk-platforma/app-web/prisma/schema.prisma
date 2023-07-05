@@ -45,7 +45,7 @@ model Post_ExpertEndorsement {
 
 model Post_ExpertEndorsement_skill {
   id                   Int                    @id @default(autoincrement())
-  label                String
+  label                String                 @db.VarChar(64)
   level                Int?
   expertEndorsement    Post_ExpertEndorsement @relation(fields: [expertEndorsement_id], references: [id])
   expertEndorsement_id Int
@@ -96,7 +96,7 @@ model Image {
   id              Int     @id @default(autoincrement())
   uploadthing_key String? @unique
   post_id         Int?
-  url             String
+  url             String  @db.Text
   isMain          Boolean @default(false)
 
   posts Post[]
@@ -114,9 +114,9 @@ model Comment {
 
 model User {
   id            Int       @id @default(autoincrement())
-  name          String?   @unique
+  name          String?   @unique @db.VarChar(32)
   avatarStyle   Json
-  email         String?   @unique
+  email         String?   @unique @db.VarChar(64)
   emailVerified DateTime?
   canMutate     Boolean   @default(false)
 
