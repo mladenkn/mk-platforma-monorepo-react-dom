@@ -1,4 +1,5 @@
-import { Button, Container, Box, Typography, TextField, Paper, useTheme } from "@mui/material"
+import { Button, Container, Box, TextField, Paper, useTheme } from "@mui/material"
+import { LogoLink } from "./common"
 
 type Props = {
   csrfToken?: string
@@ -9,14 +10,7 @@ export default function Login({ csrfToken }: Props) {
   return (
     <Container maxWidth="md">
       <Box sx={{ background: theme.palette.primary.main, px: 2, py: 1 }}>
-        <Typography sx={{ color: "white" }} variant="h2" fontWeight={400}>
-          ZaBrata
-        </Typography>
-        <Box sx={{ color: "white" }}>
-          <Typography variant="h4" fontWeight={400}>
-            Loza kontribucionizma
-          </Typography>
-        </Box>
+        <LogoLink />
       </Box>
       <Paper sx={{ py: 4, px: 2 }}>
         <form method="post" action="/api/auth/signin/email">
