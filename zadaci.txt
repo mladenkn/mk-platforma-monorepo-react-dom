@@ -1,6 +1,5 @@
 - pravo
 - za sve treba login
-- spremat sve slike koje se uploadaju na uploadthing
 - login sa dodatnom šifrom
 - login nekad ne pošalje mail na mobitelu
 
