@@ -6,7 +6,7 @@ import { enqueueSnackbar } from "notistack"
 import Api from "~/api_/api.client"
 
 type Image = {
-  uploadthing_key?: string | null
+  id: number
   url: string
   isMain: boolean
 }
@@ -28,7 +28,7 @@ export default function Post_form_images({
 }: Props) {
   const { breakpoints } = useTheme()
 
-  const images_create = Api.image.create.useMutation()
+  const images_create = Api.image.upsert.useMutation()
   async function handle_files_uploadComplete(files?: { fileUrl: string; fileKey: string }[]) {
     if (!files) return
     const mapped = files.map(f => ({

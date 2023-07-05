@@ -32,7 +32,9 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
           where: {
             id: image.id,
           },
-          data: image,
+          data: {
+            isMain: image.isMain,
+          },
         })
       }
       const post_upserted = await tx.post.create({

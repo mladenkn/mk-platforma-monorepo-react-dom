@@ -4,6 +4,8 @@
 - login sa dodatnom šifrom
 - login nekad ne pošalje mail na mobitelu
 
+- treba li neke stupce u bazi prominit da su tipa Text a ne String?
+
 - post.images brisat neiskorištene
 - mobile app
 - post.images smanjivat kvalitetu

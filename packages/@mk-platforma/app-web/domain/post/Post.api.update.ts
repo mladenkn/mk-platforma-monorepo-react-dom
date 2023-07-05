@@ -40,7 +40,9 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
           where: {
             id: image.id,
           },
-          data: image,
+          data: {
+            isMain: image.isMain,
+          },
         })
       }
 
