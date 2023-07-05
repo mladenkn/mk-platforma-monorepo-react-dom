@@ -4,6 +4,7 @@ import { UploadButton } from "~/file.upload"
 import "@uploadthing/react/styles.css"
 import { enqueueSnackbar } from "notistack"
 import Api from "~/api_/api.client"
+import Image from "next/image"
 
 type Image = {
   id: number
@@ -95,7 +96,13 @@ export default function Post_form_images({
               <RemoveIcon />
             </IconButton>
           </Box>
-          <img style={{ objectFit: "contain", width: 250, height: 250 }} src={image.url} />
+          <Image
+            style={{ objectFit: "contain" }}
+            src={image.url}
+            width={250}
+            height={250}
+            alt="post image"
+          />
         </Box>
       ))}
       <UploadButton

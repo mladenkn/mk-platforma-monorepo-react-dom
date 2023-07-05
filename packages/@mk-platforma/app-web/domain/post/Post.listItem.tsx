@@ -1,6 +1,7 @@
 import { Box, Typography, useTheme, Paper } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import React from "react"
+import Image from "next/image"
 
 type Post_common_listItem_props = {
   id: number
@@ -24,7 +25,15 @@ export function Post_listItem({ id, title, location, image }: Post_common_listIt
         borderRadius: 2,
       }}
     >
-      {image && <img src={image.url} width={100} height={100} style={{ marginRight: 24 }} />}
+      {image && (
+        <Image
+          src={image.url}
+          width={100}
+          height={100}
+          style={{ marginRight: 24 }}
+          alt="post image"
+        />
+      )}
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography variant="h5" fontWeight={500}>
