@@ -2,12 +2,9 @@
 - za sve treba login
 - lokacije
 
-- treba li neke stupce u bazi prominit da su tipa Text a ne String?
-
-- post.images brisat neiskorištene
 - mobile app
+- post.images brisat neiskorištene
 - post.images smanjivat kvalitetu
-- next.image
 
 - možda nešto sa brisanjem
 
