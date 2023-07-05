@@ -29,6 +29,8 @@ export default function Login({ csrfToken }: Props) {
               id="email"
               name="email"
             />
+            <TextField sx={{ maxWidth: 500, mb: 4 }} label="Šifra" name="password" />
+            {/* <Typography sx={{ ml: 0.5, mt: 1.5, mb: 4 }}>Hint: Šifra je "maca i miš"</Typography> */}
             <Button type="submit">Prijavi se</Button>
           </Box>
         </form>

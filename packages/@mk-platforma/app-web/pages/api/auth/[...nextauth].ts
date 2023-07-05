@@ -46,8 +46,10 @@ const auth_options = (req: Request, res: NextApiResponse) =>
         }
         return session
       },
-      signIn() {
-        console.log(45, req)
+      signIn({ email }) {
+        if (email?.verificationRequest === true) {
+          return req.body.password === "maca i miš"
+        }
         return true
       },
     },
