@@ -67,7 +67,7 @@ export function ss_props_get_create_next<TOutput, TInput = undefined>(
   getInitialProps: Awaited<ReturnType<typeof ss_props_get_create<TOutput, TInput>>>
 ) {
   return async function (nextContext: Pick<GetServerSidePropsContext, "req" | "res" | "query">) {
-    const ctx = await createContext(nextContext.req, nextContext.res)
+    const ctx = await createContext(nextContext.req as any, nextContext.res as any)
     const initialPropsContext = await getInitialProps({ ...ctx, query: nextContext.query })
     return match(initialPropsContext)
       .with({ statusCode: P.when(code => code >= 400 && code < 600) }, ({ statusCode }) => {

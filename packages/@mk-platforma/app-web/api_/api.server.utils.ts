@@ -8,12 +8,11 @@ import { PrismaClient } from "@prisma/client"
 import { create_getCookie_ss } from "~/cookies"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import "@mk-libs/common/server-only"
+import { NextApiRequest, NextApiResponse } from "next"
 
 export async function createContext(
-  req: IncomingMessage & {
-    cookies: NextApiRequestCookies
-  },
-  res: ServerResponse
+  req: NextApiRequest,
+  res: NextApiResponse
 ): Promise<Api_context> {
   const user = await user_ss_get(req, res)
   return {

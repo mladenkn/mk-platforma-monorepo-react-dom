@@ -6,50 +6,59 @@ import { asNonNil, eva } from "@mk-libs/common/common"
 import { AdapterUser } from "next-auth/adapters"
 import { getRandomElement } from "@mk-libs/common/array"
 import type { NextAuthOptions } from "next-auth"
-import { IncomingMessage, ServerResponse } from "http"
-import { NextApiRequestCookies } from "next/dist/server/api-utils"
 import { Prisma } from "@prisma/client"
 import { P, match } from "ts-pattern"
 import { avatarStyles } from "~/domain/user/User.common"
 import env from "~/env.mjs"
+import { NextApiRequest, NextApiResponse } from "next"
 
-const auth_options = {
-  providers: [
-    EmailProvider({
-      server:
-        "smtp://apikey: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@smtp.sendgrid.net",
-      from: "zabrata.app.login@gmail.com",
-    }),
-  ],
-  adapter: eva(() => {
-    const adapter = PrismaAdapter(db)
-    const createUser_wrapped = adapter.createUser
-    adapter.createUser = function (data: Omit<AdapterUser, "id">) {
-      const data_updated = { ...data, avatarStyle: getRandomElement(avatarStyles) }
-      return createUser_wrapped(data_updated)
-    }
-    return adapter
-  }),
-  callbacks: {
-    session({ session, user }) {
-      if (session.user) {
-        session.user.avatarStyle = user.avatarStyle
-        session.user.canMutate = user.canMutate
-        session.user.id = match(user.id as string | number)
-          .with(P.string, i => parseInt(i))
-          .otherwise(i => i)
+// type Request = IncomingMessage & {
+//   cookies: NextApiRequestCookies
+// }
+type Request = NextApiRequest
+
+const auth_options = (req: Request, res: NextApiResponse) =>
+  ({
+    providers: [
+      EmailProvider({
+        server:
+          "smtp://apikey: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@smtp.sendgrid.net",
+        from: "zabrata.app.login@gmail.com",
+      }),
+    ],
+    adapter: eva(() => {
+      const adapter = PrismaAdapter(db)
+      const createUser_wrapped = adapter.createUser
+      adapter.createUser = function (data: Omit<AdapterUser, "id">) {
+        const data_updated = { ...data, avatarStyle: getRandomElement(avatarStyles) }
+        return createUser_wrapped(data_updated)
       }
-      return session
+      return adapter
+    }),
+    callbacks: {
+      session({ session, user }) {
+        if (session.user) {
+          session.user.avatarStyle = user.avatarStyle
+          session.user.canMutate = user.canMutate
+          session.user.id = match(user.id as string | number)
+            .with(P.string, i => parseInt(i))
+            .otherwise(i => i)
+        }
+        return session
+      },
+      signIn() {
+        console.log(45, req)
+        return true
+      },
     },
-  },
-  pages: {
-    newUser: "/profile/edit",
-    signIn: "/login",
-  },
-  session: {
-    maxAge: 86400 * 30 * 24,
-  },
-} satisfies NextAuthOptions
+    pages: {
+      newUser: "/profile/edit",
+      signIn: "/login",
+    },
+    session: {
+      maxAge: 86400 * 30 * 24,
+    },
+  } satisfies NextAuthOptions)
 
 declare module "next-auth/adapters" {
   interface AdapterUser {
@@ -70,22 +79,11 @@ declare module "next-auth" {
   }
 }
 
-function session_ss_get(
-  req: IncomingMessage & {
-    cookies: NextApiRequestCookies
-  },
-  res: ServerResponse
-) {
-  return getServerSession(req, res, auth_options)
+function session_ss_get(req: Request, res: NextApiResponse) {
+  return getServerSession(req, res, auth_options(req, res))
 }
 
-// fix: only session user
-export async function user_ss_get(
-  req: IncomingMessage & {
-    cookies: NextApiRequestCookies
-  },
-  res: ServerResponse
-) {
+export async function user_ss_get(req: Request, res: NextApiResponse) {
   if (env.NEXT_PUBLIC_MOCK_USER_ID) {
     return asNonNil(
       await db.user.findUnique({ where: { id: parseInt(env.NEXT_PUBLIC_MOCK_USER_ID) } })
@@ -94,4 +92,4 @@ export async function user_ss_get(
   return (await session_ss_get(req, res))?.user
 }
 
-export default NextAuth(auth_options)
+export default (req: Request, res: NextApiResponse) => NextAuth(req, res, auth_options(req, res))
