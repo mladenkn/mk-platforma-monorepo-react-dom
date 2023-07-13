@@ -57,7 +57,7 @@ const run_args = match(parsed.command)
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
-      () => require("./data.gen/db.seed.ts"),
+      "tsx ./data.gen/db.seed.ts",
     ],
   ])
 
