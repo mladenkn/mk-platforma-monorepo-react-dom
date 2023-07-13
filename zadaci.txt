@@ -2,7 +2,7 @@
 - za sve treba login
 - validacija za post.category i post.images
 - potvrda brisanja
-- da nemože brisat svako
+- validacija za šifru na login
 
 - mobile app
 - post.images brisat neiskorištene
