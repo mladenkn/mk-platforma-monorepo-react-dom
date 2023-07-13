@@ -8,7 +8,8 @@
     "postinstall": "pnpm prisma generate",
     "test.ui": "playwright test --ui",
     "test": "playwright test",
-    "build": "pnpm next build"
+    "build": "pnpm next build",
+    "prisma.gen": "prisma generate"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -22,8 +23,8 @@
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.10",
     "@mui/system": "^5.12.1",
-    "@next-auth/prisma-adapter": "^1.0.6",
-    "@prisma/client": "4.13.0",
+    "@next-auth/prisma-adapter": "^1.0.7",
+    "@prisma/client": "5.0.0",
     "@react-hook/debounce": "^4.0.0",
     "@t3-oss/env-nextjs": "^0.4.0",
     "@tanstack/react-query": "^4.24.4",
@@ -65,12 +66,12 @@
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
     "eslint": "7.32.0",
-    "prisma": "4.13.0",
+    "prisma": "5.0.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^3.12.7",
     "typescript": "^5.0.4",
     "utility-types": "^3.10.0",
-    "zod-prisma-types": "^2.5.6"
+    "zod-prisma-types": "^2.7.4"
   }
 }
