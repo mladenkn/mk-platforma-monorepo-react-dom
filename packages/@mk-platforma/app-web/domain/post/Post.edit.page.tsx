@@ -9,6 +9,7 @@ import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import { Post_api_update_input } from "./Post.api.cu.input"
+import { nullsToUndefinedDeep } from "@mk-libs/common/common"
 
 type Post_details = NonNullable<Api_outputs["post"]["single"]>
 
@@ -48,7 +49,7 @@ export default function Post_create_page({ post_initial }: Props) {
           title="Uredi oglas"
           onSubmit={v => mutation.mutateAsync(v)}
           onCancel={useRouter().back}
-          initialValues={post_initial}
+          initialValues={nullsToUndefinedDeep(post_initial)}
           validationSchema={toFormikValidationSchema(Post_api_update_input)}
         />
       }
