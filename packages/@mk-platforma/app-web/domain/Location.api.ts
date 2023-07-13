@@ -4,7 +4,6 @@ import { Location, Prisma, PrismaClient } from "@prisma/client"
 import "@mk-libs/common/server-only"
 import { Client } from "@googlemaps/google-maps-services-js"
 import { asNonNil } from "@mk-libs/common/common"
-import { omit } from "lodash"
 
 const client = new Client({})
 
@@ -61,7 +60,6 @@ const Location_api = router({
           name: true,
         },
       })
-      console.log(65, locations)
       return locations
     } else return ctx.db.location.findMany(getQuery())
     // return ctx.db.location.findMany(getQuery(input.query))
