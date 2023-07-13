@@ -33,32 +33,10 @@ const key = "AIzaSyAlZmjA7GGwjG2A6b2lo6RmWE5FbIKu8eQ"
 const Location_api = router({
   many: publicProcedure.input(Input).query(async ({ ctx, input }) => {
     if (input.query) {
-      const locations_googleSearch = await client
-        .textSearch({
-          params: {
-            query: input.query!,
-            key,
-          },
-        })
-        .then(r =>
-          r.data.results
-            .filter(
-              p =>
-                p.place_id &&
-                p.geometry?.location.lng &&
-                p.geometry?.location.lat &&
-                p.name &&
-                p.types?.includes("locality" as any)
-            )
-            .map(p => ({
-              google_id: asNonNil(p.place_id),
-              name: asNonNil(p.name),
-              longitude: new Prisma.Decimal(p.geometry?.location.lng!),
-              latitude: new Prisma.Decimal(p.geometry?.location.lat!),
-            }))
-        )
+      const locations_googleSearch = await googleApi_location_getMany(input.query)
       await upsertLocations(ctx.db, locations_googleSearch)
       const locations_googleSearch_googleIds = locations_googleSearch.map(i => i.google_id)
+
       const locations = await ctx.db.location.findMany({
         where: { google_id: { in: locations_googleSearch_googleIds } },
         select: {
@@ -112,6 +90,33 @@ async function upsertLocations(db: PrismaClient, locations: Save_input[]) {
         })
     )
   )
+}
+
+function googleApi_location_getMany(query: string) {
+  return client
+    .textSearch({
+      params: {
+        query: query,
+        key,
+      },
+    })
+    .then(r =>
+      r.data.results
+        .filter(
+          p =>
+            p.place_id &&
+            p.geometry?.location.lng &&
+            p.geometry?.location.lat &&
+            p.name &&
+            p.types?.includes("locality" as any)
+        )
+        .map(p => ({
+          google_id: asNonNil(p.place_id),
+          name: asNonNil(p.name),
+          longitude: new Prisma.Decimal(p.geometry?.location.lng!),
+          latitude: new Prisma.Decimal(p.geometry?.location.lat!),
+        }))
+    )
 }
 
 export default Location_api
