@@ -35,8 +35,8 @@ const Location_api = router({
     if (input.query) {
       const locations_googleSearch = await googleApi_location_getMany(input.query)
       await upsertLocations(ctx.db, locations_googleSearch)
-      const locations_googleSearch_googleIds = locations_googleSearch.map(i => i.google_id)
 
+      const locations_googleSearch_googleIds = locations_googleSearch.map(i => i.google_id)
       const locations = await ctx.db.location.findMany({
         where: { google_id: { in: locations_googleSearch_googleIds } },
         select: {
@@ -53,7 +53,6 @@ const Location_api = router({
       })
       return locations
     } else return ctx.db.location.findMany(getQuery())
-    // return ctx.db.location.findMany(getQuery(input.query))
   }),
   single: publicProcedure.input(z.object({ id: z.number() })).query(({ ctx, input }) => {
     return ctx.db.location.findUnique({ where: { id: input.id } })
@@ -63,17 +62,24 @@ const Location_api = router({
 type Save_input = Omit<Location, "id" | "country" | "adminAreaLevel1">
 
 async function upsertLocations(db: PrismaClient, locations: Save_input[]) {
-  async function create_data_get(location: Save_input) {
-    const { country, adminAreaLevel1 } = await googleApi_location_getDetails(location.google_id)
-    return { ...location, country, adminAreaLevel1 }
-  }
+  const mappped = await Promise.all(
+    locations.map(async location => {
+      const loc = await db.location.findUnique({ where: { google_id: location.google_id } })
+      if (loc) {
+        return { ...location, country: loc.country }
+      } else {
+        const { country, adminAreaLevel1 } = await googleApi_location_getDetails(location.google_id)
+        return { ...location, country, adminAreaLevel1 }
+      }
+    })
+  )
   return Promise.all(
-    locations.map(
+    mappped.map(
       async location =>
         await db.location.upsert({
           where: { google_id: location.google_id },
           update: location,
-          create: await create_data_get(location),
+          create: location,
         })
     )
   )
