@@ -30,7 +30,12 @@ const auth_options = (req: Request, res: NextApiResponse) =>
       const adapter = PrismaAdapter(db)
       const createUser_wrapped = adapter.createUser
       adapter.createUser = function (data: Omit<AdapterUser, "id">) {
-        const data_updated = { ...data, avatarStyle: getRandomElement(avatarStyles) }
+        console.log(33, data)
+        const data_updated = {
+          ...data,
+          avatarStyle: getRandomElement(avatarStyles),
+          canMutate: true,
+        }
         return createUser_wrapped(data_updated)
       }
       return adapter
