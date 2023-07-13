@@ -17,8 +17,14 @@ function getQuery(query?: string) {
     select: {
       id: true,
       name: true,
+      country: true,
     },
     take: 10,
+    orderBy: {
+      posts: {
+        _count: "desc" as const,
+      },
+    },
   }
 }
 
@@ -34,8 +40,12 @@ const Location_api = router({
             key,
           },
         })
-        .then(r =>
-          r.data.results
+        .then(r => {
+          console.log(
+            44,
+            r.data.results.map(i => i.address_components)
+          )
+          return r.data.results
             .filter(
               p =>
                 p.place_id &&
@@ -50,7 +60,7 @@ const Location_api = router({
               longitude: new Prisma.Decimal(p.geometry?.location.lng!),
               latitude: new Prisma.Decimal(p.geometry?.location.lat!),
             }))
-        )
+        })
       await upsertLocations(ctx.db, locations_googleSearch)
       const locations_googleSearch_googleIds = locations_googleSearch.map(i => i.google_id)
       const locations = await ctx.db.location.findMany({
@@ -58,6 +68,12 @@ const Location_api = router({
         select: {
           id: true,
           name: true,
+          country: true,
+        },
+        orderBy: {
+          posts: {
+            _count: "desc",
+          },
         },
       })
       return locations
@@ -69,8 +85,10 @@ const Location_api = router({
   }),
 })
 
-async function upsertLocations(db: PrismaClient, locations: Omit<Location, "id">[]) {
-  async function create_data_get(location: Omit<Location, "id">) {
+type Save_input = Omit<Location, "id" | "country" | "adminAreaLevel1">
+
+async function upsertLocations(db: PrismaClient, locations: Save_input[]) {
+  async function create_data_get(location: Save_input) {
     const details = await client
       .placeDetails({
         params: {
@@ -85,7 +103,7 @@ async function upsertLocations(db: PrismaClient, locations: Omit<Location, "id">
     const adminAreaLevel1 = details.address_components?.find(c =>
       c.types.includes("administrative_area_level_1" as any)
     )?.long_name
-    return location
+    return { ...location, country, adminAreaLevel1 }
   }
   return Promise.all(
     locations.map(

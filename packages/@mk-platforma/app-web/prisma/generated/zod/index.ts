@@ -78,7 +78,7 @@ export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]
 
 export const JsonNullValueInputSchema = z.enum(['JsonNull',]);
 
-export const LocationScalarFieldEnumSchema = z.enum(['id','google_id','latitude','longitude','name']);
+export const LocationScalarFieldEnumSchema = z.enum(['id','google_id','latitude','longitude','name','country','adminAreaLevel1']);
 
 export const PostScalarFieldEnumSchema = z.enum(['id','title','description','contact','location_id','author_id','expertEndorsement_id','isDeleted']);
 
@@ -172,6 +172,8 @@ export const LocationSchema = z.object({
   latitude: z.union([z.number(),z.string(),DecimalJSLikeSchema,]).refine((v) => isValidDecimalInput(v), { message: "Field 'latitude' must be a Decimal. Location: ['Models', 'Location']",  }),
   longitude: z.union([z.number(),z.string(),DecimalJSLikeSchema,]).refine((v) => isValidDecimalInput(v), { message: "Field 'longitude' must be a Decimal. Location: ['Models', 'Location']",  }),
   name: z.string(),
+  country: z.string(),
+  adminAreaLevel1: z.string().nullish(),
 })
 
 export type Location = z.infer<typeof LocationSchema>

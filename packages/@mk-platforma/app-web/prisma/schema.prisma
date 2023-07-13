@@ -83,11 +83,13 @@ model Category {
 }
 
 model Location {
-  id        Int     @id @default(autoincrement())
-  google_id String  @unique @db.VarChar(128)
-  latitude  Decimal
-  longitude Decimal
-  name      String  @db.VarChar(128)
+  id              Int     @id @default(autoincrement())
+  google_id       String  @unique @db.VarChar(128)
+  latitude        Decimal
+  longitude       Decimal
+  name            String  @db.VarChar(128)
+  country         String  @db.VarChar(64)
+  adminAreaLevel1 String? @db.VarChar(128)
 
   posts Post[]
 }

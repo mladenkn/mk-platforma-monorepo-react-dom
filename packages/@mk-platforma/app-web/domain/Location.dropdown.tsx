@@ -26,10 +26,7 @@ export default function Location_Dropdown({
   const selectedLocation = Api.location.single.useQuery({ id: value! }, { enabled: !!value })
 
   function getLocationOptions(cat: Location) {
-    return {
-      id: cat.id,
-      label: cat.name,
-    }
+    return { ...cat, label: cat.name }
   }
 
   const value_option =
@@ -43,7 +40,7 @@ export default function Location_Dropdown({
       options={suggestions.data?.map(getLocationOptions) || []}
       renderOption={(props, option) => (
         <Box component="li" sx={{ "& > img": { mr: 2, flexShrink: 0 } }} {...props}>
-          {option.label}
+          {option.label}, {option.country}
         </Box>
       )}
       classes={{

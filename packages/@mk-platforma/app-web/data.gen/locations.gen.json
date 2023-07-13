@@ -3,114 +3,133 @@
       "google_id": "ChIJF_W8a_xdNRMRmJ-0MfaPeaE",
       "longitude": 16.4435148,
       "latitude": 43.5147118,
-      "name": "Split"
+      "name": "Split",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJOcwCyZLWZUcRisL7KJYkRTo",
       "longitude": 15.9819189,
       "latitude": 45.8150108,
-      "name": "Zagreb"
+      "name": "Zagreb",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJLb6qFyWhZEcRcLbLPThvPDc",
       "longitude": 14.442176,
       "latitude": 45.3270631,
-      "name": "Rijeka"
+      "name": "Rijeka",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJdYByaajnXEcRlRGkIVZyjFs",
       "longitude": 18.6955144,
       "latitude": 45.5549624,
-      "name": "Osijek"
+      "name": "Osijek",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJj7jA0mL6YUcRhAf0Exw-MhI",
       "longitude": 15.2313648,
       "latitude": 44.119371,
-      "name": "Zadar"
+      "name": "Zadar",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJfeg1CKKLSxMRANUrhlCtAAQ",
       "longitude": 18.0944238,
       "latitude": 42.65066059999999,
-      "name": "Dubrovnik"
+      "name": "Dubrovnik",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJndCI0BUmNRMRIMwrhlCtAAQ",
       "longitude": 15.8952045,
       "latitude": 43.7350196,
-      "name": "Šibenik"
+      "name": "Šibenik",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJbXszCd7SfEcRDVhOezpKMnI",
       "longitude": 13.8495788,
       "latitude": 44.8666232,
-      "name": "Pula"
+      "name": "Pula",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJM6QsbzDlZkcRsLorhlCtAAQ",
       "longitude": 16.3731156,
       "latitude": 45.4850767,
-      "name": "Sisak"
+      "name": "Sisak",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJwS3fuTEjZEcRcLsrhlCtAAQ",
       "longitude": 15.5552683,
       "latitude": 45.4928973,
-      "name": "Karlovac"
+      "name": "Karlovac",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJfQMx_M-qaEcR2dZfheqe-ts",
       "longitude": 16.3366066,
       "latitude": 46.305746,
-      "name": "Varaždin"
+      "name": "Varaždin",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJ289LsUUDSxMRqnoz-A36sE4",
       "longitude": 17.3721845,
       "latitude": 43.2055952,
-      "name": "Vrgorac"
+      "name": "Vrgorac",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJb7RYXGjoShMR19P_2bHjSfI",
       "longitude": 17.054215,
       "latitude": 43.39762820000001,
-      "name": "Zagvozd"
+      "name": "Zagvozd",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJw60K85KjZkcRCw1iHx3hTT8",
       "longitude": 15.8594853,
       "latitude": 45.3156924,
-      "name": "Blatuša"
+      "name": "Blatuša",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJw_fGZpLtZUcRUzAvfGwbaMs",
       "longitude": 15.8724103,
       "latitude": 46.160492,
-      "name": "Krapina"
+      "name": "Krapina",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJgV169sFRNRMR8fsBygEYUkI",
       "longitude": 16.3748088,
       "latitude": 43.7290817,
-      "name": "Ramljane"
+      "name": "Ramljane",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJsR1b9dipShMRgfIY5v79pKs",
       "longitude": 16.536369,
       "latitude": 43.690029,
-      "name": "Muc"
+      "name": "Muc",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJP8ot0hsgYEcRVn-Lssv499g",
       "longitude": 16.1558635,
       "latitude": 43.8602887,
-      "name": "Drniš"
+      "name": "Drniš",
+      "country": "Croatia"
   },
   {
       "google_id": "ChIJddVIKpkNTBMRIvA1U1GtACY",
       "longitude": 18.2175941,
       "latitude": 42.5812683,
-      "name": "Cavtat"
+      "name": "Cavtat",
+      "country": "Croatia"
   }
 ]
