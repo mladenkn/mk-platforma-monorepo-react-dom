@@ -122,7 +122,7 @@ export default function Post_list_page({
                 pr: 1.5,
               }}
             >
-              new version
+              new version 2
               {posts_data.map(item => (
                 <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
                   {item.expertEndorsement ? (
