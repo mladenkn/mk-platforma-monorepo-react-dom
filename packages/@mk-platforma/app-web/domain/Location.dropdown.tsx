@@ -25,8 +25,6 @@ export default function Location_Dropdown({
   const suggestions = Api.location.many.useQuery({ query: search })
   const selectedLocation = Api.location.single.useQuery({ id: value! }, { enabled: !!value })
 
-  console.log(28, suggestions.data)
-
   function getLocationOptions(cat: Location) {
     return {
       id: cat.id,
@@ -69,6 +67,7 @@ export default function Location_Dropdown({
       onChange={(event, value) => onChange(value?.id)}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       {...props}
+      filterOptions={o => o}
     />
   )
 }
