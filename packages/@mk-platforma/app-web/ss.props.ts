@@ -51,7 +51,7 @@ export function ss_props_get_create<TOutput, TInput = undefined>(
     if (options_mapped.authenticate && !ctx.user) {
       return {
         redirect: {
-          destination: `/login-proxy`,
+          destination: `/login`,
           permanent: false,
         },
       }
