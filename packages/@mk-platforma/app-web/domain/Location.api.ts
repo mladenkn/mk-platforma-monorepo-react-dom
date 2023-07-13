@@ -52,8 +52,18 @@ const Location_api = router({
               latitude: new Prisma.Decimal(p.geometry?.location.lat!),
             }))
         )
-      const locations_saved = await upsertLocations(ctx.db, locations_googleSearch)
-      return locations_saved
+      console.log(55, locations_googleSearch)
+      await upsertLocations(ctx.db, locations_googleSearch)
+      const locations_googleSearch_googleIds = locations_googleSearch.map(i => i.google_id)
+      const locations = await ctx.db.location.findMany({
+        where: { google_id: { in: locations_googleSearch_googleIds } },
+        select: {
+          id: true,
+          name: true,
+        },
+      })
+      console.log(65, locations)
+      return locations
     } else return ctx.db.location.findMany(getQuery())
     // return ctx.db.location.findMany(getQuery(input.query))
   }),
@@ -78,7 +88,8 @@ async function upsertLocations(db: PrismaClient, locations: Omit<Location, "id">
     const adminAreaLevel1 = details.address_components?.find(c =>
       c.types.includes("administrative_area_level_1" as any)
     )?.long_name
-    console.log(69, details.address_components, country, adminAreaLevel1)
+    // const forLog = omit(details, "photos", "address_components")
+    // console.log(92, forLog, country, adminAreaLevel1)
     return location
   }
   return Promise.all(
@@ -88,10 +99,10 @@ async function upsertLocations(db: PrismaClient, locations: Omit<Location, "id">
           where: { google_id: location.google_id },
           update: location,
           create: await create_data_get(location),
-          select: {
-            id: true,
-            name: true,
-          },
+          // select: {
+          //   id: true,
+          //   name: true,
+          // },
         })
     )
   )
