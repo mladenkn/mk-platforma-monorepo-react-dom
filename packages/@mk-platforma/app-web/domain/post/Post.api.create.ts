@@ -5,6 +5,7 @@ import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
 import db from "~/prisma/instance"
+import { omit } from "lodash"
 
 const allCategories = db.category.findMany()
 
@@ -76,7 +77,7 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
             },
           })
         }
-        return post_upserted
+        return omit(post_upserted, "expertEndorsement")
       },
       { maxWait: 8 * 1000, timeout: 20 * 1000 }
     )
