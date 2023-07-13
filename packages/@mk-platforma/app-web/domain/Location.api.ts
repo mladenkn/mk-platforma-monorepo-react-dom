@@ -40,12 +40,8 @@ const Location_api = router({
             key,
           },
         })
-        .then(r => {
-          console.log(
-            44,
-            r.data.results.map(i => i.address_components)
-          )
-          return r.data.results
+        .then(r =>
+          r.data.results
             .filter(
               p =>
                 p.place_id &&
@@ -60,7 +56,7 @@ const Location_api = router({
               longitude: new Prisma.Decimal(p.geometry?.location.lng!),
               latitude: new Prisma.Decimal(p.geometry?.location.lat!),
             }))
-        })
+        )
       await upsertLocations(ctx.db, locations_googleSearch)
       const locations_googleSearch_googleIds = locations_googleSearch.map(i => i.google_id)
       const locations = await ctx.db.location.findMany({
@@ -70,6 +66,7 @@ const Location_api = router({
           name: true,
           country: true,
         },
+        take: 10,
         orderBy: {
           posts: {
             _count: "desc",
