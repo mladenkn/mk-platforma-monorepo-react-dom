@@ -66,19 +66,7 @@ export const isValidDecimalInput =
 // ENUMS
 /////////////////////////////////////////
 
-export const AccountScalarFieldEnumSchema = z.enum(['id','userId','type','provider','providerAccountId','refresh_token','access_token','expires_at','token_type','scope','id_token','session_state']);
-
-export const CategoryScalarFieldEnumSchema = z.enum(['id','label','parent_id']);
-
-export const CommentScalarFieldEnumSchema = z.enum(['id','content','author_id','post_id']);
-
-export const ImageScalarFieldEnumSchema = z.enum(['id','uploadthing_key','post_id','url','isMain']);
-
-export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]);
-
-export const JsonNullValueInputSchema = z.enum(['JsonNull',]);
-
-export const LocationScalarFieldEnumSchema = z.enum(['id','google_id','latitude','longitude','name','country','adminAreaLevel1']);
+export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCommitted','RepeatableRead','Serializable']);
 
 export const PostScalarFieldEnumSchema = z.enum(['id','title','description','contact','location_id','author_id','expertEndorsement_id','isDeleted']);
 
@@ -86,17 +74,31 @@ export const Post_ExpertEndorsementScalarFieldEnumSchema = z.enum(['id','post_id
 
 export const Post_ExpertEndorsement_skillScalarFieldEnumSchema = z.enum(['id','label','level','expertEndorsement_id']);
 
-export const QueryModeSchema = z.enum(['default','insensitive']);
+export const CategoryScalarFieldEnumSchema = z.enum(['id','label','parent_id']);
 
-export const SessionScalarFieldEnumSchema = z.enum(['id','sessionToken','userId','expires']);
+export const LocationScalarFieldEnumSchema = z.enum(['id','google_id','latitude','longitude','name','country','adminAreaLevel1']);
 
-export const SortOrderSchema = z.enum(['asc','desc']);
+export const ImageScalarFieldEnumSchema = z.enum(['id','uploadthing_key','post_id','url','isMain']);
 
-export const TransactionIsolationLevelSchema = z.enum(['ReadUncommitted','ReadCommitted','RepeatableRead','Serializable']);
+export const CommentScalarFieldEnumSchema = z.enum(['id','content','author_id','post_id']);
 
 export const UserScalarFieldEnumSchema = z.enum(['id','name','avatarStyle','email','emailVerified','canMutate']);
 
+export const AccountScalarFieldEnumSchema = z.enum(['id','userId','type','provider','providerAccountId','refresh_token','access_token','expires_at','token_type','scope','id_token','session_state']);
+
+export const SessionScalarFieldEnumSchema = z.enum(['id','sessionToken','userId','expires']);
+
 export const VerificationTokenScalarFieldEnumSchema = z.enum(['identifier','token','expires']);
+
+export const SortOrderSchema = z.enum(['asc','desc']);
+
+export const JsonNullValueInputSchema = z.enum(['JsonNull',]);
+
+export const QueryModeSchema = z.enum(['default','insensitive']);
+
+export const NullsOrderSchema = z.enum(['first','last']);
+
+export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]);
 
 export const Category_labelSchema = z.enum(['job','job_demand','accommodation','accommodation_demand','sellable','sellable_demand','sellable_food','sellable_clothes','sellable_furniture','sellable_tool','sellable_gadget','sellable_buildingMaterial','gathering','gathering_spirituality','gathering_work','gathering_hangout']);
 

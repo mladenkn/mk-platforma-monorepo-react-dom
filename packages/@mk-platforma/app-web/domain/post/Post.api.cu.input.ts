@@ -4,7 +4,7 @@ import { ImageSchema, LocationSchema, PostSchema, CategorySchema } from "~/prism
 export const Post_api_create_input = z
   .object({
     title: z.string().min(1),
-    description: z.string(),
+    description: z.string().optional(),
     contact: z.string().min(1),
   })
   .extend({

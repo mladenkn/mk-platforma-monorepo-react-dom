@@ -5,6 +5,7 @@ import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
 import db from "~/prisma/instance"
+import { omit } from "lodash"
 
 const allCategories = db.category.findMany()
 
@@ -26,57 +27,60 @@ const input = Post_api_create_input.refine(
 const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
   .mutation(({ ctx, input }) =>
-    ctx.db.$transaction(async tx => {
-      for (const image of input.images || []) {
-        await tx.image.update({
-          where: {
-            id: image.id,
-          },
+    ctx.db.$transaction(
+      async tx => {
+        for (const image of input.images || []) {
+          await tx.image.update({
+            where: {
+              id: image.id,
+            },
+            data: {
+              isMain: image.isMain,
+            },
+          })
+        }
+        const post_upserted = await tx.post.create({
           data: {
-            isMain: image.isMain,
-          },
-        })
-      }
-      const post_upserted = await tx.post.create({
-        data: {
-          ...shallowPick(input, "title", "description", "contact"),
-          author: {
-            connect: {
-              id: ctx.user.id,
+            ...shallowPick(input, "title", "description", "contact"),
+            author: {
+              connect: {
+                id: ctx.user.id,
+              },
+            },
+            images: {
+              connect: input.images?.map(i => ({ id: i.id })),
+            },
+            location: {
+              connect: input.location || undefined,
+            },
+            categories: {
+              connect: input.categories,
             },
           },
-          images: {
-            connect: input.images?.map(i => ({ id: i.id })),
-          },
-          location: {
-            connect: input.location || undefined,
-          },
-          categories: {
-            connect: input.categories,
-          },
-        },
-      })
-      if (input.expertEndorsement) {
-        await tx.post.update({
-          where: {
-            id: post_upserted.id,
-          },
-          data: {
-            expertEndorsement: {
-              create: {
-                post_id: post_upserted.id,
-                ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
-                avatarStyle: getRandomElement(avatarStyles),
-                skills: {
-                  create: input.expertEndorsement.skills || undefined,
+        })
+        if (input.expertEndorsement) {
+          await tx.post.update({
+            where: {
+              id: post_upserted.id,
+            },
+            data: {
+              expertEndorsement: {
+                create: {
+                  post_id: post_upserted.id,
+                  ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
+                  avatarStyle: getRandomElement(avatarStyles),
+                  skills: {
+                    create: input.expertEndorsement.skills || undefined,
+                  },
                 },
               },
             },
-          },
-        })
-      }
-      return post_upserted
-    })
+          })
+        }
+        return omit(post_upserted, "expertEndorsement")
+      },
+      { maxWait: 8 * 1000, timeout: 20 * 1000 }
+    )
   )
 
 export default Post_api_create

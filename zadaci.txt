@@ -1,7 +1,8 @@
 - pravo
 - za sve treba login
-- lokacije
 - validacija za post.category i post.images
+- potvrda brisanja
+- da nemože brisat svako
 
 - mobile app
 - post.images brisat neiskorištene
