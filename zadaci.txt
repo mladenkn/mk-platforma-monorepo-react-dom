@@ -1,6 +1,7 @@
 - pravo
 - za sve treba login
-- lokacije
+- potvrda brisanja
+- da nemože brisat svako
 
 - mobile app
 - post.images brisat neiskorištene
