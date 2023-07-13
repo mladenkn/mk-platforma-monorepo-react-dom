@@ -119,7 +119,7 @@ model User {
   avatarStyle   Json
   email         String?   @unique @db.VarChar(64)
   emailVerified DateTime?
-  canMutate     Boolean   @default(false)
+  canMutate     Boolean   @default(true)
 
   comments Comment[]
   posts    Post[]
