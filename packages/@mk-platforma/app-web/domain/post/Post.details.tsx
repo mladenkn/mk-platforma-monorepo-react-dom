@@ -35,6 +35,7 @@ export default function Post_details({
   author,
   canComment,
   canEdit,
+  canDelete,
   categories,
   isDeleted,
 }: Post_single_details_Props) {
@@ -94,11 +95,11 @@ export default function Post_details({
               </IconButton>
             ) : undefined}
             {/* TODO: confirm modal */}
-            {!isDeleted && (
+            {!isDeleted && canDelete ? (
               <IconButton data-testid="Post_single_details__delete" onClick={handle_delete}>
                 <DeleteIcon />
               </IconButton>
-            )}
+            ) : undefined}
           </Box>
         </Box>
         {images.length ? (
