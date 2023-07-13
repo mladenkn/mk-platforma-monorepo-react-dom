@@ -64,20 +64,7 @@ type Save_input = Omit<Location, "id" | "country" | "adminAreaLevel1">
 
 async function upsertLocations(db: PrismaClient, locations: Save_input[]) {
   async function create_data_get(location: Save_input) {
-    const details = await client
-      .placeDetails({
-        params: {
-          key,
-          place_id: location.google_id,
-        },
-      })
-      .then(r => r.data.result)
-    const country = asNonNil(
-      details.address_components?.find(c => c.types.includes("country" as any))?.long_name
-    )
-    const adminAreaLevel1 = details.address_components?.find(c =>
-      c.types.includes("administrative_area_level_1" as any)
-    )?.long_name
+    const { country, adminAreaLevel1 } = await googleApi_location_getDetails(location.google_id)
     return { ...location, country, adminAreaLevel1 }
   }
   return Promise.all(
@@ -117,6 +104,29 @@ function googleApi_location_getMany(query: string) {
           latitude: new Prisma.Decimal(p.geometry?.location.lat!),
         }))
     )
+}
+
+async function googleApi_location_getDetails(id: string) {
+  const details = await client
+    .placeDetails({
+      params: {
+        key,
+        place_id: id,
+      },
+    })
+    .then(r => r.data.result)
+
+  const country = asNonNil(
+    details.address_components?.find(c => c.types.includes("country" as any))?.long_name
+  )
+  const adminAreaLevel1 = details.address_components?.find(c =>
+    c.types.includes("administrative_area_level_1" as any)
+  )?.long_name
+
+  return {
+    country,
+    adminAreaLevel1,
+  }
 }
 
 export default Location_api
