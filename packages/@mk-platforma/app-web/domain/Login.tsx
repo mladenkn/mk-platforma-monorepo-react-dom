@@ -1,8 +1,9 @@
 import { Button, Container, Box, TextField, Paper, useTheme } from "@mui/material"
 import { LogoLink } from "./common"
-import { Formik } from "formik"
+import { ErrorMessage, Formik } from "formik"
 import { z } from "zod"
 import { toFormikValidationSchema } from "zod-formik-adapter"
+import Api from "~/api_/api.client"
 
 type Props = {
   csrfToken?: string
@@ -12,13 +13,22 @@ const initialValues = {
   email: "",
   password: "",
 }
-const form_zod = z.object({
-  email: z.string().min(1),
-  password: z.string().min(1),
-})
 
 export default function Login({ csrfToken }: Props) {
   const theme = useTheme()
+
+  const auth_checkPass = Api.auth.checkPass.useMutation().mutateAsync
+
+  const form_zod = z
+    .object({
+      email: z.string().min(1),
+      password: z.string().min(1),
+    })
+    .refine(value => auth_checkPass(value.password), {
+      path: ["message"],
+      message: "Password invalid.",
+    })
+
   return (
     <Container maxWidth="md">
       <Box sx={{ background: theme.palette.primary.main, px: 2, py: 1 }}>
@@ -57,6 +67,7 @@ export default function Login({ csrfToken }: Props) {
                   error={touched.password && Boolean(errors.password)}
                   helperText={touched.password && errors.password}
                 />
+                <ErrorMessage name="password" />
                 <Button disabled={!isValid} type="submit">
                   Prijavi se
                 </Button>

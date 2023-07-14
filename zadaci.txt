@@ -2,7 +2,6 @@
 - za sve treba login
 
 - potvrda brisanja
-- validacija za šifru na login
 
 - mobile app
 - post.images brisat neiskorištene

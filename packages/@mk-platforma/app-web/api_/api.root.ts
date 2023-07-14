@@ -6,6 +6,7 @@ import Location_api from "~/domain/Location.api"
 import Post_api from "~/domain/post/Post.api"
 import "@mk-libs/common/server-only"
 import Image_api from "~/domain/Images.api"
+import Auth_api from "~/domain/Auth.api"
 
 export const ApiRouter = router({
   post: Post_api,
@@ -14,6 +15,7 @@ export const ApiRouter = router({
   comment: Comment_api,
   category: Category_api,
   image: Image_api,
+  auth: Auth_api,
 })
 
 export const Api_ss = ApiRouter.createCaller
