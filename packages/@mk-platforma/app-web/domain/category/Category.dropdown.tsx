@@ -6,13 +6,6 @@ import { Api_outputs } from "~/api_/api.infer"
 import { eva } from "~/../../@mk-libs/common/common"
 import { Category_label } from "@prisma/client"
 
-// type CategoriesDropdown_Props = {
-//   sx?: SxProps
-//   value?: number
-//   onChange(c?: number): void
-//   disabled?: boolean
-// }
-
 type Category = Api_outputs["category"]["many"][number]
 
 function getCategoryOption(cat: Category) {
