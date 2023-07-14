@@ -1,5 +1,6 @@
 - pravo
 - za sve treba login
+
 - validacija za post.category i post.images
 - potvrda brisanja
 - validacija za šifru na login
