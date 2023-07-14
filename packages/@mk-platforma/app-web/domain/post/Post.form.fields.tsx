@@ -49,7 +49,7 @@ export default function Post_form_fields<TValues extends Values>({
         value={values.title}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={touched.title && Boolean(errors.title)}
+        error={touched.title && !!errors.title}
         helperText={touched.title && (errors.title as string)}
         {...eachField}
       />
@@ -57,6 +57,11 @@ export default function Post_form_fields<TValues extends Values>({
         value={values.categories?.length ? values.categories[0].id : undefined}
         onChange={(e, option) => setFieldValue("categories", [{ id: option?.id }])}
         disabled={eachField.disabled}
+        textFieldProps={{
+          onBlur: handleBlur,
+          error: touched.categories && !!errors.categories,
+          helperText: touched.categories && (errors.categories as string),
+        }}
       />
       <TextField
         label="Opis"
@@ -66,7 +71,7 @@ export default function Post_form_fields<TValues extends Values>({
         onChange={handleChange}
         multiline
         onBlur={handleBlur}
-        error={touched.description && Boolean(errors.description)}
+        error={touched.description && !!errors.description}
         helperText={touched.description && (errors.description as string)}
         {...eachField}
       />
@@ -77,7 +82,7 @@ export default function Post_form_fields<TValues extends Values>({
         value={values.contact}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={touched.contact && Boolean(errors.contact)}
+        error={touched.contact && !!errors.contact}
         helperText={touched.contact && (errors.contact as string)}
         {...eachField}
       />
@@ -97,7 +102,7 @@ export default function Post_form_fields<TValues extends Values>({
             onBlur={handleBlur}
             error={
               (touched.expertEndorsement as any)?.firstName &&
-              Boolean((errors.expertEndorsement as any)?.firstName)
+              !!(errors.expertEndorsement as any)?.firstName
             }
             helperText={
               (touched.expertEndorsement as any)?.firstName &&
@@ -114,7 +119,7 @@ export default function Post_form_fields<TValues extends Values>({
             onBlur={handleBlur}
             error={
               (touched.expertEndorsement as any)?.lastName &&
-              Boolean((errors.expertEndorsement as any)?.lastName)
+              !!(errors.expertEndorsement as any)?.lastName
             }
             helperText={
               (touched.expertEndorsement as any)?.lastName &&

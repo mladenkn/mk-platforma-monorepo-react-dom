@@ -32,12 +32,14 @@ type CategoriesDropdown_Props = Omit<
   "options" | "renderInput" | "value"
 > & {
   value?: number
+  textFieldProps?: ComponentProps<typeof TextField>
 }
 
 export default function Category_dropdown({
   sx,
   value,
   onChange,
+  textFieldProps,
   ...props
 }: CategoriesDropdown_Props): ReactElement {
   const {} = useTheme()
@@ -97,6 +99,7 @@ export default function Category_dropdown({
             name: "category",
           }}
           placeholder="Kategorija"
+          {...textFieldProps}
         />
       )}
       value={value_option || null}
