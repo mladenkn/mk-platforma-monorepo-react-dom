@@ -8,7 +8,7 @@ import { Category_label } from "@prisma/client"
 
 type Category = Api_outputs["category"]["many"][number]
 
-function getCategoryOption(cat: Category) {
+function category_to_option(cat: Category) {
   const group = eva(() => {
     if (cat.children?.length) return getCategoryLabel(cat.label)
     if (cat.parent) return getCategoryLabel(cat.parent.label)
@@ -25,7 +25,7 @@ function getCategoryOption(cat: Category) {
   } as const
 }
 
-type Option = ReturnType<typeof getCategoryOption>
+type Option = ReturnType<typeof category_to_option>
 
 type CategoriesDropdown_Props = Omit<
   ComponentProps<typeof Autocomplete<Option>>,
@@ -41,16 +41,15 @@ export default function Category_dropdown({
   ...props
 }: CategoriesDropdown_Props): ReactElement {
   const {} = useTheme()
-  const categories = Api.category.many.useQuery()
+  const options_premap = Api.category.many.useQuery()
 
-  function findCategory(id: number) {
-    return categories.data?.find(c => c.id === id)
-  }
   const value_option =
-    value && categories.data ? getCategoryOption(findCategory(value)!) : undefined
+    value && options_premap.data
+      ? category_to_option(options_premap.data!.find(c => c.id === value)!)
+      : undefined
 
   const options =
-    categories.data?.map(getCategoryOption).sort((a, b) => {
+    options_premap.data?.map(category_to_option).sort((a, b) => {
       if (a.children?.length && a.group === b.group) return 1
       if (b.children?.length && a.group === b.group) return -1
       return -b.group.localeCompare(a.group)
@@ -63,7 +62,7 @@ export default function Category_dropdown({
       classes={{
         popper: "category-dropdown-popper",
       }}
-      loading={categories.isLoading}
+      loading={options_premap.isLoading}
       options={options}
       renderOption={(props, option) => (
         <Box
@@ -89,7 +88,7 @@ export default function Category_dropdown({
           InputProps={{
             ...params.InputProps,
             startAdornment:
-              value && categories.data ? (
+              value && options_premap.data ? (
                 <CategoryIcon
                   sx={{ ml: 1, mr: 1.5 }}
                   name={value_option?.label as Category_label}
