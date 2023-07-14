@@ -1,4 +1,4 @@
-import { FieldArray, FormikProps } from "formik"
+import { FieldArray, FormikProps, ErrorMessage } from "formik"
 import React, { useEffect } from "react"
 import { TextField, Box, SxProps, useTheme } from "@mui/material"
 import { z } from "zod"
@@ -154,6 +154,7 @@ export default function Post_form_fields<TValues extends Values>({
           />
         )}
       />
+      <ErrorMessage name="images" />
     </Box>
   )
 }
