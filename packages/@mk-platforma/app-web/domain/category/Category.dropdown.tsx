@@ -1,18 +1,45 @@
 import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
 import { CategoryIcon, getCategoryLabel } from "./Category.common"
-import React, { ReactElement } from "react"
+import React, { ComponentProps, ReactElement } from "react"
 import Api from "~/api_/api.client"
 import { Api_outputs } from "~/api_/api.infer"
 import { eva } from "~/../../@mk-libs/common/common"
+import { Category_label } from "@prisma/client"
 
-type CategoriesDropdown_Props = {
-  sx?: SxProps
-  value?: number
-  onChange(c?: number): void
-  disabled?: boolean
-}
+// type CategoriesDropdown_Props = {
+//   sx?: SxProps
+//   value?: number
+//   onChange(c?: number): void
+//   disabled?: boolean
+// }
 
 type Category = Api_outputs["category"]["many"][number]
+
+function getCategoryOption(cat: Category) {
+  const group = eva(() => {
+    if (cat.children?.length) return getCategoryLabel(cat.label)
+    if (cat.parent) return getCategoryLabel(cat.parent.label)
+    else return ""
+  })
+  return {
+    id: cat.id,
+    children: cat.children,
+    dbLabel: cat.label,
+    label: cat.children?.length
+      ? getCategoryLabel(cat.label) + " ostalo"
+      : getCategoryLabel(cat.label),
+    group,
+  } as const
+}
+
+type Option = ReturnType<typeof getCategoryOption>
+
+type CategoriesDropdown_Props = Omit<
+  ComponentProps<typeof Autocomplete<Option>>,
+  "options" | "renderInput" | "value"
+> & {
+  value?: number
+}
 
 export default function Category_dropdown({
   sx,
@@ -25,22 +52,6 @@ export default function Category_dropdown({
 
   function findCategory(id: number) {
     return categories.data?.find(c => c.id === id)
-  }
-  function getCategoryOption(cat: Category) {
-    const group = eva(() => {
-      if (cat.children?.length) return getCategoryLabel(cat.label)
-      if (cat.parent) return getCategoryLabel(cat.parent.label)
-      else return ""
-    })
-    return {
-      id: cat.id,
-      dbLabel: cat.label,
-      label: cat.children?.length
-        ? getCategoryLabel(cat.label) + " ostalo"
-        : getCategoryLabel(cat.label),
-      group,
-      children: cat.children,
-    }
   }
   const value_option =
     value && categories.data ? getCategoryOption(findCategory(value)!) : undefined
@@ -86,7 +97,10 @@ export default function Category_dropdown({
             ...params.InputProps,
             startAdornment:
               value && categories.data ? (
-                <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={findCategory(value)!.label} />
+                <CategoryIcon
+                  sx={{ ml: 1, mr: 1.5 }}
+                  name={value_option?.label as Category_label}
+                />
               ) : undefined,
             name: "category",
           }}
@@ -94,7 +108,7 @@ export default function Category_dropdown({
         />
       )}
       value={value_option || null}
-      onChange={(e, value) => onChange(value?.id)}
+      onChange={onChange}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       groupBy={o => o.group}
       {...props}

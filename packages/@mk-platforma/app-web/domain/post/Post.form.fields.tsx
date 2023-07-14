@@ -55,7 +55,7 @@ export default function Post_form_fields<TValues extends Values>({
       />
       <Category_dropdown
         value={values.categories?.length ? values.categories[0].id : undefined}
-        onChange={value => setFieldValue("categories", [{ id: value }])}
+        onChange={(e, option) => setFieldValue("categories", [{ id: option?.id }])}
         disabled={eachField.disabled}
       />
       <TextField
