@@ -1,7 +1,7 @@
 import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme, IconButton } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
-import React from "react"
+import React, { useState } from "react"
 import Carousel from "react-material-ui-carousel"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
@@ -13,6 +13,7 @@ import Api from "~/api_/api.client"
 import { useRouter } from "next/router"
 import EditIcon from "@mui/icons-material/Edit"
 import { orderBy } from "lodash"
+import ConfirmModal from "../common"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 
@@ -52,6 +53,8 @@ export default function Post_details({
         sx: author.avatarStyle as object,
         children: author.name?.[0],
       }
+
+  const [deleteInitiated, setDeleteInitiated] = useState(false)
 
   const deletePost = Api.post.delete.useMutation()
   const router = useRouter()
@@ -94,9 +97,18 @@ export default function Post_details({
                 </Link>
               </IconButton>
             ) : undefined}
-            {/* TODO: confirm modal */}
+            {deleteInitiated ? (
+              <ConfirmModal
+                message={`Jeste li sigurni da želi izbrisati objavu ${title}?`}
+                onConfirm={handle_delete}
+                onCancel={() => setDeleteInitiated(false)}
+              />
+            ) : undefined}
             {!isDeleted && canDelete ? (
-              <IconButton data-testid="Post_single_details__delete" onClick={handle_delete}>
+              <IconButton
+                data-testid="Post_single_details__delete"
+                onClick={() => setDeleteInitiated(true)}
+              >
                 <DeleteIcon />
               </IconButton>
             ) : undefined}
