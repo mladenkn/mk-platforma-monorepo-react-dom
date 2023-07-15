@@ -1,4 +1,14 @@
-import { Box, SxProps, Typography, Paper, Input, Avatar, useTheme, IconButton } from "@mui/material"
+import {
+  Box,
+  SxProps,
+  Typography,
+  Paper,
+  Input,
+  Avatar,
+  useTheme,
+  IconButton,
+  Button,
+} from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import React, { useState } from "react"
@@ -151,9 +161,10 @@ export default function Post_details({
         {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
       </Container>
       {canComment && (
-        <Container sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex" }}>
-          <Avatar children={avatarProps.children} sx={{ mr: 2, ...avatarProps.sx }} />
+        <Container sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex", gap: 1 }}>
+          <Avatar children={avatarProps.children} sx={{ mr: 1, ...avatarProps.sx }} />
           <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
+          <Button>Objavi</Button>
         </Container>
       )}
       {comments?.length > 0 ? (
