@@ -11,7 +11,6 @@ import { P, match } from "ts-pattern"
 import { avatarStyles } from "~/domain/user/User.common"
 import env from "~/env.mjs"
 import { NextApiRequest, NextApiResponse } from "next"
-import { PASSWORD } from "~/domain/Auth.api"
 
 // type Request = IncomingMessage & {
 //   cookies: NextApiRequestCookies
@@ -53,7 +52,7 @@ const auth_options = (req: Request, res: NextApiResponse) =>
       },
       signIn({ email }) {
         if (email?.verificationRequest === true) {
-          return req.body.password === PASSWORD
+          return req.body.password === "maca i miš"
         }
         return true
       },

@@ -4,10 +4,8 @@ import { z } from "zod"
 
 const input_zod = z.string()
 
-export const PASSWORD = "maca i miš"
-
 const Auth_api = router({
-  checkPass: publicProcedure.input(input_zod).mutation(async ({ input }) => input === PASSWORD),
+  checkPass: publicProcedure.input(input_zod).mutation(async ({ input }) => input === "maca i miš"),
 })
 
 export default Auth_api
