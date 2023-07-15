@@ -73,6 +73,15 @@ export default function Post_details({
     router.back()
   }
 
+  const comment_create = Api.comment.create.useMutation()
+  const [newComment_input, set_newComment_input] = useState("")
+  function comment_create_mutate() {
+    comment_create.mutate({
+      post_id: id,
+      content: newComment_input,
+    })
+  }
+
   return (
     <Box data-testid="Post_single_details" sx={sx}>
       <Container sx={{ p: 2 }}>
@@ -163,8 +172,14 @@ export default function Post_details({
       {canComment && (
         <Container sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex", gap: 1 }}>
           <Avatar children={avatarProps.children} sx={{ mr: 1, ...avatarProps.sx }} />
-          <Input sx={{ flex: 1 }} placeholder="Komentiraj" multiline />
-          <Button>Objavi</Button>
+          <Input
+            sx={{ flex: 1 }}
+            placeholder="Komentiraj"
+            multiline
+            value={newComment_input}
+            onChange={e => set_newComment_input(e.target.value)}
+          />
+          <Button onClick={comment_create_mutate}>Objavi</Button>
         </Container>
       )}
       {comments?.length > 0 ? (

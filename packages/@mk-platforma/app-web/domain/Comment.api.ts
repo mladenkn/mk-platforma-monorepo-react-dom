@@ -46,7 +46,7 @@ const Comment_api = router({
       )
   ),
 
-  create: authorizedRoute(u => u.canMutate)
+  create: authorizedRoute(u => u.canMutate && !!u.name)
     .input(Post_Comment_create_input_zod)
     .mutation(({ ctx, input }) =>
       ctx.db.comment.create({ data: { ...input, author_id: ctx.user.id } })
