@@ -67,10 +67,13 @@ export default function ConfirmModal(props: ConfirmModalProps) {
   return (
     <Dialog open onClose={props.onCancel}>
       <Box sx={{ px: 1.5, pt: 1, pb: 0.7 }}>
-        <Box>{props.message}</Box>
+        <Typography>{props.message}</Typography>
         <Box sx={{ display: "flex", justifyContent: "end", mt: 0.5 }}>
+          <Button sx={{ mr: 1, mt: 1, outline: "none" }} onClick={props.onCancel}>
+            Odustani
+          </Button>
           <Button sx={{ mr: 1, mt: 1, outline: "none" }} onClick={props.onConfirm}>
-            OK
+            Potvrdi
           </Button>
         </Box>
       </Box>
