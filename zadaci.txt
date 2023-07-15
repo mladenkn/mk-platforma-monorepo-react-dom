@@ -1,5 +1,6 @@
 - pravo
-- staging/prod baza
+- username bug
+- staging/prod baza i file upload
 - za sve treba login
 
 - mobile app
