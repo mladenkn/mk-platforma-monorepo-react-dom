@@ -45,17 +45,15 @@ export default function Category_dropdown({
   const {} = useTheme()
   const options_premap = Api.category.many.useQuery()
 
-  const value_option =
-    value && options_premap.data
-      ? category_to_option(options_premap.data!.find(c => c.id === value)!)
-      : undefined
+  const options = options_premap.data?.map(category_to_option).sort((a, b) => {
+    if (a.children?.length && a.group === b.group) return 1
+    if (b.children?.length && a.group === b.group) return -1
+    return -b.group.localeCompare(a.group)
+  })
 
-  const options =
-    options_premap.data?.map(category_to_option).sort((a, b) => {
-      if (a.children?.length && a.group === b.group) return 1
-      if (b.children?.length && a.group === b.group) return -1
-      return -b.group.localeCompare(a.group)
-    }) || []
+  const value_option = value && options ? options.find(c => c.id === value)! : undefined
+
+  console.log(48, options_premap, options)
 
   return (
     <Autocomplete
@@ -65,7 +63,7 @@ export default function Category_dropdown({
         popper: "category-dropdown-popper",
       }}
       loading={options_premap.isLoading}
-      options={options}
+      options={options || []}
       renderOption={(props, option) => (
         <Box
           component="li"
@@ -89,13 +87,9 @@ export default function Category_dropdown({
           variant="outlined"
           InputProps={{
             ...params.InputProps,
-            startAdornment:
-              value && options_premap.data ? (
-                <CategoryIcon
-                  sx={{ ml: 1, mr: 1.5 }}
-                  name={value_option?.label as Category_label}
-                />
-              ) : undefined,
+            startAdornment: value_option ? (
+              <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={value_option.dbLabel} />
+            ) : undefined,
             name: "category",
           }}
           placeholder="Kategorija"
