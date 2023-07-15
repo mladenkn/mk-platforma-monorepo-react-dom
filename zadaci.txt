@@ -1,8 +1,6 @@
 - pravo
 - za sve treba login
 
-- potvrda brisanja
-
 - mobile app
 - post.images brisat neiskorištene
 - post.images smanjivat kvalitetu
