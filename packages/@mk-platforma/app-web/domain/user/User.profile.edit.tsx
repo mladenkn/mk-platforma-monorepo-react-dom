@@ -22,15 +22,12 @@ export default function User_profile_edit({ user_initial }: Props) {
   const [user_name, set__user_name] = useState(user_data.name || "")
 
   const router = useRouter()
-  const mutation = Api.user.update.useMutation({
-    onSuccess() {
-      router.push(`/profile/${user_data.id}`)
-    },
-  })
-  async function updateUser() {
+  const mutation = Api.user.update.useMutation()
+  async function handleDone() {
     if (user_data.name !== user_name) {
-      mutation.mutate({ name: user_name })
+      await mutation.mutateAsync({ name: user_name })
     }
+    router.push(`/profile/${user_data.id}`)
   }
 
   const { palette, typography } = useTheme()
@@ -52,7 +49,7 @@ export default function User_profile_edit({ user_initial }: Props) {
               <Typography variant="h4">Uređivanje profila</Typography>
               {noUsername_isDisplayed && <Warning_noUsername sx={{ mt: 2 }} />}
             </Box>
-            <IconButton sx={{ ml: 2 }} onClick={updateUser}>
+            <IconButton sx={{ ml: 2 }} onClick={handleDone}>
               <DoneIcon sx={{ fontSize: typography.h4 }} />
             </IconButton>
           </Box>
