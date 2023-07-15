@@ -88,6 +88,6 @@ export function use_currentUser() {
   if (mock_user_id) {
     return { data: user.data, isLoading: user.isLoading }
   } else {
-    return { data: session.data?.user, isLoading: user.status === "loading" }
+    return { data: session.data?.user, isLoading: session.status === "loading" }
   }
 }
