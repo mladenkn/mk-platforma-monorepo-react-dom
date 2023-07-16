@@ -27,7 +27,7 @@ export default function Post_details_page({
       content={
         <>
           {postQuery.isLoading ? <Typography>Učitavanje...</Typography> : undefined}
-          <Post_details sx={{ p: 1, width: "100%" }} {...post} usePaperSections />
+          <Post_details sx={{ p: 1, width: "100%" }} {...post} />
         </>
       }
     />

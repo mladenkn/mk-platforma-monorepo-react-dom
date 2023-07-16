@@ -40,7 +40,6 @@ export default function Post_details({
   images,
   description,
   contact,
-  usePaperSections,
   comments,
   expertEndorsement,
   author,
@@ -50,7 +49,6 @@ export default function Post_details({
   categories,
   isDeleted,
 }: Post_single_details_Props) {
-  const Container = (usePaperSections ? Paper : Box) as typeof Box
   const {} = useTheme()
   const { typography } = useTheme()
 
@@ -84,7 +82,7 @@ export default function Post_details({
 
   return (
     <Box data-testid="Post_single_details" sx={sx}>
-      <Container sx={{ p: 2 }}>
+      <Paper sx={{ p: 2 }}>
         <Box sx={{ display: "flex", alignItems: "center", mb: 2, justifyContent: "space-between" }}>
           <Box sx={{ display: "flex" }}>
             <Link style={{ textDecoration: "none" }} href={`/profile/${author.id}`}>
@@ -168,9 +166,9 @@ export default function Post_details({
           </Box>
         ) : undefined}
         {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
-      </Container>
+      </Paper>
       {canComment && (
-        <Container sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex", gap: 1 }}>
+        <Paper sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex", gap: 1 }}>
           <Avatar children={avatarProps.children} sx={{ mr: 1, ...avatarProps.sx }} />
           <Input
             sx={{ flex: 1 }}
@@ -180,14 +178,14 @@ export default function Post_details({
             onChange={e => set_newComment_input(e.target.value)}
           />
           <Button onClick={comment_create_mutate}>Objavi</Button>
-        </Container>
+        </Paper>
       )}
       {comments?.length > 0 ? (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
           {comments.map(comment => (
-            <Container key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
+            <Paper key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
               <Comment_listItem comment={comment} />
-            </Container>
+            </Paper>
           ))}
         </Box>
       ) : undefined}
