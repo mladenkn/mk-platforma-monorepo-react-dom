@@ -53,11 +53,11 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
           ))
           .with({ isEdit: false, isSelected: true }, () => (
             <Box>
-              {comment.canDelete && (
+              {/* {comment.canDelete && (
                 <IconButton>
                   <DeleteIcon />
                 </IconButton>
-              )}
+              )} */}
               {comment.canEdit && (
                 <IconButton onClick={() => setIsEdit(true)}>
                   <EditIcon />
