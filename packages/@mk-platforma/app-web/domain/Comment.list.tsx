@@ -1,8 +1,9 @@
-import { Paper, Input, IconButton, Box } from "@mui/material"
+import { Paper, Input, IconButton, Box, Avatar } from "@mui/material"
 import Api from "~/api_/api.client"
 import { Comment_listItem } from "./Comment.listItem"
 import SendIcon from "@mui/icons-material/Send"
 import { useState } from "react"
+import { use_currentUser } from "~/utils.client"
 
 type Props = { post_id: number; canComment: boolean }
 
@@ -22,11 +23,14 @@ export default function Comment_list({ post_id, canComment }: Props) {
 
   const [selectedItem, set_selectedItem] = useState<number>()
 
+  const user = use_currentUser()
+  const avatarStyle = user.data?.avatarStyle as object | undefined
+
   return (
     <>
       {canComment && (
         <Paper sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex", gap: 1 }}>
-          {/* <Avatar children={avatarProps.children} sx={{ mr: 1, ...avatarProps.sx }} /> */}
+          <Avatar children={user.data?.name?.[0]} sx={{ mr: 1, ...avatarStyle }} />
           <Input
             sx={{ flex: 1 }}
             placeholder="Komentiraj"
