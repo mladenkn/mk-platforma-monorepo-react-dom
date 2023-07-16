@@ -47,7 +47,7 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
         </Box>
         {match({ isEdit, isSelected })
           .with({ isEdit: true, isSelected: true }, () => (
-            <IconButton sx={{ mr: 1 }} onClick={() => setIsEdit(false)}>
+            <IconButton onClick={() => setIsEdit(false)}>
               <ClearIcon />
             </IconButton>
           ))
