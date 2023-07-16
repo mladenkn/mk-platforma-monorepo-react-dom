@@ -20,6 +20,8 @@ export default function Comment_list({ post_id, canComment }: Props) {
     comments.refetch()
   }
 
+  const [selectedItem, set_selectedItem] = useState<number>()
+
   return (
     <>
       {canComment && (
@@ -40,8 +42,13 @@ export default function Comment_list({ post_id, canComment }: Props) {
       {comments.data?.length ? (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
           {comments.data.map(comment => (
-            <Paper key={comment.id} sx={{ p: 2, pt: 1, borderRadius: 2 }}>
-              <Comment_listItem comment={comment} />
+            <Paper
+              key={comment.id}
+              sx={{ p: 2, pt: 1, borderRadius: 2 }}
+              onClick={() => set_selectedItem(comment.id)}
+              elevation={comment.id === selectedItem ? 12 : 0}
+            >
+              <Comment_listItem comment={comment} isSelected={comment.id === selectedItem} />
             </Paper>
           ))}
         </Box>

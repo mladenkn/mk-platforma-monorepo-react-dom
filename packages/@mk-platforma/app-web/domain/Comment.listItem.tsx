@@ -6,16 +6,17 @@ import SendIcon from "@mui/icons-material/Send"
 import ClearIcon from "@mui/icons-material/Clear"
 import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
-import { match } from "ts-pattern"
+import { P, match } from "ts-pattern"
 
 type Comment = Api_outputs["comment"]["many"][number]
 
 type Props = {
   sx?: SxProps
   comment: Comment
+  isSelected: boolean
 }
 
-export function Comment_listItem({ sx, comment }: Props) {
+export function Comment_listItem({ sx, comment, isSelected }: Props) {
   const [isEdit, setIsEdit] = useState(false)
   const [input, setInput] = useState(comment.content)
 
@@ -44,15 +45,15 @@ export function Comment_listItem({ sx, comment }: Props) {
           <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name?.[0]} />
           <Typography fontWeight={500}>{comment.author.name}</Typography>
         </Box>
-        {match(isEdit)
-          .with(true, () => (
+        {match({ isEdit, isSelected })
+          .with({ isEdit: true, isSelected: true }, () => (
             <Box>
               <IconButton sx={{ mr: 1 }} onClick={() => setIsEdit(false)}>
                 <ClearIcon />
               </IconButton>
             </Box>
           ))
-          .with(false, () => (
+          .with({ isEdit: false, isSelected: true }, () => (
             <Box>
               {comment.canDelete && (
                 <IconButton>
@@ -66,7 +67,7 @@ export function Comment_listItem({ sx, comment }: Props) {
               )}
             </Box>
           ))
-          .exhaustive()}
+          .otherwise(() => undefined)}
       </Box>
       {match(isEdit)
         .with(true, () => (
