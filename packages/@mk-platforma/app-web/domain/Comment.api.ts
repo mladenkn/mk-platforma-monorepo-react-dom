@@ -1,6 +1,5 @@
 import { z } from "zod"
 import { authorizedRoute, router } from "~/api_/api.server.utils"
-import { CommentSchema } from "../prisma/generated/zod"
 import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 
@@ -15,9 +14,9 @@ const Comment_api_many = SuperData_mapper(
   })
 )
 
-const Post_Comment_create_input_zod = CommentSchema.pick({
-  content: true,
-  post_id: true,
+const Post_Comment_create_input_zod = z.object({
+  content: z.string().min(1),
+  post_id: z.number(),
 })
 
 const Comment_api = router({

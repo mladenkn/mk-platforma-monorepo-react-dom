@@ -122,6 +122,9 @@ const Post_api = router({
                 },
               },
             },
+            orderBy: {
+              id: "desc",
+            },
           },
           author: {
             select: {
