@@ -14,11 +14,6 @@ const Comment_api_many = SuperData_mapper(
   })
 )
 
-const Post_Comment_create_input_zod = z.object({
-  content: z.string().min(1),
-  post_id: z.number(),
-})
-
 const Comment_api = router({
   many: SuperData_query(Comment_api_many, ({ db, user }, output1) =>
     db.comment
@@ -46,9 +41,28 @@ const Comment_api = router({
   ),
 
   create: authorizedRoute(u => u.canMutate && !!u.name)
-    .input(Post_Comment_create_input_zod)
+    .input(
+      z.object({
+        content: z.string().min(1),
+        post_id: z.number(),
+      })
+    )
     .mutation(({ ctx, input }) =>
       ctx.db.comment.create({ data: { ...input, author_id: ctx.user.id } })
+    ),
+
+  update: authorizedRoute(u => u.canMutate && !!u.name)
+    .input(
+      z.object({
+        content: z.string().min(1),
+        id: z.number(),
+      })
+    )
+    .mutation(({ ctx, input }) =>
+      ctx.db.comment.update({
+        where: { id: input.id, author_id: ctx.user.id },
+        data: { content: input.content },
+      })
     ),
 })
 

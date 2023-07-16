@@ -3,6 +3,7 @@ import { Box, SxProps, IconButton, Typography, Avatar } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { Api_outputs } from "~/api_/api.infer"
+import Api from "~/api_/api.client"
 
 type Comment = Api_outputs["comment"]["many"][number]
 
@@ -12,6 +13,8 @@ type Props = {
 }
 
 export function Comment_listItem({ sx, comment }: Props) {
+  const comment_update = Api.comment.update.useMutation()
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Box
