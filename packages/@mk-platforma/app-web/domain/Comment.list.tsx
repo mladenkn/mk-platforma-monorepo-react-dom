@@ -1,6 +1,6 @@
 import { Paper, Input, IconButton, Box, Avatar } from "@mui/material"
 import Api from "~/api_/api.client"
-import { Comment_listItem } from "./Comment.listItem"
+import { Comment_list_item } from "./Comment.list.item"
 import SendIcon from "@mui/icons-material/Send"
 import { useState } from "react"
 import { use_currentUser } from "~/utils.client"
@@ -52,7 +52,7 @@ export default function Comment_list({ post_id, canComment }: Props) {
               onClick={() => set_selectedItem(comment.id)}
               elevation={comment.id === selectedItem ? 12 : 0}
             >
-              <Comment_listItem comment={comment} isSelected={comment.id === selectedItem} />
+              <Comment_list_item comment={comment} isSelected={comment.id === selectedItem} />
             </Paper>
           ))}
         </Box>

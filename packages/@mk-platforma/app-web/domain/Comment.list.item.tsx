@@ -6,7 +6,7 @@ import SendIcon from "@mui/icons-material/Send"
 import ClearIcon from "@mui/icons-material/Clear"
 import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
-import { P, match } from "ts-pattern"
+import { match } from "ts-pattern"
 
 type Comment = Api_outputs["comment"]["many"][number]
 
@@ -16,7 +16,7 @@ type Props = {
   isSelected: boolean
 }
 
-export function Comment_listItem({ sx, comment, isSelected }: Props) {
+export function Comment_list_item({ sx, comment, isSelected }: Props) {
   const [isEdit, setIsEdit] = useState(false)
   const [input, setInput] = useState(comment.content)
 
