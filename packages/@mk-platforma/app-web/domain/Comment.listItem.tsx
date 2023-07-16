@@ -40,11 +40,9 @@ export function Comment_listItem({ sx, comment }: Props) {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
           <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name?.[0]} />
-          <Typography fontWeight={500} variant="h6">
-            {comment.author.name}
-          </Typography>
+          <Typography fontWeight={500}>{comment.author.name}</Typography>
         </Box>
         {match(isEdit)
           .with(true, () => (

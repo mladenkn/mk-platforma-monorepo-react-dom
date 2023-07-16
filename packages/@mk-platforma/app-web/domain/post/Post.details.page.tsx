@@ -204,7 +204,7 @@ export default function Post_details_page({
           {comments?.length > 0 ? (
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
               {comments.map(comment => (
-                <Paper key={comment.id} sx={{ p: 2, borderRadius: 2 }}>
+                <Paper key={comment.id} sx={{ p: 2, pt: 1, borderRadius: 2 }}>
                   <Comment_listItem comment={comment} />
                 </Paper>
               ))}
