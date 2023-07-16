@@ -78,11 +78,13 @@ export default function Post_details_page({
 
   const comment_create = Api.comment.create.useMutation()
   const [newComment_input, set_newComment_input] = useState("")
-  function comment_create_mutate() {
-    comment_create.mutate({
+  async function comment_create_mutate() {
+    await comment_create.mutateAsync({
       post_id: id,
       content: newComment_input,
     })
+    set_newComment_input("")
+    postQuery.refetch()
   }
 
   return (
