@@ -195,7 +195,9 @@ export default function Post_details_page({
                 value={newComment_input}
                 onChange={e => set_newComment_input(e.target.value)}
               />
-              <Button onClick={comment_create_mutate}>Objavi</Button>
+              <Button disabled={!newComment_input} onClick={comment_create_mutate}>
+                Objavi
+              </Button>
             </Paper>
           )}
           {comments?.length > 0 ? (
