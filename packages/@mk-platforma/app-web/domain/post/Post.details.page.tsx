@@ -122,7 +122,7 @@ export default function Post_details_page({
                 ) : undefined}
                 {deleteInitiated ? (
                   <ConfirmModal
-                    message={`Jeste li sigurni da želi izbrisati objavu ${title}?`}
+                    message="Da li ste sigurni da želi izbrisati ovu objavu?"
                     onConfirm={handle_delete}
                     onCancel={() => setDeleteInitiated(false)}
                   />
