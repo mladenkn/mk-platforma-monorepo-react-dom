@@ -110,22 +110,6 @@ const Post_api = router({
               },
             },
           },
-          comments: {
-            select: {
-              id: true,
-              content: true,
-              author: {
-                select: {
-                  name: true,
-                  avatarStyle: true,
-                  id: true,
-                },
-              },
-            },
-            orderBy: {
-              id: "desc",
-            },
-          },
           author: {
             select: {
               id: true,
@@ -141,11 +125,6 @@ const Post_api = router({
           canEdit: ctx.user?.canMutate ? post.author.id === ctx.user?.id : false,
           canComment: ctx.user?.canMutate ?? false,
           canDelete: ctx.user?.canMutate ? post.author.id === ctx.user?.id : false,
-          comments: post.comments.map(c => ({
-            ...c,
-            canEdit: ctx.user?.canMutate ? c.author.id === ctx.user?.id : false,
-            canDelete: ctx.user?.canMutate ? c.author.id === ctx.user?.id : false,
-          })),
         }
     }),
 

@@ -30,6 +30,9 @@ const Comment_api = router({
             },
           },
         },
+        orderBy: {
+          id: "desc",
+        },
       })
       .then(list =>
         list.map(c => ({

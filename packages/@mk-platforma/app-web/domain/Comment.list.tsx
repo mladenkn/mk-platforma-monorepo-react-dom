@@ -1,4 +1,4 @@
-import { Paper, Avatar, Input, IconButton, Box } from "@mui/material"
+import { Paper, Input, IconButton, Box } from "@mui/material"
 import Api from "~/api_/api.client"
 import { Comment_listItem } from "./Comment.listItem"
 import SendIcon from "@mui/icons-material/Send"
@@ -17,6 +17,7 @@ export default function Comment_list({ post_id, canComment }: Props) {
       content: newComment_input,
     })
     set_newComment_input("")
+    comments.refetch()
   }
 
   return (

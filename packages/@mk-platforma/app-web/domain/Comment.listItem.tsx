@@ -27,7 +27,7 @@ export function Comment_listItem({ sx, comment }: Props) {
       content: input,
     })
     setIsEdit(false)
-    ctx.post.invalidate()
+    ctx.comment.invalidate()
   }
 
   return (
