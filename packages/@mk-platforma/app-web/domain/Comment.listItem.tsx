@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { Box, SxProps, IconButton, Typography, Avatar, Input } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
+import DoneIcon from "@mui/icons-material/Done"
+import ClearIcon from "@mui/icons-material/Clear"
 import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
 import { match } from "ts-pattern"
@@ -33,21 +35,35 @@ export function Comment_listItem({ sx, comment }: Props) {
             {comment.author.name}
           </Typography>
         </Box>
-        <Box>
-          {comment.canDelete && (
-            <IconButton>
-              <DeleteIcon />
-            </IconButton>
-          )}
-          {comment.canEdit && (
-            <IconButton onClick={() => setIsEdit(true)}>
-              <EditIcon />
-            </IconButton>
-          )}
-        </Box>
+        {match(isEdit)
+          .with(true, () => (
+            <Box>
+              <IconButton sx={{ mr: 1 }}>
+                <ClearIcon />
+              </IconButton>
+              <IconButton>
+                <DoneIcon />
+              </IconButton>
+            </Box>
+          ))
+          .with(false, () => (
+            <Box>
+              {comment.canDelete && (
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              )}
+              {comment.canEdit && (
+                <IconButton onClick={() => setIsEdit(true)}>
+                  <EditIcon />
+                </IconButton>
+              )}
+            </Box>
+          ))
+          .exhaustive()}
       </Box>
       {match(isEdit)
-        .with(true, () => <Input />)
+        .with(true, () => <Input autoFocus />)
         .with(false, () => <Box sx={{ mt: 0.5, ml: 0.5 }}>{comment.content}</Box>)
         .exhaustive()}
     </Box>
