@@ -18,15 +18,14 @@ import ConfirmModal, { LogoLink } from "../common"
 import { useRouter } from "next/router"
 import { orderBy } from "lodash"
 import Carousel from "react-material-ui-carousel"
-import { Comment_listItem } from "../Comment.listItem"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
-import SendIcon from "@mui/icons-material/Send"
 import { Api_outputs } from "~/api_/api.infer"
+import Comment_list from "../Comment.list"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 
@@ -45,7 +44,6 @@ export default function Post_details_page({
     images,
     description,
     contact,
-    comments,
     expertEndorsement,
     author,
     canComment,
@@ -75,17 +73,6 @@ export default function Post_details_page({
   async function handle_delete() {
     await deletePost.mutateAsync(id)
     router.back()
-  }
-
-  const comment_create = Api.comment.create.useMutation()
-  const [newComment_input, set_newComment_input] = useState("")
-  async function comment_create_mutate() {
-    await comment_create.mutateAsync({
-      post_id: id,
-      content: newComment_input,
-    })
-    set_newComment_input("")
-    postQuery.refetch()
   }
 
   return (
@@ -186,30 +173,7 @@ export default function Post_details_page({
             ) : undefined}
             {contact ? <Typography sx={{ mt: 4 }}>Kontakt: {contact}</Typography> : <></>}
           </Paper>
-          {canComment && (
-            <Paper sx={{ borderRadius: 2, mt: 2, p: 1, display: "flex", gap: 1 }}>
-              <Avatar children={avatarProps.children} sx={{ mr: 1, ...avatarProps.sx }} />
-              <Input
-                sx={{ flex: 1 }}
-                placeholder="Komentiraj"
-                multiline
-                value={newComment_input}
-                onChange={e => set_newComment_input(e.target.value)}
-              />
-              <IconButton disabled={!newComment_input} onClick={comment_create_mutate}>
-                <SendIcon />
-              </IconButton>
-            </Paper>
-          )}
-          {comments?.length > 0 ? (
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 2, mt: 3 }}>
-              {comments.map(comment => (
-                <Paper key={comment.id} sx={{ p: 2, pt: 1, borderRadius: 2 }}>
-                  <Comment_listItem comment={comment} />
-                </Paper>
-              ))}
-            </Box>
-          ) : undefined}
+          <Comment_list post_id={id} canComment={canComment} />
         </Box>
       }
     />
