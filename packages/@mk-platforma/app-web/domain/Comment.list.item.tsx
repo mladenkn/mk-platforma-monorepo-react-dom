@@ -77,7 +77,7 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
               onChange={e => setInput(e.target.value)}
               multiline
             />
-            <IconButton disabled={!input} onClick={comment_update_mutate}>
+            <IconButton disabled={!input} onClick={comment_update_mutate} color="primary">
               <SendIcon />
             </IconButton>
           </Box>

@@ -38,7 +38,7 @@ export default function Comment_list({ post_id, canComment }: Props) {
             value={newComment_input}
             onChange={e => set_newComment_input(e.target.value)}
           />
-          <IconButton disabled={!newComment_input} onClick={comment_create_mutate}>
+          <IconButton disabled={!newComment_input} onClick={comment_create_mutate} color="primary">
             <SendIcon />
           </IconButton>
         </Paper>
