@@ -37,7 +37,7 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
         sx={{
           display: "flex",
           alignItems: "center",
-          mb: 1.3,
+          mb: 2,
           justifyContent: "space-between",
         }}
       >
@@ -47,11 +47,9 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
         </Box>
         {match({ isEdit, isSelected })
           .with({ isEdit: true, isSelected: true }, () => (
-            <Box>
-              <IconButton sx={{ mr: 1 }} onClick={() => setIsEdit(false)}>
-                <ClearIcon />
-              </IconButton>
-            </Box>
+            <IconButton sx={{ mr: 1 }} onClick={() => setIsEdit(false)}>
+              <ClearIcon />
+            </IconButton>
           ))
           .with({ isEdit: false, isSelected: true }, () => (
             <Box>
