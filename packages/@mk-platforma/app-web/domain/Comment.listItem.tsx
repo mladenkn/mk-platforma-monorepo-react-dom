@@ -16,9 +16,17 @@ type Props = {
 }
 
 export function Comment_listItem({ sx, comment }: Props) {
-  const comment_update = Api.comment.update.useMutation()
   const [isEdit, setIsEdit] = useState(false)
   const [input, setInput] = useState(comment.content)
+
+  const comment_update = Api.comment.update.useMutation()
+  async function comment_update_mutate() {
+    await comment_update.mutateAsync({
+      id: comment.id,
+      content: input,
+    })
+    setIsEdit(false)
+  }
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", ...sx }}>
@@ -39,10 +47,10 @@ export function Comment_listItem({ sx, comment }: Props) {
         {match(isEdit)
           .with(true, () => (
             <Box>
-              <IconButton sx={{ mr: 1 }}>
+              <IconButton sx={{ mr: 1 }} onClick={() => setIsEdit(false)}>
                 <ClearIcon />
               </IconButton>
-              <IconButton disabled={!input}>
+              <IconButton disabled={!input} onClick={comment_update_mutate}>
                 <DoneIcon />
               </IconButton>
             </Box>
