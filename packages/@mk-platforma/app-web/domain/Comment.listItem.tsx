@@ -20,12 +20,14 @@ export function Comment_listItem({ sx, comment }: Props) {
   const [input, setInput] = useState(comment.content)
 
   const comment_update = Api.comment.update.useMutation()
+  const ctx = Api.useContext()
   async function comment_update_mutate() {
     await comment_update.mutateAsync({
       id: comment.id,
       content: input,
     })
     setIsEdit(false)
+    ctx.post.invalidate()
   }
 
   return (
