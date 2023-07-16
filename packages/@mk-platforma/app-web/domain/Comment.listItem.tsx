@@ -1,9 +1,10 @@
-import React from "react"
-import { Box, SxProps, IconButton, Typography, Avatar } from "@mui/material"
+import React, { useState } from "react"
+import { Box, SxProps, IconButton, Typography, Avatar, Input } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
+import { match } from "ts-pattern"
 
 type Comment = Api_outputs["comment"]["many"][number]
 
@@ -14,6 +15,7 @@ type Props = {
 
 export function Comment_listItem({ sx, comment }: Props) {
   const comment_update = Api.comment.update.useMutation()
+  const [isEdit, setIsEdit] = useState(false)
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", ...sx }}>
@@ -38,13 +40,16 @@ export function Comment_listItem({ sx, comment }: Props) {
             </IconButton>
           )}
           {comment.canEdit && (
-            <IconButton>
+            <IconButton onClick={() => setIsEdit(true)}>
               <EditIcon />
             </IconButton>
           )}
         </Box>
       </Box>
-      <Box sx={{ mt: 0.5, ml: 0.5 }}>{comment.content}</Box>
+      {match(isEdit)
+        .with(true, () => <Input />)
+        .with(false, () => <Box sx={{ mt: 0.5, ml: 0.5 }}>{comment.content}</Box>)
+        .exhaustive()}
     </Box>
   )
 }
