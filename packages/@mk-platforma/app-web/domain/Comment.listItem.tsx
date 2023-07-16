@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Box, SxProps, IconButton, Typography, Avatar, Input } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
-import DoneIcon from "@mui/icons-material/Done"
+import SendIcon from "@mui/icons-material/Send"
 import ClearIcon from "@mui/icons-material/Clear"
 import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
@@ -52,9 +52,6 @@ export function Comment_listItem({ sx, comment }: Props) {
               <IconButton sx={{ mr: 1 }} onClick={() => setIsEdit(false)}>
                 <ClearIcon />
               </IconButton>
-              <IconButton disabled={!input} onClick={comment_update_mutate}>
-                <DoneIcon />
-              </IconButton>
             </Box>
           ))
           .with(false, () => (
@@ -75,7 +72,18 @@ export function Comment_listItem({ sx, comment }: Props) {
       </Box>
       {match(isEdit)
         .with(true, () => (
-          <Input autoFocus value={input} onChange={e => setInput(e.target.value)} />
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <Input
+              sx={{ flex: 1 }}
+              autoFocus
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              multiline
+            />
+            <IconButton disabled={!input} onClick={comment_update_mutate}>
+              <SendIcon />
+            </IconButton>
+          </Box>
         ))
         .with(false, () => <Box sx={{ mt: 0.5, ml: 0.5 }}>{comment.content}</Box>)
         .exhaustive()}
