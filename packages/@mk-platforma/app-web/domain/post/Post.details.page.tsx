@@ -25,6 +25,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
+import SendIcon from "@mui/icons-material/Send"
 import { Api_outputs } from "~/api_/api.infer"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
@@ -195,9 +196,9 @@ export default function Post_details_page({
                 value={newComment_input}
                 onChange={e => set_newComment_input(e.target.value)}
               />
-              <Button disabled={!newComment_input} onClick={comment_create_mutate}>
-                Objavi
-              </Button>
+              <IconButton disabled={!newComment_input} onClick={comment_create_mutate}>
+                <SendIcon />
+              </IconButton>
             </Paper>
           )}
           {comments?.length > 0 ? (
