@@ -53,8 +53,6 @@ export default function Category_dropdown({
 
   const value_option = value && options ? options.find(c => c.id === value)! : undefined
 
-  console.log(48, options_premap, options)
-
   return (
     <Autocomplete
       fullWidth
