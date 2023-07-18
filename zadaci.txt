@@ -1,5 +1,5 @@
 - pravo
-- staging/prod baza
+- preview/prod baza
 - za sve treba login
 
 - mobile app
