@@ -7,6 +7,7 @@ import ClearIcon from "@mui/icons-material/Clear"
 import { Api_outputs } from "~/api_/api.infer"
 import Api from "~/api_/api.client"
 import { match } from "ts-pattern"
+import ConfirmModal from "./common"
 
 type Comment = Api_outputs["comment"]["many"][number]
 
@@ -31,6 +32,15 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
     ctx.comment.invalidate()
   }
 
+  const [deleteInitiated, set_deleteInitiated] = useState(false)
+  async function deleteComment() {
+    await comment_update.mutateAsync({
+      id: comment.id,
+      isDeleted: true,
+    })
+    ctx.comment.invalidate()
+  }
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Box
@@ -45,6 +55,13 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
           <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name?.[0]} />
           <Typography fontWeight={500}>{comment.author.name}</Typography>
         </Box>
+        {deleteInitiated ? (
+          <ConfirmModal
+            message="Da li ste sigurni da želite izbrisati ovaj komentar?"
+            onCancel={() => set_deleteInitiated(false)}
+            onConfirm={deleteComment}
+          />
+        ) : undefined}
         {match({ isEdit, isSelected })
           .with({ isEdit: true, isSelected: true }, () => (
             <IconButton onClick={() => setIsEdit(false)}>
@@ -53,11 +70,11 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
           ))
           .with({ isEdit: false, isSelected: true }, () => (
             <Box>
-              {/* {comment.canDelete && (
-                <IconButton>
+              {comment.canDelete && (
+                <IconButton onClick={() => set_deleteInitiated(true)}>
                   <DeleteIcon />
                 </IconButton>
-              )} */}
+              )}
               {comment.canEdit && (
                 <IconButton onClick={() => setIsEdit(true)}>
                   <EditIcon />

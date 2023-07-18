@@ -104,10 +104,11 @@ model Image {
 }
 
 model Comment {
-  id        Int    @id @default(autoincrement())
-  content   String @db.Text
+  id        Int     @id @default(autoincrement())
+  content   String  @db.Text
   author_id Int
   post_id   Int
+  isDeleted Boolean @default(false)
 
   post   Post @relation(fields: [post_id], references: [id])
   author User @relation(fields: [author_id], references: [id])

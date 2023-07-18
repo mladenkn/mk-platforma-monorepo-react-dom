@@ -80,7 +80,7 @@ export const LocationScalarFieldEnumSchema = z.enum(['id','google_id','latitude'
 
 export const ImageScalarFieldEnumSchema = z.enum(['id','uploadthing_key','post_id','url','isMain']);
 
-export const CommentScalarFieldEnumSchema = z.enum(['id','content','author_id','post_id']);
+export const CommentScalarFieldEnumSchema = z.enum(['id','content','author_id','post_id','isDeleted']);
 
 export const UserScalarFieldEnumSchema = z.enum(['id','name','avatarStyle','email','emailVerified','canMutate']);
 
@@ -203,6 +203,7 @@ export const CommentSchema = z.object({
   content: z.string(),
   author_id: z.number().int(),
   post_id: z.number().int(),
+  isDeleted: z.boolean(),
 })
 
 export type Comment = z.infer<typeof CommentSchema>

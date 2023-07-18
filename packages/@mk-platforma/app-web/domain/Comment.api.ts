@@ -2,6 +2,7 @@ import { z } from "zod"
 import { authorizedRoute, router } from "~/api_/api.server.utils"
 import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
+import { shallowPick } from "@mk-libs/common/common"
 
 const Comment_api_many = SuperData_mapper(
   z.object({
@@ -10,6 +11,10 @@ const Comment_api_many = SuperData_mapper(
   async (_, input) => ({
     where: {
       post_id: input.post_id,
+      isDeleted: false,
+    },
+    orderBy: {
+      id: "desc" as "desc",
     },
   })
 )
@@ -29,9 +34,6 @@ const Comment_api = router({
               id: true,
             },
           },
-        },
-        orderBy: {
-          id: "desc",
         },
       })
       .then(list =>
@@ -57,14 +59,15 @@ const Comment_api = router({
   update: authorizedRoute(u => u.canMutate && !!u.name)
     .input(
       z.object({
-        content: z.string().min(1),
         id: z.number(),
+        content: z.string().min(1).optional(),
+        isDeleted: z.boolean().optional(),
       })
     )
     .mutation(({ ctx, input }) =>
       ctx.db.comment.update({
         where: { id: input.id, author_id: ctx.user.id },
-        data: { content: input.content },
+        data: shallowPick(input, "content", "isDeleted"),
       })
     ),
 })
