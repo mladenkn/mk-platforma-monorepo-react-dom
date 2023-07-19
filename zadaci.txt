@@ -1,5 +1,6 @@
 - pravo
 - za sve treba login
+- potražit hosting za staging
 - ili skužit ono u vezi naplaćivanja za Google lokacije, ili napravit da ih samo ja uređivam
 - donacije
 
