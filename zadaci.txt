@@ -5,10 +5,10 @@
 
 - mobile app
 - post.images brisat neiskorištene
-- post.images smanjivat kvalitetu
 - kad je server side error (kod 500), nesmi ga vratit na klijent
-- post.form.validacija prevest
 - Image model --> File model
+- post.form.validacija prevest
+- post.images smanjivat kvalitetu
 
 
 - treba li User.id bit string?
