@@ -11,7 +11,7 @@ const dbInstance = parsed["db-instance"]
 const run_args = match(parsed.command)
   .with("dev", () => [
     {
-      POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev"),
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
       UPLOADTHING_SECRET:
         "sk_live_8f78c8c092e0657bb96f964c1527e3b5257969372b653a8b4d711cb7e1fc9cfb",
       UPLOADTHING_APP_ID: "2axqlwskhd",
@@ -20,11 +20,11 @@ const run_args = match(parsed.command)
   ])
 
   .with("dev.test", async () => {
-    process.env.POSTGRES_PRISMA_URL = getConnectionString("test.local")
+    process.env.DATABASE_URL = getConnectionString("test.local")
     const user = await seedTestUser()
     return [
       {
-        POSTGRES_PRISMA_URL: getConnectionString("test.local"),
+        DATABASE_URL: getConnectionString("test.local"),
         NEXT_PUBLIC_MOCK_USER_ID: user.id,
         // fali uploadthing
       },
@@ -36,24 +36,24 @@ const run_args = match(parsed.command)
 
   .with("db.prisma", () => [
     {
-      POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev"),
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
     },
     `prisma ${parsed._unknown!.join(" ")}`,
   ])
 
   .with("db.seed", () => [
-    { POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev") },
+    { DATABASE_URL: getConnectionString(dbInstance || "dev") },
     () => require("./data.gen/db.seed.ts"),
   ])
 
   .with("db.truncate", () => [
-    { POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev") },
+    { DATABASE_URL: getConnectionString(dbInstance || "dev") },
     `prisma db execute --file ./db.truncate.sql`,
   ])
 
   .with("db.reset", () => [
     {
-      POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev"),
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
     },
     [
       `prisma db execute --file ./db.truncate.sql`,
@@ -67,7 +67,7 @@ const run_args = match(parsed.command)
 
   .with("start.staging", () => [
     {
-      POSTGRES_PRISMA_URL: getConnectionString("staging"),
+      DATABASE_URL: getConnectionString("staging"),
       NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
       UPLOADTHING_SECRET:
         "sk_live_1e63ba0daf256fad652b9cb7cc67d322bb51f60e9c5383ce7b5f42bd9b86e3ad",
@@ -77,11 +77,11 @@ const run_args = match(parsed.command)
   ])
 
   .with("start.test", async () => {
-    process.env.POSTGRES_PRISMA_URL = getConnectionString("test.local")
+    process.env.DATABASE_URL = getConnectionString("test.local")
     const user = await seedTestUser()
     return [
       {
-        POSTGRES_PRISMA_URL: getConnectionString("test.local"),
+        DATABASE_URL: getConnectionString("test.local"),
         NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
         NEXT_PUBLIC_MOCK_USER_ID: user.id,
         // fali uploadthing
@@ -91,7 +91,7 @@ const run_args = match(parsed.command)
   })
 
   .with("playground", () => [
-    { POSTGRES_PRISMA_URL: getConnectionString(dbInstance || "dev") },
+    { DATABASE_URL: getConnectionString(dbInstance || "dev") },
     () => require("./playground.ts"),
   ])
 

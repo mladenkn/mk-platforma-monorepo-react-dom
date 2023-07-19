@@ -3,7 +3,7 @@ import Post_crud_test_helper_create from "./post.crud.test.helper"
 import db from "~/prisma/instance"
 import { getConnectionString } from "~/cli.utils"
 
-process.env.POSTGRES_PRISMA_URL = getConnectionString("test.local")
+process.env.DATABASE_URL = getConnectionString("test.local")
 let newPost_id: number
 
 test("Post CRUD", async ({ page }) => {
