@@ -76,6 +76,9 @@ const run_args = match(parsed.command)
     {
       POSTGRES_PRISMA_URL: getConnectionString("staging"),
       NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
+      UPLOADTHING_SECRET:
+        "sk_live_1e63ba0daf256fad652b9cb7cc67d322bb51f60e9c5383ce7b5f42bd9b86e3ad",
+      UPLOADTHING_APP_ID: "5zs915ybo0",
     },
     "next start",
   ])
