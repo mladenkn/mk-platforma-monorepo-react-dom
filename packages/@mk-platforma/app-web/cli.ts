@@ -26,6 +26,7 @@ const run_args = match(parsed.command)
       {
         POSTGRES_PRISMA_URL: getConnectionString("test.local"),
         NEXT_PUBLIC_MOCK_USER_ID: user.id,
+        // fali uploadthing
       },
       `next dev -p 3010`,
     ]
@@ -83,6 +84,7 @@ const run_args = match(parsed.command)
         POSTGRES_PRISMA_URL: getConnectionString("test.local"),
         NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
         NEXT_PUBLIC_MOCK_USER_ID: user.id,
+        // fali uploadthing
       },
       "next start --port 3010",
     ]
