@@ -1,13 +1,10 @@
 - pravo
-- username bug
 - staging/prod baza i file upload
 - za sve treba login
 
 - mobile app
 - post.images brisat neiskorištene
 - post.images smanjivat kvalitetu
-
-- možda nešto sa brisanjem
 
 - post.form.validacija prevest
 
