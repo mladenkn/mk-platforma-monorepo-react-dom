@@ -72,6 +72,14 @@ const run_args = match(parsed.command)
     "next start",
   ])
 
+  .with("start.staging", () => [
+    {
+      POSTGRES_PRISMA_URL: getConnectionString("staging"),
+      NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
+    },
+    "next start",
+  ])
+
   .with("start.test", async () => {
     process.env.POSTGRES_PRISMA_URL = getConnectionString("test.local")
     const user = await seedTestUser()

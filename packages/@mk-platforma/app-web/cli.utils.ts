@@ -92,8 +92,8 @@ export function getConnectionString(env: string) {
       return "postgresql://postgres:postgres@localhost:5432/za_brata"
     case "test.local":
       return "postgresql://postgres:postgres@localhost:5432/za_brata_test"
-    case "preview":
-      return "postgres://mladenkn:EWT4n5pMetaB@ep-shy-paper-831120.eu-central-1.aws.neon.tech/neondb"
+    case "staging":
+      return "TODO"
     case "prod":
       return "postgres://default:dLkKj9hoY7WT@ep-long-rain-221377-pooler.us-east-1.postgres.vercel-storage.com/verceldb?pgbouncer=true&connect_timeout=15"
     default:
