@@ -50,17 +50,17 @@ const auth_options = (req: Request, res: NextApiResponse) =>
         }
         return session
       },
-      signIn({ email }) {
-        if (email?.verificationRequest === true) {
-          return req.body.password === "maca i miš"
-        }
-        return true
-      },
+      // signIn({ email }) {
+      //   if (email?.verificationRequest === true) {
+      //     return req.body.password === "maca i miš"
+      //   }
+      //   return true
+      // },
     },
-    pages: {
-      newUser: "/profile/edit",
-      signIn: "/login",
-    },
+    // pages: {
+    //   newUser: "/profile/edit",
+    //   signIn: "/login",
+    // },
     session: {
       maxAge: 2592000 * 24, // 30 dana * 24
     },
