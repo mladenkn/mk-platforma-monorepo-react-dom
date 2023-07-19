@@ -1,6 +1,6 @@
 - pravo
-- staging/prod baza i file upload
 - za sve treba login
+- ili skužit ono u vezi naplaćivanja za Google lokacije, ili napravit da ih samo ja uređivam
 
 - mobile app
 - post.images brisat neiskorištene
