@@ -37,7 +37,14 @@ const Location_api = router({
 
   many_google_save: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const locations = await location_api_google__search(input)
-    return await ctx.db.location.create({ data: locations[0] })
+    for (const location of locations) {
+      await ctx.db.location.upsert({
+        where: { google_id: location.google_id },
+        update: location,
+        create: location,
+      })
+    }
+    return locations
   }),
 })
 
