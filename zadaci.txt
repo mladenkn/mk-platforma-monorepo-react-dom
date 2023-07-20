@@ -1,8 +1,8 @@
-- pravo
 - za sve treba login
 - potražit hosting za staging, ili baze odvojeno od vercela
 . seed za prod
 - donacije
+- pravo
 
 - mobile app
 - post.images brisat neiskorištene
