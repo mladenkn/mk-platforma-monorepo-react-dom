@@ -2,6 +2,7 @@
 - donacije
 - pravo
 
+- još kategorija
 - popravit login da treba šifra, može i kasnije
 - mobile app
 - post.images brisat neiskorištene
