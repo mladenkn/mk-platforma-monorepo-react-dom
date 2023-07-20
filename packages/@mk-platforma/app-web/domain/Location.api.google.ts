@@ -11,6 +11,7 @@ export async function location_api_google__search(query: string) {
       params: {
         query: query,
         key,
+        type: "locality" as any,
       },
     })
     .then(r => r.data.results.filter(p => p.place_id))
