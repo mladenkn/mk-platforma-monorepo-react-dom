@@ -1,9 +1,11 @@
 import { match } from "ts-pattern"
-import { parseCommand, run, getConnectionString } from "./cli.utils"
+import { parseCommand, run, getConnectionString, Api_ss_cli_create } from "./cli.utils"
 import "@mk-libs/common/server-only"
 import db from "./prisma/instance"
 import { isPromise } from "util/types"
 import { isArray } from "lodash"
+import Location_api_google_create from "./domain/Location.api.google"
+import { Api_ss } from "./api_/api.root"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
@@ -93,6 +95,26 @@ const run_args = match(parsed.command)
   .with("playground", () => [
     { DATABASE_URL: getConnectionString(dbInstance || "dev") },
     () => require("./playground.ts"),
+  ])
+
+  .with("location.google.api.many", () => [
+    {},
+    () => {
+      const { search } = Location_api_google_create()
+      const searchQuery = parsed._unknown![0] as string
+      search(searchQuery).then(console.log).catch(console.error)
+    },
+  ])
+
+  .with("location.searchGoogle.thanUpsert", async () => [
+    {
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
+    },
+    async () => {
+      const api = await Api_ss_cli_create()
+      const searchQuery = parsed._unknown![0] as string
+      api.location.searchGoogle_thanUpsert(searchQuery).then(console.log).catch(console.error)
+    },
   ])
 
   .exhaustive()

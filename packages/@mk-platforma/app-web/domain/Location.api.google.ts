@@ -7,7 +7,7 @@ const key = "AIzaSyAlZmjA7GGwjG2A6b2lo6RmWE5FbIKu8eQ"
 export default function Location_api_google_create() {
   const client = new Client({})
 
-  async function many(query: string) {
+  async function search(query: string) {
     return await client
       .textSearch({
         params: {
@@ -58,7 +58,7 @@ export default function Location_api_google_create() {
   }
 
   return {
-    many,
+    search,
     details,
   }
 }

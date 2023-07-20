@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "~/api_/api.server.utils"
+import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import { z } from "zod"
 import { Location, PrismaClient } from "@prisma/client"
 import "@mk-libs/common/server-only"
@@ -30,7 +30,7 @@ function getQuery(query?: string) {
 const Location_api = router({
   many: publicProcedure.input(Input).query(async ({ ctx, input }) => {
     if (input.query) {
-      const locations_googleSearch = await location_google_api.many(input.query)
+      const locations_googleSearch = await location_google_api.search(input.query)
       await upsertLocations(ctx.db, locations_googleSearch)
 
       const locations_googleSearch_googleIds = locations_googleSearch.map(i => i.google_id)
@@ -54,6 +54,12 @@ const Location_api = router({
   single: publicProcedure.input(z.object({ id: z.number() })).query(({ ctx, input }) => {
     return ctx.db.location.findUnique({ where: { id: input.id } })
   }),
+  searchGoogle_thanUpsert: authorizedRoute()
+    .input(z.string())
+    .query(async ({ ctx, input }) => {
+      const locations_googleSearch = await location_google_api.search(input)
+      await upsertLocations(ctx.db, locations_googleSearch)
+    }),
 })
 
 type Save_input = Omit<Location, "id" | "country" | "adminAreaLevel1">

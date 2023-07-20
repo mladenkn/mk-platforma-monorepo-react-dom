@@ -2,6 +2,8 @@ import commandLineArgs from "command-line-args"
 import { spawn, exec } from "child_process"
 import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
+import db from "./prisma/instance"
+import { Api_ss } from "./api_/api.root"
 
 const options = [
   { name: "command", defaultOption: true },
@@ -103,4 +105,9 @@ export function getConnectionString(env: string) {
     default:
       throw new Error(`Unsupported env: ${env}`)
   }
+}
+
+export async function Api_ss_cli_create() {
+  const user = await db.user.findFirst({ where: { canMutate: true } })
+  return Api_ss({ user: user!, db, getCookie: () => null })
 }
