@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 import { PostGeneratorParams } from "./data.gen._utils"
-import data_images from "./images.gen.json"
+import data_images from "./data.gen.images.json"
 
 const withRelatedProps = [
   {
