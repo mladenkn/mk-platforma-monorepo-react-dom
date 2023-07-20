@@ -106,14 +106,13 @@ const run_args = match(parsed.command)
     },
   ])
 
-  .with("location.save.withGoogleId", async () => [
-    {
-      DATABASE_URL: getConnectionString(dbInstance || "dev"),
-    },
+  .with("location.google.many.save", () => [
+    {},
     async () => {
       const api = await Api_ss_cli_create()
-      const id = parsed._unknown![0] as string
-      api.location.save_withGoogleId(id).then(console.log).catch(console.error)
+      const searchQuery = parsed._unknown![0] as string
+      const location = await api.location.many_google_save(searchQuery)
+      console.log(location)
     },
   ])
 

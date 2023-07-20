@@ -32,6 +32,16 @@ const Location_api = router({
     return ctx.db.location.findMany(query)
   }),
 
+  many_google: publicProcedure
+    .input(z.string())
+    .query(({ ctx, input }) => location_google_api.search(input)),
+
+  many_google_save: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
+    const locations = await location_google_api.search(input)
+    const location_details = await location_google_api.details(locations[0].google_id)
+    return await ctx.db.location.create({ data: location_details })
+  }),
+
   single: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(({ ctx, input }) => ctx.db.location.findUnique({ where: { id: input.id } })),
