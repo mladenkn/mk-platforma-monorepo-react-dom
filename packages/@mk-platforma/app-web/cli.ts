@@ -97,7 +97,7 @@ const run_args = match(parsed.command)
     () => require("./playground.ts"),
   ])
 
-  .with("location.google.api.many", () => [
+  .with("location.google.many", () => [
     {},
     () => {
       const { search } = Location_api_google_create()
