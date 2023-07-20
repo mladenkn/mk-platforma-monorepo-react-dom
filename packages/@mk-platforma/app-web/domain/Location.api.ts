@@ -2,6 +2,7 @@ import { publicProcedure, router } from "~/api_/api.server.utils"
 import { z } from "zod"
 import "@mk-libs/common/server-only"
 import { location_api_google__search } from "./Location.api.google"
+import db from "~/prisma/instance"
 
 const Input = z.object({
   query: z.string().optional(),
@@ -34,18 +35,18 @@ const Location_api = router({
   single: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(({ ctx, input }) => ctx.db.location.findUnique({ where: { id: input.id } })),
-
-  many_google_save: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
-    const locations = await location_api_google__search(input)
-    for (const location of locations) {
-      await ctx.db.location.upsert({
-        where: { google_id: location.google_id },
-        update: location,
-        create: location,
-      })
-    }
-    return locations
-  }),
 })
+
+export async function Location_many_google_save(query: string) {
+  const locations = await location_api_google__search(query)
+  for (const location of locations) {
+    await db.location.upsert({
+      where: { google_id: location.google_id },
+      update: location,
+      create: location,
+    })
+  }
+  return locations
+}
 
 export default Location_api
