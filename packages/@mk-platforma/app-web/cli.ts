@@ -96,7 +96,9 @@ const run_args = match(parsed.command)
   ])
 
   .with("location.google.many", () => [
-    {},
+    {
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
+    },
     async () => {
       const api = await Api_ss_cli_create()
       const searchQuery = parsed._unknown![0] as string
@@ -105,7 +107,9 @@ const run_args = match(parsed.command)
   ])
 
   .with("location.google.many.save", () => [
-    {},
+    {
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
+    },
     async () => {
       const api = await Api_ss_cli_create()
       const searchQuery = parsed._unknown![0] as string
