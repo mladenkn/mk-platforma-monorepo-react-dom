@@ -16,6 +16,7 @@ function getQuery(query?: string) {
       id: true,
       name: true,
       country: true,
+      adminAreaLevel1: true,
     },
     take: 10,
     orderBy: {
