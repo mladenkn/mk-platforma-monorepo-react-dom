@@ -8,10 +8,10 @@
 - post.images brisat neiskorištene
 - kad je server side error (kod 500), nesmi ga vratit na klijent
 - Image model --> File model
-- post.form.validacija prevest
 - post.images smanjivat kvalitetu
 - Location.country i Location.adminAreaLevel1 kao posebni modeli
 - ako dajem kod obavezno očistit sve ključeve iz koda!
+- post.form.validacija prevest
 
 
 - treba li User.id bit string?
