@@ -4,6 +4,7 @@ import "@mk-libs/common/server-only"
 import db from "./prisma/instance"
 import { isPromise } from "util/types"
 import { isArray } from "lodash"
+import { location_api_google__search } from "./domain/Location.api.google"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
@@ -96,13 +97,10 @@ const run_args = match(parsed.command)
   ])
 
   .with("location.google.many", () => [
-    {
-      DATABASE_URL: getConnectionString(dbInstance || "dev"),
-    },
+    {},
     async () => {
-      const api = await Api_ss_cli_create()
       const searchQuery = parsed._unknown![0] as string
-      api.location.many_google(searchQuery).then(console.log).catch(console.error)
+      location_api_google__search(searchQuery).then(console.log).catch(console.error)
     },
   ])
 

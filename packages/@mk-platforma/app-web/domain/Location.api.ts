@@ -1,7 +1,7 @@
 import { publicProcedure, router } from "~/api_/api.server.utils"
 import { z } from "zod"
 import "@mk-libs/common/server-only"
-import { location_api_google__details, location_api_google__search } from "./Location.api.google"
+import { location_api_google__search } from "./Location.api.google"
 
 const Input = z.object({
   query: z.string().optional(),
@@ -35,17 +35,9 @@ const Location_api = router({
     .input(z.object({ id: z.number() }))
     .query(({ ctx, input }) => ctx.db.location.findUnique({ where: { id: input.id } })),
 
-  many_google: publicProcedure.input(z.string()).query(async ({ input }) => {
-    const locations = await location_api_google__search(input)
-    return await Promise.all(
-      locations.map(location => location_api_google__details(location.google_id))
-    )
-  }),
-
   many_google_save: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const locations = await location_api_google__search(input)
-    const location_details = await location_api_google__details(locations[0].google_id)
-    return await ctx.db.location.create({ data: location_details })
+    return await ctx.db.location.create({ data: locations[0] })
   }),
 })
 

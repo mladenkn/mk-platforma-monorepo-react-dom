@@ -6,33 +6,21 @@ const key = "AIzaSyAlZmjA7GGwjG2A6b2lo6RmWE5FbIKu8eQ"
 const client = new Client({})
 
 export async function location_api_google__search(query: string) {
-  return await client
+  const locations = await client
     .textSearch({
       params: {
         query: query,
         key,
       },
     })
-    .then(r =>
-      r.data.results
-        .filter(
-          p =>
-            p.place_id &&
-            p.geometry?.location.lng &&
-            p.geometry?.location.lat &&
-            p.name &&
-            p.types?.includes("locality" as any)
-        )
-        .map(p => ({
-          google_id: asNonNil(p.place_id),
-          name: asNonNil(p.name),
-          longitude: new Prisma.Decimal(p.geometry?.location.lng!),
-          latitude: new Prisma.Decimal(p.geometry?.location.lat!),
-        }))
-    )
+    .then(r => r.data.results.filter(p => p.place_id))
+  const locations_withDetails = await Promise.all(
+    locations.map(l => location_api_google__details(l.place_id!))
+  )
+  return locations_withDetails
 }
 
-export async function location_api_google__details(id: string) {
+async function location_api_google__details(id: string) {
   const details = await client
     .placeDetails({
       params: {
