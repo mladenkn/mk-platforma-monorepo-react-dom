@@ -117,6 +117,17 @@ const run_args = match(parsed.command)
     },
   ])
 
+  .with("location.many", async () => [
+    {
+      DATABASE_URL: getConnectionString(dbInstance || "dev"),
+    },
+    async () => {
+      const api = await Api_ss_cli_create()
+      const query = parsed._unknown![0] as string
+      api.location.many({ query }).then(console.log).catch(console.error)
+    },
+  ])
+
   .exhaustive()
 
 if (isPromise(run_args)) {
