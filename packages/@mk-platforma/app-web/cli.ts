@@ -6,6 +6,7 @@ import { isPromise } from "util/types"
 import { isArray } from "lodash"
 import { location_api_google__search } from "./domain/Location.api.google"
 import { Location_many_google_save } from "./domain/Location.api"
+import { asString } from "@mk-libs/common/common"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
@@ -100,7 +101,7 @@ const run_args = match(parsed.command)
   .with("location.google.many", () => [
     {},
     async () => {
-      const searchQuery = parsed._unknown![0] as string
+      const searchQuery = asString(parsed._unknown?.[0])
       location_api_google__search(searchQuery).then(console.log).catch(console.error)
     },
   ])
@@ -110,7 +111,7 @@ const run_args = match(parsed.command)
       DATABASE_URL: getConnectionString(dbInstance || "dev"),
     },
     async () => {
-      const searchQuery = parsed._unknown![0] as string
+      const searchQuery = asString(parsed._unknown![0])
       Location_many_google_save(searchQuery).then(console.log).catch(console.error)
     },
   ])
@@ -121,7 +122,7 @@ const run_args = match(parsed.command)
     },
     async () => {
       const api = await Api_ss_cli_create()
-      const query = parsed._unknown![0] as string
+      const query = asString(parsed._unknown?.[0])
       api.location.many({ query }).then(console.log).catch(console.error)
     },
   ])

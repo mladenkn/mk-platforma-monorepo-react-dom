@@ -1,4 +1,4 @@
-import { isEqual, isNil, isNumber, isObject, transform } from "lodash"
+import { isEqual, isNil, isObject, isString, transform } from "lodash"
 import { DeepPartial, DeepRequired } from "utility-types"
 
 export function addNumbers(num1: number, num2: number) {
@@ -9,6 +9,17 @@ export function assertIsNonNil<T>(val: T): asserts val is NonNullable<T> {
   if (isNil(val)) {
     throw new Error(`Expected 'val' to be defined, but received ${val}`)
   }
+}
+
+export function assertIsString(val: unknown): asserts val is string {
+  if (!isString(val)) {
+    throw new Error(`Expected 'val' to be string, but received ${val}`)
+  }
+}
+
+export function asString(val?: unknown) {
+  assertIsString(val)
+  return val
 }
 
 export function asNonNil<T>(val?: T) {
