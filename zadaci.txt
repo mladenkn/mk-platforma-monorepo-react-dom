@@ -1,7 +1,7 @@
 - pravo
 - za sve treba login
 - potražit hosting za staging, ili baze odvojeno od vercela
-- ili skužit ono u vezi naplaćivanja za Google lokacije, ili napravit da ih samo ja uređivam
+. seed za prod
 - donacije
 
 - mobile app
