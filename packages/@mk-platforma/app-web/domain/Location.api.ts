@@ -39,14 +39,15 @@ const Location_api = router({
 
 export async function Location_many_google_save(query: string) {
   const locations = await location_api_google__search(query)
-  for (const location of locations) {
-    await db.location.upsert({
-      where: { google_id: location.google_id },
-      update: location,
-      create: location,
-    })
-  }
-  return locations
+  return await Promise.all(
+    locations.map(location =>
+      db.location.upsert({
+        where: { google_id: location.google_id },
+        update: location,
+        create: location,
+      })
+    )
+  )
 }
 
 export default Location_api
