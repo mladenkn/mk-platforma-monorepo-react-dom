@@ -1,9 +1,8 @@
-- za sve treba login
-- potražit hosting za staging, ili baze odvojeno od vercela
-. seed za prod
+- login za sve
 - donacije
 - pravo
 
+- popravit login da treba šifra, može i kasnije
 - mobile app
 - post.images brisat neiskorištene
 - kad je server side error (kod 500), nesmi ga vratit na klijent
