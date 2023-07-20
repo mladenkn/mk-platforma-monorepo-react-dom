@@ -37,17 +37,13 @@ const Location_api = router({
     .query(({ ctx, input }) => ctx.db.location.findUnique({ where: { id: input.id } })),
 })
 
-export async function Location_many_google_save(query: string) {
-  const locations = await location_api_google__search(query)
-  return await Promise.all(
-    locations.map(location =>
-      db.location.upsert({
-        where: { google_id: location.google_id },
-        update: location,
-        create: location,
-      })
-    )
-  )
+export async function Location_google_find_save(query: string) {
+  const location = await location_api_google__search(query).then(r => r[0])
+  return db.location.upsert({
+    where: { google_id: location.google_id },
+    update: location,
+    create: location,
+  })
 }
 
 export default Location_api

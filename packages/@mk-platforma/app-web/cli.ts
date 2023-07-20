@@ -5,7 +5,7 @@ import db from "./prisma/instance"
 import { isPromise } from "util/types"
 import { isArray } from "lodash"
 import { location_api_google__search } from "./domain/Location.api.google"
-import { Location_many_google_save } from "./domain/Location.api"
+import { Location_google_find_save } from "./domain/Location.api"
 import { asString } from "@mk-libs/common/common"
 
 const parsed = parseCommand()
@@ -98,21 +98,23 @@ const run_args = match(parsed.command)
     () => require("./playground.ts"),
   ])
 
-  .with("location.google.many", () => [
+  .with("location.google.find", () => [
     {},
     async () => {
       const searchQuery = asString(parsed._unknown?.[0])
-      location_api_google__search(searchQuery).then(console.log).catch(console.error)
+      location_api_google__search(searchQuery)
+        .then(r => console.log(r[0]))
+        .catch(console.error)
     },
   ])
 
-  .with("location.google.many.save", () => [
+  .with("location.google.find.save", () => [
     {
       DATABASE_URL: getConnectionString(dbInstance || "dev"),
     },
     async () => {
       const searchQuery = asString(parsed._unknown![0])
-      Location_many_google_save(searchQuery).then(console.log).catch(console.error)
+      Location_google_find_save(searchQuery).then(console.log).catch(console.error)
     },
   ])
 
