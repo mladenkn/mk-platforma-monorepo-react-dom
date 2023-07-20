@@ -45,19 +45,6 @@ const Location_api = router({
   single: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(({ ctx, input }) => ctx.db.location.findUnique({ where: { id: input.id } })),
-
-  save_withGoogleId: authorizedRoute(u => u.canMutate)
-    .input(z.string())
-    .query(async ({ ctx, input }) => {
-      const location_fromGoogle = await location_google_api.details(input)
-      const location_fromDb = await ctx.db.location.findUnique({
-        where: { google_id: location_fromGoogle.google_id },
-      })
-      // TODO: obavijestit ako je već spremljeno
-      if (!location_fromDb) {
-        await ctx.db.location.create({ data: location_fromGoogle })
-      }
-    }),
 })
 
 export default Location_api
