@@ -11,6 +11,7 @@
 - post.form.validacija prevest
 - post.images smanjivat kvalitetu
 - Location.country i Location.adminAreaLevel1 kao posebni modeli
+- ako dajem kod obavezno očistit sve ključeve iz koda!
 
 
 - treba li User.id bit string?
