@@ -52,6 +52,10 @@ export default function Location_api_google_create() {
     )?.long_name
 
     return {
+      google_id: asNonNil(details.place_id),
+      name: asNonNil(details.name),
+      longitude: new Prisma.Decimal(details.geometry?.location.lng!),
+      latitude: new Prisma.Decimal(details.geometry?.location.lat!),
       country,
       adminAreaLevel1,
     }

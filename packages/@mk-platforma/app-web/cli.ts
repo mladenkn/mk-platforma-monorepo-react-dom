@@ -106,14 +106,14 @@ const run_args = match(parsed.command)
     },
   ])
 
-  .with("location.searchGoogle.thanUpsert", async () => [
+  .with("location.save.withGoogleId", async () => [
     {
       DATABASE_URL: getConnectionString(dbInstance || "dev"),
     },
     async () => {
       const api = await Api_ss_cli_create()
-      const searchQuery = parsed._unknown![0] as string
-      api.location.searchGoogle_thanUpsert(searchQuery).then(console.log).catch(console.error)
+      const id = parsed._unknown![0] as string
+      api.location.save_withGoogleId(id).then(console.log).catch(console.error)
     },
   ])
 
