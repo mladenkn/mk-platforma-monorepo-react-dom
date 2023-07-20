@@ -5,12 +5,16 @@
 - popravit login da treba šifra, može i kasnije
 - mobile app
 - post.images brisat neiskorištene
+- da ne može prominit username
 - kad je server side error (kod 500), nesmi ga vratit na klijent
 - Image model --> File model
 - post.images smanjivat kvalitetu
 - Location.country i Location.adminAreaLevel1 kao posebni modeli
 - ako dajem kod obavezno očistit sve ključeve iz koda!
 - post.form.validacija prevest
+
+PROVJERIT
+- jeli Warning_noUsername svugdi do treba
 
 
 - treba li User.id bit string?
