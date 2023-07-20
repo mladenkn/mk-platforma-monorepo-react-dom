@@ -12,7 +12,7 @@ export type WithId = {
   id: number
 }
 
-async function main() {
+export async function data_gen_seed() {
   const categories = await seedCategories()
 
   const mladenUser = await upsertUser({
@@ -93,13 +93,3 @@ async function seedPosts(
     }
   }
 }
-
-main()
-  .then(async () => {
-    await db.$disconnect()
-  })
-  .catch(async e => {
-    console.error(e)
-    await db.$disconnect()
-    process.exit(1)
-  })

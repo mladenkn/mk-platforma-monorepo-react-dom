@@ -7,6 +7,7 @@ import { isArray } from "lodash"
 import { location_api_google__search } from "./domain/Location.api.google"
 import { Location_google_find_save } from "./domain/Location.api"
 import { asString } from "@mk-libs/common/common"
+import { data_gen_seed } from "./data.gen/data.gen.seed"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
@@ -46,7 +47,7 @@ const run_args = match(parsed.command)
 
   .with("db.seed", () => [
     { DATABASE_URL: getConnectionString(dbInstance || "dev") },
-    () => require("./data.gen/db.seed.ts"),
+    "tsx ./data.gen/data.gen.seed.ts",
   ])
 
   .with("db.truncate", () => [
@@ -61,7 +62,7 @@ const run_args = match(parsed.command)
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
-      "tsx ./data.gen/db.seed.ts",
+      "tsx ./data.gen/data.gen.seed.ts",
     ],
   ])
 

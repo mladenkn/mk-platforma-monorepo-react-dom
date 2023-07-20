@@ -2,7 +2,7 @@ import { Category_label } from "@prisma/client"
 import locations from "./data.locations.json"
 import db from "./prisma/instance"
 
-export default async function doProdSeed() {
+export default async function data_seed_prod() {
   await seedCategories()
   await seedLocations()
 }
