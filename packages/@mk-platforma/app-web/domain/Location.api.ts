@@ -32,9 +32,12 @@ const Location_api = router({
     return ctx.db.location.findMany(query)
   }),
 
-  many_google: publicProcedure
-    .input(z.string())
-    .query(({ ctx, input }) => location_google_api.search(input)),
+  many_google: publicProcedure.input(z.string()).query(async ({ input }) => {
+    const locations = await location_google_api.search(input)
+    return await Promise.all(
+      locations.map(location => location_google_api.details(location.google_id))
+    )
+  }),
 
   many_google_save: publicProcedure.input(z.string()).query(async ({ ctx, input }) => {
     const locations = await location_google_api.search(input)
