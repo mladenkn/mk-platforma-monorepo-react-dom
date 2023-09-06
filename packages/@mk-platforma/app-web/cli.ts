@@ -22,21 +22,6 @@ const run_args = match(parsed.command)
     `next dev`,
   ])
 
-  .with("dev.test", async () => {
-    process.env.DATABASE_URL = getConnectionString("test.local")
-    const user = await seedTestUser()
-    return [
-      {
-        DATABASE_URL: getConnectionString("test.local"),
-        NEXT_PUBLIC_MOCK_USER_ID: user.id,
-        // fali uploadthing
-      },
-      `next dev -p 3010`,
-    ]
-  })
-
-  .with("test", () => [{ TEST_SERVER_COMMAND: "pnpm _c start.test" }, "playwright test --ui"])
-
   .with("db.prisma", () => [
     {
       DATABASE_URL: getConnectionString(dbInstance || "dev"),
@@ -128,6 +113,21 @@ const run_args = match(parsed.command)
       api.location.many({ query }).then(console.log).catch(console.error)
     },
   ])
+
+  .with("depr.dev.test", async () => {
+    process.env.DATABASE_URL = getConnectionString("test.local")
+    const user = await seedTestUser()
+    return [
+      {
+        DATABASE_URL: getConnectionString("test.local"),
+        NEXT_PUBLIC_MOCK_USER_ID: user.id,
+        // fali uploadthing
+      },
+      `next dev -p 3010`,
+    ]
+  })
+
+  .with("depr.test", () => [{ TEST_SERVER_COMMAND: "pnpm _c start.test" }, "playwright test --ui"])
 
   .exhaustive()
 
