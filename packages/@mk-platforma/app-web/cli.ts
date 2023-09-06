@@ -10,11 +10,12 @@ import { asString } from "@mk-libs/common/common"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
+const DATABASE_URL = getConnectionString(dbInstance || "dev")
 
 const run_args = match(parsed.command)
   .with("dev", () => [
     {
-      DATABASE_URL: getConnectionString(dbInstance || "dev"),
+      DATABASE_URL,
       UPLOADTHING_SECRET:
         "sk_live_8f78c8c092e0657bb96f964c1527e3b5257969372b653a8b4d711cb7e1fc9cfb",
       UPLOADTHING_APP_ID: "2axqlwskhd",
@@ -22,27 +23,14 @@ const run_args = match(parsed.command)
     `next dev`,
   ])
 
-  .with("db.prisma", () => [
-    {
-      DATABASE_URL: getConnectionString(dbInstance || "dev"),
-    },
-    `prisma ${parsed._unknown!.join(" ")}`,
-  ])
+  .with("db.prisma", () => [{ DATABASE_URL }, `prisma ${parsed._unknown!.join(" ")}`])
 
-  .with("db.seed", () => [
-    { DATABASE_URL: getConnectionString(dbInstance || "dev") },
-    "tsx ./data.gen/data.gen.seed.ts",
-  ])
+  .with("db.seed", () => [{ DATABASE_URL }, "tsx ./data.gen/data.gen.seed.ts"])
 
-  .with("db.truncate", () => [
-    { DATABASE_URL: getConnectionString(dbInstance || "dev") },
-    `prisma db execute --file ./db.truncate.sql`,
-  ])
+  .with("db.truncate", () => [{ DATABASE_URL }, `prisma db execute --file ./db.truncate.sql`])
 
   .with("db.reset", () => [
-    {
-      DATABASE_URL: getConnectionString(dbInstance || "dev"),
-    },
+    { DATABASE_URL },
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
@@ -78,10 +66,7 @@ const run_args = match(parsed.command)
     ]
   })
 
-  .with("playground", () => [
-    { DATABASE_URL: getConnectionString(dbInstance || "dev") },
-    () => require("./playground.ts"),
-  ])
+  .with("playground", () => [{ DATABASE_URL }, () => require("./playground.ts")])
 
   .with("location.google.find", () => [
     {},
@@ -94,9 +79,7 @@ const run_args = match(parsed.command)
   ])
 
   .with("location.google.find.save", () => [
-    {
-      DATABASE_URL: getConnectionString(dbInstance || "dev"),
-    },
+    { DATABASE_URL },
     async () => {
       const searchQuery = asString(parsed._unknown![0])
       Location_google_find_save(searchQuery).then(console.log).catch(console.error)
@@ -104,9 +87,7 @@ const run_args = match(parsed.command)
   ])
 
   .with("location.many", async () => [
-    {
-      DATABASE_URL: getConnectionString(dbInstance || "dev"),
-    },
+    { DATABASE_URL },
     async () => {
       const api = await Api_ss_cli_create()
       const query = asString(parsed._unknown?.[0])
