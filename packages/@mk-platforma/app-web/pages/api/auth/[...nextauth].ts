@@ -27,7 +27,7 @@ const auth_options = (req: Request, res: NextApiResponse) =>
       }),
     ],
     adapter: eva(() => {
-      const adapter = PrismaAdapter(db._asPrisma)
+      const adapter = PrismaAdapter(db)
       const createUser_wrapped = adapter.createUser
       adapter.createUser = function (data: Omit<AdapterUser, "id">) {
         const data_updated = {

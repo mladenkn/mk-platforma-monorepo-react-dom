@@ -6,10 +6,10 @@ async function main() {
 
 main()
   .then(async () => {
-    await db._asPrisma.$disconnect()
+    await db.$disconnect()
   })
   .catch(async e => {
     console.error(e)
-    await db._asPrisma.$disconnect()
+    await db.$disconnect()
     process.exit(1)
   })
