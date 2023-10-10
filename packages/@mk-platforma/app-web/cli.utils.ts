@@ -4,6 +4,7 @@ import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
 import db from "./prisma/instance"
 import { Api_ss } from "./api_/api.root"
+import { drizzle_connect } from "./drizzle/drizzle.instance"
 
 const options = [
   { name: "command", defaultOption: true },
@@ -16,7 +17,7 @@ export function parseCommand() {
 
 const command_type = P.union(
   P.string,
-  P.when(it => typeof it === "function")
+  P.when(it => typeof it === "function"),
 )
 
 export async function run(...cmd: unknown[]) {
@@ -98,7 +99,7 @@ export function getConnectionString(env: string) {
       return "postgresql://postgres:E18xcmX5bA2y8pPu85KF@containers-us-west-116.railway.app:7999/railway"
     case "prod":
       return "postgres://default:dLkKj9hoY7WT@ep-long-rain-221377-pooler.us-east-1.postgres.vercel-storage.com/verceldb?pgbouncer=true&connect_timeout=15"
-    case "neon-main":
+    case "neon-main": // ovo je na vercelu
       return "postgres://mladenkn:EWT4n5pMetaB@ep-shy-paper-831120.eu-central-1.aws.neon.tech/neondb"
     case "neon-staging":
       return "postgres://mladenkn:EWT4n5pMetaB@ep-lingering-fog-424091.eu-central-1.aws.neon.tech/neondb"
@@ -109,5 +110,5 @@ export function getConnectionString(env: string) {
 
 export async function Api_ss_cli_create() {
   const user = await db.user.findFirst({ where: { canMutate: true } })
-  return Api_ss({ user: user!, db, getCookie: () => null })
+  return Api_ss({ user: user!, db, getCookie: () => null, db_drizzle: drizzle_connect() })
 }

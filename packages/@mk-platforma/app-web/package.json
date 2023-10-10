@@ -9,7 +9,8 @@
     "test.ui": "playwright test --ui",
     "test": "playwright test",
     "build": "pnpm next build",
-    "prisma.gen": "prisma generate"
+    "prisma.gen": "prisma generate",
+    "drizzle.pull": "drizzle-kit introspect:pg --config=drizzle.pull.config.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -37,12 +38,14 @@
     "command-line-args": "^5.2.1",
     "commander": "^10.0.1",
     "cookie": "^0.5.0",
+    "drizzle-orm": "^0.28.6",
     "formik": "^2.2.9",
     "lodash": "^4.17.21",
     "next": "^13.2.4",
     "next-auth": "^4.22.1",
     "nodemailer": "^6.9.2",
     "notistack": "^3.0.1",
+    "postgres": "^3.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-dropzone": "^14.2.3",
@@ -65,6 +68,7 @@
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
+    "drizzle-kit": "^0.19.13",
     "eslint": "7.32.0",
     "prisma": "5.0.0",
     "ts-node": "^10.9.1",
