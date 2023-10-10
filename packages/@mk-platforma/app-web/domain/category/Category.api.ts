@@ -3,6 +3,9 @@ import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 import { publicProcedure, router } from "~/api_/api.server.utils"
 import { Post_queryChunks_search } from "../post/Post.api.abstract"
 import "@mk-libs/common/server-only"
+import { eq } from "drizzle-orm"
+import { category } from "~/drizzle/schema"
+import { assertIsNonNil } from "@mk-libs/common/common"
 
 const Category_api_many = SuperData_mapper(
   z
@@ -46,11 +49,22 @@ const Category_api = router({
       select: Category_select,
     }),
   ),
-  single: publicProcedure
-    .input(z.number())
-    .query(({ ctx, input }) =>
-      ctx.db.category.findUnique({ where: { id: input }, select: Category_select }),
-    ),
+  single: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
+    const c = await ctx.db_drizzle.query.category.findFirst({
+      where: eq(category.id, input),
+      with: {
+        parent: {
+          columns: { id: true, label: true },
+          with: { parent: { columns: { id: true, label: true } } },
+        },
+      },
+    })
+    return { ...c, children: [] as (typeof c)[] }
+  }),
+  // single2: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
+  //   const c = await ctx.db.category.findUnique({ where: { id: input }, select: Category_select })
+  //   return c
+  // }),
 })
 
 const Category_select = {

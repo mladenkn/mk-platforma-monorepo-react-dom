@@ -1,6 +1,9 @@
 import locations from "./data.locations.json"
+import { drizzle_connect } from "./drizzle/drizzle.instance"
 import db from "./prisma/instance"
 import type { Category_label } from "~/domain/category/Category.types"
+
+const db_drizzle = drizzle_connect()
 
 export default async function data_seed_prod() {
   await seedCategories()
@@ -32,7 +35,7 @@ export async function seedCategories() {
     upsertCategory("sellable_buildingMaterial", sellable.id),
   ])
 
-  return await db.category.findMany({})
+  return await db_drizzle.query.category.findMany()
 }
 
 async function upsertCategory(label: Category_label, parent_id?: number) {

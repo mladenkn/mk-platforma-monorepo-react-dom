@@ -14,6 +14,7 @@ import {
 } from "drizzle-orm/pg-core"
 
 import { relations, sql } from "drizzle-orm"
+import { Category_label } from "~/domain/category/Category.types"
 
 export const imageToPost = pgTable(
   "_ImageToPost",
@@ -203,7 +204,7 @@ export const category = pgTable(
   {
     id: serial("id").primaryKey().notNull(),
     parentId: integer("parent_id"),
-    label: text("label").notNull(),
+    label: text("label").$type<Category_label>().notNull(),
   },
   table => {
     return {
@@ -217,6 +218,11 @@ export const category = pgTable(
     }
   },
 )
+
+export const categoryRelations = relations(category, ({ one, many }) => ({
+  parent: one(category, { fields: [category.parentId], references: [category.id] }),
+  // children: many(category, { fields: [category.] })
+}))
 
 export const postExpertEndorsementSkill = pgTable(
   "Post_ExpertEndorsement_skill",
