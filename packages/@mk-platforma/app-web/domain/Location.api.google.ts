@@ -16,7 +16,7 @@ export async function location_api_google__search(query: string) {
     })
     .then(r => r.data.results.filter(p => p.place_id))
   const locations_withDetails = await Promise.all(
-    locations.map(l => location_api_google__details(l.place_id!))
+    locations.map(l => location_api_google__details(l.place_id!)),
   )
   return locations_withDetails
 }
@@ -32,10 +32,10 @@ async function location_api_google__details(id: string) {
     .then(r => r.data.result)
 
   const country = asNonNil(
-    details.address_components?.find(c => c.types.includes("country" as any))?.long_name
+    details.address_components?.find(c => c.types.includes("country" as any))?.long_name,
   )
   const adminAreaLevel1 = details.address_components?.find(c =>
-    c.types.includes("administrative_area_level_1" as any)
+    c.types.includes("administrative_area_level_1" as any),
   )?.long_name
 
   return {

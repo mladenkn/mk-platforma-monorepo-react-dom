@@ -17,7 +17,7 @@ function post_common_generate({ locations }: PostGeneratorParams) {
     contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
     comments: generateArray(
       () => ({ content: generateArray(() => "komentar ", 20).join("") }),
-      faker.datatype.number({ min: 0, max: 7 })
+      faker.datatype.number({ min: 0, max: 7 }),
     ),
     title: faker.lorem.words(),
   }
@@ -40,7 +40,7 @@ export default function generatePosts(params: PostGeneratorParams) {
 
 function generatePosts_base<T>(
   params: PostGeneratorParams,
-  generateFirst: (p: PostGeneratorParams) => T[]
+  generateFirst: (p: PostGeneratorParams) => T[],
 ) {
   return generateFirst(params).map(i => ({
     ...post_common_generate(params),

@@ -10,7 +10,7 @@ function generateSingle({ categories }: PostGeneratorParams) {
   const lastName = faker.helpers.arrayElement(cro_dataset.lastNames)
 
   const skills = uniq(
-    faker.helpers.arrayElements(cro_dataset.skills, faker.datatype.number({ min: 1, max: 4 }))
+    faker.helpers.arrayElements(cro_dataset.skills, faker.datatype.number({ min: 1, max: 4 })),
   )
 
   return {
@@ -41,6 +41,6 @@ function generateSingle({ categories }: PostGeneratorParams) {
 
 export default function generateExperts(params: PostGeneratorParams) {
   return generateArray(() => {}, faker.datatype.number({ min: 8, max: 20 })).map(() =>
-    generateSingle(params)
+    generateSingle(params),
   )
 }

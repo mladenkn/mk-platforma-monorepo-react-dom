@@ -55,7 +55,7 @@ export function useWindowSize() {
 
 export function mapQueryData<TQueryData, TMappedData>(
   query: UseQueryResult<TQueryData>,
-  map: (data: TQueryData) => TMappedData
+  map: (data: TQueryData) => TMappedData,
 ) {
   return {
     ...query,
@@ -72,7 +72,7 @@ export function use_setUrlParams_shallow() {
         query: params as any,
       },
       undefined,
-      { shallow: true }
+      { shallow: true },
     )
   }
 }

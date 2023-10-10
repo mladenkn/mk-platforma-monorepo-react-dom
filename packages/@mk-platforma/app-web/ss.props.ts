@@ -17,8 +17,8 @@ export function ss_props_get_create<TOutput, TInput = undefined>(
   options: Options<TInput>,
   wrapped?: (
     ctx: Api_context & { api: Api_ss_type },
-    params: TInput
-  ) => Promise<GetServerSidePropsResult<TOutput>>
+    params: TInput,
+  ) => Promise<GetServerSidePropsResult<TOutput>>,
 ) {
   return async function (_ctx: Api_context & { query?: Record<string, unknown> }) {
     const api = Api_ss(_ctx)
@@ -32,7 +32,7 @@ export function ss_props_get_create<TOutput, TInput = undefined>(
           if (parsed.number) return [key, parsed.number]
         }
         return [key, value]
-      })
+      }),
     )
     const queryParams_parsed = options.queryParams?.safeParse(ctx_query_mapped) ?? {
       success: true,
@@ -64,7 +64,7 @@ export function ss_props_get_create<TOutput, TInput = undefined>(
 }
 
 export function ss_props_get_create_next<TOutput, TInput = undefined>(
-  getInitialProps: Awaited<ReturnType<typeof ss_props_get_create<TOutput, TInput>>>
+  getInitialProps: Awaited<ReturnType<typeof ss_props_get_create<TOutput, TInput>>>,
 ) {
   return async function (nextContext: Pick<GetServerSidePropsContext, "req" | "res" | "query">) {
     const ctx = await createContext(nextContext.req as any, nextContext.res as any)
@@ -83,8 +83,8 @@ export default function ss_props_get_create_full<TOutput, TInput = undefined>(
   options: Options<TInput>,
   wrapped?: (
     ctx: Api_context & { api: Api_ss_type },
-    params: TInput
-  ) => Promise<GetServerSidePropsResult<TOutput>>
+    params: TInput,
+  ) => Promise<GetServerSidePropsResult<TOutput>>,
 ) {
   const get_ss_props = ss_props_get_create(options, wrapped)
   return ss_props_get_create_next(get_ss_props)

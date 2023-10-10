@@ -19,7 +19,7 @@ export default function generate_accomodations_demand({ categories }: PostGenera
     images: faker.helpers
       .arrayElements(
         data_images["smještaj podstanarstvo kuća na seoskom imanju"],
-        faker.datatype.number({ min: 1, max: 5 })
+        faker.datatype.number({ min: 1, max: 5 }),
       )
       .map(url => ({ url })),
   }))

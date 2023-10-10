@@ -43,7 +43,7 @@ export const Post_list_many = SuperData_mapper(
         id: "desc",
       },
     } satisfies Prisma.PostFindManyArgs
-  }
+  },
 )
 
 export function Post_queryChunks_search(search: string): Prisma.PostWhereInput {

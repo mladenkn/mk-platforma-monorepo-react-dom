@@ -24,7 +24,7 @@ export default function generateGatheringsWork({ categories }: PostGeneratorPara
     images: faker.helpers
       .arrayElements(
         data_images["nature gathering action work"],
-        faker.datatype.number({ min: 1, max: 6 })
+        faker.datatype.number({ min: 1, max: 6 }),
       )
       .map(url => ({ url })),
   }))

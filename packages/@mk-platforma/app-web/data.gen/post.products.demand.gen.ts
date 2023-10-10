@@ -8,6 +8,6 @@ export default function generate_products_demand({ categories }: PostGeneratorPa
       title: "Tražim neki proizvod " + index,
       categories: [asNonNil(categories.find(c => c.label === "sellable_demand"))],
     }),
-    faker.datatype.number({ min: 4, max: 10 })
+    faker.datatype.number({ min: 4, max: 10 }),
   )
 }

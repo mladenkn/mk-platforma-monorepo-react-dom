@@ -25,7 +25,7 @@ export const User_api = router({
           },
         },
       })
-      .then(r => r && { ...r, canEdit: ctx.user?.canMutate ? r.id === ctx.user.id : false })
+      .then(r => r && { ...r, canEdit: ctx.user?.canMutate ? r.id === ctx.user.id : false }),
   ),
   single: publicProcedure.input(z.number()).query(({ ctx, input }) =>
     ctx.db.user.findUnique({
@@ -35,7 +35,7 @@ export const User_api = router({
         name: true,
         avatarStyle: true,
       },
-    })
+    }),
   ),
   update: authorizedRoute(u => u.canMutate)
     .input(z.object({ name: z.string() }))
@@ -47,6 +47,6 @@ export const User_api = router({
         data: {
           name: input.name,
         },
-      })
+      }),
     ),
 })

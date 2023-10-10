@@ -21,7 +21,7 @@ export const Post_api_create_input = z
               id: z.number().optional(),
               label: z.string().min(1),
               level: z.number().min(1).max(5).nullish(),
-            })
+            }),
           )
           .nullish(),
       })

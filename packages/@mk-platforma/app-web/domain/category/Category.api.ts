@@ -36,7 +36,7 @@ const Category_api_many = SuperData_mapper(
       ],
       parent: input?.parent,
     },
-  })
+  }),
 )
 
 const Category_api = router({
@@ -44,12 +44,12 @@ const Category_api = router({
     db.category.findMany({
       ...output1,
       select: Category_select,
-    })
+    }),
   ),
   single: publicProcedure
     .input(z.number())
     .query(({ ctx, input }) =>
-      ctx.db.category.findUnique({ where: { id: input }, select: Category_select })
+      ctx.db.category.findUnique({ where: { id: input }, select: Category_select }),
     ),
 })
 

@@ -15,7 +15,7 @@ export const getServerSideProps = ss_props_get_create_full(
     if (post)
       return { props: typeCheck<ComponentProps<typeof Post_edit_page>>({ post_initial: post }) }
     else return { notFound: true }
-  }
+  },
 )
 
 export default Post_edit_page

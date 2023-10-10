@@ -26,7 +26,7 @@ export function asSingleItem<T>(array: T[]) {
 
 export function groupBy<TItem, TGroupingKey>(
   data: TItem[],
-  getItemKey: (item: TItem) => TGroupingKey
+  getItemKey: (item: TItem) => TGroupingKey,
 ): [TGroupingKey, TItem[]][] {
   const objectGrouping = _groupBy(data, item => JSON.stringify(getItemKey(item)))
   return Object.entries(objectGrouping).map(([key, items]) => [
