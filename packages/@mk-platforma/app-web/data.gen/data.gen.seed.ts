@@ -7,6 +7,7 @@ import generatePosts from "./data.gen"
 import * as cro_dataset from "./data.gen.cro.dataset"
 import { eva } from "@mk-libs/common/common"
 import { seedCategories, seedLocations } from "~/data.seed"
+import { drizzle_connect } from "~/drizzle/drizzle.instance"
 
 export type WithId = {
   id: number
@@ -54,7 +55,7 @@ async function upsertUser(user: {
 
 async function seedPosts(
   posts: ReturnType<typeof generatePosts>,
-  users: { id: number; name?: string | null }[]
+  users: { id: number; name?: string | null }[],
 ) {
   for (const post of posts) {
     const user = faker.helpers.arrayElement(users)
@@ -63,6 +64,7 @@ async function seedPosts(
       db,
       user: { id: user.id, name: user.name || "seed user", canMutate: true },
       getCookie: (() => {}) as any,
+      db_drizzle: drizzle_connect(),
     })
 
     const images = await eva(async () => {

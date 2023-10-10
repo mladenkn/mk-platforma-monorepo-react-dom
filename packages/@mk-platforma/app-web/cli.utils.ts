@@ -4,6 +4,7 @@ import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
 import db from "./prisma/instance"
 import { Api_ss } from "./api_/api.root"
+import { drizzle_connect } from "./drizzle/drizzle.instance"
 
 const options = [
   { name: "command", defaultOption: true },
@@ -16,7 +17,7 @@ export function parseCommand() {
 
 const command_type = P.union(
   P.string,
-  P.when(it => typeof it === "function")
+  P.when(it => typeof it === "function"),
 )
 
 export async function run(...cmd: unknown[]) {
@@ -109,5 +110,5 @@ export function getConnectionString(env: string) {
 
 export async function Api_ss_cli_create() {
   const user = await db.user.findFirst({ where: { canMutate: true } })
-  return Api_ss({ user: user!, db, getCookie: () => null })
+  return Api_ss({ user: user!, db, getCookie: () => null, db_drizzle: drizzle_connect() })
 }
