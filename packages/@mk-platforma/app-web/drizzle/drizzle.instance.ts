@@ -5,7 +5,7 @@ import env from "~/env.mjs"
 import { asNonNil } from "@mk-libs/common/common"
 
 export function drizzle_connect() {
-  const queryClient = postgres(asNonNil(env.DATABASE_URL), { ssl: "require" })
+  const queryClient = postgres(asNonNil(env.DATABASE_URL), { ssl: "require", max: 1 })
   const db = drizzle(queryClient, { schema })
   return db
 }
