@@ -1,10 +1,11 @@
 import postgres from "postgres"
 import { drizzle } from "drizzle-orm/postgres-js"
-import { getConnectionString } from "~/cli.utils"
 import * as schema from "./schema"
+import env from "~/env.mjs"
+import { asNonNil } from "@mk-libs/common/common"
 
 export function drizzle_connect() {
-  const queryClient = postgres(getConnectionString("dev"))
+  const queryClient = postgres(asNonNil(env.DATABASE_URL))
   const db = drizzle(queryClient, { schema })
   return db
 }
