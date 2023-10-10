@@ -27,7 +27,7 @@ const input = Post_api_create_input.refine(
 const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
   .mutation(({ ctx, input }) =>
-    ctx.db._asPrisma.$transaction(
+    ctx.db.$transaction(
       async tx => {
         for (const image of input.images || []) {
           await tx.image.update({

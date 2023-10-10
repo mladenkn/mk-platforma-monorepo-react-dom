@@ -9,7 +9,7 @@ import { omit } from "lodash"
 const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
   .input(Post_api_update_input)
   .mutation(({ ctx, input }) =>
-    ctx.db._asPrisma.$transaction(async tx => {
+    ctx.db.$transaction(async tx => {
       const skills_forUpdate = input.expertEndorsement?.skills?.filter(s => s.id) || []
       for (const skill of skills_forUpdate) {
         await tx.post_ExpertEndorsement_skill.update({
