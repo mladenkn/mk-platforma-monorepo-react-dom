@@ -40,7 +40,6 @@ const Comment_api = router({
         },
       }),
     )
-    console.log("Comment.many.prisma.time", comments_prisma_time)
     const [comments_drizzle, comments_drizzle_time] = await measurePerformance(
       db_drizzle.query.comment
         .findMany({
@@ -68,7 +67,11 @@ const Comment_api = router({
           })),
         ),
     )
-    console.log("Comment.many.drizzle.time", comments_drizzle_time)
+    console.log(
+      `Comment.many.prisma.time: ${comments_prisma_time}`,
+      "  ",
+      `Comment.many.drizzle.time: ${comments_drizzle_time}`,
+    )
     return comments_drizzle
   }),
 
