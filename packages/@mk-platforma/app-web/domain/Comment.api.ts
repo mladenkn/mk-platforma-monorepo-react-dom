@@ -5,6 +5,7 @@ import "@mk-libs/common/server-only"
 import { shallowPick } from "@mk-libs/common/common"
 import { comment } from "~/drizzle/schema"
 import { eq } from "drizzle-orm"
+import { measurePerformance } from "@mk-libs/common/debug"
 
 const Comment_api_many = SuperData_mapper(
   z.object({
@@ -23,30 +24,34 @@ const Comment_api_many = SuperData_mapper(
 
 const Comment_api = router({
   many: SuperData_query(Comment_api_many, async ({ db, user, db_drizzle }, _output1, input) => {
-    return db_drizzle.query.comment
-      .findMany({
-        columns: {
-          id: true,
-          content: true,
-        },
-        with: {
-          author: {
-            columns: {
-              avatarStyle: true,
-              name: true,
-              id: true,
+    const [comments_drizzle, comments_time] = await measurePerformance(
+      db_drizzle.query.comment
+        .findMany({
+          columns: {
+            id: true,
+            content: true,
+          },
+          with: {
+            author: {
+              columns: {
+                avatarStyle: true,
+                name: true,
+                id: true,
+              },
             },
           },
-        },
-        where: eq(comment.postId, input.post_id),
-      })
-      .then(comments =>
-        comments.map(c => ({
-          ...c,
-          canEdit: user?.canMutate ? c.author.id === user?.id : false,
-          canDelete: user?.canMutate ? c.author.id === user?.id : false,
-        })),
-      )
+          where: eq(comment.postId, input.post_id),
+        })
+        .then(comments =>
+          comments.map(c => ({
+            ...c,
+            canEdit: user?.canMutate ? c.author.id === user?.id : false,
+            canDelete: user?.canMutate ? c.author.id === user?.id : false,
+          })),
+        ),
+    )
+    console.log(50, comments_time)
+    return comments_drizzle
   }),
 
   create: authorizedRoute(u => u.canMutate && !!u.name)
