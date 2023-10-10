@@ -18,6 +18,7 @@ function wrapDb() {
     account: _db.account,
     session: _db.session,
     verificationToken: _db.verificationToken,
+    comment: _db.comment,
     $disconnect: _db.$disconnect,
     // $transaction: _db.$transaction,
     $queryRaw: _db.$queryRaw,
