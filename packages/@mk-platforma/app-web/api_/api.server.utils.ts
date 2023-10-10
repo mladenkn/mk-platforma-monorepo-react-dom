@@ -9,6 +9,8 @@ import "@mk-libs/common/server-only"
 import { NextApiRequest, NextApiResponse } from "next"
 import { Drizzle_instance, drizzle_connect } from "~/drizzle/drizzle.instance"
 
+const db_drizzle = drizzle_connect()
+
 export async function createContext(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -16,7 +18,7 @@ export async function createContext(
   const user = await user_ss_get(req, res)
   return {
     db,
-    db_drizzle: drizzle_connect(),
+    db_drizzle,
     user: user && {
       id: user.id,
       canMutate: user.canMutate,
