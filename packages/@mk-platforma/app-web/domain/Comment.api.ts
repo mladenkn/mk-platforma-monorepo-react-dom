@@ -4,7 +4,7 @@ import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import { shallowPick } from "@mk-libs/common/common"
 import { comment } from "~/drizzle/schema"
-import { eq } from "drizzle-orm"
+import { and, desc, eq } from "drizzle-orm"
 import { measurePerformance } from "@mk-libs/common/debug"
 
 const Comment_api_many = SuperData_mapper(
@@ -57,7 +57,8 @@ const Comment_api = router({
               },
             },
           },
-          where: eq(comment.postId, input.post_id),
+          where: and(eq(comment.postId, input.post_id), eq(comment.isDeleted, false)),
+          orderBy: desc(comment.id),
         })
         .then(comments =>
           comments.map(c => ({
