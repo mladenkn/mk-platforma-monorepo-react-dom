@@ -5,7 +5,7 @@ import Api from "~/api_/api.client"
 import { Api_outputs } from "~/api_/api.infer"
 import { eva } from "~/../../@mk-libs/common/common"
 
-type Category = Api_outputs["category"]["many"][number]
+type Category = Api_outputs["category"]["single"]
 
 function category_to_option(cat: Category) {
   const group = eva(() => {

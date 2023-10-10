@@ -59,6 +59,7 @@ const Category_api = router({
         },
       },
     })
+    assertIsNonNil(c) // TODO: fix
     return { ...c, children: [] as (typeof c)[] }
   }),
   // single2: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
