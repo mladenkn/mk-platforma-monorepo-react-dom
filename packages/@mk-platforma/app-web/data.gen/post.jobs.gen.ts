@@ -37,7 +37,7 @@ export default function generateJobs({ categories }: PostGeneratorParams) {
     images: faker.helpers
       .arrayElements(
         data_images["posao selo kuća tesar zidar"],
-        faker.datatype.number({ min: 1, max: 5 })
+        faker.datatype.number({ min: 1, max: 5 }),
       )
       .map(url => ({ url })),
   }))

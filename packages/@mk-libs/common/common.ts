@@ -28,7 +28,7 @@ export function asNonNil<T>(val?: T) {
 }
 
 export function parsePropertyPathFromExpression<TObject, TReturnValue>(
-  expr: (a: TObject) => TReturnValue
+  expr: (a: TObject) => TReturnValue,
 ) {
   const firstDotIndex = expr.toString().indexOf(".")
   const cutFromLeft = expr.toString().slice(firstDotIndex + 1)

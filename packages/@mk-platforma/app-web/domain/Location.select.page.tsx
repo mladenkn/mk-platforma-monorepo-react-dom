@@ -31,7 +31,7 @@ const form_zod = z
     z.object({
       location: z.null(),
       radius: z.null(),
-    })
+    }),
   )
 
 // TODO: error message za radius
@@ -62,7 +62,7 @@ export default function Location_select_page({
   const location_suggestions = Api.location.many.useQuery({ query: location_search })
   const selectedLocation = Api.location.single.useQuery(
     { id: form.values.location! },
-    { enabled: !!form.values.location }
+    { enabled: !!form.values.location },
   )
 
   const { typography } = useTheme()

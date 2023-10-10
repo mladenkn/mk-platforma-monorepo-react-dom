@@ -3,7 +3,11 @@ import { EffectCallback } from "react"
 
 const defaultOptions = { runOnFirstRender: false }
 
-export default function useEffect(effect: EffectCallback, deps?: DependencyList, o = defaultOptions) {
+export default function useEffect(
+  effect: EffectCallback,
+  deps?: DependencyList,
+  o = defaultOptions,
+) {
   const isFirstRun = useRef(true)
   React.useEffect(() => {
     if (isFirstRun.current && !o.runOnFirstRender) {

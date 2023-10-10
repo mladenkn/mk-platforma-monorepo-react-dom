@@ -5,10 +5,12 @@ type StateUpdater<T> = (v: T) => T
 
 export default function useControllableState<TState, TOnChange extends Function = OnChange<TState>>(
   value: TState,
-  onChange?: TOnChange
+  onChange?: TOnChange,
 ): [TState, OnChange<TState>] {
   if (typeof value == "function") {
-    throw new TypeError("Functions are not supported as state values in the `useControlledState` hook.")
+    throw new TypeError(
+      "Functions are not supported as state values in the `useControlledState` hook.",
+    )
   }
 
   const [uncontrolledValue, setUncontrolledValue] = useState(value)
@@ -23,7 +25,7 @@ export default function useControllableState<TState, TOnChange extends Function 
         onChange(changeValue)
       }
     },
-    [onChange, value]
+    [onChange, value],
   )
 
   if (typeof onChange === "function") {

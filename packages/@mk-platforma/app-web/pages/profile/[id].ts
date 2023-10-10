@@ -17,7 +17,7 @@ export const getServerSideProps = ss_props_get_create_full(
         }),
       }
     else return { notFound: true, props: {} }
-  }
+  },
 )
 
 export default User_profile

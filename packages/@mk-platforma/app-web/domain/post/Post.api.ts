@@ -58,7 +58,7 @@ const Post_api = router({
 
         const nextCursor = items.length > limit ? items.pop()!.id : null
         return { items, nextCursor }
-      }
+      },
     ),
   }),
 
@@ -66,7 +66,7 @@ const Post_api = router({
     .input(
       z.object({
         id: z.number(),
-      })
+      }),
     )
     .query(async ({ ctx, input }) => {
       const post = await ctx.db.post.findUnique({
@@ -134,7 +134,7 @@ const Post_api = router({
   delete: authorizedRoute(u => u.canMutate)
     .input(z.number())
     .mutation(({ ctx, input }) =>
-      ctx.db.post.update({ where: { id: input }, data: { isDeleted: true } })
+      ctx.db.post.update({ where: { id: input }, data: { isDeleted: true } }),
     ),
 })
 

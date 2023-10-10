@@ -52,7 +52,7 @@ export default function Categories_selector_aside({
   function renderCategory(
     category: Category_model,
     startAdornament?: ReactNode,
-    endAdornament?: ReactNode
+    endAdornament?: ReactNode,
   ) {
     return (
       <ListItem key={category.id} disablePadding secondaryAction={endAdornament}>
@@ -91,7 +91,7 @@ export default function Categories_selector_aside({
             >
               <ArrowBackIosOutlinedIcon sx={{ color: "white", mr: 2 }} />
             </IconButton>,
-            <ExpandMoreIcon sx={{ color: "white" }} />
+            <ExpandMoreIcon sx={{ color: "white" }} />,
           )
         ) : (
           <></>
@@ -108,8 +108,8 @@ export default function Categories_selector_aside({
                       <RadioButtonCheckedIcon sx={{ color: "white" }} />
                     ) : (
                       <></>
-                    )
-                  )
+                    ),
+                  ),
                 )}
               </List>
             </Collapse>
@@ -137,8 +137,8 @@ export default function Categories_selector_aside({
                 undefined,
                 selectedItem?.id === category.id ? (
                   <RadioButtonCheckedIcon sx={{ color: "white" }} />
-                ) : undefined
-              )
+                ) : undefined,
+              ),
             )
         ) : (
           <></>

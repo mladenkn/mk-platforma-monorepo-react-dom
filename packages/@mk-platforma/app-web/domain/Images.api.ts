@@ -7,7 +7,7 @@ const input_zod = z.array(
   ImageSchema.pick({
     uploadthing_key: true,
     url: true,
-  })
+  }),
 )
 
 const Image_api = router({
@@ -18,8 +18,8 @@ const Image_api = router({
         input.map(image =>
           ctx.db.image.create({
             data: image,
-          })
-        )
+          }),
+        ),
       )
       return images
     }),

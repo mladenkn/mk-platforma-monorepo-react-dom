@@ -2,7 +2,10 @@ import { useState as _useState, useCallback, Dispatch, SetStateAction } from "re
 
 export type useState_Options<T> = { onNextState?: (nextState: T) => void }
 
-export default function useState<T>(initialValue: T, { onNextState = () => {} }: useState_Options<T> = {}) {
+export default function useState<T>(
+  initialValue: T,
+  { onNextState = () => {} }: useState_Options<T> = {},
+) {
   const [state, setState] = _useState(initialValue)
 
   const setStateWithMiddleware = useCallback<Dispatch<SetStateAction<T>>>(
@@ -18,7 +21,7 @@ export default function useState<T>(initialValue: T, { onNextState = () => {} }:
         setState(stateOrGetState)
       }
     },
-    [onNextState]
+    [onNextState],
   )
 
   return [state, setStateWithMiddleware] as [typeof state, typeof setStateWithMiddleware]

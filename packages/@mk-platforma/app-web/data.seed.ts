@@ -50,7 +50,7 @@ export async function seedLocations() {
         where: { google_id: location.google_id },
         create: location,
         update: location,
-      })
-    )
+      }),
+    ),
   )
 }

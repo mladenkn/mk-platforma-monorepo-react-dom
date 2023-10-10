@@ -64,7 +64,7 @@ const auth_options = (req: Request, res: NextApiResponse) =>
     session: {
       maxAge: 2592000 * 24, // 30 dana * 24
     },
-  } satisfies NextAuthOptions)
+  }) satisfies NextAuthOptions
 
 declare module "next-auth/adapters" {
   interface AdapterUser {
@@ -92,7 +92,7 @@ function session_ss_get(req: Request, res: NextApiResponse) {
 export async function user_ss_get(req: Request, res: NextApiResponse) {
   if (env.NEXT_PUBLIC_MOCK_USER_ID) {
     return asNonNil(
-      await db.user.findUnique({ where: { id: parseInt(env.NEXT_PUBLIC_MOCK_USER_ID) } })
+      await db.user.findUnique({ where: { id: parseInt(env.NEXT_PUBLIC_MOCK_USER_ID) } }),
     )
   }
   return (await session_ss_get(req, res))?.user

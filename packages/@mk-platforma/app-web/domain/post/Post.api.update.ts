@@ -97,7 +97,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
       })
 
       return omit(post, "expertEndorsement")
-    })
+    }),
   )
 
 export default Post_api_update

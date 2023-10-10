@@ -28,7 +28,7 @@ export function getCookie_ss<TName extends keyof Cookies>(allCookies: string, na
 
 export function use_cookie<TName extends keyof Cookies>(
   name: TName,
-  defaultValue?: Cookies[TName]
+  defaultValue?: Cookies[TName],
 ) {
   const zodType = Cookies_zod.shape[name]
 
@@ -51,7 +51,7 @@ function mapValue(value: string | number | undefined | null) {
     .with("null", () => null)
     .with(
       P.when(v => typeof v === "string" && isStringANumber(v)),
-      parseFloat
+      parseFloat,
     )
     .with(P.union(P.nullish, P.string, P.number), v => v)
     .exhaustive()

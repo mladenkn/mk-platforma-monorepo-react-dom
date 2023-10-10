@@ -12,7 +12,7 @@ export default function use_history_uniques<T>(value: T) {
       }
     },
     [value],
-    { runOnFirstRender: true }
+    { runOnFirstRender: true },
   )
   if (history_lastItem !== value) {
     return [...history.current, value]

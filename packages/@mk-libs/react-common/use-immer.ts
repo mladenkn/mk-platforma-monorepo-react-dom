@@ -6,7 +6,7 @@ export type Updater<S> = (f: (draft: Draft<S>) => void | S) => void
 export type ImmerHook<S> = [S, Updater<S>]
 
 export function useImmer<S = any>(
-  initialValue: S | (() => S)
+  initialValue: S | (() => S),
 ): [S, (f: ((draft: Draft<S> | S) => void) | S) => void]
 
 export function useImmer(initialValue: any) {

@@ -36,8 +36,11 @@ export default function injectInto<
   TInjecteeProps extends object,
   TInjecteeReturn,
   TMapperReturn extends Partial<TInjecteeProps>,
-  TMapperProps extends object = {}
->(injectee: (props: TInjecteeProps) => TInjecteeReturn, mapper: (props: TMapperProps) => TMapperReturn) {
+  TMapperProps extends object = {},
+>(
+  injectee: (props: TInjecteeProps) => TInjecteeReturn,
+  mapper: (props: TMapperProps) => TMapperReturn,
+) {
   return function (finalProps: TMapperProps & DiffOptional<TInjecteeProps, TMapperReturn>) {
     const injectedProps = mapper(finalProps)
     const injecteeProps = { ...injectedProps, ...finalProps }
@@ -49,7 +52,7 @@ type DiffOptional<T extends object, U extends Partial<T>> = Optional<T, keyof In
 
 export function withMappedProps<TMapperProps, TMappedProps, TInjeteeReturn>(
   injectee: (mappedProps: TMappedProps) => TInjeteeReturn,
-  mapper: (mapperProps: TMapperProps) => TMappedProps
+  mapper: (mapperProps: TMapperProps) => TMappedProps,
 ) {
   return function (mapperProps: TMapperProps) {
     const mappedProps = mapper(mapperProps)
@@ -58,7 +61,7 @@ export function withMappedProps<TMapperProps, TMappedProps, TInjeteeReturn>(
 }
 
 withMappedProps.createMerger = <TMapperProps, TMapperReturn>(
-  mapper: (props: TMapperProps) => TMapperReturn
+  mapper: (props: TMapperProps) => TMapperReturn,
 ) => {
   return function <TFinalProps>() {
     return function (props: TFinalProps & TMapperProps) {

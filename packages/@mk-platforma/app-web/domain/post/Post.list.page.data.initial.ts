@@ -31,7 +31,7 @@ const Post_list_page_props_initial_get = ss_props_get_create(
       location_radius_initial: location_radius || null,
     }
     return { props }
-  }
+  },
 )
 
 export default Post_list_page_props_initial_get

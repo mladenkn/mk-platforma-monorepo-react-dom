@@ -58,7 +58,7 @@ export default function Post_list_page_header({
 
   const selectedLocation = Api.location.single.useQuery(
     { id: selectedLocation_id! },
-    { enabled: !!selectedLocation_id }
+    { enabled: !!selectedLocation_id },
   )
 
   const location_radius = eva(() => {
