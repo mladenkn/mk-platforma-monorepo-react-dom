@@ -54,7 +54,7 @@ async function upsertUser(user: {
 
 async function seedPosts(
   posts: ReturnType<typeof generatePosts>,
-  users: { id: number; name?: string | null }[]
+  users: { id: number; name?: string | null }[],
 ) {
   for (const post of posts) {
     const user = faker.helpers.arrayElement(users)
@@ -96,10 +96,10 @@ async function seedPosts(
 
 main()
   .then(async () => {
-    await db.$disconnect()
+    await db._asPrisma.$disconnect()
   })
   .catch(async e => {
     console.error(e)
-    await db.$disconnect()
+    await db._asPrisma.$disconnect()
     process.exit(1)
   })
