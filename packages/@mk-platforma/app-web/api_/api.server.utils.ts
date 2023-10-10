@@ -1,10 +1,9 @@
 import { TRPCError, initTRPC } from "@trpc/server"
 import superjson from "superjson"
-import db from "~/prisma/instance"
+import db, { DbClient } from "~/prisma/instance"
 import { user_ss_get } from "~/pages/api/auth/[...nextauth]"
 import { IncomingMessage, ServerResponse } from "http"
 import { NextApiRequestCookies } from "next/dist/server/api-utils"
-import { PrismaClient } from "@prisma/client"
 import { create_getCookie_ss } from "~/cookies"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import "@mk-libs/common/server-only"
@@ -12,7 +11,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 
 export async function createContext(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ): Promise<Api_context> {
   const user = await user_ss_get(req, res)
   return {
@@ -27,7 +26,7 @@ export async function createContext(
 }
 
 export type Api_context = {
-  db: PrismaClient
+  db: DbClient
   user?: {
     id: number
     canMutate: boolean
@@ -57,7 +56,7 @@ export const router = t.router
 export const publicProcedure = t.procedure
 
 export function authorizedRoute(
-  check: (user: NonNullable<Api_context["user"]>) => boolean = () => true
+  check: (user: NonNullable<Api_context["user"]>) => boolean = () => true,
 ) {
   return t.procedure.use(
     t.middleware(opts => {
@@ -76,6 +75,6 @@ export function authorizedRoute(
           user: asNonNil(ctx.user),
         },
       })
-    })
+    }),
   )
 }

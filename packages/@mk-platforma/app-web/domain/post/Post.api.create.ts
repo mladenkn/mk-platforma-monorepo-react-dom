@@ -13,7 +13,7 @@ const input = Post_api_create_input.refine(
   async ({ categories, expertEndorsement }) => {
     const _allCategories = await allCategories
     const categories_withLabels = categories.map(post_category =>
-      asNonNil(_allCategories.find(c => c.id === post_category.id))
+      asNonNil(_allCategories.find(c => c.id === post_category.id)),
     )
     if (categories_withLabels.some(c => c.label === "job_demand") && !expertEndorsement)
       return false
@@ -21,13 +21,13 @@ const input = Post_api_create_input.refine(
       return false
     else return true
   },
-  { message: "Category not matched with expertEndorsement field" }
+  { message: "Category not matched with expertEndorsement field" },
 )
 
 const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
   .mutation(({ ctx, input }) =>
-    ctx.db.$transaction(
+    ctx.db._asPrisma.$transaction(
       async tx => {
         for (const image of input.images || []) {
           await tx.image.update({
@@ -79,8 +79,8 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
         }
         return omit(post_upserted, "expertEndorsement")
       },
-      { maxWait: 8 * 1000, timeout: 20 * 1000 }
-    )
+      { maxWait: 8 * 1000, timeout: 20 * 1000 },
+    ),
   )
 
 export default Post_api_create
