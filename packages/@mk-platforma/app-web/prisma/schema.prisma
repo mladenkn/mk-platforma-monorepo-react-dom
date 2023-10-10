@@ -52,28 +52,9 @@ model Post_ExpertEndorsement_skill {
   @@unique([expertEndorsement_id, label])
 }
 
-enum Category_label {
-  job
-  job_demand
-  accommodation
-  accommodation_demand
-  sellable
-  sellable_demand
-  sellable_food
-  sellable_clothes
-  sellable_furniture
-  sellable_tool
-  sellable_gadget
-  sellable_buildingMaterial
-  gathering
-  gathering_spirituality
-  gathering_work
-  gathering_hangout
-}
-
 model Category {
-  id        Int            @id @default(autoincrement())
-  label     Category_label @unique
+  id        Int    @id @default(autoincrement())
+  label     String @unique
   parent_id Int?
   posts     Post[]
 

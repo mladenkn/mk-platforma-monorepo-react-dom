@@ -99,11 +99,6 @@ export const QueryModeSchema = z.enum(['default','insensitive']);
 export const NullsOrderSchema = z.enum(['first','last']);
 
 export const JsonNullValueFilterSchema = z.enum(['DbNull','JsonNull','AnyNull',]);
-
-export const Category_labelSchema = z.enum(['job','job_demand','accommodation','accommodation_demand','sellable','sellable_demand','sellable_food','sellable_clothes','sellable_furniture','sellable_tool','sellable_gadget','sellable_buildingMaterial','gathering','gathering_spirituality','gathering_work','gathering_hangout']);
-
-export type Category_labelType = `${z.infer<typeof Category_labelSchema>}`
-
 /////////////////////////////////////////
 // MODELS
 /////////////////////////////////////////
@@ -157,8 +152,8 @@ export type Post_ExpertEndorsement_skill = z.infer<typeof Post_ExpertEndorsement
 /////////////////////////////////////////
 
 export const CategorySchema = z.object({
-  label: Category_labelSchema,
   id: z.number().int(),
+  label: z.string(),
   parent_id: z.number().int().nullish(),
 })
 

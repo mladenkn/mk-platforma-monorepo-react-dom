@@ -6,13 +6,13 @@ import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
 import { Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
-import { Category_label } from "@prisma/client"
 import Api from "~/api_/api.client"
 import { eva } from "@mk-libs/common/common"
 import { getCategoryLabel, CategoryIcon } from "~/domain/category/Category.common"
 import { LogoLink } from "~/domain/common"
 import { Header_moreOptions } from "~/domain/Header"
 import Location_select_page from "~/domain/Location.select.page"
+import type { Category_label } from "~/domain/category/Category.types"
 
 type Props = {
   onShowCategories(): void
@@ -58,7 +58,7 @@ export default function Post_list_page_header({
 
   const selectedLocation = Api.location.single.useQuery(
     { id: selectedLocation_id! },
-    { enabled: !!selectedLocation_id }
+    { enabled: !!selectedLocation_id },
   )
 
   const location_radius = eva(() => {

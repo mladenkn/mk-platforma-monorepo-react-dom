@@ -1,6 +1,6 @@
-import { Category_label } from "@prisma/client"
 import locations from "./data.locations.json"
 import db from "./prisma/instance"
+import type { Category_label } from "~/domain/category/Category.types"
 
 export default async function data_seed_prod() {
   await seedCategories()
@@ -50,7 +50,7 @@ export async function seedLocations() {
         where: { google_id: location.google_id },
         create: location,
         update: location,
-      })
-    )
+      }),
+    ),
   )
 }

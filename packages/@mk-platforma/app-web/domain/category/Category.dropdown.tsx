@@ -4,7 +4,6 @@ import React, { ComponentProps, ReactElement } from "react"
 import Api from "~/api_/api.client"
 import { Api_outputs } from "~/api_/api.infer"
 import { eva } from "~/../../@mk-libs/common/common"
-import { Category_label } from "@prisma/client"
 
 type Category = Api_outputs["category"]["many"][number]
 
