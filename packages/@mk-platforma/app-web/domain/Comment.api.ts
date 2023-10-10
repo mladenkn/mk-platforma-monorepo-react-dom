@@ -24,7 +24,24 @@ const Comment_api_many = SuperData_mapper(
 
 const Comment_api = router({
   many: SuperData_query(Comment_api_many, async ({ db, user, db_drizzle }, _output1, input) => {
-    const [comments_drizzle, comments_time] = await measurePerformance(
+    const [comments_prisma, comments_prisma_time] = await measurePerformance(
+      db.comment.findMany({
+        ..._output1,
+        select: {
+          id: true,
+          content: true,
+          author: {
+            select: {
+              avatarStyle: true,
+              name: true,
+              id: true,
+            },
+          },
+        },
+      }),
+    )
+    console.log("Comment_api.many.prisma.timeInMillis", comments_prisma_time)
+    const [comments_drizzle, comments_drizzle_time] = await measurePerformance(
       db_drizzle.query.comment
         .findMany({
           columns: {
@@ -50,7 +67,7 @@ const Comment_api = router({
           })),
         ),
     )
-    console.log("Comment_api.many.timeInMillis", comments_time)
+    console.log("Comment_api.many.drizzle.timeInMillis", comments_drizzle_time)
     return comments_drizzle
   }),
 
