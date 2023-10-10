@@ -60,7 +60,7 @@ const Category_api = router({
       },
     })
     assertIsNonNil(c) // TODO: fix
-    return { ...c, children: [] as (typeof c)[] }
+    return { ...c, children: [] as (typeof c)[] } // TODO: add children
   }),
   // single2: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
   //   const c = await ctx.db.category.findUnique({ where: { id: input }, select: Category_select })
