@@ -49,22 +49,11 @@ export default function Post_details_page({
     canComment,
     canEdit,
     canDelete,
-    categories,
     isDeleted,
   } = post
 
   const {} = useTheme()
   const { typography } = useTheme()
-
-  const avatarProps = categories.some(c => c.label === "job_demand")
-    ? {
-        sx: expertEndorsement!.avatarStyle as object,
-        children: expertEndorsement!.firstName[0] + expertEndorsement!.lastName[0],
-      }
-    : {
-        sx: author.avatarStyle as object,
-        children: author.name?.[0],
-      }
 
   const [deleteInitiated, setDeleteInitiated] = useState(false)
 
@@ -92,7 +81,7 @@ export default function Post_details_page({
             >
               <Box sx={{ display: "flex" }}>
                 <Link style={{ textDecoration: "none" }} href={`/profile/${author.id}`}>
-                  <Avatar sx={{ mr: 2, ...avatarProps.sx }} children={avatarProps.children} />
+                  <Avatar sx={{ mr: 2, ...author.avatarStyle }} children={author.name?.[0]} />
                 </Link>
                 <Box>
                   <Typography fontWeight={500} variant="h4">
