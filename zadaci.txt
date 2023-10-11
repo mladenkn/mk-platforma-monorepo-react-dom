@@ -1,5 +1,4 @@
 - onaj bug kad ide izać iz kategorije, moga bi koristit one hookove za takav state
-- preimenovat app, ideje: Pametni Oglasi, Domaći oglasi
 - bug sa lokacijom
 
 
