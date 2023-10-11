@@ -19,8 +19,8 @@ const Post_list_page_props_initial_get = ss_props_get_create(
 
     const posts_initial = await api.post.list.fieldSet_main({
       categories: category ? [category.id] : undefined,
-      location: location || undefined,
-      location_radius: location_radius || undefined,
+      // location: location || undefined,
+      // location_radius: location_radius || undefined,
     })
 
     const props: PostList_section_Props = {

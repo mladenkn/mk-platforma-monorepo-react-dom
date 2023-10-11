@@ -52,8 +52,8 @@ export default function Post_list_page({
     {
       categories: selectedCategory_id ? [selectedCategory_id] : [],
       search: search === null ? undefined : search,
-      location: selectedLocation ?? undefined,
-      location_radius: selectedLocation_radius_km ?? undefined,
+      // location: selectedLocation ?? undefined,
+      // location_radius: selectedLocation_radius_km ?? undefined,
     },
     {
       getNextPageParam: lastPage => lastPage.nextCursor,

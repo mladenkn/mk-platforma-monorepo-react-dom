@@ -62,46 +62,46 @@ const Post_api = router({
         return { items: items_mapped, nextCursor }
       },
     ),
-  }),
+    fieldSet_main2: publicProcedure
+      .input(
+        z.object({
+          categories: z.array(z.number()).optional(),
+          search: z.string().optional(),
+          offset: z.number().optional(),
+        }),
+      )
+      .query(async ({ ctx, input }) => {
+        const items_ids = await ctx.db.post
+          .findMany({
+            select: {
+              id: true,
+            },
+            where: {
+              categories: input.categories?.length
+                ? {
+                    some: {
+                      OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
+                    },
+                  }
+                : undefined,
+              ...(input?.search ? Post_queryChunks_search(input.search) : {}),
+              // TODO: location
+              isDeleted: false,
+            },
+          })
+          .then(items => items.map(i => i.id))
 
-  fieldSet_main2: publicProcedure
-    .input(
-      z.object({
-        categories: z.array(z.number()).optional(),
-        search: z.string().optional(),
-      }),
-    )
-    .query(async ({ ctx, input }) => {
-      const items_ids = await ctx.db.post
-        .findMany({
-          select: {
-            id: true,
-          },
-          where: {
-            categories: input.categories?.length
-              ? {
-                  some: {
-                    OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
-                  },
-                }
-              : undefined,
-            ...(input?.search ? Post_queryChunks_search(input.search) : {}),
-            // TODO: location
-            isDeleted: false,
-          },
+        const items = await ctx.db_drizzle.query.post.findMany({
+          ...Post_select,
+          limit: 10,
+          offset: input.offset,
+          orderBy: desc(post.id),
+          where: inArray(post.id, items_ids),
         })
-        .then(items => items.map(i => i.id))
 
-      const limit = 10
-      const items = await ctx.db_drizzle.query.post.findMany({
-        ...Post_select,
-        limit: limit + 1,
-        orderBy: desc(post.id),
-        where: inArray(post.id, items_ids),
-      })
-
-      return { items }
-    }),
+        return items
+      }),
+  }),
 
   single: publicProcedure
     .input(
