@@ -1,5 +1,5 @@
-- u Post.api.many stavit usporedbu drizzle-a i prisme
 - bug sa lokacijom
+- u Post.api.many stavit usporedbu drizzle-a i prisme
 
 
 - query param za kategorije je loše odrađeno, imaju dobar lib za to
