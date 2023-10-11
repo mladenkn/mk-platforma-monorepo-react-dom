@@ -6,6 +6,7 @@ import { getConnectionString } from "~/cli.utils"
 
 export function drizzle_connect() {
   const queryClient = postgres(env.DATABASE_URL || getConnectionString("dev"), {
+    // TODO: mora radit bez defaulta
     ssl: "require",
     max: 1,
   })

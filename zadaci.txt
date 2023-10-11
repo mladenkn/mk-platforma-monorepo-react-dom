@@ -1,5 +1,6 @@
 - rastavit drizzle/schema.ts u više fajlova
 - nesmi bit slika bez url-a
+- drizzle instance ne radi bez default db conn str
 
 
 
