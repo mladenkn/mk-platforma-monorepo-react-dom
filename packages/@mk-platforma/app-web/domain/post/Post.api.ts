@@ -11,7 +11,7 @@ import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const Post_api = router({
   list: router({
-    fieldSet_main: SuperData_query2(
+    fieldSet_main2: SuperData_query2(
       Post_list_many,
       z.object({
         cursor: z.number().min(1).optional(),
@@ -62,12 +62,12 @@ const Post_api = router({
         return { items: items_mapped, nextCursor }
       },
     ),
-    fieldSet_main2: publicProcedure
+    fieldSet_main: publicProcedure
       .input(
         z.object({
           categories: z.array(z.number()).optional(),
           search: z.string().optional(),
-          offset: z.number().optional(),
+          cursor: z.number().min(1).optional(),
         }),
       )
       .query(async ({ ctx, input }) => {
@@ -78,6 +78,12 @@ const Post_api = router({
             select: {
               id: true,
             },
+            cursor: input.cursor
+              ? {
+                  id: input.cursor,
+                }
+              : undefined,
+            take: limit + 1,
             where: {
               categories: input.categories?.length
                 ? {
@@ -93,12 +99,12 @@ const Post_api = router({
           })
           .then(items => items.map(i => i.id))
 
+        const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
+
         const items = await ctx.db_drizzle.query.post.findMany({
           ...Post_select,
           where: inArray(post.id, items_ids),
         })
-
-        const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
 
         return { items, nextCursor }
       }),

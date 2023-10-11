@@ -5,7 +5,7 @@ import Post_list_page_header from "./Post.list.page.header"
 import { Api_outputs } from "~/api_/api.infer"
 import Link from "next/link"
 import { Post_listItem } from "./Post.listItem"
-import { flatMap } from "lodash"
+import { flatMap, pick, uniqBy } from "lodash"
 import { useDebounceCallback } from "@react-hook/debounce"
 import use_history_uniques from "@mk-libs/react-common/use.history.uniques"
 import Api from "~/api_/api.client"
@@ -60,6 +60,10 @@ export default function Post_list_page({
       // initialData: { pages: [posts_initial.items], pageParams: undefined },
     },
   )
+
+  const posts_flat = flatMap(posts.data?.pages, page => page.items.map(i => pick(i, "id", "title")))
+  console.log("all posts uniq count", uniqBy(posts_flat, p => p.id).length, posts_flat.length)
+
   const posts_isFirstLoading = use_history_uniques(posts.status).every(s => s === "loading")
   const posts_data = posts_isFirstLoading
     ? posts_initial
