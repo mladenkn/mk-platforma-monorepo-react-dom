@@ -1,6 +1,8 @@
+- u Post.api.many stavit usporedbu drizzle-a i prisme
+
 - rastavit drizzle/schema.ts u više fajlova
-- nesmi bit slika bez url-a
-- drizzle instance ne radi bez default db conn str
+- nesmi bit slika bez url-a (valjda više neće)
+- drizzle instance ne radi bez default db conn str (ipak nema veze jer ću vjer maknit env var zbog sqlite)
 
 
 
