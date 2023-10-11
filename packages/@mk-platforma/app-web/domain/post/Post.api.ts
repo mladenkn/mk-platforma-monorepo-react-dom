@@ -1,11 +1,11 @@
 import { z } from "zod"
 import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import Post_api_create from "./Post.api.create"
-import { Post_list_many } from "./Post.api.abstract"
+import { Post_list_many, Post_queryChunks_search } from "./Post.api.abstract"
 import { SuperData_query2 } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
-import { and, desc, eq, inArray, or } from "drizzle-orm"
+import { desc, eq, inArray } from "drizzle-orm"
 import { post, postExpertEndorsement } from "~/drizzle/schema"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
@@ -69,16 +69,35 @@ const Post_api = router({
       z.object({
         categories: z.array(z.number()).optional(),
         search: z.string().optional(),
-        cursor: z.number().min(1).optional(),
       }),
     )
     .query(async ({ ctx, input }) => {
+      const items_ids = await ctx.db.post
+        .findMany({
+          select: {
+            id: true,
+          },
+          where: {
+            categories: input.categories?.length
+              ? {
+                  some: {
+                    OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
+                  },
+                }
+              : undefined,
+            ...(input?.search ? Post_queryChunks_search(input.search) : {}),
+            // TODO: location
+            isDeleted: false,
+          },
+        })
+        .then(items => items.map(i => i.id))
+
       const limit = 10
       const items = await ctx.db_drizzle.query.post.findMany({
         ...Post_select,
         limit: limit + 1,
         orderBy: desc(post.id),
-        where: and(eq(post.isDeleted, false), or(post)),
+        where: inArray(post.id, items_ids),
       })
 
       return { items }
