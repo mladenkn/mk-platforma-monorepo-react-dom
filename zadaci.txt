@@ -1,3 +1,9 @@
+- rastavit drizzle/schema.ts u više fajlova
+- nesmi bit slika bez url-a
+
+
+
+STARO
 - login za sve
 - donacije
 - pravo
