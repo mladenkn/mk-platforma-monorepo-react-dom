@@ -220,8 +220,10 @@ export const category = pgTable(
 )
 
 export const categoryRelations = relations(category, ({ one, many }) => ({
-  parent: one(category, { fields: [category.parentId], references: [category.id] }),
+  // parent: one(category, { fields: [category.parentId], references: [category.id] }),
   // children: many(category, { fields: [category.] })
+  parent: one(category),
+  children: many(category),
 }))
 
 export const postExpertEndorsementSkill = pgTable(

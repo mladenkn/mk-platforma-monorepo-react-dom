@@ -52,15 +52,24 @@ const Category_api = router({
   single: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
     const c = await ctx.db_drizzle.query.category.findFirst({
       where: eq(category.id, input),
+      columns: { id: true, label: true },
       with: {
         parent: {
+          columns: { id: true, label: true },
+          with: {
+            parent: { columns: { id: true, label: true } },
+            children: { columns: { id: true, label: true } },
+          },
+        },
+        children: {
           columns: { id: true, label: true },
           with: { parent: { columns: { id: true, label: true } } },
         },
       },
     })
     assertIsNonNil(c) // TODO: fix
-    return { ...c, children: [] as (typeof c)[] } // TODO: add children
+    return c
+    // return { ...c, children: [] as (typeof c)[] } // TODO: add children
   }),
   // single2: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
   //   const c = await ctx.db.category.findUnique({ where: { id: input }, select: Category_select })
