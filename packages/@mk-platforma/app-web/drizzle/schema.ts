@@ -213,6 +213,9 @@ function enum_type(zodEnum: ZodEnum<any>) {
       zodEnum.parse(value)
       return value
     },
+    fromDriver(value: string) {
+      return zodEnum.parse(value)
+    },
   })
 }
 
