@@ -11,10 +11,12 @@ import {
   boolean,
   numeric,
   jsonb,
+  customType,
 } from "drizzle-orm/pg-core"
 
 import { relations, sql } from "drizzle-orm"
-import { Category_label } from "~/domain/category/Category.types"
+import { Category_label, Category_label_zod } from "~/domain/category/Category.types"
+import { ZodEnum } from "zod"
 
 export const imageToPost = pgTable(
   "_ImageToPost",
@@ -199,12 +201,27 @@ export const postExpertEndorsement = pgTable(
   },
 )
 
+function enum_type(zodEnum: ZodEnum<any>) {
+  return customType<{
+    data: string
+    driverData: string
+  }>({
+    dataType() {
+      return "text"
+    },
+    toDriver(value: string): string {
+      zodEnum.parse(value)
+      return value
+    },
+  })
+}
+
 export const category = pgTable(
   "Category",
   {
     id: serial("id").primaryKey().notNull(),
     parentId: integer("parent_id"),
-    label: text("label").$type<Category_label>().notNull(),
+    label: enum_type(Category_label_zod)("label").$type<Category_label>().notNull(),
   },
   table => {
     return {
