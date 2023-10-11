@@ -209,7 +209,7 @@ function enum_type(zodEnum: ZodEnum<any>) {
     dataType() {
       return "text"
     },
-    toDriver(value: string): string {
+    toDriver(value: string) {
       zodEnum.parse(value)
       return value
     },
