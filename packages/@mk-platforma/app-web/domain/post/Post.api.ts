@@ -51,7 +51,7 @@ const Post_api = router({
         )
 
         const items_mapped = items.map(item => {
-          const expertEndorsement = expertEndorsements.find(e => e.postId === item.id)
+          const expertEndorsement = expertEndorsements.find(e => e.postId === item.id) || null
           return {
             ...item,
             expertEndorsement,
