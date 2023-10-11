@@ -24,54 +24,31 @@ const Comment_api_many = SuperData_mapper(
 
 const Comment_api = router({
   many: SuperData_query(Comment_api_many, async ({ db, user, db_drizzle }, _output1, input) => {
-    const [comments_prisma, comments_prisma_time] = await measurePerformance(
-      db.comment.findMany({
-        ..._output1,
-        select: {
+    const comments_drizzle = await db_drizzle.query.comment
+      .findMany({
+        columns: {
           id: true,
           content: true,
+        },
+        with: {
           author: {
-            select: {
+            columns: {
               avatarStyle: true,
               name: true,
               id: true,
             },
           },
         },
-      }),
-    )
-    const [comments_drizzle, comments_drizzle_time] = await measurePerformance(
-      db_drizzle.query.comment
-        .findMany({
-          columns: {
-            id: true,
-            content: true,
-          },
-          with: {
-            author: {
-              columns: {
-                avatarStyle: true,
-                name: true,
-                id: true,
-              },
-            },
-          },
-          where: and(eq(comment.postId, input.post_id), eq(comment.isDeleted, false)),
-          orderBy: desc(comment.id),
-        })
-        .then(comments =>
-          comments.map(c => ({
-            ...c,
-            canEdit: user?.canMutate ? c.author.id === user?.id : false,
-            canDelete: user?.canMutate ? c.author.id === user?.id : false,
-          })),
-        ),
-    )
-    console.log(
-      `Comment.many.prisma.time: ${comments_prisma_time}`,
-      "  ",
-      `Comment.many.drizzle.time: ${comments_drizzle_time}`,
-    )
+        where: and(eq(comment.postId, input.post_id), eq(comment.isDeleted, false)),
+        orderBy: desc(comment.id),
+      })
+      .then(comments =>
+        comments.map(c => ({
+          ...c,
+          canEdit: user?.canMutate ? c.author.id === user?.id : false,
+          canDelete: user?.canMutate ? c.author.id === user?.id : false,
+        })),
+      )
     return comments_drizzle
   }),
 
