@@ -209,6 +209,10 @@ export const postRelations = relations(post, ({ one, many }) => ({
     references: [location.id],
   }),
   images: many(image),
+  expertEndorsement: one(postExpertEndorsement, {
+    fields: [post.expertEndorsementId],
+    references: [postExpertEndorsement.id],
+  }),
 }))
 
 function typedJson(zodType: ZodTypeAny) {
@@ -289,7 +293,7 @@ export const category = pgTable(
   },
 )
 
-export const categoryRelations = relations(category, ({ one, many }) => ({
+export const categoryRelations = relations(category, ({ one }) => ({
   parent: one(category, {
     fields: [category.parentId],
     references: [category.id],

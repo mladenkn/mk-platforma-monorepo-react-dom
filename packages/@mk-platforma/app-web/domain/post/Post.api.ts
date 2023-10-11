@@ -6,7 +6,7 @@ import { SuperData_query2 } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
 import { eq, inArray } from "drizzle-orm"
-import { postExpertEndorsement, user } from "~/drizzle/schema"
+import { post, postExpertEndorsement } from "~/drizzle/schema"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const Post_api = router({
@@ -71,7 +71,8 @@ const Post_api = router({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const post_premap = await ctx.db_drizzle.query.post.findFirst({
+      const post_data = await ctx.db_drizzle.query.post.findFirst({
+        where: eq(post.id, input.id),
         columns: {
           id: true,
           title: true,
@@ -111,41 +112,36 @@ const Post_api = router({
               avatarStyle: true,
             },
           },
-        },
-      })
-
-      if (!post_premap) return null
-
-      const post = {
-        ...post_premap,
-        categories: post_premap ? post_premap.categoryToPost.map(ct => ct.category) : [],
-      }
-
-      const expertEndorsement = await ctx.db_drizzle.query.postExpertEndorsement.findFirst({
-        where: eq(postExpertEndorsement.postId, input.id),
-        columns: {
-          firstName: true,
-          lastName: true,
-          avatarStyle: true,
-          postId: true,
-        },
-        with: {
-          skills: {
+          expertEndorsement: {
             columns: {
-              id: true,
-              label: true,
-              level: true,
+              firstName: true,
+              lastName: true,
+              avatarStyle: true,
+              postId: true,
+            },
+            with: {
+              skills: {
+                columns: {
+                  id: true,
+                  label: true,
+                  level: true,
+                },
+              },
             },
           },
         },
       })
 
+      if (!post_data) return null
+
+      console.log(137, post_data)
+
       return {
-        ...post,
-        expertEndorsement: expertEndorsement || null,
-        canEdit: ctx.user?.canMutate ? post.author!.id === ctx.user?.id : false,
+        ...post_data,
+        categories: post_data.categoryToPost.map(ct => ct.category),
+        canEdit: ctx.user?.canMutate ? post_data.author!.id === ctx.user?.id : false,
         canComment: ctx.user?.canMutate ?? false,
-        canDelete: ctx.user?.canMutate ? post.author!.id === ctx.user?.id : false,
+        canDelete: ctx.user?.canMutate ? post_data.author!.id === ctx.user?.id : false,
       }
     }),
 
