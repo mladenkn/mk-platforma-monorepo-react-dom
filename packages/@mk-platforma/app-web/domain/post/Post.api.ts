@@ -133,7 +133,7 @@ const Post_api = router({
       if (post)
         return {
           ...post,
-          expertEndorsement: expertEndorsement!,
+          expertEndorsement: expertEndorsement || null,
           author: author!,
           canEdit: ctx.user?.canMutate ? author!.id === ctx.user?.id : false,
           canComment: ctx.user?.canMutate ?? false,

@@ -171,20 +171,33 @@ export const post = pgTable(
 export const categoryToPost = pgTable(
   "_CategoryToPost",
   {
-    a: integer("A")
+    categoryId: integer("A")
       .notNull()
       .references(() => category.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    b: integer("B")
+    postId: integer("B")
       .notNull()
       .references(() => post.id, { onDelete: "cascade", onUpdate: "cascade" }),
   },
   table => {
     return {
-      abUnique: uniqueIndex("_CategoryToPost_AB_unique").on(table.a, table.b),
-      bIdx: index().on(table.b),
+      abUnique: uniqueIndex("_CategoryToPost_AB_unique").on(table.categoryId, table.postId),
+      bIdx: index().on(table.postId),
     }
   },
 )
+
+export const categoryToPostRelations = relations(categoryToPost, ({ one }) => ({
+  category: one(category, { fields: [categoryToPost.categoryId], references: [category.id] }),
+  post: one(post, { fields: [categoryToPost.postId], references: [post.id] }),
+}))
+
+export const postRelations = relations(post, ({ one, many }) => ({
+  author: one(user, {
+    fields: [post.authorId],
+    references: [user.id],
+  }),
+  categoryToPost: many(categoryToPost),
+}))
 
 function typedJson(zodType: ZodTypeAny) {
   return customType<{
@@ -317,6 +330,10 @@ export const user = pgTable(
     }
   },
 )
+
+export const userRelations = relations(user, ({ many }) => ({
+  posts: many(post),
+}))
 
 export const account = pgTable(
   "Account",
