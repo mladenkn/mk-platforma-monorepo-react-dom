@@ -104,6 +104,7 @@ const Post_api = router({
         const items = await ctx.db_drizzle.query.post.findMany({
           ...Post_select,
           where: inArray(post.id, items_ids),
+          orderBy: desc(post.id),
         })
 
         return { items, nextCursor }
@@ -120,6 +121,32 @@ const Post_api = router({
       const post_data = await ctx.db_drizzle.query.post.findFirst({
         where: eq(post.id, input.id),
         ...Post_select,
+        columns: {
+          ...Post_select.columns,
+          isDeleted: true,
+          description: true,
+          contact: true,
+        },
+        with: {
+          ...Post_select.with,
+          categoryToPost: {
+            with: {
+              category: {
+                columns: {
+                  id: true,
+                  label: true,
+                },
+              },
+            },
+          },
+          author: {
+            columns: {
+              id: true,
+              name: true,
+              avatarStyle: true,
+            },
+          },
+        },
       })
 
       if (!post_data) return null
@@ -147,10 +174,6 @@ const Post_select = {
   columns: {
     id: true,
     title: true,
-    isDeleted: true,
-    authorId: true,
-    contact: true,
-    description: true,
   },
   with: {
     location: {
@@ -164,23 +187,6 @@ const Post_select = {
         isMain: true,
         id: true,
         url: true,
-      },
-    },
-    categoryToPost: {
-      with: {
-        category: {
-          columns: {
-            id: true,
-            label: true,
-          },
-        },
-      },
-    },
-    author: {
-      columns: {
-        id: true,
-        name: true,
-        avatarStyle: true,
       },
     },
     expertEndorsement: {
