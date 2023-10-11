@@ -71,6 +71,8 @@ const Post_api = router({
         }),
       )
       .query(async ({ ctx, input }) => {
+        const limit = 10
+
         const items_ids = await ctx.db.post
           .findMany({
             select: {
@@ -93,13 +95,12 @@ const Post_api = router({
 
         const items = await ctx.db_drizzle.query.post.findMany({
           ...Post_select,
-          limit: 10,
-          offset: input.offset,
-          orderBy: desc(post.id),
           where: inArray(post.id, items_ids),
         })
 
-        return items
+        const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
+
+        return { items, nextCursor }
       }),
   }),
 
