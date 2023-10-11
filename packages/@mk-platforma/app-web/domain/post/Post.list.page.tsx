@@ -34,7 +34,9 @@ export default function Post_list_page({
   location_initial,
   location_radius_initial,
 }: PostList_section_Props) {
+  // TODO: imaju dobri alati za query param state
   const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
+
   const [search, set_search] = useState<string | null>(null)
   const [selectedLocation, set_selectedLocation] = use_cookie(
     "Post_list__location",
@@ -77,9 +79,15 @@ export default function Post_list_page({
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
+  // TODO: treba bit bolje, imaju dobri alati za query param state
   const setUrlParams_shallow = use_setUrlParams_shallow()
-  // ovde bug?
-  function onCategorySelect(category: Category_model) {
+  function onCategorySelect(category?: Category_model) {
+    if (!category) {
+      setUrlParams_shallow({})
+      set_SectionsDrawer_isActive(false)
+      setSelectedCategory(undefined)
+      return
+    }
     setUrlParams_shallow({ category: category.label })
     if (!category.children?.length) set_SectionsDrawer_isActive(false)
     setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
@@ -156,7 +164,7 @@ export default function Post_list_page({
               categories={categories.data}
               selectedItem={selectedCategory.data?.id}
               onSelect={onCategorySelect}
-              onBack={() => setSelectedCategory(undefined)}
+              onBack={() => onCategorySelect(undefined)}
             />
           )}
         </Drawer>
