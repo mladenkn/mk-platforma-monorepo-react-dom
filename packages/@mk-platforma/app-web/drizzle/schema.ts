@@ -16,7 +16,8 @@ import {
 
 import { relations, sql } from "drizzle-orm"
 import { Category_label, Category_label_zod } from "~/domain/category/Category.types"
-import { ZodEnum } from "zod"
+import { ZodEnum, ZodTypeAny } from "zod"
+import { AvatarStyle, AvataryStyle_zod } from "~/domain/user/User.types"
 
 export const imageToPost = pgTable(
   "_ImageToPost",
@@ -185,6 +186,26 @@ export const categoryToPost = pgTable(
   },
 )
 
+function typedJson(zodType: ZodTypeAny) {
+  return customType<{
+    data: object
+    driverData: object
+  }>({
+    dataType() {
+      return "jsonb"
+    },
+    toDriver(data: object) {
+      // const asJson = JSON.parse(data)
+      zodType.parse(data)
+      return data
+    },
+    fromDriver(data: object) {
+      // const asJson = JSON.parse(data)
+      return zodType.parse(data)
+    },
+  })
+}
+
 export const postExpertEndorsement = pgTable(
   "Post_ExpertEndorsement",
   {
@@ -192,7 +213,7 @@ export const postExpertEndorsement = pgTable(
     postId: integer("post_id").notNull(),
     firstName: varchar("firstName", { length: 64 }).notNull(),
     lastName: varchar("lastName", { length: 64 }).notNull(),
-    avatarStyle: jsonb("avatarStyle").notNull(),
+    avatarStyle: typedJson(AvataryStyle_zod)("avatarStyle").$type<AvatarStyle>().notNull(),
   },
   table => {
     return {
