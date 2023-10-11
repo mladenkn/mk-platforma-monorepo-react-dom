@@ -68,6 +68,8 @@ const Post_api = router({
           categories: z.array(z.number()).optional(),
           search: z.string().optional(),
           cursor: z.number().min(1).optional(),
+          location: z.number().optional(),
+          location_radius: z.number().optional().default(50),
         }),
       )
       .query(async ({ ctx, input }) => {
