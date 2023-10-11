@@ -7,6 +7,7 @@ import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
 import { inArray } from "drizzle-orm"
 import { postExpertEndorsement } from "~/drizzle/schema"
+import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const Post_api = router({
   list: router({
@@ -44,27 +45,10 @@ const Post_api = router({
           },
         })
 
-        const expertEndorsements = await db_drizzle.query.postExpertEndorsement.findMany({
-          where: inArray(
-            postExpertEndorsement.postId,
-            items.map(p => p.id),
-          ),
-          columns: {
-            firstName: true,
-            lastName: true,
-            avatarStyle: true,
-            postId: true,
-          },
-          with: {
-            skills: {
-              columns: {
-                id: true,
-                label: true,
-                level: true,
-              },
-            },
-          },
-        })
+        const expertEndorsements = await getExpertEndorsments(
+          db_drizzle,
+          items.map(i => i.id),
+        )
 
         const items_mapped = items.map(item => {
           const expertEndorsement = expertEndorsements.find(e => e.postId === item.id)
@@ -155,5 +139,26 @@ const Post_api = router({
       ctx.db.post.update({ where: { id: input }, data: { isDeleted: true } }),
     ),
 })
+
+function getExpertEndorsments(db_drizzle: Drizzle_instance, posts: number[]) {
+  return db_drizzle.query.postExpertEndorsement.findMany({
+    where: inArray(postExpertEndorsement.postId, posts),
+    columns: {
+      firstName: true,
+      lastName: true,
+      avatarStyle: true,
+      postId: true,
+    },
+    with: {
+      skills: {
+        columns: {
+          id: true,
+          label: true,
+          level: true,
+        },
+      },
+    },
+  })
+}
 
 export default Post_api
