@@ -1,6 +1,5 @@
 - u Post.api.many stavit usporedbu drizzle-a i prisme
 - onaj bug kad ide izać iz kategorije, moga bi koristit one hookove za takav state
-- preimenovat app, ideje: Pametni Oglasi, Domaći oglasi
 - bug sa lokacijom
 
 - rastavit drizzle/schema.ts u više fajlova
