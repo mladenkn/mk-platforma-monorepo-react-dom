@@ -14,14 +14,15 @@ const Category_api = router({
   ),
   many: publicProcedure.query(async ({ ctx: { db, db_drizzle } }) => {
     const c = await db_drizzle
-      .select({
-        id: category.id,
-        label: category.label,
-        parent: {
-          id: category.id,
-          label: category.label,
-        },
-      })
+      // .select({
+      //   id: category.id,
+      //   label: category.label,
+      //   parent: {
+      //     id: category.id,
+      //     label: category.label,
+      //   },
+      // })
+      .select()
       .from(category)
       .leftJoin(category_parent, eq(category_parent.id, category.parentId))
 
