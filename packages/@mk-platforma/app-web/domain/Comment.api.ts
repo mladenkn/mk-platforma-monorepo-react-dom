@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { authorizedRoute, router } from "~/api_/api.server.utils"
+import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import { shallowPick } from "@mk-libs/common/common"
@@ -23,34 +23,39 @@ const Comment_api_many = SuperData_mapper(
 )
 
 const Comment_api = router({
-  many: SuperData_query(Comment_api_many, async ({ db, user, db_drizzle }, _output1, input) => {
-    const comments_drizzle = await db_drizzle.query.comment
-      .findMany({
-        columns: {
-          id: true,
-          content: true,
-        },
-        with: {
-          author: {
-            columns: {
-              avatarStyle: true,
-              name: true,
-              id: true,
+  many: publicProcedure
+    .input(
+      z.object({
+        post_id: z.number(),
+      }),
+    )
+    .query(({ ctx: { user, db_drizzle }, input }) =>
+      db_drizzle.query.comment
+        .findMany({
+          columns: {
+            id: true,
+            content: true,
+          },
+          with: {
+            author: {
+              columns: {
+                avatarStyle: true,
+                name: true,
+                id: true,
+              },
             },
           },
-        },
-        where: and(eq(comment.postId, input.post_id), eq(comment.isDeleted, false)),
-        orderBy: desc(comment.id),
-      })
-      .then(comments =>
-        comments.map(c => ({
-          ...c,
-          canEdit: user?.canMutate ? c.author.id === user?.id : false,
-          canDelete: user?.canMutate ? c.author.id === user?.id : false,
-        })),
-      )
-    return comments_drizzle
-  }),
+          where: and(eq(comment.postId, input.post_id), eq(comment.isDeleted, false)),
+          orderBy: desc(comment.id),
+        })
+        .then(comments =>
+          comments.map(c => ({
+            ...c,
+            canEdit: user?.canMutate ? c.author.id === user?.id : false,
+            canDelete: user?.canMutate ? c.author.id === user?.id : false,
+          })),
+        ),
+    ),
 
   create: authorizedRoute(u => u.canMutate && !!u.name)
     .input(
