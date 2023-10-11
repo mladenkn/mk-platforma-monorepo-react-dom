@@ -19,24 +19,6 @@ import { Category_label, Category_label_zod } from "~/domain/category/Category.t
 import { ZodEnum, ZodTypeAny } from "zod"
 import { AvatarStyle, AvataryStyle_zod } from "~/domain/user/User.types"
 
-export const imageToPost = pgTable(
-  "_ImageToPost",
-  {
-    a: integer("A")
-      .notNull()
-      .references(() => image.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    b: integer("B")
-      .notNull()
-      .references(() => post.id, { onDelete: "cascade", onUpdate: "cascade" }),
-  },
-  table => {
-    return {
-      abUnique: uniqueIndex("_ImageToPost_AB_unique").on(table.a, table.b),
-      bIdx: index().on(table.b),
-    }
-  },
-)
-
 export const session = pgTable(
   "Session",
   {
@@ -215,7 +197,7 @@ export const postRelations = relations(post, ({ one, many }) => ({
   }),
 }))
 
-function typedJson(zodType: ZodTypeAny) {
+function stringJson(zodType: ZodTypeAny) {
   return customType<{
     data: object
     driverData: object
