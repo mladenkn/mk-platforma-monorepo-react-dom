@@ -52,20 +52,7 @@ const Category_api = router({
   single: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
     const c = await ctx.db_drizzle.query.category.findFirst({
       where: eq(category.id, input),
-      columns: { id: true, label: true },
-      with: {
-        parent: {
-          columns: { id: true, label: true },
-          with: {
-            parent: { columns: { id: true, label: true } },
-            children: { columns: { id: true, label: true } },
-          },
-        },
-        children: {
-          columns: { id: true, label: true },
-          with: { parent: { columns: { id: true, label: true } } },
-        },
-      },
+      ...Category_select2,
     })
     assertIsNonNil(c) // TODO: fix
     return c
@@ -76,6 +63,23 @@ const Category_api = router({
   //   return c
   // }),
 })
+
+const Category_select2 = {
+  columns: { id: true, label: true },
+  with: {
+    parent: {
+      columns: { id: true, label: true },
+      with: {
+        parent: { columns: { id: true, label: true } },
+        children: { columns: { id: true, label: true } },
+      },
+    },
+    children: {
+      columns: { id: true, label: true },
+      with: { parent: { columns: { id: true, label: true } } },
+    },
+  },
+} as const
 
 const Category_select = {
   id: true,
