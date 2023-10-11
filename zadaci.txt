@@ -1,3 +1,11 @@
+- onaj bug kad ide izać iz kategorije, moga bi koristit one hookove za takav state
+- preimenovat app, zasad: Pametni Oglasi
+
+
+
+
+STARO
+
 - login za sve
 - donacije
 - pravo
