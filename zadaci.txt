@@ -1,6 +1,7 @@
-- onaj bug kad ide izać iz kategorije, moga bi koristit one hookove za takav state
 - bug sa lokacijom
 
+
+- query param za kategorije je loše odrađeno, imaju dobar lib za to
 
 
 
