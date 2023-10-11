@@ -5,7 +5,7 @@ import { Post_list_many } from "./Post.api.abstract"
 import { SuperData_query2 } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
-import { eq, inArray } from "drizzle-orm"
+import { and, desc, eq, inArray, or } from "drizzle-orm"
 import { post, postExpertEndorsement } from "~/drizzle/schema"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
@@ -64,6 +64,26 @@ const Post_api = router({
     ),
   }),
 
+  fieldSet_main2: publicProcedure
+    .input(
+      z.object({
+        categories: z.array(z.number()).optional(),
+        search: z.string().optional(),
+        cursor: z.number().min(1).optional(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      const limit = 10
+      const items = await ctx.db_drizzle.query.post.findMany({
+        ...Post_select,
+        limit: limit + 1,
+        orderBy: desc(post.id),
+        where: and(eq(post.isDeleted, false), or(post)),
+      })
+
+      return { items }
+    }),
+
   single: publicProcedure
     .input(
       z.object({
@@ -73,63 +93,7 @@ const Post_api = router({
     .query(async ({ ctx, input }) => {
       const post_data = await ctx.db_drizzle.query.post.findFirst({
         where: eq(post.id, input.id),
-        columns: {
-          id: true,
-          title: true,
-          isDeleted: true,
-          authorId: true,
-          contact: true,
-          description: true,
-        },
-        with: {
-          location: {
-            columns: {
-              id: true,
-              name: true,
-            },
-          },
-          images: {
-            columns: {
-              isMain: true,
-              id: true,
-              url: true,
-            },
-          },
-          categoryToPost: {
-            with: {
-              category: {
-                columns: {
-                  id: true,
-                  label: true,
-                },
-              },
-            },
-          },
-          author: {
-            columns: {
-              id: true,
-              name: true,
-              avatarStyle: true,
-            },
-          },
-          expertEndorsement: {
-            columns: {
-              firstName: true,
-              lastName: true,
-              avatarStyle: true,
-              postId: true,
-            },
-            with: {
-              skills: {
-                columns: {
-                  id: true,
-                  label: true,
-                  level: true,
-                },
-              },
-            },
-          },
-        },
+        ...Post_select,
       })
 
       if (!post_data) return null
@@ -152,6 +116,66 @@ const Post_api = router({
       ctx.db.post.update({ where: { id: input }, data: { isDeleted: true } }),
     ),
 })
+
+const Post_select = {
+  columns: {
+    id: true,
+    title: true,
+    isDeleted: true,
+    authorId: true,
+    contact: true,
+    description: true,
+  },
+  with: {
+    location: {
+      columns: {
+        id: true,
+        name: true,
+      },
+    },
+    images: {
+      columns: {
+        isMain: true,
+        id: true,
+        url: true,
+      },
+    },
+    categoryToPost: {
+      with: {
+        category: {
+          columns: {
+            id: true,
+            label: true,
+          },
+        },
+      },
+    },
+    author: {
+      columns: {
+        id: true,
+        name: true,
+        avatarStyle: true,
+      },
+    },
+    expertEndorsement: {
+      columns: {
+        firstName: true,
+        lastName: true,
+        avatarStyle: true,
+        postId: true,
+      },
+      with: {
+        skills: {
+          columns: {
+            id: true,
+            label: true,
+            level: true,
+          },
+        },
+      },
+    },
+  },
+} as const
 
 function getExpertEndorsments(db_drizzle: Drizzle_instance, posts: number[]) {
   return db_drizzle.query.postExpertEndorsement.findMany({
