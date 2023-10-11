@@ -5,8 +5,8 @@ import { Post_list_many } from "./Post.api.abstract"
 import { SuperData_query2 } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
-import { inArray } from "drizzle-orm"
-import { postExpertEndorsement } from "~/drizzle/schema"
+import { eq, inArray } from "drizzle-orm"
+import { postExpertEndorsement, user } from "~/drizzle/schema"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const Post_api = router({
@@ -77,6 +77,7 @@ const Post_api = router({
           id: true,
           title: true,
           isDeleted: true,
+          author_id: true,
           categories: {
             select: {
               id: true,
@@ -98,35 +99,45 @@ const Post_api = router({
               url: true,
             },
           },
-          expertEndorsement: {
-            select: {
-              firstName: true,
-              lastName: true,
-              avatarStyle: true,
-              skills: {
-                select: {
-                  id: true,
-                  label: true,
-                  level: true,
-                },
+        },
+      })
+
+      const expertEndorsement =
+        post &&
+        (await ctx.db_drizzle.query.postExpertEndorsement.findFirst({
+          where: eq(postExpertEndorsement.postId, input.id),
+          columns: {
+            firstName: true,
+            lastName: true,
+            avatarStyle: true,
+            postId: true,
+          },
+          with: {
+            skills: {
+              columns: {
+                id: true,
+                label: true,
+                level: true,
               },
             },
           },
-          author: {
-            select: {
-              id: true,
-              name: true,
-              avatarStyle: true,
-            },
-          },
-        },
-      })
+        }))
+
+      const author =
+        post &&
+        (await ctx.db_drizzle.query.user.findFirst({
+          where: eq(user.id, post.author_id),
+          columns: { id: true, name: true, avatarStyle: true },
+        }))
+
       if (post)
         return {
           ...post,
-          canEdit: ctx.user?.canMutate ? post.author.id === ctx.user?.id : false,
+          expertEndorsement: expertEndorsement!,
+          author: author!,
+          canEdit: ctx.user?.canMutate ? author!.id === ctx.user?.id : false,
           canComment: ctx.user?.canMutate ?? false,
-          canDelete: ctx.user?.canMutate ? post.author.id === ctx.user?.id : false,
+          canDelete: ctx.user?.canMutate ? author!.id === ctx.user?.id : false,
         }
     }),
 
