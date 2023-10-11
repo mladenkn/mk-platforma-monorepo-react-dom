@@ -1,10 +1,12 @@
 - u Post.api.many stavit usporedbu drizzle-a i prisme
-- onaj bug kad ide izać iz kategorije, moga bi koristit one hookove za takav state
 - bug sa lokacijom
 
+
+- query param za kategorije je loše odrađeno, imaju dobar lib za to
 - rastavit drizzle/schema.ts u više fajlova
 - nesmi bit slika bez url-a (valjda više neće)
 - drizzle instance ne radi bez default db conn str (ipak nema veze jer ću vjer maknit env var zbog sqlite)
+
 
 
 
