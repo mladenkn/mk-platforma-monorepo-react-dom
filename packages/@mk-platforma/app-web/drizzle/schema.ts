@@ -213,7 +213,7 @@ export const postExpertEndorsement = pgTable(
     postId: integer("post_id").notNull(),
     firstName: varchar("firstName", { length: 64 }).notNull(),
     lastName: varchar("lastName", { length: 64 }).notNull(),
-    avatarStyle: typedJson(AvataryStyle_zod)("avatarStyle").$type<AvatarStyle>().notNull(),
+    avatarStyle: jsonb("avatarStyle").$type<AvatarStyle>().notNull(),
   },
   table => {
     return {
@@ -291,7 +291,7 @@ export const user = pgTable(
   {
     id: serial("id").primaryKey().notNull(),
     name: varchar("name", { length: 32 }),
-    avatarStyle: jsonb("avatarStyle").notNull(),
+    avatarStyle: jsonb("avatarStyle").$type<AvatarStyle>().notNull(),
     email: varchar("email", { length: 64 }),
     emailVerified: timestamp("emailVerified", { precision: 3, mode: "string" }),
     canMutate: boolean("canMutate").default(true).notNull(),

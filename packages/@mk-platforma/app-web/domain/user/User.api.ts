@@ -30,14 +30,6 @@ export const User_api = router({
       .then(r => r && { ...r, canEdit: ctx.user?.canMutate ? r.id === ctx.user.id : false }),
   ),
   single: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
-    // return ctx.db.user.findUnique({
-    //   where: { id: input },
-    //   select: {
-    //     id: true,
-    //     name: true,
-    //     avatarStyle: true,
-    //   },
-    // })
     const u = await ctx.db_drizzle.query.user.findFirst({
       where: eq(user.id, input),
       columns: {
