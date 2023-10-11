@@ -6,7 +6,10 @@ import { category } from "~/drizzle/schema"
 import { assertIsNonNil } from "@mk-libs/common/common"
 
 const Category_api = router({
-  many: publicProcedure.query(({ ctx: { db }, input }) =>
+  many: publicProcedure.query(({ ctx: { db_drizzle } }) =>
+    db_drizzle.query.category.findMany(Category_select2),
+  ),
+  many2: publicProcedure.query(({ ctx: { db } }) =>
     db.category.findMany({
       select: Category_select,
     }),
