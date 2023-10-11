@@ -71,74 +71,82 @@ const Post_api = router({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const post = await ctx.db.post.findUnique({
-        where: { id: input.id },
-        select: {
+      const post_premap = await ctx.db_drizzle.query.post.findFirst({
+        columns: {
           id: true,
           title: true,
           isDeleted: true,
-          author_id: true,
-          categories: {
-            select: {
-              id: true,
-              label: true,
-            },
-          },
+          authorId: true,
+          contact: true,
+          description: true,
+        },
+        with: {
           location: {
-            select: {
+            columns: {
               id: true,
               name: true,
             },
           },
-          contact: true,
-          description: true,
           images: {
-            select: {
+            columns: {
               isMain: true,
               id: true,
               url: true,
             },
           },
-        },
-      })
-
-      const expertEndorsement =
-        post &&
-        (await ctx.db_drizzle.query.postExpertEndorsement.findFirst({
-          where: eq(postExpertEndorsement.postId, input.id),
-          columns: {
-            firstName: true,
-            lastName: true,
-            avatarStyle: true,
-            postId: true,
-          },
-          with: {
-            skills: {
-              columns: {
-                id: true,
-                label: true,
-                level: true,
+          categoryToPost: {
+            with: {
+              category: {
+                columns: {
+                  id: true,
+                  label: true,
+                },
               },
             },
           },
-        }))
+          author: {
+            columns: {
+              id: true,
+              name: true,
+              avatarStyle: true,
+            },
+          },
+        },
+      })
 
-      const author =
-        post &&
-        (await ctx.db_drizzle.query.user.findFirst({
-          where: eq(user.id, post.author_id),
-          columns: { id: true, name: true, avatarStyle: true },
-        }))
+      if (!post_premap) return null
 
-      if (post)
-        return {
-          ...post,
-          expertEndorsement: expertEndorsement || null,
-          author: author!,
-          canEdit: ctx.user?.canMutate ? author!.id === ctx.user?.id : false,
-          canComment: ctx.user?.canMutate ?? false,
-          canDelete: ctx.user?.canMutate ? author!.id === ctx.user?.id : false,
-        }
+      const post = {
+        ...post_premap,
+        categories: post_premap ? post_premap.categoryToPost.map(ct => ct.category) : [],
+      }
+
+      const expertEndorsement = await ctx.db_drizzle.query.postExpertEndorsement.findFirst({
+        where: eq(postExpertEndorsement.postId, input.id),
+        columns: {
+          firstName: true,
+          lastName: true,
+          avatarStyle: true,
+          postId: true,
+        },
+        with: {
+          skills: {
+            columns: {
+              id: true,
+              label: true,
+              level: true,
+            },
+          },
+        },
+      })
+
+      return {
+        ...post,
+        expertEndorsement: expertEndorsement || null,
+        canEdit: ctx.user?.canMutate ? post.author!.id === ctx.user?.id : false,
+        canComment: ctx.user?.canMutate ?? false,
+        canDelete: ctx.user?.canMutate ? post.author!.id === ctx.user?.id : false,
+      }
     }),
 
   create: Post_api_create,

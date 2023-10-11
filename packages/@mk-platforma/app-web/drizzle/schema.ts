@@ -113,6 +113,13 @@ export const image = pgTable(
   },
 )
 
+export const imageRelations = relations(image, ({ one }) => ({
+  post: one(post, {
+    fields: [image.postId],
+    references: [post.id],
+  }),
+}))
+
 export const location = pgTable(
   "Location",
   {
@@ -197,6 +204,11 @@ export const postRelations = relations(post, ({ one, many }) => ({
     references: [user.id],
   }),
   categoryToPost: many(categoryToPost),
+  location: one(location, {
+    fields: [post.locationId],
+    references: [location.id],
+  }),
+  images: many(image),
 }))
 
 function typedJson(zodType: ZodTypeAny) {
