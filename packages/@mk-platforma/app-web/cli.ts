@@ -125,7 +125,7 @@ function seedTestUser() {
     where: { name: "__test__" },
     create: {
       name: "__test__",
-      avatarStyle: {},
+      avatarStyle: "{}",
       email: "test@test.hr",
       emailVerified: new Date(),
       canMutate: true,

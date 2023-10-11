@@ -74,7 +74,7 @@ const Post_api_update = authorizedRoute(u => u.canMutate && !!u.name)
                 upsert: {
                   create: {
                     post_id: input.id,
-                    avatarStyle: getRandomElement(avatarStyles),
+                    avatarStyle: JSON.stringify(getRandomElement(avatarStyles)),
                     skills: {
                       create: input.expertEndorsement.skills || undefined, // moraju svi bit bez id-ova
                     },
