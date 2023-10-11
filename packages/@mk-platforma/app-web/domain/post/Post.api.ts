@@ -84,6 +84,9 @@ const Post_api = router({
                 }
               : undefined,
             take: limit + 1,
+            orderBy: {
+              id: "desc",
+            },
             where: {
               categories: input.categories?.length
                 ? {
