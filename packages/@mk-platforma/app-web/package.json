@@ -11,7 +11,8 @@
     "build": "pnpm next build",
     "prisma.gen": "prisma generate",
     "drizzle.pull": "drizzle-kit introspect:pg --config=drizzle.pull.config.ts",
-    "dev": "UPLOADTHING_SECRET=\"sk_live_8f78c8c092e0657bb96f964c1527e3b5257969372b653a8b4d711cb7e1fc9cfb\" UPLOADTHING_APP_ID=\"2axqlwskhd\", DATABASE_URL=\"postgresql://postgres:postgres@localhost:5432/za_brata\" next dev "
+    "dev": "UPLOADTHING_SECRET=\"sk_live_8f78c8c092e0657bb96f964c1527e3b5257969372b653a8b4d711cb7e1fc9cfb\" UPLOADTHING_APP_ID=\"2axqlwskhd\", DATABASE_URL=\"postgresql://postgres:postgres@localhost:5432/za_brata\" next dev ",
+    "db.psql.dev": "psql postgresql://postgres:postgres@localhost:5432/za_brata"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
