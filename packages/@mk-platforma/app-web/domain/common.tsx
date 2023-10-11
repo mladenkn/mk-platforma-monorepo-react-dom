@@ -20,13 +20,13 @@ export function LogoLink() {
   return (
     <Link style={{ color: "white", textDecoration: "none" }} href="/">
       <Typography variant="h2" fontWeight={400}>
-        ZaBrata
+        Pametni oglasi
       </Typography>
-      <Box sx={{ color: "white" }}>
+      {/* <Box sx={{ color: "white" }}>
         <Typography variant="h4" fontWeight={400}>
-          Loza kontribucionizma
+          Pod naslov
         </Typography>
-      </Box>
+      </Box> */}
     </Link>
   )
 }

@@ -18,7 +18,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
       <ThemeProvider theme={theme}>
         <SnackbarProvider>
           <Head>
-            <title>Za Brata</title>
+            <title>Pametni oglasi</title>
           </Head>
           <Component {...pageProps} />
         </SnackbarProvider>
