@@ -5,6 +5,8 @@ import { Post_list_many } from "./Post.api.abstract"
 import { SuperData_query2 } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
+import { inArray } from "drizzle-orm"
+import { postExpertEndorsement } from "~/drizzle/schema"
 
 const Post_api = router({
   list: router({
@@ -13,7 +15,7 @@ const Post_api = router({
       z.object({
         cursor: z.number().min(1).optional(),
       }),
-      async ({ db }, output1, input) => {
+      async ({ db, db_drizzle }, output1, input) => {
         const limit = 10
         const items = await db.post.findMany({
           ...output1,
@@ -53,6 +55,18 @@ const Post_api = router({
                 },
               },
             },
+          },
+        })
+
+        const expertEndorsements = db_drizzle.query.postExpertEndorsement.findMany({
+          where: inArray(
+            postExpertEndorsement.postId,
+            items.map(p => p.id),
+          ),
+          columns: {
+            firstName: true,
+            lastName: true,
+            avatarStyle: true,
           },
         })
 
