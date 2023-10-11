@@ -110,5 +110,6 @@ export function getConnectionString(env: string) {
 
 export async function Api_ss_cli_create() {
   const user = await db.user.findFirst({ where: { canMutate: true } })
-  return Api_ss({ user: user!, db, getCookie: () => null, db_drizzle: drizzle_connect() })
+  const [db_drizzle] = drizzle_connect()
+  return Api_ss({ user: user!, db, getCookie: () => null, db_drizzle })
 }

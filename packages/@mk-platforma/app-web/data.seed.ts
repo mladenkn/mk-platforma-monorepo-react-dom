@@ -3,7 +3,7 @@ import { drizzle_connect } from "./drizzle/drizzle.instance"
 import db from "./prisma/instance"
 import type { Category_label } from "~/domain/category/Category.types"
 
-const db_drizzle = drizzle_connect()
+const [db_drizzle] = drizzle_connect()
 
 export default async function data_seed_prod() {
   await seedCategories()

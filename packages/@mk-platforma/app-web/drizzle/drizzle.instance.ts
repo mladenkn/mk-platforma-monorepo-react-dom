@@ -11,7 +11,7 @@ export function drizzle_connect() {
     max: 1,
   })
   const db = drizzle(queryClient, { schema })
-  return db
+  return [db, queryClient] as const
 }
 
-export type Drizzle_instance = ReturnType<typeof drizzle_connect>
+export type Drizzle_instance = ReturnType<typeof drizzle_connect>[0]

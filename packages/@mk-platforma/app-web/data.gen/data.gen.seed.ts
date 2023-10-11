@@ -13,6 +13,8 @@ export type WithId = {
   id: number
 }
 
+const [db_drizzle, postgres_client] = drizzle_connect()
+
 async function main() {
   const categories = await seedCategories()
 
@@ -61,7 +63,7 @@ async function seedPosts(
       db,
       user: { id: user.id, name: user.name || "seed user", canMutate: true },
       getCookie: (() => {}) as any,
-      db_drizzle: drizzle_connect(),
+      db_drizzle,
     })
 
     const images = await eva(async () => {
@@ -96,11 +98,12 @@ async function seedPosts(
 main()
   .then(async () => {
     await db.$disconnect()
-    // fali drizzle disconnect
+    await postgres_client.end()
     console.log("Done seeding db")
   })
   .catch(async e => {
     console.error(e)
     await db.$disconnect()
+    await postgres_client.end()
     process.exit(1)
   })
