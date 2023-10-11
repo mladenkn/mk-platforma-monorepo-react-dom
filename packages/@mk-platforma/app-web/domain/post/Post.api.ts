@@ -41,24 +41,10 @@ const Post_api = router({
                 url: true,
               },
             },
-            expertEndorsement: {
-              select: {
-                firstName: true,
-                lastName: true,
-                avatarStyle: true,
-                skills: {
-                  select: {
-                    id: true,
-                    label: true,
-                    level: true,
-                  },
-                },
-              },
-            },
           },
         })
 
-        const expertEndorsements = db_drizzle.query.postExpertEndorsement.findMany({
+        const expertEndorsements = await db_drizzle.query.postExpertEndorsement.findMany({
           where: inArray(
             postExpertEndorsement.postId,
             items.map(p => p.id),
@@ -67,11 +53,29 @@ const Post_api = router({
             firstName: true,
             lastName: true,
             avatarStyle: true,
+            postId: true,
+          },
+          with: {
+            skills: {
+              columns: {
+                id: true,
+                label: true,
+                level: true,
+              },
+            },
           },
         })
 
-        const nextCursor = items.length > limit ? items.pop()!.id : null
-        return { items, nextCursor }
+        const items_mapped = items.map(item => {
+          const expertEndorsement = expertEndorsements.find(e => e.postId === item.id)
+          return {
+            ...item,
+            expertEndorsement,
+          }
+        })
+
+        const nextCursor = items_mapped.length > limit ? items_mapped.pop()!.id : null
+        return { items: items_mapped, nextCursor }
       },
     ),
   }),

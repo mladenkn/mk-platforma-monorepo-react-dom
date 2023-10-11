@@ -222,6 +222,10 @@ export const postExpertEndorsement = pgTable(
   },
 )
 
+export const postExpertEndorsementRelations = relations(postExpertEndorsement, ({ many }) => ({
+  skills: many(postExpertEndorsementSkill),
+}))
+
 function enum_type(zodEnum: ZodEnum<any>) {
   return customType<{
     data: string
@@ -284,6 +288,16 @@ export const postExpertEndorsementSkill = pgTable(
       ).on(table.label, table.expertEndorsementId),
     }
   },
+)
+
+export const postExpertEndorsementSkillRelations = relations(
+  postExpertEndorsementSkill,
+  ({ one }) => ({
+    postExpertEndorsement: one(postExpertEndorsement, {
+      fields: [postExpertEndorsementSkill.expertEndorsementId],
+      references: [postExpertEndorsement.id],
+    }),
+  }),
 )
 
 export const user = pgTable(
