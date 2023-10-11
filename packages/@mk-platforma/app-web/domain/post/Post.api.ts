@@ -134,8 +134,6 @@ const Post_api = router({
 
       if (!post_data) return null
 
-      console.log(137, post_data)
-
       return {
         ...post_data,
         categories: post_data.categoryToPost.map(ct => ct.category),

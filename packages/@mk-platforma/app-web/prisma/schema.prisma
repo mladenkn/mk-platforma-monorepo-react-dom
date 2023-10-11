@@ -80,8 +80,7 @@ model Image {
   post_id         Int?
   url             String  @db.Text
   isMain          Boolean @default(false)
-
-  posts Post[]
+  Post            Post?   @relation(fields: [post_id], references: [id])
 }
 
 model Comment {

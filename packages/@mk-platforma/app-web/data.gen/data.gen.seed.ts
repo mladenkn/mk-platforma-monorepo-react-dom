@@ -99,6 +99,8 @@ async function seedPosts(
 main()
   .then(async () => {
     await db.$disconnect()
+    // fali drizzle disconnect
+    console.log("Done seeding db")
   })
   .catch(async e => {
     console.error(e)
