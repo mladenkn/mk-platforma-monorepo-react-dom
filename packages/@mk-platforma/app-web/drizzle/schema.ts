@@ -199,20 +199,20 @@ export const postRelations = relations(post, ({ one, many }) => ({
 
 function stringJson(zodType: ZodTypeAny) {
   return customType<{
-    data: object
-    driverData: object
+    data: string
+    driverData: string
   }>({
     dataType() {
-      return "jsonb"
+      return "string"
     },
-    toDriver(data: object) {
-      // const asJson = JSON.parse(data)
-      zodType.parse(data)
+    toDriver(data: string) {
+      const asJson = JSON.parse(data)
+      zodType.parse(asJson)
       return data
     },
-    fromDriver(data: object) {
-      // const asJson = JSON.parse(data)
-      return zodType.parse(data)
+    fromDriver(data: string) {
+      const asJson = JSON.parse(data)
+      return zodType.parse(asJson)
     },
   })
 }
@@ -224,7 +224,7 @@ export const postExpertEndorsement = pgTable(
     postId: integer("post_id").notNull(),
     firstName: varchar("firstName", { length: 64 }).notNull(),
     lastName: varchar("lastName", { length: 64 }).notNull(),
-    avatarStyle: jsonb("avatarStyle").$type<AvatarStyle>().notNull(),
+    avatarStyle: stringJson(AvataryStyle_zod)("avatarStyle").$type<AvatarStyle>().notNull(),
   },
   table => {
     return {
@@ -316,7 +316,7 @@ export const user = pgTable(
   {
     id: serial("id").primaryKey().notNull(),
     name: varchar("name", { length: 32 }),
-    avatarStyle: jsonb("avatarStyle").$type<AvatarStyle>().notNull(),
+    avatarStyle: stringJson(AvataryStyle_zod)("avatarStyle").$type<AvatarStyle>().notNull(),
     email: varchar("email", { length: 64 }),
     emailVerified: timestamp("emailVerified", { precision: 3, mode: "string" }),
     canMutate: boolean("canMutate").default(true).notNull(),

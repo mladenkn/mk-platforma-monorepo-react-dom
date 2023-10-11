@@ -36,7 +36,7 @@ model Post_ExpertEndorsement {
   post_id     Int    @unique
   firstName   String @db.VarChar(64)
   lastName    String @db.VarChar(64)
-  avatarStyle Json
+  avatarStyle String
 
   post   Post?
   skills Post_ExpertEndorsement_skill[]
@@ -97,7 +97,7 @@ model Comment {
 model User {
   id            Int       @id @default(autoincrement())
   name          String?   @unique @db.VarChar(32)
-  avatarStyle   Json
+  avatarStyle   String
   email         String?   @unique @db.VarChar(64)
   emailVerified DateTime?
   canMutate     Boolean   @default(true)

@@ -18,7 +18,7 @@ async function main() {
 
   const mladenUser = await upsertUser({
     name: "Mladen",
-    avatarStyle: { background: "green", color: "white" },
+    avatarStyle: JSON.stringify({ background: "green", color: "white" }),
   })
   const otherUsers = await seedUsers()
   const users = [mladenUser, ...otherUsers]
@@ -34,7 +34,7 @@ async function seedUsers() {
     .filter(n => n !== "Mladen")
     .map(name => ({
       name,
-      avatarStyle: faker.helpers.arrayElement(avatarStyles),
+      avatarStyle: JSON.stringify(faker.helpers.arrayElement(avatarStyles)),
       email: "fake:" + faker.internet.email(name),
       emailVerified: new Date(),
     }))
@@ -42,10 +42,7 @@ async function seedUsers() {
   return await db.user.findMany({})
 }
 
-async function upsertUser(user: {
-  name: string
-  avatarStyle: Prisma.JsonNullValueInput | Prisma.InputJsonValue
-}) {
+async function upsertUser(user: { name: string; avatarStyle: string }) {
   return await db.user.upsert({
     where: { name: user.name },
     update: user,

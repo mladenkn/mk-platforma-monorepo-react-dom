@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Box, SxProps, IconButton, Typography, Avatar, Input } from "@mui/material"
+import { Box, SxProps, IconButton, Typography, Avatar, Input, Link } from "@mui/material"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import SendIcon from "@mui/icons-material/Send"
@@ -52,7 +52,9 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-          <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name?.[0]} />
+          <Link style={{ textDecoration: "none" }} href={`/profile/${comment.author.id}`}>
+            <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name?.[0]} />
+          </Link>
           <Typography fontWeight={500}>{comment.author.name}</Typography>
         </Box>
         {deleteInitiated ? (

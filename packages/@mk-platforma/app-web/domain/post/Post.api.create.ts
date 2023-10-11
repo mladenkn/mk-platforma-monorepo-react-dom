@@ -68,7 +68,7 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
                 create: {
                   post_id: post_upserted.id,
                   ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
-                  avatarStyle: getRandomElement(avatarStyles),
+                  avatarStyle: JSON.stringify(getRandomElement(avatarStyles)),
                   skills: {
                     create: input.expertEndorsement.skills || undefined,
                   },
