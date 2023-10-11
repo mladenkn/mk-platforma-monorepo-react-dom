@@ -197,7 +197,6 @@ const Post_select = {
         firstName: true,
         lastName: true,
         avatarStyle: true,
-        postId: true,
       },
       with: {
         skills: {
