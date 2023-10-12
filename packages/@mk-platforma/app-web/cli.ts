@@ -113,11 +113,11 @@ const run_args = match(parsed.command)
   .exhaustive()
 
 if (isPromise(run_args)) {
-  run_args.then((a: any) => run(...a))
+  run_args.then((a: any) => run(...a)).then(() => process.exit(0))
 } else if (!isArray(run_args)) {
-  run(run_args)
+  run(run_args).then(() => process.exit(0))
 } else {
-  run(...run_args)
+  run(...run_args).then(() => process.exit(0))
 }
 
 function seedTestUser() {
