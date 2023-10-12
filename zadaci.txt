@@ -1,5 +1,8 @@
 - bug sa lokacijom
-
+  - Kaže:  Raw query failed. Code: `42883`. Message: `db error: ERROR: function st_makepoint(numeric, numeric) does not exist
+           HINT: No function matches the given name and argument types. You might need to add explicit type casts.`
+  - prominit će se kad dođe sqlite
+  
 
 - query param za kategorije je loše odrađeno, imaju dobar lib za to
 
