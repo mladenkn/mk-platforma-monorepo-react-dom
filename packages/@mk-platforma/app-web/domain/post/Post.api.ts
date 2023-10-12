@@ -1,7 +1,6 @@
 import { z } from "zod"
 import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import Post_api_create from "./Post.api.create"
-import { Post_queryChunks_search } from "./Post.api.abstract"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
 import { desc, eq, inArray } from "drizzle-orm"
@@ -42,12 +41,26 @@ const Post_api = router({
                   },
                 }
               : undefined,
-            ...(input?.search ? Post_queryChunks_search(input.search) : {}),
+            OR: input.search
+              ? [
+                  {
+                    title: { contains: input.search, mode: "insensitive" },
+                  },
+                  {
+                    description: { contains: input.search, mode: "insensitive" },
+                  },
+                  {
+                    contact: { contains: input.search, mode: "insensitive" },
+                  },
+                ]
+              : undefined,
             isDeleted: false,
             // TODO: location
           },
         })
         .then(items => items.map(i => i.id))
+
+      console.log(items_ids)
 
       const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
 
@@ -159,3 +172,14 @@ const Post_select = {
 } as const
 
 export default Post_api
+
+// const locations = await eva(async () => {
+//   if (input.location) {
+//     const { longitude, latitude } = await db.location
+//       .findUnique({ where: { id: input.location } })
+//       .then(asNonNil)
+//     return await db.$queryRaw<{ id: number }[]>`
+//       SELECT id FROM "Location" WHERE ST_DWithin(ST_MakePoint(longitude, latitude), ST_MakePoint(${longitude}, ${latitude})::geography, ${input.location_radius} * 1000)
+//     `
+//   }
+// })
