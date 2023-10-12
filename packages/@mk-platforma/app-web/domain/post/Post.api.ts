@@ -60,8 +60,6 @@ const Post_api = router({
         })
         .then(items => items.map(i => i.id))
 
-      console.log(items_ids)
-
       const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
 
       const items = await ctx.db_drizzle.query.post.findMany({
