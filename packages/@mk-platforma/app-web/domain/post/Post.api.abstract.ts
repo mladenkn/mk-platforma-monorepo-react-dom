@@ -24,6 +24,11 @@ export const Post_list_many = SuperData_mapper(
     // })
     return {
       where: {
+        // location: locations && {
+        //   id: {
+        //     in: locations.map(({ id }) => id),
+        //   },
+        // },
         categories: categories?.length
           ? {
               some: {
@@ -32,11 +37,6 @@ export const Post_list_many = SuperData_mapper(
             }
           : undefined,
         ...(search ? Post_queryChunks_search(search) : {}),
-        // location: locations && {
-        //   id: {
-        //     in: locations.map(({ id }) => id),
-        //   },
-        // },
         isDeleted: false,
       },
       orderBy: {
