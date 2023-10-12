@@ -11,7 +11,7 @@ export const Post_list_many = SuperData_mapper(
     location: z.number().optional(),
     location_radius: z.number().optional().default(50),
   }),
-  async ({ db }, input) => {
+  async (_, { categories, search }) => {
     // const locations = await eva(async () => {
     //   if (input.location) {
     //     const { longitude, latitude } = await db.location
@@ -24,14 +24,14 @@ export const Post_list_many = SuperData_mapper(
     // })
     return {
       where: {
-        categories: input.categories?.length
+        categories: categories?.length
           ? {
               some: {
-                OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
+                OR: [{ id: categories[0] }, { parent_id: categories[0] }],
               },
             }
           : undefined,
-        ...(input?.search ? Post_queryChunks_search(input.search) : {}),
+        ...(search ? Post_queryChunks_search(search) : {}),
         // location: locations && {
         //   id: {
         //     in: locations.map(({ id }) => id),
