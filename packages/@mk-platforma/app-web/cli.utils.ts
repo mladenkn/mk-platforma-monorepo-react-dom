@@ -33,12 +33,14 @@ export async function run(...cmd: unknown[]) {
       if (typeof command === "function") {
         process.env = { ...env, ...process.env }
         await command()
+        process.exit(0)
       } else {
         const result: any = await run_single(command, env)
         if (result.code !== 0) {
           result.error && console.error(result.error?.message || "Error")
           process.exit(result.code)
         }
+        process.exit(result.code)
       }
     }
   } catch (error: any) {

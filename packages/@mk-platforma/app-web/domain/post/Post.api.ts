@@ -1,78 +1,27 @@
 import { z } from "zod"
-import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
+import { Api_context, authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import Post_api_create from "./Post.api.create"
-import { Post_list_many, Post_queryChunks_search } from "./Post.api.abstract"
-import { SuperData_query2 } from "~/api_/api.SuperData"
+import { Post_queryChunks_search } from "./Post.api.abstract"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
 import { desc, eq, inArray } from "drizzle-orm"
 import { post, postExpertEndorsement } from "~/drizzle/schema"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
+import { measurePerformance } from "@mk-libs/common/debug"
+
+const Input_zod = z.object({
+  categories: z.array(z.number()).optional(),
+  search: z.string().optional(),
+  location: z.number().optional(),
+  location_radius: z.number().optional().default(50),
+  cursor: z.number().min(1).optional(),
+})
 
 const Post_api = router({
   list: router({
-    fieldSet_main2: SuperData_query2(
-      Post_list_many,
-      z.object({
-        cursor: z.number().min(1).optional(),
-      }),
-      async ({ db, db_drizzle }, output1, input) => {
-        const limit = 10
-        const items = await db.post.findMany({
-          ...output1,
-          take: limit + 1,
-          cursor: input.cursor
-            ? {
-                id: input.cursor,
-              }
-            : undefined,
-          select: {
-            id: true,
-            title: true,
-            location: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-            images: {
-              select: {
-                isMain: true,
-                id: true,
-                url: true,
-              },
-            },
-          },
-        })
-
-        const expertEndorsements = await getExpertEndorsments(
-          db_drizzle,
-          items.map(i => i.id),
-        )
-
-        const items_mapped = items.map(item => {
-          const expertEndorsement = expertEndorsements.find(e => e.postId === item.id) || null
-          return {
-            ...item,
-            expertEndorsement,
-          }
-        })
-
-        const nextCursor = items_mapped.length > limit ? items_mapped.pop()!.id : null
-        return { items: items_mapped, nextCursor }
-      },
-    ),
-    fieldSet_main: publicProcedure
-      .input(
-        z.object({
-          categories: z.array(z.number()).optional(),
-          search: z.string().optional(),
-          cursor: z.number().min(1).optional(),
-          location: z.number().optional(),
-          location_radius: z.number().optional().default(50),
-        }),
-      )
-      .query(async ({ ctx, input }) => {
+    // fieldSet_main_old: publicProcedure.input(Input_zod).query(({ ctx, input }) => prismaQuery(ctx, input)),
+    fieldSet_main: publicProcedure.input(Input_zod).query(async ({ ctx, input }) => {
+      async function drizzleQuery() {
         const limit = 10
 
         const items_ids = await ctx.db.post
@@ -98,8 +47,8 @@ const Post_api = router({
                   }
                 : undefined,
               ...(input?.search ? Post_queryChunks_search(input.search) : {}),
-              // TODO: location
               isDeleted: false,
+              // TODO: location
             },
           })
           .then(items => items.map(i => i.id))
@@ -113,7 +62,19 @@ const Post_api = router({
         })
 
         return { items, nextCursor }
-      }),
+      }
+
+      const [drizzleResult, drizzleResult_millis] = await measurePerformance(drizzleQuery())
+      const [prismaResult, prismaResult_millis] = await measurePerformance(prismaQuery(ctx, input))
+
+      console.log("drizzle vs prisma posts query performance", {
+        drizzle: drizzleResult_millis,
+        prisma: prismaResult_millis,
+        "drizzle - prisma": drizzleResult_millis - prismaResult_millis,
+      })
+
+      return drizzleResult
+    }),
   }),
 
   single: publicProcedure
@@ -212,6 +173,65 @@ const Post_select = {
     },
   },
 } as const
+
+async function prismaQuery({ db, db_drizzle }: Api_context, input: z.infer<typeof Input_zod>) {
+  const limit = 10
+  const items = await db.post.findMany({
+    where: {
+      categories: input.categories?.length
+        ? {
+            some: {
+              OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
+            },
+          }
+        : undefined,
+      ...(input.search ? Post_queryChunks_search(input.search) : {}),
+      isDeleted: false,
+    },
+    take: limit + 1,
+    cursor: input.cursor
+      ? {
+          id: input.cursor,
+        }
+      : undefined,
+    orderBy: {
+      id: "desc",
+    },
+    select: {
+      id: true,
+      title: true,
+      location: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      images: {
+        select: {
+          isMain: true,
+          id: true,
+          url: true,
+        },
+      },
+    },
+  })
+
+  const expertEndorsements = await getExpertEndorsments(
+    db_drizzle,
+    items.map(i => i.id),
+  )
+
+  const items_mapped = items.map(item => {
+    const expertEndorsement = expertEndorsements.find(e => e.postId === item.id) || null
+    return {
+      ...item,
+      expertEndorsement,
+    }
+  })
+
+  const nextCursor = items_mapped.length > limit ? items_mapped.pop()!.id : null
+  return { items: items_mapped, nextCursor }
+}
 
 function getExpertEndorsments(db_drizzle: Drizzle_instance, posts: number[]) {
   return db_drizzle.query.postExpertEndorsement.findMany({
