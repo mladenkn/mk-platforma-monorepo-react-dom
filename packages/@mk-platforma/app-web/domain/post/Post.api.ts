@@ -1,13 +1,11 @@
 import { z } from "zod"
-import { Api_context, authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
+import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import Post_api_create from "./Post.api.create"
 import { Post_queryChunks_search } from "./Post.api.abstract"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
 import { desc, eq, inArray } from "drizzle-orm"
-import { post, postExpertEndorsement } from "~/drizzle/schema"
-import { Drizzle_instance } from "~/drizzle/drizzle.instance"
-import { measurePerformance } from "@mk-libs/common/debug"
+import { post } from "~/drizzle/schema"
 
 const Input_zod = z.object({
   categories: z.array(z.number()).optional(),
@@ -19,61 +17,47 @@ const Input_zod = z.object({
 
 const Post_api = router({
   list: router({
-    // fieldSet_main_old: publicProcedure.input(Input_zod).query(({ ctx, input }) => prismaQuery(ctx, input)),
     fieldSet_main: publicProcedure.input(Input_zod).query(async ({ ctx, input }) => {
-      async function drizzleQuery() {
-        const limit = 10
+      const limit = 10
 
-        const items_ids = await ctx.db.post
-          .findMany({
-            select: {
-              id: true,
-            },
-            cursor: input.cursor
+      const items_ids = await ctx.db.post
+        .findMany({
+          select: {
+            id: true,
+          },
+          cursor: input.cursor
+            ? {
+                id: input.cursor,
+              }
+            : undefined,
+          take: limit + 1,
+          orderBy: {
+            id: "desc",
+          },
+          where: {
+            categories: input.categories?.length
               ? {
-                  id: input.cursor,
+                  some: {
+                    OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
+                  },
                 }
               : undefined,
-            take: limit + 1,
-            orderBy: {
-              id: "desc",
-            },
-            where: {
-              categories: input.categories?.length
-                ? {
-                    some: {
-                      OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
-                    },
-                  }
-                : undefined,
-              ...(input?.search ? Post_queryChunks_search(input.search) : {}),
-              isDeleted: false,
-              // TODO: location
-            },
-          })
-          .then(items => items.map(i => i.id))
-
-        const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
-
-        const items = await ctx.db_drizzle.query.post.findMany({
-          ...Post_select,
-          where: inArray(post.id, items_ids),
-          orderBy: desc(post.id),
+            ...(input?.search ? Post_queryChunks_search(input.search) : {}),
+            isDeleted: false,
+            // TODO: location
+          },
         })
+        .then(items => items.map(i => i.id))
 
-        return { items, nextCursor }
-      }
+      const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
 
-      const [drizzleResult, drizzleResult_millis] = await measurePerformance(drizzleQuery())
-      const [prismaResult, prismaResult_millis] = await measurePerformance(prismaQuery(ctx, input))
-
-      console.log("drizzle vs prisma posts query performance", {
-        drizzle: drizzleResult_millis,
-        prisma: prismaResult_millis,
-        "drizzle - prisma": drizzleResult_millis - prismaResult_millis,
+      const items = await ctx.db_drizzle.query.post.findMany({
+        ...Post_select,
+        where: inArray(post.id, items_ids),
+        orderBy: desc(post.id),
       })
 
-      return drizzleResult
+      return { items, nextCursor }
     }),
   }),
 
@@ -173,85 +157,5 @@ const Post_select = {
     },
   },
 } as const
-
-async function prismaQuery({ db, db_drizzle }: Api_context, input: z.infer<typeof Input_zod>) {
-  const limit = 10
-  const items = await db.post.findMany({
-    where: {
-      categories: input.categories?.length
-        ? {
-            some: {
-              OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
-            },
-          }
-        : undefined,
-      ...(input.search ? Post_queryChunks_search(input.search) : {}),
-      isDeleted: false,
-    },
-    take: limit + 1,
-    cursor: input.cursor
-      ? {
-          id: input.cursor,
-        }
-      : undefined,
-    orderBy: {
-      id: "desc",
-    },
-    select: {
-      id: true,
-      title: true,
-      location: {
-        select: {
-          id: true,
-          name: true,
-        },
-      },
-      images: {
-        select: {
-          isMain: true,
-          id: true,
-          url: true,
-        },
-      },
-    },
-  })
-
-  const expertEndorsements = await getExpertEndorsments(
-    db_drizzle,
-    items.map(i => i.id),
-  )
-
-  const items_mapped = items.map(item => {
-    const expertEndorsement = expertEndorsements.find(e => e.postId === item.id) || null
-    return {
-      ...item,
-      expertEndorsement,
-    }
-  })
-
-  const nextCursor = items_mapped.length > limit ? items_mapped.pop()!.id : null
-  return { items: items_mapped, nextCursor }
-}
-
-function getExpertEndorsments(db_drizzle: Drizzle_instance, posts: number[]) {
-  return db_drizzle.query.postExpertEndorsement.findMany({
-    where: inArray(postExpertEndorsement.postId, posts),
-    columns: {
-      firstName: true,
-      lastName: true,
-      avatarStyle: true,
-      postId: true,
-    },
-    with: {
-      skills: {
-        columns: {
-          id: true,
-          label: true,
-          level: true,
-        },
-      },
-    },
-  })
-}
 
 export default Post_api
