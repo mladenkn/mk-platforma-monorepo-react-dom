@@ -32,11 +32,11 @@ export const Post_list_many = SuperData_mapper(
             }
           : undefined,
         ...(input?.search ? Post_queryChunks_search(input.search) : {}),
-        // location: locations && {
-        //   id: {
-        //     in: locations.map(({ id }) => id),
-        //   },
-        // },
+        location: locations && {
+          id: {
+            in: locations.map(({ id }) => id),
+          },
+        },
         isDeleted: false,
       },
       orderBy: {
