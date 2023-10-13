@@ -10,14 +10,14 @@ import {
   serial,
   boolean,
   numeric,
-  jsonb,
   customType,
 } from "drizzle-orm/pg-core"
 
-import { relations, sql } from "drizzle-orm"
+import { relations } from "drizzle-orm"
 import { Category_label, Category_label_zod } from "~/domain/category/Category.types"
-import { ZodEnum, ZodTypeAny } from "zod"
+import { ZodTypeAny } from "zod"
 import { AvatarStyle, AvataryStyle_zod } from "~/domain/user/User.types"
+import { enum_type } from "./drizzle.utils"
 
 export const session = pgTable(
   "Session",
@@ -236,24 +236,6 @@ export const postExpertEndorsement = pgTable(
 export const postExpertEndorsementRelations = relations(postExpertEndorsement, ({ many }) => ({
   skills: many(postExpertEndorsementSkill),
 }))
-
-function enum_type(zodEnum: ZodEnum<any>) {
-  return customType<{
-    data: string
-    driverData: string
-  }>({
-    dataType() {
-      return "text"
-    },
-    toDriver(value: string) {
-      zodEnum.parse(value)
-      return value
-    },
-    fromDriver(value: string) {
-      return zodEnum.parse(value)
-    },
-  })
-}
 
 export const category = pgTable(
   "Category",

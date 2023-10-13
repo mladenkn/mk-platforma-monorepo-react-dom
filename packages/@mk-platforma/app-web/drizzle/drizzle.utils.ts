@@ -1,8 +1,10 @@
+import { customType } from "drizzle-orm/pg-core"
 import postgres from "postgres"
 import { drizzle } from "drizzle-orm/postgres-js"
 import * as schema from "./drizzle.schema"
 import env from "~/env.mjs"
 import { getConnectionString } from "~/cli.utils"
+import { ZodEnum } from "zod"
 
 export function drizzle_connect() {
   const queryClient = postgres(env.DATABASE_URL || getConnectionString("dev"), {
@@ -15,3 +17,21 @@ export function drizzle_connect() {
 }
 
 export type Drizzle_instance = ReturnType<typeof drizzle_connect>[0]
+
+export function enum_type(zodEnum: ZodEnum<any>) {
+  return customType<{
+    data: string
+    driverData: string
+  }>({
+    dataType() {
+      return "text"
+    },
+    toDriver(value: string) {
+      zodEnum.parse(value)
+      return value
+    },
+    fromDriver(value: string) {
+      return zodEnum.parse(value)
+    },
+  })
+}
