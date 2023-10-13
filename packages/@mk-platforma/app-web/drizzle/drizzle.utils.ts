@@ -26,11 +26,11 @@ export function enum_type(zodEnum: ZodEnum<any>) {
     dataType() {
       return "text"
     },
-    toDriver(value: string) {
+    toDriver(value) {
       zodEnum.parse(value)
       return value
     },
-    fromDriver(value: string) {
+    fromDriver(value) {
       return zodEnum.parse(value)
     },
   })
