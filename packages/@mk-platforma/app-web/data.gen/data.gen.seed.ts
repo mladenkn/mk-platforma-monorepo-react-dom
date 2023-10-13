@@ -8,6 +8,8 @@ import * as cro_dataset from "./data.gen.cro.dataset"
 import { eva } from "@mk-libs/common/common"
 import { seedCategories, seedLocations } from "~/data.seed"
 import { drizzle_connect } from "~/drizzle/drizzle.utils"
+import { AvatarStyle } from "~/domain/user/User.types"
+import { user } from "~/drizzle/drizzle.schema"
 
 export type WithId = {
   id: number
@@ -20,7 +22,7 @@ async function main() {
 
   const mladenUser = await upsertUser({
     name: "Mladen",
-    avatarStyle: JSON.stringify({ background: "green", color: "white" }),
+    avatarStyle: { background: "green", color: "white" },
   })
   const otherUsers = await seedUsers()
   const users = [mladenUser, ...otherUsers]
@@ -44,12 +46,12 @@ async function seedUsers() {
   return await db.user.findMany({})
 }
 
-async function upsertUser(user: { name: string; avatarStyle: string }) {
-  return await db.user.upsert({
-    where: { name: user.name },
-    update: user,
-    create: user,
-  })
+function upsertUser(user_: { name: string; avatarStyle: AvatarStyle }) {
+  return db_drizzle
+    .insert(user)
+    .values(user_)
+    .returning()
+    .then(u => u[0])
 }
 
 async function seedPosts(

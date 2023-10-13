@@ -44,10 +44,9 @@ export function stringJson_type(zodType: ZodTypeAny) {
     dataType() {
       return "string"
     },
-    toDriver(data: string) {
-      const asJson = JSON.parse(data)
-      zodType.parse(asJson)
-      return data
+    toDriver(data: any) {
+      zodType.parse(data)
+      return JSON.stringify(data)
     },
     fromDriver(data: string) {
       const asJson = JSON.parse(data)
