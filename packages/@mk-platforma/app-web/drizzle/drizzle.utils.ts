@@ -4,7 +4,7 @@ import { drizzle } from "drizzle-orm/postgres-js"
 import * as schema from "./drizzle.schema"
 import env from "~/env.mjs"
 import { getConnectionString } from "~/cli.utils"
-import { ZodEnum } from "zod"
+import { ZodEnum, ZodTypeAny } from "zod"
 
 export function drizzle_connect() {
   const queryClient = postgres(env.DATABASE_URL || getConnectionString("dev"), {
@@ -32,6 +32,26 @@ export function enum_type(zodEnum: ZodEnum<any>) {
     },
     fromDriver(value: string) {
       return zodEnum.parse(value)
+    },
+  })
+}
+
+export function stringJson_type(zodType: ZodTypeAny) {
+  return customType<{
+    data: string
+    driverData: string
+  }>({
+    dataType() {
+      return "string"
+    },
+    toDriver(data: string) {
+      const asJson = JSON.parse(data)
+      zodType.parse(asJson)
+      return data
+    },
+    fromDriver(data: string) {
+      const asJson = JSON.parse(data)
+      return zodType.parse(asJson)
     },
   })
 }

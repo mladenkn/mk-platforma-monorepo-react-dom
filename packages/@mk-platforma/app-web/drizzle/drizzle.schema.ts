@@ -10,14 +10,12 @@ import {
   serial,
   boolean,
   numeric,
-  customType,
 } from "drizzle-orm/pg-core"
 
 import { relations } from "drizzle-orm"
 import { Category_label, Category_label_zod } from "~/domain/category/Category.types"
-import { ZodTypeAny } from "zod"
 import { AvatarStyle, AvataryStyle_zod } from "~/domain/user/User.types"
-import { enum_type } from "./drizzle.utils"
+import { enum_type, stringJson_type } from "./drizzle.utils"
 
 export const session = pgTable(
   "Session",
@@ -197,26 +195,6 @@ export const postRelations = relations(post, ({ one, many }) => ({
   }),
 }))
 
-function stringJson(zodType: ZodTypeAny) {
-  return customType<{
-    data: string
-    driverData: string
-  }>({
-    dataType() {
-      return "string"
-    },
-    toDriver(data: string) {
-      const asJson = JSON.parse(data)
-      zodType.parse(asJson)
-      return data
-    },
-    fromDriver(data: string) {
-      const asJson = JSON.parse(data)
-      return zodType.parse(asJson)
-    },
-  })
-}
-
 export const postExpertEndorsement = pgTable(
   "Post_ExpertEndorsement",
   {
@@ -224,7 +202,7 @@ export const postExpertEndorsement = pgTable(
     postId: integer("post_id").notNull(),
     firstName: varchar("firstName", { length: 64 }).notNull(),
     lastName: varchar("lastName", { length: 64 }).notNull(),
-    avatarStyle: stringJson(AvataryStyle_zod)("avatarStyle").$type<AvatarStyle>().notNull(),
+    avatarStyle: stringJson_type(AvataryStyle_zod)("avatarStyle").$type<AvatarStyle>().notNull(),
   },
   table => {
     return {
@@ -298,7 +276,7 @@ export const user = pgTable(
   {
     id: serial("id").primaryKey().notNull(),
     name: varchar("name", { length: 32 }),
-    avatarStyle: stringJson(AvataryStyle_zod)("avatarStyle").$type<AvatarStyle>().notNull(),
+    avatarStyle: stringJson_type(AvataryStyle_zod)("avatarStyle").$type<AvatarStyle>().notNull(),
     email: varchar("email", { length: 64 }),
     emailVerified: timestamp("emailVerified", { precision: 3, mode: "string" }),
     canMutate: boolean("canMutate").default(true).notNull(),
