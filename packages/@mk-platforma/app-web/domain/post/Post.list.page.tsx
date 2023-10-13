@@ -64,7 +64,6 @@ export default function Post_list_page({
   )
 
   const posts_flat = flatMap(posts.data?.pages, page => page.items.map(i => pick(i, "id", "title")))
-  console.log("all posts uniq count", uniqBy(posts_flat, p => p.id).length, posts_flat.length)
 
   const posts_isFirstLoading = use_history_uniques(posts.status).every(s => s === "loading")
   const posts_data = posts_isFirstLoading
