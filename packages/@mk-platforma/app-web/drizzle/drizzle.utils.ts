@@ -36,21 +36,21 @@ export function enum_type(zodEnum: ZodEnum<any>) {
   })
 }
 
-export function stringJson_type(zodType: ZodTypeAny) {
+export function stringJson_type<T>(zodType: ZodTypeAny) {
   return customType<{
-    data: string
+    data: T
     driverData: string
   }>({
     dataType() {
       return "string"
     },
-    toDriver(data: any) {
+    toDriver(data) {
       zodType.parse(data)
       return JSON.stringify(data)
     },
-    fromDriver(data: string) {
+    fromDriver(data) {
       const asJson = JSON.parse(data)
-      return zodType.parse(asJson)
+      return zodType.parse(asJson) as T
     },
   })
 }
