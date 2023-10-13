@@ -7,7 +7,7 @@ import { create_getCookie_ss } from "~/cookies"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import "@mk-libs/common/server-only"
 import { NextApiRequest, NextApiResponse } from "next"
-import { Drizzle_instance, drizzle_connect } from "~/drizzle/drizzle.instance"
+import { Drizzle_instance, drizzle_connect } from "~/drizzle/drizzle.utils"
 
 const [db_drizzle] = drizzle_connect()
 

@@ -7,7 +7,7 @@ import generatePosts from "./data.gen"
 import * as cro_dataset from "./data.gen.cro.dataset"
 import { eva } from "@mk-libs/common/common"
 import { seedCategories, seedLocations } from "~/data.seed"
-import { drizzle_connect } from "~/drizzle/drizzle.instance"
+import { drizzle_connect } from "~/drizzle/drizzle.utils"
 
 export type WithId = {
   id: number

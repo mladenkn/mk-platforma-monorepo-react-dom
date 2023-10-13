@@ -1,5 +1,5 @@
 import locations from "./data.locations.json"
-import { drizzle_connect } from "./drizzle/drizzle.instance"
+import { drizzle_connect } from "./drizzle/drizzle.utils"
 import db from "./prisma/instance"
 import type { Category_label } from "~/domain/category/Category.types"
 
