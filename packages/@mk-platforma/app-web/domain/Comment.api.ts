@@ -3,7 +3,7 @@ import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.util
 import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import { shallowPick } from "@mk-libs/common/common"
-import { comment } from "~/drizzle/schema"
+import { comment } from "~/drizzle/drizzle.schema"
 import { and, desc, eq } from "drizzle-orm"
 import { measurePerformance } from "@mk-libs/common/debug"
 

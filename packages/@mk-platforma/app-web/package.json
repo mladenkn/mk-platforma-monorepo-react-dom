@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "ts": "tsc --noEmit",
+    "tsc": "tsc --noEmit",
     "+": "tsx cli.ts",
     "postinstall": "pnpm prisma generate",
     "test.ui": "playwright test --ui",

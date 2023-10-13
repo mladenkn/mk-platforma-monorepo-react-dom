@@ -4,7 +4,7 @@ import Post_api_create from "./Post.api.create"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
 import { desc, eq, inArray } from "drizzle-orm"
-import { post } from "~/drizzle/schema"
+import { post } from "~/drizzle/drizzle.schema"
 
 const Input_zod = z.object({
   categories: z.array(z.number()).optional(),

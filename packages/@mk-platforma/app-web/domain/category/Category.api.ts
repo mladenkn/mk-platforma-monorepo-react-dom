@@ -1,6 +1,6 @@
 import { publicProcedure, router } from "~/api_/api.server.utils"
 import "@mk-libs/common/server-only"
-import { category } from "~/drizzle/schema"
+import { category } from "~/drizzle/drizzle.schema"
 
 const Category_api = router({
   many: publicProcedure.query(async ({ ctx: { db_drizzle } }) => {
