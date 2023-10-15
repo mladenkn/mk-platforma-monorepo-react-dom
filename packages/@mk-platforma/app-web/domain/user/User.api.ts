@@ -2,54 +2,52 @@ import { z } from "zod"
 import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import "@mk-libs/common/server-only"
 import { eq } from "drizzle-orm"
-import { user } from "~/drizzle/drizzle.schema"
+import { User } from "~/drizzle/drizzle.schema"
 
 export const User_api = router({
   single_withPosts: publicProcedure.input(z.number()).query(({ ctx, input }) =>
-    ctx.db_drizzle.query.user
-      .findFirst({
-        where: eq(user.id, input),
-        columns: {
-          id: true,
-          name: true,
-          avatarStyle: true,
-        },
-        with: {
-          posts: {
-            columns: {
-              id: true,
-              title: true,
-            },
-            with: {
-              categoryToPost: {
-                with: {
-                  category: {
-                    columns: {
-                      id: true,
-                      label: true,
-                    },
+    ctx.db_drizzle.query.User.findFirst({
+      where: eq(User.id, input),
+      columns: {
+        id: true,
+        name: true,
+        avatarStyle: true,
+      },
+      with: {
+        posts: {
+          columns: {
+            id: true,
+            title: true,
+          },
+          with: {
+            categoryToPost: {
+              with: {
+                category: {
+                  columns: {
+                    id: true,
+                    label: true,
                   },
                 },
               },
             },
           },
         },
-      })
-      .then(
-        user =>
-          user && {
-            ...user,
-            canEdit: ctx.user?.canMutate ? user.id === ctx.user.id : false,
-            posts: user.posts.map(post => ({
-              ...post,
-              categories: post.categoryToPost.map(ct => ct.category),
-            })),
-          },
-      ),
+      },
+    }).then(
+      user =>
+        user && {
+          ...user,
+          canEdit: ctx.user?.canMutate ? user.id === ctx.user.id : false,
+          posts: user.posts.map(post => ({
+            ...post,
+            categories: post.categoryToPost.map(ct => ct.category),
+          })),
+        },
+    ),
   ),
   single: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
-    const u = await ctx.db_drizzle.query.user.findFirst({
-      where: eq(user.id, input),
+    const u = await ctx.db_drizzle.query.User.findFirst({
+      where: eq(User.id, input),
       columns: {
         id: true,
         name: true,

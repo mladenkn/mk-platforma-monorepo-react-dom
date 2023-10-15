@@ -17,14 +17,14 @@ import { Category_label, Category_label_zod } from "~/domain/category/Category.t
 import { AvatarStyle, AvataryStyle_zod } from "~/domain/user/User.types"
 import { enum_type, stringJson_type } from "./drizzle.utils"
 
-export const session = pgTable(
+export const Session = pgTable(
   "Session",
   {
     id: text("id").primaryKey().notNull(),
     sessionToken: varchar("sessionToken", { length: 128 }).notNull(),
     userId: integer("userId")
       .notNull()
-      .references(() => user.id, { onDelete: "cascade", onUpdate: "cascade" }),
+      .references(() => User.id, { onDelete: "cascade", onUpdate: "cascade" }),
     expires: timestamp("expires", { precision: 3, mode: "string" }).notNull(),
   },
   table => {
@@ -34,20 +34,20 @@ export const session = pgTable(
   },
 )
 
-export const comment = pgTable("Comment", {
+export const Comment = pgTable("Comment", {
   id: serial("id").primaryKey().notNull(),
   content: text("content").notNull(),
   authorId: integer("author_id")
     .notNull()
-    .references(() => user.id, { onDelete: "restrict", onUpdate: "cascade" }),
+    .references(() => User.id, { onDelete: "restrict", onUpdate: "cascade" }),
   postId: integer("post_id")
     .notNull()
-    .references(() => post.id, { onDelete: "restrict", onUpdate: "cascade" }),
+    .references(() => Post.id, { onDelete: "restrict", onUpdate: "cascade" }),
   isDeleted: boolean("isDeleted").default(false).notNull(),
 })
 
-export const commentRelations = relations(comment, ({ one }) => ({
-  author: one(user, { fields: [comment.authorId], references: [user.id] }),
+export const CommentRelations = relations(Comment, ({ one }) => ({
+  author: one(User, { fields: [Comment.authorId], references: [User.id] }),
 }))
 
 // export const geographyColumns = pgTable("geography_columns", {
@@ -77,7 +77,7 @@ export const commentRelations = relations(comment, ({ one }) => ({
 // 	type: varchar("type", { length: 30 }),
 // });
 
-export const image = pgTable(
+export const Image = pgTable(
   "Image",
   {
     id: serial("id").primaryKey().notNull(),
@@ -93,14 +93,14 @@ export const image = pgTable(
   },
 )
 
-export const imageRelations = relations(image, ({ one }) => ({
-  post: one(post, {
-    fields: [image.postId],
-    references: [post.id],
+export const ImageRelations = relations(Image, ({ one }) => ({
+  post: one(Post, {
+    fields: [Image.postId],
+    references: [Post.id],
   }),
 }))
 
-export const location = pgTable(
+export const Location = pgTable(
   "Location",
   {
     id: serial("id").primaryKey().notNull(),
@@ -118,7 +118,7 @@ export const location = pgTable(
   },
 )
 
-export const spatialRefSys = pgTable("spatial_ref_sys", {
+export const SpatialRefSys = pgTable("spatial_ref_sys", {
   srid: integer("srid").primaryKey().notNull(),
   authName: varchar("auth_name", { length: 256 }),
   authSrid: integer("auth_srid"),
@@ -126,22 +126,22 @@ export const spatialRefSys = pgTable("spatial_ref_sys", {
   proj4Text: varchar("proj4text", { length: 2048 }),
 })
 
-export const post = pgTable(
+export const Post = pgTable(
   "Post",
   {
     id: serial("id").primaryKey().notNull(),
     title: varchar("title", { length: 256 }).notNull(),
     description: text("description"),
     contact: varchar("contact", { length: 256 }).notNull(),
-    locationId: integer("location_id").references(() => location.id, {
+    locationId: integer("location_id").references(() => Location.id, {
       onDelete: "set null",
       onUpdate: "cascade",
     }),
     authorId: integer("author_id")
       .notNull()
-      .references(() => user.id, { onDelete: "restrict", onUpdate: "cascade" }),
+      .references(() => User.id, { onDelete: "restrict", onUpdate: "cascade" }),
     expertEndorsementId: integer("expertEndorsement_id").references(
-      () => postExpertEndorsement.id,
+      () => PostExpertEndorsement.id,
       { onDelete: "set null", onUpdate: "cascade" },
     ),
     isDeleted: boolean("isDeleted").default(false).notNull(),
@@ -155,15 +155,15 @@ export const post = pgTable(
   },
 )
 
-export const categoryToPost = pgTable(
+export const CategoryToPost = pgTable(
   "_CategoryToPost",
   {
     categoryId: integer("A")
       .notNull()
-      .references(() => category.id, { onDelete: "cascade", onUpdate: "cascade" }),
+      .references(() => Category.id, { onDelete: "cascade", onUpdate: "cascade" }),
     postId: integer("B")
       .notNull()
-      .references(() => post.id, { onDelete: "cascade", onUpdate: "cascade" }),
+      .references(() => Post.id, { onDelete: "cascade", onUpdate: "cascade" }),
   },
   table => {
     return {
@@ -173,29 +173,29 @@ export const categoryToPost = pgTable(
   },
 )
 
-export const categoryToPostRelations = relations(categoryToPost, ({ one }) => ({
-  category: one(category, { fields: [categoryToPost.categoryId], references: [category.id] }),
-  post: one(post, { fields: [categoryToPost.postId], references: [post.id] }),
+export const CategoryToPostRelations = relations(CategoryToPost, ({ one }) => ({
+  category: one(Category, { fields: [CategoryToPost.categoryId], references: [Category.id] }),
+  post: one(Post, { fields: [CategoryToPost.postId], references: [Post.id] }),
 }))
 
-export const postRelations = relations(post, ({ one, many }) => ({
-  author: one(user, {
-    fields: [post.authorId],
-    references: [user.id],
+export const PostRelations = relations(Post, ({ one, many }) => ({
+  author: one(User, {
+    fields: [Post.authorId],
+    references: [User.id],
   }),
-  categoryToPost: many(categoryToPost),
-  location: one(location, {
-    fields: [post.locationId],
-    references: [location.id],
+  categoryToPost: many(CategoryToPost),
+  location: one(Location, {
+    fields: [Post.locationId],
+    references: [Location.id],
   }),
-  images: many(image),
-  expertEndorsement: one(postExpertEndorsement, {
-    fields: [post.expertEndorsementId],
-    references: [postExpertEndorsement.id],
+  images: many(Image),
+  expertEndorsement: one(PostExpertEndorsement, {
+    fields: [Post.expertEndorsementId],
+    references: [PostExpertEndorsement.id],
   }),
 }))
 
-export const postExpertEndorsement = pgTable(
+export const PostExpertEndorsement = pgTable(
   "Post_ExpertEndorsement",
   {
     id: serial("id").primaryKey().notNull(),
@@ -211,11 +211,11 @@ export const postExpertEndorsement = pgTable(
   },
 )
 
-export const postExpertEndorsementRelations = relations(postExpertEndorsement, ({ many }) => ({
-  skills: many(postExpertEndorsementSkill),
+export const PostExpertEndorsementRelations = relations(PostExpertEndorsement, ({ many }) => ({
+  skills: many(PostExpertEndorsementSkill),
 }))
 
-export const category = pgTable(
+export const Category = pgTable(
   "Category",
   {
     id: serial("id").primaryKey().notNull(),
@@ -235,14 +235,14 @@ export const category = pgTable(
   },
 )
 
-export const categoryRelations = relations(category, ({ one }) => ({
-  parent: one(category, {
-    fields: [category.parentId],
-    references: [category.id],
+export const CategoryRelations = relations(Category, ({ one }) => ({
+  parent: one(Category, {
+    fields: [Category.parentId],
+    references: [Category.id],
   }),
 }))
 
-export const postExpertEndorsementSkill = pgTable(
+export const PostExpertEndorsementSkill = pgTable(
   "Post_ExpertEndorsement_skill",
   {
     id: serial("id").primaryKey().notNull(),
@@ -250,7 +250,7 @@ export const postExpertEndorsementSkill = pgTable(
     level: integer("level"),
     expertEndorsementId: integer("expertEndorsement_id")
       .notNull()
-      .references(() => postExpertEndorsement.id, { onDelete: "restrict", onUpdate: "cascade" }),
+      .references(() => PostExpertEndorsement.id, { onDelete: "restrict", onUpdate: "cascade" }),
   },
   table => {
     return {
@@ -261,17 +261,17 @@ export const postExpertEndorsementSkill = pgTable(
   },
 )
 
-export const postExpertEndorsementSkillRelations = relations(
-  postExpertEndorsementSkill,
+export const PostExpertEndorsementSkillRelations = relations(
+  PostExpertEndorsementSkill,
   ({ one }) => ({
-    postExpertEndorsement: one(postExpertEndorsement, {
-      fields: [postExpertEndorsementSkill.expertEndorsementId],
-      references: [postExpertEndorsement.id],
+    postExpertEndorsement: one(PostExpertEndorsement, {
+      fields: [PostExpertEndorsementSkill.expertEndorsementId],
+      references: [PostExpertEndorsement.id],
     }),
   }),
 )
 
-export const user = pgTable(
+export const User = pgTable(
   "User",
   {
     id: serial("id").primaryKey().notNull(),
@@ -289,17 +289,17 @@ export const user = pgTable(
   },
 )
 
-export const userRelations = relations(user, ({ many }) => ({
-  posts: many(post),
+export const UserRelations = relations(User, ({ many }) => ({
+  posts: many(Post),
 }))
 
-export const account = pgTable(
+export const Account = pgTable(
   "Account",
   {
     id: text("id").primaryKey().notNull(),
     userId: integer("userId")
       .notNull()
-      .references(() => user.id, { onDelete: "cascade", onUpdate: "cascade" }),
+      .references(() => User.id, { onDelete: "cascade", onUpdate: "cascade" }),
     type: text("type").notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("providerAccountId").notNull(),
@@ -321,7 +321,7 @@ export const account = pgTable(
   },
 )
 
-export const verificationToken = pgTable(
+export const VerificationToken = pgTable(
   "VerificationToken",
   {
     identifier: text("identifier").notNull(),

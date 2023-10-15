@@ -1,16 +1,16 @@
 import { publicProcedure, router } from "~/api_/api.server.utils"
 import "@mk-libs/common/server-only"
-import { category } from "~/drizzle/drizzle.schema"
+import { Category } from "~/drizzle/drizzle.schema"
 
 const Category_api = router({
   many: publicProcedure.query(async ({ ctx: { db_drizzle } }) => {
     const categories = await db_drizzle
       .select({
-        id: category.id,
-        label: category.label,
-        parentId: category.parentId,
+        id: Category.id,
+        label: Category.label,
+        parentId: Category.parentId,
       })
-      .from(category)
+      .from(Category)
 
     type Category = (typeof categories)[0]
 

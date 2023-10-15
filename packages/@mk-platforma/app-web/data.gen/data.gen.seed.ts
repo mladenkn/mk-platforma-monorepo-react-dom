@@ -9,7 +9,7 @@ import { eva } from "@mk-libs/common/common"
 import { seedCategories, seedLocations } from "~/data.seed"
 import { drizzle_connect } from "~/drizzle/drizzle.utils"
 import { AvatarStyle } from "~/domain/user/User.types"
-import { user } from "~/drizzle/drizzle.schema"
+import { User } from "~/drizzle/drizzle.schema"
 
 export type WithId = {
   id: number
@@ -48,7 +48,7 @@ async function seedUsers() {
 
 function upsertUser(user_: { name: string; avatarStyle: AvatarStyle }) {
   return db_drizzle
-    .insert(user)
+    .insert(User)
     .values(user_)
     .returning()
     .then(u => u[0])

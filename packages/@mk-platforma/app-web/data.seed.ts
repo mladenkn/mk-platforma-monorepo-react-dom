@@ -35,7 +35,7 @@ export async function seedCategories() {
     upsertCategory("sellable_buildingMaterial", sellable.id),
   ])
 
-  return await db_drizzle.query.category.findMany()
+  return await db_drizzle.query.Category.findMany()
 }
 
 async function upsertCategory(label: Category_label, parent_id?: number) {

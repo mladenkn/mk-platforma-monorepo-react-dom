@@ -4,7 +4,7 @@ import Post_api_create from "./Post.api.create"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
 import { desc, eq, inArray } from "drizzle-orm"
-import { post } from "~/drizzle/drizzle.schema"
+import { Post } from "~/drizzle/drizzle.schema"
 
 const Input_zod = z.object({
   categories: z.array(z.number()).optional(),
@@ -62,10 +62,10 @@ const Post_api = router({
 
       const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
 
-      const items = await ctx.db_drizzle.query.post.findMany({
+      const items = await ctx.db_drizzle.query.Post.findMany({
         ...Post_select,
-        where: inArray(post.id, items_ids),
-        orderBy: desc(post.id),
+        where: inArray(Post.id, items_ids),
+        orderBy: desc(Post.id),
       })
 
       return { items, nextCursor }
@@ -79,8 +79,8 @@ const Post_api = router({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const post_data = await ctx.db_drizzle.query.post.findFirst({
-        where: eq(post.id, input.id),
+      const post_data = await ctx.db_drizzle.query.Post.findFirst({
+        where: eq(Post.id, input.id),
         ...Post_select,
         columns: {
           ...Post_select.columns,

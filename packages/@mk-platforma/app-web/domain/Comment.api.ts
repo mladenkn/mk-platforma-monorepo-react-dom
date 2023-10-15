@@ -3,7 +3,7 @@ import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.util
 import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import { shallowPick } from "@mk-libs/common/common"
-import { comment } from "~/drizzle/drizzle.schema"
+import { Comment } from "~/drizzle/drizzle.schema"
 import { and, desc, eq } from "drizzle-orm"
 import { measurePerformance } from "@mk-libs/common/debug"
 
@@ -30,31 +30,29 @@ const Comment_api = router({
       }),
     )
     .query(({ ctx: { user, db_drizzle }, input }) =>
-      db_drizzle.query.comment
-        .findMany({
-          columns: {
-            id: true,
-            content: true,
-          },
-          with: {
-            author: {
-              columns: {
-                avatarStyle: true,
-                name: true,
-                id: true,
-              },
+      db_drizzle.query.Comment.findMany({
+        columns: {
+          id: true,
+          content: true,
+        },
+        with: {
+          author: {
+            columns: {
+              avatarStyle: true,
+              name: true,
+              id: true,
             },
           },
-          where: and(eq(comment.postId, input.post_id), eq(comment.isDeleted, false)),
-          orderBy: desc(comment.id),
-        })
-        .then(comments =>
-          comments.map(c => ({
-            ...c,
-            canEdit: user?.canMutate ? c.author.id === user?.id : false,
-            canDelete: user?.canMutate ? c.author.id === user?.id : false,
-          })),
-        ),
+        },
+        where: and(eq(Comment.postId, input.post_id), eq(Comment.isDeleted, false)),
+        orderBy: desc(Comment.id),
+      }).then(comments =>
+        comments.map(c => ({
+          ...c,
+          canEdit: user?.canMutate ? c.author.id === user?.id : false,
+          canDelete: user?.canMutate ? c.author.id === user?.id : false,
+        })),
+      ),
     ),
 
   create: authorizedRoute(u => u.canMutate && !!u.name)
