@@ -1,3 +1,4 @@
+- BUG: kad se klikne na <LogoLink /> u <CategorySelectory_aside />, link se promini ali odabrana kategorija ostaje ista
 - query param za kategorije je loše odrađeno, imaju dobar lib za to
 - rastavit drizzle/schema.ts u više fajlova
 
