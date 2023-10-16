@@ -17,7 +17,7 @@ export default function generateGatheringsHangout({ categories }: PostGeneratorP
     title,
     images: faker.helpers
       .arrayElements(
-        data_images["nature gathering action work"],
+        data_images["nature gathering action work"].filter(i => i),
         faker.datatype.number({ min: 1, max: 6 }),
       )
       .map(url => ({ url })),

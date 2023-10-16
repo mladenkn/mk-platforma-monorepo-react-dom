@@ -21,7 +21,7 @@ export default function generateAccomodations({ categories }: PostGeneratorParam
     title,
     images: faker.helpers
       .arrayElements(
-        data_images["smještaj podstanarstvo kuća na seoskom imanju"],
+        data_images["smještaj podstanarstvo kuća na seoskom imanju"].filter(i => i),
         faker.datatype.number({ min: 1, max: 5 }),
       )
       .map(url => ({ url })),
