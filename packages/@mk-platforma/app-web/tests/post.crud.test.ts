@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test"
 import Post_crud_test_helper_create from "./post.crud.test.helper"
-import db from "~/prisma/instance"
+// import db from "~/prisma/instance"
 import { getConnectionString } from "~/cli.utils"
 
 process.env.DATABASE_URL = getConnectionString("test.local")
@@ -85,6 +85,6 @@ test("Post CRUD", async ({ page }) => {
   // await helper.details.expectIsDeleted()
 })
 
-test.afterAll(async () => {
-  newPost_id && (await db.post.delete({ where: { id: newPost_id } }))
-})
+// test.afterAll(async () => {
+//   newPost_id && (await db.post.delete({ where: { id: newPost_id } }))
+// })

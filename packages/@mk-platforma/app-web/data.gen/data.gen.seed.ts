@@ -40,7 +40,7 @@ async function seedUsers() {
       emailVerified: new Date(),
     }))
   await db.user.createMany({ data: users })
-  return await db.user.findMany({})
+  return await db_drizzle.query.User.findMany()
 }
 
 function upsertUser(user_: { name: string; avatarStyle: AvatarStyle }) {
