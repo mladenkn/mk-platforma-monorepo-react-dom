@@ -4,10 +4,10 @@ import { Post_api_create_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
-import db from "~/prisma/instance"
 import { omit } from "lodash"
+import db_drizzle from "~/drizzle/drizzle.instance"
 
-const allCategories = db.category.findMany()
+const allCategories = db_drizzle.query.Category.findMany()
 
 const input = Post_api_create_input.refine(
   async ({ categories, expertEndorsement }) => {
