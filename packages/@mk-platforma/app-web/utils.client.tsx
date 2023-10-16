@@ -70,12 +70,18 @@ export function use_setUrlParams_shallow() {
   const searchParams = useSearchParams()
   return (newParams: object) => {
     const newParams_entries = Object.entries(newParams)
-    const newParams_keys_nullish = newParams_entries.filter(p => !p[1]).map(p => p[0])
+    const newParams_keys_nullish = newParams_entries
+      .filter(([_, param_value]) => !param_value)
+      .map(([param_key]) => param_key)
 
     const allCurrentParams = Object.fromEntries(
-      Array.from(searchParams.entries()).filter(p => !newParams_keys_nullish.includes(p[0])),
+      Array.from(searchParams.entries()).filter(
+        ([param_key]) => !newParams_keys_nullish.includes(param_key),
+      ),
     )
-    const newParams_nonNullish = Object.fromEntries(newParams_entries.filter(p => p))
+    const newParams_nonNullish = Object.fromEntries(
+      newParams_entries.filter(([_, param_value]) => param_value),
+    )
 
     router.push(
       {
