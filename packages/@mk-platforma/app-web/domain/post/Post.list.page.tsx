@@ -1,21 +1,21 @@
-import { Box, Drawer, Fab, Paper, Typography, useTheme } from "@mui/material"
+import { Box, Drawer, Fab, Typography, useTheme } from "@mui/material"
 import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import Post_list_page_header from "./Post.list.page.header"
 import { Api_outputs } from "~/api_/api.infer"
 import Link from "next/link"
 import { Post_listItem } from "./Post.listItem"
-import { flatMap, pick, uniqBy } from "lodash"
+import { flatMap } from "lodash"
 import { useDebounceCallback } from "@react-hook/debounce"
 import use_history_uniques from "@mk-libs/react-common/use.history.uniques"
 import Api from "~/api_/api.client"
 import { use_cookie } from "~/cookies"
 import { use_setUrlParams_shallow } from "~/utils.client"
 import Layout from "~/domain/Layout"
-import { useCategory } from "~/domain/category/Category.common"
 import Categories_selector_aside from "~/domain/category/Category.selector.aside"
 import { Post_listItem_personEndorsement } from "./Post.listItem.personEndorsement"
-import type { Category_label } from "../category/Category.types"
+import { Category_label_zod, type Category_label } from "../category/Category.types"
+import { useSearchParams } from "next/navigation"
 
 type Category_model = Api_outputs["category"]["many"][number]
 
@@ -28,31 +28,36 @@ export type PostList_section_Props = {
 }
 
 export default function Post_list_page({
-  selectedCategory_initial,
   categories_initial,
   posts_initial,
   location_initial,
   location_radius_initial,
 }: PostList_section_Props) {
-  // TODO: imaju dobri alati za query param state
-  const [selectedCategory_id, setSelectedCategory] = useState(selectedCategory_initial?.id)
-
-  const [search, set_search] = useState<string | null>(null)
+  const [search, set_search] = useState<string | null>(null) // TODO: url param
   const [selectedLocation, set_selectedLocation] = use_cookie(
     "Post_list__location",
     location_initial,
-  )
+  ) // TODO: url param
   const [selectedLocation_radius_km, set__selectedLocation_radius_km] = use_cookie(
     "Post_list__location_radius",
     location_radius_initial,
   )
 
-  const categories = Api.category.many.useQuery(undefined, { initialData: categories_initial })
-  const selectedCategory = useCategory(selectedCategory_id)
+  const categories_query = Api.category.many.useQuery(undefined, {
+    initialData: categories_initial,
+  })
+  const searchParams = useSearchParams()
+
+  const category_label_searchParam = searchParams.get("category")
+  const selectedCategory_label =
+    category_label_searchParam && Category_label_zod.parse(category_label_searchParam)
+  const category_selected = categories_query.data?.find(c => c.label === selectedCategory_label)
+
+  const setUrlParams_shallow = use_setUrlParams_shallow()
 
   const posts = Api.post.list.fieldSet_main.useInfiniteQuery(
     {
-      categories: selectedCategory_id ? [selectedCategory_id] : [],
+      categories: category_selected ? [category_selected.id] : [],
       search: search === null ? undefined : search,
       location: selectedLocation ?? undefined,
       location_radius: selectedLocation_radius_km ?? undefined,
@@ -62,8 +67,6 @@ export default function Post_list_page({
       // initialData: { pages: [posts_initial.items], pageParams: undefined },
     },
   )
-
-  const posts_flat = flatMap(posts.data?.pages, page => page.items.map(i => pick(i, "id", "title")))
 
   const posts_isFirstLoading = use_history_uniques(posts.status).every(s => s === "loading")
   const posts_data = posts_isFirstLoading
@@ -83,17 +86,14 @@ export default function Post_list_page({
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
   // TODO: treba bit bolje, imaju dobri alati za query param state
-  const setUrlParams_shallow = use_setUrlParams_shallow()
   function onCategorySelect(category?: Category_model) {
     if (!category) {
       setUrlParams_shallow({})
       set_SectionsDrawer_isActive(false)
-      setSelectedCategory(undefined)
       return
     }
     setUrlParams_shallow({ category: category.label })
     if (!category.children?.length) set_SectionsDrawer_isActive(false)
-    setSelectedCategory(selectedCategory.data?.id === category.id ? undefined : category.id)
   }
 
   const {} = useTheme()
@@ -106,7 +106,7 @@ export default function Post_list_page({
           <Post_list_page_header
             search={search}
             set_search={set_search}
-            selectedCategory={selectedCategory as any}
+            selectedCategory={category_selected}
             onShowCategories={() => set_SectionsDrawer_isActive(true)}
             selectedLocation={selectedLocation || null}
             set_selectedLocation={set_selectedLocation}
@@ -162,10 +162,10 @@ export default function Post_list_page({
       />
       {sectionsDrawer_isActive && (
         <Drawer open onClose={() => set_SectionsDrawer_isActive(false)}>
-          {categories.data && (
+          {categories_query.data && (
             <Categories_selector_aside
-              categories={categories.data}
-              selectedItem={selectedCategory.data?.id}
+              categories={categories_query.data}
+              selectedItem={category_selected?.id}
               onSelect={onCategorySelect}
               onBack={() => onCategorySelect(undefined)}
             />

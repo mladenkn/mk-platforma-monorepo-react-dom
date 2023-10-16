@@ -16,7 +16,7 @@ import type { Category_label } from "~/domain/category/Category.types"
 
 type Props = {
   onShowCategories(): void
-  selectedCategory: UseQueryResult<{ label: Category_label } | null>
+  selectedCategory?: { label: Category_label } | null
   search: string | null
   set_search(s: string | null): void
   selectedLocation: number | null
@@ -37,11 +37,7 @@ export default function Post_list_page_header({
 }: Props) {
   const { typography, spacing, palette } = useTheme()
 
-  const heading = selectedCategory.data ? (
-    getCategoryLabel(selectedCategory.data.label)
-  ) : (
-    <LogoLink />
-  )
+  const heading = selectedCategory ? getCategoryLabel(selectedCategory.label) : <LogoLink />
   const heading_size = typeof heading === "string" ? heading.length : 100
   const searchAndMore_position = heading_size > 13 ? "down" : "up"
 
@@ -122,18 +118,18 @@ export default function Post_list_page_header({
               }}
             >
               <Box sx={{ display: "flex", gap: 2.5, alignItems: "center" }}>
-                {selectedCategory.data ? (
+                {selectedCategory ? (
                   <CategoryIcon
                     sx={{ cursor: "pointer" }}
                     fontSize="large"
-                    name={selectedCategory.data.label}
+                    name={selectedCategory.label}
                   />
                 ) : (
                   <MenuIcon sx={{ cursor: "pointer" }} fontSize="large" fontWeight={400} />
                 )}
-                {selectedCategory.data ? (
+                {selectedCategory ? (
                   <Typography variant="h2" fontWeight={400} sx={{ cursor: "default" }}>
-                    {getCategoryLabel(selectedCategory.data.label)}
+                    {getCategoryLabel(selectedCategory.label)}
                   </Typography>
                 ) : (
                   <LogoLink />

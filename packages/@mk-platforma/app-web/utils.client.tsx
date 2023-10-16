@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react"
 import env from "./env.mjs"
 import Api from "./api_/api.client"
 import { match } from "ts-pattern"
+import { useSearchParams } from "next/navigation"
 
 type DataOrQuery_Props<TData> = {
   input: TData | UseQueryResult<TData>
@@ -65,11 +66,16 @@ export function mapQueryData<TQueryData, TMappedData>(
 
 export function use_setUrlParams_shallow() {
   const router = useRouter()
-  return (params: object) => {
+  const searchParams = useSearchParams()
+  return (newParams: object) => {
+    const allCurrentParams = Object.fromEntries(searchParams.entries())
     router.push(
       {
         pathname: router.pathname,
-        query: params as any,
+        query: {
+          ...allCurrentParams,
+          ...newParams,
+        },
       },
       undefined,
       { shallow: true },
