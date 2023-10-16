@@ -53,8 +53,6 @@ export default function Post_list_page({
     category_label_searchParam && Category_label_zod.parse(category_label_searchParam)
   const category_selected = categories_query.data?.find(c => c.label === selectedCategory_label)
 
-  const setUrlParams_shallow = use_setUrlParams_shallow()
-
   const posts = Api.post.list.fieldSet_main.useInfiniteQuery(
     {
       categories: category_selected ? [category_selected.id] : [],
@@ -85,6 +83,7 @@ export default function Post_list_page({
 
   const [sectionsDrawer_isActive, set_SectionsDrawer_isActive] = useState(false)
 
+  const setUrlParams_shallow = use_setUrlParams_shallow()
   function onCategorySelect(category?: Category_model) {
     if (!category) {
       setUrlParams_shallow({ category: undefined })
