@@ -6,6 +6,7 @@ import env from "./env.mjs"
 import Api from "./api_/api.client"
 import { match } from "ts-pattern"
 import { useSearchParams } from "next/navigation"
+import { eva } from "@mk-libs/common/common"
 
 type DataOrQuery_Props<TData> = {
   input: TData | UseQueryResult<TData>
@@ -68,18 +69,24 @@ export function use_setUrlParams_shallow() {
   const router = useRouter()
   const searchParams = useSearchParams()
   return (newParams: object) => {
-    const allCurrentParams = Object.fromEntries(searchParams.entries())
-    // TODO: kad je neki entry undefined, vjer bi trebalo napravit remove
+    const newParams_entries = Object.entries(newParams)
+    const newParams_keys_nullish = newParams_entries.filter(p => !p[1]).map(p => p[0])
+
+    const allCurrentParams = Object.fromEntries(
+      Array.from(searchParams.entries()).filter(p => !newParams_keys_nullish.includes(p[0])),
+    )
+    const newParams_nonNullish = Object.fromEntries(newParams_entries.filter(p => p))
+
     router.push(
       {
         pathname: router.pathname,
         query: {
           ...allCurrentParams,
-          ...newParams,
+          ...newParams_nonNullish,
         },
       },
       undefined,
-      { shallow: true },
+      // { shallow: true },
     )
   }
 }
