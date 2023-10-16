@@ -7,7 +7,7 @@ import * as cro_dataset from "./data.gen.cro.dataset"
 import { eva } from "@mk-libs/common/common"
 import { seedCategories, seedLocations } from "~/data.seed"
 import { AvatarStyle } from "~/domain/user/User.types"
-import { User } from "~/drizzle/drizzle.schema"
+import { Comment, User } from "~/drizzle/drizzle.schema"
 import db_drizzle from "~/drizzle/drizzle.instance"
 
 export type WithId = {
@@ -83,12 +83,10 @@ async function seedPosts(
     })
 
     for (const comment of post.comments) {
-      await db.comment.create({
-        data: {
-          content: comment.content,
-          post_id: post_created.id,
-          author_id: faker.helpers.arrayElement(users)!.id,
-        },
+      await db_drizzle.insert(Comment).values({
+        content: comment.content,
+        postId: post_created.id,
+        authorId: faker.helpers.arrayElement(users)!.id,
       })
     }
   }
