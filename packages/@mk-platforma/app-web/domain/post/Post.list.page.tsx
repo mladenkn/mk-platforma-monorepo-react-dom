@@ -1,11 +1,11 @@
-import { Box, Drawer, Fab, Paper, Typography, useTheme } from "@mui/material"
+import { Box, Drawer, Fab, Typography, useTheme } from "@mui/material"
 import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import Post_list_page_header from "./Post.list.page.header"
 import { Api_outputs } from "~/api_/api.infer"
 import Link from "next/link"
 import { Post_listItem } from "./Post.listItem"
-import { flatMap, pick, uniqBy } from "lodash"
+import { flatMap } from "lodash"
 import { useDebounceCallback } from "@react-hook/debounce"
 import use_history_uniques from "@mk-libs/react-common/use.history.uniques"
 import Api from "~/api_/api.client"
@@ -62,8 +62,6 @@ export default function Post_list_page({
       // initialData: { pages: [posts_initial.items], pageParams: undefined },
     },
   )
-
-  const posts_flat = flatMap(posts.data?.pages, page => page.items.map(i => pick(i, "id", "title")))
 
   const posts_isFirstLoading = use_history_uniques(posts.status).every(s => s === "loading")
   const posts_data = posts_isFirstLoading
