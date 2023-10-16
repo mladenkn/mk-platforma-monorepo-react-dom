@@ -1,5 +1,3 @@
-- BUG: kad se klikne na <LogoLink /> u <CategorySelectory_aside />, link se promini ali odabrana kategorija ostaje ista, moglo mi se rješit sa ovim ispod
-- query param za kategorije je loše odrađeno, imaju dobar lib za to
 - rastavit drizzle/schema.ts u više fajlova
 
 - drizzle instance ne radi bez default db conn str (ipak nema veze jer ću vjer maknit env var zbog sqlite)
