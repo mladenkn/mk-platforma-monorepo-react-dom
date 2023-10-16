@@ -1,9 +1,7 @@
 import locations from "./data.locations.json"
-import { drizzle_connect } from "./drizzle/drizzle.utils"
 import db from "./prisma/instance"
 import type { Category_label } from "~/domain/category/Category.types"
-
-const [db_drizzle] = drizzle_connect()
+import db_drizzle from "~/drizzle/drizzle.instance"
 
 export default async function data_seed_prod() {
   await seedCategories()
