@@ -87,11 +87,9 @@ export default function Post_list_page({
   function onCategorySelect(category?: Category_model) {
     if (!category) {
       setUrlParams_shallow({ category: undefined })
-      set_SectionsDrawer_isActive(false)
       return
     }
     setUrlParams_shallow({ category: category.label })
-    if (!category.children?.length) set_SectionsDrawer_isActive(false)
   }
 
   const {} = useTheme()
