@@ -87,8 +87,9 @@ export default function Post_list_page({
 
   // TODO: treba bit bolje, imaju dobri alati za query param state
   function onCategorySelect(category?: Category_model) {
+    console.log(90, category)
     if (!category) {
-      setUrlParams_shallow({})
+      setUrlParams_shallow({ category: undefined })
       set_SectionsDrawer_isActive(false)
       return
     }

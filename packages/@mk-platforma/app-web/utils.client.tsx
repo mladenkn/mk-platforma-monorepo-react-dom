@@ -69,6 +69,7 @@ export function use_setUrlParams_shallow() {
   const searchParams = useSearchParams()
   return (newParams: object) => {
     const allCurrentParams = Object.fromEntries(searchParams.entries())
+    // TODO: kad je neki entry undefined, vjer bi trebalo napravit remove
     router.push(
       {
         pathname: router.pathname,
