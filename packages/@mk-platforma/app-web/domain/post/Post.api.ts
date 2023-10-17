@@ -76,7 +76,7 @@ const Post_api = router({
 
       const grouped = groupBy(rows, "id")
       const items = Object.entries(grouped).map(([post_id, entry]) => ({
-        id: post_id,
+        id: parseInt(post_id),
         title: entry[0].title,
         location: entry[0].location,
         expertEndorsement: entry[0].expertEndorsement && {
