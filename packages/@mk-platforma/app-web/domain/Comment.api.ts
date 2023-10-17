@@ -75,10 +75,10 @@ const Comment_api = router({
       }),
     )
     .mutation(({ ctx, input }) =>
-      ctx.db.comment.update({
-        where: { id: input.id, author_id: ctx.user.id },
-        data: shallowPick(input, "content", "isDeleted"),
-      }),
+      ctx.db_drizzle
+        .update(Comment)
+        .set(shallowPick(input, "content", "isDeleted"))
+        .where(and(eq(Comment.id, input.id), eq(Comment.author_id, ctx.user.id))),
     ),
 })
 
