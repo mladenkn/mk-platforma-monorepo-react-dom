@@ -16,6 +16,7 @@ import Categories_selector_aside from "~/domain/category/Category.selector.aside
 import { Post_listItem_personEndorsement } from "./Post.listItem.personEndorsement"
 import { Category_label_zod, type Category_label } from "../category/Category.types"
 import { useSearchParams } from "next/navigation"
+import { eva } from "@mk-libs/common/common"
 
 type Category_model = Api_outputs["category"]["many"][number]
 
@@ -116,40 +117,41 @@ export default function Post_list_page({
           },
           onScroll: handleScroll,
         }}
-        content={
-          posts_data?.length ? (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                gap: 1.25,
-                width: "100%",
-                mt: 1,
-                pl: 1,
-                pr: 1.5,
-              }}
-            >
-              {posts_data.map(item => (
-                <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
-                  {item.expertEndorsement ? (
-                    <Post_listItem_personEndorsement
-                      {...item.expertEndorsement}
-                      location={item.location}
-                    />
-                  ) : (
-                    <Post_listItem
-                      {...item}
-                      location={item.location?.name}
-                      image={item.images?.find(i => i.isMain) || item.images?.[0]}
-                    />
-                  )}
-                </Link>
-              ))}
-            </Box>
-          ) : (
-            <Typography>Učitavanje...</Typography>
-          )
-        }
+        content={eva(() => {
+          if (posts.status === "loading") return <Typography>Učitavanje...</Typography>
+          if (posts_data?.length > 0)
+            return (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 1.25,
+                  width: "100%",
+                  mt: 1,
+                  pl: 1,
+                  pr: 1.5,
+                }}
+              >
+                {posts_data.map(item => (
+                  <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
+                    {item.expertEndorsement ? (
+                      <Post_listItem_personEndorsement
+                        {...item.expertEndorsement}
+                        location={item.location}
+                      />
+                    ) : (
+                      <Post_listItem
+                        {...item}
+                        location={item.location?.name}
+                        image={item.images?.find(i => i.isMain) || item.images?.[0]}
+                      />
+                    )}
+                  </Link>
+                ))}
+              </Box>
+            )
+          return <Typography>Nema objava koje odgovaraju ovom upitu</Typography>
+        })}
         fab={({ sx }) => (
           <Fab color="primary" sx={sx} onClick={() => set_SectionsDrawer_isActive(true)}>
             <ManageSearchIcon />
