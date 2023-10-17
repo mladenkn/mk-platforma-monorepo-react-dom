@@ -4,8 +4,15 @@ import { Post_api_create_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
-import { omit } from "lodash"
 import db_drizzle from "~/drizzle/drizzle.instance"
+import {
+  CategoryToPost,
+  Image,
+  Post,
+  PostExpertEndorsement,
+  PostExpertEndorsementSkill,
+} from "~/drizzle/drizzle.schema"
+import { eq } from "drizzle-orm"
 
 const allCategories = db_drizzle.query.Category.findMany()
 
@@ -27,60 +34,62 @@ const input = Post_api_create_input.refine(
 const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
   .mutation(({ ctx, input }) =>
-    ctx.db.$transaction(
-      async tx => {
-        for (const image of input.images || []) {
-          await tx.image.update({
-            where: {
-              id: image.id,
-            },
-            data: {
-              isMain: image.isMain,
-            },
-          })
-        }
-        const post_created = await tx.post.create({
-          data: {
-            ...shallowPick(input, "title", "description", "contact"),
-            author: {
-              connect: {
-                id: ctx.user.id,
-              },
-            },
-            images: {
-              connect: input.images?.map(i => ({ id: i.id })),
-            },
-            location: {
-              connect: input.location || undefined,
-            },
-            categories: {
-              connect: input.categories,
-            },
-          },
+    ctx.db_drizzle.transaction(async tx => {
+      const post_created = await tx
+        .insert(Post)
+        .values({
+          title: input.title,
+          description: input.description,
+          contact: input.contact,
+          author_id: ctx.user.id,
+          location_id: input.location?.id,
         })
-        if (input.expertEndorsement) {
-          await tx.post.update({
-            where: {
-              id: post_created.id,
-            },
-            data: {
-              expertEndorsement: {
-                create: {
-                  post_id: post_created.id,
-                  ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
-                  avatarStyle: JSON.stringify(getRandomElement(avatarStyles)),
-                  skills: {
-                    create: input.expertEndorsement.skills || undefined,
-                  },
-                },
-              },
-            },
+        .returning()
+        .then(r => r[0])
+
+      if (input.categories.length > 0) {
+        const categoryToPost_values = input.categories.map(c => ({
+          category_id: c.id,
+          post_id: post_created.id,
+        }))
+        await tx.insert(CategoryToPost).values(categoryToPost_values)
+      }
+
+      for (const image of input.images || []) {
+        await tx
+          .update(Image)
+          .set({ isMain: image.isMain, url: image.url, post_id: post_created.id })
+          .where(eq(Image.id, image.id))
+      }
+
+      if (input.expertEndorsement) {
+        const post_expertEndorsement_created = await tx
+          .insert(PostExpertEndorsement)
+          .values({
+            ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
+            post_id: post_created.id,
+            avatarStyle: getRandomElement(avatarStyles),
           })
+          .returning()
+          .then(r => r[0])
+
+        if (input.expertEndorsement.skills?.length) {
+          const post_expertEndorsement_skills_values = input.expertEndorsement.skills.map(s => ({
+            expertEndorsementId: post_expertEndorsement_created.id,
+            label: s.label,
+            level: s.level,
+          }))
+          await tx.insert(PostExpertEndorsementSkill).values(post_expertEndorsement_skills_values)
         }
-        return omit(post_created, "expertEndorsement")
-      },
-      { maxWait: 8 * 1000, timeout: 20 * 1000 },
-    ),
+
+        await tx
+          .update(Post)
+          .set({ expertEndorsementId: post_expertEndorsement_created.id })
+          .where(eq(Post.id, post_created.id))
+      }
+
+      return post_created
+    }),
   )
 
 export default Post_api_create
