@@ -4,7 +4,7 @@ import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
 import db from "./prisma/instance"
 import { Api_ss } from "./api_/api.root"
-import { db_drizzle } from "~/drizzle/drizzle.instance"
+import db_drizzle from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
 import { User } from "./drizzle/drizzle.schema"
 

@@ -5,7 +5,7 @@ import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
 import { omit } from "lodash"
-import { db_drizzle } from "~/drizzle/drizzle.instance"
+import db_drizzle from "~/drizzle/drizzle.instance"
 
 const allCategories = db_drizzle.query.Category.findMany()
 

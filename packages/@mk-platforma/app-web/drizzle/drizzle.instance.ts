@@ -16,6 +16,7 @@ function drizzle_connect() {
   return db
 }
 
-export const db_drizzle = drizzle_connect()
+const db_drizzle = drizzle_connect()
+export default db_drizzle
 
 export type Drizzle_instance = ReturnType<typeof drizzle_connect>

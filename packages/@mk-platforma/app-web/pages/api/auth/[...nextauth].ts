@@ -11,7 +11,7 @@ import { P, match } from "ts-pattern"
 import { avatarStyles } from "~/domain/user/User.common"
 import env from "~/env.mjs"
 import { NextApiRequest, NextApiResponse } from "next"
-import { db_drizzle } from "~/drizzle/drizzle.instance"
+import db_drizzle from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
 import { User } from "~/drizzle/drizzle.schema"
 

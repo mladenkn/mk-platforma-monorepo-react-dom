@@ -8,7 +8,7 @@ import { eva } from "@mk-libs/common/common"
 import { seedCategories, seedLocations } from "~/data.seed"
 import { AvatarStyle } from "~/domain/user/User.types"
 import { Comment, User } from "~/drizzle/drizzle.schema"
-import { db_drizzle } from "~/drizzle/drizzle.instance"
+import db_drizzle from "~/drizzle/drizzle.instance"
 
 export type WithId = {
   id: number
