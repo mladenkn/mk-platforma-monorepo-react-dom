@@ -7,6 +7,7 @@ import { Api_ss } from "./api_/api.root"
 import db_drizzle from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
 import { User } from "./drizzle/drizzle.schema"
+import { asNonNil } from "@mk-libs/common/common"
 
 const options = [
   { name: "command", defaultOption: true },
@@ -111,6 +112,8 @@ export function getConnectionString(env: string) {
 }
 
 export async function Api_ss_cli_create() {
-  const user = await db_drizzle.query.User.findFirst({ where: eq(User.canMutate, true) })
-  return Api_ss({ user: user!, db, getCookie: () => null, db_drizzle })
+  const user = await db_drizzle.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
+    asNonNil,
+  )
+  return Api_ss({ user: user, db, getCookie: () => null, db_drizzle })
 }
