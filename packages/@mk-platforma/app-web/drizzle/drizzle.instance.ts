@@ -23,7 +23,7 @@ export function getConnectionString(env: string) {
 }
 
 function drizzle_connect() {
-  const queryClient = postgres(env.DATABASE_URL || getConnectionString("neon-staging"), {
+  const queryClient = postgres(env.DATABASE_URL || getConnectionString("dev"), {
     // TODO: mora radit bez defaulta
     ssl: "require",
     max: 1,
