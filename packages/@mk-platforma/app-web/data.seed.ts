@@ -1,7 +1,7 @@
 import locations from "./data.locations.json"
 import { Category, Location } from "./drizzle/drizzle.schema"
 import type { Category_label } from "~/domain/category/Category.types"
-import db_drizzle from "~/drizzle/drizzle.instance"
+import { db_drizzle } from "~/drizzle/drizzle.instance"
 
 export default async function data_seed_prod() {
   await seedCategories()

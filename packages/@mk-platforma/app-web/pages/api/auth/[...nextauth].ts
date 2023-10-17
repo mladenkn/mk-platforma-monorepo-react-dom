@@ -11,7 +11,7 @@ import { P, match } from "ts-pattern"
 import { avatarStyles } from "~/domain/user/User.common"
 import env from "~/env.mjs"
 import { NextApiRequest, NextApiResponse } from "next"
-import db_drizzle from "~/drizzle/drizzle.instance"
+import { db_drizzle } from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
 import { User } from "~/drizzle/drizzle.schema"
 
@@ -88,17 +88,15 @@ declare module "next-auth" {
   }
 }
 
-function session_ss_get(req: Request, res: NextApiResponse) {
-  return getServerSession(req, res, auth_options(req, res))
-}
-
 export async function user_ss_get(req: Request, res: NextApiResponse) {
   if (env.NEXT_PUBLIC_MOCK_USER_ID) {
     return asNonNil(
-      await db_drizzle.query.User.findFirst({where: eq(User.id, parseInt(env.NEXT_PUBLIC_MOCK_USER_ID))})
+      await db_drizzle.query.User.findFirst({
+        where: eq(User.id, parseInt(env.NEXT_PUBLIC_MOCK_USER_ID)),
+      }),
     )
   }
-  return (await session_ss_get(req, res))?.user
+  return (await getServerSession(req, res, auth_options(req, res)))?.user
 }
 
 export default (req: Request, res: NextApiResponse) => NextAuth(req, res, auth_options(req, res))

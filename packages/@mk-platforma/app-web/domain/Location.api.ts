@@ -2,7 +2,7 @@ import { publicProcedure, router } from "~/api_/api.server.utils"
 import { z } from "zod"
 import "@mk-libs/common/server-only"
 import { location_api_google__search } from "./Location.api.google"
-import db_drizzle from "~/drizzle/drizzle.instance"
+import { db_drizzle } from "~/drizzle/drizzle.instance"
 import { Location } from "~/drizzle/drizzle.schema"
 import { omit } from "lodash"
 
