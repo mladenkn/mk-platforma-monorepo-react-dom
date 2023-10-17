@@ -60,11 +60,13 @@ const Post_api = router({
         })
         .then(items => items.map(i => i.id))
 
+      if (items_ids.length > 0) return []
+
       const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
 
       const items = await ctx.db_drizzle.query.Post.findMany({
         ...Post_select,
-        where: items_ids.length ? inArray(Post.id, items_ids) : undefined,
+        where: inArray(Post.id, items_ids),
         orderBy: desc(Post.id),
       })
 
