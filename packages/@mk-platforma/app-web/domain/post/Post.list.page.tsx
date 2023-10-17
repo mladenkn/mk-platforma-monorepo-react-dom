@@ -150,7 +150,7 @@ export default function Post_list_page({
                 ))}
               </Box>
             )
-          return <Typography>Nema objava koje odgovaraju ovom upitu</Typography>
+          return <Typography>Nema objava koje odgovaraju ovom upitu.</Typography>
         })}
         fab={({ sx }) => (
           <Fab color="primary" sx={sx} onClick={() => set_SectionsDrawer_isActive(true)}>
