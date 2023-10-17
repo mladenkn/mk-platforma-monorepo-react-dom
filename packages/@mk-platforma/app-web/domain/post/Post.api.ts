@@ -64,7 +64,7 @@ const Post_api = router({
 
       const items = await ctx.db_drizzle.query.Post.findMany({
         ...Post_select,
-        where: inArray(Post.id, items_ids),
+        where: items_ids.length ? inArray(Post.id, items_ids) : undefined,
         orderBy: desc(Post.id),
       })
 
