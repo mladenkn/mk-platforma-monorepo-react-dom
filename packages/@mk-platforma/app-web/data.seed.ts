@@ -1,5 +1,5 @@
 import locations from "./data.locations.json"
-import db from "./prisma/instance"
+import { Category, Location } from "./drizzle/drizzle.schema"
 import type { Category_label } from "~/domain/category/Category.types"
 import db_drizzle from "~/drizzle/drizzle.instance"
 
@@ -37,21 +37,15 @@ export async function seedCategories() {
 }
 
 async function upsertCategory(label: Category_label, parent_id?: number) {
-  return await db.category.upsert({
-    where: { label },
-    create: { label, parent_id },
-    update: { label, parent_id },
-  })
+  return await db_drizzle
+    .insert(Category)
+    .values({ label, parentId: parent_id })
+    // .onConflictDoUpdate({ target: Category.label, set: { parentId: parent_id } }) // TODO
+    .returning()
+    .then(c => c[0])
 }
 
 export async function seedLocations() {
-  return await Promise.all(
-    locations.map(location =>
-      db.location.upsert({
-        where: { google_id: location.google_id },
-        create: location,
-        update: location,
-      }),
-    ),
-  )
+  const mapped = locations.map(l => ({ ...l, googleId: l.google_id }))
+  return db_drizzle.insert(Location).values(mapped).returning() // TODO: fali onConflictDoUpdate
 }

@@ -104,9 +104,9 @@ export const Location = pgTable(
   "Location",
   {
     id: serial("id").primaryKey().notNull(),
-    googleId: varchar("google_id", { length: 128 }).notNull(),
-    latitude: numeric("latitude", { precision: 65, scale: 30 }).notNull(),
-    longitude: numeric("longitude", { precision: 65, scale: 30 }).notNull(),
+    googleId: varchar("google_id", { length: 128 }).notNull().unique(),
+    latitude: numeric("latitude", { precision: 65, scale: 30 }).notNull().$type<number>(),
+    longitude: numeric("longitude", { precision: 65, scale: 30 }).notNull().$type<number>(),
     name: varchar("name", { length: 128 }).notNull(),
     adminAreaLevel1: varchar("adminAreaLevel1", { length: 128 }),
     country: varchar("country", { length: 64 }).notNull(),
@@ -220,7 +220,7 @@ export const Category = pgTable(
   {
     id: serial("id").primaryKey().notNull(),
     parentId: integer("parent_id"),
-    label: enum_type(Category_label_zod)("label").$type<Category_label>().notNull(),
+    label: enum_type(Category_label_zod)("label").$type<Category_label>().notNull().unique(),
   },
   table => {
     return {
