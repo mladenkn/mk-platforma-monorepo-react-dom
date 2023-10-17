@@ -27,7 +27,11 @@ const Location_api = router({
   ),
   single: publicProcedure
     .input(z.object({ id: z.number() }))
-    .query(({ ctx, input }) => ctx.db.location.findUnique({ where: { id: input.id } })),
+    .query(async ({ ctx, input }) =>
+      ctx.db_drizzle.query.Location.findFirst({ where: eq(Location.id, input.id) }).then(
+        l => l || null,
+      ),
+    ),
 })
 
 export async function Location_google_find_save(query: string) {
