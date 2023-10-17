@@ -3,8 +3,19 @@ import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.util
 import Post_api_create from "./Post.api.create"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
-import { and, desc, eq, ilike, or } from "drizzle-orm"
-import { Post } from "~/drizzle/drizzle.schema"
+import { and, desc, eq, ilike, inArray, or } from "drizzle-orm"
+import {
+  Category,
+  CategoryToPost,
+  Image,
+  Location,
+  Post,
+  PostExpertEndorsement,
+  PostExpertEndorsementSkill,
+} from "~/drizzle/drizzle.schema"
+import { shallowPick } from "@mk-libs/common/common"
+import { groupBy } from "lodash"
+import { withNoNils } from "@mk-libs/common/array"
 
 const Input_zod = z.object({
   categories: z.array(z.number()).optional(),
@@ -17,20 +28,63 @@ const Input_zod = z.object({
 const Post_api = router({
   list: router({
     fieldSet_main: publicProcedure.input(Input_zod).query(async ({ ctx, input }) => {
-      const items = await ctx.db_drizzle.query.Post.findMany({
-        ...Post_select,
-        where: and(
-          eq(Post.isDeleted, false),
-          or(
-            ilike(Post.title, `%${input.search}%`),
-            ilike(Post.description, `%${input.search}%`),
-            ilike(Post.contact, `%${input.search}%`),
+      const rows = await ctx.db_drizzle
+        .select({
+          id: Post.id,
+          title: Post.title,
+          location: shallowPick(Location, "id", "name"),
+          image: shallowPick(Image, "id", "url", "isMain"),
+          expertEndorsement: shallowPick(
+            PostExpertEndorsement,
+            "firstName",
+            "lastName",
+            "avatarStyle",
           ),
-        ), // TODO: fali filter po kategorijama i po lokaciji
-        limit: 20,
-        orderBy: desc(Post.id),
-        // TODO: fali paginacija
-      })
+          expertEndorsement_skill: shallowPick(PostExpertEndorsementSkill, "id", "label", "level"),
+          // category: shallowPick(Category, "id", "label"),
+        })
+        .from(Post)
+        .leftJoin(Location, eq(Post.location_id, Location.id))
+        .leftJoin(Image, eq(Post.id, Image.post_id))
+        .leftJoin(PostExpertEndorsement, eq(Post.id, PostExpertEndorsement.post_id))
+        .leftJoin(CategoryToPost, eq(Post.id, CategoryToPost.post_id))
+        .leftJoin(Category, eq(Category.id, CategoryToPost.category_id))
+        .leftJoin(
+          PostExpertEndorsementSkill,
+          eq(PostExpertEndorsement.id, PostExpertEndorsementSkill.expertEndorsementId),
+        )
+        .where(
+          and(
+            eq(Post.isDeleted, false),
+            or(
+              ilike(Post.title, `%${input.search}%`),
+              ilike(Post.description, `%${input.search}%`),
+              ilike(Post.contact, `%${input.search}%`),
+              ilike(PostExpertEndorsementSkill.label, `%${input.search}%`),
+            ),
+            input.categories?.length
+              ? or(
+                  inArray(Category.id, input.categories),
+                  inArray(Category.parent_id, input.categories),
+                )
+              : undefined,
+          ),
+        )
+        .orderBy(desc(Post.id))
+        .limit(40)
+      // TODO: fali paginacija, i filter po lokaciji
+
+      const grouped = groupBy(rows, "id")
+      const items = Object.entries(grouped).map(([post_id, entry]) => ({
+        id: post_id,
+        title: entry[0].title,
+        location: entry[0].location,
+        expertEndorsement: entry[0].expertEndorsement && {
+          ...entry[0].expertEndorsement,
+          skills: withNoNils(entry.map(e => e.expertEndorsement_skill)),
+        },
+        images: withNoNils(entry.map(e => e.image)),
+      }))
 
       return { items, nextCursor: null }
     }),
