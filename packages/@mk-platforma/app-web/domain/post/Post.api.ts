@@ -60,7 +60,7 @@ const Post_api = router({
         })
         .then(items => items.map(i => i.id))
 
-      if (items_ids.length > 0) return []
+      if (items_ids.length === 0) return []
 
       const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
 
