@@ -39,7 +39,7 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
             },
           })
         }
-        const post_upserted = await tx.post.create({
+        const post_created = await tx.post.create({
           data: {
             ...shallowPick(input, "title", "description", "contact"),
             author: {
@@ -61,12 +61,12 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
         if (input.expertEndorsement) {
           await tx.post.update({
             where: {
-              id: post_upserted.id,
+              id: post_created.id,
             },
             data: {
               expertEndorsement: {
                 create: {
-                  post_id: post_upserted.id,
+                  post_id: post_created.id,
                   ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
                   avatarStyle: JSON.stringify(getRandomElement(avatarStyles)),
                   skills: {
@@ -77,7 +77,7 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
             },
           })
         }
-        return omit(post_upserted, "expertEndorsement")
+        return omit(post_created, "expertEndorsement")
       },
       { maxWait: 8 * 1000, timeout: 20 * 1000 },
     ),
