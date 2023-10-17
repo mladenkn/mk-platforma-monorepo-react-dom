@@ -118,7 +118,8 @@ export default function Post_list_page({
           onScroll: handleScroll,
         }}
         content={eva(() => {
-          if (posts.status === "loading") return <Typography>Učitavanje...</Typography>
+          if (posts_data?.length === 0 && posts.status === "loading")
+            return <Typography>Učitavanje...</Typography>
           if (posts_data?.length > 0)
             return (
               <Box
