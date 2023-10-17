@@ -1,7 +1,6 @@
 import { match } from "ts-pattern"
 import { parseCommand, run, getConnectionString, Api_ss_cli_create } from "./cli.utils"
 import "@mk-libs/common/server-only"
-import db from "./prisma/instance"
 import { isPromise } from "util/types"
 import { isArray } from "lodash"
 import { location_api_google__search } from "./domain/Location.api.google"
