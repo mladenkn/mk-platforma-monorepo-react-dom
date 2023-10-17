@@ -5,35 +5,26 @@ import { location_api_google__search } from "./Location.api.google"
 import db_drizzle from "~/drizzle/drizzle.instance"
 import { Location } from "~/drizzle/drizzle.schema"
 import { omit } from "lodash"
+import { eq, ilike } from "drizzle-orm"
 
 const Input = z.object({
   query: z.string().optional(),
 })
 
-function getQuery(query?: string) {
-  return {
-    where: query ? { name: { contains: query, mode: "insensitive" } as const } : undefined,
-    select: {
-      id: true,
-      name: true,
-      country: true,
-      adminAreaLevel1: true,
-    },
-    take: 10,
-    orderBy: {
-      posts: {
-        _count: "desc" as const,
-      },
-    },
-  }
-}
-
 const Location_api = router({
-  many: publicProcedure.input(Input).query(async ({ ctx, input }) => {
-    const query = getQuery(input.query)
-    return ctx.db.location.findMany(query)
-  }),
-
+  many: publicProcedure.input(Input).query(async ({ ctx, input: { query } }) =>
+    ctx.db_drizzle.query.Location.findMany({
+      where: query ? ilike(Location.name, `%${query}%`) : undefined,
+      columns: {
+        id: true,
+        name: true,
+        country: true,
+        adminAreaLevel1: true,
+      },
+      limit: 10,
+      // TODO: vjer order by posts count
+    }),
+  ),
   single: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(({ ctx, input }) => ctx.db.location.findUnique({ where: { id: input.id } })),
