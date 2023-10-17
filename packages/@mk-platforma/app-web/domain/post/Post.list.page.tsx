@@ -117,7 +117,7 @@ export default function Post_list_page({
           onScroll: handleScroll,
         }}
         content={
-          posts_data ? (
+          posts_data?.length ? (
             <Box
               sx={{
                 display: "flex",
