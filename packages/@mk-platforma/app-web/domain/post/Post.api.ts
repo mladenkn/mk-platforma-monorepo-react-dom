@@ -3,12 +3,12 @@ import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.util
 import Post_api_create from "./Post.api.create"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
-import { desc, eq, inArray } from "drizzle-orm"
+import { and, desc, eq, ilike, or } from "drizzle-orm"
 import { Post } from "~/drizzle/drizzle.schema"
 
 const Input_zod = z.object({
   categories: z.array(z.number()).optional(),
-  search: z.string().optional(),
+  search: z.string().optional().default(""),
   location: z.number().optional(),
   location_radius: z.number().optional().default(50),
   cursor: z.number().min(1).optional(),
@@ -17,60 +17,22 @@ const Input_zod = z.object({
 const Post_api = router({
   list: router({
     fieldSet_main: publicProcedure.input(Input_zod).query(async ({ ctx, input }) => {
-      const limit = 10
-
-      const items_ids = await ctx.db.post
-        .findMany({
-          select: {
-            id: true,
-          },
-          cursor: input.cursor
-            ? {
-                id: input.cursor,
-              }
-            : undefined,
-          take: limit + 1,
-          orderBy: {
-            id: "desc",
-          },
-          where: {
-            categories: input.categories?.length
-              ? {
-                  some: {
-                    OR: [{ id: input.categories[0] }, { parent_id: input.categories[0] }],
-                  },
-                }
-              : undefined,
-            OR: input.search
-              ? [
-                  {
-                    title: { contains: input.search, mode: "insensitive" },
-                  },
-                  {
-                    description: { contains: input.search, mode: "insensitive" },
-                  },
-                  {
-                    contact: { contains: input.search, mode: "insensitive" },
-                  },
-                ]
-              : undefined,
-            isDeleted: false,
-            // TODO: location
-          },
-        })
-        .then(items => items.map(i => i.id))
-
-      if (items_ids.length === 0) return { items: [], nextCursor: null }
-
-      const nextCursor = items_ids.length > limit ? items_ids.pop()! : null
-
       const items = await ctx.db_drizzle.query.Post.findMany({
         ...Post_select,
-        where: inArray(Post.id, items_ids),
+        where: and(
+          eq(Post.isDeleted, false),
+          or(
+            ilike(Post.title, `%${input.search}%`),
+            ilike(Post.description, `%${input.search}%`),
+            ilike(Post.contact, `%${input.search}%`),
+          ),
+        ), // TODO: fali filter po kategorijama i po lokaciji
+        limit: 20,
         orderBy: desc(Post.id),
+        // TODO: fali paginacija
       })
 
-      return { items, nextCursor }
+      return { items, nextCursor: null }
     }),
   }),
 
