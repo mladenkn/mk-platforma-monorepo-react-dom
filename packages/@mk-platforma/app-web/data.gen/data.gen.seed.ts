@@ -35,11 +35,11 @@ async function seedUsers() {
     .filter(n => n !== "Mladen")
     .map(name => ({
       name,
-      avatarStyle: JSON.stringify(faker.helpers.arrayElement(avatarStyles)),
+      avatarStyle: faker.helpers.arrayElement(avatarStyles),
       email: "fake:" + faker.internet.email(name),
-      emailVerified: new Date(),
+      // emailVerified: new Date(),
     }))
-  await db.user.createMany({ data: users })
+  await db_drizzle.insert(User).values(users)
   return await db_drizzle.query.User.findMany()
 }
 

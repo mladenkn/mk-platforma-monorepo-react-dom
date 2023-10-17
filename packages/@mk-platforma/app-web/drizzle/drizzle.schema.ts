@@ -278,7 +278,7 @@ export const User = pgTable(
     name: varchar("name", { length: 32 }),
     avatarStyle: stringJson_type<AvatarStyle>(AvataryStyle_zod)("avatarStyle").notNull(),
     email: varchar("email", { length: 64 }),
-    emailVerified: timestamp("emailVerified", { precision: 3, mode: "string" }),
+    // emailVerified: timestamp("emailVerified", { precision: 3, mode: "string" }),
     canMutate: boolean("canMutate").default(true).notNull(),
   },
   table => {
