@@ -3,7 +3,7 @@ import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.util
 import Post_api_create from "./Post.api.create"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
-import { and, desc, eq, ilike, inArray, or } from "drizzle-orm"
+import { and, desc, eq, gt, ilike, inArray, lt, or } from "drizzle-orm"
 import {
   Category,
   CategoryToPost,
@@ -28,6 +28,8 @@ const Input_zod = z.object({
 const Post_api = router({
   list: router({
     fieldSet_main: publicProcedure.input(Input_zod).query(async ({ ctx, input }) => {
+      const limit = 20
+
       const rows = await ctx.db_drizzle
         .select({
           id: Post.id,
@@ -56,6 +58,7 @@ const Post_api = router({
         .where(
           and(
             eq(Post.isDeleted, false),
+            input.cursor ? lt(Post.id, input.cursor) : undefined,
             or(
               ilike(Post.title, `%${input.search}%`),
               ilike(Post.description, `%${input.search}%`),
@@ -71,8 +74,10 @@ const Post_api = router({
           ),
         )
         .orderBy(desc(Post.id))
-        .limit(40)
-      // TODO: fali paginacija, i filter po lokaciji
+        .limit(limit + 1)
+      // TODO: fali filter po lokaciji
+
+      const nextCursor = rows.length > limit ? rows.pop()!.id : null
 
       const grouped = groupBy(rows, "id")
       const items = Object.entries(grouped).map(([post_id, entry]) => ({
@@ -86,7 +91,7 @@ const Post_api = router({
         images: withNoNils(entry.map(e => e.image)),
       }))
 
-      return { items, nextCursor: null }
+      return { items, nextCursor }
     }),
   }),
 
