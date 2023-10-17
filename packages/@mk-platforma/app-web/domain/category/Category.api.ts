@@ -8,7 +8,7 @@ const Category_api = router({
       .select({
         id: Category.id,
         label: Category.label,
-        parentId: Category.parentId,
+        parentId: Category.parent_id,
       })
       .from(Category)
 

@@ -37,17 +37,17 @@ export const Session = pgTable(
 export const Comment = pgTable("Comment", {
   id: serial("id").primaryKey().notNull(),
   content: text("content").notNull(),
-  authorId: integer("author_id")
+  author_id: integer("author_id")
     .notNull()
     .references(() => User.id, { onDelete: "restrict", onUpdate: "cascade" }),
-  postId: integer("post_id")
+  post_id: integer("post_id")
     .notNull()
     .references(() => Post.id, { onDelete: "restrict", onUpdate: "cascade" }),
   isDeleted: boolean("isDeleted").default(false).notNull(),
 })
 
 export const CommentRelations = relations(Comment, ({ one }) => ({
-  author: one(User, { fields: [Comment.authorId], references: [User.id] }),
+  author: one(User, { fields: [Comment.author_id], references: [User.id] }),
 }))
 
 // export const geographyColumns = pgTable("geography_columns", {
@@ -81,7 +81,7 @@ export const Image = pgTable(
   "Image",
   {
     id: serial("id").primaryKey().notNull(),
-    postId: integer("post_id"),
+    post_id: integer("post_id"),
     url: text("url").notNull(),
     uploadthingKey: varchar("uploadthing_key", { length: 128 }),
     isMain: boolean("isMain").default(false).notNull(),
@@ -95,7 +95,7 @@ export const Image = pgTable(
 
 export const ImageRelations = relations(Image, ({ one }) => ({
   post: one(Post, {
-    fields: [Image.postId],
+    fields: [Image.post_id],
     references: [Post.id],
   }),
 }))
@@ -104,7 +104,7 @@ export const Location = pgTable(
   "Location",
   {
     id: serial("id").primaryKey().notNull(),
-    googleId: varchar("google_id", { length: 128 }).notNull().unique(),
+    google_id: varchar("google_id", { length: 128 }).notNull().unique(),
     latitude: numeric("latitude", { precision: 65, scale: 30 }).notNull().$type<number>(),
     longitude: numeric("longitude", { precision: 65, scale: 30 }).notNull().$type<number>(),
     name: varchar("name", { length: 128 }).notNull(),
@@ -113,7 +113,7 @@ export const Location = pgTable(
   },
   table => {
     return {
-      googleIdKey: uniqueIndex("Location_google_id_key").on(table.googleId),
+      googleIdKey: uniqueIndex("Location_google_id_key").on(table.google_id),
     }
   },
 )
@@ -133,11 +133,11 @@ export const Post = pgTable(
     title: varchar("title", { length: 256 }).notNull(),
     description: text("description"),
     contact: varchar("contact", { length: 256 }).notNull(),
-    locationId: integer("location_id").references(() => Location.id, {
+    location_id: integer("location_id").references(() => Location.id, {
       onDelete: "set null",
       onUpdate: "cascade",
     }),
-    authorId: integer("author_id")
+    author_id: integer("author_id")
       .notNull()
       .references(() => User.id, { onDelete: "restrict", onUpdate: "cascade" }),
     expertEndorsementId: integer("expertEndorsement_id").references(
@@ -158,34 +158,34 @@ export const Post = pgTable(
 export const CategoryToPost = pgTable(
   "_CategoryToPost",
   {
-    categoryId: integer("A")
+    category_id: integer("A")
       .notNull()
       .references(() => Category.id, { onDelete: "cascade", onUpdate: "cascade" }),
-    postId: integer("B")
+    post_id: integer("B")
       .notNull()
       .references(() => Post.id, { onDelete: "cascade", onUpdate: "cascade" }),
   },
   table => {
     return {
-      abUnique: uniqueIndex("_CategoryToPost_AB_unique").on(table.categoryId, table.postId),
-      bIdx: index().on(table.postId),
+      abUnique: uniqueIndex("_CategoryToPost_AB_unique").on(table.category_id, table.post_id),
+      bIdx: index().on(table.post_id),
     }
   },
 )
 
 export const CategoryToPostRelations = relations(CategoryToPost, ({ one }) => ({
-  category: one(Category, { fields: [CategoryToPost.categoryId], references: [Category.id] }),
-  post: one(Post, { fields: [CategoryToPost.postId], references: [Post.id] }),
+  category: one(Category, { fields: [CategoryToPost.category_id], references: [Category.id] }),
+  post: one(Post, { fields: [CategoryToPost.post_id], references: [Post.id] }),
 }))
 
 export const PostRelations = relations(Post, ({ one, many }) => ({
   author: one(User, {
-    fields: [Post.authorId],
+    fields: [Post.author_id],
     references: [User.id],
   }),
   categoryToPost: many(CategoryToPost),
   location: one(Location, {
-    fields: [Post.locationId],
+    fields: [Post.location_id],
     references: [Location.id],
   }),
   images: many(Image),
@@ -199,14 +199,14 @@ export const PostExpertEndorsement = pgTable(
   "Post_ExpertEndorsement",
   {
     id: serial("id").primaryKey().notNull(),
-    postId: integer("post_id").notNull(),
+    post_id: integer("post_id").notNull(),
     firstName: varchar("firstName", { length: 64 }).notNull(),
     lastName: varchar("lastName", { length: 64 }).notNull(),
     avatarStyle: stringJson_type<AvatarStyle>(AvataryStyle_zod)("avatarStyle").notNull(),
   },
   table => {
     return {
-      postIdKey: uniqueIndex("Post_ExpertEndorsement_post_id_key").on(table.postId),
+      postIdKey: uniqueIndex("Post_ExpertEndorsement_post_id_key").on(table.post_id),
     }
   },
 )
@@ -219,14 +219,14 @@ export const Category = pgTable(
   "Category",
   {
     id: serial("id").primaryKey().notNull(),
-    parentId: integer("parent_id"),
+    parent_id: integer("parent_id"),
     label: enum_type(Category_label_zod)("label").$type<Category_label>().notNull().unique(),
   },
   table => {
     return {
       labelKey: uniqueIndex("Category_label_key").on(table.label),
       categoryParentIdFkey: foreignKey({
-        columns: [table.parentId],
+        columns: [table.parent_id],
         foreignColumns: [table.id],
       })
         .onUpdate("cascade")
@@ -237,7 +237,7 @@ export const Category = pgTable(
 
 export const CategoryRelations = relations(Category, ({ one }) => ({
   parent: one(Category, {
-    fields: [Category.parentId],
+    fields: [Category.parent_id],
     references: [Category.id],
   }),
 }))

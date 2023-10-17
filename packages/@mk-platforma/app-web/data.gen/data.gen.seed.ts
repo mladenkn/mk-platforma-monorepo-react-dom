@@ -85,8 +85,8 @@ async function seedPosts(
     for (const comment of post.comments) {
       await db_drizzle.insert(Comment).values({
         content: comment.content,
-        postId: post_created.id,
-        authorId: faker.helpers.arrayElement(users)!.id,
+        post_id: post_created.id,
+        author_id: faker.helpers.arrayElement(users)!.id,
       })
     }
   }

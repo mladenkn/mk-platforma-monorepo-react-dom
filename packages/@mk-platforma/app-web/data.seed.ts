@@ -39,7 +39,7 @@ export async function seedCategories() {
 async function upsertCategory(label: Category_label, parent_id?: number) {
   return await db_drizzle
     .insert(Category)
-    .values({ label, parentId: parent_id })
+    .values({ label, parent_id })
     // .onConflictDoUpdate({ target: Category.label, set: { parentId: parent_id } }) // TODO
     .returning()
     .then(c => c[0])

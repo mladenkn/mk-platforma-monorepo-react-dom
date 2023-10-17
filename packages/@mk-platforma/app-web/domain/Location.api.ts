@@ -43,7 +43,6 @@ export async function Location_google_find_save(query: string) {
   const location = await location_api_google__search(query).then(r => r[0])
   const mapped = {
     ...location,
-    googleId: location.google_id,
     longitude: location.longitude.toNumber(),
     latitude: location.latitude.toNumber(),
   }
@@ -51,8 +50,8 @@ export async function Location_google_find_save(query: string) {
     .insert(Location)
     .values(mapped)
     .onConflictDoUpdate({
-      target: Location.googleId,
-      set: omit(mapped, "googleId"),
+      target: Location.google_id,
+      set: omit(mapped, "google_id"),
     })
 }
 

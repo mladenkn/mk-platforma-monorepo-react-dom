@@ -44,7 +44,7 @@ const Comment_api = router({
             },
           },
         },
-        where: and(eq(Comment.postId, input.post_id), eq(Comment.isDeleted, false)),
+        where: and(eq(Comment.post_id, input.post_id), eq(Comment.isDeleted, false)),
         orderBy: desc(Comment.id),
       }).then(comments =>
         comments.map(c => ({
