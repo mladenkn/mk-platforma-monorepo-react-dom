@@ -129,7 +129,7 @@ const Post_api = router({
   delete: authorizedRoute(u => u.canMutate)
     .input(z.number())
     .mutation(({ ctx, input }) =>
-      ctx.db.post.update({ where: { id: input }, data: { isDeleted: true } }),
+      ctx.db_drizzle.update(Post).set({ isDeleted: true }).where(eq(Post.id, input)),
     ),
 })
 

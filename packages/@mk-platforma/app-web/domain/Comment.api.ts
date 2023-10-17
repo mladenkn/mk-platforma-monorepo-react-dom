@@ -63,7 +63,7 @@ const Comment_api = router({
       }),
     )
     .mutation(({ ctx, input }) =>
-      ctx.db.comment.create({ data: { ...input, author_id: ctx.user.id } }),
+      ctx.db_drizzle.insert(Comment).values({ ...input, author_id: ctx.user.id }),
     ),
 
   update: authorizedRoute(u => u.canMutate && !!u.name)

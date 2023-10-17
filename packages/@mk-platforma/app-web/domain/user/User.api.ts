@@ -59,13 +59,6 @@ export const User_api = router({
   update: authorizedRoute(u => u.canMutate)
     .input(z.object({ name: z.string() }))
     .mutation(({ ctx, input }) =>
-      ctx.db.user.update({
-        where: {
-          id: ctx.user.id,
-        },
-        data: {
-          name: input.name,
-        },
-      }),
+      ctx.db_drizzle.update(User).set({ name: input.name }).where(eq(User.id, ctx.user.id)),
     ),
 })

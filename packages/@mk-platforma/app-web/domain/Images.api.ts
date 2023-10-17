@@ -2,6 +2,7 @@ import { authorizedRoute, router } from "~/api_/api.server.utils"
 import { ImageSchema } from "../prisma/generated/zod"
 import "@mk-libs/common/server-only"
 import { z } from "zod"
+import { Image } from "~/drizzle/drizzle.schema"
 
 const input_zod = z.array(
   ImageSchema.pick({
@@ -13,16 +14,7 @@ const input_zod = z.array(
 const Image_api = router({
   create: authorizedRoute(u => u.canMutate)
     .input(input_zod)
-    .mutation(async ({ ctx, input }) => {
-      const images = await Promise.all(
-        input.map(image =>
-          ctx.db.image.create({
-            data: image,
-          }),
-        ),
-      )
-      return images
-    }),
+    .mutation(({ ctx, input }) => ctx.db_drizzle.insert(Image).values(input).returning()),
 })
 
 export default Image_api
