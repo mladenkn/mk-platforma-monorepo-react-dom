@@ -3,8 +3,8 @@ import "@mk-libs/common/server-only"
 import { Category } from "~/drizzle/drizzle.schema"
 
 const Category_api = router({
-  many: publicProcedure.query(async ({ ctx: { db: db_drizzle } }) => {
-    const categories = await db_drizzle
+  many: publicProcedure.query(async ({ ctx: { db } }) => {
+    const categories = await db
       .select({
         id: Category.id,
         label: Category.label,

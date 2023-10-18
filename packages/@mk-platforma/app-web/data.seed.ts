@@ -1,7 +1,7 @@
 import locations from "./data.locations.json"
 import { Category, Location } from "./drizzle/drizzle.schema"
 import type { Category_label } from "~/domain/category/Category.types"
-import db_drizzle from "~/drizzle/drizzle.instance"
+import db from "~/drizzle/drizzle.instance"
 
 export default async function data_seed_prod() {
   await seedCategories()
@@ -33,11 +33,11 @@ export async function seedCategories() {
     upsertCategory("sellable_buildingMaterial", sellable.id),
   ])
 
-  return await db_drizzle.query.Category.findMany()
+  return await db.query.Category.findMany()
 }
 
 async function upsertCategory(label: Category_label, parent_id?: number) {
-  return await db_drizzle
+  return await db
     .insert(Category)
     .values({ label, parent_id })
     // .onConflictDoUpdate({ target: Category.label, set: { parentId: parent_id } }) // TODO
@@ -47,5 +47,5 @@ async function upsertCategory(label: Category_label, parent_id?: number) {
 
 export async function seedLocations() {
   const mapped = locations.map(l => ({ ...l, googleId: l.google_id }))
-  return db_drizzle.insert(Location).values(mapped).returning() // TODO: fali onConflictDoUpdate
+  return db.insert(Location).values(mapped).returning() // TODO: fali onConflictDoUpdate
 }

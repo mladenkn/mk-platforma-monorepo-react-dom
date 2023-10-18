@@ -6,7 +6,7 @@ import { asNonNil } from "~/../../@mk-libs/common/common"
 import "@mk-libs/common/server-only"
 import { NextApiRequest, NextApiResponse } from "next"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
-import db_drizzle from "~/drizzle/drizzle.instance"
+import db from "~/drizzle/drizzle.instance"
 
 export async function createContext(
   req: NextApiRequest,
@@ -14,7 +14,7 @@ export async function createContext(
 ): Promise<Api_context> {
   const user = await user_ss_get(req, res)
   return {
-    db: db_drizzle,
+    db: db,
     user: user && {
       id: user.id,
       canMutate: user.canMutate,

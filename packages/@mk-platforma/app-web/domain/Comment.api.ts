@@ -1,26 +1,9 @@
 import { z } from "zod"
 import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
-import { SuperData_mapper, SuperData_query } from "~/api_/api.SuperData"
 import "@mk-libs/common/server-only"
 import { shallowPick } from "@mk-libs/common/common"
 import { Comment } from "~/drizzle/drizzle.schema"
 import { and, desc, eq } from "drizzle-orm"
-import { measurePerformance } from "@mk-libs/common/debug"
-
-const Comment_api_many = SuperData_mapper(
-  z.object({
-    post_id: z.number(),
-  }),
-  async (_, input) => ({
-    where: {
-      post_id: input.post_id,
-      isDeleted: false,
-    },
-    orderBy: {
-      id: "desc" as "desc",
-    },
-  }),
-)
 
 const Comment_api = router({
   many: publicProcedure
@@ -29,8 +12,8 @@ const Comment_api = router({
         post_id: z.number(),
       }),
     )
-    .query(({ ctx: { user, db: db_drizzle }, input }) =>
-      db_drizzle.query.Comment.findMany({
+    .query(({ ctx: { user, db }, input }) =>
+      db.query.Comment.findMany({
         columns: {
           id: true,
           content: true,

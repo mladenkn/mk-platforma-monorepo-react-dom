@@ -4,7 +4,7 @@ import { Post_api_create_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
-import db_drizzle from "~/drizzle/drizzle.instance"
+import db from "~/drizzle/drizzle.instance"
 import {
   CategoryToPost,
   Image,
@@ -14,7 +14,7 @@ import {
 } from "~/drizzle/drizzle.schema"
 import { eq } from "drizzle-orm"
 
-const allCategories = db_drizzle.query.Category.findMany()
+const allCategories = db.query.Category.findMany()
 
 const input = Post_api_create_input.refine(
   async ({ categories, expertEndorsement }) => {

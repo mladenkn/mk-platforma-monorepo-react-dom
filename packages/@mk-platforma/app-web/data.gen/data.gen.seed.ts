@@ -7,7 +7,7 @@ import { eva } from "@mk-libs/common/common"
 import { seedCategories, seedLocations } from "~/data.seed"
 import { AvatarStyle } from "~/domain/user/User.types"
 import { Comment, User } from "~/drizzle/drizzle.schema"
-import db_drizzle from "~/drizzle/drizzle.instance"
+import db from "~/drizzle/drizzle.instance"
 
 export type WithId = {
   id: number
@@ -38,12 +38,12 @@ async function seedUsers() {
       email: "fake:" + faker.internet.email(name),
       // emailVerified: new Date(),
     }))
-  await db_drizzle.insert(User).values(users)
-  return await db_drizzle.query.User.findMany()
+  await db.insert(User).values(users)
+  return await db.query.User.findMany()
 }
 
 function upsertUser(user_: { name: string; avatarStyle: AvatarStyle }) {
-  return db_drizzle
+  return db
     .insert(User)
     .values(user_)
     .returning()
@@ -60,7 +60,7 @@ async function seedPosts(
     const api = Api_ss({
       user: { id: user.id, name: user.name || "seed user", canMutate: true },
       getCookie: (() => {}) as any,
-      db: db_drizzle,
+      db: db,
     })
 
     const images = await eva(async () => {
@@ -81,7 +81,7 @@ async function seedPosts(
     })
 
     for (const comment of post.comments) {
-      await db_drizzle.insert(Comment).values({
+      await db.insert(Comment).values({
         content: comment.content,
         post_id: post_created.id,
         author_id: faker.helpers.arrayElement(users)!.id,

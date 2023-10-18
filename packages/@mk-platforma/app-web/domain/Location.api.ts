@@ -2,7 +2,7 @@ import { publicProcedure, router } from "~/api_/api.server.utils"
 import { z } from "zod"
 import "@mk-libs/common/server-only"
 import { location_api_google__search } from "./Location.api.google"
-import db_drizzle from "~/drizzle/drizzle.instance"
+import db from "~/drizzle/drizzle.instance"
 import { Location } from "~/drizzle/drizzle.schema"
 import { omit } from "lodash"
 import { eq, ilike } from "drizzle-orm"
@@ -39,7 +39,7 @@ export async function Location_google_find_save(query: string) {
     longitude: location.longitude.toNumber(),
     latitude: location.latitude.toNumber(),
   }
-  return db_drizzle
+  return db
     .insert(Location)
     .values(mapped)
     .onConflictDoUpdate({

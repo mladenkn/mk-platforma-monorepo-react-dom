@@ -28,11 +28,10 @@ function drizzle_connect() {
     ssl: "require",
     max: 1,
   })
-  const db = drizzle(queryClient, { schema })
-  return db
+  return drizzle(queryClient, { schema })
 }
 
-const db_drizzle = drizzle_connect()
-export default db_drizzle
+const db = drizzle_connect()
+export default db
 
 export type Drizzle_instance = ReturnType<typeof drizzle_connect>
