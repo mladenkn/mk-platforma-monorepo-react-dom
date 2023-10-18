@@ -60,7 +60,7 @@ async function seedPosts(
     const api = Api_ss({
       user: { id: user.id, name: user.name || "seed user", canMutate: true },
       getCookie: (() => {}) as any,
-      db_drizzle,
+      db: db_drizzle,
     })
 
     const images = await eva(async () => {

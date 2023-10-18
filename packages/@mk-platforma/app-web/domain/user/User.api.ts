@@ -6,7 +6,7 @@ import { User } from "~/drizzle/drizzle.schema"
 
 export const User_api = router({
   single_withPosts: publicProcedure.input(z.number()).query(({ ctx, input }) =>
-    ctx.db_drizzle.query.User.findFirst({
+    ctx.db.query.User.findFirst({
       where: eq(User.id, input),
       columns: {
         id: true,
@@ -46,7 +46,7 @@ export const User_api = router({
     ),
   ),
   single: publicProcedure.input(z.number()).query(async ({ ctx, input }) => {
-    const u = await ctx.db_drizzle.query.User.findFirst({
+    const u = await ctx.db.query.User.findFirst({
       where: eq(User.id, input),
       columns: {
         id: true,
@@ -59,6 +59,6 @@ export const User_api = router({
   update: authorizedRoute(u => u.canMutate)
     .input(z.object({ name: z.string() }))
     .mutation(({ ctx, input }) =>
-      ctx.db_drizzle.update(User).set({ name: input.name }).where(eq(User.id, ctx.user.id)),
+      ctx.db.update(User).set({ name: input.name }).where(eq(User.id, ctx.user.id)),
     ),
 })

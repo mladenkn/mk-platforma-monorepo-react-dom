@@ -30,7 +30,7 @@ const Post_api = router({
     fieldSet_main: publicProcedure.input(Input_zod).query(async ({ ctx, input }) => {
       const limit = 20
 
-      const rows = await ctx.db_drizzle
+      const rows = await ctx.db
         .select({
           id: Post.id,
           title: Post.title,
@@ -102,7 +102,7 @@ const Post_api = router({
       }),
     )
     .query(async ({ ctx, input }) => {
-      const post_data = await ctx.db_drizzle.query.Post.findFirst({
+      const post_data = await ctx.db.query.Post.findFirst({
         where: eq(Post.id, input.id),
         ...Post_select,
         columns: {
@@ -150,7 +150,7 @@ const Post_api = router({
   delete: authorizedRoute(u => u.canMutate)
     .input(z.number())
     .mutation(({ ctx, input }) =>
-      ctx.db_drizzle.update(Post).set({ isDeleted: true }).where(eq(Post.id, input)),
+      ctx.db.update(Post).set({ isDeleted: true }).where(eq(Post.id, input)),
     ),
 })
 

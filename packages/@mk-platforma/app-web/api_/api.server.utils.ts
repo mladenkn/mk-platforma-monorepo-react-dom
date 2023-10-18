@@ -14,7 +14,7 @@ export async function createContext(
 ): Promise<Api_context> {
   const user = await user_ss_get(req, res)
   return {
-    db_drizzle,
+    db: db_drizzle,
     user: user && {
       id: user.id,
       canMutate: user.canMutate,
@@ -25,7 +25,7 @@ export async function createContext(
 }
 
 export type Api_context = {
-  db_drizzle: Drizzle_instance
+  db: Drizzle_instance
   user?: {
     id: number
     canMutate: boolean

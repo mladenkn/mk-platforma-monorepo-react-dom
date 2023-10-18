@@ -34,7 +34,7 @@ const input = Post_api_create_input.refine(
 const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
   .input(input)
   .mutation(({ ctx, input }) =>
-    ctx.db_drizzle.transaction(async tx => {
+    ctx.db.transaction(async tx => {
       const post_created = await tx
         .insert(Post)
         .values({

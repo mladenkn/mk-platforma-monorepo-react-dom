@@ -29,7 +29,7 @@ const Comment_api = router({
         post_id: z.number(),
       }),
     )
-    .query(({ ctx: { user, db_drizzle }, input }) =>
+    .query(({ ctx: { user, db: db_drizzle }, input }) =>
       db_drizzle.query.Comment.findMany({
         columns: {
           id: true,
@@ -63,7 +63,7 @@ const Comment_api = router({
       }),
     )
     .mutation(({ ctx, input }) =>
-      ctx.db_drizzle.insert(Comment).values({ ...input, author_id: ctx.user.id }),
+      ctx.db.insert(Comment).values({ ...input, author_id: ctx.user.id }),
     ),
 
   update: authorizedRoute(u => u.canMutate && !!u.name)
@@ -75,7 +75,7 @@ const Comment_api = router({
       }),
     )
     .mutation(({ ctx, input }) =>
-      ctx.db_drizzle
+      ctx.db
         .update(Comment)
         .set(shallowPick(input, "content", "isDeleted"))
         .where(and(eq(Comment.id, input.id), eq(Comment.author_id, ctx.user.id))),

@@ -14,7 +14,7 @@ const input_zod = z.array(
 const Image_api = router({
   create: authorizedRoute(u => u.canMutate)
     .input(input_zod)
-    .mutation(({ ctx, input }) => ctx.db_drizzle.insert(Image).values(input).returning()),
+    .mutation(({ ctx, input }) => ctx.db.insert(Image).values(input).returning()),
 })
 
 export default Image_api

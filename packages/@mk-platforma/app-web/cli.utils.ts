@@ -114,5 +114,5 @@ export async function Api_ss_cli_create() {
   const user = await db_drizzle.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
     asNonNil,
   )
-  return Api_ss({ user: user, getCookie: () => null, db_drizzle })
+  return Api_ss({ user: user, getCookie: () => null, db: db_drizzle })
 }

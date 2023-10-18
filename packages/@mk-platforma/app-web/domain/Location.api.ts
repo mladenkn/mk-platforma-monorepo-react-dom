@@ -13,7 +13,7 @@ const Input = z.object({
 
 const Location_api = router({
   many: publicProcedure.input(Input).query(async ({ ctx, input: { query } }) =>
-    ctx.db_drizzle.query.Location.findMany({
+    ctx.db.query.Location.findMany({
       where: query ? ilike(Location.name, `%${query}%`) : undefined,
       columns: {
         id: true,
@@ -28,9 +28,7 @@ const Location_api = router({
   single: publicProcedure
     .input(z.object({ id: z.number() }))
     .query(async ({ ctx, input }) =>
-      ctx.db_drizzle.query.Location.findFirst({ where: eq(Location.id, input.id) }).then(
-        l => l || null,
-      ),
+      ctx.db.query.Location.findFirst({ where: eq(Location.id, input.id) }).then(l => l || null),
     ),
 })
 
