@@ -2,7 +2,6 @@ import commandLineArgs from "command-line-args"
 import { spawn, exec } from "child_process"
 import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
-import db from "./prisma/instance"
 import { Api_ss } from "./api_/api.root"
 import db_drizzle from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
@@ -115,5 +114,5 @@ export async function Api_ss_cli_create() {
   const user = await db_drizzle.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
     asNonNil,
   )
-  return Api_ss({ user: user, db, getCookie: () => null, db_drizzle })
+  return Api_ss({ user: user, getCookie: () => null, db_drizzle })
 }

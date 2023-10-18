@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker"
 import { Api_ss } from "~/api_/api.root"
 import { avatarStyles } from "~/domain/user/User.common"
-import db from "~/prisma/instance"
 import generatePosts from "./data.gen"
 import * as cro_dataset from "./data.gen.cro.dataset"
 import { eva } from "@mk-libs/common/common"
@@ -59,7 +58,6 @@ async function seedPosts(
     const user = faker.helpers.arrayElement(users)
 
     const api = Api_ss({
-      db,
       user: { id: user.id, name: user.name || "seed user", canMutate: true },
       getCookie: (() => {}) as any,
       db_drizzle,
@@ -94,11 +92,9 @@ async function seedPosts(
 
 main()
   .then(async () => {
-    await db.$disconnect()
     console.log("Done seeding db")
   })
   .catch(async e => {
     console.error(e)
-    await db.$disconnect()
     process.exit(1)
   })

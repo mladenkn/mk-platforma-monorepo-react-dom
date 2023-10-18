@@ -1,8 +1,6 @@
 import { TRPCError, initTRPC } from "@trpc/server"
 import superjson from "superjson"
-import db from "~/prisma/instance"
 import { user_ss_get } from "~/pages/api/auth/[...nextauth]"
-import { PrismaClient } from "@prisma/client"
 import { create_getCookie_ss } from "~/cookies"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import "@mk-libs/common/server-only"
@@ -16,7 +14,6 @@ export async function createContext(
 ): Promise<Api_context> {
   const user = await user_ss_get(req, res)
   return {
-    db,
     db_drizzle,
     user: user && {
       id: user.id,
@@ -28,7 +25,6 @@ export async function createContext(
 }
 
 export type Api_context = {
-  db: PrismaClient
   db_drizzle: Drizzle_instance
   user?: {
     id: number
