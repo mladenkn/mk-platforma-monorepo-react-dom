@@ -13,7 +13,7 @@ import env from "~/env.mjs"
 import { NextApiRequest, NextApiResponse } from "next"
 import db from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
-import { User } from "~/drizzle/drizzle.schema"
+import { User } from "~/domain/user/User.schema"
 
 // type Request = IncomingMessage & {
 //   cookies: NextApiRequestCookies

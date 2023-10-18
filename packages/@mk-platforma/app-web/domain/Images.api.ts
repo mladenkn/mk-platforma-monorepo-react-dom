@@ -2,7 +2,7 @@ import { authorizedRoute, router } from "~/api_/api.server.utils"
 import { ImageSchema } from "../prisma/generated/zod"
 import "@mk-libs/common/server-only"
 import { z } from "zod"
-import { Image } from "~/drizzle/drizzle.schema"
+import { Image } from "~/domain/post/Post.schema"
 
 const input_zod = z.array(
   ImageSchema.pick({

@@ -2,7 +2,7 @@ import { z } from "zod"
 import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import "@mk-libs/common/server-only"
 import { shallowPick } from "@mk-libs/common/common"
-import { Comment } from "~/drizzle/drizzle.schema"
+import { Comment } from "~/domain/post/Post.schema"
 import { and, desc, eq } from "drizzle-orm"
 
 const Comment_api = router({

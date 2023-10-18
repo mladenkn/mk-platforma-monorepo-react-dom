@@ -5,14 +5,13 @@ import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
 import { and, desc, eq, gt, ilike, inArray, lt, or } from "drizzle-orm"
 import {
-  Category,
-  CategoryToPost,
   Image,
   Location,
   Post,
   PostExpertEndorsement,
   PostExpertEndorsementSkill,
-} from "~/drizzle/drizzle.schema"
+} from "~/domain/post/Post.schema"
+import { Category, CategoryToPost } from "../category/Category.schema"
 import { shallowPick } from "@mk-libs/common/common"
 import { groupBy } from "lodash"
 import { withNoNils } from "@mk-libs/common/array"

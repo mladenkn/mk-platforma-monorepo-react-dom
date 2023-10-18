@@ -1,5 +1,6 @@
 import locations from "./data.locations.json"
-import { Category, Location } from "./drizzle/drizzle.schema"
+import { Category } from "~/domain/category/Category.schema"
+import { Location } from "~/domain/post/Post.schema"
 import type { Category_label } from "~/domain/category/Category.types"
 import db from "~/drizzle/drizzle.instance"
 

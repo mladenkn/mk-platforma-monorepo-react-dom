@@ -6,12 +6,12 @@ import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
 import db from "~/drizzle/drizzle.instance"
 import {
-  CategoryToPost,
   Image,
   Post,
   PostExpertEndorsement,
   PostExpertEndorsementSkill,
-} from "~/drizzle/drizzle.schema"
+} from "~/domain/post/Post.schema"
+import { CategoryToPost } from "../category/Category.schema"
 import { eq } from "drizzle-orm"
 
 const allCategories = db.query.Category.findMany()

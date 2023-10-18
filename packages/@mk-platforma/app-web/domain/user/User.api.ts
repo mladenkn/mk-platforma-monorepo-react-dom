@@ -2,7 +2,7 @@ import { z } from "zod"
 import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
 import "@mk-libs/common/server-only"
 import { eq } from "drizzle-orm"
-import { User } from "~/drizzle/drizzle.schema"
+import { User } from "~/domain/user/User.schema"
 
 export const User_api = router({
   single_withPosts: publicProcedure.input(z.number()).query(({ ctx, input }) =>

@@ -3,7 +3,7 @@ import { z } from "zod"
 import "@mk-libs/common/server-only"
 import { location_api_google__search } from "./Location.api.google"
 import db from "~/drizzle/drizzle.instance"
-import { Location } from "~/drizzle/drizzle.schema"
+import { Location } from "~/domain/post/Post.schema"
 import { omit } from "lodash"
 import { eq, ilike } from "drizzle-orm"
 

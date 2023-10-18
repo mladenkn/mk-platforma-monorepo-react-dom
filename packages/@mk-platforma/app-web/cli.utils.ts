@@ -5,7 +5,7 @@ import "@mk-libs/common/server-only"
 import { Api_ss } from "./api_/api.root"
 import db from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
-import { User } from "./drizzle/drizzle.schema"
+import { User } from "~/domain/user/User.schema"
 import { asNonNil } from "@mk-libs/common/common"
 
 const options = [
