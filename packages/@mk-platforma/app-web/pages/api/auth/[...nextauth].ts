@@ -1,7 +1,7 @@
 import NextAuth, { DefaultSession, getServerSession } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import db from "../../../prisma/instance"
+import db_prisma from "../../../prisma/instance"
 import { asNonNil, eva } from "@mk-libs/common/common"
 import { AdapterUser } from "next-auth/adapters"
 import { getRandomElement } from "@mk-libs/common/array"
@@ -30,7 +30,7 @@ const auth_options = (req: Request, res: NextApiResponse) =>
       }),
     ],
     adapter: eva(() => {
-      const adapter = PrismaAdapter(db)
+      const adapter = PrismaAdapter(db_prisma)
       const createUser_wrapped = adapter.createUser
       adapter.createUser = function (data: Omit<AdapterUser, "id">) {
         const data_updated = {
