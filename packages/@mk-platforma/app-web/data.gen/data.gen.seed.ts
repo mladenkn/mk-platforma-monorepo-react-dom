@@ -8,7 +8,7 @@ import { seedCategories, seedLocations } from "~/data.seed"
 import { AvatarStyle } from "~/domain/user/User.types"
 import { Comment } from "~/domain/post/Post.schema"
 import { User } from "~/domain/user/User.schema"
-import { Drizzle_instance } from "~/drizzle/drizzle.instance"
+import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 export type WithId = {
   id: number

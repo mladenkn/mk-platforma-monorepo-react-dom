@@ -18,10 +18,13 @@ function drizzle_connect() {
 const db = drizzle_connect()
 export default db
 
-let isSeeded = false
-if (!isSeeded) {
+const global_isDbSeeded = global as unknown as {
+  value: boolean
+}
+
+if (!global_isDbSeeded.value) {
   data_gen_seed(db).then(() => {
-    isSeeded = true
+    global_isDbSeeded.value = true
     console.log(17, "done seeding db")
   })
 }

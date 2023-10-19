@@ -5,7 +5,7 @@ import { create_getCookie_ss } from "~/cookies"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import "@mk-libs/common/server-only"
 import { NextApiRequest, NextApiResponse } from "next"
-import { Drizzle_instance } from "~/drizzle/drizzle.instance"
+import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import db from "~/drizzle/drizzle.instance"
 
 export async function createContext(
