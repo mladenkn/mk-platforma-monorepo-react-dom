@@ -18,12 +18,12 @@ async function _connect() {
   // console.log("Directory 2", __dirname)
   // console.log("Directory 3", path.resolve(__dirname))
 
-  console.log("Directory 4", appRoot)
+  console.log("Directory 4", appRoot.path)
 
   migrate(db_drizzle, {
     migrationsFolder:
       // "/home/mladen/projekti/mk-platforma-monorepo-react-dom/packages/@mk-platforma/app-web/drizzle/migrations",
-      `${appRoot}/packages/@mk-platforma/app-web/drizzle/migrations`,
+      `${appRoot.path}/packages/@mk-platforma/app-web/drizzle/migrations`,
   })
   await data_gen_seed(db_drizzle)
   console.log("drizzle connect")
