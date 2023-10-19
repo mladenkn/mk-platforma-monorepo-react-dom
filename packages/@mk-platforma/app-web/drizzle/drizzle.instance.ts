@@ -13,7 +13,7 @@ async function _connect() {
   })
   migrate(db_drizzle, { migrationsFolder: "./drizzle/migrations" })
   await data_gen_seed(db_drizzle)
-  console.log(16, "zzzrtdgsrdtzujfuj")
+  console.log("drizzle connect")
   return db_drizzle
 }
 

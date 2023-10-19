@@ -17,7 +17,6 @@ import { difference } from "lodash"
 import { styled } from "@mui/material/styles"
 import { use_currentUser } from "~/utils.client"
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew"
-import { signOut } from "next-auth/react"
 
 type Option =
   | "post.create"
@@ -215,3 +214,5 @@ export function Header_home() {
     </Link>
   )
 }
+
+function signOut() {}

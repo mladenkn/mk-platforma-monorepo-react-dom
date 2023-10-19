@@ -1,12 +1,12 @@
 import { UseQueryResult } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import React, { useState, useEffect } from "react"
-import { useSession } from "next-auth/react"
 import env from "./env.mjs"
 import Api from "./api_/api.client"
 import { match } from "ts-pattern"
 import { useSearchParams } from "next/navigation"
 import { eva } from "@mk-libs/common/common"
+import { Api_outputs } from "./api_/api.infer"
 
 type DataOrQuery_Props<TData> = {
   input: TData | UseQueryResult<TData>
@@ -97,17 +97,20 @@ export function use_setUrlParams_shallow() {
   }
 }
 
+type User = Api_outputs["user"]["single"]
+
 export function use_currentUser() {
-  const session = useSession()
-  const mock_user_id = env.NEXT_PUBLIC_MOCK_USER_ID
-    ? parseInt(env.NEXT_PUBLIC_MOCK_USER_ID)
-    : undefined
-  const user = Api.user.single.useQuery(mock_user_id!, {
-    enabled: !!mock_user_id,
-  })
-  if (mock_user_id) {
-    return { data: user.data, isLoading: user.isLoading }
-  } else {
-    return { data: session.data?.user, isLoading: session.status === "loading" }
-  }
+  // const session = useSession()
+  // const mock_user_id = env.NEXT_PUBLIC_MOCK_USER_ID
+  //   ? parseInt(env.NEXT_PUBLIC_MOCK_USER_ID)
+  //   : undefined
+  // const user = Api.user.single.useQuery(mock_user_id!, {
+  //   enabled: !!mock_user_id,
+  // })
+  // if (mock_user_id) {
+  //   return { data: user.data, isLoading: user.isLoading }
+  // } else {
+  //   return { data: session.data?.user, isLoading: session.status === "loading" }
+  // }
+  return { data: undefined as User | undefined, isLoading: false }
 }
