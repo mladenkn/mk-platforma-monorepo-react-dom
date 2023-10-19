@@ -12,7 +12,7 @@
     "prisma.gen": "prisma generate",
     "drizzle.pull": "drizzle-kit introspect:pg --config=drizzle.pull.config.ts",
     "play": "tsx ./playground.ts",
-    "db.migrations.generate": "rm -rf drizzle/migrations && drizzle-kit generate:sqlite --out drizzle/migrations --schema drizzle-sqlite.schema.ts"
+    "db.migrations.generate": "rm -rf drizzle/migrations && drizzle-kit generate:sqlite --out drizzle/migrations --schema drizzle/drizzle.schema.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",

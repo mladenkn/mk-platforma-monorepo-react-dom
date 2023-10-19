@@ -58,12 +58,13 @@ const Post_api = router({
           and(
             eq(Post.isDeleted, false),
             input.cursor ? lt(Post.id, input.cursor) : undefined,
-            or(
-              ilike(Post.title, `%${input.search}%`),
-              ilike(Post.description, `%${input.search}%`),
-              ilike(Post.contact, `%${input.search}%`),
-              ilike(PostExpertEndorsementSkill.label, `%${input.search}%`),
-            ),
+            // TODO
+            // or(
+            //   ilike(Post.title, `%${input.search}%`),
+            //   ilike(Post.description, `%${input.search}%`),
+            //   ilike(Post.contact, `%${input.search}%`),
+            //   ilike(PostExpertEndorsementSkill.label, `%${input.search}%`),
+            // ),
             input.categories?.length
               ? or(
                   inArray(Category.id, input.categories),

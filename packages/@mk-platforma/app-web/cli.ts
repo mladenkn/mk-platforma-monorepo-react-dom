@@ -64,13 +64,13 @@ const run_args = match(parsed.command)
     },
   ])
 
-  .with("location.google.find.save", () => [
-    { DATABASE_URL },
-    async () => {
-      const searchQuery = asString(parsed._unknown![0])
-      Location_google_find_save(searchQuery).then(console.log).catch(console.error)
-    },
-  ])
+  // .with("location.google.find.save", () => [
+  //   { DATABASE_URL },
+  //   async () => {
+  //     const searchQuery = asString(parsed._unknown![0])
+  //     Location_google_find_save(searchQuery).then(console.log).catch(console.error)
+  //   },
+  // ])
 
   .with("location.many", async () => [
     { DATABASE_URL },
