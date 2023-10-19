@@ -7,6 +7,7 @@ import { location_api_google__search } from "./domain/Location.api.google"
 import { Location_google_find_save } from "./domain/Location.api"
 import { asString } from "@mk-libs/common/common"
 import db from "./drizzle/drizzle.instance"
+import data_gen_seed from "./data.gen/data.gen.seed"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
@@ -25,7 +26,7 @@ const run_args = match(parsed.command)
 
   .with("db.prisma", () => [{ DATABASE_URL }, `prisma ${parsed._unknown!.join(" ")}`])
 
-  .with("db.seed", () => [{ DATABASE_URL }, "tsx ./data.gen/data.gen.seed.ts"]) // ne radi
+  .with("db.seed", () => [{ DATABASE_URL }, () => data_gen_seed(db)])
 
   .with("db.truncate", () => [{ DATABASE_URL }, `prisma db execute --file ./db.truncate.sql`])
 
@@ -34,7 +35,7 @@ const run_args = match(parsed.command)
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
-      "tsx ./data.gen/data.gen.seed.ts", // ne radi
+      () => data_gen_seed(db),
     ],
   ])
 
