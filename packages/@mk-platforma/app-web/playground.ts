@@ -9,13 +9,13 @@ async function main() {
 
   migrate(db, { migrationsFolder: "./drizzle/migrations" })
 
-  console.log("14", sqlite)
+  console.log("14")
 
-  await db.query.Category.findMany().then(r => console.log(16, r))
+  await db.query.Category.findMany().then(console.log)
 
   await db.insert(Category).values([{ label: "kategorija 1" }, { label: "kategorija 2" }])
 
-  await db.query.Category.findMany().then(r => console.log(20, r))
+  await db.query.Category.findMany().then(console.log)
 }
 
 main().then(() => "done")
