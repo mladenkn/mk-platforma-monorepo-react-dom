@@ -7,23 +7,20 @@ import "@fontsource/roboto/400.css"
 import "@fontsource/roboto/500.css"
 import "@fontsource/roboto/700.css"
 import Head from "next/head"
-import { SessionProvider } from "next-auth/react"
 import { SnackbarProvider } from "notistack"
 
 const theme = responsiveFontSizes(createTheme())
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <SessionProvider session={(pageProps as any).session}>
-      <ThemeProvider theme={theme}>
-        <SnackbarProvider>
-          <Head>
-            <title>Pametni oglasi</title>
-          </Head>
-          <Component {...pageProps} />
-        </SnackbarProvider>
-      </ThemeProvider>
-    </SessionProvider>
+    <ThemeProvider theme={theme}>
+      <SnackbarProvider>
+        <Head>
+          <title>Pametni oglasi</title>
+        </Head>
+        <Component {...pageProps} />
+      </SnackbarProvider>
+    </ThemeProvider>
   )
 }
 export default Api.withTRPC(MyApp)
