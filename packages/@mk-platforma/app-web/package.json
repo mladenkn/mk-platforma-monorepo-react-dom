@@ -8,7 +8,7 @@
     "postinstall": "pnpm prisma generate",
     "test.ui": "playwright test --ui",
     "test": "playwright test",
-    "build": "pnpm next build",
+    "build": "next build",
     "prisma.gen": "prisma generate",
     "drizzle.pull": "drizzle-kit introspect:pg --config=drizzle.pull.config.ts",
     "play": "tsx ./playground.ts",

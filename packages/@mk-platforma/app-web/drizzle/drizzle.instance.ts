@@ -14,7 +14,7 @@ async function _connect() {
   })
   console.log("Executing migrations")
   await run_withExec(
-    "rm -rf migrations && drizzle-kit generate:sqlite --out migrations --schema drizzle.schema.ts",
+    "rm -rf migrations && pnpm drizzle-kit generate:sqlite --out migrations --schema drizzle.schema.ts",
   )
   console.log("Executed migrations")
   migrate(db_drizzle, { migrationsFolder: "./drizzle/migrations" })
