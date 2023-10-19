@@ -24,19 +24,6 @@ const run_args = match(parsed.command)
 
   .with("db.prisma", () => [{ DATABASE_URL }, `prisma ${parsed._unknown!.join(" ")}`])
 
-  .with("db.seed", () => [{ DATABASE_URL }, "tsx ./data.gen/data.gen.seed.ts"])
-
-  .with("db.truncate", () => [{ DATABASE_URL }, `prisma db execute --file ./db.truncate.sql`])
-
-  .with("db.reset", () => [
-    { DATABASE_URL },
-    [
-      `prisma db execute --file ./db.truncate.sql`,
-      `prisma db push --accept-data-loss`,
-      "tsx ./data.gen/data.gen.seed.ts",
-    ],
-  ])
-
   // \dt: get all tables
   .with("db.psql", () => `psql ${getConnectionString(dbInstance || "dev")}`)
 
