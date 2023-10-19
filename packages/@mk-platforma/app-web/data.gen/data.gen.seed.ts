@@ -10,10 +10,6 @@ import { Comment } from "~/domain/post/Post.schema"
 import { User } from "~/domain/user/User.schema"
 import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
-export type WithId = {
-  id: number
-}
-
 export default async function data_gen_seed(db: Drizzle_instance) {
   async function seedUsers() {
     const users = cro_dataset.firstNames
