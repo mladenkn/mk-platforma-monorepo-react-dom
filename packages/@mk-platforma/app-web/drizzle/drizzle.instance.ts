@@ -18,7 +18,8 @@ async function _connect() {
   // console.log("Directory 2", __dirname)
   // console.log("Directory 3", path.resolve(__dirname))
 
-  console.log("Directory 4", appRoot.path)
+  console.log("appRoot.path: ", appRoot.path)
+  console.log("__dirname: ", __dirname)
 
   migrate(db_drizzle, {
     migrationsFolder:
