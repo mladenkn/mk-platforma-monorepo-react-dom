@@ -1,6 +1,5 @@
 import { Client } from "@googlemaps/google-maps-services-js"
 import { asNonNil } from "@mk-libs/common/common"
-import { Prisma } from "@prisma/client"
 
 const key = "AIzaSyAlZmjA7GGwjG2A6b2lo6RmWE5FbIKu8eQ"
 const client = new Client({})
@@ -41,8 +40,8 @@ async function location_api_google__details(id: string) {
   return {
     google_id: asNonNil(details.place_id),
     name: asNonNil(details.name),
-    longitude: new Prisma.Decimal(details.geometry?.location.lng!),
-    latitude: new Prisma.Decimal(details.geometry?.location.lat!),
+    longitude: asNonNil(details.geometry?.location.lng),
+    latitude: asNonNil(details.geometry?.location.lat),
     country,
     adminAreaLevel1,
   }

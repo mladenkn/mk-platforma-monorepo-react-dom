@@ -4,7 +4,6 @@ import "@mk-libs/common/server-only"
 import { location_api_google__search } from "./Location.api.google"
 import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { Location } from "~/domain/post/Post.schema"
-import { omit } from "lodash"
 import { eq, ilike } from "drizzle-orm"
 
 const Input = z.object({
@@ -34,18 +33,10 @@ const Location_api = router({
 
 export async function Location_google_find_save(db: Drizzle_instance, query: string) {
   const location = await location_api_google__search(query).then(r => r[0])
-  const mapped = {
-    ...location,
-    longitude: location.longitude.toNumber(),
-    latitude: location.latitude.toNumber(),
-  }
-  return db
-    .insert(Location)
-    .values(mapped)
-    .onConflictDoUpdate({
-      target: Location.google_id,
-      set: omit(mapped, "google_id"),
-    })
+  return db.insert(Location).values(location).onConflictDoUpdate({
+    target: Location.google_id,
+    set: location,
+  })
 }
 
 export default Location_api
