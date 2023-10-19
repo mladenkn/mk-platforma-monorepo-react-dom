@@ -1,13 +1,1 @@
-{
-  "version": "5",
-  "dialect": "sqlite",
-  "entries": [
-    {
-      "idx": 0,
-      "version": "5",
-      "when": 1697739615671,
-      "tag": "0000_cheerful_saracen",
-      "breakpoints": true
-    }
-  ]
-}
+{"version":"5","dialect":"sqlite","entries":[]}

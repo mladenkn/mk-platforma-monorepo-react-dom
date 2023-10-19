@@ -8,7 +8,6 @@ import data_gen_seed from "~/data.gen/data.gen.seed"
 // import path, { dirname } from "path"
 
 var appRoot = require("app-root-path")
-console.log(appRoot)
 
 async function _connect() {
   const db_sqlite = new Database(":memory:")
@@ -18,6 +17,8 @@ async function _connect() {
   // console.log("Directory 1", require.main?.filename ? dirname(require.main?.filename) : "nema")
   // console.log("Directory 2", __dirname)
   // console.log("Directory 3", path.resolve(__dirname))
+
+  console.log("Directory 4", appRoot)
 
   migrate(db_drizzle, {
     migrationsFolder:
