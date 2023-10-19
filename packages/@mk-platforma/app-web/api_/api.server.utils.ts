@@ -5,14 +5,14 @@ import { asNonNil } from "~/../../@mk-libs/common/common"
 import "@mk-libs/common/server-only"
 import { NextApiRequest, NextApiResponse } from "next"
 import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
-import db from "~/drizzle/drizzle.instance"
+import drizzle_connect from "~/drizzle/drizzle.instance"
 
 export async function createContext(
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<Api_context> {
   return {
-    db: db,
+    db: await drizzle_connect(),
     user: undefined,
     getCookie: create_getCookie_ss(req.headers.cookie ?? ""),
   }

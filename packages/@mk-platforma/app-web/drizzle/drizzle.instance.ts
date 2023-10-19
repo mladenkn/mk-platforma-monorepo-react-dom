@@ -6,27 +6,24 @@ import * as User_schema from "~/domain/user/User.schema"
 import * as Category_schema from "~/domain/category/Category.schema"
 import data_gen_seed from "~/data.gen/data.gen.seed"
 
-function drizzle_connect() {
+async function _connect() {
   const db_sqlite = new Database(":memory:")
   const db_drizzle = drizzle(db_sqlite, {
     schema: { ...Post_schema, ...User_schema, ...Category_schema },
   })
   migrate(db_drizzle, { migrationsFolder: "./drizzle/migrations" })
+  await data_gen_seed(db_drizzle)
+  console.log(16, "zzzrtdgsrdtzujfuj")
   return db_drizzle
 }
 
-const db = drizzle_connect()
-export default db
+export type Drizzle_instance = Awaited<ReturnType<typeof _connect>>
 
-const global_isDbSeeded = global as unknown as {
-  value: boolean
+declare module globalThis {
+  let drizzle_instance: Drizzle_instance | undefined
 }
 
-if (!global_isDbSeeded.value) {
-  data_gen_seed(db).then(() => {
-    global_isDbSeeded.value = true
-    console.log(17, "done seeding db")
-  })
+export default async function drizzle_connect() {
+  if (!globalThis.drizzle_instance) globalThis.drizzle_instance = await _connect()
+  return globalThis.drizzle_instance
 }
-
-export type Drizzle_instance = ReturnType<typeof drizzle_connect>
