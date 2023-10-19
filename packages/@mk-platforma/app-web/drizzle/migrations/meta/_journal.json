@@ -1,12 +1,12 @@
 {
   "version": "5",
-  "dialect": "pg",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
       "version": "5",
-      "when": 1696962986929,
-      "tag": "0000_cool_human_fly",
+      "when": 1697711375882,
+      "tag": "0000_charming_sunspot",
       "breakpoints": true
     }
   ]

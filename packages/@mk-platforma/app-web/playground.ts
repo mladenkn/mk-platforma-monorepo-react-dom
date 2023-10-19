@@ -1,15 +1,21 @@
-// import db from "./prisma/instance"
+import { drizzle } from "drizzle-orm/better-sqlite3"
+import Database from "better-sqlite3"
+import { migrate } from "drizzle-orm/better-sqlite3/migrator"
+import { Category } from "./drizzle-sqlite.schema"
 
-// async function main() {
-//   console.log(await db.category.findMany({}))
-// }
+async function main() {
+  const sqlite = new Database(":memory:")
+  const db = drizzle(sqlite, { schema: { Category } })
 
-// main()
-//   .then(async () => {
-//     await db.$disconnect()
-//   })
-//   .catch(async e => {
-//     console.error(e)
-//     await db.$disconnect()
-//     process.exit(1)
-//   })
+  migrate(db, { migrationsFolder: "./drizzle/migrations" })
+
+  console.log("14", sqlite)
+
+  await db.query.Category.findMany().then(r => console.log(16, r))
+
+  await db.insert(Category).values([{ label: "kategorija 1" }, { label: "kategorija 2" }])
+
+  await db.query.Category.findMany().then(r => console.log(20, r))
+}
+
+main().then(() => "done")

@@ -10,7 +10,9 @@
     "test": "playwright test",
     "build": "pnpm next build",
     "prisma.gen": "prisma generate",
-    "drizzle.pull": "drizzle-kit introspect:pg --config=drizzle.pull.config.ts"
+    "drizzle.pull": "drizzle-kit introspect:pg --config=drizzle.pull.config.ts",
+    "play": "tsx ./playground.ts",
+    "db.migrations.generate": "drizzle-kit generate:sqlite --out drizzle/migrations --schema drizzle-sqlite.schema.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
