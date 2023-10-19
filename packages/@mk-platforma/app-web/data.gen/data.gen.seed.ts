@@ -76,7 +76,7 @@ export default async function data_gen_seed(db: Drizzle_instance) {
     }
   }
 
-  const categories = await seedCategories()
+  const categories = await seedCategories(db)
 
   const mladenUser = await upsertUser({
     name: "Mladen",
@@ -85,7 +85,7 @@ export default async function data_gen_seed(db: Drizzle_instance) {
   const otherUsers = await seedUsers()
   const users = [mladenUser, ...otherUsers]
 
-  const locations = await seedLocations()
+  const locations = await seedLocations(db)
 
   const posts = faker.helpers.shuffle(generatePosts({ categories, locations }))
   await seedPosts(posts, users)
