@@ -1,28 +1,28 @@
-import { pgTable, uniqueIndex, foreignKey, integer, serial, index } from "drizzle-orm/pg-core"
+import { integer, text, sqliteTable } from "drizzle-orm/sqlite-core"
 
 import { relations } from "drizzle-orm"
 import { Category_label, Category_label_zod } from "~/domain/category/Category.types"
 import { enum_type } from "~/drizzle/drizzle.utils"
 import { Post } from "../post/Post.schema"
 
-export const Category = pgTable(
+export const Category = sqliteTable(
   "Category",
   {
-    id: serial("id").primaryKey().notNull(),
+    id: integer("id").primaryKey().notNull(),
     parent_id: integer("parent_id"),
     label: enum_type(Category_label_zod)("label").$type<Category_label>().notNull().unique(),
   },
-  table => {
-    return {
-      labelKey: uniqueIndex("Category_label_key").on(table.label),
-      categoryParentIdFkey: foreignKey({
-        columns: [table.parent_id],
-        foreignColumns: [table.id],
-      })
-        .onUpdate("cascade")
-        .onDelete("set null"),
-    }
-  },
+  // table => {
+  //   return {
+  //     labelKey: uniqueIndex("Category_label_key").on(table.label),
+  //     categoryParentIdFkey: foreignKey({
+  //       columns: [table.parent_id],
+  //       foreignColumns: [table.id],
+  //     })
+  //       .onUpdate("cascade")
+  //       .onDelete("set null"),
+  //   }
+  // },
 )
 
 export const CategoryRelations = relations(Category, ({ one }) => ({
@@ -32,7 +32,7 @@ export const CategoryRelations = relations(Category, ({ one }) => ({
   }),
 }))
 
-export const CategoryToPost = pgTable(
+export const CategoryToPost = sqliteTable(
   "_CategoryToPost",
   {
     category_id: integer("A")
@@ -42,12 +42,12 @@ export const CategoryToPost = pgTable(
       .notNull()
       .references(() => Post.id, { onDelete: "cascade", onUpdate: "cascade" }),
   },
-  table => {
-    return {
-      abUnique: uniqueIndex("_CategoryToPost_AB_unique").on(table.category_id, table.post_id),
-      bIdx: index().on(table.post_id),
-    }
-  },
+  // table => {
+  //   return {
+  //     abUnique: uniqueIndex("_CategoryToPost_AB_unique").on(table.category_id, table.post_id),
+  //     bIdx: index().on(table.post_id),
+  //   }
+  // },
 )
 
 export const CategoryToPostRelations = relations(CategoryToPost, ({ one }) => ({
