@@ -5,14 +5,25 @@ import * as Post_schema from "~/domain/post/Post.schema"
 import * as User_schema from "~/domain/user/User.schema"
 import * as Category_schema from "~/domain/category/Category.schema"
 import data_gen_seed from "~/data.gen/data.gen.seed"
+// import path, { dirname } from "path"
+
+var appRoot = require("app-root-path")
+console.log(appRoot)
 
 async function _connect() {
   const db_sqlite = new Database(":memory:")
   const db_drizzle = drizzle(db_sqlite, {
     schema: { ...Post_schema, ...User_schema, ...Category_schema },
   })
-  console.log("Current directory", __dirname)
-  migrate(db_drizzle, { migrationsFolder: "./drizzle/migrations" })
+  // console.log("Directory 1", require.main?.filename ? dirname(require.main?.filename) : "nema")
+  // console.log("Directory 2", __dirname)
+  // console.log("Directory 3", path.resolve(__dirname))
+
+  migrate(db_drizzle, {
+    migrationsFolder:
+      // "/home/mladen/projekti/mk-platforma-monorepo-react-dom/packages/@mk-platforma/app-web/drizzle/migrations",
+      `${appRoot}/packages/@mk-platforma/app-web/drizzle/migrations`,
+  })
   await data_gen_seed(db_drizzle)
   console.log("drizzle connect")
   return db_drizzle

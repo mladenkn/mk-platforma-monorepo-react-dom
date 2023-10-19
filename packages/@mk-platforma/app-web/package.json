@@ -8,12 +8,13 @@
     "postinstall": "pnpm prisma generate",
     "test.ui": "playwright test --ui",
     "test": "playwright test",
-    "build": "next build",
+    "build": "pnpm db.migrations.generate && next build",
     "prisma.gen": "prisma generate",
     "drizzle.pull": "drizzle-kit introspect:pg --config=drizzle.pull.config.ts",
     "play": "tsx ./playground.ts",
     "db.migrations.generate": "rm -rf drizzle/migrations && drizzle-kit generate:sqlite --out drizzle/migrations --schema drizzle/drizzle.schema.ts",
-    "dev": "pnpm db.migrations.generate && next dev"
+    "dev": "pnpm db.migrations.generate && next dev",
+    "start": "next start"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -37,6 +38,7 @@
     "@trpc/server": "^10.27.1",
     "@uploadthing/react": "^5.1.0",
     "@vercel/postgres": "^0.4.0",
+    "app-root-path": "^3.1.0",
     "better-sqlite3": "^9.0.0",
     "command-line-args": "^5.2.1",
     "commander": "^10.0.1",
