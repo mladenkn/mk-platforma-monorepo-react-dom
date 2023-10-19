@@ -1,19 +1,15 @@
-import NextAuth, { DefaultSession, getServerSession } from "next-auth"
+import NextAuth, { DefaultSession } from "next-auth"
 import EmailProvider from "next-auth/providers/email"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import db_prisma from "../../../prisma/instance"
-import { asNonNil, eva } from "@mk-libs/common/common"
+import { eva } from "@mk-libs/common/common"
 import { AdapterUser } from "next-auth/adapters"
 import { getRandomElement } from "@mk-libs/common/array"
 import type { NextAuthOptions } from "next-auth"
 import { Prisma } from "@prisma/client"
 import { P, match } from "ts-pattern"
 import { avatarStyles } from "~/domain/user/User.common"
-import env from "~/env.mjs"
 import { NextApiRequest, NextApiResponse } from "next"
-import db from "~/drizzle/drizzle.instance"
-import { eq } from "drizzle-orm"
-import { User } from "~/domain/user/User.schema"
 
 // type Request = IncomingMessage & {
 //   cookies: NextApiRequestCookies
@@ -86,17 +82,6 @@ declare module "next-auth" {
       name?: string
     }
   }
-}
-
-export async function user_ss_get(req: Request, res: NextApiResponse) {
-  if (env.NEXT_PUBLIC_MOCK_USER_ID) {
-    return asNonNil(
-      await db.query.User.findFirst({
-        where: eq(User.id, parseInt(env.NEXT_PUBLIC_MOCK_USER_ID)),
-      }),
-    )
-  }
-  return (await getServerSession(req, res, auth_options(req, res)))?.user
 }
 
 export default (req: Request, res: NextApiResponse) => NextAuth(req, res, auth_options(req, res))

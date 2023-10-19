@@ -1,6 +1,5 @@
 import { TRPCError, initTRPC } from "@trpc/server"
 import superjson from "superjson"
-import { user_ss_get } from "~/pages/api/auth/[...nextauth]"
 import { create_getCookie_ss } from "~/cookies"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import "@mk-libs/common/server-only"
@@ -12,14 +11,9 @@ export async function createContext(
   req: NextApiRequest,
   res: NextApiResponse,
 ): Promise<Api_context> {
-  const user = await user_ss_get(req, res)
   return {
     db: db,
-    user: user && {
-      id: user.id,
-      canMutate: user.canMutate,
-      name: user.name,
-    },
+    user: undefined,
     getCookie: create_getCookie_ss(req.headers.cookie ?? ""),
   }
 }
