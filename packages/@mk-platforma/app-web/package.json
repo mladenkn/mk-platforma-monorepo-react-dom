@@ -13,7 +13,7 @@
     "drizzle.pull": "drizzle-kit introspect:pg --config=drizzle.pull.config.ts",
     "play": "tsx ./playground.ts",
     "db.migrations.generate": "rm -rf drizzle/migrations && drizzle-kit generate:sqlite --out drizzle/migrations --schema drizzle/drizzle.schema.ts",
-    "dev": "next dev"
+    "dev": "pnpm db.migrations.generate && next dev"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
