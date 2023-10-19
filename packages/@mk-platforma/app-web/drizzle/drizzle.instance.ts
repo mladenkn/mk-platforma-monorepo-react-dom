@@ -11,6 +11,7 @@ async function _connect() {
   const db_drizzle = drizzle(db_sqlite, {
     schema: { ...Post_schema, ...User_schema, ...Category_schema },
   })
+  console.log("Current directory", __dirname)
   migrate(db_drizzle, { migrationsFolder: "./drizzle/migrations" })
   await data_gen_seed(db_drizzle)
   console.log("drizzle connect")
