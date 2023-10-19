@@ -112,5 +112,5 @@ export function getConnectionString(env: string) {
 
 export async function Api_ss_cli_create() {
   const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(asNonNil)
-  return Api_ss({ user: user, getCookie: () => null, db: db })
+  return Api_ss({ user: user, getCookie: () => null, db })
 }
