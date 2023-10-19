@@ -1,10 +1,9 @@
 import { match } from "ts-pattern"
-import { parseCommand, run, getConnectionString, Api_ss_cli_create } from "./cli.utils"
+import { parseCommand, run, getConnectionString } from "./cli.utils"
 import "@mk-libs/common/server-only"
 import { isPromise } from "util/types"
 import { isArray } from "lodash"
 import { location_api_google__search } from "./domain/Location.api.google"
-import { Location_google_find_save } from "./domain/Location.api"
 import { asString } from "@mk-libs/common/common"
 
 const parsed = parseCommand()
@@ -72,14 +71,14 @@ const run_args = match(parsed.command)
   //   },
   // ])
 
-  .with("location.many", async () => [
-    { DATABASE_URL },
-    async () => {
-      const api = await Api_ss_cli_create()
-      const query = asString(parsed._unknown?.[0])
-      api.location.many({ query }).then(console.log).catch(console.error)
-    },
-  ])
+  // .with("location.many", async () => [
+  //   { DATABASE_URL },
+  //   async () => {
+  //     const api = await Api_ss_cli_create()
+  //     const query = asString(parsed._unknown?.[0])
+  //     api.location.many({ query }).then(console.log).catch(console.error)
+  //   },
+  // ])
 
   // .with("depr.dev.test", async () => {
   //   process.env.DATABASE_URL = getConnectionString("test.local")

@@ -1,5 +1,5 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next-legacy"
-import { user_ss_get } from "./pages/api/auth/[...nextauth]"
+// import { user_ss_get } from "./pages/api/auth/[...nextauth]"
 
 const f = createUploadthing()
 
@@ -10,13 +10,15 @@ export const ourFileRouter = {
     // Set permissions and file types for this FileRoute
     .middleware(async ({ req, res }) => {
       // This code runs on your server before upload
-      const user = await user_ss_get(req, res)
+      // const user = await user_ss_get(req, res)
 
       // If you throw, the user will not be able to upload
-      if (!user) throw new Error("Unauthorized")
+      // if (!user) throw new Error("Unauthorized")
+
+      throw new Error("Unauthorized")
 
       // Whatever is returned here is accessible in onUploadComplete as `metadata`
-      return { userId: user.id }
+      return { userId: -1 }
     })
     .onUploadComplete(async ({ metadata, file }) => {
       // This code RUNS ON YOUR SERVER after upload
