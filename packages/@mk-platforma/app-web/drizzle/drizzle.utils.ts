@@ -1,4 +1,4 @@
-import { customType } from "drizzle-orm/pg-core"
+import { customType } from "drizzle-orm/sqlite-core"
 import { ZodEnum, ZodTypeAny } from "zod"
 
 export function enum_type(zodEnum: ZodEnum<any>) {

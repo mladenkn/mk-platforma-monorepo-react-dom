@@ -1,27 +1,17 @@
-import { pgTable, uniqueIndex, varchar, serial, boolean } from "drizzle-orm/pg-core"
+import { integer, text, sqliteTable } from "drizzle-orm/sqlite-core"
 
 import { relations } from "drizzle-orm"
 import { AvatarStyle, AvataryStyle_zod } from "~/domain/user/User.types"
 import { stringJson_type } from "~/drizzle/drizzle.utils"
 import { Post } from "../post/Post.schema"
 
-export const User = pgTable(
-  "User",
-  {
-    id: serial("id").primaryKey().notNull(),
-    name: varchar("name", { length: 32 }),
-    avatarStyle: stringJson_type<AvatarStyle>(AvataryStyle_zod)("avatarStyle").notNull(),
-    email: varchar("email", { length: 64 }),
-    // emailVerified: timestamp("emailVerified", { precision: 3, mode: "string" }),
-    canMutate: boolean("canMutate").default(true).notNull(),
-  },
-  table => {
-    return {
-      nameKey: uniqueIndex("User_name_key").on(table.name),
-      emailKey: uniqueIndex("User_email_key").on(table.email),
-    }
-  },
-)
+export const User = sqliteTable("User", {
+  id: integer("id").primaryKey().notNull(),
+  name: text("name", { length: 32 }).unique(),
+  avatarStyle: stringJson_type<AvatarStyle>(AvataryStyle_zod)("avatarStyle").notNull(),
+  email: text("email", { length: 64 }).unique(),
+  canMutate: integer("canMutate", { mode: "boolean" }).default(true).notNull(),
+})
 
 export const UserRelations = relations(User, ({ many }) => ({
   posts: many(Post),
