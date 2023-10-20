@@ -70,7 +70,7 @@ const run_args = match(parsed.command)
   .with("location.google.find.save", () => [
     { DATABASE_URL },
     ({ apiContext }: Cli_Context) => {
-      const searchQuery = parsed._unknown?.[0] || ""
+      const searchQuery = asString(parsed._unknown?.[0])
       return Location_google_find_save(apiContext.db, searchQuery)
         .then(console.log)
         .catch(console.error)
@@ -80,7 +80,7 @@ const run_args = match(parsed.command)
   .with("location.many", () => [
     { DATABASE_URL },
     ({ api }: Cli_Context) => {
-      const query = asString(parsed._unknown?.[0])
+      const query = parsed._unknown?.[0] || ""
       api.location.many({ query }).then(console.log).catch(console.error)
     },
   ])
