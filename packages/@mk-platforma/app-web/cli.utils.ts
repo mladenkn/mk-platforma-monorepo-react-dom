@@ -2,12 +2,13 @@ import commandLineArgs from "command-line-args"
 import { spawn, exec } from "child_process"
 import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
-import { Api_ss } from "./api_/api.root"
+import { Api_ss, Api_ss_type } from "./api_/api.root"
 import db from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
 import { User } from "~/domain/user/User.schema"
 import { asNonNil } from "@mk-libs/common/common"
 import { isArray } from "lodash"
+import { Api_context } from "./api_/api.server.utils"
 
 const options = [
   { name: "command", defaultOption: true },
@@ -18,9 +19,14 @@ export function parseCommand() {
   return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
+export type Cli_Context = {
+  api: Api_ss_type
+  apiContext: Api_context
+}
+
 export type Cli_run_EnvVars = Record<string, string>
 
-type Command_function = () => void | Promise<unknown>
+type Command_function = (c: Cli_Context) => void | Promise<unknown>
 export type Cli_run_Command = Command_function | string
 
 type Commands = Cli_run_Command | Cli_run_Command[]
@@ -40,11 +46,16 @@ export async function run(...cmd: unknown[]) {
 
   console.log(44, env, commands)
 
+  const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(asNonNil)
+  const apiContext = { user: user, getCookie: () => null, db }
+  const api = Api_ss(apiContext)
+  const cliContext = { apiContext, api }
+
   try {
     for (const command of commands) {
       if (typeof command === "function") {
         process.env = { ...env, ...process.env }
-        await command()
+        await command(cliContext)
       } else {
         const result: any = await run_single(command, env)
         if (result.code !== 0) {
@@ -54,7 +65,7 @@ export async function run(...cmd: unknown[]) {
       }
     }
   } catch (error: any) {
-    console.error(`Error ${error?.message}`)
+    console.error(error)
     process.exit(1)
   }
 }

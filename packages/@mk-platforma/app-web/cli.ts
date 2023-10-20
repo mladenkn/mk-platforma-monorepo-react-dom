@@ -3,16 +3,15 @@ import {
   parseCommand,
   run,
   getConnectionString,
-  Api_ss_cli_create,
   Cli_run_EnvVars,
   Cli_run_Command,
+  Cli_Context,
 } from "./cli.utils"
 import "@mk-libs/common/server-only"
 import { isArray } from "lodash"
 import { location_api_google__search } from "./domain/Location.api.google"
 import { Location_google_find_save } from "./domain/Location.api"
 import { asString } from "@mk-libs/common/common"
-import db from "./drizzle/drizzle.instance"
 import data_gen_seed from "./data.gen/data.gen.seed"
 
 const parsed = parseCommand()
@@ -37,7 +36,10 @@ const run_args = match(parsed.command)
 
   .with("db.prisma", () => [{ DATABASE_URL }, `prisma ${parsed._unknown!.join(" ")}`])
 
-  .with("db.seed", () => [{ DATABASE_URL }, () => data_gen_seed(db)])
+  .with("db.seed", () => [
+    { DATABASE_URL },
+    ({ apiContext }: Cli_Context) => data_gen_seed(apiContext.db),
+  ])
 
   .with("db.truncate", () => [{ DATABASE_URL }, `prisma db execute --file ./db.truncate.sql`])
 
@@ -46,7 +48,7 @@ const run_args = match(parsed.command)
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
-      () => data_gen_seed(db),
+      ({ apiContext }: Cli_Context) => data_gen_seed(apiContext.db),
     ],
   ])
 
@@ -57,9 +59,9 @@ const run_args = match(parsed.command)
 
   .with("location.google.find", () => [
     {},
-    async () => {
+    () => {
       const searchQuery = asString(parsed._unknown?.[0])
-      location_api_google__search(searchQuery)
+      return location_api_google__search(searchQuery)
         .then(r => console.log(r[0]))
         .catch(console.error)
     },
@@ -67,22 +69,21 @@ const run_args = match(parsed.command)
 
   .with("location.google.find.save", () => [
     { DATABASE_URL },
-    async () => {
-      const searchQuery = asString(parsed._unknown![0])
-      Location_google_find_save(db, searchQuery).then(console.log).catch(console.error)
+    ({ apiContext }: Cli_Context) => {
+      const searchQuery = parsed._unknown?.[0] || ""
+      return Location_google_find_save(apiContext.db, searchQuery)
+        .then(console.log)
+        .catch(console.error)
     },
   ])
 
-  .with("location.many", async () => [
+  .with("location.many", () => [
     { DATABASE_URL },
-    async () => {
-      const api = await Api_ss_cli_create()
+    ({ api }: Cli_Context) => {
       const query = asString(parsed._unknown?.[0])
       api.location.many({ query }).then(console.log).catch(console.error)
     },
   ])
-
-  .with("depr.test", () => [{ TEST_SERVER_COMMAND: "pnpm _c start.test" }, "playwright test --ui"])
 
   .run() as run_args_type
 
