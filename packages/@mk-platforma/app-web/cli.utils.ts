@@ -18,50 +18,45 @@ export function parseCommand() {
   return commandLineArgs(options, { stopAtFirstUnknown: true })
 }
 
-type EnvVars = Record<string, string>
-type Command = (() => void) | (() => Promise<unknown>) | string
-type Commands = Command | Command[]
+export type Cli_run_EnvVars = Record<string, string>
 
-export function run(env: EnvVars, commands: Commands): Promise<unknown>
+type Command_function = () => void | Promise<unknown>
+export type Cli_run_Command = Command_function | string
+
+type Commands = Cli_run_Command | Cli_run_Command[]
+
+export function run(env: Cli_run_EnvVars, commands: Commands): Promise<unknown>
 export function run(commands: Commands): Promise<unknown>
 
 export async function run(...cmd: unknown[]) {
   const [env, commandOrCommands] = match(cmd)
     .with([{}, P.any], it => it)
     .with([P.any], it => [{}, it[0]])
-    .run() as [EnvVars, Command | Command[]]
+    .run() as [Cli_run_EnvVars, Cli_run_Command | Cli_run_Command[]]
 
-  const commands: Command[] = isArray(commandOrCommands) ? commandOrCommands : [commandOrCommands]
+  const commands: Cli_run_Command[] = isArray(commandOrCommands)
+    ? commandOrCommands
+    : [commandOrCommands]
 
   console.log(44, env, commands)
 
-  for (const command of commands) {
+  try {
+    for (const command of commands) {
+      if (typeof command === "function") {
+        process.env = { ...env, ...process.env }
+        await command()
+      } else {
+        const result: any = await run_single(command, env)
+        if (result.code !== 0) {
+          result.error && console.error(result.error?.message || "Error")
+          process.exit(result.code)
+        }
+      }
+    }
+  } catch (error: any) {
+    console.error(`Error ${error?.message}`)
+    process.exit(1)
   }
-
-  // const [env, commands] = match(cmd)
-  //   .with([{}, P.array(command_type)], args => [args[0], args[1]])
-  //   .with([{}, command_type], args => [args[0], [args[1]]])
-  //   .with(P.array(command_type), cmd => [{}, cmd])
-  //   .with(command_type, cmd => [{}, [cmd]])
-  //   .run() as [Record<string, string>, (string | (() => void))[]]
-
-  // try {
-  //   for (const command of commands) {
-  //     if (typeof command === "function") {
-  //       process.env = { ...env, ...process.env }
-  //       await command()
-  //     } else {
-  //       const result: any = await run_single(command, env)
-  //       if (result.code !== 0) {
-  //         result.error && console.error(result.error?.message || "Error")
-  //         process.exit(result.code)
-  //       }
-  //     }
-  //   }
-  // } catch (error: any) {
-  //   console.error(`Error ${error?.message}`)
-  //   process.exit(1)
-  // }
 }
 
 function run_single(command: string, env: Record<string, string>) {

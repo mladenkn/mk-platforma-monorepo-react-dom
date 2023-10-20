@@ -1,6 +1,6 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from "next"
 import { z } from "zod"
-import { tryParseInt } from "@mk-libs/common/common"
+import { asNonNil, tryParseInt } from "@mk-libs/common/common"
 import { Api_ss, Api_ss_type } from "./api_/api.root"
 import { Api_context, createContext } from "./api_/api.server.utils"
 import { P, match } from "ts-pattern"
@@ -70,8 +70,8 @@ export function ss_props_get_create_next<TOutput, TInput = undefined>(
     const ctx = await createContext(nextContext.req as any, nextContext.res as any)
     const initialPropsContext = await getInitialProps({ ...ctx, query: nextContext.query })
     return match(initialPropsContext)
-      .with({ statusCode: P.when(code => code >= 400 && code < 600) }, ({ statusCode }) => {
-        nextContext.res.statusCode = statusCode
+      .with({ statusCode: P.when(code => code && code >= 400 && code < 600) }, ({ statusCode }) => {
+        nextContext.res.statusCode = asNonNil(statusCode)
         nextContext.res.end()
         return omit(initialPropsContext, "statusCode")
       })

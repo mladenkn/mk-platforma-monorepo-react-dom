@@ -1,5 +1,12 @@
 import { match } from "ts-pattern"
-import { parseCommand, run, getConnectionString, Api_ss_cli_create } from "./cli.utils"
+import {
+  parseCommand,
+  run,
+  getConnectionString,
+  Api_ss_cli_create,
+  Cli_run_EnvVars,
+  Cli_run_Command,
+} from "./cli.utils"
 import "@mk-libs/common/server-only"
 import { isPromise } from "util/types"
 import { isArray } from "lodash"
@@ -12,6 +19,10 @@ import data_gen_seed from "./data.gen/data.gen.seed"
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
 const DATABASE_URL = getConnectionString(dbInstance || "dev")
+
+type run_args_type =
+  | [Cli_run_EnvVars, Cli_run_Command | Cli_run_Command[]]
+  | (Cli_run_Command | Cli_run_Command[])
 
 const run_args = match(parsed.command)
   .with("dev", () => [
@@ -73,7 +84,7 @@ const run_args = match(parsed.command)
 
   .with("depr.test", () => [{ TEST_SERVER_COMMAND: "pnpm _c start.test" }, "playwright test --ui"])
 
-  .run()
+  .run() as run_args_type
 
 // if (isPromise(run_args)) {
 //   run_args.then((a: any) => run(...a)).then(() => process.exit(0))
