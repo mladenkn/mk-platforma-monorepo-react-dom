@@ -12,7 +12,7 @@ import { isArray } from "lodash"
 import { location_api_google__search } from "./domain/Location.api.google"
 import { Location_google_find_save } from "./domain/Location.api"
 import { asString } from "@mk-libs/common/common"
-import data_gen_seed from "./data.gen/data.gen.seed"
+import data_gen_seed from "~/data.seed.fakeRandomized/data.gen.seed"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
