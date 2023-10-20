@@ -8,7 +8,6 @@ import {
   Cli_run_Command,
 } from "./cli.utils"
 import "@mk-libs/common/server-only"
-import { isPromise } from "util/types"
 import { isArray } from "lodash"
 import { location_api_google__search } from "./domain/Location.api.google"
 import { Location_google_find_save } from "./domain/Location.api"
@@ -22,7 +21,8 @@ const DATABASE_URL = getConnectionString(dbInstance || "dev")
 
 type run_args_type =
   | [Cli_run_EnvVars, Cli_run_Command | Cli_run_Command[]]
-  | (Cli_run_Command | Cli_run_Command[])
+  | Cli_run_Command
+  | Cli_run_Command[]
 
 const run_args = match(parsed.command)
   .with("dev", () => [
@@ -86,21 +86,6 @@ const run_args = match(parsed.command)
 
   .run() as run_args_type
 
-// if (isPromise(run_args)) {
-//   run_args.then((a: any) => run(...a)).then(() => process.exit(0))
-// } else if (!isArray(run_args)) {
-//   run(run_args).then(() => process.exit(0))
-// } else {
-//   run(...run_args).then(() => process.exit(0))
-// }
-
-// if (isPromise(run_args)) {
-//   run_args.then(args => run(...args as any)).then(() => process.exit(0))
-// } else {
-//   run(...run_args).then(() => process.exit(0))
-// }
-
 // @ts-ignore
 if (isArray(run_args)) run(...run_args).then(() => process.exit(0))
-// @ts-ignore
 else run(run_args).then(() => process.exit(0))
