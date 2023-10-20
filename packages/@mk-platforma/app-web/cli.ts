@@ -81,7 +81,7 @@ const run_args = match(parsed.command)
     { DATABASE_URL },
     ({ api }: Cli_Context) => {
       const query = parsed._unknown?.[0] || ""
-      api.location.many({ query }).then(console.log).catch(console.error)
+      return api.location.many({ query }).then(console.log).catch(console.error)
     },
   ])
 
