@@ -44,6 +44,7 @@ export async function run(...cmd: unknown[]) {
     ? commandOrCommands
     : [commandOrCommands]
 
+  process.env = { ...process.env, ...env }
   const db = drizzle_connect()
 
   const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(asNonNil)
@@ -54,7 +55,6 @@ export async function run(...cmd: unknown[]) {
   try {
     for (const command of commands) {
       if (typeof command === "function") {
-        process.env = { ...env, ...process.env }
         await command(cliContext)
       } else {
         const result: any = await run_single(command, env)
