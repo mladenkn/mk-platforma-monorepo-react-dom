@@ -53,20 +53,6 @@ const run_args = match(parsed.command)
     "next start",
   ])
 
-  // .with("start.test", async () => {
-  //   process.env.DATABASE_URL = getConnectionString("test.local")
-  //   const user = await seedTestUser()
-  //   return [
-  //     {
-  //       DATABASE_URL: getConnectionString("test.local"),
-  //       NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
-  //       NEXT_PUBLIC_MOCK_USER_ID: user.id,
-  //       // fali uploadthing
-  //     },
-  //     "next start --port 3010",
-  //   ]
-  // })
-
   .with("playground", () => [{ DATABASE_URL }, () => require("./playground.ts")])
 
   .with("location.google.find", () => [
@@ -96,19 +82,6 @@ const run_args = match(parsed.command)
     },
   ])
 
-  // .with("depr.dev.test", async () => {
-  //   process.env.DATABASE_URL = getConnectionString("test.local")
-  //   const user = await seedTestUser()
-  //   return [
-  //     {
-  //       DATABASE_URL: getConnectionString("test.local"),
-  //       NEXT_PUBLIC_MOCK_USER_ID: user.id,
-  //       // fali uploadthing
-  //     },
-  //     `next dev -p 3010`,
-  //   ]
-  // })
-
   .with("depr.test", () => [{ TEST_SERVER_COMMAND: "pnpm _c start.test" }, "playwright test --ui"])
 
   .exhaustive()
@@ -120,17 +93,3 @@ if (isPromise(run_args)) {
 } else {
   run(...run_args).then(() => process.exit(0))
 }
-
-// function seedTestUser() {
-//   return db.user.upsert({
-//     where: { name: "__test__" },
-//     create: {
-//       name: "__test__",
-//       avatarStyle: "{}",
-//       email: "test@test.hr",
-//       emailVerified: new Date(),
-//       canMutate: true,
-//     },
-//     update: {},
-//   })
-// }
