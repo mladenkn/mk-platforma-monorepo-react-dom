@@ -42,17 +42,6 @@ const run_args = match(parsed.command)
   // \dt: get all tables
   .with("db.psql", () => `psql ${getConnectionString(dbInstance || "dev")}`)
 
-  .with("start.staging", () => [
-    {
-      DATABASE_URL: getConnectionString("staging"),
-      NEXTAUTH_SECRET: "FPCsMhz7xn+fdf59xGd1O0xiOqHFgxO0iU8xiWGvNxc=",
-      UPLOADTHING_SECRET:
-        "sk_live_1e63ba0daf256fad652b9cb7cc67d322bb51f60e9c5383ce7b5f42bd9b86e3ad",
-      UPLOADTHING_APP_ID: "5zs915ybo0",
-    },
-    "next start",
-  ])
-
   .with("playground", () => [{ DATABASE_URL }, () => require("./playground.ts")])
 
   .with("location.google.find", () => [
@@ -84,12 +73,23 @@ const run_args = match(parsed.command)
 
   .with("depr.test", () => [{ TEST_SERVER_COMMAND: "pnpm _c start.test" }, "playwright test --ui"])
 
-  .exhaustive()
+  .run()
 
-if (isPromise(run_args)) {
-  run_args.then((a: any) => run(...a)).then(() => process.exit(0))
-} else if (!isArray(run_args)) {
-  run(run_args).then(() => process.exit(0))
-} else {
-  run(...run_args).then(() => process.exit(0))
-}
+// if (isPromise(run_args)) {
+//   run_args.then((a: any) => run(...a)).then(() => process.exit(0))
+// } else if (!isArray(run_args)) {
+//   run(run_args).then(() => process.exit(0))
+// } else {
+//   run(...run_args).then(() => process.exit(0))
+// }
+
+// if (isPromise(run_args)) {
+//   run_args.then(args => run(...args as any)).then(() => process.exit(0))
+// } else {
+//   run(...run_args).then(() => process.exit(0))
+// }
+
+// @ts-ignore
+if (isArray(run_args)) run(...run_args).then(() => process.exit(0))
+// @ts-ignore
+else run(run_args).then(() => process.exit(0))

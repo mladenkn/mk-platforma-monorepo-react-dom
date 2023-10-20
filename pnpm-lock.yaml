@@ -233,8 +233,8 @@ importers:
         specifier: ^1.10.0
         version: 1.12.2
       ts-pattern:
-        specifier: ^4.2.2
-        version: 4.2.2
+        specifier: ^5.0.5
+        version: 5.0.5
       uploadthing:
         specifier: ^5.1.0
         version: 5.1.0(zod@3.20.3)
@@ -3824,8 +3824,8 @@ packages:
       yn: 3.1.1
     dev: true
 
-  /ts-pattern@4.2.2:
-    resolution: {integrity: sha512-qzJMo2pbkUJWusRH5o8xR+xogn6RmvViyUgwBFTtRENLse470clCGjHDf6haWGZ1AOmk8XkEohUoBW8Uut6Scg==}
+  /ts-pattern@5.0.5:
+    resolution: {integrity: sha512-tL0w8U/pgaacOmkb9fRlYzWEUDCfVjjv9dD4wHTgZ61MjhuMt46VNWTG747NqW6vRzoWIKABVhFSOJ82FvXrfA==}
     dev: false
 
   /tsconfig-paths@4.2.0:
