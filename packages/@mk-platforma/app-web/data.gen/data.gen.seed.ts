@@ -4,11 +4,12 @@ import { avatarStyles } from "~/domain/user/User.common"
 import generatePosts from "./data.gen"
 import * as cro_dataset from "./data.gen.cro.dataset"
 import { eva } from "@mk-libs/common/common"
-import { seedCategories, seedLocations } from "~/data.seed"
 import { AvatarStyle } from "~/domain/user/User.types"
-import { Comment } from "~/domain/post/Post.schema"
+import { Comment, Location } from "~/domain/post/Post.schema"
 import { User } from "~/domain/user/User.schema"
 import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
+import { seedCategories } from "~/data.seed.fakeRandomized/categories.fakeRandomized.seed"
+import locations_json from "~/data.seed.common/data.locations.json"
 
 export default async function data_gen_seed(db: Drizzle_instance) {
   async function seedUsers() {
@@ -85,4 +86,9 @@ export default async function data_gen_seed(db: Drizzle_instance) {
 
   const posts = faker.helpers.shuffle(generatePosts({ categories, locations }))
   await seedPosts(posts, users)
+}
+
+async function seedLocations(db: Drizzle_instance) {
+  const mapped = locations_json.map(l => ({ ...l, googleId: l.google_id }))
+  return db.insert(Location).values(mapped).returning() // TODO: fali onConflictDoUpdate
 }
