@@ -4,7 +4,6 @@ import { Post_api_create_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
-import db from "~/drizzle/drizzle.instance"
 import {
   Image,
   Post,
@@ -14,25 +13,25 @@ import {
 import { CategoryToPost } from "../category/Category.schema"
 import { eq } from "drizzle-orm"
 
-const allCategories = db.query.Category.findMany()
+// const allCategories = db.query.Category.findMany()
 
-const input = Post_api_create_input.refine(
-  async ({ categories, expertEndorsement }) => {
-    const _allCategories = await allCategories
-    const categories_withLabels = categories.map(post_category =>
-      asNonNil(_allCategories.find(c => c.id === post_category.id)),
-    )
-    if (categories_withLabels.some(c => c.label === "job_demand") && !expertEndorsement)
-      return false
-    if (categories_withLabels.every(c => c.label !== "job_demand") && expertEndorsement)
-      return false
-    else return true
-  },
-  { message: "Category not matched with expertEndorsement field" },
-)
+// const input = Post_api_create_input.refine(
+//   async ({ categories, expertEndorsement }) => {
+//     const _allCategories = await allCategories
+//     const categories_withLabels = categories.map(post_category =>
+//       asNonNil(_allCategories.find(c => c.id === post_category.id)),
+//     )
+//     if (categories_withLabels.some(c => c.label === "job_demand") && !expertEndorsement)
+//       return false
+//     if (categories_withLabels.every(c => c.label !== "job_demand") && expertEndorsement)
+//       return false
+//     else return true
+//   },
+//   { message: "Category not matched with expertEndorsement field" },
+// )
 
 const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
-  .input(input)
+  .input(Post_api_create_input)
   .mutation(({ ctx, input }) =>
     ctx.db.transaction(async tx => {
       const post_created = await tx

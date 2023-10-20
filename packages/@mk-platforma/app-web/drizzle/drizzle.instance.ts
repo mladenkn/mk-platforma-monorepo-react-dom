@@ -24,7 +24,7 @@ export function getConnectionString(env: string) {
   }
 }
 
-function drizzle_connect() {
+export default function drizzle_connect() {
   const queryClient = postgres(env.DATABASE_URL || getConnectionString("dev"), {
     // TODO: mora radit bez defaulta
     ssl: "require",
@@ -32,8 +32,5 @@ function drizzle_connect() {
   })
   return drizzle(queryClient, { schema: { ...Post_schema, ...User_schema, ...Category_schema } })
 }
-
-const db = drizzle_connect()
-export default db
 
 export type Drizzle_instance = ReturnType<typeof drizzle_connect>

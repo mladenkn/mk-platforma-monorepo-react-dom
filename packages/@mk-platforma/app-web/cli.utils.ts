@@ -3,7 +3,7 @@ import { spawn, exec } from "child_process"
 import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
 import { Api_ss, Api_ss_type } from "./api_/api.root"
-import db from "~/drizzle/drizzle.instance"
+import drizzle_connect from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
 import { User } from "~/domain/user/User.schema"
 import { asNonNil } from "@mk-libs/common/common"
@@ -44,7 +44,7 @@ export async function run(...cmd: unknown[]) {
     ? commandOrCommands
     : [commandOrCommands]
 
-  console.log(44, env, commands)
+  const db = drizzle_connect()
 
   const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(asNonNil)
   const apiContext = { user: user, getCookie: () => null, db }
@@ -129,9 +129,4 @@ export function getConnectionString(env: string) {
     default:
       throw new Error(`Unsupported env: ${env}`)
   }
-}
-
-export async function Api_ss_cli_create() {
-  const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(asNonNil)
-  return Api_ss({ user: user, getCookie: () => null, db })
 }
