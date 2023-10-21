@@ -25,7 +25,13 @@ export default function PostQuill() {
       }
       content={
         <Box sx={{ p: 1, width: "100%" }}>
-          <Quill value={editorValue} onChange={value => setEditorValue(value)} />
+          <Quill
+            value={editorValue}
+            onChange={value => setEditorValue(value)}
+            modules={{
+              toolbar: [[{ header: [1, 2, false] }], ["bold", "italic", "underline"], ["image"]],
+            }}
+          />
         </Box>
       }
     />
