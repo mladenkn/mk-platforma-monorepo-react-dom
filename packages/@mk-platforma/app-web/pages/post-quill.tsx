@@ -32,6 +32,7 @@ export default function PostQuill() {
               toolbar: [[{ header: [1, 2, false] }], ["bold", "italic", "underline"], ["image"]],
             }}
           />
+          <Quill value={editorValue} readOnly theme="bubble" />
         </Box>
       }
     />
