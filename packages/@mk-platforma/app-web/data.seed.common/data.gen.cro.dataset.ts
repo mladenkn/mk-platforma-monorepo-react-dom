@@ -13,15 +13,14 @@ export const lastNames = [
 ]
 
 export const skills = [
-  "računalni programer",
+  "web stranice",
   "odvjetnik",
   "zidar",
   "vodoinstalater",
-  "vodoinstalater",
-  "vrtlar",
   "stolar",
   "drvene kuće",
-  "izolacije na kućama",
+  "fasader",
+  "tesar",
 ]
 
 export const cities = [
@@ -48,3 +47,29 @@ export const villages = [
   "Drniš",
   "Cavtat",
 ]
+
+export const cro_foods = [
+  "Lješnjaci",
+  "Orasi",
+  "Bademi",
+  "Pirovo brašno",
+  "Kukuruno brašno",
+  "Raženo brašno",
+  "Heljdino brašno",
+  "Krompir",
+  "Luk",
+  "Češnjak",
+  "Lješnjaci",
+]
+
+export function cro_person_name_getRandom() {
+  return "random person name" // TODO
+}
+
+export function cro_food_getRandom() {
+  return "random food name" // TODO
+}
+
+export function cro_skill_getRandom() {
+  return "random cro skill" // TODO
+}
