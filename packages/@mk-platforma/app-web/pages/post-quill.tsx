@@ -3,8 +3,17 @@ import React, { useState } from "react"
 import { Header, Header_back, Header_moreOptions } from "~/domain/Header"
 import Layout from "~/domain/Layout"
 import { LogoLink } from "~/domain/common"
+import "react-quill/dist/quill.snow.css"
+import dynamic from "next/dynamic"
+
+const Quill = dynamic(import("react-quill"), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+})
 
 export default function PostQuill() {
+  const [editorValue, setEditorValue] = useState("")
+
   return (
     <Layout
       header={
@@ -16,7 +25,7 @@ export default function PostQuill() {
       }
       content={
         <Box sx={{ p: 1, width: "100%" }}>
-          <Paper sx={{ p: 2 }}>radin post quill</Paper>
+          <Quill value={editorValue} onChange={value => setEditorValue(value)} />
         </Box>
       }
     />
