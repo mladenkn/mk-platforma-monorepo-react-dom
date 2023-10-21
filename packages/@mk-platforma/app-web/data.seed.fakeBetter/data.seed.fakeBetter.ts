@@ -33,8 +33,8 @@ export default async function data_seed_fakeBetter({ categories }: PostGenerator
     categories: [asNonNil(categories.find(c => c.label === "job"))],
   }
   const jobs = [
-    { title: "Ogradni zid" },
-    { title: "Ograda" },
+    { title: "Izrada ogradnog zida" },
+    { title: "Izrada žičane ograde" },
     { title: "Oranje zemlje" },
     { title: "Košenje" },
     { title: "Izrada drvenog krova" },
