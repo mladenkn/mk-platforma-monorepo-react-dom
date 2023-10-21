@@ -25,6 +25,7 @@ export default function PostQuill() {
       }
       content={
         <Box sx={{ p: 1, width: "100%" }}>
+          novo
           <Quill
             value={editorValue}
             onChange={value => setEditorValue(value)}
