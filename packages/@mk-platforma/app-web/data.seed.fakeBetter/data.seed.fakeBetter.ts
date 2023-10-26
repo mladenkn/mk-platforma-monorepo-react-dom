@@ -4,9 +4,9 @@ import {
   cro_person_name_getRandom,
   cro_skill_getRandom,
 } from "~/data.seed.common/data.gen.cro.dataset"
-import { PostGeneratorParams } from "~/data.seed.fakeRandomized/data.gen._utils"
+import { PostGenerator_context } from "~/data.seed.fakeRandomized/data.gen._utils"
 
-export default async function data_seed_fakeBetter({ categories }: PostGeneratorParams) {
+export default async function data_seed_fakeBetter({ categories }: PostGenerator_context) {
   const food_common = {
     categories: [asNonNil(categories.find(c => c.label === "sellable_food"))],
   }

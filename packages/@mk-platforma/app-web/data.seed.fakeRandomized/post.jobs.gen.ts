@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 import { asNonNil } from "@mk-libs/common/common"
-import { PostGeneratorParams } from "./data.gen._utils"
+import { PostGenerator_context } from "./data.gen._utils"
 import data_images from "./data.gen.images.json"
 
 const jobs = [
@@ -30,7 +30,7 @@ const jobs = [
   },
 ]
 
-export default function generateJobs({ categories }: PostGeneratorParams) {
+export default function generateJobs({ categories }: PostGenerator_context) {
   return faker.helpers.shuffle(jobs).map(({ title }) => ({
     categories: [asNonNil(categories.find(c => c.label === "job"))],
     title,

@@ -1,7 +1,7 @@
 import { asNonNil } from "@mk-libs/common/common"
-import { PostGeneratorParams } from "./data.gen._utils"
+import { PostGenerator_context } from "./data.gen._utils"
 
-const withRelatedProps = ({ categories }: PostGeneratorParams) => [
+const withRelatedProps = ({ categories }: PostGenerator_context) => [
   {
     title: "Prodaja domaćih oraha",
     image: "https://www.njuskalo.hr/image-200x150/orasi/prodaja-domacih-oraha-slika-188755044.jpg",
@@ -151,7 +151,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default function generateProducts(params: PostGeneratorParams) {
+export default function generateProducts(params: PostGenerator_context) {
   return withRelatedProps(params).map(({ image, ...props }) => ({
     ...props,
     images: [

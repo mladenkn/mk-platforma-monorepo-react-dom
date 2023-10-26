@@ -6,11 +6,11 @@ import generateExperts from "./post.job.demand.gen"
 import generateGatheringsWork from "./post.gathering.work.gen"
 import generateAccomodations from "./post.accommodation.gen"
 import generateGatheringsHangout from "./post.gathering.hangout.gen"
-import { PostGeneratorParams } from "./data.gen._utils"
+import { PostGenerator_context as PostGenerator_context } from "./data.gen._utils"
 import generate_accomodations_demand from "./post.accommodation.demand.gen"
 import generate_products_demand from "./post.products.demand.gen"
 
-function post_common_generate({ locations }: PostGeneratorParams) {
+function post_common_generate({ locations }: PostGenerator_context) {
   return {
     description: generateArray(() => "opis oglasa ", 30).join(""),
     location: faker.helpers.arrayElement(locations),
@@ -23,8 +23,8 @@ function post_common_generate({ locations }: PostGeneratorParams) {
   }
 }
 
-export default function generatePosts(params: PostGeneratorParams) {
-  function generatePosts_base<T>(generateFirst: (p: PostGeneratorParams) => T[]) {
+export default function generatePosts(params: PostGenerator_context) {
+  function generatePosts_base<T>(generateFirst: (p: PostGenerator_context) => T[]) {
     return generateFirst(params).map(i => ({
       ...post_common_generate(params),
       ...i,
