@@ -11,7 +11,7 @@ import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { seedCategories } from "~/data.seed.fakeRandomized/categories.fakeRandomized.seed"
 import locations_json from "~/data.seed.common/data.locations.json"
 
-export default async function data_gen_seed(db: Drizzle_instance) {
+export default async function data_seed_fakeRandomized(db: Drizzle_instance) {
   async function seedUsers() {
     const users = cro_dataset.firstNames
       .filter(n => n !== "Mladen")

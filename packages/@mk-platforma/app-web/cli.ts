@@ -12,7 +12,7 @@ import { isArray } from "lodash"
 import { location_api_google__search } from "./domain/Location.api.google"
 import { Location_google_find_save } from "./domain/Location.api"
 import { asString } from "@mk-libs/common/common"
-import data_gen_seed from "~/data.seed.fakeRandomized/data.gen.seed"
+import data_seed_fakeRandomized from "~/data.seed.fakeRandomized/data.seed.fakeRandomized"
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"]
@@ -38,7 +38,7 @@ const run_args = match(parsed.command)
 
   .with("db.seed", () => [
     { DATABASE_URL },
-    ({ apiContext }: Cli_Context) => data_gen_seed(apiContext.db),
+    ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
   ])
 
   .with("db.truncate", () => [{ DATABASE_URL }, `prisma db execute --file ./db.truncate.sql`])
@@ -48,7 +48,7 @@ const run_args = match(parsed.command)
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
-      ({ apiContext }: Cli_Context) => data_gen_seed(apiContext.db),
+      ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
     ],
   ])
 
