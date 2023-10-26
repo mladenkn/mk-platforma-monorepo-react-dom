@@ -24,26 +24,25 @@ function post_common_generate({ locations }: PostGeneratorParams) {
 }
 
 export default function generatePosts(params: PostGeneratorParams) {
-  const data = [
-    ...generatePosts_base(params, generateExperts),
-    ...generatePosts_base(params, generateJobs),
-    ...generatePosts_base(params, generateProducts),
-    ...generatePosts_base(params, generateGatheringsWork),
-    ...generatePosts_base(params, generateGatheringsHangout),
-    ...generatePosts_base(params, generateAccomodations),
-    ...generatePosts_base(params, generate_accomodations_demand),
-    ...generatePosts_base(params, generate_products_demand),
-  ]
-  type Item = (typeof data)[number] & { images?: { url: string }[] }
-  return data as Item[]
-}
+  function generatePosts_base<T>(generateFirst: (p: PostGeneratorParams) => T[]) {
+    return generateFirst(params).map(i => ({
+      ...post_common_generate(params),
+      ...i,
+    }))
+  }
 
-function generatePosts_base<T>(
-  params: PostGeneratorParams,
-  generateFirst: (p: PostGeneratorParams) => T[],
-) {
-  return generateFirst(params).map(i => ({
-    ...post_common_generate(params),
-    ...i,
-  }))
+  const _data = [
+    ...generatePosts_base(generateExperts),
+    ...generatePosts_base(generateJobs),
+    ...generatePosts_base(generateProducts),
+    ...generatePosts_base(generateGatheringsWork),
+    ...generatePosts_base(generateGatheringsHangout),
+    ...generatePosts_base(generateAccomodations),
+    ...generatePosts_base(generate_accomodations_demand),
+    ...generatePosts_base(generate_products_demand),
+  ]
+  type Item = (typeof _data)[number] & { images?: { url: string }[] }
+
+  const data: Item[] = _data
+  return data
 }
