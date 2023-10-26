@@ -27,7 +27,7 @@ export function getCategoryLabel(category: Category_label) {
     case "sellable_demand":
       return "Nabava/potražnja"
     case "job_demand":
-      return "Poslovi/potražnja"
+      return "Majstori"
     case "job":
       return "Poslovi"
     case "gathering":
