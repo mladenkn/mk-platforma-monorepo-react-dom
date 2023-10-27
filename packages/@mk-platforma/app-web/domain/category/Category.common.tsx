@@ -1,10 +1,5 @@
-import HandymanIcon from "@mui/icons-material/Handyman"
 import BedIcon from "@mui/icons-material/Bed"
-import EngineeringIcon from "@mui/icons-material/Engineering"
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
-import GroupsIcon from "@mui/icons-material/Groups"
 import React, { ComponentProps } from "react"
-import type { Category_code } from "~/domain/category/Category.types"
 import Api from "~/api_/api.client"
 import ConstructionIcon from "@mui/icons-material/Construction"
 import Diversity3Icon from "@mui/icons-material/Diversity3"
@@ -15,86 +10,36 @@ import CheckroomIcon from "@mui/icons-material/Checkroom"
 import HardwareIcon from "@mui/icons-material/Hardware"
 import DevicesOtherIcon from "@mui/icons-material/DevicesOther"
 import FoundationIcon from "@mui/icons-material/Foundation"
+import HandymanIcon from "@mui/icons-material/Handyman"
+import EngineeringIcon from "@mui/icons-material/Engineering"
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
+import GroupsIcon from "@mui/icons-material/Groups"
 
-export function getCategoryLabel(category: Category_code) {
-  switch (category) {
-    case "accommodation":
-      return "Smještaji"
-    case "accommodation_demand":
-      return "Smještaji/potražnja"
-    case "sellable":
-      return "Nabava"
-    case "sellable_demand":
-      return "Nabava/potražnja"
-    case "job_demand":
-      return "Majstori"
-    case "job":
-      return "Poslovi"
-    case "gathering":
-      return "Okupljanja"
-    case "gathering_spirituality":
-      return "Duhovna okupljanja"
-    case "gathering_work":
-      return "Radne akcije"
-    case "gathering_hangout":
-      return "Druženja"
-    case "sellable_food":
-      return "Hrana"
-    case "sellable_clothes":
-      return "Odjeća"
-    case "sellable_furniture":
-      return "Namještaj"
-    case "sellable_tool":
-      return "Alat"
-    case "sellable_gadget":
-      return "Gadgeti"
-    case "sellable_buildingMaterial":
-      return "Građevinski materijal"
-    default:
-      throw new Error(`Parameter ${category} not matched as Category`)
-  }
+const allIcons: Record<string, typeof ConstructionIcon> = {
+  ConstructionIcon,
+  Diversity3Icon,
+  SelfImprovementIcon,
+  FastfoodIcon,
+  ChairIcon,
+  CheckroomIcon,
+  HardwareIcon,
+  DevicesOtherIcon,
+  FoundationIcon,
+  HandymanIcon,
+  EngineeringIcon,
+  ShoppingCartIcon,
+  GroupsIcon,
+  BedIcon,
 }
 
 export function CategoryIcon({
   name,
   ...otherProps
-}: { name: Category_code } & ComponentProps<typeof BedIcon>) {
-  switch (name) {
-    case "accommodation":
-      return <BedIcon {...otherProps} />
-    case "accommodation_demand":
-      return <BedIcon {...otherProps} />
-    case "sellable":
-      return <ShoppingCartIcon {...otherProps} />
-    case "sellable_demand":
-      return <ShoppingCartIcon {...otherProps} />
-    case "sellable_food":
-      return <FastfoodIcon {...otherProps} />
-    case "sellable_clothes":
-      return <CheckroomIcon {...otherProps} />
-    case "sellable_furniture":
-      return <ChairIcon {...otherProps} />
-    case "sellable_tool":
-      return <HardwareIcon {...otherProps} />
-    case "sellable_gadget":
-      return <DevicesOtherIcon {...otherProps} />
-    case "sellable_buildingMaterial":
-      return <FoundationIcon {...otherProps} />
-    case "job_demand":
-      return <EngineeringIcon {...otherProps} />
-    case "job":
-      return <HandymanIcon {...otherProps} />
-    case "gathering":
-      return <GroupsIcon {...otherProps} />
-    case "gathering_spirituality":
-      return <SelfImprovementIcon {...otherProps} />
-    case "gathering_work":
-      return <ConstructionIcon {...otherProps} />
-    case "gathering_hangout":
-      return <Diversity3Icon {...otherProps} />
-    default:
-      throw new Error(`Parameter ${name} not matched as Category`)
-  }
+}: { name: string } & ComponentProps<typeof BedIcon>) {
+  console.log(39, name)
+  const Icon = allIcons[name]
+  console.log(40, Icon)
+  return <Icon {...otherProps} />
 }
 
 // TODO: fetch single if category.many not cached

@@ -9,8 +9,8 @@ const Category_api = router({
         id: Category.id,
         code: Category.code,
         parentId: Category.parent_id,
-        label_hr: Category.label_hr,
-        icon_mui: Category.icon_mui,
+        label: Category.label_hr,
+        icon: Category.icon_mui,
       })
       .from(Category)
 

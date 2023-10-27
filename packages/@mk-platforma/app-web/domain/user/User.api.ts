@@ -26,6 +26,8 @@ export const User_api = router({
                   columns: {
                     id: true,
                     code: true,
+                    label_hr: true,
+                    icon_mui: true,
                   },
                 },
               },

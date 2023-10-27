@@ -1,5 +1,5 @@
-import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
-import { CategoryIcon, getCategoryLabel } from "./Category.common"
+import { Autocomplete, Box, TextField, useTheme } from "@mui/material"
+import { CategoryIcon } from "./Category.common"
 import React, { ComponentProps, ReactElement } from "react"
 import Api from "~/api_/api.client"
 import { Api_outputs } from "~/api_/api.infer"
@@ -9,18 +9,17 @@ type Category = Api_outputs["category"]["many"][number]
 
 function category_to_option(cat: Category) {
   const group = eva(() => {
-    if (cat.children?.length) return getCategoryLabel(cat.code)
-    if (cat.parent) return getCategoryLabel(cat.parent.code)
+    if (cat.children?.length) return cat.label
+    if (cat.parent?.label) return cat.parent.label
     else return ""
   })
   return {
     id: cat.id,
     children: cat.children,
-    dbLabel: cat.code,
-    label: cat.children?.length
-      ? getCategoryLabel(cat.code) + " ostalo"
-      : getCategoryLabel(cat.code),
+    code: cat.code,
+    icon: cat.icon,
     group,
+    label: cat.children?.length ? cat.label + " ostalo" : cat.label,
   } as const
 }
 
@@ -72,7 +71,7 @@ export default function Category_dropdown({
         >
           <CategoryIcon
             fontSize="medium"
-            name={option.dbLabel}
+            name={option.icon}
             sx={{ mr: 2, opacity: option.children?.length ? 0.85 : undefined }}
           />
           {option.label}
@@ -85,7 +84,7 @@ export default function Category_dropdown({
           InputProps={{
             ...params.InputProps,
             startAdornment: value_option ? (
-              <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={value_option.dbLabel} />
+              <CategoryIcon sx={{ ml: 1, mr: 1.5 }} name={value_option.icon} />
             ) : undefined,
             name: "category",
           }}

@@ -19,13 +19,13 @@ export async function seedCategories(db: Drizzle_instance) {
       .then(c => c[0])
   }
 
-  await upsertCategory({ code: "job", label_hr: "Poslovi", icon_mui: "" })
-  await upsertCategory({ code: "job_demand", label_hr: "Majstori", icon_mui: "" })
-  await upsertCategory({ code: "accommodation", label_hr: "Smještaji", icon_mui: "" })
+  await upsertCategory({ code: "job", label_hr: "Poslovi", icon_mui: "HandymanIcon" })
+  await upsertCategory({ code: "job_demand", label_hr: "Majstori", icon_mui: "EngineeringIcon" })
+  await upsertCategory({ code: "accommodation", label_hr: "Smještaji", icon_mui: "BedIcon" })
   await upsertCategory({
     code: "accommodation_demand",
     label_hr: "Smještaji | Potražnja",
-    icon_mui: "",
+    icon_mui: "BedIcon",
   })
 
   const gathering = await upsertCategory({

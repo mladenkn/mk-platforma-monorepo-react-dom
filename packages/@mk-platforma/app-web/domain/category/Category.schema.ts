@@ -10,8 +10,8 @@ export const Category = pgTable(
     id: serial("id").primaryKey().notNull(),
     parent_id: integer("parent_id"),
     code: enum_type(Category_code_zod)("label").$type<Category_code>().notNull().unique(),
-    label_hr: text("label_hr"),
-    icon_mui: text("icon_mui"),
+    label_hr: text("label_hr").notNull(),
+    icon_mui: text("icon_mui").notNull(),
   },
   table => {
     return {

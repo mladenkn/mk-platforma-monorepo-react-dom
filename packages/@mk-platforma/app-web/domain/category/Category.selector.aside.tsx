@@ -9,7 +9,7 @@ import {
   IconButton,
   Collapse,
 } from "@mui/material"
-import { getCategoryLabel, CategoryIcon } from "./Category.common"
+import { CategoryIcon } from "./Category.common"
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked"
 import React, { ReactNode } from "react"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
@@ -59,11 +59,11 @@ export default function Categories_selector_aside({
         <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
           {startAdornament}
           <ListItemIcon>
-            <CategoryIcon sx={{ fontSize: typography.h3, color: "white" }} name={category.code} />
+            <CategoryIcon sx={{ fontSize: typography.h3, color: "white" }} name={category.icon} />
           </ListItemIcon>
           <ListItemText
             sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
-            primary={getCategoryLabel(category.code)}
+            primary={category.label}
           />
         </ListItemButton>
       </ListItem>

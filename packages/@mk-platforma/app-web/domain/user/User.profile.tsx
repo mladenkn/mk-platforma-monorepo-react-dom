@@ -2,14 +2,12 @@ import { Box, Paper, Avatar, Typography, IconButton, useTheme } from "@mui/mater
 import React from "react"
 import Link from "next/link"
 import { groupBy } from "lodash"
-import { getCategoryLabel } from "~/domain/category/Category.common"
 import { Api_outputs } from "~/api_/api.infer"
 import { Header, Header_back, Header_moreOptions } from "../Header"
 import { LogoLink, Warning_noUsername, use_noUsername_isDisplayed } from "../common"
 import Layout from "~/domain/Layout"
 import Api from "~/api_/api.client"
 import EditIcon from "@mui/icons-material/Edit"
-import { Category_code } from "../category/Category.types"
 
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>
 
@@ -61,9 +59,7 @@ export default function User_profile({ user_initial }: Props) {
                         style={{ textDecoration: "none", color: "unset" }}
                         href={`/?category=${posts[0].categories[0].code}`}
                       >
-                        <Typography>
-                          {getCategoryLabel(posts[0].categories[0].code as Category_code)}
-                        </Typography>
+                        <Typography>{posts[0].categories[0].label_hr}</Typography>
                       </Link>
                       <Box sx={{ ml: 2, mt: 0.5 }}>
                         {posts.map(post => (

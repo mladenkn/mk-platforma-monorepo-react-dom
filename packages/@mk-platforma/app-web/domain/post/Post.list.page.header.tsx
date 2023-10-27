@@ -8,7 +8,7 @@ import { Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/mater
 import { UseQueryResult } from "@tanstack/react-query"
 import Api from "~/api_/api.client"
 import { eva } from "@mk-libs/common/common"
-import { getCategoryLabel, CategoryIcon } from "~/domain/category/Category.common"
+import { CategoryIcon } from "~/domain/category/Category.common"
 import { LogoLink } from "~/domain/common"
 import { Header_moreOptions } from "~/domain/Header"
 import Location_select_page from "~/domain/Location.select.page"
@@ -16,7 +16,7 @@ import type { Category_code } from "~/domain/category/Category.types"
 
 type Props = {
   onShowCategories(): void
-  selectedCategory?: { code: Category_code } | null
+  selectedCategory?: { label: string; icon: string } | null
   search: string | null
   set_search(s: string | null): void
   selectedLocation: number | null
@@ -37,7 +37,7 @@ export default function Post_list_page_header({
 }: Props) {
   const { typography, spacing, palette } = useTheme()
 
-  const heading = selectedCategory ? getCategoryLabel(selectedCategory.code) : <LogoLink />
+  const heading = selectedCategory ? selectedCategory.label : <LogoLink />
   const heading_size = typeof heading === "string" ? heading.length : 100
   const searchAndMore_position = heading_size > 13 ? "down" : "up"
 
@@ -122,14 +122,14 @@ export default function Post_list_page_header({
                   <CategoryIcon
                     sx={{ cursor: "pointer" }}
                     fontSize="large"
-                    name={selectedCategory.code}
+                    name={selectedCategory.icon}
                   />
                 ) : (
                   <MenuIcon sx={{ cursor: "pointer" }} fontSize="large" fontWeight={400} />
                 )}
                 {selectedCategory ? (
                   <Typography variant="h2" fontWeight={400} sx={{ cursor: "default" }}>
-                    {getCategoryLabel(selectedCategory.code)}
+                    {selectedCategory.label}
                   </Typography>
                 ) : (
                   <LogoLink />
