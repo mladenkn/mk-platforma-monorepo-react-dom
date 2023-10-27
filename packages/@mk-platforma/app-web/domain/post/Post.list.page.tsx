@@ -14,14 +14,14 @@ import { use_setUrlParams_shallow } from "~/utils.client"
 import Layout from "~/domain/Layout"
 import Categories_selector_aside from "~/domain/category/Category.selector.aside"
 import { Post_listItem_personEndorsement } from "./Post.listItem.personEndorsement"
-import { Category_label_zod, type Category_label } from "../category/Category.types"
+import { Category_code_zod, type Category_code } from "../category/Category.types"
 import { useSearchParams } from "next/navigation"
 import { eva } from "@mk-libs/common/common"
 
 type Category_model = Api_outputs["category"]["many"][number]
 
 export type PostList_section_Props = {
-  selectedCategory_initial?: { id: number; label: Category_label } | null
+  selectedCategory_initial?: { id: number; label: Category_code } | null
   posts_initial: Api_outputs["post"]["list"]["fieldSet_main"]["items"]
   categories_initial: Category_model[]
   location_initial: number | null
@@ -51,7 +51,7 @@ export default function Post_list_page({
 
   const category_label_searchParam = searchParams.get("category")
   const selectedCategory_label =
-    category_label_searchParam && Category_label_zod.parse(category_label_searchParam)
+    category_label_searchParam && Category_code_zod.parse(category_label_searchParam)
   const category_selected = categories_query.data?.find(c => c.label === selectedCategory_label)
 
   const posts = Api.post.list.fieldSet_main.useInfiniteQuery(

@@ -2,14 +2,14 @@ import { PostList_section_Props } from "./Post.list.page"
 import { ss_props_get_create } from "~/ss.props"
 import { z } from "zod"
 import "@mk-libs/common/server-only"
-import type { Category_label } from "~/domain/category/Category.types"
+import type { Category_code } from "~/domain/category/Category.types"
 
 const Post_list_page_props_initial_get = ss_props_get_create(
   {
     queryParams: z.object({ category: z.string().nullish() }),
   },
   async ({ api, getCookie }, params) => {
-    const category_label = params.category ? (params.category as Category_label) : undefined
+    const category_label = params.category ? (params.category as Category_code) : undefined
 
     const location = getCookie("Post_list__location")
     const location_radius = getCookie("Post_list__location_radius")

@@ -12,11 +12,11 @@ import { getCategoryLabel, CategoryIcon } from "~/domain/category/Category.commo
 import { LogoLink } from "~/domain/common"
 import { Header_moreOptions } from "~/domain/Header"
 import Location_select_page from "~/domain/Location.select.page"
-import type { Category_label } from "~/domain/category/Category.types"
+import type { Category_code } from "~/domain/category/Category.types"
 
 type Props = {
   onShowCategories(): void
-  selectedCategory?: { label: Category_label } | null
+  selectedCategory?: { label: Category_code } | null
   search: string | null
   set_search(s: string | null): void
   selectedLocation: number | null

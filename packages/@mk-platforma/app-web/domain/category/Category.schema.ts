@@ -1,7 +1,7 @@
 import { pgTable, uniqueIndex, foreignKey, integer, serial, index } from "drizzle-orm/pg-core"
 
 import { relations } from "drizzle-orm"
-import { Category_label, Category_label_zod } from "~/domain/category/Category.types"
+import { Category_code, Category_code_zod } from "~/domain/category/Category.types"
 import { enum_type } from "~/drizzle/drizzle.utils"
 import { Post } from "../post/Post.schema"
 
@@ -10,7 +10,7 @@ export const Category = pgTable(
   {
     id: serial("id").primaryKey().notNull(),
     parent_id: integer("parent_id"),
-    code: enum_type(Category_label_zod)("label").$type<Category_label>().notNull().unique(),
+    code: enum_type(Category_code_zod)("label").$type<Category_code>().notNull().unique(),
   },
   table => {
     return {

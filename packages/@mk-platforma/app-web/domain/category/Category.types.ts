@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export const Category_label_zod = z.enum([
+export const Category_code_zod = z.enum([
   "job",
   "job_demand",
   "accommodation",
@@ -19,4 +19,4 @@ export const Category_label_zod = z.enum([
   "gathering_hangout",
 ])
 
-export type Category_label = z.infer<typeof Category_label_zod>
+export type Category_code = z.infer<typeof Category_code_zod>

@@ -4,7 +4,7 @@ import EngineeringIcon from "@mui/icons-material/Engineering"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import GroupsIcon from "@mui/icons-material/Groups"
 import React, { ComponentProps } from "react"
-import type { Category_label } from "~/domain/category/Category.types"
+import type { Category_code } from "~/domain/category/Category.types"
 import Api from "~/api_/api.client"
 import ConstructionIcon from "@mui/icons-material/Construction"
 import Diversity3Icon from "@mui/icons-material/Diversity3"
@@ -16,7 +16,7 @@ import HardwareIcon from "@mui/icons-material/Hardware"
 import DevicesOtherIcon from "@mui/icons-material/DevicesOther"
 import FoundationIcon from "@mui/icons-material/Foundation"
 
-export function getCategoryLabel(category: Category_label) {
+export function getCategoryLabel(category: Category_code) {
   switch (category) {
     case "accommodation":
       return "Smještaji"
@@ -58,7 +58,7 @@ export function getCategoryLabel(category: Category_label) {
 export function CategoryIcon({
   name,
   ...otherProps
-}: { name: Category_label } & ComponentProps<typeof BedIcon>) {
+}: { name: Category_code } & ComponentProps<typeof BedIcon>) {
   switch (name) {
     case "accommodation":
       return <BedIcon {...otherProps} />

@@ -9,7 +9,7 @@ import { LogoLink, Warning_noUsername, use_noUsername_isDisplayed } from "../com
 import Layout from "~/domain/Layout"
 import Api from "~/api_/api.client"
 import EditIcon from "@mui/icons-material/Edit"
-import { Category_label } from "../category/Category.types"
+import { Category_code } from "../category/Category.types"
 
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>
 
@@ -62,7 +62,7 @@ export default function User_profile({ user_initial }: Props) {
                         href={`/?category=${posts[0].categories[0].code}`}
                       >
                         <Typography>
-                          {getCategoryLabel(posts[0].categories[0].code as Category_label)}
+                          {getCategoryLabel(posts[0].categories[0].code as Category_code)}
                         </Typography>
                       </Link>
                       <Box sx={{ ml: 2, mt: 0.5 }}>
