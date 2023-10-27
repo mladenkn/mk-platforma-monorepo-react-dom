@@ -14,7 +14,7 @@ const withRelatedProps = [
 
 export default function generate_accomodations_demand({ categories }: PostGenerator_context) {
   return [...withRelatedProps, ...withRelatedProps].map(({ title }) => ({
-    categories: [asNonNil(categories.find(c => c.label === "accommodation_demand"))],
+    categories: [asNonNil(categories.find(c => c.code === "accommodation_demand"))],
     title,
     images: faker.helpers
       .arrayElements(

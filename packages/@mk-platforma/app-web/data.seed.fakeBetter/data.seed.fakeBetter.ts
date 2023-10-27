@@ -8,7 +8,7 @@ import { PostGenerator_context } from "~/data.seed.fakeRandomized/data.gen._util
 
 export default async function data_seed_fakeBetter({ categories }: PostGenerator_context) {
   const food_common = {
-    categories: [asNonNil(categories.find(c => c.label === "sellable_food"))],
+    categories: [asNonNil(categories.find(c => c.code === "sellable_food"))],
   }
   const foods = generateArray(
     () => ({
@@ -19,7 +19,7 @@ export default async function data_seed_fakeBetter({ categories }: PostGenerator
   )
 
   const majstori_common = {
-    categories: [asNonNil(categories.find(c => c.label === "job_demand"))],
+    categories: [asNonNil(categories.find(c => c.code === "job_demand"))],
   }
   const majstori = generateArray(
     () => ({
@@ -30,7 +30,7 @@ export default async function data_seed_fakeBetter({ categories }: PostGenerator
   )
 
   const jobs_common = {
-    categories: [asNonNil(categories.find(c => c.label === "job"))],
+    categories: [asNonNil(categories.find(c => c.code === "job"))],
   }
   const jobs = [
     { title: "Izrada ogradnog zida" },

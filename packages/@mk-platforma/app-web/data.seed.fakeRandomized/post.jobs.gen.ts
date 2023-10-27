@@ -32,7 +32,7 @@ const jobs = [
 
 export default function generateJobs({ categories }: PostGenerator_context) {
   return faker.helpers.shuffle(jobs).map(({ title }) => ({
-    categories: [asNonNil(categories.find(c => c.label === "job"))],
+    categories: [asNonNil(categories.find(c => c.code === "job"))],
     title,
     images: faker.helpers
       .arrayElements(

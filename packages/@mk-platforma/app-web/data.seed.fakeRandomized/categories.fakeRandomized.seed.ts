@@ -3,10 +3,10 @@ import type { Category_label } from "~/domain/category/Category.types"
 import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 export async function seedCategories(db: Drizzle_instance) {
-  async function upsertCategory(label: Category_label, parent_id?: number) {
+  async function upsertCategory(code: Category_label, parent_id?: number) {
     return await db
       .insert(Category)
-      .values({ label, parent_id })
+      .values({ code, parent_id })
       // .onConflictDoUpdate({ target: Category.label, set: { parentId: parent_id } }) // TODO
       .returning()
       .then(c => c[0])

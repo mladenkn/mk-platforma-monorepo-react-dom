@@ -117,7 +117,7 @@ const Post_api = router({
               category: {
                 columns: {
                   id: true,
-                  label: true,
+                  code: true,
                 },
               },
             },

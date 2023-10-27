@@ -59,10 +59,10 @@ export default function User_profile({ user_initial }: Props) {
                     <Box key={category_id}>
                       <Link
                         style={{ textDecoration: "none", color: "unset" }}
-                        href={`/?category=${posts[0].categories[0].label}`}
+                        href={`/?category=${posts[0].categories[0].code}`}
                       >
                         <Typography>
-                          {getCategoryLabel(posts[0].categories[0].label as Category_label)}
+                          {getCategoryLabel(posts[0].categories[0].code as Category_label)}
                         </Typography>
                       </Link>
                       <Box sx={{ ml: 2, mt: 0.5 }}>

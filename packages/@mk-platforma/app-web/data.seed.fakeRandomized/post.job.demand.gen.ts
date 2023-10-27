@@ -14,7 +14,7 @@ function generateSingle({ categories }: PostGenerator_context) {
   )
 
   return {
-    categories: [asNonNil(categories.find(c => c.label === "job_demand"))],
+    categories: [asNonNil(categories.find(c => c.code === "job_demand"))],
 
     contact: faker.helpers.arrayElement([
       faker.phone.number(),

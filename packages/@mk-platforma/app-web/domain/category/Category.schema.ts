@@ -10,11 +10,11 @@ export const Category = pgTable(
   {
     id: serial("id").primaryKey().notNull(),
     parent_id: integer("parent_id"),
-    label: enum_type(Category_label_zod)("label").$type<Category_label>().notNull().unique(),
+    code: enum_type(Category_label_zod)("label").$type<Category_label>().notNull().unique(),
   },
   table => {
     return {
-      labelKey: uniqueIndex("Category_label_key").on(table.label),
+      labelKey: uniqueIndex("Category_label_key").on(table.code),
       categoryParentIdFkey: foreignKey({
         columns: [table.parent_id],
         foreignColumns: [table.id],

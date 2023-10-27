@@ -6,7 +6,7 @@ export default function generate_products_demand({ categories }: PostGenerator_c
   return generateArray(
     index => ({
       title: "Tražim neki proizvod " + index,
-      categories: [asNonNil(categories.find(c => c.label === "sellable_demand"))],
+      categories: [asNonNil(categories.find(c => c.code === "sellable_demand"))],
     }),
     faker.datatype.number({ min: 4, max: 10 }),
   )

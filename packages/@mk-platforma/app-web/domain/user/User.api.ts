@@ -25,7 +25,7 @@ export const User_api = router({
                 category: {
                   columns: {
                     id: true,
-                    label: true,
+                    code: true,
                   },
                 },
               },

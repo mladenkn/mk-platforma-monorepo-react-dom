@@ -19,7 +19,7 @@ const withRelatedProps = [
 
 export default function generateGatheringsWork({ categories }: PostGenerator_context) {
   return faker.helpers.shuffle(withRelatedProps).map(({ title }) => ({
-    categories: [categories.find(c => c.label === "gathering_work")!],
+    categories: [categories.find(c => c.code === "gathering_work")!],
     title,
     images: faker.helpers
       .arrayElements(
