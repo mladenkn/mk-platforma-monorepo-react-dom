@@ -24,7 +24,7 @@ export async function seedCategories(db: Drizzle_instance) {
   await upsertCategory({ code: "accommodation", label_hr: "Smještaji", icon_mui: "BedIcon" })
   await upsertCategory({
     code: "accommodation_demand",
-    label_hr: "Smještaji | Potražnja",
+    label_hr: "Smještaji/Potražnja",
     icon_mui: "BedIcon",
   })
 
@@ -38,19 +38,19 @@ export async function seedCategories(db: Drizzle_instance) {
     upsertCategory({
       code: "gathering_spirituality",
       parent_id: gathering.id,
-      label_hr: "Okupljanja | Duhovnost",
+      label_hr: "Duhovnost",
       icon_mui: "SelfImprovementIcon",
     }),
     upsertCategory({
       code: "gathering_work",
       parent_id: gathering.id,
-      label_hr: "Okupljanja | Radne akcije",
+      label_hr: "Radne akcije",
       icon_mui: "ConstructionIcon",
     }),
     upsertCategory({
       code: "gathering_hangout",
       parent_id: gathering.id,
-      label_hr: "Okupljanja | Druženja",
+      label_hr: "Druženja",
       icon_mui: "Diversity3Icon",
     }),
   ])
@@ -69,37 +69,37 @@ export async function seedCategories(db: Drizzle_instance) {
     upsertCategory({
       code: "sellable_food",
       parent_id: sellable.id,
-      label_hr: "Nabava | Hrana",
+      label_hr: "Hrana",
       icon_mui: "FastfoodIcon",
     }),
     upsertCategory({
       code: "sellable_clothes",
       parent_id: sellable.id,
-      label_hr: "Nabava | Odjeća",
+      label_hr: "Odjeća",
       icon_mui: "CheckroomIcon",
     }),
     upsertCategory({
       code: "sellable_furniture",
       parent_id: sellable.id,
-      label_hr: "Nabava | Namještaj",
+      label_hr: "Namještaj",
       icon_mui: "ChairIcon",
     }),
     upsertCategory({
       code: "sellable_tool",
       parent_id: sellable.id,
-      label_hr: "Nabava | Alat",
+      label_hr: "Alat",
       icon_mui: "HardwareIcon",
     }),
     upsertCategory({
       code: "sellable_gadget",
       parent_id: sellable.id,
-      label_hr: "Nabava | Gadgeti",
+      label_hr: "Gadgeti",
       icon_mui: "DevicesOtherIcon",
     }),
     upsertCategory({
       code: "sellable_buildingMaterial",
       parent_id: sellable.id,
-      label_hr: "Nabava | Građevinski materijal",
+      label_hr: "Građevinski materijal",
       icon_mui: "FoundationIcon",
     }),
   ])
