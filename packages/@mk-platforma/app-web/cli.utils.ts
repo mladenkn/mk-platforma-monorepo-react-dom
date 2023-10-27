@@ -47,8 +47,10 @@ export async function run(...cmd: unknown[]) {
   process.env = { ...process.env, ...env }
   const db = drizzle_connect()
 
-  const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(asNonNil)
-  const apiContext = { user: user, getCookie: () => null, db }
+  const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
+    u => u || { id: -1, canMutate: false, name: "" },
+  )
+  const apiContext = { user, getCookie: () => null, db }
   const api = Api_ss(apiContext)
   const cliContext = { apiContext, api }
 

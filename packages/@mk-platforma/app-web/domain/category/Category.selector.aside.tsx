@@ -59,11 +59,11 @@ export default function Categories_selector_aside({
         <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
           {startAdornament}
           <ListItemIcon>
-            <CategoryIcon sx={{ fontSize: typography.h3, color: "white" }} name={category.label} />
+            <CategoryIcon sx={{ fontSize: typography.h3, color: "white" }} name={category.code} />
           </ListItemIcon>
           <ListItemText
             sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
-            primary={getCategoryLabel(category.label)}
+            primary={getCategoryLabel(category.code)}
           />
         </ListItemButton>
       </ListItem>

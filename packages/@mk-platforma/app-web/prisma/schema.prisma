@@ -56,8 +56,10 @@ model Category {
   id        Int    @id @default(autoincrement())
   label     String @unique
   parent_id Int?
-  posts     Post[]
+  label_hr  String
+  icon_mui  String
 
+  posts    Post[]
   parent   Category?  @relation("CategoryHierarchy", fields: [parent_id], references: [id])
   children Category[] @relation("CategoryHierarchy")
 }

@@ -21,7 +21,7 @@ import { eva } from "@mk-libs/common/common"
 type Category_model = Api_outputs["category"]["many"][number]
 
 export type PostList_section_Props = {
-  selectedCategory_initial?: { id: number; label: Category_code } | null
+  selectedCategory_initial?: { id: number; code: Category_code } | null
   posts_initial: Api_outputs["post"]["list"]["fieldSet_main"]["items"]
   categories_initial: Category_model[]
   location_initial: number | null
@@ -52,7 +52,7 @@ export default function Post_list_page({
   const category_label_searchParam = searchParams.get("category")
   const selectedCategory_label =
     category_label_searchParam && Category_code_zod.parse(category_label_searchParam)
-  const category_selected = categories_query.data?.find(c => c.label === selectedCategory_label)
+  const category_selected = categories_query.data?.find(c => c.code === selectedCategory_label)
 
   const posts = Api.post.list.fieldSet_main.useInfiniteQuery(
     {
@@ -90,7 +90,7 @@ export default function Post_list_page({
       setUrlParams_shallow({ category: undefined })
       return
     }
-    setUrlParams_shallow({ category: category.label })
+    setUrlParams_shallow({ category: category.code })
   }
 
   const {} = useTheme()

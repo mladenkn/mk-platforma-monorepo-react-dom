@@ -7,8 +7,10 @@ const Category_api = router({
     const categories = await db
       .select({
         id: Category.id,
-        label: Category.code,
+        code: Category.code,
         parentId: Category.parent_id,
+        label_hr: Category.label_hr,
+        icon_mui: Category.icon_mui,
       })
       .from(Category)
 

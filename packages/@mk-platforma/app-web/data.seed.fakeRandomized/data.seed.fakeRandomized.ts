@@ -8,7 +8,7 @@ import { AvatarStyle } from "~/domain/user/User.types"
 import { Comment, Location } from "~/domain/post/Post.schema"
 import { User } from "~/domain/user/User.schema"
 import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
-import { seedCategories } from "~/data.seed.fakeRandomized/categories.fakeRandomized.seed"
+import { seedCategories } from "~/data.seed.fakeRandomized/category.fakeRandomized.seed"
 import locations_json from "~/data.seed.common/data.locations.json"
 
 export default async function data_seed_fakeRandomized(db: Drizzle_instance) {

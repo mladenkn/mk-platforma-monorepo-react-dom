@@ -15,7 +15,7 @@ const Post_list_page_props_initial_get = ss_props_get_create(
     const location_radius = getCookie("Post_list__location_radius")
 
     const categories_all = await api.category.many()
-    const category = categories_all.find(c => c.label === category_label)
+    const category = categories_all.find(c => c.code === category_label)
 
     const posts_initial = await api.post.list.fieldSet_main({
       categories: category ? [category.id] : undefined,

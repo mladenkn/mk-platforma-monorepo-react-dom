@@ -16,7 +16,7 @@ import type { Category_code } from "~/domain/category/Category.types"
 
 type Props = {
   onShowCategories(): void
-  selectedCategory?: { label: Category_code } | null
+  selectedCategory?: { code: Category_code } | null
   search: string | null
   set_search(s: string | null): void
   selectedLocation: number | null
@@ -37,7 +37,7 @@ export default function Post_list_page_header({
 }: Props) {
   const { typography, spacing, palette } = useTheme()
 
-  const heading = selectedCategory ? getCategoryLabel(selectedCategory.label) : <LogoLink />
+  const heading = selectedCategory ? getCategoryLabel(selectedCategory.code) : <LogoLink />
   const heading_size = typeof heading === "string" ? heading.length : 100
   const searchAndMore_position = heading_size > 13 ? "down" : "up"
 
@@ -122,14 +122,14 @@ export default function Post_list_page_header({
                   <CategoryIcon
                     sx={{ cursor: "pointer" }}
                     fontSize="large"
-                    name={selectedCategory.label}
+                    name={selectedCategory.code}
                   />
                 ) : (
                   <MenuIcon sx={{ cursor: "pointer" }} fontSize="large" fontWeight={400} />
                 )}
                 {selectedCategory ? (
                   <Typography variant="h2" fontWeight={400} sx={{ cursor: "default" }}>
-                    {getCategoryLabel(selectedCategory.label)}
+                    {getCategoryLabel(selectedCategory.code)}
                   </Typography>
                 ) : (
                   <LogoLink />

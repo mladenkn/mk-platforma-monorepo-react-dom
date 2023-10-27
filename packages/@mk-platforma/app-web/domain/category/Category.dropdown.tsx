@@ -9,17 +9,17 @@ type Category = Api_outputs["category"]["many"][number]
 
 function category_to_option(cat: Category) {
   const group = eva(() => {
-    if (cat.children?.length) return getCategoryLabel(cat.label)
-    if (cat.parent) return getCategoryLabel(cat.parent.label)
+    if (cat.children?.length) return getCategoryLabel(cat.code)
+    if (cat.parent) return getCategoryLabel(cat.parent.code)
     else return ""
   })
   return {
     id: cat.id,
     children: cat.children,
-    dbLabel: cat.label,
+    dbLabel: cat.code,
     label: cat.children?.length
-      ? getCategoryLabel(cat.label) + " ostalo"
-      : getCategoryLabel(cat.label),
+      ? getCategoryLabel(cat.code) + " ostalo"
+      : getCategoryLabel(cat.code),
     group,
   } as const
 }
