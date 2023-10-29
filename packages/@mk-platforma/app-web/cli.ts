@@ -15,8 +15,8 @@ import { asString } from "@mk-libs/common/common"
 import data_seed_fakeRandomized from "~/data.seed.fakeRandomized/data.seed.fakeRandomized"
 
 const parsed = parseCommand()
-const dbInstance = parsed["db-instance"]
-const DATABASE_URL = getConnectionString(dbInstance || "dev")
+const dbInstance = parsed["db-instance"] || "dev"
+const DATABASE_URL = getConnectionString(dbInstance)
 
 type run_args_type =
   | [Cli_run_EnvVars, Cli_run_Command | Cli_run_Command[]]
@@ -33,6 +33,8 @@ const run_args = match(parsed.command)
     },
     `next dev`,
   ])
+
+  .with("dev.test", () => [{}, () => console.log("dev.test tuu sammm")])
 
   .with("db.prisma", () => [{ DATABASE_URL }, `prisma ${parsed._unknown!.join(" ")}`])
 
