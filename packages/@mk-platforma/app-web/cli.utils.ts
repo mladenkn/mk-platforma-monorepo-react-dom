@@ -44,7 +44,11 @@ export async function run(...cmd: unknown[]) {
     ? commandOrCommands
     : [commandOrCommands]
 
-  process.env = { ...process.env, ...env }
+  const parsed = parseCommand()
+  const dbInstance = parsed["db-instance"] || "dev"
+  const DATABASE_URL = getConnectionString(dbInstance)
+
+  process.env = { ...process.env, DATABASE_URL, ...env }
   const db = drizzle_connect()
 
   const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
