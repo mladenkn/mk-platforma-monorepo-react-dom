@@ -15,7 +15,6 @@ import { asString } from "@mk-libs/common/common"
 import data_seed_fakeRandomized from "~/data.seed.fakeRandomized/data.seed.fakeRandomized"
 
 const parsed = parseCommand()
-const dbInstance = parsed["db-instance"] || "dev"
 
 type run_args_type =
   | [Cli_run_EnvVars, Cli_run_Command | Cli_run_Command[]]
@@ -23,14 +22,7 @@ type run_args_type =
   | Cli_run_Command[]
 
 const run_args = match(parsed.command)
-  .with("dev", () => [
-    {
-      UPLOADTHING_SECRET:
-        "sk_live_8f78c8c092e0657bb96f964c1527e3b5257969372b653a8b4d711cb7e1fc9cfb",
-      UPLOADTHING_APP_ID: "2axqlwskhd",
-    },
-    `next dev`,
-  ])
+  .with("dev", () => [{}, `next dev`])
 
   .with("dev.test", () => [{}, () => console.log("dev.test tuu sammm")])
 
@@ -53,7 +45,10 @@ const run_args = match(parsed.command)
   ])
 
   // \dt: get all tables
-  .with("db.psql", () => `psql ${getConnectionString(dbInstance)}`)
+  .with("db.psql", () => {
+    const dbInstance = parsed["db-instance"] || "dev"
+    return [{}, `psql ${getConnectionString(dbInstance)}`]
+  })
 
   .with("playground", () => [{}, () => require("./playground.ts")])
 
