@@ -16,7 +16,6 @@ import data_seed_fakeRandomized from "~/data.seed.fakeRandomized/data.seed.fakeR
 
 const parsed = parseCommand()
 const dbInstance = parsed["db-instance"] || "dev"
-const DATABASE_URL = getConnectionString(dbInstance)
 
 type run_args_type =
   | [Cli_run_EnvVars, Cli_run_Command | Cli_run_Command[]]
@@ -26,7 +25,6 @@ type run_args_type =
 const run_args = match(parsed.command)
   .with("dev", () => [
     {
-      DATABASE_URL,
       UPLOADTHING_SECRET:
         "sk_live_8f78c8c092e0657bb96f964c1527e3b5257969372b653a8b4d711cb7e1fc9cfb",
       UPLOADTHING_APP_ID: "2axqlwskhd",
@@ -36,17 +34,17 @@ const run_args = match(parsed.command)
 
   .with("dev.test", () => [{}, () => console.log("dev.test tuu sammm")])
 
-  .with("db.prisma", () => [{ DATABASE_URL }, `prisma ${parsed._unknown!.join(" ")}`])
+  .with("db.prisma", () => [{}, `prisma ${parsed._unknown!.join(" ")}`])
 
   .with("db.seed", () => [
-    { DATABASE_URL },
+    {},
     ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
   ])
 
-  .with("db.truncate", () => [{ DATABASE_URL }, `prisma db execute --file ./db.truncate.sql`])
+  .with("db.truncate", () => [{}, `prisma db execute --file ./db.truncate.sql`])
 
   .with("db.reset", () => [
-    { DATABASE_URL },
+    {},
     [
       `prisma db execute --file ./db.truncate.sql`,
       `prisma db push --accept-data-loss`,
@@ -55,9 +53,9 @@ const run_args = match(parsed.command)
   ])
 
   // \dt: get all tables
-  .with("db.psql", () => `psql ${getConnectionString(dbInstance || "dev")}`)
+  .with("db.psql", () => `psql ${getConnectionString(dbInstance)}`)
 
-  .with("playground", () => [{ DATABASE_URL }, () => require("./playground.ts")])
+  .with("playground", () => [{}, () => require("./playground.ts")])
 
   .with("location.google.find", () => [
     {},
@@ -70,7 +68,7 @@ const run_args = match(parsed.command)
   ])
 
   .with("location.google.find.save", () => [
-    { DATABASE_URL },
+    {},
     ({ apiContext }: Cli_Context) => {
       const searchQuery = asString(parsed._unknown?.[0])
       return Location_google_find_save(apiContext.db, searchQuery)
@@ -80,7 +78,7 @@ const run_args = match(parsed.command)
   ])
 
   .with("location.many", () => [
-    { DATABASE_URL },
+    {},
     ({ api }: Cli_Context) => {
       const query = parsed._unknown?.[0] || ""
       return api.location.many({ query }).then(console.log).catch(console.error)
