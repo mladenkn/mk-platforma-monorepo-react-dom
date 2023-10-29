@@ -24,7 +24,7 @@ type run_args_type =
 const run_args = match(parsed.command)
   .with("dev", () => [{}, `next dev`])
 
-  .with("dev.test", () => [{}, () => console.log("dev.test tuu sammm")])
+  .with("dev.test", () => [{}, drizzle_migrateDb])
 
   .with("db.prisma", () => [{}, `prisma ${parsed._unknown!.join(" ")}`])
 
@@ -85,3 +85,7 @@ const run_args = match(parsed.command)
 // @ts-ignore
 if (isArray(run_args)) run(...run_args).then(() => process.exit(0))
 else run(run_args).then(() => process.exit(0))
+
+function drizzle_migrateDb() {
+  console.log("from drizzle_migrateDb")
+}
