@@ -38,7 +38,11 @@ const run_args = match(parsed.command)
     ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
   ])
 
-  .with("db.truncate", () => [{}, `prisma db execute --file ./db.truncate.sql`])
+  .with("db.truncate", () => {
+    const dbInstance = parsed["db-instance"] || "dev"
+    const conStr = getConnectionString(dbInstance)
+    return [{}, `psql ${conStr} --file=./db.truncate.sql`]
+  })
 
   .with("db.reset", () => {
     const dbInstance = parsed["db-instance"] || "dev"
