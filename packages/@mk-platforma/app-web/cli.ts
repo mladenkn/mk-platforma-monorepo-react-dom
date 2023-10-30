@@ -45,7 +45,7 @@ const run_args = match(parsed.command)
     [
       `psql ${_getConnectionString()} --file=./db.truncate.sql`,
       "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
-      // ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
+      ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
     ],
   ])
 
