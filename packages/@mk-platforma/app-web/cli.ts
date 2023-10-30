@@ -24,7 +24,12 @@ type run_args_type =
 const run_args = match(parsed.command)
   .with("dev", () => [{}, `next dev`])
 
-  .with("dev.test", () => [{}, drizzle_migrateDb])
+  .with("dev.test", () => [
+    {},
+    () => {
+      console.log(__dirname)
+    },
+  ])
 
   .with("db.prisma", () => [{}, `prisma ${parsed._unknown!.join(" ")}`])
 
