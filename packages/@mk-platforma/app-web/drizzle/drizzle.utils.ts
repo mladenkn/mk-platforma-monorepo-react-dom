@@ -25,7 +25,7 @@ export function stringJson_type<T>(zodType: ZodTypeAny) {
     driverData: string
   }>({
     dataType() {
-      return "string"
+      return "text"
     },
     toDriver(data) {
       zodType.parse(data)
