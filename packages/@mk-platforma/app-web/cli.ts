@@ -40,14 +40,18 @@ const run_args = match(parsed.command)
 
   .with("db.truncate", () => [{}, `prisma db execute --file ./db.truncate.sql`])
 
-  .with("db.reset", () => [
-    {},
-    [
-      `prisma db execute --file ./db.truncate.sql`,
-      `prisma db push --accept-data-loss`,
-      ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
-    ],
-  ])
+  .with("db.reset", () => {
+    const dbInstance = parsed["db-instance"] || "dev"
+    const conStr = getConnectionString(dbInstance)
+    return [
+      {},
+      [
+        `psql ${conStr} --file=./db.truncate.sql`,
+        `prisma db push --accept-data-loss`,
+        ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
+      ],
+    ]
+  })
 
   // \dt: get all tables
   .with("db.psql", () => {
