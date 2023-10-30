@@ -47,7 +47,7 @@ const run_args = match(parsed.command)
       {},
       [
         `psql ${conStr} --file=./db.truncate.sql`,
-        `prisma db push --accept-data-loss`,
+        "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
         ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
       ],
     ]
