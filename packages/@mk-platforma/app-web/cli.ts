@@ -38,30 +38,19 @@ const run_args = match(parsed.command)
     ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
   ])
 
-  .with("db.truncate", () => {
-    const dbInstance = parsed["db-instance"] || "dev"
-    const conStr = getConnectionString(dbInstance)
-    return [{}, `psql ${conStr} --file=./db.truncate.sql`]
-  })
+  .with("db.truncate", () => [{}, `psql ${_getConnectionString()} --file=./db.truncate.sql`])
 
-  .with("db.reset", () => {
-    const dbInstance = parsed["db-instance"] || "dev"
-    const conStr = getConnectionString(dbInstance)
-    return [
-      {},
-      [
-        `psql ${conStr} --file=./db.truncate.sql`,
-        "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
-        ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
-      ],
-    ]
-  })
+  .with("db.reset", () => [
+    {},
+    [
+      `psql ${_getConnectionString()} --file=./db.truncate.sql`,
+      "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
+      // ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
+    ],
+  ])
 
   // \dt: get all tables
-  .with("db.psql", () => {
-    const dbInstance = parsed["db-instance"] || "dev"
-    return [{}, `psql ${getConnectionString(dbInstance)}`]
-  })
+  .with("db.psql", () => [{}, `psql ${_getConnectionString()}`])
 
   .with("playground", () => [{}, () => require("./playground.ts")])
 
@@ -99,6 +88,7 @@ const run_args = match(parsed.command)
 if (isArray(run_args)) run(...run_args).then(() => process.exit(0))
 else run(run_args).then(() => process.exit(0))
 
-function drizzle_migrateDb() {
-  console.log("from drizzle_migrateDb")
+function _getConnectionString() {
+  const dbInstance = parsed["db-instance"] || "dev"
+  return getConnectionString(dbInstance)
 }
