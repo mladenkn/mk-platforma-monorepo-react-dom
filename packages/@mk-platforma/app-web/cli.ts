@@ -24,33 +24,30 @@ type run_args_type =
 const run_args = match(parsed.command)
   .with("dev", () => [{}, `next dev`])
 
-  .with("dev.test", () => [{}, () => console.log("dev.test tuu sammm")])
+  .with("dev.test", () => [
+    {},
+    () => {
+      console.log(__dirname)
+    },
+  ])
 
   .with("db.prisma", () => [{}, `prisma ${parsed._unknown!.join(" ")}`])
 
-  .with("db.seed", () => [
-    {},
-    ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
-  ])
+  .with("db.seed", () => [{}, ({ db }: Cli_Context) => data_seed_fakeRandomized(db)])
 
-  .with("db.truncate", () => [{}, `prisma db execute --file ./db.truncate.sql`])
+  .with("db.truncate", () => [{}, `psql ${_getConnectionString()} --file=./db.truncate.sql`])
 
   .with("db.reset", () => [
     {},
     [
-      `prisma db execute --file ./db.truncate.sql`,
-      `prisma db push --accept-data-loss`,
-      ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
+      `psql ${_getConnectionString()} --file=./db.truncate.sql`,
+      "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
+      ({ db }: Cli_Context) => data_seed_fakeRandomized(db),
     ],
   ])
 
   // \dt: get all tables
-  .with("db.psql", () => {
-    const dbInstance = parsed["db-instance"] || "dev"
-    return [{}, `psql ${getConnectionString(dbInstance)}`]
-  })
-
-  .with("playground", () => [{}, () => require("./playground.ts")])
+  .with("db.psql", () => [{}, `psql ${_getConnectionString()}`])
 
   .with("location.google.find", () => [
     {},
@@ -64,11 +61,9 @@ const run_args = match(parsed.command)
 
   .with("location.google.find.save", () => [
     {},
-    ({ apiContext }: Cli_Context) => {
+    ({ db }: Cli_Context) => {
       const searchQuery = asString(parsed._unknown?.[0])
-      return Location_google_find_save(apiContext.db, searchQuery)
-        .then(console.log)
-        .catch(console.error)
+      return Location_google_find_save(db, searchQuery).then(console.log).catch(console.error)
     },
   ])
 
@@ -85,3 +80,8 @@ const run_args = match(parsed.command)
 // @ts-ignore
 if (isArray(run_args)) run(...run_args).then(() => process.exit(0))
 else run(run_args).then(() => process.exit(0))
+
+function _getConnectionString() {
+  const dbInstance = parsed["db-instance"] || "dev"
+  return getConnectionString(dbInstance)
+}

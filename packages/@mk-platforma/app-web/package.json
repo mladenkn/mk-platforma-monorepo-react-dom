@@ -10,8 +10,7 @@
     "test": "playwright test",
     "build": "pnpm next build",
     "prisma.gen": "prisma generate",
-    "drizzle.pull": "drizzle-kit introspect:pg --config=drizzle.pull.config.ts",
-    "experiment": "tsx --help"
+    "drizzle.push": "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
