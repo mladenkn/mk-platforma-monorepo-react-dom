@@ -1,17 +1,13 @@
-import { asNonNil, shallowPick } from "@mk-libs/common/common"
+import { shallowPick } from "@mk-libs/common/common"
 import { authorizedRoute } from "~/api_/api.server.utils"
 import { Post_api_create_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"
 import "@mk-libs/common/server-only"
-import {
-  Image,
-  Post,
-  PostExpertEndorsement,
-  PostExpertEndorsementSkill,
-} from "~/domain/post/Post.schema"
+import { Image, Post } from "~/domain/post/Post.schema"
 import { CategoryToPost } from "../category/Category.schema"
 import { eq } from "drizzle-orm"
+import { PostExpertEndorsement, PostExpertEndorsementSkill } from "./Post.expertEndorsement.schema"
 
 // const allCategories = db.query.Category.findMany()
 

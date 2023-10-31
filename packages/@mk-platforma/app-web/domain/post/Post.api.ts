@@ -3,18 +3,13 @@ import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.util
 import Post_api_create from "./Post.api.create"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"
-import { and, desc, eq, gt, ilike, inArray, lt, or } from "drizzle-orm"
-import {
-  Image,
-  Location,
-  Post,
-  PostExpertEndorsement,
-  PostExpertEndorsementSkill,
-} from "~/domain/post/Post.schema"
+import { and, desc, eq, ilike, inArray, lt, or } from "drizzle-orm"
+import { Image, Location, Post } from "~/domain/post/Post.schema"
 import { Category, CategoryToPost } from "../category/Category.schema"
 import { shallowPick } from "@mk-libs/common/common"
 import { groupBy } from "lodash"
 import { withNoNils } from "@mk-libs/common/array"
+import { PostExpertEndorsement, PostExpertEndorsementSkill } from "./Post.expertEndorsement.schema"
 
 const Input_zod = z.object({
   categories: z.array(z.number()).optional(),
