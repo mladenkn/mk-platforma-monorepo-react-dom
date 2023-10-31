@@ -19,7 +19,6 @@ type Props = {
 export default function User_profile_edit({ user_initial }: Props) {
   const user = Api.user.single.useQuery(user_initial.id, { initialData: user_initial })
   const user_data = asNonNil(user.data)
-  console.log(21, user_data)
   const [user_name, set__user_name] = useState(user_data.name || "")
 
   const router = useRouter()

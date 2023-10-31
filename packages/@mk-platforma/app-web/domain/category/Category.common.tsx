@@ -36,9 +36,7 @@ export function CategoryIcon({
   name,
   ...otherProps
 }: { name: string } & ComponentProps<typeof BedIcon>) {
-  console.log(39, name)
   const Icon = allIcons[name]
-  console.log(40, Icon)
   return <Icon {...otherProps} />
 }
 
