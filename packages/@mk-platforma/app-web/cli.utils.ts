@@ -7,7 +7,6 @@ import drizzle_connect, { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
 import { User } from "~/domain/user/User.schema"
 import { isArray } from "lodash"
-import { Api_context } from "./api_/api.server.utils"
 
 const options = [
   { name: "command", defaultOption: true },
