@@ -42,6 +42,8 @@ const run_args = match(parsed.command)
     [
       `psql ${_getConnectionString()} --file=./db.truncate.sql`,
       "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
+      "prisma db pull",
+      "prisma generate",
       ({ db }: Cli_Context) => data_seed_fakeRandomized(db),
     ],
   ])
