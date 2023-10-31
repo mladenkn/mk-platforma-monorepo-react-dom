@@ -10,7 +10,7 @@ import { eq } from "drizzle-orm"
 import {
   Post_content_personEndorsement,
   Post_content_personEndorsement_skill,
-} from "./Post.expertEndorsement.schema"
+} from "./Post.personEndorsement.schema"
 
 // const allCategories = db.query.Category.findMany()
 

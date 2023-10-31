@@ -12,7 +12,7 @@ import {
 import { relations } from "drizzle-orm"
 import { User } from "../user/User.schema"
 import { CategoryToPost } from "~/domain/category/Category.schema"
-import { Post_content_personEndorsement } from "./Post.expertEndorsement.schema"
+import { Post_content_personEndorsement } from "./Post.personEndorsement.schema"
 
 export const Post = pgTable(
   "Post",

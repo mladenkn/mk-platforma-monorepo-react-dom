@@ -12,7 +12,7 @@ import { withNoNils } from "@mk-libs/common/array"
 import {
   Post_content_personEndorsement,
   Post_content_personEndorsement_skill,
-} from "./Post.expertEndorsement.schema"
+} from "./Post.personEndorsement.schema"
 
 const Input_zod = z.object({
   categories: z.array(z.number()).optional(),
