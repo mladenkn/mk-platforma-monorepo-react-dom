@@ -33,10 +33,7 @@ const run_args = match(parsed.command)
 
   .with("db.prisma", () => [{}, `prisma ${parsed._unknown!.join(" ")}`])
 
-  .with("db.seed", () => [
-    {},
-    ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
-  ])
+  .with("db.seed", () => [{}, ({ db }: Cli_Context) => data_seed_fakeRandomized(db)])
 
   .with("db.truncate", () => [{}, `psql ${_getConnectionString()} --file=./db.truncate.sql`])
 
@@ -45,7 +42,7 @@ const run_args = match(parsed.command)
     [
       `psql ${_getConnectionString()} --file=./db.truncate.sql`,
       "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
-      ({ apiContext }: Cli_Context) => data_seed_fakeRandomized(apiContext.db),
+      ({ db }: Cli_Context) => data_seed_fakeRandomized(db),
     ],
   ])
 
@@ -66,11 +63,9 @@ const run_args = match(parsed.command)
 
   .with("location.google.find.save", () => [
     {},
-    ({ apiContext }: Cli_Context) => {
+    ({ db }: Cli_Context) => {
       const searchQuery = asString(parsed._unknown?.[0])
-      return Location_google_find_save(apiContext.db, searchQuery)
-        .then(console.log)
-        .catch(console.error)
+      return Location_google_find_save(db, searchQuery).then(console.log).catch(console.error)
     },
   ])
 

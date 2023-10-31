@@ -3,7 +3,7 @@ import { spawn, ChildProcess } from "child_process"
 import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
 import { Api_ss, Api_ss_type } from "./api_/api.root"
-import drizzle_connect from "~/drizzle/drizzle.instance"
+import drizzle_connect, { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
 import { User } from "~/domain/user/User.schema"
 import { isArray } from "lodash"
@@ -20,7 +20,7 @@ export function parseCommand() {
 
 export type Cli_Context = {
   api: Api_ss_type
-  apiContext: Api_context
+  db: Drizzle_instance
 }
 
 export type Cli_run_EnvVars = Record<string, string>
@@ -56,7 +56,7 @@ export async function run(...cmd: unknown[]) {
       u => u || { id: -1, canMutate: false, name: "" },
     )
     const apiContext = { user, getCookie: () => null, db }
-    return { apiContext, api: Api_ss(apiContext) }
+    return { db, api: Api_ss(apiContext) }
   }
 
   try {
