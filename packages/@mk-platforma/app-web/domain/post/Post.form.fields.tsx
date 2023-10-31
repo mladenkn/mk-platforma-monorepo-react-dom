@@ -32,9 +32,9 @@ export default function Post_form_fields<TValues extends Values>({
   const isExpert = selectedCategory.data ? selectedCategory.data.code === "job_demand" : undefined
   useEffect(() => {
     if (isExpert && !values.content_personEndorsement) {
-      setFieldValue("expertEndorsement", { firstName: "", lastName: "", skills: [] })
+      setFieldValue("content_personEndorsement", { firstName: "", lastName: "", skills: [] })
     } else if (isExpert === false) {
-      setFieldValue("expertEndorsement", undefined)
+      setFieldValue("content_personEndorsement", undefined)
     }
   }, [isExpert])
 
@@ -96,7 +96,7 @@ export default function Post_form_fields<TValues extends Values>({
           <TextField
             label="Ime"
             variant="outlined"
-            name="expertEndorsement.firstName"
+            name="content_personEndorsement.firstName"
             value={values.content_personEndorsement.firstName}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -113,7 +113,7 @@ export default function Post_form_fields<TValues extends Values>({
           <TextField
             label="Prezime"
             variant="outlined"
-            name="expertEndorsement.lastName"
+            name="content_personEndorsement.lastName"
             value={values.content_personEndorsement.lastName}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -128,13 +128,13 @@ export default function Post_form_fields<TValues extends Values>({
             {...eachField}
           />
           <FieldArray
-            name="expertEndorsement.skills"
+            name="content_personEndorsement.skills"
             render={helpers => (
               <Post_form_fields_skills
                 sx={{ ml: 0.5, mt: 0.75 }}
                 value={values.content_personEndorsement!.skills || []}
                 onChange={handleChange}
-                namePrefix="expertEndorsement.skills"
+                namePrefix="content_personEndorsement.skills"
                 addItem={helpers.push}
                 removeItem={helpers.remove}
               />
