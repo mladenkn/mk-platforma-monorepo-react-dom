@@ -49,8 +49,6 @@ const run_args = match(parsed.command)
   // \dt: get all tables
   .with("db.psql", () => [{}, `psql ${_getConnectionString()}`])
 
-  .with("playground", () => [{}, () => require("./playground.ts")])
-
   .with("location.google.find", () => [
     {},
     () => {
