@@ -1,12 +1,11 @@
 import commandLineArgs from "command-line-args"
-import { spawn, ChildProcess, exec } from "child_process"
+import { spawn, ChildProcess } from "child_process"
 import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
 import { Api_ss, Api_ss_type } from "./api_/api.root"
 import drizzle_connect from "~/drizzle/drizzle.instance"
 import { eq } from "drizzle-orm"
 import { User } from "~/domain/user/User.schema"
-import { asNonNil, eva } from "@mk-libs/common/common"
 import { isArray } from "lodash"
 import { Api_context } from "./api_/api.server.utils"
 
@@ -65,7 +64,7 @@ export async function run(...cmd: unknown[]) {
       if (typeof command === "function") {
         await command(await createContext())
       } else {
-        const result: any = await runCommandByGpt(command, env)
+        const result: any = await runCommand(command, env)
         if (result.code !== 0) {
           result.error && console.error(result.error?.message || "Error")
           process.exit(result.code)
@@ -78,12 +77,7 @@ export async function run(...cmd: unknown[]) {
   }
 }
 
-function run_single(command: string, env: Record<string, string>) {
-  if (command.startsWith("pnpm exec ts-node")) return run_withExec(command, env)
-  else return run_withSpawn(command, env)
-}
-
-async function runCommandByGpt(command: string, env: Record<string, string>) {
+async function runCommand(command: string, env: Record<string, string>) {
   return new Promise((resolve, reject) => {
     const [cmd, ...args] = command.split(" ")
 
@@ -110,43 +104,6 @@ async function runCommandByGpt(command: string, env: Record<string, string>) {
       reject({ error, code: -1 })
     })
   })
-}
-
-function run_withSpawn(command: string, env: Record<string, string>) {
-  const command_words = command.split(" ")
-  const cmd = spawn(command_words[0], command_words.slice(1), {
-    env: { ...process.env, ...env },
-    stdio: command_words[0] === "psql" ? "inherit" : undefined,
-  })
-  return new Promise((resolve, reject) => {
-    cmd.stdout?.on?.("data", data => process.stdout.write(data.toString()))
-    cmd.stderr?.on?.("data", data => process.stderr.write(data.toString()))
-    cmd.on?.("error", error => {
-      reject({ error, code: -1 })
-      process.stderr.write(error.message)
-    })
-    cmd.on?.("close", code => resolve({ code }))
-  })
-}
-
-function run_withExec(command: string, env: Record<string, string>) {
-  const command_ = `${objectToEnvString(env)} ${command}`
-  return new Promise((resolve, reject) => {
-    exec(command_, (error, stdout, stderr) => {
-      if (error) {
-        console.error(error)
-        reject({ error, code: -1 })
-      }
-      console.log(stdout ? stdout : stderr)
-      resolve({ code: 1 })
-    })
-  })
-}
-
-function objectToEnvString(obj: Record<string, string>) {
-  return Object.entries(obj)
-    .map(([key, value]) => `${key}=${value}`)
-    .join(" ")
 }
 
 export function getConnectionString(env: string) {
