@@ -9,7 +9,7 @@ export const Post_api_create_input = z
   })
   .extend({
     categories: z.array(CategorySchema.pick({ id: true })).length(1),
-    expertEndorsement: z
+    content_personEndorsement: z
       .object({
         firstName: z.string().min(1),
         lastName: z.string().min(1),

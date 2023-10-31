@@ -31,7 +31,7 @@ export default function Post_form_fields<TValues extends Values>({
   )
   const isExpert = selectedCategory.data ? selectedCategory.data.code === "job_demand" : undefined
   useEffect(() => {
-    if (isExpert && !values.expertEndorsement) {
+    if (isExpert && !values.content_personEndorsement) {
       setFieldValue("expertEndorsement", { firstName: "", lastName: "", skills: [] })
     } else if (isExpert === false) {
       setFieldValue("expertEndorsement", undefined)
@@ -91,22 +91,22 @@ export default function Post_form_fields<TValues extends Values>({
         onChange={value => setFieldValue("location.id", value)}
         disabled={eachField.disabled}
       />
-      {isExpert && values.expertEndorsement && (
+      {isExpert && values.content_personEndorsement && (
         <>
           <TextField
             label="Ime"
             variant="outlined"
             name="expertEndorsement.firstName"
-            value={values.expertEndorsement.firstName}
+            value={values.content_personEndorsement.firstName}
             onChange={handleChange}
             onBlur={handleBlur}
             error={
-              (touched.expertEndorsement as any)?.firstName &&
-              !!(errors.expertEndorsement as any)?.firstName
+              (touched.content_personEndorsement as any)?.firstName &&
+              !!(errors.content_personEndorsement as any)?.firstName
             }
             helperText={
-              (touched.expertEndorsement as any)?.firstName &&
-              (errors.expertEndorsement as any)?.firstName
+              (touched.content_personEndorsement as any)?.firstName &&
+              (errors.content_personEndorsement as any)?.firstName
             }
             {...eachField}
           />
@@ -114,16 +114,16 @@ export default function Post_form_fields<TValues extends Values>({
             label="Prezime"
             variant="outlined"
             name="expertEndorsement.lastName"
-            value={values.expertEndorsement.lastName}
+            value={values.content_personEndorsement.lastName}
             onChange={handleChange}
             onBlur={handleBlur}
             error={
-              (touched.expertEndorsement as any)?.lastName &&
-              !!(errors.expertEndorsement as any)?.lastName
+              (touched.content_personEndorsement as any)?.lastName &&
+              !!(errors.content_personEndorsement as any)?.lastName
             }
             helperText={
-              (touched.expertEndorsement as any)?.lastName &&
-              (errors.expertEndorsement as any)?.lastName
+              (touched.content_personEndorsement as any)?.lastName &&
+              (errors.content_personEndorsement as any)?.lastName
             }
             {...eachField}
           />
@@ -132,7 +132,7 @@ export default function Post_form_fields<TValues extends Values>({
             render={helpers => (
               <Post_form_fields_skills
                 sx={{ ml: 0.5, mt: 0.75 }}
-                value={values.expertEndorsement!.skills || []}
+                value={values.content_personEndorsement!.skills || []}
                 onChange={handleChange}
                 namePrefix="expertEndorsement.skills"
                 addItem={helpers.push}

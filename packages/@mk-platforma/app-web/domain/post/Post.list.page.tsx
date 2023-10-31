@@ -135,9 +135,9 @@ export default function Post_list_page({
               >
                 {posts_data.map(item => (
                   <Link key={item.id} href={`/post/${item.id}`} style={{ textDecoration: "none" }}>
-                    {item.expertEndorsement ? (
+                    {item.content_personEndorsement ? (
                       <Post_listItem_personEndorsement
-                        {...item.expertEndorsement}
+                        {...item.content_personEndorsement}
                         location={item.location}
                       />
                     ) : (

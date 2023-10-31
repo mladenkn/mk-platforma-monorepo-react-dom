@@ -60,23 +60,25 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
           .where(eq(Image.id, image.id))
       }
 
-      if (input.expertEndorsement) {
+      if (input.content_personEndorsement) {
         const post_expertEndorsement_created = await tx
           .insert(Post_content_personEndorsement)
           .values({
-            ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
+            ...shallowPick(input.content_personEndorsement, "firstName", "lastName"),
             post_id: post_created.id,
             avatarStyle: getRandomElement(avatarStyles),
           })
           .returning()
           .then(r => r[0])
 
-        if (input.expertEndorsement.skills?.length) {
-          const post_expertEndorsement_skills_values = input.expertEndorsement.skills.map(s => ({
-            post_personEndorsement_id: post_expertEndorsement_created.id,
-            label: s.label,
-            level: s.level,
-          }))
+        if (input.content_personEndorsement.skills?.length) {
+          const post_expertEndorsement_skills_values = input.content_personEndorsement.skills.map(
+            s => ({
+              post_personEndorsement_id: post_expertEndorsement_created.id,
+              label: s.label,
+              level: s.level,
+            }),
+          )
           await tx
             .insert(Post_content_personEndorsement_skill)
             .values(post_expertEndorsement_skills_values)

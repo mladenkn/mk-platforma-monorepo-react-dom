@@ -91,7 +91,7 @@ const Post_api = router({
         id: parseInt(post_id),
         title: entry[0].title,
         location: entry[0].location,
-        expertEndorsement: entry[0].content_personEndorsement && {
+        content_personEndorsement: entry[0].content_personEndorsement && {
           ...entry[0].content_personEndorsement,
           skills: withNoNils(entry.map(e => e.content_personEndorsement_skill)),
         },
