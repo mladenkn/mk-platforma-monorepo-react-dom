@@ -4,7 +4,7 @@ import HandymanIcon from "@mui/icons-material/Handyman"
 import React from "react"
 import { Api_outputs } from "~/api_/api.infer"
 
-type Props = NonNullable<Api_outputs["post"]["single"]>["expertEndorsement"] & {
+type Props = NonNullable<Api_outputs["post"]["single"]>["content_personEndorsement"] & {
   location?: {
     name: string
   } | null

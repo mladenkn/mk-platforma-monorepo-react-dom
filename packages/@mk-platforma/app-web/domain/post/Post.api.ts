@@ -181,7 +181,7 @@ const Post_select = {
         url: true,
       },
     },
-    expertEndorsement: {
+    content_personEndorsement: {
       columns: {
         firstName: true,
         lastName: true,

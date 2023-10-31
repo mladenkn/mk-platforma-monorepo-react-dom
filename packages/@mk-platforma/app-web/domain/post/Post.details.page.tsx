@@ -34,7 +34,7 @@ export default function Post_details_page({
     images,
     description,
     contact,
-    expertEndorsement,
+    content_personEndorsement,
     author,
     canComment,
     canEdit,
@@ -135,12 +135,12 @@ export default function Post_details_page({
               </Carousel>
             ) : undefined}
             <Typography>{description}</Typography>
-            {expertEndorsement?.skills?.length ? (
+            {content_personEndorsement?.skills?.length ? (
               <Box sx={{ mt: 4 }}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <HandymanIcon sx={{ mt: 0.5, mr: 2, fontSize: typography.h5 }} />
                   <Box>
-                    {expertEndorsement.skills.map(s => (
+                    {content_personEndorsement.skills.map(s => (
                       <Typography key={s.label}>
                         {s.label}
                         {` `}({s.level}/5)

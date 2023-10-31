@@ -93,7 +93,7 @@ export const PostRelations = relations(Post, ({ one, many }) => ({
     references: [Location.id],
   }),
   images: many(Image),
-  expertEndorsement: one(Post_content_personEndorsement, {
+  content_personEndorsement: one(Post_content_personEndorsement, {
     fields: [Post.content_personEndorsement_id],
     references: [Post_content_personEndorsement.id],
   }),
