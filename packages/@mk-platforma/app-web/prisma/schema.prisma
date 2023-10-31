@@ -1,69 +1,43 @@
-// outdated
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
 generator client {
   provider = "prisma-client-js"
 }
 
 generator zod {
   provider                 = "zod-prisma-types"
-  createInputTypes         = false
-  writeNullishInModelTypes = true
+  createInputTypes         = "false"
+  writeNullishInModelTypes = "true"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Post {
-  id                   Int     @id @default(autoincrement())
-  title                String  @db.VarChar(256)
-  description          String? @db.Text
-  contact              String  @db.VarChar(256)
-  location_id          Int?
-  author_id            Int
-  expertEndorsement_id Int?    @unique
-  isDeleted            Boolean @default(false)
-
-  location          Location?               @relation(fields: [location_id], references: [id])
-  images            Image[]
-  comments          Comment[]
-  categories        Category[]
-  author            User                    @relation(fields: [author_id], references: [id])
-  expertEndorsement Post_ExpertEndorsement? @relation(fields: [expertEndorsement_id], references: [id])
-}
-
-model Post_ExpertEndorsement {
-  id          Int    @id @default(autoincrement())
-  post_id     Int    @unique
-  firstName   String @db.VarChar(64)
-  lastName    String @db.VarChar(64)
-  avatarStyle String
-
-  post   Post?
-  skills Post_ExpertEndorsement_skill[]
-}
-
-model Post_ExpertEndorsement_skill {
-  id                   Int                    @id @default(autoincrement())
-  label                String                 @db.VarChar(64)
-  level                Int?
-  expertEndorsement    Post_ExpertEndorsement @relation(fields: [expertEndorsement_id], references: [id])
-  expertEndorsement_id Int
-
-  @@unique([expertEndorsement_id, label])
+  id                             Int                             @id @default(autoincrement())
+  title                          String                          @db.VarChar(256)
+  description                    String?
+  contact                        String                          @db.VarChar(256)
+  location_id                    Int?
+  author_id                      Int
+  content_personEndorsement_id   Int?                            @unique(map: "post_content_personEndorsement_id_key")
+  isDeleted                      Boolean                         @default(false)
+  comments                       Comment[]
+  author                         User                            @relation(fields: [author_id], references: [id], map: "Post_author_id_User_id_fk")
+  Post_content_personEndorsement Post_content_personEndorsement? @relation(fields: [content_personEndorsement_id], references: [id], map: "Post_content_personEndorsement_id_Post_content_personEndorsemen")
+  location                       Location?                       @relation(fields: [location_id], references: [id], map: "Post_location_id_Location_id_fk")
+  categories                     Category[]                      @relation("CategoryToPost")
 }
 
 model Category {
-  id        Int    @id @default(autoincrement())
-  label     String @unique
+  id        Int        @id @default(autoincrement())
   parent_id Int?
+  label     String     @unique
   label_hr  String
   icon_mui  String
-
-  posts    Post[]
-  parent   Category?  @relation("CategoryHierarchy", fields: [parent_id], references: [id])
-  children Category[] @relation("CategoryHierarchy")
+  parent    Category?  @relation("CategoryHierarchy", fields: [parent_id], references: [id], map: "Category_parent_id_Category_id_fk")
+  children  Category[] @relation("CategoryHierarchy")
+  posts     Post[]     @relation("CategoryToPost")
 }
 
 model Location {
@@ -72,44 +46,39 @@ model Location {
   latitude        Decimal
   longitude       Decimal
   name            String  @db.VarChar(128)
-  country         String  @db.VarChar(64)
   adminAreaLevel1 String? @db.VarChar(128)
-
-  posts Post[]
+  country         String  @db.VarChar(64)
+  posts           Post[]
 }
 
 model Image {
   id              Int     @id @default(autoincrement())
-  uploadthing_key String? @unique @db.VarChar(128)
   post_id         Int?
-  url             String  @db.Text
+  url             String
+  uploadthing_key String? @unique @db.VarChar(128)
   isMain          Boolean @default(false)
-  Post            Post?   @relation(fields: [post_id], references: [id])
 }
 
 model Comment {
   id        Int     @id @default(autoincrement())
-  content   String  @db.Text
+  content   String
   author_id Int
   post_id   Int
   isDeleted Boolean @default(false)
-
-  post   Post @relation(fields: [post_id], references: [id])
-  author User @relation(fields: [author_id], references: [id])
+  author    User    @relation(fields: [author_id], references: [id], map: "Comment_author_id_User_id_fk")
+  post      Post    @relation(fields: [post_id], references: [id], map: "Comment_post_id_Post_id_fk")
 }
 
 model User {
-  id            Int       @id @default(autoincrement())
-  name          String?   @unique @db.VarChar(32)
-  avatarStyle   String
-  email         String?   @unique @db.VarChar(64)
-  emailVerified DateTime?
-  canMutate     Boolean   @default(true)
-
-  comments Comment[]
-  posts    Post[]
-  accounts Account[]
-  sessions Session[]
+  id          Int       @id @default(autoincrement())
+  name        String?   @unique @db.VarChar(32)
+  avatarStyle String
+  email       String?   @unique @db.VarChar(64)
+  canMutate   Boolean   @default(true)
+  accounts    Account[]
+  comments    Comment[]
+  posts       Post[]
+  sessions    Session[]
 }
 
 model Account {
@@ -118,15 +87,14 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Account_userId_User_id_fk")
 
   @@unique([provider, providerAccountId])
 }
@@ -136,7 +104,7 @@ model Session {
   sessionToken String   @unique @db.VarChar(128)
   userId       Int
   expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade, map: "Session_userId_User_id_fk")
 }
 
 model VerificationToken {
@@ -145,4 +113,24 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Post_content_personEndorsement {
+  id                                   Int                                    @id @default(autoincrement())
+  post_id                              Int                                    @unique
+  firstName                            String                                 @db.VarChar(64)
+  lastName                             String                                 @db.VarChar(64)
+  avatarStyle                          String
+  Post                                 Post?
+  Post_content_personEndorsement_skill Post_content_personEndorsement_skill[]
+}
+
+model Post_content_personEndorsement_skill {
+  id                             Int                            @id @default(autoincrement())
+  label                          String                         @db.VarChar(64)
+  level                          Int?
+  post_personEndorsement_id      Int
+  Post_content_personEndorsement Post_content_personEndorsement @relation(fields: [post_personEndorsement_id], references: [id], map: "Post_content_personEndorsement_skill_post_personEndorsement_id_")
+
+  @@unique([label, post_personEndorsement_id], map: "Post_content_personEndorsement_skill_personEndorsement_id_label")
 }
