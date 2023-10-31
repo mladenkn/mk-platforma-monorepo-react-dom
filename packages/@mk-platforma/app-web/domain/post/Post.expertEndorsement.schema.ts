@@ -42,8 +42,8 @@ export const Post_content_personEndorsement_skill = pgTable(
   },
   table => {
     return {
-      expertEndorsementIdLabelKey: uniqueIndex(
-        "Post_content_personEndorsement_skill_expertEndorsement_id_label_key",
+      personEndorsementIdLabelKey: uniqueIndex(
+        "Post_content_personEndorsement_skill_personEndorsement_id_label_key",
       ).on(table.label, table.post_personEndorsement_id),
     }
   },

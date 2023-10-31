@@ -36,7 +36,7 @@ export const Post = pgTable(
   },
   table => {
     return {
-      expertEndorsementIdKey: uniqueIndex("post_content_personEndorsement_id_key").on(
+      personEndorsementIdKey: uniqueIndex("post_content_personEndorsement_id_key").on(
         table.content_personEndorsement_id,
       ),
     }
