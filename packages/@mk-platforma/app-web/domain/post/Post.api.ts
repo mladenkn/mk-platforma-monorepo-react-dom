@@ -33,19 +33,18 @@ const Post_api = router({
           title: Post.title,
           location: shallowPick(Location, "id", "name"),
           image: shallowPick(Image, "id", "url", "isMain"),
-          expertEndorsement: shallowPick(
+          content_personEndorsement: shallowPick(
             Post_content_personEndorsement,
             "firstName",
             "lastName",
             "avatarStyle",
           ),
-          expertEndorsement_skill: shallowPick(
+          content_personEndorsement_skill: shallowPick(
             Post_content_personEndorsement_skill,
             "id",
             "label",
             "level",
           ),
-          // category: shallowPick(Category, "id", "label"),
         })
         .from(Post)
         .leftJoin(Location, eq(Post.location_id, Location.id))
@@ -92,9 +91,9 @@ const Post_api = router({
         id: parseInt(post_id),
         title: entry[0].title,
         location: entry[0].location,
-        expertEndorsement: entry[0].expertEndorsement && {
-          ...entry[0].expertEndorsement,
-          skills: withNoNils(entry.map(e => e.expertEndorsement_skill)),
+        expertEndorsement: entry[0].content_personEndorsement && {
+          ...entry[0].content_personEndorsement,
+          skills: withNoNils(entry.map(e => e.content_personEndorsement_skill)),
         },
         images: withNoNils(entry.map(e => e.image)),
       }))
