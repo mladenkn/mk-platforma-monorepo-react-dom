@@ -4,8 +4,8 @@ import { relations } from "drizzle-orm"
 import { AvatarStyle, AvataryStyle_zod } from "~/domain/user/User.types"
 import { stringJson_type } from "~/drizzle/drizzle.utils"
 
-export const PostExpertEndorsement = pgTable(
-  "Post_ExpertEndorsement",
+export const Post_content_personEndorsement = pgTable(
+  "Post_content_personEndorsement",
   {
     id: serial("id").primaryKey().notNull(),
     post_id: integer("post_id").notNull(),
@@ -15,40 +15,46 @@ export const PostExpertEndorsement = pgTable(
   },
   table => {
     return {
-      postIdKey: uniqueIndex("Post_ExpertEndorsement_post_id_key").on(table.post_id),
+      postIdKey: uniqueIndex("Post_content_personEndorsement_post_id_key").on(table.post_id),
     }
   },
 )
 
-export const PostExpertEndorsementRelations = relations(PostExpertEndorsement, ({ many }) => ({
-  skills: many(PostExpertEndorsementSkill),
-}))
+export const Post_content_personEndorsementRelations = relations(
+  Post_content_personEndorsement,
+  ({ many }) => ({
+    skills: many(Post_content_personEndorsement_skill),
+  }),
+)
 
-export const PostExpertEndorsementSkill = pgTable(
-  "Post_ExpertEndorsement_skill",
+export const Post_content_personEndorsement_skill = pgTable(
+  "Post_content_personEndorsement_skill",
   {
     id: serial("id").primaryKey().notNull(),
     label: varchar("label", { length: 64 }).notNull(),
     level: integer("level"),
-    expertEndorsementId: integer("expertEndorsement_id")
+    post_personEndorsement_id: integer("post_personEndorsement_id")
       .notNull()
-      .references(() => PostExpertEndorsement.id, { onDelete: "restrict", onUpdate: "cascade" }),
+      .references(() => Post_content_personEndorsement.id, {
+        onDelete: "restrict",
+        onUpdate: "cascade",
+      }),
   },
   table => {
     return {
       expertEndorsementIdLabelKey: uniqueIndex(
-        "Post_ExpertEndorsement_skill_expertEndorsement_id_label_key",
-      ).on(table.label, table.expertEndorsementId),
+        "Post_content_personEndorsement_skill_expertEndorsement_id_label_key",
+      ).on(table.label, table.post_personEndorsement_id),
     }
   },
 )
 
-export const PostExpertEndorsementSkillRelations = relations(
-  PostExpertEndorsementSkill,
+export const Post_content_personEndorsement_skillRelations = relations(
+  Post_content_personEndorsement_skill,
   ({ one }) => ({
-    postExpertEndorsement: one(PostExpertEndorsement, {
-      fields: [PostExpertEndorsementSkill.expertEndorsementId],
-      references: [PostExpertEndorsement.id],
+    post_content_personEndorsement: one(Post_content_personEndorsement, {
+      fields: [Post_content_personEndorsement_skill.post_personEndorsement_id],
+      references: [Post_content_personEndorsement.id],
     }),
   }),
 )

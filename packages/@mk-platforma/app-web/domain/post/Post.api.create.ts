@@ -7,7 +7,10 @@ import "@mk-libs/common/server-only"
 import { Image, Post } from "~/domain/post/Post.schema"
 import { CategoryToPost } from "../category/Category.schema"
 import { eq } from "drizzle-orm"
-import { PostExpertEndorsement, PostExpertEndorsementSkill } from "./Post.expertEndorsement.schema"
+import {
+  Post_content_personEndorsement,
+  Post_content_personEndorsement_skill,
+} from "./Post.expertEndorsement.schema"
 
 // const allCategories = db.query.Category.findMany()
 
@@ -59,7 +62,7 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
 
       if (input.expertEndorsement) {
         const post_expertEndorsement_created = await tx
-          .insert(PostExpertEndorsement)
+          .insert(Post_content_personEndorsement)
           .values({
             ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
             post_id: post_created.id,
@@ -70,16 +73,18 @@ const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
 
         if (input.expertEndorsement.skills?.length) {
           const post_expertEndorsement_skills_values = input.expertEndorsement.skills.map(s => ({
-            expertEndorsementId: post_expertEndorsement_created.id,
+            post_personEndorsement_id: post_expertEndorsement_created.id,
             label: s.label,
             level: s.level,
           }))
-          await tx.insert(PostExpertEndorsementSkill).values(post_expertEndorsement_skills_values)
+          await tx
+            .insert(Post_content_personEndorsement_skill)
+            .values(post_expertEndorsement_skills_values)
         }
 
         await tx
           .update(Post)
-          .set({ expertEndorsementId: post_expertEndorsement_created.id })
+          .set({ content_personEndorsement_id: post_expertEndorsement_created.id })
           .where(eq(Post.id, post_created.id))
       }
 

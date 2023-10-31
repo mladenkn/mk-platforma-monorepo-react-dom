@@ -9,7 +9,10 @@ import { Category, CategoryToPost } from "../category/Category.schema"
 import { shallowPick } from "@mk-libs/common/common"
 import { groupBy } from "lodash"
 import { withNoNils } from "@mk-libs/common/array"
-import { PostExpertEndorsement, PostExpertEndorsementSkill } from "./Post.expertEndorsement.schema"
+import {
+  Post_content_personEndorsement,
+  Post_content_personEndorsement_skill,
+} from "./Post.expertEndorsement.schema"
 
 const Input_zod = z.object({
   categories: z.array(z.number()).optional(),
@@ -31,23 +34,34 @@ const Post_api = router({
           location: shallowPick(Location, "id", "name"),
           image: shallowPick(Image, "id", "url", "isMain"),
           expertEndorsement: shallowPick(
-            PostExpertEndorsement,
+            Post_content_personEndorsement,
             "firstName",
             "lastName",
             "avatarStyle",
           ),
-          expertEndorsement_skill: shallowPick(PostExpertEndorsementSkill, "id", "label", "level"),
+          expertEndorsement_skill: shallowPick(
+            Post_content_personEndorsement_skill,
+            "id",
+            "label",
+            "level",
+          ),
           // category: shallowPick(Category, "id", "label"),
         })
         .from(Post)
         .leftJoin(Location, eq(Post.location_id, Location.id))
         .leftJoin(Image, eq(Post.id, Image.post_id))
-        .leftJoin(PostExpertEndorsement, eq(Post.id, PostExpertEndorsement.post_id))
+        .leftJoin(
+          Post_content_personEndorsement,
+          eq(Post.id, Post_content_personEndorsement.post_id),
+        )
         .leftJoin(CategoryToPost, eq(Post.id, CategoryToPost.post_id))
         .leftJoin(Category, eq(Category.id, CategoryToPost.category_id))
         .leftJoin(
-          PostExpertEndorsementSkill,
-          eq(PostExpertEndorsement.id, PostExpertEndorsementSkill.expertEndorsementId),
+          Post_content_personEndorsement_skill,
+          eq(
+            Post_content_personEndorsement.id,
+            Post_content_personEndorsement_skill.post_personEndorsement_id,
+          ),
         )
         .where(
           and(
@@ -57,7 +71,7 @@ const Post_api = router({
               ilike(Post.title, `%${input.search}%`),
               ilike(Post.description, `%${input.search}%`),
               ilike(Post.contact, `%${input.search}%`),
-              ilike(PostExpertEndorsementSkill.label, `%${input.search}%`),
+              ilike(Post_content_personEndorsement_skill.label, `%${input.search}%`),
             ),
             input.categories?.length
               ? or(

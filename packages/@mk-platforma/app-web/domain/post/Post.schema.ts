@@ -12,7 +12,7 @@ import {
 import { relations } from "drizzle-orm"
 import { User } from "../user/User.schema"
 import { CategoryToPost } from "~/domain/category/Category.schema"
-import { PostExpertEndorsement } from "./Post.expertEndorsement.schema"
+import { Post_content_personEndorsement } from "./Post.expertEndorsement.schema"
 
 export const Post = pgTable(
   "Post",
@@ -28,16 +28,16 @@ export const Post = pgTable(
     author_id: integer("author_id")
       .notNull()
       .references(() => User.id, { onDelete: "restrict", onUpdate: "cascade" }),
-    expertEndorsementId: integer("expertEndorsement_id").references(
-      () => PostExpertEndorsement.id,
+    content_personEndorsement_id: integer("content_personEndorsement_id").references(
+      () => Post_content_personEndorsement.id,
       { onDelete: "set null", onUpdate: "cascade" },
     ),
     isDeleted: boolean("isDeleted").default(false).notNull(),
   },
   table => {
     return {
-      expertEndorsementIdKey: uniqueIndex("Post_expertEndorsement_id_key").on(
-        table.expertEndorsementId,
+      expertEndorsementIdKey: uniqueIndex("post_content_personEndorsement_id_key").on(
+        table.content_personEndorsement_id,
       ),
     }
   },
@@ -93,9 +93,9 @@ export const PostRelations = relations(Post, ({ one, many }) => ({
     references: [Location.id],
   }),
   images: many(Image),
-  expertEndorsement: one(PostExpertEndorsement, {
-    fields: [Post.expertEndorsementId],
-    references: [PostExpertEndorsement.id],
+  expertEndorsement: one(Post_content_personEndorsement, {
+    fields: [Post.content_personEndorsement_id],
+    references: [Post_content_personEndorsement.id],
   }),
 }))
 
