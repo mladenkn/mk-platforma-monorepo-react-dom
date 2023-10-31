@@ -25,7 +25,7 @@ function generateSingle({ categories }: PostGenerator_context) {
 
     title: `${firstName} ${lastName}`,
 
-    expertEndorsement: {
+    content_personEndorsement: {
       firstName,
       lastName,
 
