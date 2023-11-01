@@ -5,13 +5,13 @@ import { z } from "zod"
 import { eq } from "drizzle-orm"
 import { User } from "./domain/user/User.schema"
 
-export type Context = {
+export type Cli_Context = {
   api: Api_ss_type
   db: Drizzle_instance
   run(cmd: string): Promise<unknown>
 }
 
-export type Command<
+export type Cli_Command<
   TName extends string,
   TEnv extends Record<string, string>,
   TParamsZod extends z.AnyZodObject = z.AnyZodObject,
@@ -20,18 +20,18 @@ export type Command<
   params?: TParamsZod
   env?: TEnv
   resolve:
-    | ((c: Context & { params: z.infer<TParamsZod> }) => Promise<unknown> | unknown | string)
+    | ((c: Cli_Context & { params: z.infer<TParamsZod> }) => Promise<unknown> | unknown | string)
     | string
 }
 
 type runProgram_options = {
-  commands: Command<string, {}>[]
+  commands: Cli_Command<string, {}>[]
   env: Record<string, string>
 }
 
-export function runProgram({ commands }: runProgram_options) {}
+export function Cli_run({ commands }: runProgram_options) {}
 
-export function getConnectionString(env: string) {
+function getConnectionString(env: string) {
   switch (env) {
     case "dev":
       return "postgresql://postgres:postgres@localhost:5432/za_brata"
@@ -50,7 +50,7 @@ export function getConnectionString(env: string) {
   }
 }
 
-export function getConnectionString_cli() {
+export function Cli_getConnectionString() {
   const options = [
     { name: "command", defaultOption: true },
     { name: "db-instance", type: String },
