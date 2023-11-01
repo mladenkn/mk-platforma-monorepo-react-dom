@@ -1,7 +1,9 @@
 import commandLineArgs from "command-line-args"
-import { Api_ss_type } from "./api_/api.root"
-import { Drizzle_instance } from "~/drizzle/drizzle.instance"
+import { Api_ss, Api_ss_type } from "./api_/api.root"
+import drizzle_connect, { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { z } from "zod"
+import { eq } from "drizzle-orm"
+import { User } from "./domain/user/User.schema"
 
 export type Context = {
   api: Api_ss_type
@@ -55,4 +57,14 @@ export function getConnectionString_cli() {
   const parsed = commandLineArgs(options, { stopAtFirstUnknown: true })
   const dbInstance = parsed["db-instance"] || "dev"
   return getConnectionString(dbInstance)
+}
+
+async function createContext() {
+  const db = drizzle_connect()
+
+  const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
+    u => u || { id: -1, canMutate: false, name: "" },
+  )
+  const apiContext = { user, getCookie: () => null, db }
+  return { db, api: Api_ss(apiContext) }
 }
