@@ -27,6 +27,9 @@ export type cli_Command<
 type runProgram_options = {
   commands: cli_Command<string, {}>[]
   env: Record<string, string>
+  env_userInjected: {
+    [key: string]: { fromParam: string; map(param: string): string }
+  }
 }
 
 export function cli_run({ commands }: runProgram_options) {}

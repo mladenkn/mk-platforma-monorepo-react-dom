@@ -1,6 +1,7 @@
 import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeRandomized"
 import { cli_Command, cli_getConnectionString, cli_run } from "./cli.utils2"
 import { z } from "zod"
+import { getConnectionString } from "./cli.utils"
 
 const commands: cli_Command<string, {}>[] = [
   {
@@ -25,4 +26,8 @@ const commands: cli_Command<string, {}>[] = [
   },
 ]
 
-cli_run({ commands, env: { DATABASE_URL: cli_getConnectionString() } })
+cli_run({
+  commands,
+  env: { DATABASE_URL: getConnectionString("dev") },
+  env_userInjected: { DATABASE_URL: { fromParam: "db-instance", map: getConnectionString } },
+})
