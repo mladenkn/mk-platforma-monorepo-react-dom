@@ -9,6 +9,7 @@ export type cli_Context = {
   api: Api_ss_type
   db: Drizzle_instance
   run(cmd: string): Promise<unknown>
+  db_connectionString: string
 }
 
 export type cli_Command<

@@ -1,5 +1,5 @@
 import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeRandomized"
-import { cli_Command, cli_getConnectionString, cli_run } from "./cli.utils2"
+import { cli_Command, cli_run } from "./cli.utils2"
 import { z } from "zod"
 import { getConnectionString } from "./cli.utils"
 
@@ -10,8 +10,8 @@ const commands: cli_Command<string, {}>[] = [
   },
   {
     name: "db.reset",
-    async resolve({ db, run }) {
-      await run(`psql ${cli_getConnectionString()} --file=./db.truncate.sql`)
+    async resolve({ db, db_connectionString, run }) {
+      await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
       await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
       await run("prisma db pull")
       await run("prisma generate")
