@@ -1,10 +1,11 @@
+type Params_base = Record<string, string> & { env?: Record<string, string> }
+
 type Command<
+  TName extends string,
   TEnv extends Record<string, string>,
-  TParams extends Record<string, string>,
-  TParams_env extends Record<string, string>,
+  TParams extends Params_base,
 > = {
-  env: TEnv
-  name: string
-  params: TParams
-  params_env: TParams
+  name: TName
+  params?: TParams
+  env?: TEnv
 }
