@@ -26,6 +26,7 @@ export type Command<
 
 type runProgram_options = {
   commands: Command<string, {}>[]
+  env: Record<string, string>
 }
 
 export function runProgram({ commands }: runProgram_options) {}

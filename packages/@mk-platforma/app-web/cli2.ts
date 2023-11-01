@@ -26,4 +26,4 @@ const commands: Command<string, {}>[] = [
   },
 ]
 
-runProgram({ commands })
+runProgram({ commands, env: { DATABASE_URL: getConnectionString_cli() } })
