@@ -4,10 +4,7 @@ import { z } from "zod"
 import { getConnectionString } from "./cli.utils"
 
 const commands: cli_Command<string, {}>[] = [
-  {
-    name: "dev",
-    resolve: "next dev",
-  },
+  { name: "dev", resolve: "next dev" },
   {
     name: "db.reset",
     async resolve({ db, db_connectionString, run }) {
