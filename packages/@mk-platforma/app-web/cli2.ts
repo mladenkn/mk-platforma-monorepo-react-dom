@@ -9,12 +9,12 @@ const commands: Command<string, {}>[] = [
   },
   {
     name: "db.reset",
-    resolve({ db, run }) {
-      run(`psql ${getConnectionString_cli()} --file=./db.truncate.sql`)
-      run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
-      run("prisma db pull")
-      run("prisma generate")
-      data_seed_fakeRandomized(db)
+    async resolve({ db, run }) {
+      await run(`psql ${getConnectionString_cli()} --file=./db.truncate.sql`)
+      await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
+      await run("prisma db pull")
+      await run("prisma generate")
+      await data_seed_fakeRandomized(db)
     },
   },
   {
