@@ -20,9 +20,8 @@ const commands: cli_Command<string, {}>[] = [
   {
     name: "location.many",
     params: z.object({ query: z.string() }),
-    resolve({ api, params }) {
-      return api.location.many({ query: params.query }).then(console.log).catch(console.error)
-    },
+    resolve: ({ api, params }) =>
+      api.location.many({ query: params.query }).then(console.log).catch(console.error),
   },
 ]
 
