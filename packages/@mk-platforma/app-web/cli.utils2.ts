@@ -8,7 +8,7 @@ import { User } from "./domain/user/User.schema"
 export type cli_Context = {
   api: Api_ss_type
   db: Drizzle_instance
-  run(cmd: string): Promise<unknown>
+  run(cmd: string | string[]): Promise<unknown>
   db_connectionString: string
 }
 

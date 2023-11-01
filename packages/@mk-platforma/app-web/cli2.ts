@@ -8,10 +8,12 @@ const commands: cli_Command<string, {}>[] = [
   {
     name: "db.reset",
     async resolve({ db, db_connectionString, run }) {
-      await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
-      await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
-      await run("prisma db pull")
-      await run("prisma generate")
+      await run([
+        `psql ${db_connectionString} --file=./db.truncate.sql`,
+        "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
+        "prisma db pull",
+        "prisma generate",
+      ])
       await data_seed_fakeRandomized(db)
     },
   },
@@ -19,7 +21,7 @@ const commands: cli_Command<string, {}>[] = [
     name: "location.many",
     params: z.object({ query: z.string() }),
     resolve: ({ api, params }) =>
-      api.location.many({ query: params.query }).then(console.log).catch(console.error),
+      api.location.many({ query: params.query }).then(console.log).catch(console.error), // ovo then(...).catch(...) u utils
   },
 ]
 
