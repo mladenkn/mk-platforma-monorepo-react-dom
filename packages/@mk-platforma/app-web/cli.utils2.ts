@@ -5,13 +5,13 @@ import { z } from "zod"
 import { eq } from "drizzle-orm"
 import { User } from "./domain/user/User.schema"
 
-export type Cli_Context = {
+export type cli_Context = {
   api: Api_ss_type
   db: Drizzle_instance
   run(cmd: string): Promise<unknown>
 }
 
-export type Cli_Command<
+export type cli_Command<
   TName extends string,
   TEnv extends Record<string, string>,
   TParamsZod extends z.AnyZodObject = z.AnyZodObject,
@@ -20,16 +20,16 @@ export type Cli_Command<
   params?: TParamsZod
   env?: TEnv
   resolve:
-    | ((c: Cli_Context & { params: z.infer<TParamsZod> }) => Promise<unknown> | unknown | string)
+    | ((c: cli_Context & { params: z.infer<TParamsZod> }) => Promise<unknown> | unknown | string)
     | string
 }
 
 type runProgram_options = {
-  commands: Cli_Command<string, {}>[]
+  commands: cli_Command<string, {}>[]
   env: Record<string, string>
 }
 
-export function Cli_run({ commands }: runProgram_options) {}
+export function cli_run({ commands }: runProgram_options) {}
 
 function getConnectionString(env: string) {
   switch (env) {
@@ -50,7 +50,7 @@ function getConnectionString(env: string) {
   }
 }
 
-export function Cli_getConnectionString() {
+export function cli_getConnectionString() {
   const options = [
     { name: "command", defaultOption: true },
     { name: "db-instance", type: String },
