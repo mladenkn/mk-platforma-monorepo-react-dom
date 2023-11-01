@@ -23,6 +23,7 @@ export type cli_Command<
   resolve:
     | ((c: cli_Context & { params: z.infer<TParamsZod> }) => Promise<unknown> | unknown | string)
     | string
+    | string[]
 }
 
 type runProgram_options = {
