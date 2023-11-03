@@ -50,7 +50,6 @@ export function cli_command_base<
         const parsed_3 = omit(parsed_2, "command")
         return params_zod.parse(parsed_3)
       })
-      console.log(53, command)
       if (command.preResolve) {
         await command.preResolve({ run: cli_runCommand }, params_resolved)
       }
