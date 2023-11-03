@@ -29,7 +29,7 @@ export function cli_command_base<
       resolve: command.resolve,
       params: command_base.context_params?.and(command.params || z.object({})),
     }
-    return merged as cli_Command<TName, TParams & TContext_params>
+    return merged as cli_Command<TName, TContext, TParams & TContext_params>
   }
 }
 
