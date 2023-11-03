@@ -24,13 +24,14 @@ const commands = [
     name: "db.reset",
     async preResolve({ run }, { dbInstance }) {
       const db_connectionString = cli_getConnectionString(dbInstance || "dev")
+      process.env.DATABASE_URL = db_connectionString
       await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
       await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
-      console.log(29, "drizzle push completed")
     },
     async resolve({ db, run }) {
       await run("prisma db pull")
       await run("prisma generate")
+      console.log("Seeding data")
       await data_seed_fakeRandomized(db)
     },
   }),
