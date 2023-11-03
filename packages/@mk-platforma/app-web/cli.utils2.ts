@@ -40,7 +40,7 @@ export function cli_command_base<
       TBase_params & TParams
     >
     async function resolve() {
-      const params_parsed = eva(() => {
+      const params_resolved = eva(() => {
         const parsed_1 = [
           ...Object.entries((command_base.base_params as any).shape),
           ...(command.params ? Object.entries((command.params as any).shape) : []),
@@ -51,7 +51,9 @@ export function cli_command_base<
         const parsed_3 = omit(parsed_2, "command")
         return params_zod.parse(parsed_3)
       })
-      console.log(`Running ${command.name} oh yeeaaah`, params_parsed)
+      const base_resolved = await command_base.base_resolve(params_resolved)
+
+      console.log(`Running ${command.name} oh yeeaaah`, params_resolved, base_resolved)
     }
     return { name: command.name, resolve }
   }
