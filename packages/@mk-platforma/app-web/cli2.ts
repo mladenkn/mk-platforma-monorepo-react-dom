@@ -25,9 +25,12 @@ const commands = [
   command({ name: "dev", resolve: ({ run }) => run("next dev") }),
   command({
     name: "db.reset",
-    async resolve({ db, db_connectionString, run }) {
+    async preResolve({ run }, { dbInstance }) {
+      const db_connectionString = cli_getConnectionString(dbInstance || "dev")
       await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
       await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
+    },
+    async resolve({ db, run }) {
       await run("prisma db pull")
       await run("prisma generate")
       await data_seed_fakeRandomized(db)
@@ -35,8 +38,8 @@ const commands = [
   }),
   command({
     name: "db.psql",
-    resolve({ db_connectionString, run }) {
-      run(`psql ${db_connectionString} --file=./db.truncate.sql`)
+    async resolve({ db_connectionString, run }) {
+      await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
     },
   }),
   command({

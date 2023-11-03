@@ -16,7 +16,8 @@ export type cli_Command<
 > = {
   name: TName
   params?: z.ZodType<TParams>
-  resolve: (c: TContext, params: TResolveParams) => Promise<unknown> | unknown
+  preResolve?: (c: cli_Context_base, params: TResolveParams) => Promise<unknown>
+  resolve: (c: TContext, params: TResolveParams) => Promise<unknown>
 }
 
 export function cli_command_base<
@@ -49,11 +50,12 @@ export function cli_command_base<
         const parsed_3 = omit(parsed_2, "command")
         return params_zod.parse(parsed_3)
       })
+      console.log(53, command)
+      if (command.preResolve) {
+        await command.preResolve({ run: cli_runCommand }, params_resolved)
+      }
       const base_resolved = await command_base.base_resolve(params_resolved)
-
-      // console.log(`Running ${command.name} oh yeeaaah`, params_resolved, base_resolved)
       await command.resolve({ ...base_resolved, run: cli_runCommand }, params_resolved)
-      // console.log(60, result)
     }
     return { name: command.name, resolve }
   }
