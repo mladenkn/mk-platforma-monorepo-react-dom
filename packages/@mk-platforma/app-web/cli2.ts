@@ -5,16 +5,15 @@ import { getConnectionString } from "./cli.utils"
 
 const command = cli_command_base({
   params: z.object({ dbInstance: z.string() }),
-  env: {
-    DATABASE_URL: getConnectionString("dev"),
-  },
+  env: (_, { dbInstance }) => ({
+    DATABASE_URL: getConnectionString(dbInstance || "dev"),
+  }),
 })
 
 const commands = [
   cli_command({ name: "dev", resolve: "next dev" }),
-  cli_command({
+  command({
     name: "db.reset",
-    params: z.object({ query: z.string() }),
     async resolve({ db, db_connectionString, run }) {
       await run([
         `psql ${db_connectionString} --file=./db.truncate.sql`,

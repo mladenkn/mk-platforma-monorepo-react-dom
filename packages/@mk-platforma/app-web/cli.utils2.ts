@@ -16,12 +16,13 @@ export type cli_Command<
   TName extends string = string,
   TEnv extends Record<string, string> = {},
   TParams extends object = {},
+  TResolveParams = TParams,
 > = {
   name: TName
   params?: z.ZodType<TParams>
-  env?: TEnv
+  env?: TEnv | ((c: cli_Context, params: TResolveParams) => TEnv)
   resolve:
-    | ((c: cli_Context, params: TParams) => Promise<unknown> | unknown | string)
+    | ((c: cli_Context, params: TResolveParams) => Promise<unknown> | unknown | string)
     | string
     | string[]
 }
@@ -29,12 +30,15 @@ export type cli_Command<
 export function cli_command_base<
   TEnv_base extends Record<string, string>,
   TParams_base extends object = {},
->(command_base: { params?: z.ZodType<TParams_base>; env?: TEnv_base }) {
+>(command_base: {
+  params?: z.ZodType<TParams_base>
+  env?: TEnv_base | ((c: cli_Context, params: TParams_base) => TEnv_base)
+}) {
   return function cli_command<
     TName extends string = string,
     TEnv extends Record<string, string> = {},
     TParams extends object = {},
-  >(command: cli_Command<TName, TEnv, TParams>) {
+  >(command: cli_Command<TName, TEnv, TParams, TParams & TParams_base>) {
     const merged = {
       name: command.name,
       resolve: command.resolve,
