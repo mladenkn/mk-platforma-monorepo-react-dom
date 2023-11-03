@@ -24,12 +24,14 @@ export function cli_command_base<
   return function cli_command<TName extends string = string, TParams extends object = {}>(
     command: cli_Command<TName, TContext, TParams, TParams & TContext_params>,
   ) {
-    const merged = {
+    const merged: cli_Command<TName, TContext, TParams & TContext_params> = {
       name: command.name,
       resolve: command.resolve,
-      params: command_base.context_params?.and(command.params || z.object({})),
+      params: command_base.context_params?.and(command.params || z.object({})) as z.ZodType<
+        TParams & TContext_params
+      >,
     }
-    return merged as cli_Command<TName, TContext, TParams & TContext_params>
+    return merged
   }
 }
 
