@@ -5,6 +5,7 @@
   "scripts": {
     "tsc": "tsc --noEmit",
     "+": "tsx cli2.ts",
+    "+old": "tsx cli.ts",
     "postinstall": "pnpm prisma generate",
     "build": "pnpm next build",
     "drizzle.push": "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts"
