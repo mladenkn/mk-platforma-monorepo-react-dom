@@ -1,7 +1,14 @@
 import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeRandomized"
-import { cli_Command, cli_command, cli_run } from "./cli.utils2"
+import { cli_command, cli_command_base, cli_run } from "./cli.utils2"
 import { z } from "zod"
 import { getConnectionString } from "./cli.utils"
+
+const command = cli_command_base({
+  params: z.object({ dbInstance: z.string() }),
+  env: {
+    DATABASE_URL: getConnectionString("dev"),
+  },
+})
 
 const commands = [
   cli_command({ name: "dev", resolve: "next dev" }),
@@ -18,11 +25,11 @@ const commands = [
       await data_seed_fakeRandomized(db)
     },
   }),
-  cli_command({
+  command({
     name: "location.many",
     params: z.object({ query: z.string() }),
-    resolve: ({ api }, { query }) =>
-      api.location.many({ query }).then(console.log).catch(console.error), // ovo then(...).catch(...) u utils
+    resolve: ({ api }, params) =>
+      api.location.many({ query: params.query }).then(console.log).catch(console.error), // ovo then(...).catch(...) u utils
   }),
 ]
 

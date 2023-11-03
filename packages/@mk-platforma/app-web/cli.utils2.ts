@@ -26,9 +26,31 @@ export type cli_Command<
     | string[]
 }
 
+export function cli_command_base<
+  TEnv_base extends Record<string, string>,
+  TParams_base extends object = {},
+>(command_base: { params?: z.ZodType<TParams_base>; env?: TEnv_base }) {
+  return function cli_command<
+    TName extends string = string,
+    TEnv extends Record<string, string> = {},
+    TParams extends object = {},
+  >(command: cli_Command<TName, TEnv, TParams>) {
+    const merged = {
+      name: command.name,
+      resolve: command.resolve,
+      params: command_base.params?.and(command.params || z.object({})),
+      env: {
+        ...command_base.env,
+        ...command.env,
+      },
+    }
+    return merged as cli_Command<TName, TEnv & TEnv_base, TParams & TParams_base>
+  }
+}
+
 export function cli_command<
-  TName extends string,
-  TEnv extends Record<string, string>,
+  TName extends string = string,
+  TEnv extends Record<string, string> = {},
   TParams extends object = {},
 >(command: cli_Command<TName, TEnv, TParams>) {
   return command
