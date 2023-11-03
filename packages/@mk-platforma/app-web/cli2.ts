@@ -31,7 +31,7 @@ const commands = [
     name: "location.many",
     params: z.object({ query: z.string() }),
     resolve: ({ api }, params) =>
-      api.location.many({ query: params.query }).then(console.log).catch(console.error), // ovo then(...).catch(...) u utils
+      api.location.many({ query: params.query }).then(console.log).catch(console.error),
   }),
 ]
 
