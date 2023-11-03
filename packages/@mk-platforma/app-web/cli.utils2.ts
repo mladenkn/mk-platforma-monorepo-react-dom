@@ -6,7 +6,7 @@ type cli_Context_base = {
 
 export type cli_Command<
   TName extends string = string,
-  TContext extends object = {},
+  TContext extends cli_Context_base = cli_Context_base,
   TParams extends object = {},
   TResolveParams = TParams,
 > = {
@@ -44,11 +44,9 @@ type ResolveNoContext<TParams> =
   | string
   | string[]
 
-export function cli_command<
-  TName extends string = string,
-  TEnv extends Record<string, string> = {},
-  TParams extends object = {},
->(command: cli_Command<TName, TEnv, TParams> & { resolve: ResolveNoContext<TParams> }) {
+export function cli_command<TName extends string = string, TParams extends object = {}>(
+  command: cli_Command<TName, cli_Context_base, TParams> & { resolve: ResolveNoContext<TParams> },
+) {
   return command
 }
 
