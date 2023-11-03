@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test"
 import Post_crud_test_helper_create from "./post.crud.test.helper"
 // import db from "~/prisma/instance"
-import { getConnectionString } from "~/cli.utils"
+import { cli_getConnectionString } from "~/cli.utils"
 
-process.env.DATABASE_URL = getConnectionString("test.local")
+process.env.DATABASE_URL = cli_getConnectionString("test.local")
 let newPost_id: number
 
 test("Post CRUD", async ({ page }) => {

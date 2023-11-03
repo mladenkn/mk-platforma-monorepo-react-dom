@@ -2,7 +2,7 @@ import { match } from "ts-pattern"
 import {
   parseCommand,
   run,
-  getConnectionString,
+  cli_getConnectionString,
   Cli_run_EnvVars,
   Cli_run_Command,
   Cli_Context,
@@ -85,5 +85,5 @@ else run(run_args).then(() => process.exit(0))
 
 function _getConnectionString() {
   const dbInstance = parsed["db-instance"] || "dev"
-  return getConnectionString(dbInstance)
+  return cli_getConnectionString(dbInstance)
 }

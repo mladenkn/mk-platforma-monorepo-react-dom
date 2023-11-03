@@ -1,20 +1,14 @@
 import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeRandomized"
 import { cli_command, cli_command_base, cli_run } from "./cli.utils2"
 import { z } from "zod"
-import { Drizzle_instance } from "./drizzle/drizzle.instance"
-import { Api_ss_type } from "./api_/api.root"
-
-type cli_Context = {
-  api: Api_ss_type
-  db: Drizzle_instance
-  run(cmd: string | string[]): Promise<unknown>
-  db_connectionString: string
-}
+import { cli_createContext, cli_getConnectionString } from "./cli.utils"
 
 const command = cli_command_base({
-  context_params: z.object({ dbInstance: z.string() }),
-  async context_create() {
-    return null as any as cli_Context
+  context_params: z.object({ dbInstance: z.string().transform(v => v || "dev") }),
+  async context_create({ dbInstance }) {
+    const base = await cli_createContext()
+    const db_connectionString = cli_getConnectionString(dbInstance)
+    return { ...base, db_connectionString }
   },
 })
 

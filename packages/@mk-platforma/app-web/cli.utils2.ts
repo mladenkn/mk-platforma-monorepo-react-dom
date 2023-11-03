@@ -1,5 +1,9 @@
 import { z } from "zod"
 
+type cli_Context_base = {
+  run(cmd: string | string[]): Promise<unknown>
+}
+
 export type cli_Command<
   TName extends string = string,
   TContext extends object = {},
@@ -22,9 +26,9 @@ export function cli_command_base<
   context_create: (params_base: TBase_params) => Promise<TContext>
 }) {
   return function cli_command<TName extends string = string, TParams extends object = {}>(
-    command: cli_Command<TName, TContext, TParams, TParams & TBase_params>,
+    command: cli_Command<TName, TContext & cli_Context_base, TParams, TParams & TBase_params>,
   ) {
-    const merged: cli_Command<TName, TContext, TParams & TBase_params> = {
+    const merged: cli_Command<TName, TContext & cli_Context_base, TParams & TBase_params> = {
       name: command.name,
       resolve: command.resolve,
       params: command_base.context_params?.and(command.params || z.object({})) as z.ZodType<

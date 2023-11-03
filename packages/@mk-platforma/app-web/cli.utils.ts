@@ -44,24 +44,14 @@ export async function run(...cmd: unknown[]) {
 
   const parsed = parseCommand()
   const dbInstance = parsed["db-instance"] || "dev"
-  const DATABASE_URL = getConnectionString(dbInstance)
+  const DATABASE_URL = cli_getConnectionString(dbInstance)
 
   process.env = { ...process.env, DATABASE_URL, ...env }
-
-  async function createContext() {
-    const db = drizzle_connect()
-
-    const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
-      u => u || { id: -1, canMutate: false, name: "" },
-    )
-    const apiContext = { user, getCookie: () => null, db }
-    return { db, api: Api_ss(apiContext) }
-  }
 
   try {
     for (const command of commands) {
       if (typeof command === "function") {
-        await command(await createContext())
+        await command(await cli_createContext())
       } else {
         const result: any = await runCommand(command, env)
         if (result.code !== 0) {
@@ -74,6 +64,16 @@ export async function run(...cmd: unknown[]) {
     console.error(error)
     process.exit(1)
   }
+}
+
+export async function cli_createContext() {
+  const db = drizzle_connect()
+
+  const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
+    u => u || { id: -1, canMutate: false, name: "" },
+  )
+  const apiContext = { user, getCookie: () => null, db }
+  return { db, api: Api_ss(apiContext) }
 }
 
 async function runCommand(command: string, env: Record<string, string>) {
@@ -105,7 +105,7 @@ async function runCommand(command: string, env: Record<string, string>) {
   })
 }
 
-export function getConnectionString(env: string) {
+export function cli_getConnectionString(env: string) {
   switch (env) {
     case "dev":
       return "postgresql://postgres:postgres@localhost:5432/za_brata"

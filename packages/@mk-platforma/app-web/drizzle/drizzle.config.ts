@@ -1,11 +1,11 @@
 import type { Config } from "drizzle-kit"
-import { getConnectionString } from "~/cli.utils"
+import { cli_getConnectionString } from "~/cli.utils"
 
 export default {
   schema: "./drizzle/drizzle.schema.ts",
   // out: "./drizzle",
   driver: "pg",
   dbCredentials: {
-    connectionString: process.env.DATABASE_URL || getConnectionString("dev"),
+    connectionString: process.env.DATABASE_URL || cli_getConnectionString("dev"),
   },
 } satisfies Config
