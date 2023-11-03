@@ -2,107 +2,102 @@ import { Category } from "~/domain/category/Category.schema"
 import type { Category_code } from "~/domain/category/Category.types"
 import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
+const categories = [
+  { code: "job", label_hr: "Poslovi", icon_mui: "HandymanIcon" },
+  { code: "job_demand", label_hr: "Majstori", icon_mui: "EngineeringIcon" },
+  { code: "accommodation", label_hr: "Smještaji", icon_mui: "BedIcon" },
+  {
+    code: "accommodation_demand",
+    label_hr: "Smještaji/Potražnja",
+    icon_mui: "BedIcon",
+  },
+  {
+    code: "gathering",
+    label_hr: "Okupljanja",
+    icon_mui: "GroupsIcon",
+    children: [
+      {
+        code: "gathering_spirituality",
+        label_hr: "Duhovnost",
+        icon_mui: "SelfImprovementIcon",
+      },
+      {
+        code: "gathering_work",
+        label_hr: "Radne akcije",
+        icon_mui: "ConstructionIcon",
+      },
+      {
+        code: "gathering_hangout",
+        label_hr: "Druženja",
+        icon_mui: "Diversity3Icon",
+      },
+    ],
+  },
+  {
+    code: "sellable",
+    label_hr: "Nabava",
+    icon_mui: "ShoppingCartIcon",
+    children: [
+      {
+        code: "sellable_food",
+        label_hr: "Hrana",
+        icon_mui: "FastfoodIcon",
+      },
+      {
+        code: "sellable_clothes",
+        label_hr: "Odjeća",
+        icon_mui: "CheckroomIcon",
+      },
+      {
+        code: "sellable_furniture",
+        label_hr: "Namještaj",
+        icon_mui: "ChairIcon",
+      },
+      {
+        code: "sellable_tool",
+        label_hr: "Alat",
+        icon_mui: "HardwareIcon",
+      },
+      {
+        code: "sellable_gadget",
+        label_hr: "Gadgeti",
+        icon_mui: "DevicesOtherIcon",
+      },
+      {
+        code: "sellable_buildingMaterial",
+        label_hr: "Građevinski materijal",
+        icon_mui: "FoundationIcon",
+      },
+    ],
+  },
+  {
+    code: "sellable_demand",
+    label_hr: "Nabava/Potražnja",
+    icon_mui: "ShoppingCartIcon",
+  },
+] as Category_props[]
+
 type Category_props = {
   code: Category_code
   parent_id?: number
   label_hr: string
   icon_mui: string
+  children?: Omit<Category_props, "children">[]
 }
 
 export async function seedCategories(db: Drizzle_instance) {
-  async function upsertCategory(props: Category_props) {
-    return await db
+  for (const category of categories) {
+    const category_inserted = await db
       .insert(Category)
-      .values(props)
-      // .onConflictDoUpdate({ target: Category.label, set: { parentId: parent_id } }) // TODO
+      .values(category)
       .returning()
       .then(c => c[0])
+
+    if (!category.children) continue
+
+    const children_mapped = category.children.map(c => ({ ...c, parent_id: category_inserted.id }))
+    await db.insert(Category).values(children_mapped)
   }
-
-  await upsertCategory({ code: "job", label_hr: "Poslovi", icon_mui: "HandymanIcon" })
-  await upsertCategory({ code: "job_demand", label_hr: "Majstori", icon_mui: "EngineeringIcon" })
-  await upsertCategory({ code: "accommodation", label_hr: "Smještaji", icon_mui: "BedIcon" })
-  await upsertCategory({
-    code: "accommodation_demand",
-    label_hr: "Smještaji/Potražnja",
-    icon_mui: "BedIcon",
-  })
-
-  const gathering = await upsertCategory({
-    code: "gathering",
-    label_hr: "Okupljanja",
-    icon_mui: "GroupsIcon",
-  })
-
-  await Promise.all([
-    upsertCategory({
-      code: "gathering_spirituality",
-      parent_id: gathering.id,
-      label_hr: "Duhovnost",
-      icon_mui: "SelfImprovementIcon",
-    }),
-    upsertCategory({
-      code: "gathering_work",
-      parent_id: gathering.id,
-      label_hr: "Radne akcije",
-      icon_mui: "ConstructionIcon",
-    }),
-    upsertCategory({
-      code: "gathering_hangout",
-      parent_id: gathering.id,
-      label_hr: "Druženja",
-      icon_mui: "Diversity3Icon",
-    }),
-  ])
-
-  const sellable = await upsertCategory({
-    code: "sellable",
-    label_hr: "Nabava",
-    icon_mui: "ShoppingCartIcon",
-  })
-  await upsertCategory({
-    code: "sellable_demand",
-    label_hr: "Nabava/Potražnja",
-    icon_mui: "ShoppingCartIcon",
-  })
-  await Promise.all([
-    upsertCategory({
-      code: "sellable_food",
-      parent_id: sellable.id,
-      label_hr: "Hrana",
-      icon_mui: "FastfoodIcon",
-    }),
-    upsertCategory({
-      code: "sellable_clothes",
-      parent_id: sellable.id,
-      label_hr: "Odjeća",
-      icon_mui: "CheckroomIcon",
-    }),
-    upsertCategory({
-      code: "sellable_furniture",
-      parent_id: sellable.id,
-      label_hr: "Namještaj",
-      icon_mui: "ChairIcon",
-    }),
-    upsertCategory({
-      code: "sellable_tool",
-      parent_id: sellable.id,
-      label_hr: "Alat",
-      icon_mui: "HardwareIcon",
-    }),
-    upsertCategory({
-      code: "sellable_gadget",
-      parent_id: sellable.id,
-      label_hr: "Gadgeti",
-      icon_mui: "DevicesOtherIcon",
-    }),
-    upsertCategory({
-      code: "sellable_buildingMaterial",
-      parent_id: sellable.id,
-      label_hr: "Građevinski materijal",
-      icon_mui: "FoundationIcon",
-    }),
-  ])
 
   return await db.query.Category.findMany()
 }
