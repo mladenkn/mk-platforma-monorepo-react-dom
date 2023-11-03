@@ -1,3 +1,4 @@
+import { asNonNil } from "@mk-libs/common/common"
 import commandLineArgs from "command-line-args"
 import { z } from "zod"
 
@@ -38,7 +39,7 @@ export function cli_command_base<
       TBase_params & TParams
     >
     async function resolve() {
-      // TODO
+      console.log(`Running ${command.name} oh yeeaaah`)
     }
     return { name: command.name, resolve }
   }
@@ -50,8 +51,7 @@ type Command_created = {
 }
 
 export function cli_run(commands: Command_created[]) {
-  const c = commandLineArgs([], { stopAtFirstUnknown: true })
-  const command_name = c.command as string
+  const command_name = asNonNil(process.argv[2])
   const command = commands.find(c => c.name === command_name)
   if (!command) {
     throw new Error(`Command with name ${command_name} not registered.`)

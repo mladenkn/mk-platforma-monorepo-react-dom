@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "tsc": "tsc --noEmit",
-    "+": "tsx cli.ts",
+    "+": "tsx cli2.ts",
     "postinstall": "pnpm prisma generate",
     "build": "pnpm next build",
     "drizzle.push": "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts"
