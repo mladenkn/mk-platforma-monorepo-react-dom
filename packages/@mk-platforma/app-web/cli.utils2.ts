@@ -16,19 +16,19 @@ export type cli_Command<
 
 export function cli_command_base<
   TContext extends object = {},
-  TContext_params extends object = {},
+  TBase_params extends object = {},
 >(command_base: {
-  context_params?: z.ZodType<TContext_params>
-  context_create: (params_base: TContext_params) => Promise<TContext>
+  context_params?: z.ZodType<TBase_params>
+  context_create: (params_base: TBase_params) => Promise<TContext>
 }) {
   return function cli_command<TName extends string = string, TParams extends object = {}>(
-    command: cli_Command<TName, TContext, TParams, TParams & TContext_params>,
+    command: cli_Command<TName, TContext, TParams, TParams & TBase_params>,
   ) {
-    const merged: cli_Command<TName, TContext, TParams & TContext_params> = {
+    const merged: cli_Command<TName, TContext, TParams & TBase_params> = {
       name: command.name,
       resolve: command.resolve,
       params: command_base.context_params?.and(command.params || z.object({})) as z.ZodType<
-        TParams & TContext_params
+        TParams & TBase_params
       >,
     }
     return merged
