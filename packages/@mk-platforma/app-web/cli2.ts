@@ -34,6 +34,4 @@ const commands = [
 
 cli_run({
   commands: commands as any,
-  env_base: { DATABASE_URL: getConnectionString("dev") },
-  env_userInjected: { DATABASE_URL: { fromParam: "db-instance", map: getConnectionString } },
 })
