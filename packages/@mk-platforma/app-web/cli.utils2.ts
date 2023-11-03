@@ -30,7 +30,7 @@ export function cli_command_base<
   ) {
     const merged: cli_Command<TName, TContext & cli_Context_base, TParams & TBase_params> = {
       name: command.name,
-      resolve: command.resolve,
+      resolve: command.resolve, // TODO: wrapat sa kreacijom contexta
       params: command_base.context_params?.and(command.params || z.object({})) as z.ZodType<
         TParams & TBase_params
       >,
