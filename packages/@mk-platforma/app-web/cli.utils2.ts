@@ -5,7 +5,7 @@ import { z } from "zod"
 import { cli_runCommand } from "./cli.utils"
 
 type cli_Context_base = {
-  run(cmd: string | string[]): Promise<unknown>
+  run(cmd: string): Promise<unknown>
 }
 
 export type cli_Command<

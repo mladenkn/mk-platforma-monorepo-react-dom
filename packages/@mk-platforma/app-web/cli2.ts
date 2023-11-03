@@ -23,12 +23,10 @@ const commands = [
   command({
     name: "db.reset",
     async resolve({ db, db_connectionString, run }) {
-      await run([
-        `psql ${db_connectionString} --file=./db.truncate.sql`,
-        "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
-        "prisma db pull",
-        "prisma generate",
-      ])
+      await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
+      await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
+      await run("prisma db pull")
+      await run("prisma generate")
       await data_seed_fakeRandomized(db)
     },
   }),
