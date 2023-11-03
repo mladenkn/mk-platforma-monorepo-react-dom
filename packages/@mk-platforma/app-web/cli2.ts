@@ -35,4 +35,4 @@ const commands = [
   }),
 ]
 
-cli_run({ commands })
+cli_run(commands)

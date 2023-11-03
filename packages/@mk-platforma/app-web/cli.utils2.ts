@@ -51,8 +51,4 @@ type Command_created = {
   resolve(): Promise<unknown>
 }
 
-type runProgram_options = {
-  commands: Command_created[]
-}
-
-export function cli_run({ commands }: runProgram_options) {}
+export function cli_run(commands: Command_created[]) {}
