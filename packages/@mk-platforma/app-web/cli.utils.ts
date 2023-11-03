@@ -69,9 +69,11 @@ export async function run(...cmd: unknown[]) {
 export async function cli_createContext() {
   const db = drizzle_connect()
 
+  console.log(73, "doing first db query")
   const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
     u => u || { id: -1, canMutate: false, name: "" },
   )
+  console.log(76, "done first db query")
   const apiContext = { user, getCookie: () => null, db }
   return { db, api: Api_ss(apiContext) }
 }

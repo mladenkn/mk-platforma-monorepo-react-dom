@@ -26,6 +26,7 @@ const commands = [
       const db_connectionString = cli_getConnectionString(dbInstance || "dev")
       await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
       await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
+      console.log(29, "drizzle push completed")
     },
     async resolve({ db, run }) {
       await run("prisma db pull")
