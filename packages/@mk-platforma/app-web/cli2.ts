@@ -7,10 +7,7 @@ import { asString } from "@mk-libs/common/common"
 
 const command = cli_command_base({
   base_params: z.object({
-    dbInstance: z
-      .string()
-      .optional()
-      .transform(v => v || "dev"),
+    dbInstance: z.string().optional().default("dev"),
   }),
   async base_resolve({ dbInstance }) {
     const db_connectionString = cli_getConnectionString(dbInstance || "dev")
@@ -38,7 +35,7 @@ const commands = [
   command({
     name: "db.psql",
     async resolve({ db_connectionString, run }) {
-      await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
+      await run(`psql ${db_connectionString}`)
     },
   }),
   command({
