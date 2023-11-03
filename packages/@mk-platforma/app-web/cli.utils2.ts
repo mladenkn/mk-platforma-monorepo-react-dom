@@ -1,8 +1,7 @@
-import { asNonNil, eva } from "@mk-libs/common/common"
-import commandLineArgs from "command-line-args"
-import { omit } from "lodash"
+import { asNonNil } from "@mk-libs/common/common"
 import { z } from "zod"
 import { cli_runCommand } from "./cli.utils"
+import yargs from "yargs"
 
 type cli_Context_base = {
   run(cmd: string): Promise<unknown>
@@ -39,17 +38,7 @@ export function cli_command_base<
       TBase_params & TParams
     >
     async function resolve() {
-      const params_resolved = eva(() => {
-        const parsed_1 = [
-          ...Object.entries((command_base.base_params as any).shape),
-          ...(command.params ? Object.entries((command.params as any).shape) : []),
-        ].map(([paramName]) => ({ name: paramName, type: String }))
-        const parsed_2 = commandLineArgs([{ name: "command", defaultOption: true }, ...parsed_1], {
-          stopAtFirstUnknown: true,
-        })
-        const parsed_3 = omit(parsed_2, "command")
-        return params_zod.parse(parsed_3)
-      })
+      const params_resolved = params_zod.parse(yargs.argv)
       if (command.preResolve) {
         await command.preResolve({ run: cli_runCommand }, params_resolved)
       }
