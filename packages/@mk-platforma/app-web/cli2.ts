@@ -1,5 +1,5 @@
 import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeRandomized"
-import { cli_command, cli_command_base, cli_run } from "./cli.utils2"
+import { cli_command_base, cli_run } from "./cli.utils2"
 import { z } from "zod"
 import { cli_createContext, cli_getConnectionString } from "./cli.utils"
 
