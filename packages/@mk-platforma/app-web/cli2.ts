@@ -2,6 +2,9 @@ import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeR
 import { cli_command_base, cli_run } from "./cli.utils2"
 import { z } from "zod"
 import { cli_createContext, cli_getConnectionString } from "./cli.utils"
+import { location_api_google__search } from "./domain/Location.api.google"
+import { asString } from "@mk-libs/common/common"
+import { Location_google_find_save } from "./domain/Location.api"
 
 const command = cli_command_base({
   base_params: z.object({
@@ -31,11 +34,35 @@ const commands = [
     },
   }),
   command({
+    name: "db.psql",
+    resolve({ db_connectionString, run }) {
+      run(`psql ${db_connectionString} --file=./db.truncate.sql`)
+    },
+  }),
+  command({
     name: "location.many",
     params: z.object({ query: z.string() }),
     resolve: ({ api }, params) =>
       api.location.many({ query: params.query }).then(console.log).catch(console.error),
   }),
+  command({
+    name: "location.google.find",
+    params: z.object({ query: z.string() }),
+    resolve: (_, { query }) => {
+      const searchQuery = asString(query)
+      return location_api_google__search(searchQuery)
+        .then(r => console.log(r[0]))
+        .catch(console.error)
+    },
+  }),
+  // command({
+  //   name: "location.google.find.save",
+  //   params: z.object({ query: z.string() }),
+  //   resolve: ({ db }, { query }) => {
+  //     const searchQuery = asString(query)
+  //     return Location_google_find_save(db, searchQuery).then(console.log).catch(console.error)
+  //   },
+  // }),
 ]
 
 cli_run(commands).then(() => process.exit(0))
