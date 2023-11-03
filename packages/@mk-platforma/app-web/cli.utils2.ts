@@ -1,4 +1,4 @@
-import { asNonNil } from "@mk-libs/common/common"
+import { asNonNil, eva } from "@mk-libs/common/common"
 import commandLineArgs from "command-line-args"
 import { omit } from "lodash"
 import { z } from "zod"
@@ -40,16 +40,18 @@ export function cli_command_base<
       TBase_params & TParams
     >
     async function resolve() {
-      const params_1 = [
-        ...Object.entries((command_base.base_params as any).shape),
-        ...(command.params ? Object.entries((command.params as any).shape) : []),
-      ].map(([paramName]) => ({ name: paramName, type: String }))
-      const params_2 = commandLineArgs([{ name: "command", defaultOption: true }, ...params_1], {
-        stopAtFirstUnknown: true,
+      const params_parsed = eva(() => {
+        const parsed_1 = [
+          ...Object.entries((command_base.base_params as any).shape),
+          ...(command.params ? Object.entries((command.params as any).shape) : []),
+        ].map(([paramName]) => ({ name: paramName, type: String }))
+        const parsed_2 = commandLineArgs([{ name: "command", defaultOption: true }, ...parsed_1], {
+          stopAtFirstUnknown: true,
+        })
+        const parsed_3 = omit(parsed_2, "command")
+        return params_zod.parse(parsed_3)
       })
-      const params_3 = omit(params_2, "command")
-      const params_4 = params_zod.parse(params_3)
-      console.log(`Running ${command.name} oh yeeaaah`, params_4)
+      console.log(`Running ${command.name} oh yeeaaah`, params_parsed)
     }
     return { name: command.name, resolve }
   }
