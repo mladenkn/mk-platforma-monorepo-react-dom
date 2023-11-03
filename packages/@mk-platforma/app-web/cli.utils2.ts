@@ -13,21 +13,29 @@ export type cli_Context = {
 }
 
 export type cli_Command<
-  TName extends string,
-  TEnv extends Record<string, string>,
-  TParamsZod extends z.AnyZodObject = z.AnyZodObject,
+  TName extends string = string,
+  TEnv extends Record<string, string> = {},
+  TParams extends object = {},
 > = {
   name: TName
-  params?: TParamsZod
+  params?: z.ZodType<TParams>
   env?: TEnv
   resolve:
-    | ((c: cli_Context & { params: z.infer<TParamsZod> }) => Promise<unknown> | unknown | string)
+    | ((c: cli_Context, params: TParams) => Promise<unknown> | unknown | string)
     | string
     | string[]
 }
 
+export function cli_command<
+  TName extends string,
+  TEnv extends Record<string, string>,
+  TParams extends object = {},
+>(command: cli_Command<TName, TEnv, TParams>) {
+  return command
+}
+
 type runProgram_options = {
-  commands: cli_Command<string, {}>[]
+  commands: cli_Command[]
   env_base: Record<string, string>
   env_userInjected: {
     [key: string]: { fromParam: string; map(param: string): string }
