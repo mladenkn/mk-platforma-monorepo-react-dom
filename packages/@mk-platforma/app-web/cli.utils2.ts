@@ -19,19 +19,28 @@ export type cli_Command<
 }
 
 export function cli_command_base<
-  TContext extends object = {},
   TBase_params extends object = {},
+  TBaseResolve_result extends object = {},
 >(command_base: {
-  context_params?: z.ZodType<TBase_params>
-  context_create: (params_base: TBase_params) => Promise<TContext>
+  base_params?: z.ZodType<TBase_params>
+  base_resolve: (params_base: TBase_params) => Promise<TBaseResolve_result>
 }) {
   return function cli_command<TName extends string = string, TParams extends object = {}>(
-    command: cli_Command<TName, TContext & cli_Context_base, TParams, TParams & TBase_params>,
+    command: cli_Command<
+      TName,
+      TBaseResolve_result & cli_Context_base,
+      TParams,
+      TParams & TBase_params
+    >,
   ) {
-    const merged: cli_Command<TName, TContext & cli_Context_base, TParams & TBase_params> = {
+    const merged: cli_Command<
+      TName,
+      TBaseResolve_result & cli_Context_base,
+      TParams & TBase_params
+    > = {
       name: command.name,
       resolve: command.resolve, // TODO: wrapat sa kreacijom contexta
-      params: command_base.context_params?.and(command.params || z.object({})) as z.ZodType<
+      params: command_base.base_params?.and(command.params || z.object({})) as z.ZodType<
         TParams & TBase_params
       >,
     }
