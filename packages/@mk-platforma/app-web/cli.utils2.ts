@@ -32,35 +32,28 @@ export function cli_command_base<
       TParams,
       TParams & TBase_params
     >,
-  ) {
-    const merged: cli_Command<
-      TName,
-      TBaseResolve_result & cli_Context_base,
-      TParams & TBase_params
-    > = {
+  ): Command_created<TBase_params & TParams> {
+    const merged = {
       name: command.name,
-      resolve: command.resolve, // TODO: wrapat sa base_resolve
       params: command_base.base_params?.and(command.params || z.object({})) as z.ZodType<
-        TParams & TBase_params
+        TBase_params & TParams
       >,
+      async resolve(context_base: cli_Context_base, params: z.ZodType<TBase_params & TParams>) {
+        // TODO
+      },
     }
     return merged
   }
 }
 
-type ResolveNoContext<TParams> =
-  | ((params: TParams) => Promise<unknown> | unknown | string)
-  | string
-  | string[]
-
-export function cli_command<TName extends string = string, TParams extends object = {}>(
-  command: cli_Command<TName, cli_Context_base, TParams> & { resolve: ResolveNoContext<TParams> },
-) {
-  return command
+type Command_created<Params extends object = {}> = {
+  name: string
+  params: z.ZodType<Params>
+  resolve(context_base: cli_Context_base, params: z.ZodType<Params>): Promise<unknown>
 }
 
 type runProgram_options = {
-  commands: cli_Command[]
+  commands: Command_created[]
 }
 
 export function cli_run({ commands }: runProgram_options) {}

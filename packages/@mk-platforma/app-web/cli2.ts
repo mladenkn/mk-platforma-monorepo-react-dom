@@ -35,6 +35,4 @@ const commands = [
   }),
 ]
 
-cli_run({
-  commands: commands as any,
-})
+cli_run({ commands })
