@@ -53,7 +53,7 @@ export async function run(...cmd: unknown[]) {
       if (typeof command === "function") {
         await command(await cli_createContext())
       } else {
-        const result: any = await runCommand(command, env)
+        const result: any = await cli_runCommand(command, env)
         if (result.code !== 0) {
           result.error && console.error(result.error?.message || "Error")
           process.exit(result.code)
@@ -76,7 +76,7 @@ export async function cli_createContext() {
   return { db, api: Api_ss(apiContext) }
 }
 
-async function runCommand(command: string, env: Record<string, string>) {
+export async function cli_runCommand(command: string, env?: Record<string, string>) {
   return new Promise((resolve, reject) => {
     const [cmd, ...args] = command.split(" ")
 

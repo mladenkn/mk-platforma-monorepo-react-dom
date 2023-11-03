@@ -2,6 +2,7 @@ import { asNonNil, eva } from "@mk-libs/common/common"
 import commandLineArgs from "command-line-args"
 import { omit } from "lodash"
 import { z } from "zod"
+import { cli_runCommand } from "./cli.utils"
 
 type cli_Context_base = {
   run(cmd: string | string[]): Promise<unknown>
@@ -15,10 +16,7 @@ export type cli_Command<
 > = {
   name: TName
   params?: z.ZodType<TParams>
-  resolve:
-    | ((c: TContext, params: TResolveParams) => Promise<unknown> | unknown | string)
-    | string
-    | string[]
+  resolve: (c: TContext, params: TResolveParams) => Promise<unknown> | unknown
 }
 
 export function cli_command_base<
@@ -53,7 +51,9 @@ export function cli_command_base<
       })
       const base_resolved = await command_base.base_resolve(params_resolved)
 
-      console.log(`Running ${command.name} oh yeeaaah`, params_resolved, base_resolved)
+      // console.log(`Running ${command.name} oh yeeaaah`, params_resolved, base_resolved)
+      await command.resolve({ ...base_resolved, run: cli_runCommand }, params_resolved)
+      // console.log(60, result)
     }
     return { name: command.name, resolve }
   }
