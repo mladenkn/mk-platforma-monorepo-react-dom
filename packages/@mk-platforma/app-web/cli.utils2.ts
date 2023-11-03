@@ -39,7 +39,7 @@ export function cli_command_base<
       TParams & TBase_params
     > = {
       name: command.name,
-      resolve: command.resolve, // TODO: wrapat sa kreacijom contexta
+      resolve: command.resolve, // TODO: wrapat sa base_resolve
       params: command_base.base_params?.and(command.params || z.object({})) as z.ZodType<
         TParams & TBase_params
       >,
