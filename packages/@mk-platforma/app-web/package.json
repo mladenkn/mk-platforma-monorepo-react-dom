@@ -63,6 +63,7 @@
     "@types/node": "^17.0.45",
     "@types/react": "^18.0.22",
     "@types/react-dom": "^18.0.7",
+    "@types/yargs": "^17.0.29",
     "drizzle-kit": "^0.19.13",
     "eslint": "7.32.0",
     "prisma": "5.0.0",
@@ -71,6 +72,7 @@
     "tsx": "^3.12.7",
     "typescript": "^5.2.2",
     "utility-types": "^3.10.0",
+    "yargs": "^17.7.2",
     "zod-prisma-types": "^2.7.4"
   }
 }
