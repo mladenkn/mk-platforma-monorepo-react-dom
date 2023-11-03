@@ -1,5 +1,6 @@
 import { asNonNil } from "@mk-libs/common/common"
 import commandLineArgs from "command-line-args"
+import { omit } from "lodash"
 import { z } from "zod"
 
 type cli_Context_base = {
@@ -35,11 +36,20 @@ export function cli_command_base<
       TParams & TBase_params
     >,
   ): Command_created {
-    const params = command_base.base_params?.and(command.params || z.object({})) as z.ZodType<
+    const params_zod = command_base.base_params?.and(command.params || z.object({})) as z.ZodType<
       TBase_params & TParams
     >
     async function resolve() {
-      console.log(`Running ${command.name} oh yeeaaah`)
+      const params_1 = [
+        ...Object.entries((command_base.base_params as any).shape),
+        ...(command.params ? Object.entries((command.params as any).shape) : []),
+      ].map(([paramName]) => ({ name: paramName, type: String }))
+      const params_2 = commandLineArgs([{ name: "command", defaultOption: true }, ...params_1], {
+        stopAtFirstUnknown: true,
+      })
+      const params_3 = omit(params_2, "command")
+      const params_4 = params_zod.parse(params_3)
+      console.log(`Running ${command.name} oh yeeaaah`, params_4)
     }
     return { name: command.name, resolve }
   }

@@ -4,9 +4,14 @@ import { z } from "zod"
 import { cli_createContext, cli_getConnectionString } from "./cli.utils"
 
 const command = cli_command_base({
-  base_params: z.object({ dbInstance: z.string().transform(v => v || "dev") }),
+  base_params: z.object({
+    dbInstance: z
+      .string()
+      .optional()
+      .transform(v => v || "dev"),
+  }),
   async base_resolve({ dbInstance }) {
-    const db_connectionString = cli_getConnectionString(dbInstance)
+    const db_connectionString = cli_getConnectionString(dbInstance || "dev")
     process.env.DATABASE_URL = db_connectionString
     const base = await cli_createContext()
     return { ...base, db_connectionString }
