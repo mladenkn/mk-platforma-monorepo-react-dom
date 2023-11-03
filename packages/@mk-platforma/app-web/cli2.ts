@@ -6,8 +6,9 @@ import { cli_createContext, cli_getConnectionString } from "./cli.utils"
 const command = cli_command_base({
   context_params: z.object({ dbInstance: z.string().transform(v => v || "dev") }),
   async context_create({ dbInstance }) {
-    const base = await cli_createContext()
     const db_connectionString = cli_getConnectionString(dbInstance)
+    process.env.DATABASE_URL = db_connectionString
+    const base = await cli_createContext()
     return { ...base, db_connectionString }
   },
 })
