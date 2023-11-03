@@ -1,3 +1,4 @@
+import commandLineArgs from "command-line-args"
 import { z } from "zod"
 
 type cli_Context_base = {
@@ -39,10 +40,7 @@ export function cli_command_base<
     async function resolve() {
       // TODO
     }
-    return {
-      name: command.name,
-      resolve,
-    }
+    return { name: command.name, resolve }
   }
 }
 
@@ -51,4 +49,12 @@ type Command_created = {
   resolve(): Promise<unknown>
 }
 
-export function cli_run(commands: Command_created[]) {}
+export function cli_run(commands: Command_created[]) {
+  const c = commandLineArgs([], { stopAtFirstUnknown: true })
+  const command_name = c.command as string
+  const command = commands.find(c => c.name === command_name)
+  if (!command) {
+    throw new Error(`Command with name ${command_name} not registered.`)
+  }
+  return command.resolve()
+}
