@@ -13,6 +13,8 @@ import { location_api_google__search } from "./domain/Location.api.google"
 import { Location_google_find_save } from "./domain/Location.api"
 import { asString } from "@mk-libs/common/common"
 import data_seed_fakeRandomized from "~/data.seed.fakeRandomized/data.seed.fakeRandomized"
+import drizzle_connect from "./drizzle/drizzle.instance"
+import doCleanSeed_lib from "~/framework/data.seed.lib"
 
 const parsed = parseCommand()
 
@@ -26,8 +28,11 @@ const run_args = match(parsed.command)
 
   .with("dev.test", () => [
     {},
-    () => {
-      console.log(__dirname)
+    async () => {
+      await doCleanSeed_lib(
+        drizzle_connect(),
+        "/home/mladen/projekti/mk-platforma-monorepo-react-dom/packages/@mk-platforma/app-web/data.seed.fakeRandomized.clean",
+      )
     },
   ])
 
