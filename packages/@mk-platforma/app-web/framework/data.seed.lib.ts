@@ -20,5 +20,12 @@ export default async function doCleanSeed_lib(db: Db, folderPath: string) {
     Object.entries(groupBy(seeders, s => s.dbSeeder.order)),
     ([order]) => order,
   )
-  console.log(13, seeders_byOrder)
+  for (const [_, seeders] of seeders_byOrder) {
+    const promises = seeders.map(seeder => seeder(db)).filter(isPromise)
+    await Promise.all(promises)
+  }
+}
+
+function isPromise(p: unknown): p is Promise<unknown> {
+  return Object.prototype.toString.call(p) === "[object Promise]"
 }
