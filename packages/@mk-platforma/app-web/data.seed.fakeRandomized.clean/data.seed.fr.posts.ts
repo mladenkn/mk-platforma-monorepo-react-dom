@@ -21,21 +21,14 @@ export default async function seedPosts(db: Drizzle_instance) {
       db,
     })
 
-    const images = await eva(async () => {
+    const images_created = await eva(async () => {
       if (!post.images?.length) return undefined
-      const images_created = await api.image.create(post.images!)
-      const images_withIsMain = images_created.map(i => ({
-        ...i,
-        isMain: false,
-      }))
-      const mainImage = faker.helpers.arrayElement(images_withIsMain)
-      mainImage.isMain = true
-      return images_withIsMain
+      return await api.image.create(post.images!)
     })
 
     const post_created = await api.post.create({
       ...post,
-      images,
+      images: images_created,
     })
 
     for (const comment of post.comments) {

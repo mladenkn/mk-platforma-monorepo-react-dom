@@ -8,6 +8,7 @@ const input_zod = z.array(
   ImageSchema.pick({
     uploadthing_key: true,
     url: true,
+    isMain: true,
   }),
 )
 

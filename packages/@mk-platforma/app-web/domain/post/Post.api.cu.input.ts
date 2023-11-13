@@ -1,3 +1,4 @@
+import { omit } from "lodash"
 import { z } from "zod"
 import { ImageSchema, LocationSchema, PostSchema, CategorySchema } from "~/prisma/generated/zod"
 
@@ -29,12 +30,18 @@ export const Post_api_create_input = z
     images: z
       .array(ImageSchema.pick({ isMain: true, id: true, url: true }))
       .optional()
-      .refine(images => (images?.length ? images?.filter(i => i.isMain).length === 1 : true), {
-        message: "Mora biti jedna glavna slika",
-        params: {
-          code: "ONE_MAIN_IMAGE",
+      .refine(
+        images => {
+          if (!images?.length) return true
+          return images.filter(i => i.isMain).length === 1
         },
-      }),
+        {
+          message: "Mora biti jedna glavna slika",
+          params: {
+            code: "ONE_MAIN_IMAGE",
+          },
+        },
+      ),
     location: LocationSchema.pick({ id: true }).nullish(),
   })
 
