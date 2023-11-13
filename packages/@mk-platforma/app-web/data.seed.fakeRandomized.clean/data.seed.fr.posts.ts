@@ -48,4 +48,4 @@ export default async function seedPosts(db: Drizzle_instance) {
   }
 }
 
-seedPosts.dbSeeder = { order: 2 }
+seedPosts.dbSeeder = {}
