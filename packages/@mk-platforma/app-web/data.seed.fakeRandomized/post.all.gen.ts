@@ -10,13 +10,16 @@ import { PostGenerator_context as PostGenerator_context } from "./data.gen._util
 import generate_accomodations_demand from "./post.accommodation.demand.gen"
 import generate_products_demand from "./post.products.demand.gen"
 
-function post_common_generate({ locations }: PostGenerator_context) {
+function post_common_generate({ locations, users }: PostGenerator_context) {
   return {
     description: generateArray(() => "opis oglasa ", 30).join(""),
     location: faker.helpers.arrayElement(locations),
     contact: faker.helpers.arrayElement([faker.phone.number(), faker.internet.email()]),
     comments: generateArray(
-      () => ({ content: generateArray(() => "komentar ", 20).join("") }),
+      () => ({
+        content: generateArray(() => "komentar ", 20).join(""),
+        author_id: faker.helpers.arrayElement(users)!.id,
+      }),
       faker.datatype.number({ min: 0, max: 7 }),
     ),
     title: faker.lorem.words(),

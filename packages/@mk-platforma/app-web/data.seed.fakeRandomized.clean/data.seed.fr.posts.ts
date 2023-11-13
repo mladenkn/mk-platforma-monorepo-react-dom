@@ -10,7 +10,7 @@ export default async function seedPosts(db: Drizzle_instance) {
   const locations = await db.select().from(Location)
   const users = await db.select().from(User)
 
-  const posts = faker.helpers.shuffle(generatePosts({ categories, locations }))
+  const posts = faker.helpers.shuffle(generatePosts({ categories, locations, users }))
 
   for (const post of posts) {
     const user = faker.helpers.arrayElement(users)
@@ -40,9 +40,8 @@ export default async function seedPosts(db: Drizzle_instance) {
 
     for (const comment of post.comments) {
       await db.insert(Comment).values({
-        content: comment.content,
+        ...comment,
         post_id: post_created.id,
-        author_id: faker.helpers.arrayElement(users)!.id,
       })
     }
   }
