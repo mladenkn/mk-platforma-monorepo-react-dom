@@ -21,3 +21,5 @@ export default async function seedUsers(db: Drizzle_instance) {
   await db.insert(User).values(users)
   return await db.query.User.findMany()
 }
+
+seedUsers.dbSeeder = { order: 1 }
