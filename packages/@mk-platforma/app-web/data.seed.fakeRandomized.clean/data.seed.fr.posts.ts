@@ -9,24 +9,16 @@ export default async function seedPosts(db: Drizzle_instance) {
   const categories = await db.select().from(Category)
   const locations = await db.select().from(Location)
   const users = await db.select().from(User)
+
   const posts = faker.helpers.shuffle(generatePosts({ categories, locations }))
-  await _seedPosts(db, posts, users)
-}
 
-seedPosts.dbSeeder = { order: 2 }
-
-async function _seedPosts(
-  db: Drizzle_instance,
-  posts: ReturnType<typeof generatePosts>,
-  users: { id: number; name?: string | null }[],
-) {
   for (const post of posts) {
     const user = faker.helpers.arrayElement(users)
 
     const api = Api_ss({
       user: { id: user.id, name: user.name || "seed user", canMutate: true },
       getCookie: (() => {}) as any,
-      db: db,
+      db,
     })
 
     const images = await eva(async () => {
@@ -55,3 +47,5 @@ async function _seedPosts(
     }
   }
 }
+
+seedPosts.dbSeeder = { order: 2 }
