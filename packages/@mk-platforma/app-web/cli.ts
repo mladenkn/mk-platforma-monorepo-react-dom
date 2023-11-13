@@ -29,18 +29,11 @@ const run_args = match(parsed.command)
   .with("dev.test", () => [
     {},
     async () => {
-      await doCleanSeed_lib(
-        drizzle_connect(),
-        "/home/mladen/projekti/mk-platforma-monorepo-react-dom/packages/@mk-platforma/app-web/data.seed.fakeRandomized.clean",
-      )
+      console.log("running dev.test")
     },
   ])
 
   .with("db.prisma", () => [{}, `prisma ${parsed._unknown!.join(" ")}`])
-
-  .with("db.seed", () => [{}, ({ db }: Cli_Context) => data_seed_fakeRandomized(db)])
-
-  .with("db.truncate", () => [{}, `psql ${_getConnectionString()} --file=./db.truncate.sql`])
 
   .with("db.reset", () => [
     {},
@@ -49,7 +42,11 @@ const run_args = match(parsed.command)
       "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
       "prisma db pull",
       "prisma generate",
-      ({ db }: Cli_Context) => data_seed_fakeRandomized(db),
+      async ({ db }: Cli_Context) =>
+        await doCleanSeed_lib(
+          db,
+          "/home/mladen/projekti/mk-platforma-monorepo-react-dom/packages/@mk-platforma/app-web/data.seed.fakeRandomized.clean",
+        ),
     ],
   ])
 
