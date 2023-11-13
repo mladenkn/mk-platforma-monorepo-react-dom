@@ -1,6 +1,7 @@
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import fs from "fs"
 import path from "path"
+import { groupBy, sortBy } from "lodash"
 
 type Db = Drizzle_instance
 
@@ -15,5 +16,9 @@ export default async function doCleanSeed_lib(db: Db, folderPath: string) {
       if (!sth.dbSeeder.order) sth.dbSeeder.order = Number.MAX_VALUE
       return sth
     })
-  console.log(13, seeders)
+  const seeders_byOrder = sortBy(
+    Object.entries(groupBy(seeders, s => s.dbSeeder.order)),
+    ([order]) => order,
+  )
+  console.log(13, seeders_byOrder)
 }
