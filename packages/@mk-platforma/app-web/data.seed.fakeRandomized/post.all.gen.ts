@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { asString, generateArray } from "@mk-libs/common/common"
+import { generateArray } from "@mk-libs/common/common"
 import generateProducts from "./post.products.gen"
 import generateJobs from "./post.jobs.gen"
 import generateExperts from "./post.job.demand.gen"
@@ -26,28 +26,29 @@ function post_common_generate({ locations, users }: PostGenerator_context) {
   }
 }
 
+function post_images_add_isMain(images: { isMain?: boolean; url: string }[]) {
+  const images_mapped = images.map(i => ({ ...i, isMain: i.isMain || false }))
+  const hasMain = images_mapped.some(image => image.isMain)
+  if (!hasMain) {
+    const randomItem = faker.helpers.arrayElement(images_mapped)
+    randomItem.isMain = true
+  }
+  return images_mapped
+}
+
+type WithImages = { images?: { isMain?: boolean; url: string }[] } | {}
+
 export default function generatePosts(params: PostGenerator_context) {
-  function generatePosts_base<T extends object>(generateFirst: (p: PostGenerator_context) => T[]) {
+  function generatePosts_base<T extends WithImages>(
+    generateFirst: (p: PostGenerator_context) => T[],
+  ) {
     return generateFirst(params).map(post => {
-      const images_mapped =
-        "images" in post
-          ? ((post.images as any[]).map((image: any) => ({
-              ...image,
-              isMain: image.isMain || false,
-              url: asString(image.url),
-            })) as { isMain: boolean; url: string }[])
-          : undefined
-      if (images_mapped?.length) {
-        const hasMain = images_mapped.some(image => image.isMain)
-        if (!hasMain) {
-          const randomItem = faker.helpers.arrayElement(images_mapped)
-          randomItem.isMain = true
-        }
-      }
+      const images =
+        "images" in post && post.images?.length ? post_images_add_isMain(post.images) : undefined
       return {
         ...post_common_generate(params),
         ...post,
-        images: images_mapped,
+        images,
       }
     })
   }
