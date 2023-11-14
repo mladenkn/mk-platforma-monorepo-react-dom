@@ -16,10 +16,9 @@ export default async function seedPosts(db: Drizzle_instance) {
     posts.map(async post => {
       const user = faker.helpers.arrayElement(users)
 
-      const images_created = await eva(async () => {
-        if (!post.images?.length) return undefined
-        return await db.insert(Image).values(post.images).returning()
-      })
+      const images_created = post.images?.length
+        ? await db.insert(Image).values(post.images).returning()
+        : undefined
 
       const ctx = { user, db }
       const post_created = await Post_api_create(ctx, {
