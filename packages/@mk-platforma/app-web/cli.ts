@@ -41,7 +41,7 @@ const commands = [
       console.log("Seeding data")
       await doCleanSeed_lib(
         drizzle_connect(),
-        "/home/mladen/projekti/mk-platforma-monorepo-react-dom/packages/@mk-platforma/app-web/data.seed.fakeRandomized.clean",
+        "/home/mladen/projekti/mk-platforma-monorepo-react-dom/packages/@mk-platforma/app-web/data.seed.fakeRandomized",
       )
       console.log("Done seeding data")
     },
