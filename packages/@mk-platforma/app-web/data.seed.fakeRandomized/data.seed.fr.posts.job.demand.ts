@@ -4,7 +4,7 @@ import { uniq } from "lodash"
 import { PostGenerator_context } from "./data.gen._utils"
 import * as cro_dataset from "../data.seed.common/data.gen.cro.dataset"
 import { avatarStyles } from "~/domain/user/User.common"
-import { post_gen_base } from "./post.all.gen"
+import { post_gen_base } from "./data.seed.fr.posts._utils"
 
 function generateSingle({ categories }: PostGenerator_context) {
   const firstName = faker.helpers.arrayElement(cro_dataset.firstNames)

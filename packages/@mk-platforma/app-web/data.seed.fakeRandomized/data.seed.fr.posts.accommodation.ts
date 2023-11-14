@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker"
 import { asNonNil } from "@mk-libs/common/common"
 import { PostGenerator_context } from "./data.gen._utils"
 import data_images from "./data.gen.images.json"
-import { post_gen_base } from "./post.all.gen"
+import { post_gen_base } from "./data.seed.fr.posts._utils"
 
 const withRelatedProps = [
   {
