@@ -51,18 +51,18 @@ export function measurePerf<T>(func: () => T) {
 
 export function withAsyncPerfLogging<T extends (...args: unknown[]) => Promise<unknown>>(func: T) {
   return async (...args: unknown[]) => {
-    const [result, timeDiff] = await measurePerf(() => func(args))
+    const [result, timeDiff_millis] = await measurePerf(() => func(args))
     // @ts-ignore
-    console.log(`Performance of ${func.name}: ${timeDiff}`)
+    console.log(`Performance of ${func.name}: ${timeDiff_millis / 1000}`)
     return result
   }
 }
 
 export function withPerfLogging<TResult, T extends (...args: unknown[]) => TResult>(func: T) {
   return (...args: unknown[]): TResult => {
-    const [result, timeDiff] = measurePerf(() => func(args))
+    const [result, timeDiff_millis] = measurePerf(() => func(args))
     // @ts-ignore
-    console.log(`Performance of ${func.name}: ${timeDiff}`)
+    console.log(`Performance of ${func.name}: ${timeDiff_millis / 1000}`)
     return result
   }
 }
