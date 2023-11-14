@@ -4,7 +4,7 @@ import { avatarStyles } from "~/domain/user/User.common"
 import { User } from "~/drizzle/drizzle.schema"
 import { faker } from "@faker-js/faker"
 
-export default async function seedUsers(db: Drizzle_instance) {
+export default async function data_seed_fr_users(db: Drizzle_instance) {
   await db.insert(User).values({
     name: "Mladen",
     avatarStyle: { background: "green", color: "white" },
@@ -22,4 +22,4 @@ export default async function seedUsers(db: Drizzle_instance) {
   return await db.query.User.findMany()
 }
 
-seedUsers.dbSeeder = { order: 1 }
+data_seed_fr_users.dbSeeder = { order: 1 }

@@ -4,7 +4,7 @@ import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { Category, Location, User, Comment, Image } from "~/drizzle/drizzle.schema"
 import Post_api_create from "~/domain/post/Post.api.create"
 
-export default async function seedPosts(db: Drizzle_instance) {
+export default async function data_seed_fr_posts(db: Drizzle_instance) {
   const categories = await db.select().from(Category)
   const locations = await db.select().from(Location)
   const users = await db.select().from(User)
@@ -36,4 +36,4 @@ export default async function seedPosts(db: Drizzle_instance) {
   )
 }
 
-seedPosts.dbSeeder = {}
+data_seed_fr_posts.dbSeeder = {}

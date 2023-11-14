@@ -85,7 +85,7 @@ type Category_props = {
   children?: Omit<Category_props, "children">[]
 }
 
-export async function seedCategories(db: Drizzle_instance) {
+export async function data_seed_fr_categories(db: Drizzle_instance) {
   for (const category of categories) {
     const category_inserted = await db
       .insert(Category)
@@ -102,4 +102,4 @@ export async function seedCategories(db: Drizzle_instance) {
   return await db.query.Category.findMany()
 }
 
-seedCategories.dbSeeder = { order: 1 }
+data_seed_fr_categories.dbSeeder = { order: 1 }
