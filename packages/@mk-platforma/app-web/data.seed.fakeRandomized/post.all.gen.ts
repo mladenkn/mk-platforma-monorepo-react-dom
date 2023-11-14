@@ -1,14 +1,6 @@
 import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
-import generateProducts from "./post.products.gen"
-import generateJobs from "./post.jobs.gen"
-import generateExperts from "./post.job.demand.gen"
-import generateGatheringsWork from "./post.gathering.work.gen"
-import generateAccomodations from "./post.accommodation.gen"
-import generateGatheringsHangout from "./post.gathering.hangout.gen"
 import { PostGenerator_context as PostGenerator_context } from "./data.gen._utils"
-import generate_accomodations_demand from "./post.accommodation.demand.gen"
-import generate_products_demand from "./post.products.demand.gen"
 import { Post_api_create_input } from "~/domain/post/Post.api.cu.input"
 import { z } from "zod"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
@@ -52,23 +44,6 @@ function post_gen_images_addIsMain(images: { url: string; isMain?: boolean }[]) 
     randomItem.isMain = true
   }
   return images_mapped
-}
-
-export default function generatePosts(params: PostGenerator_context) {
-  const _data = [
-    ...generateExperts(params),
-    ...generateJobs(params),
-    ...generateProducts(params),
-    ...generateGatheringsWork(params),
-    ...generateGatheringsHangout(params),
-    ...generateAccomodations(params),
-    ...generate_accomodations_demand(params),
-    ...generate_products_demand(params),
-  ]
-  type Item = (typeof _data)[number] & { images?: { url: string }[] }
-
-  const data: Item[] = _data
-  return data
 }
 
 export async function data_seed_post_insert(
