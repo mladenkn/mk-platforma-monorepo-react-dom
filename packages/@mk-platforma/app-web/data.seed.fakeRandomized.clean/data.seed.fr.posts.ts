@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 import generatePosts from "~/data.seed.fakeRandomized/post.all.gen"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
-import { Category, Location, User, Comment } from "~/drizzle/drizzle.schema"
+import { Category, Location, User, Comment, Image } from "~/drizzle/drizzle.schema"
 import { Api_ss } from "~/api_/api.root"
 import { eva } from "@mk-libs/common/common"
 
@@ -23,7 +23,7 @@ export default async function seedPosts(db: Drizzle_instance) {
 
     const images_created = await eva(async () => {
       if (!post.images?.length) return undefined
-      return await api.image.create(post.images!)
+      return await db.insert(Image).values(post.images).returning()
     })
 
     const post_created = await api.post.create({
