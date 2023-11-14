@@ -33,13 +33,9 @@ const commands = [
   command({ name: "start", resolve: ({ run }) => run("next start") }),
   command({
     name: "db.reset",
-    async preResolve({ run }, { dbInstance }) {
-      const db_connectionString = cli_getConnectionString(dbInstance || "dev")
-      process.env.DATABASE_URL = db_connectionString
+    async resolve({ db_connectionString, run }) {
       await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
       await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
-    },
-    async resolve({ run }) {
       await run("prisma db pull")
       await run("prisma generate")
       console.log("Seeding data")

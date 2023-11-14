@@ -15,7 +15,6 @@ export type cli_Command<
 > = {
   name: TName
   params?: z.ZodType<TParams>
-  preResolve?: (c: cli_Context_base, params: TResolveParams) => Promise<unknown>
   resolve: (c: TContext, params: TResolveParams) => Promise<unknown>
 }
 
@@ -39,9 +38,6 @@ export function cli_command_base<
     >
     async function resolve() {
       const params_resolved = params_zod.parse(yargs.argv)
-      if (command.preResolve) {
-        await command.preResolve({ run: cli_runCommand }, params_resolved)
-      }
       const base_resolved = await command_base.base_resolve(params_resolved)
       await command.resolve({ ...base_resolved, run: cli_runCommand }, params_resolved)
     }
