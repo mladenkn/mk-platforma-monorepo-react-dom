@@ -21,11 +21,7 @@ export default async function seedPosts(db: Drizzle_instance) {
         return await db.insert(Image).values(post.images).returning()
       })
 
-      const ctx = {
-        user: { id: user.id, name: user.name || "seed user", canMutate: true },
-        db,
-      }
-
+      const ctx = { user, db }
       const post_created = await Post_api_create(ctx, {
         ...post,
         images: images_created,
@@ -37,7 +33,6 @@ export default async function seedPosts(db: Drizzle_instance) {
         ...c,
         post_id: post_created.id,
       }))
-
       await db.insert(Comment).values(comments_mapped)
     }),
   )
