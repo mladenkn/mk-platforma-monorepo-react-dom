@@ -53,7 +53,7 @@ type data_seed_post = Omit<z.infer<typeof Post_api_create_input>, "images"> & {
   images?: { url: string }[]
 }
 
-export async function data_seed_post_insert(db: Drizzle_instance, post: data_seed_post) {
+async function data_seed_post_insert(db: Drizzle_instance, post: data_seed_post) {
   const images_created = post.images?.length
     ? await db.insert(Image).values(post.images).returning()
     : undefined
