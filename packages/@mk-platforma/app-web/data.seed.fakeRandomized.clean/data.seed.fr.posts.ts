@@ -2,7 +2,6 @@ import { faker } from "@faker-js/faker"
 import generatePosts from "~/data.seed.fakeRandomized/post.all.gen"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { Category, Location, User, Comment, Image } from "~/drizzle/drizzle.schema"
-import { eva } from "@mk-libs/common/common"
 import Post_api_create from "~/domain/post/Post.api.create"
 
 export default async function seedPosts(db: Drizzle_instance) {
