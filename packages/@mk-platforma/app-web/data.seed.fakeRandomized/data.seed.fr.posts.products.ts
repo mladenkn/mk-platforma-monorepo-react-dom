@@ -1,6 +1,7 @@
 import { asNonNil } from "@mk-libs/common/common"
 import { PostGenerator_context } from "./data.gen._utils"
-import { post_gen_base } from "./data.seed.fr.posts._utils"
+import { data_seed_post_insert_many, post_gen_base } from "./data.seed.fr.posts._utils"
+import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const withRelatedProps = ({ categories }: PostGenerator_context) => [
   {
@@ -152,8 +153,11 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default function data_seed_fr_posts_products(ctx: PostGenerator_context) {
-  return withRelatedProps(ctx)
+export default async function data_seed_fr_posts_products(
+  db: Drizzle_instance,
+  ctx: PostGenerator_context,
+) {
+  const posts = withRelatedProps(ctx)
     .map(({ image, ...props }) => ({
       ...props,
       images: [
@@ -163,4 +167,5 @@ export default function data_seed_fr_posts_products(ctx: PostGenerator_context) 
       ],
     }))
     .map(post => post_gen_base(ctx, post))
+  await data_seed_post_insert_many(db, posts)
 }

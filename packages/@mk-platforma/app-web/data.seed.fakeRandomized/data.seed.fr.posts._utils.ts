@@ -25,6 +25,7 @@ export function post_gen_base<TPost extends WithImages>(
       faker.datatype.number({ min: 0, max: 7 }),
     ),
     title: faker.lorem.words(),
+    user_id: faker.helpers.arrayElement(users).id,
 
     ...post,
 
@@ -46,14 +47,13 @@ function post_gen_images_addIsMain(images: { url: string; isMain?: boolean }[]) 
   return images_mapped
 }
 
-export async function data_seed_post_insert(
-  db: Drizzle_instance,
-  post: Omit<z.infer<typeof Post_api_create_input>, "images"> & {
-    user_id: number
-    comments: { content: string; author_id: number }[]
-    images?: { url: string }[]
-  },
-) {
+type data_seed_post = Omit<z.infer<typeof Post_api_create_input>, "images"> & {
+  user_id: number
+  comments: { content: string; author_id: number }[]
+  images?: { url: string }[]
+}
+
+export async function data_seed_post_insert(db: Drizzle_instance, post: data_seed_post) {
   const images_created = post.images?.length
     ? await db.insert(Image).values(post.images).returning()
     : undefined
@@ -71,4 +71,10 @@ export async function data_seed_post_insert(
     post_id: post_created.id,
   }))
   await db.insert(Comment).values(comments_mapped)
+}
+
+export async function data_seed_post_insert_many(db: Drizzle_instance, posts: data_seed_post[]) {
+  for (const post of posts) {
+    await data_seed_post_insert(db, post)
+  }
 }

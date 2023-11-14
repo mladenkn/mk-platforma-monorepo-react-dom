@@ -1,7 +1,8 @@
 import { faker } from "@faker-js/faker"
 import { PostGenerator_context } from "./data.gen._utils"
 import data_images from "./data.gen.images.json"
-import { post_gen_base } from "./data.seed.fr.posts._utils"
+import { data_seed_post_insert_many, post_gen_base } from "./data.seed.fr.posts._utils"
+import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const withRelatedProps = [
   {
@@ -12,8 +13,11 @@ const withRelatedProps = [
   },
 ]
 
-export default function data_seed_fr_posts_gathering_hangout(ctx: PostGenerator_context) {
-  return faker.helpers
+export default async function data_seed_fr_posts_gathering_hangout(
+  db: Drizzle_instance,
+  ctx: PostGenerator_context,
+) {
+  const posts = faker.helpers
     .shuffle(withRelatedProps)
     .map(post => ({
       ...post,
@@ -26,4 +30,5 @@ export default function data_seed_fr_posts_gathering_hangout(ctx: PostGenerator_
         .map(url => ({ url })),
     }))
     .map(post => post_gen_base(ctx, post))
+  await data_seed_post_insert_many(db, posts)
 }
