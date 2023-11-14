@@ -42,7 +42,7 @@ function generateSingle({ categories }: PostGenerator_context) {
   }
 }
 
-export default function generateExperts(ctx: PostGenerator_context) {
+export default function data_seed_fr_posts_job_demand(ctx: PostGenerator_context) {
   return generateArray(() => {}, faker.datatype.number({ min: 8, max: 20 })).map(() =>
     post_gen_base(ctx, generateSingle(ctx)),
   )

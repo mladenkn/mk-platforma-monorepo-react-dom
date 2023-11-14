@@ -31,7 +31,7 @@ const jobs = [
   },
 ]
 
-export default function generateJobs(ctx: PostGenerator_context) {
+export default function data_seed_fr_posts_jobs(ctx: PostGenerator_context) {
   return faker.helpers
     .shuffle(jobs)
     .map(post => ({

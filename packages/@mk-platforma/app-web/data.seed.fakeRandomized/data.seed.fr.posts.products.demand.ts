@@ -3,7 +3,7 @@ import { PostGenerator_context } from "./data.gen._utils"
 import { faker } from "@faker-js/faker"
 import { post_gen_base } from "./data.seed.fr.posts._utils"
 
-export default function generate_products_demand(ctx: PostGenerator_context) {
+export default function data_seed_fr_posts_products_demand(ctx: PostGenerator_context) {
   return generateArray(
     index => ({
       title: "Tražim neki proizvod " + index,

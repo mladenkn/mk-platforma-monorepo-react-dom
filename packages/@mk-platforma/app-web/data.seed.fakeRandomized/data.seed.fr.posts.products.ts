@@ -152,7 +152,7 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default function generateProducts(ctx: PostGenerator_context) {
+export default function data_seed_fr_posts_products(ctx: PostGenerator_context) {
   return withRelatedProps(ctx)
     .map(({ image, ...props }) => ({
       ...props,
