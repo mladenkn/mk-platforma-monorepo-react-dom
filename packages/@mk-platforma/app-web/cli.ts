@@ -1,5 +1,5 @@
 import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeRandomized"
-import { cli_command_base, cli_run } from "./cli.utils2"
+import { cli_command_base, cli_run } from "./cli.utils"
 import { z } from "zod"
 import { cli_getConnectionString } from "./cli.utils"
 import { location_api_google__search } from "./domain/Location.api.google"
@@ -40,6 +40,7 @@ const commands = [
       await run("prisma generate")
       console.log("Seeding data")
       await data_seed_fakeRandomized(drizzle_connect())
+      console.log("Done seeding data")
     },
   }),
   command({
