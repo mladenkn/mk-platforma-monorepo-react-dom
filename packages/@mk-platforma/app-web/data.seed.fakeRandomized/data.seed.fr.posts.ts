@@ -1,8 +1,7 @@
 import { faker } from "@faker-js/faker"
-import generatePosts from "./post.all.gen"
+import generatePosts, { data_seed_post_insert } from "./post.all.gen"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
-import { Category, Location, User, Comment, Image } from "~/drizzle/drizzle.schema"
-import Post_api_create from "~/domain/post/Post.api.create"
+import { Category, Location, User } from "~/drizzle/drizzle.schema"
 
 export default async function data_seed_fr_posts(db: Drizzle_instance) {
   const categories = await db.select().from(Category)
@@ -14,24 +13,7 @@ export default async function data_seed_fr_posts(db: Drizzle_instance) {
   await Promise.all(
     posts.map(async post => {
       const user = faker.helpers.arrayElement(users)
-
-      const images_created = post.images?.length
-        ? await db.insert(Image).values(post.images).returning()
-        : undefined
-
-      const ctx = { user, db }
-      const post_created = await Post_api_create(ctx, {
-        ...post,
-        images: images_created,
-      })
-
-      if (!post.comments?.length) return
-
-      const comments_mapped = post.comments.map(c => ({
-        ...c,
-        post_id: post_created.id,
-      }))
-      await db.insert(Comment).values(comments_mapped)
+      return await data_seed_post_insert(db, { ...post, user_id: user.id })
     }),
   )
 }

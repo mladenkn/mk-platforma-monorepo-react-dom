@@ -9,6 +9,11 @@ import generateGatheringsHangout from "./post.gathering.hangout.gen"
 import { PostGenerator_context as PostGenerator_context } from "./data.gen._utils"
 import generate_accomodations_demand from "./post.accommodation.demand.gen"
 import generate_products_demand from "./post.products.demand.gen"
+import { Post_api_create_input } from "~/domain/post/Post.api.cu.input"
+import { z } from "zod"
+import { Drizzle_instance } from "~/drizzle/drizzle.instance"
+import Post_api_create from "~/domain/post/Post.api.create"
+import { Comment, Image } from "~/drizzle/drizzle.schema"
 
 type WithImages = { images?: { url: string; isMain?: boolean }[] }
 
@@ -64,4 +69,31 @@ export default function generatePosts(params: PostGenerator_context) {
 
   const data: Item[] = _data
   return data
+}
+
+export async function data_seed_post_insert(
+  db: Drizzle_instance,
+  post: Omit<z.infer<typeof Post_api_create_input>, "images"> & {
+    user_id: number
+    comments: { content: string; author_id: number }[]
+    images?: { url: string }[]
+  },
+) {
+  const images_created = post.images?.length
+    ? await db.insert(Image).values(post.images).returning()
+    : undefined
+
+  const ctx = { user: { id: post.user_id }, db }
+  const post_created = await Post_api_create(ctx, {
+    ...post,
+    images: images_created,
+  })
+
+  if (!post.comments?.length) return
+
+  const comments_mapped = post.comments.map(c => ({
+    ...c,
+    post_id: post_created.id,
+  }))
+  await db.insert(Comment).values(comments_mapped)
 }
