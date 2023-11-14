@@ -1,89 +1,79 @@
-import { match } from "ts-pattern"
-import {
-  parseCommand,
-  run,
-  cli_getConnectionString,
-  Cli_run_EnvVars,
-  Cli_run_Command,
-  Cli_Context,
-} from "./cli.utils"
-import "@mk-libs/common/server-only"
-import { isArray } from "lodash"
+import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeRandomized"
+import { cli_command_base, cli_run } from "./cli.utils2"
+import { z } from "zod"
+import { cli_getConnectionString } from "./cli.utils"
 import { location_api_google__search } from "./domain/Location.api.google"
-import { Location_google_find_save } from "./domain/Location.api"
 import { asString } from "@mk-libs/common/common"
-import data_seed_fakeRandomized from "~/data.seed.fakeRandomized/data.seed.fakeRandomized"
+import drizzle_connect, { Drizzle_instance } from "~/drizzle/drizzle.instance"
+import { Api_ss } from "~/api_/api.root"
+import { eq } from "drizzle-orm"
+import { User } from "~/drizzle/drizzle.schema"
 
-const parsed = parseCommand()
+async function api_create(db: Drizzle_instance) {
+  const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
+    u => u || { id: -1, canMutate: false, name: "" },
+  )
+  const apiContext = { user, getCookie: () => null, db }
+  return Api_ss(apiContext)
+}
 
-type run_args_type =
-  | [Cli_run_EnvVars, Cli_run_Command | Cli_run_Command[]]
-  | Cli_run_Command
-  | Cli_run_Command[]
+const command = cli_command_base({
+  base_params: z.object({
+    dbInstance: z.string().optional().default("dev"),
+  }),
+  async base_resolve({ dbInstance }) {
+    const db_connectionString = cli_getConnectionString(dbInstance || "dev")
+    process.env.DATABASE_URL = db_connectionString
+    return { db_connectionString }
+  },
+})
 
-const run_args = match(parsed.command)
-  .with("dev", () => [{}, `next dev`])
-
-  .with("dev.test", () => [
-    {},
-    () => {
-      console.log(__dirname)
+const commands = [
+  command({ name: "dev", resolve: ({ run }) => run("next dev") }),
+  command({ name: "start", resolve: ({ run }) => run("next start") }),
+  command({
+    name: "db.reset",
+    async resolve({ db_connectionString, run }) {
+      await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
+      await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
+      await run("prisma db pull")
+      await run("prisma generate")
+      console.log("Seeding data")
+      await data_seed_fakeRandomized(drizzle_connect())
     },
-  ])
-
-  .with("db.prisma", () => [{}, `prisma ${parsed._unknown!.join(" ")}`])
-
-  .with("db.seed", () => [{}, ({ db }: Cli_Context) => data_seed_fakeRandomized(db)])
-
-  .with("db.truncate", () => [{}, `psql ${_getConnectionString()} --file=./db.truncate.sql`])
-
-  .with("db.reset", () => [
-    {},
-    [
-      `psql ${_getConnectionString()} --file=./db.truncate.sql`,
-      "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
-      "prisma db pull",
-      "prisma generate",
-      ({ db }: Cli_Context) => data_seed_fakeRandomized(db),
-    ],
-  ])
-
-  // \dt: get all tables
-  .with("db.psql", () => [{}, `psql ${_getConnectionString()}`])
-
-  .with("location.google.find", () => [
-    {},
-    () => {
-      const searchQuery = asString(parsed._unknown?.[0])
+  }),
+  command({
+    name: "db.psql",
+    async resolve({ db_connectionString, run }) {
+      await run(`psql ${db_connectionString}`)
+    },
+  }),
+  command({
+    name: "location.many",
+    params: z.object({ query: z.string() }),
+    resolve: async (_, params) => {
+      const api = await api_create(drizzle_connect())
+      return api.location.many({ query: params.query }).then(console.log).catch(console.error)
+    },
+  }),
+  command({
+    name: "location.google.find",
+    params: z.object({ query: z.string() }),
+    resolve: (_, { query }) => {
+      const searchQuery = asString(query)
       return location_api_google__search(searchQuery)
         .then(r => console.log(r[0]))
         .catch(console.error)
     },
-  ])
+  }),
+  // command({
+  //   name: "location.google.find.save",
+  //   params: z.object({ query: z.string() }),
+  //   resolve: ({ db }, { query }) => {
+  //     const searchQuery = asString(query)
+  //     return Location_google_find_save(db, searchQuery).then(console.log).catch(console.error)
+  //   },
+  // }),
+]
 
-  .with("location.google.find.save", () => [
-    {},
-    ({ db }: Cli_Context) => {
-      const searchQuery = asString(parsed._unknown?.[0])
-      return Location_google_find_save(db, searchQuery).then(console.log).catch(console.error)
-    },
-  ])
-
-  .with("location.many", () => [
-    {},
-    ({ api }: Cli_Context) => {
-      const query = parsed._unknown?.[0] || ""
-      return api.location.many({ query }).then(console.log).catch(console.error)
-    },
-  ])
-
-  .run() as run_args_type
-
-// @ts-ignore
-if (isArray(run_args)) run(...run_args).then(() => process.exit(0))
-else run(run_args).then(() => process.exit(0))
-
-function _getConnectionString() {
-  const dbInstance = parsed["db-instance"] || "dev"
-  return cli_getConnectionString(dbInstance)
-}
+cli_run(commands).then(() => process.exit(0))
