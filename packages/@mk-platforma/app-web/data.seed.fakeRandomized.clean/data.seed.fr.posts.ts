@@ -4,6 +4,7 @@ import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { Category, Location, User, Comment, Image } from "~/drizzle/drizzle.schema"
 import { Api_ss } from "~/api_/api.root"
 import { eva } from "@mk-libs/common/common"
+import Post_api_create from "~/domain/post/Post.api.create"
 
 export default async function seedPosts(db: Drizzle_instance) {
   const categories = await db.select().from(Category)
@@ -15,18 +16,17 @@ export default async function seedPosts(db: Drizzle_instance) {
   for (const post of posts) {
     const user = faker.helpers.arrayElement(users)
 
-    const api = Api_ss({
-      user: { id: user.id, name: user.name || "seed user", canMutate: true },
-      getCookie: (() => {}) as any,
-      db,
-    })
-
     const images_created = await eva(async () => {
       if (!post.images?.length) return undefined
       return await db.insert(Image).values(post.images).returning()
     })
 
-    const post_created = await api.post.create({
+    const ctx = {
+      user: { id: user.id, name: user.name || "seed user", canMutate: true },
+      db,
+    }
+
+    const post_created = await Post_api_create(ctx, {
       ...post,
       images: images_created,
     })
