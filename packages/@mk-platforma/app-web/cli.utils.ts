@@ -1,82 +1,66 @@
-import commandLineArgs from "command-line-args"
+import { asNonNil } from "@mk-libs/common/common"
+import { z } from "zod"
+import yargs from "yargs"
 import { spawn, ChildProcess } from "child_process"
-import { match, P } from "ts-pattern"
 import "@mk-libs/common/server-only"
-import { Api_ss, Api_ss_type } from "./api_/api.root"
-import drizzle_connect, { Drizzle_instance } from "~/drizzle/drizzle.instance"
-import { eq } from "drizzle-orm"
-import { User } from "~/domain/user/User.schema"
-import { isArray } from "lodash"
 
-const options = [
-  { name: "command", defaultOption: true },
-  { name: "db-instance", type: String },
-]
-
-export function parseCommand() {
-  return commandLineArgs(options, { stopAtFirstUnknown: true })
+type cli_Context_base = {
+  run(cmd: string): Promise<unknown>
 }
 
-export type Cli_Context = {
-  api: Api_ss_type
-  db: Drizzle_instance
+export type cli_Command<
+  TName extends string = string,
+  TContext extends cli_Context_base = cli_Context_base,
+  TParams extends object = {},
+  TResolveParams = TParams,
+> = {
+  name: TName
+  params?: z.ZodType<TParams>
+  resolve: (c: TContext, params: TResolveParams) => Promise<unknown>
 }
 
-export type Cli_run_EnvVars = Record<string, string>
-
-type Command_function = (c: Cli_Context) => void | Promise<unknown>
-export type Cli_run_Command = Command_function | string
-
-type Commands = Cli_run_Command | Cli_run_Command[]
-
-export function run(env: Cli_run_EnvVars, commands: Commands): Promise<unknown>
-export function run(commands: Commands): Promise<unknown>
-
-export async function run(...cmd: unknown[]) {
-  const [env, commandOrCommands] = match(cmd)
-    .with([{}, P.any], it => it)
-    .with([P.any], it => [{}, it[0]])
-    .run() as [Cli_run_EnvVars, Cli_run_Command | Cli_run_Command[]]
-
-  const commands: Cli_run_Command[] = isArray(commandOrCommands)
-    ? commandOrCommands
-    : [commandOrCommands]
-
-  const parsed = parseCommand()
-  const dbInstance = parsed["db-instance"] || "dev"
-  const DATABASE_URL = getConnectionString(dbInstance)
-
-  process.env = { ...process.env, DATABASE_URL, ...env }
-
-  async function createContext() {
-    const db = drizzle_connect()
-
-    const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
-      u => u || { id: -1, canMutate: false, name: "" },
-    )
-    const apiContext = { user, getCookie: () => null, db }
-    return { db, api: Api_ss(apiContext) }
-  }
-
-  try {
-    for (const command of commands) {
-      if (typeof command === "function") {
-        await command(await createContext())
-      } else {
-        const result: any = await runCommand(command, env)
-        if (result.code !== 0) {
-          result.error && console.error(result.error?.message || "Error")
-          process.exit(result.code)
-        }
-      }
+export function cli_command_base<
+  TBase_params extends object = {},
+  TBaseResolve_result extends object = {},
+>(command_base: {
+  base_params?: z.ZodType<TBase_params>
+  base_resolve: (params_base: TBase_params) => Promise<TBaseResolve_result>
+}) {
+  return function cli_command<TName extends string = string, TParams extends object = {}>(
+    command: cli_Command<
+      TName,
+      TBaseResolve_result & cli_Context_base,
+      TParams,
+      TParams & TBase_params
+    >,
+  ): Command_created {
+    const params_zod = command_base.base_params?.and(command.params || z.object({})) as z.ZodType<
+      TBase_params & TParams
+    >
+    async function resolve() {
+      const params_resolved = params_zod.parse(yargs.argv)
+      const base_resolved = await command_base.base_resolve(params_resolved)
+      await command.resolve({ ...base_resolved, run: cli_runCommand }, params_resolved)
     }
-  } catch (error: any) {
-    console.error(error)
-    process.exit(1)
+    return { name: command.name, resolve }
   }
 }
 
-async function runCommand(command: string, env: Record<string, string>) {
+type Command_created = {
+  name: string
+  resolve(): Promise<unknown>
+}
+
+export function cli_run(commands: Command_created[]) {
+  const command_name = asNonNil(process.argv[2])
+  const command = commands.find(c => c.name === command_name)
+  if (!command) {
+    throw new Error(`Command with name ${command_name} not registered.`)
+  }
+  return command.resolve()
+}
+
+async function cli_runCommand(command: string, env?: Record<string, string>) {
   return new Promise((resolve, reject) => {
     const [cmd, ...args] = command.split(" ")
 
@@ -105,7 +89,7 @@ async function runCommand(command: string, env: Record<string, string>) {
   })
 }
 
-export function getConnectionString(env: string) {
+export function cli_getConnectionString(env: string) {
   switch (env) {
     case "dev":
       return "postgresql://postgres:postgres@localhost:5432/za_brata"
