@@ -33,9 +33,9 @@ import differenceInMilliseconds from "date-fns/differenceInMilliseconds"
 //   return new Error().stack?.split("\n")[2]
 // }
 
-export async function measurePerformance<T>(promise: Promise<T>) {
+export async function measurePerformance<T>(promise: () => Promise<T>) {
   const begining = new Date()
-  const result = await promise
+  const result = await promise()
   const end = new Date()
   const difference = differenceInMilliseconds(end, begining)
   return [result, difference] as const
