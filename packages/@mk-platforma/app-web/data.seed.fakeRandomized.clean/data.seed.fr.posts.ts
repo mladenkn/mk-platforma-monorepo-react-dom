@@ -12,8 +12,6 @@ export default async function seedPosts(db: Drizzle_instance) {
 
   const posts = faker.helpers.shuffle(generatePosts({ categories, locations, users }))
 
-  console.log(15, "before posts.generate")
-
   await Promise.all(
     posts.map(async post => {
       const user = faker.helpers.arrayElement(users)
@@ -43,8 +41,6 @@ export default async function seedPosts(db: Drizzle_instance) {
       await db.insert(Comment).values(comments_mapped)
     }),
   )
-
-  console.log(15, "after posts.inserted")
 }
 
 seedPosts.dbSeeder = {}
