@@ -7,8 +7,7 @@ import drizzle_connect, { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { Api_ss } from "~/api_/api.root"
 import { eq } from "drizzle-orm"
 import { User } from "~/drizzle/drizzle.schema"
-import doCleanSeed_lib from "./framework/data.seed.lib"
-import path from "path"
+import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeRandomized"
 
 async function api_create(db: Drizzle_instance) {
   const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
@@ -46,7 +45,7 @@ const commands = [
       await run("prisma db pull")
       await run("prisma generate")
       console.log("Seeding data")
-      await doCleanSeed_lib(drizzle_connect(), path.join(__dirname, "data.seed.fakeRandomized"))
+      await data_seed_fakeRandomized(drizzle_connect())
       console.log("Done seeding data")
     },
   }),
