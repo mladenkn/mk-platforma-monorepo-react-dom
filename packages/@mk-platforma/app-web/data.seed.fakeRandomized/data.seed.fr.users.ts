@@ -21,5 +21,3 @@ export default async function data_seed_fr_users(db: Drizzle_instance) {
   await db.insert(User).values(users)
   return await db.query.User.findMany()
 }
-
-data_seed_fr_users.dbSeeder = { order: 1 }

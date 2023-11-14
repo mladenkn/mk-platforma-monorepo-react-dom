@@ -35,5 +35,3 @@ export default async function data_seed_fr_posts(db: Drizzle_instance) {
     }),
   )
 }
-
-data_seed_fr_posts.dbSeeder = {}

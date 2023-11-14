@@ -101,5 +101,3 @@ export async function data_seed_fr_categories(db: Drizzle_instance) {
 
   return await db.query.Category.findMany()
 }
-
-data_seed_fr_categories.dbSeeder = { order: 1 }
