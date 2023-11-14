@@ -26,7 +26,8 @@ function post_common_generate({ locations, users }: PostGenerator_context) {
   }
 }
 
-function post_images_add_isMain(images: { isMain?: boolean; url: string }[]) {
+type Image = { isMain?: boolean; url: string }
+function post_images_add_isMain(images: Image[]) {
   const images_mapped = images.map(i => ({ ...i, isMain: i.isMain || false }))
   const hasMain = images_mapped.some(image => image.isMain)
   if (!hasMain) {
@@ -36,6 +37,7 @@ function post_images_add_isMain(images: { isMain?: boolean; url: string }[]) {
   return images_mapped
 }
 
+type WithImages = { images?: Image[] } | {}
 function post_addCommon<T extends WithImages>(ctx: PostGenerator_context, post: T) {
   const images =
     "images" in post && post.images?.length ? post_images_add_isMain(post.images) : undefined
@@ -46,35 +48,16 @@ function post_addCommon<T extends WithImages>(ctx: PostGenerator_context, post: 
   }
 }
 
-type WithImages = { images?: { isMain?: boolean; url: string }[] } | {}
-
 export default function generatePosts(params: PostGenerator_context) {
-  function generatePosts_base<T extends WithImages>(
-    generateFirst: (p: PostGenerator_context) => T[],
-  ) {
-    return generateFirst(params).map(post => {
-      const images =
-        "images" in post && post.images?.length ? post_images_add_isMain(post.images) : undefined
-      return {
-        ...post_common_generate(params),
-        ...post,
-        images,
-      }
-    })
-  }
-
-  const _data = [
-    ...generatePosts_base(generateExperts),
-    ...generatePosts_base(generateJobs),
-    ...generatePosts_base(generateProducts),
-    ...generatePosts_base(generateGatheringsWork),
-    ...generatePosts_base(generateGatheringsHangout),
-    ...generatePosts_base(generateAccomodations),
-    ...generatePosts_base(generate_accomodations_demand),
-    ...generatePosts_base(generate_products_demand),
+  const data = [
+    ...generateExperts(params).map(post => post_addCommon(params, post)),
+    ...generateJobs(params).map(post => post_addCommon(params, post)),
+    ...generateProducts(params).map(post => post_addCommon(params, post)),
+    ...generateGatheringsWork(params).map(post => post_addCommon(params, post)),
+    ...generateGatheringsHangout(params).map(post => post_addCommon(params, post)),
+    ...generateAccomodations(params).map(post => post_addCommon(params, post)),
+    ...generate_accomodations_demand(params).map(post => post_addCommon(params, post)),
+    ...generate_products_demand(params).map(post => post_addCommon(params, post)),
   ]
-  type Item = (typeof _data)[number] & { images?: { url: string }[] }
-
-  const data: Item[] = _data
   return data
 }
