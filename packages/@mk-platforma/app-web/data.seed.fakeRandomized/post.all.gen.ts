@@ -36,6 +36,16 @@ function post_images_add_isMain(images: { isMain?: boolean; url: string }[]) {
   return images_mapped
 }
 
+function post_addCommon<T extends WithImages>(ctx: PostGenerator_context, post: T) {
+  const images =
+    "images" in post && post.images?.length ? post_images_add_isMain(post.images) : undefined
+  return {
+    ...post_common_generate(ctx),
+    ...post,
+    images,
+  }
+}
+
 type WithImages = { images?: { isMain?: boolean; url: string }[] } | {}
 
 export default function generatePosts(params: PostGenerator_context) {
