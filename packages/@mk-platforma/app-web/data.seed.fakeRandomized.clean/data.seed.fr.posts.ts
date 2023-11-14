@@ -12,31 +12,39 @@ export default async function seedPosts(db: Drizzle_instance) {
 
   const posts = faker.helpers.shuffle(generatePosts({ categories, locations, users }))
 
-  for (const post of posts) {
-    const user = faker.helpers.arrayElement(users)
+  console.log(15, "before posts.generate")
 
-    const images_created = await eva(async () => {
-      if (!post.images?.length) return undefined
-      return await db.insert(Image).values(post.images).returning()
-    })
+  await Promise.all(
+    posts.map(async post => {
+      const user = faker.helpers.arrayElement(users)
 
-    const ctx = {
-      user: { id: user.id, name: user.name || "seed user", canMutate: true },
-      db,
-    }
-
-    const post_created = await Post_api_create(ctx, {
-      ...post,
-      images: images_created,
-    })
-
-    for (const comment of post.comments) {
-      await db.insert(Comment).values({
-        ...comment,
-        post_id: post_created.id,
+      const images_created = await eva(async () => {
+        if (!post.images?.length) return undefined
+        return await db.insert(Image).values(post.images).returning()
       })
-    }
-  }
+
+      const ctx = {
+        user: { id: user.id, name: user.name || "seed user", canMutate: true },
+        db,
+      }
+
+      const post_created = await Post_api_create(ctx, {
+        ...post,
+        images: images_created,
+      })
+
+      if (!post.comments?.length) return
+
+      const comments_mapped = post.comments.map(c => ({
+        ...c,
+        post_id: post_created.id,
+      }))
+
+      await db.insert(Comment).values(comments_mapped)
+    }),
+  )
+
+  console.log(15, "after posts.inserted")
 }
 
 seedPosts.dbSeeder = {}
