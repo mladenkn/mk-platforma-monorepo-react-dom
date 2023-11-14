@@ -3,7 +3,6 @@ import { data_seed_fr_categories } from "./data.seed.fr.categories"
 import data_seed_fr_locations from "./data.seed.fr.locations"
 import data_seed_fr_users from "./data.seed.fr.users"
 import { withPerfLogging_async } from "@mk-libs/common/debug"
-import { Category, Location, User } from "~/drizzle/drizzle.schema"
 import data_seed_fr_posts_products from "./data.seed.fr.posts.products"
 import data_seed_fr_posts_jobs from "./data.seed.fr.posts.jobs"
 import data_seed_fr_posts_job_demand from "./data.seed.fr.posts.job.demand"
@@ -16,15 +15,9 @@ import data_seed_fr_posts_products_demand from "./data.seed.fr.posts.products.de
 const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed_fakeRandomized(
   db: Drizzle_instance,
 ) {
-  await Promise.all([
-    data_seed_fr_categories(db),
-    data_seed_fr_locations(db),
-    data_seed_fr_users(db),
-  ])
-
-  const categories = await db.select().from(Category)
-  const locations = await db.select().from(Location)
-  const users = await db.select().from(User)
+  const categories = await data_seed_fr_categories(db)
+  const locations = await data_seed_fr_locations(db)
+  const users = await data_seed_fr_users(db)
 
   const ctx = { categories, locations, users }
 
