@@ -2,6 +2,7 @@ import { faker } from "@faker-js/faker"
 import { asNonNil } from "@mk-libs/common/common"
 import { PostGenerator_context } from "./data.gen._utils"
 import data_images from "./data.gen.images.json"
+import { post_gen_base } from "./post.all.gen"
 
 const jobs = [
   {
@@ -30,15 +31,18 @@ const jobs = [
   },
 ]
 
-export default function generateJobs({ categories }: PostGenerator_context) {
-  return faker.helpers.shuffle(jobs).map(({ title }) => ({
-    categories: [asNonNil(categories.find(c => c.code === "job"))],
-    title,
-    images: faker.helpers
-      .arrayElements(
-        data_images["posao selo kuća tesar zidar"].filter(i => i),
-        faker.datatype.number({ min: 1, max: 5 }),
-      )
-      .map(url => ({ url })),
-  }))
+export default function generateJobs(ctx: PostGenerator_context) {
+  return faker.helpers
+    .shuffle(jobs)
+    .map(post => ({
+      ...post,
+      categories: [asNonNil(ctx.categories.find(c => c.code === "job"))],
+      images: faker.helpers
+        .arrayElements(
+          data_images["posao selo kuća tesar zidar"].filter(i => i),
+          faker.datatype.number({ min: 1, max: 5 }),
+        )
+        .map(url => ({ url })),
+    }))
+    .map(post => post_gen_base(ctx, post))
 }

@@ -1,5 +1,6 @@
 import { asNonNil } from "@mk-libs/common/common"
 import { PostGenerator_context } from "./data.gen._utils"
+import { post_gen_base } from "./post.all.gen"
 
 const withRelatedProps = ({ categories }: PostGenerator_context) => [
   {
@@ -151,13 +152,15 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default function generateProducts(params: PostGenerator_context) {
-  return withRelatedProps(params).map(({ image, ...props }) => ({
-    ...props,
-    images: [
-      {
-        url: image,
-      },
-    ],
-  }))
+export default function generateProducts(ctx: PostGenerator_context) {
+  return withRelatedProps(ctx)
+    .map(({ image, ...props }) => ({
+      ...props,
+      images: [
+        {
+          url: image,
+        },
+      ],
+    }))
+    .map(post => post_gen_base(ctx, post))
 }

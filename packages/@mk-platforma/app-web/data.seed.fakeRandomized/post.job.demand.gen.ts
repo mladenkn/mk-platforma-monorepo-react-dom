@@ -4,6 +4,7 @@ import { uniq } from "lodash"
 import { PostGenerator_context } from "./data.gen._utils"
 import * as cro_dataset from "../data.seed.common/data.gen.cro.dataset"
 import { avatarStyles } from "~/domain/user/User.common"
+import { post_gen_base } from "./post.all.gen"
 
 function generateSingle({ categories }: PostGenerator_context) {
   const firstName = faker.helpers.arrayElement(cro_dataset.firstNames)
@@ -36,11 +37,13 @@ function generateSingle({ categories }: PostGenerator_context) {
 
       avatarStyle: faker.helpers.arrayElement(avatarStyles),
     },
+
+    images: [],
   }
 }
 
-export default function generateExperts(params: PostGenerator_context) {
+export default function generateExperts(ctx: PostGenerator_context) {
   return generateArray(() => {}, faker.datatype.number({ min: 8, max: 20 })).map(() =>
-    generateSingle(params),
+    post_gen_base(ctx, generateSingle(ctx)),
   )
 }
