@@ -12,83 +12,74 @@ import {
 } from "~/domain/post/Post.schema"
 import { CategoryToPost } from "../category/Category.schema"
 import { eq } from "drizzle-orm"
+import { Drizzle_instance } from "~/drizzle/drizzle.instance"
+import { z } from "zod"
 
-// const allCategories = db.query.Category.findMany()
+type Context = {
+  user: {
+    id: number
+  }
+  db: Drizzle_instance
+}
 
-// const input = Post_api_create_input.refine(
-//   async ({ categories, expertEndorsement }) => {
-//     const _allCategories = await allCategories
-//     const categories_withLabels = categories.map(post_category =>
-//       asNonNil(_allCategories.find(c => c.id === post_category.id)),
-//     )
-//     if (categories_withLabels.some(c => c.label === "job_demand") && !expertEndorsement)
-//       return false
-//     if (categories_withLabels.every(c => c.label !== "job_demand") && expertEndorsement)
-//       return false
-//     else return true
-//   },
-//   { message: "Category not matched with expertEndorsement field" },
-// )
+export default function Post_api_create(
+  { user, db }: Context,
+  input: z.infer<typeof Post_api_create_input>,
+) {
+  return db.transaction(async tx => {
+    const post_created = await tx
+      .insert(Post)
+      .values({
+        title: input.title,
+        description: input.description,
+        contact: input.contact,
+        author_id: user.id,
+        location_id: input.location?.id,
+      })
+      .returning()
+      .then(r => r[0])
 
-const Post_api_create = authorizedRoute(u => u.canMutate && !!u.name)
-  .input(Post_api_create_input)
-  .mutation(({ ctx, input }) =>
-    ctx.db.transaction(async tx => {
-      const post_created = await tx
-        .insert(Post)
+    if (input.categories.length > 0) {
+      const categoryToPost_values = input.categories.map(c => ({
+        category_id: c.id,
+        post_id: post_created.id,
+      }))
+      await tx.insert(CategoryToPost).values(categoryToPost_values)
+    }
+
+    for (const image of input.images || []) {
+      await tx
+        .update(Image)
+        .set({ isMain: image.isMain, url: image.url, post_id: post_created.id })
+        .where(eq(Image.id, image.id))
+    }
+
+    if (input.expertEndorsement) {
+      const post_expertEndorsement_created = await tx
+        .insert(PostExpertEndorsement)
         .values({
-          title: input.title,
-          description: input.description,
-          contact: input.contact,
-          author_id: ctx.user.id,
-          location_id: input.location?.id,
+          ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
+          post_id: post_created.id,
+          avatarStyle: getRandomElement(avatarStyles),
         })
         .returning()
         .then(r => r[0])
 
-      if (input.categories.length > 0) {
-        const categoryToPost_values = input.categories.map(c => ({
-          category_id: c.id,
-          post_id: post_created.id,
+      if (input.expertEndorsement.skills?.length) {
+        const post_expertEndorsement_skills_values = input.expertEndorsement.skills.map(s => ({
+          expertEndorsementId: post_expertEndorsement_created.id,
+          label: s.label,
+          level: s.level,
         }))
-        await tx.insert(CategoryToPost).values(categoryToPost_values)
+        await tx.insert(PostExpertEndorsementSkill).values(post_expertEndorsement_skills_values)
       }
 
-      for (const image of input.images || []) {
-        await tx
-          .update(Image)
-          .set({ isMain: image.isMain, url: image.url, post_id: post_created.id })
-          .where(eq(Image.id, image.id))
-      }
+      await tx
+        .update(Post)
+        .set({ expertEndorsementId: post_expertEndorsement_created.id })
+        .where(eq(Post.id, post_created.id))
+    }
 
-      if (input.expertEndorsement) {
-        const post_expertEndorsement_created = await tx
-          .insert(PostExpertEndorsement)
-          .values({
-            ...shallowPick(input.expertEndorsement, "firstName", "lastName"),
-            post_id: post_created.id,
-            avatarStyle: getRandomElement(avatarStyles),
-          })
-          .returning()
-          .then(r => r[0])
-
-        if (input.expertEndorsement.skills?.length) {
-          const post_expertEndorsement_skills_values = input.expertEndorsement.skills.map(s => ({
-            expertEndorsementId: post_expertEndorsement_created.id,
-            label: s.label,
-            level: s.level,
-          }))
-          await tx.insert(PostExpertEndorsementSkill).values(post_expertEndorsement_skills_values)
-        }
-
-        await tx
-          .update(Post)
-          .set({ expertEndorsementId: post_expertEndorsement_created.id })
-          .where(eq(Post.id, post_created.id))
-      }
-
-      return post_created
-    }),
-  )
-
-export default Post_api_create
+    return post_created
+  })
+}

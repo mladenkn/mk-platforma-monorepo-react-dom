@@ -15,6 +15,7 @@ import { Category, CategoryToPost } from "../category/Category.schema"
 import { shallowPick } from "@mk-libs/common/common"
 import { groupBy } from "lodash"
 import { withNoNils } from "@mk-libs/common/array"
+import { Post_api_create_input } from "./Post.api.cu.input"
 
 const Input_zod = z.object({
   categories: z.array(z.number()).optional(),
@@ -143,7 +144,9 @@ const Post_api = router({
       }
     }),
 
-  create: Post_api_create,
+  create: authorizedRoute(u => u.canMutate && !!u.name)
+    .input(Post_api_create_input)
+    .mutation(({ ctx, input }) => Post_api_create(ctx, input)),
   update: Post_api_update,
 
   delete: authorizedRoute(u => u.canMutate)
