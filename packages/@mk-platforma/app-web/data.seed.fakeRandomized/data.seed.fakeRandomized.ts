@@ -21,12 +21,7 @@ const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed
     data_seed_fr_locations(db),
     data_seed_fr_users(db),
   ])
-  await data_seed_fr_posts(db)
-})
 
-export default data_seed_fakeRandomized
-
-async function data_seed_fr_posts(db: Drizzle_instance) {
   const categories = await db.select().from(Category)
   const locations = await db.select().from(Location)
   const users = await db.select().from(User)
@@ -43,4 +38,6 @@ async function data_seed_fr_posts(db: Drizzle_instance) {
     data_seed_fr_posts_accommodation_demand(db, ctx),
     data_seed_fr_posts_products_demand(db, ctx),
   ])
-}
+})
+
+export default data_seed_fakeRandomized

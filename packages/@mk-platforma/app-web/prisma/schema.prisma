@@ -4,8 +4,8 @@ generator client {
 
 generator zod {
   provider                 = "zod-prisma-types"
-  createInputTypes         = "false"
   writeNullishInModelTypes = "true"
+  createInputTypes         = "false"
 }
 
 datasource db {
