@@ -10,7 +10,7 @@ export default async function seedPosts(db: Drizzle_instance) {
   const locations = await db.select().from(Location)
   const users = await db.select().from(User)
 
-  const posts = generatePosts({ categories, locations, users })
+  const posts = faker.helpers.shuffle(generatePosts({ categories, locations, users }))
 
   for (const post of posts) {
     const user = faker.helpers.arrayElement(users)
