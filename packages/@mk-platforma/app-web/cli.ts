@@ -8,6 +8,7 @@ import { Api_ss } from "~/api_/api.root"
 import { eq } from "drizzle-orm"
 import { User } from "~/drizzle/drizzle.schema"
 import doCleanSeed_lib from "./framework/data.seed.lib"
+import path from "path"
 
 async function api_create(db: Drizzle_instance) {
   const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
@@ -32,6 +33,12 @@ const commands = [
   command({ name: "dev", resolve: ({ run }) => run("next dev") }),
   command({ name: "start", resolve: ({ run }) => run("next start") }),
   command({
+    name: "dev.test",
+    async resolve() {
+      console.log("hello from dev.test")
+    },
+  }),
+  command({
     name: "db.reset",
     async resolve({ db_connectionString, run }) {
       await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
@@ -39,10 +46,7 @@ const commands = [
       await run("prisma db pull")
       await run("prisma generate")
       console.log("Seeding data")
-      await doCleanSeed_lib(
-        drizzle_connect(),
-        "/home/mladen/projekti/mk-platforma-monorepo-react-dom/packages/@mk-platforma/app-web/data.seed.fakeRandomized",
-      )
+      await doCleanSeed_lib(drizzle_connect(), path.join(__dirname, "data.seed.fakeRandomized"))
       console.log("Done seeding data")
     },
   }),
