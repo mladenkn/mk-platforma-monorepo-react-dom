@@ -24,7 +24,7 @@ const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed
   await Promise.all([
     data_seed_fr_posts_job_demand(db, ctx),
     data_seed_fr_posts_jobs(db, ctx),
-    data_seed_fr_posts_products(db, ctx),
+    // data_seed_fr_posts_products(db, ctx),
     data_seed_fr_posts_gathering_work(db, ctx),
     data_seed_fr_posts_gathering_hangout(db, ctx),
     data_seed_fr_posts_accommodation(db, ctx),
