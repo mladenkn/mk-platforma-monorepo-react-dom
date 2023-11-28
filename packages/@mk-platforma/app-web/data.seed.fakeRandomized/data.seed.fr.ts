@@ -10,7 +10,10 @@ import data_seed_fr_posts_accommodation from "./data.seed.fr.posts.accommodation
 import data_seed_fr_posts_gathering_hangout from "./data.seed.fr.posts.gathering.hangout"
 import data_seed_fr_posts_accommodation_demand from "./data.seed.fr.posts.accommodation.demand"
 import data_seed_fr_posts_products_demand from "./data.seed.fr.posts.products.demand"
-import { data_initial_categories_insert } from "~/data.seed.common/data.seed.fr.utils"
+import {
+  data_initial_categories_insert,
+  data_initial_post_insert_many,
+} from "~/data.seed.common/data.seed.fr.utils"
 import { User } from "~/drizzle/drizzle.schema"
 import { eva } from "@mk-libs/common/common"
 import locations_json from "~/data.seed.common/data.locations.json"
@@ -32,16 +35,18 @@ const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed
     users,
   }
 
-  await Promise.all([
-    data_seed_fr_posts_job_demand(db, ctx),
-    data_seed_fr_posts_jobs(db, ctx),
-    // data_seed_fr_posts_products(db, ctx),
-    data_seed_fr_posts_gathering_work(db, ctx),
-    data_seed_fr_posts_gathering_hangout(db, ctx),
-    data_seed_fr_posts_accommodation(db, ctx),
-    data_seed_fr_posts_accommodation_demand(db, ctx),
-    data_seed_fr_posts_products_demand(db, ctx),
-  ])
+  const posts = [
+    ...data_seed_fr_posts_job_demand(ctx),
+    ...data_seed_fr_posts_jobs(ctx),
+    // ...data_seed_fr_posts_products(db, ctx),
+    ...data_seed_fr_posts_gathering_work(ctx),
+    ...data_seed_fr_posts_gathering_hangout(ctx),
+    ...data_seed_fr_posts_accommodation(ctx),
+    ...data_seed_fr_posts_accommodation_demand(ctx),
+    ...data_seed_fr_posts_products_demand(ctx),
+  ]
+
+  await data_initial_post_insert_many(db, posts)
 })
 
 export default data_seed_fakeRandomized

@@ -156,11 +156,8 @@ Dostupne su veće količine očišćenih oraha i u ljusci na području Zagreba i
   },
 ]
 
-export default async function data_seed_fr_posts_products(
-  db: Drizzle_instance,
-  ctx: PostGenerator_context,
-) {
-  const posts = withRelatedProps(ctx)
+export default function data_seed_fr_posts_products(ctx: PostGenerator_context) {
+  return withRelatedProps(ctx)
     .map(({ image, ...props }) => ({
       ...props,
       images: [
@@ -170,5 +167,4 @@ export default async function data_seed_fr_posts_products(
       ],
     }))
     .map(post => data_initial_post_gen_base(ctx, post))
-  await data_initial_post_insert_many(db, posts)
 }

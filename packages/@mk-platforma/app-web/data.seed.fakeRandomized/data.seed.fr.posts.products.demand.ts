@@ -1,17 +1,10 @@
 import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { PostGenerator_context } from "../data.seed.common/data.gen._utils"
 import { faker } from "@faker-js/faker"
-import {
-  data_initial_post_insert_many,
-  data_initial_post_gen_base,
-} from "../data.seed.common/data.seed.fr.utils"
-import { Drizzle_instance } from "~/drizzle/drizzle.instance"
+import { data_initial_post_gen_base } from "../data.seed.common/data.seed.fr.utils"
 
-export default async function data_seed_fr_posts_products_demand(
-  db: Drizzle_instance,
-  ctx: PostGenerator_context,
-) {
-  const posts = generateArray(
+export default function data_seed_fr_posts_products_demand(ctx: PostGenerator_context) {
+  return generateArray(
     index => ({
       title: "Tražim neki proizvod " + index,
       categories: [asNonNil(ctx.categories.find(c => c.code === "sellable_demand"))],
@@ -19,5 +12,4 @@ export default async function data_seed_fr_posts_products_demand(
     }),
     faker.datatype.number({ min: 4, max: 10 }),
   ).map(post => data_initial_post_gen_base(ctx, post))
-  await data_initial_post_insert_many(db, posts)
 }

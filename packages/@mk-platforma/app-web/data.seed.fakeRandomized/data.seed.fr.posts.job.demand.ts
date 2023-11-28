@@ -46,12 +46,8 @@ function generateSingle({ categories }: PostGenerator_context) {
   }
 }
 
-export default async function data_seed_fr_posts_job_demand(
-  db: Drizzle_instance,
-  ctx: PostGenerator_context,
-) {
-  const posts = generateArray(() => {}, faker.datatype.number({ min: 8, max: 20 })).map(() =>
+export default function data_seed_fr_posts_job_demand(ctx: PostGenerator_context) {
+  return generateArray(() => {}, faker.datatype.number({ min: 8, max: 20 })).map(() =>
     data_initial_post_gen_base(ctx, generateSingle(ctx)),
   )
-  await data_initial_post_insert_many(db, posts)
 }
