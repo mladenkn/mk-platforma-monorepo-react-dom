@@ -6,6 +6,8 @@ import { z } from "zod"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import Post_api_create from "~/domain/post/Post.api.create"
 import { Comment, Image } from "~/drizzle/drizzle.schema"
+import { Data_initial_Category_insert_single_props } from "~/data.seed.fakeRandomized/data.seed.fr.categories"
+import { Category } from "~/domain/category/Category.schema"
 
 type WithImages = { images?: { url: string; isMain?: boolean }[] }
 
@@ -76,5 +78,23 @@ async function data_seed_post_insert(db: Drizzle_instance, post: data_seed_post)
 export async function data_initial_post_insert_many(db: Drizzle_instance, posts: data_seed_post[]) {
   for (const post of posts) {
     await data_seed_post_insert(db, post)
+  }
+}
+
+export async function data_initial_categories_insert(
+  db: Drizzle_instance,
+  _categories: Data_initial_Category_insert_single_props[],
+) {
+  for (const category of _categories) {
+    const category_inserted = await db
+      .insert(Category)
+      .values(category)
+      .returning()
+      .then(c => c[0])
+
+    if (!category.children) continue
+
+    const children_mapped = category.children.map(c => ({ ...c, parent_id: category_inserted.id }))
+    await db.insert(Category).values(children_mapped)
   }
 }
