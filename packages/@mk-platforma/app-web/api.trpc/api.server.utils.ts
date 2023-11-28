@@ -31,19 +31,6 @@ const t = initTRPC.context<Api_context>().create({
   transformer: superjson,
 })
 
-const isAuthed = t.middleware(opts => {
-  const { ctx } = opts
-  if (!ctx.user) {
-    throw new TRPCError({ code: "UNAUTHORIZED" })
-  }
-  return opts.next({
-    ctx: {
-      ...ctx,
-      user: ctx.user,
-    },
-  })
-})
-
 export const router = t.router
 export const publicProcedure = t.procedure
 
