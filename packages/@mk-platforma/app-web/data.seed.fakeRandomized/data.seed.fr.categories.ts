@@ -1,4 +1,4 @@
-import { data_initial_categories_insert } from "~/data.seed.common/data.seed.fr.posts._utils"
+import { data_initial_categories_insert } from "~/data.seed.common/data.seed.fr.utils"
 import type { Category_code } from "~/domain/category/Category.types"
 import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
 

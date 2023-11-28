@@ -5,7 +5,7 @@ import data_images from "./data.gen.images.json"
 import {
   data_initial_post_insert_many,
   data_initial_post_gen_base,
-} from "../data.seed.common/data.seed.fr.posts._utils"
+} from "../data.seed.common/data.seed.fr.utils"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const jobs = [

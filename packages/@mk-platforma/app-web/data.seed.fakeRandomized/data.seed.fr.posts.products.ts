@@ -3,7 +3,7 @@ import { PostGenerator_context } from "../data.seed.common/data.gen._utils"
 import {
   data_initial_post_insert_many,
   data_initial_post_gen_base,
-} from "../data.seed.common/data.seed.fr.posts._utils"
+} from "../data.seed.common/data.seed.fr.utils"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const withRelatedProps = ({ categories }: PostGenerator_context) => [
