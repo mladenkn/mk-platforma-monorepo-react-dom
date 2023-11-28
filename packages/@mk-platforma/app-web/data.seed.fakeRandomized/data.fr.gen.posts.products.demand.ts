@@ -1,7 +1,7 @@
 import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { PostGenerator_context } from "../data.seed.common/data.gen._utils"
 import { faker } from "@faker-js/faker"
-import { data_initial_post_gen_base } from "../data.seed.common/data.seed.fr.utils"
+import { data_initial_post_gen_base } from "../data.seed.common/data.seed.utils"
 
 export default function data_fr_gen_posts_products_demand(ctx: PostGenerator_context) {
   return generateArray(

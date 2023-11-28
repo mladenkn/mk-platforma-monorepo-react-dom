@@ -13,7 +13,7 @@ import data_fr_gen_posts_products_demand from "./data.fr.gen.posts.products.dema
 import {
   data_initial_categories_insert,
   data_initial_post_insert_many,
-} from "~/data.seed.common/data.seed.fr.utils"
+} from "~/data.seed.common/data.seed.utils"
 import { User } from "~/drizzle/drizzle.schema"
 import locations_json from "~/data.seed.common/data.locations.json"
 import { Location } from "~/domain/post/Post.schema"

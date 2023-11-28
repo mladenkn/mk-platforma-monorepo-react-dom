@@ -1,4 +1,4 @@
-import { Data_initial_Category_insert_single_props } from "~/data.seed.common/data.seed.fr.utils"
+import { Data_initial_Category_insert_single_props } from "~/data.seed.common/data.seed.utils"
 
 const categories: Data_initial_Category_insert_single_props[] = [
   { code: "job", label_hr: "Poslovi", icon_mui: "HandymanIcon" },
