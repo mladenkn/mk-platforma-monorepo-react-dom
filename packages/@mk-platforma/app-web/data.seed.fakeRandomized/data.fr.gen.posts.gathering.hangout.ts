@@ -12,7 +12,7 @@ const withRelatedProps = [
   },
 ]
 
-export default function data_seed_fr_posts_gathering_hangout(ctx: PostGenerator_context) {
+export default function data_fr_gen_posts_gathering_hangout(ctx: PostGenerator_context) {
   return faker.helpers
     .shuffle(withRelatedProps)
     .map(post => ({

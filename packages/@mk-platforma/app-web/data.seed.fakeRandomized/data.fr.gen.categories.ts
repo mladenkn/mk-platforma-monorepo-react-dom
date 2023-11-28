@@ -1,6 +1,4 @@
-import { data_initial_categories_insert } from "~/data.seed.common/data.seed.fr.utils"
 import type { Category_code } from "~/domain/category/Category.types"
-import type { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const categories: Data_initial_Category_insert_single_props[] = [
   { code: "job", label_hr: "Poslovi", icon_mui: "HandymanIcon" },
@@ -85,7 +83,7 @@ export type Data_initial_Category_insert_single_props = {
   children?: Omit<Data_initial_Category_insert_single_props, "children">[]
 }
 
-export function data_fr_gen_categories() {
+export default function data_fr_gen_categories() {
   return categories
   // await data_initial_categories_insert(db, categories)
 }
