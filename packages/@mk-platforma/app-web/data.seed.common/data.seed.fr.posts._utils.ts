@@ -9,7 +9,7 @@ import { Comment, Image } from "~/drizzle/drizzle.schema"
 
 type WithImages = { images?: { url: string; isMain?: boolean }[] }
 
-export function post_gen_base<TPost extends WithImages>(
+export function data_initial_post_gen_base<TPost extends WithImages>(
   { locations, users }: PostGenerator_context,
   post: TPost,
 ) {
@@ -73,7 +73,7 @@ async function data_seed_post_insert(db: Drizzle_instance, post: data_seed_post)
   await db.insert(Comment).values(comments_mapped)
 }
 
-export async function data_seed_post_insert_many(db: Drizzle_instance, posts: data_seed_post[]) {
+export async function data_initial_post_insert_many(db: Drizzle_instance, posts: data_seed_post[]) {
   for (const post of posts) {
     await data_seed_post_insert(db, post)
   }

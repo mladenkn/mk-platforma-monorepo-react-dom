@@ -5,8 +5,8 @@ import { PostGenerator_context } from "../data.seed.common/data.gen._utils"
 import * as cro_dataset from "../data.seed.common/data.gen.cro.dataset"
 import { avatarStyles } from "~/domain/user/User.common"
 import {
-  data_seed_post_insert_many,
-  post_gen_base,
+  data_initial_post_insert_many,
+  data_initial_post_gen_base,
 } from "../data.seed.common/data.seed.fr.posts._utils"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
@@ -51,7 +51,7 @@ export default async function data_seed_fr_posts_job_demand(
   ctx: PostGenerator_context,
 ) {
   const posts = generateArray(() => {}, faker.datatype.number({ min: 8, max: 20 })).map(() =>
-    post_gen_base(ctx, generateSingle(ctx)),
+    data_initial_post_gen_base(ctx, generateSingle(ctx)),
   )
-  await data_seed_post_insert_many(db, posts)
+  await data_initial_post_insert_many(db, posts)
 }
