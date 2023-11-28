@@ -6,8 +6,8 @@ import { z } from "zod"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import Post_api_create from "~/domain/post/Post.api.create"
 import { Comment, Image } from "~/drizzle/drizzle.schema"
-import { Data_initial_Category_insert_single_props } from "~/data.seed.fakeRandomized/data.fr.gen.categories"
 import { Category } from "~/domain/category/Category.schema"
+import { Category_code } from "~/domain/category/Category.types"
 
 type WithImages = { images?: { url: string; isMain?: boolean }[] }
 
@@ -79,6 +79,14 @@ export async function data_initial_post_insert_many(db: Drizzle_instance, posts:
   for (const post of posts) {
     await data_seed_post_insert(db, post)
   }
+}
+
+export type Data_initial_Category_insert_single_props = {
+  code: Category_code
+  parent_id?: number
+  label_hr: string
+  icon_mui: string
+  children?: Omit<Data_initial_Category_insert_single_props, "children">[]
 }
 
 export async function data_initial_categories_insert(

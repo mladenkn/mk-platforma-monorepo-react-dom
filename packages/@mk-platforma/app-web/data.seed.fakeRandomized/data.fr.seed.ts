@@ -15,17 +15,15 @@ import {
   data_initial_post_insert_many,
 } from "~/data.seed.common/data.seed.fr.utils"
 import { User } from "~/drizzle/drizzle.schema"
-import { eva } from "@mk-libs/common/common"
 import locations_json from "~/data.seed.common/data.locations.json"
 import { Location } from "~/domain/post/Post.schema"
 
 const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed_fakeRandomized(
   db: Drizzle_instance,
 ) {
-  const categories = await eva(async () => {
-    await data_initial_categories_insert(db, data_fr_gen_categories())
-    return await db.query.Category.findMany()
-  })
+  await data_initial_categories_insert(db, data_fr_gen_categories())
+
+  const categories = await db.query.Category.findMany()
   const locations = await data_fr_gen_locations(db)
   const users = await db.insert(User).values(data_fr_gen_users()).returning()
 

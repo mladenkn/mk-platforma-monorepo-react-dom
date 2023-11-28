@@ -1,4 +1,4 @@
-import type { Category_code } from "~/domain/category/Category.types"
+import { Data_initial_Category_insert_single_props } from "~/data.seed.common/data.seed.fr.utils"
 
 const categories: Data_initial_Category_insert_single_props[] = [
   { code: "job", label_hr: "Poslovi", icon_mui: "HandymanIcon" },
@@ -75,15 +75,6 @@ const categories: Data_initial_Category_insert_single_props[] = [
   },
 ]
 
-export type Data_initial_Category_insert_single_props = {
-  code: Category_code
-  parent_id?: number
-  label_hr: string
-  icon_mui: string
-  children?: Omit<Data_initial_Category_insert_single_props, "children">[]
-}
-
 export default function data_fr_gen_categories() {
   return categories
-  // await data_initial_categories_insert(db, categories)
 }
