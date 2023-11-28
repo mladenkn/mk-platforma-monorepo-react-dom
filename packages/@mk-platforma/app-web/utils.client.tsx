@@ -2,28 +2,7 @@ import { UseQueryResult } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import React, { useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
-import { Api_outputs } from "./api_/api.infer"
-
-type DataOrQuery_Props<TData> = {
-  input: TData | UseQueryResult<TData>
-  render(data: TData): JSX.Element
-  loading?: JSX.Element
-  error?: JSX.Element
-}
-
-export default function DataOrQuery<TData>({
-  input,
-  render,
-  loading = <>Loading...</>,
-  error = <>"Error"</>,
-}: DataOrQuery_Props<TData>) {
-  if ((input as any).status) {
-    const query = input as UseQueryResult<TData>
-    if (query.isLoading) return loading
-    else if (query.error) return error
-    else return render((input as any).data)
-  } else return render(input as any)
-}
+import { Api_outputs } from "./api.trpc/api.infer"
 
 export function useWindowSize() {
   // Initialize state with undefined width/height so server and client renders match

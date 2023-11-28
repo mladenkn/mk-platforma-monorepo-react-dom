@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
+import { authorizedRoute, publicProcedure, router } from "~/api.trpc/api.server.utils"
 import Post_api_create from "./Post.api.create"
 import "@mk-libs/common/server-only"
 import Post_api_update from "./Post.api.update"

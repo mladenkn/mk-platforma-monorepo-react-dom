@@ -15,18 +15,18 @@ module.exports = {
         port: '',
         pathname: '/f/**',
       },
-      {
-        protocol: 'https',
-        hostname: 'www.njuskalo.hr',
-        port: '',
-        // pathname: '/f/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'encrypted-tbn0.gstatic.com',
-        port: '',
-        // pathname: '/f/**',
-      },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'www.njuskalo.hr',
+      //   port: '',
+      //   // pathname: '/f/**',
+      // },
+      // {
+      //   protocol: 'https',
+      //   hostname: 'encrypted-tbn0.gstatic.com',
+      //   port: '',
+      //   // pathname: '/f/**',
+      // },
     ],
   },
 

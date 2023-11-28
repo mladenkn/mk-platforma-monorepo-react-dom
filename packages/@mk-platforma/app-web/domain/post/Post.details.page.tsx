@@ -1,5 +1,5 @@
 import { Avatar, Box, IconButton, Link, Paper, Typography, useTheme } from "@mui/material"
-import Api from "~/api_/api.client"
+import Api from "~/api.trpc/api.client"
 import { asNonNil } from "@mk-libs/common/common"
 import React, { useState } from "react"
 import { Header, Header_back, Header_moreOptions } from "~/domain/Header"
@@ -14,7 +14,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext"
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore"
 import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
-import { Api_outputs } from "~/api_/api.infer"
+import { Api_outputs } from "~/api.trpc/api.infer"
 import Comment_list from "../Comment.list"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>

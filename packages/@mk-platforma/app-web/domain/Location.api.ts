@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "~/api_/api.server.utils"
+import { publicProcedure, router } from "~/api.trpc/api.server.utils"
 import { z } from "zod"
 import "@mk-libs/common/server-only"
 import { location_api_google__search } from "./Location.api.google"

@@ -3,7 +3,7 @@ import { LogoLink } from "./common"
 import { ErrorMessage, Formik } from "formik"
 import { z } from "zod"
 import { toFormikValidationSchema } from "zod-formik-adapter"
-import Api from "~/api_/api.client"
+import Api from "~/api.trpc/api.client"
 
 type Props = {
   csrfToken?: string

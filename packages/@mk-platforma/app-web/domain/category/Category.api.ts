@@ -1,4 +1,4 @@
-import { publicProcedure, router } from "~/api_/api.server.utils"
+import { publicProcedure, router } from "~/api.trpc/api.server.utils"
 import "@mk-libs/common/server-only"
 import { Category } from "~/domain/category/Category.schema"
 

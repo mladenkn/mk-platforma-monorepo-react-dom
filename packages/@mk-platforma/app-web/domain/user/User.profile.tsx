@@ -2,11 +2,11 @@ import { Box, Paper, Avatar, Typography, IconButton, useTheme } from "@mui/mater
 import React from "react"
 import Link from "next/link"
 import { groupBy } from "lodash"
-import { Api_outputs } from "~/api_/api.infer"
+import { Api_outputs } from "~/api.trpc/api.infer"
 import { Header, Header_back, Header_moreOptions } from "../Header"
 import { LogoLink, Warning_noUsername, use_noUsername_isDisplayed } from "../common"
 import Layout from "~/domain/Layout"
-import Api from "~/api_/api.client"
+import Api from "~/api.trpc/api.client"
 import EditIcon from "@mui/icons-material/Edit"
 
 type User = NonNullable<Api_outputs["user"]["single_withPosts"]>
