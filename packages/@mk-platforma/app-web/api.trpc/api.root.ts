@@ -1,5 +1,5 @@
 import { User_api } from "../domain/user/User.api"
-import { router } from "~/api_/api.server.utils"
+import { router } from "~/api.trpc/api.server.utils"
 import Category_api from "../domain/category/Category.api"
 import Comment_api from "~/domain/Comment.api"
 import Location_api from "~/domain/Location.api"

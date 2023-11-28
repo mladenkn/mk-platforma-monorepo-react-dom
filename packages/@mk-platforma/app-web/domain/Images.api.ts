@@ -1,4 +1,4 @@
-import { authorizedRoute, router } from "~/api_/api.server.utils"
+import { authorizedRoute, router } from "~/api.trpc/api.server.utils"
 import { ImageSchema } from "../prisma/generated/zod"
 import "@mk-libs/common/server-only"
 import { z } from "zod"

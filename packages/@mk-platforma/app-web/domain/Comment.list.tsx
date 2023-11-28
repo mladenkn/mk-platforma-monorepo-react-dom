@@ -1,5 +1,5 @@
 import { Paper, Input, IconButton, Box, Avatar } from "@mui/material"
-import Api from "~/api_/api.client"
+import Api from "~/api.trpc/api.client"
 import { Comment_list_item } from "./Comment.list.item"
 import SendIcon from "@mui/icons-material/Send"
 import { useState } from "react"

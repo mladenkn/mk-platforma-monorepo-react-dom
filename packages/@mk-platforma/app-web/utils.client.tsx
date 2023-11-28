@@ -2,7 +2,7 @@ import { UseQueryResult } from "@tanstack/react-query"
 import { useRouter } from "next/router"
 import React, { useState, useEffect } from "react"
 import { useSearchParams } from "next/navigation"
-import { Api_outputs } from "./api_/api.infer"
+import { Api_outputs } from "./api.trpc/api.infer"
 
 type DataOrQuery_Props<TData> = {
   input: TData | UseQueryResult<TData>

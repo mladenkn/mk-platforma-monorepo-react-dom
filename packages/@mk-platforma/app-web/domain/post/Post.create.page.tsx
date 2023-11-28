@@ -5,7 +5,7 @@ import { useTheme } from "@mui/material"
 import { Header, Header_moreOptions, Header_back } from "../Header"
 import Layout from "../Layout"
 import { LogoLink } from "../common"
-import Api from "~/api_/api.client"
+import Api from "~/api.trpc/api.client"
 import { Post_api_create_input } from "./Post.api.cu.input"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 

@@ -1,5 +1,5 @@
 import { z } from "zod"
-import { authorizedRoute, publicProcedure, router } from "~/api_/api.server.utils"
+import { authorizedRoute, publicProcedure, router } from "~/api.trpc/api.server.utils"
 import "@mk-libs/common/server-only"
 import { eq } from "drizzle-orm"
 import { User } from "~/domain/user/User.schema"

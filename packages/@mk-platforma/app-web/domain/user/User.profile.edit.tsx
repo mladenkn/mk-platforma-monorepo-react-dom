@@ -1,6 +1,6 @@
 import { IconButton, Paper, TextField, Typography, Box, useTheme } from "@mui/material"
-import Api from "~/api_/api.client"
-import { Api_outputs } from "~/api_/api.infer"
+import Api from "~/api.trpc/api.client"
+import { Api_outputs } from "~/api.trpc/api.infer"
 import Layout from "../Layout"
 import { Header, Header_back, Header_moreOptions } from "../Header"
 import { LogoLink, Warning_noUsername, use_noUsername_isDisplayed } from "../common"

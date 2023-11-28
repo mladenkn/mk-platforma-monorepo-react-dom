@@ -1,8 +1,8 @@
 import { Autocomplete, Box, TextField, useTheme } from "@mui/material"
 import { CategoryIcon } from "./Category.common"
 import React, { ComponentProps, ReactElement } from "react"
-import Api from "~/api_/api.client"
-import { Api_outputs } from "~/api_/api.infer"
+import Api from "~/api.trpc/api.client"
+import { Api_outputs } from "~/api.trpc/api.infer"
 import { eva } from "~/../../@mk-libs/common/common"
 
 type Category = Api_outputs["category"]["many"][number]

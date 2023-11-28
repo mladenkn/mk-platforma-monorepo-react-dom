@@ -1,6 +1,6 @@
 import BedIcon from "@mui/icons-material/Bed"
 import React, { ComponentProps } from "react"
-import Api from "~/api_/api.client"
+import Api from "~/api.trpc/api.client"
 import ConstructionIcon from "@mui/icons-material/Construction"
 import Diversity3Icon from "@mui/icons-material/Diversity3"
 import SelfImprovementIcon from "@mui/icons-material/SelfImprovement"

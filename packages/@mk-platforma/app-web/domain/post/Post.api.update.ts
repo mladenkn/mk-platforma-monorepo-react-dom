@@ -1,5 +1,5 @@
 import { shallowPick } from "@mk-libs/common/common"
-import { authorizedRoute } from "~/api_/api.server.utils"
+import { authorizedRoute } from "~/api.trpc/api.server.utils"
 import { Post_api_update_input } from "./Post.api.cu.input"
 import { getRandomElement } from "@mk-libs/common/array"
 import { avatarStyles } from "~/domain/user/User.common"

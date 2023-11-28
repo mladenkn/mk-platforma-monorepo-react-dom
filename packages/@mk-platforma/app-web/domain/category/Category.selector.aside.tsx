@@ -15,7 +15,7 @@ import React, { ReactNode } from "react"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import { eva } from "@mk-libs/common/common"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import type { Api_outputs } from "~/api_/api.infer"
+import type { Api_outputs } from "~/api.trpc/api.infer"
 import { LogoLink } from "~/domain/common"
 
 type Category_model = Api_outputs["category"]["many"][number]
