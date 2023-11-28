@@ -13,7 +13,7 @@ const withRelatedProps = [
   },
 ]
 
-export default function data_seed_fr_posts_accommodation_demand(ctx: PostGenerator_context) {
+export default function data_fr_gen_posts_accommodation_demand(ctx: PostGenerator_context) {
   return [...withRelatedProps, ...withRelatedProps]
     .map(post => ({
       ...post,

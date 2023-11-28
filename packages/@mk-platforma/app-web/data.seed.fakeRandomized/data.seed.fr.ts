@@ -8,7 +8,7 @@ import data_seed_fr_posts_job_demand from "./data.fr.gen.posts.job.demand"
 import data_seed_fr_posts_gathering_work from "./data.fr.gen.posts.gathering.work"
 import data_seed_fr_posts_accommodation from "./data.fr.gen.posts.accommodation"
 import data_seed_fr_posts_gathering_hangout from "./data.fr.gen.posts.gathering.hangout"
-import data_seed_fr_posts_accommodation_demand from "./data.fr.gen.posts.accommodation.demand"
+import data_fr_gen_posts_accommodation_demand from "./data.fr.gen.posts.accommodation.demand"
 import data_seed_fr_posts_products_demand from "./data.fr.gen.posts.products.demand"
 import {
   data_initial_categories_insert,
@@ -42,7 +42,7 @@ const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed
     ...data_seed_fr_posts_gathering_work(ctx),
     ...data_seed_fr_posts_gathering_hangout(ctx),
     ...data_seed_fr_posts_accommodation(ctx),
-    ...data_seed_fr_posts_accommodation_demand(ctx),
+    ...data_fr_gen_posts_accommodation_demand(ctx),
     ...data_seed_fr_posts_products_demand(ctx),
   ]
 

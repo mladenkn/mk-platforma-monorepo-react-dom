@@ -6,7 +6,7 @@ import { z } from "zod"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import Post_api_create from "~/domain/post/Post.api.create"
 import { Comment, Image } from "~/drizzle/drizzle.schema"
-import { Data_initial_Category_insert_single_props } from "~/data.seed.fakeRandomized/data.fr.categories"
+import { Data_initial_Category_insert_single_props } from "~/data.seed.fakeRandomized/data.fr.gen.categories"
 import { Category } from "~/domain/category/Category.schema"
 
 type WithImages = { images?: { url: string; isMain?: boolean }[] }
