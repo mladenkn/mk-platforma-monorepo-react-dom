@@ -1,7 +1,7 @@
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { withPerfLogging_async } from "@mk-libs/common/debug"
 import data_fr_gen_categories from "./data.fr.gen.categories"
-import data_fr_gen_users from "./data.seed.fr.users"
+import data_fr_gen_users from "./data.fr..gen.users"
 import data_fr_gen_posts_products from "./data.fr.gen.posts.products"
 import data_fr_gen_posts_jobs from "./data.fr.gen.posts.jobs"
 import data_fr_gen_posts_job_demand from "./data.fr.gen.posts.job.demand"
