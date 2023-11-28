@@ -7,7 +7,7 @@ import drizzle_connect, { Drizzle_instance } from "~/drizzle/drizzle.instance"
 import { Api_ss } from "~/api_/api.root"
 import { eq } from "drizzle-orm"
 import { User } from "~/drizzle/drizzle.schema"
-import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fakeRandomized"
+import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.seed.fr"
 
 async function api_create(db: Drizzle_instance) {
   const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
