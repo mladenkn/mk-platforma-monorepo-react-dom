@@ -17,6 +17,7 @@ import {
 import { User } from "~/drizzle/drizzle.schema"
 import locations_json from "~/data.seed.common/data.locations.json"
 import { Location } from "~/domain/post/Post.schema"
+import { faker } from "@faker-js/faker"
 
 const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed_fakeRandomized(
   db: Drizzle_instance,
@@ -33,7 +34,7 @@ const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed
     users,
   }
 
-  const posts = [
+  const posts = faker.helpers.shuffle([
     ...data_fr_gen_posts_job_demand(ctx),
     ...data_fr_gen_posts_jobs(ctx),
     // ...data_seed_fr_posts_products(db, ctx),
@@ -42,7 +43,7 @@ const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed
     ...data_fr_gen_posts_accommodation(ctx),
     ...data_fr_gen_posts_accommodation_demand(ctx),
     ...data_fr_gen_posts_products_demand(ctx),
-  ]
+  ])
 
   await data_initial_post_insert_many(db, posts)
 })

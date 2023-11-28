@@ -13,8 +13,7 @@ const withRelatedProps = [
 ]
 
 export default function data_fr_gen_posts_gathering_hangout(ctx: PostGenerator_context) {
-  return faker.helpers
-    .shuffle(withRelatedProps)
+  return withRelatedProps
     .map(post => ({
       ...post,
       categories: [ctx.categories.find(c => c.code === "gathering_hangout")!],

@@ -32,8 +32,7 @@ const jobs = [
 ]
 
 export default function data_fr_gen_posts_jobs(ctx: PostGenerator_context) {
-  return faker.helpers
-    .shuffle(jobs)
+  return jobs
     .map(post => ({
       ...post,
       categories: [asNonNil(ctx.categories.find(c => c.code === "job"))],
