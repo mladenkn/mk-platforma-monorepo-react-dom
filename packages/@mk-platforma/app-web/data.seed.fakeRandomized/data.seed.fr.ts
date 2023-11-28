@@ -15,11 +15,16 @@ import data_seed_fr_posts_products_demand from "./data.seed.fr.posts.products.de
 const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed_fakeRandomized(
   db: Drizzle_instance,
 ) {
-  const categories = await data_seed_fr_categories(db)
-  const locations = await data_seed_fr_locations(db)
-  const users = await data_seed_fr_users(db)
+  await data_seed_fr_categories(db)
+  await data_seed_fr_users(db)
 
-  const ctx = { categories, locations, users }
+  const locations = await data_seed_fr_locations(db)
+
+  const ctx = {
+    categories: await db.query.Category.findMany(),
+    locations,
+    users: await db.query.User.findMany(),
+  }
 
   await Promise.all([
     data_seed_fr_posts_job_demand(db, ctx),

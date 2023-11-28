@@ -19,5 +19,4 @@ export default async function data_seed_fr_users(db: Drizzle_instance) {
       // emailVerified: new Date(),
     }))
   await db.insert(User).values(users)
-  return await db.query.User.findMany()
 }

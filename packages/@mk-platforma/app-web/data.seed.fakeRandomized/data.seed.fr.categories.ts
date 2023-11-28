@@ -86,7 +86,11 @@ type Category_props = {
 }
 
 export async function data_seed_fr_categories(db: Drizzle_instance) {
-  for (const category of categories) {
+  await insertCategories(db, categories)
+}
+
+async function insertCategories(db: Drizzle_instance, _categories: Category_props[]) {
+  for (const category of _categories) {
     const category_inserted = await db
       .insert(Category)
       .values(category)
@@ -98,6 +102,4 @@ export async function data_seed_fr_categories(db: Drizzle_instance) {
     const children_mapped = category.children.map(c => ({ ...c, parent_id: category_inserted.id }))
     await db.insert(Category).values(children_mapped)
   }
-
-  return await db.query.Category.findMany()
 }
