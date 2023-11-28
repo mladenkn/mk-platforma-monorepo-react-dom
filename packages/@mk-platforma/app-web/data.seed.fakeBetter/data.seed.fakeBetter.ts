@@ -4,7 +4,7 @@ import {
   cro_person_name_getRandom,
   cro_skill_getRandom,
 } from "~/data.seed.common/data.gen.cro.dataset"
-import { PostGenerator_context } from "~/data.seed.common/data.gen._utils"
+import { PostGenerator_context } from "~/data.seed.common/data.gen.utils"
 
 export default async function data_seed_fakeBetter({ categories }: PostGenerator_context) {
   const food_common = {

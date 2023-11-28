@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { uniq } from "lodash"
-import { PostGenerator_context } from "../data.seed.common/data.gen._utils"
+import { PostGenerator_context } from "../data.seed.common/data.gen.utils"
 import * as cro_dataset from "../data.seed.common/data.gen.cro.dataset"
 import { avatarStyles } from "~/domain/user/User.common"
 import { data_initial_post_gen_base } from "../data.seed.common/data.seed.utils"

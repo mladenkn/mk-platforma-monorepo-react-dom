@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 import { generateArray } from "@mk-libs/common/common"
-import { PostGenerator_context as PostGenerator_context } from "./data.gen._utils"
+import { PostGenerator_context as PostGenerator_context } from "./data.gen.utils"
 import { Post_api_create_input } from "~/domain/post/Post.api.cu.input"
 import { z } from "zod"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"

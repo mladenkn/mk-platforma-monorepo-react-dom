@@ -1,5 +1,5 @@
 import { asNonNil } from "@mk-libs/common/common"
-import { PostGenerator_context } from "../data.seed.common/data.gen._utils"
+import { PostGenerator_context } from "../data.seed.common/data.gen.utils"
 import { data_initial_post_gen_base } from "../data.seed.common/data.seed.utils"
 
 // tribaju nove slike, do tad disable-at

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker"
-import { PostGenerator_context } from "../data.seed.common/data.gen._utils"
+import { PostGenerator_context } from "../data.seed.common/data.gen.utils"
 import data_images from "./data.fr.gen.images.json"
 import { data_initial_post_gen_base } from "../data.seed.common/data.seed.utils"
 
