@@ -73,14 +73,6 @@ const commands = [
         .catch(console.error)
     },
   }),
-  // command({
-  //   name: "location.google.find.save",
-  //   params: z.object({ query: z.string() }),
-  //   resolve: ({ db }, { query }) => {
-  //     const searchQuery = asString(query)
-  //     return Location_google_find_save(db, searchQuery).then(console.log).catch(console.error)
-  //   },
-  // }),
 ]
 
 cli_run(commands).then(() => process.exit(0))
