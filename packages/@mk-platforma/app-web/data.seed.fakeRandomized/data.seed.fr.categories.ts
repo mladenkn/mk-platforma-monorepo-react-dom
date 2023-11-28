@@ -85,6 +85,7 @@ export type Data_initial_Category_insert_single_props = {
   children?: Omit<Data_initial_Category_insert_single_props, "children">[]
 }
 
-export async function data_seed_fr_categories(db: Drizzle_instance) {
-  await data_initial_categories_insert(db, categories)
+export function data_fr_gen_categories() {
+  return categories
+  // await data_initial_categories_insert(db, categories)
 }

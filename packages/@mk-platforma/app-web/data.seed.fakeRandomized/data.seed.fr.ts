@@ -1,5 +1,5 @@
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
-import { data_seed_fr_categories } from "./data.seed.fr.categories"
+import { data_fr_gen_categories } from "./data.seed.fr.categories"
 import { withPerfLogging_async } from "@mk-libs/common/debug"
 import data_seed_fr_locations from "./data.seed.fr.locations"
 import data_seed_fr_users from "./data.seed.fr.users"
@@ -11,11 +11,12 @@ import data_seed_fr_posts_accommodation from "./data.seed.fr.posts.accommodation
 import data_seed_fr_posts_gathering_hangout from "./data.seed.fr.posts.gathering.hangout"
 import data_seed_fr_posts_accommodation_demand from "./data.seed.fr.posts.accommodation.demand"
 import data_seed_fr_posts_products_demand from "./data.seed.fr.posts.products.demand"
+import { data_initial_categories_insert } from "~/data.seed.common/data.seed.fr.utils"
 
 const data_seed_fakeRandomized = withPerfLogging_async(async function _data_seed_fakeRandomized(
   db: Drizzle_instance,
 ) {
-  await data_seed_fr_categories(db)
+  await data_initial_categories_insert(db, data_fr_gen_categories())
   await data_seed_fr_users(db)
 
   const locations = await data_seed_fr_locations(db)
