@@ -1,10 +1,13 @@
 import { faker } from "@faker-js/faker"
 import { asNonNil, generateArray } from "@mk-libs/common/common"
 import { uniq } from "lodash"
-import { PostGenerator_context } from "./data.gen._utils"
+import { PostGenerator_context } from "../data.seed.common/data.gen._utils"
 import * as cro_dataset from "../data.seed.common/data.gen.cro.dataset"
 import { avatarStyles } from "~/domain/user/User.common"
-import { data_seed_post_insert_many, post_gen_base } from "./data.seed.fr.posts._utils"
+import {
+  data_seed_post_insert_many,
+  post_gen_base,
+} from "../data.seed.common/data.seed.fr.posts._utils"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 function generateSingle({ categories }: PostGenerator_context) {

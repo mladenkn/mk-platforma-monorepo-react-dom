@@ -1,8 +1,11 @@
 import { faker } from "@faker-js/faker"
 import { asNonNil } from "@mk-libs/common/common"
-import { PostGenerator_context } from "./data.gen._utils"
+import { PostGenerator_context } from "../data.seed.common/data.gen._utils"
 import data_images from "./data.gen.images.json"
-import { data_seed_post_insert_many, post_gen_base } from "./data.seed.fr.posts._utils"
+import {
+  data_seed_post_insert_many,
+  post_gen_base,
+} from "../data.seed.common/data.seed.fr.posts._utils"
 import { Drizzle_instance } from "~/drizzle/drizzle.instance"
 
 const withRelatedProps = [
