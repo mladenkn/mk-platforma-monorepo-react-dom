@@ -3,3 +3,4 @@ test-results
 prisma/generated/zod/index.ts
 node_modules
 .next
+.env

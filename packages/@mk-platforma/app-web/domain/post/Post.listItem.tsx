@@ -1,7 +1,6 @@
 import { Box, Typography, useTheme, Paper } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import React from "react"
-import Image from "next/image"
 
 type Post_common_listItem_props = {
   id: number
@@ -26,7 +25,7 @@ export function Post_listItem({ id, title, location, image }: Post_common_listIt
       }}
     >
       {image && (
-        <Image
+        <img
           src={image.url}
           width={100}
           height={100}
