@@ -8,7 +8,8 @@
     "postinstall": "pnpm prisma generate",
     "build": "pnpm next build",
     "drizzle.push": "drizzle-kit push:pg --config=./drizzle/drizzle.config.ts",
-    "dev": "next dev"
+    "dev": "next dev",
+    "start": "next start"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
