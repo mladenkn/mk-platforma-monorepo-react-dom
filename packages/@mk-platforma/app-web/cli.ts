@@ -1,6 +1,5 @@
 import { cli_command_base, cli_run } from "./cli.utils"
 import { z } from "zod"
-import { cli_getConnectionString } from "./cli.utils"
 import { location_api_google__search } from "./domain/Location.api.google"
 import { asString } from "@mk-libs/common/common"
 import drizzle_connect, { Drizzle_instance } from "~/drizzle/drizzle.instance"
@@ -8,6 +7,8 @@ import { Api_ss } from "~/api.trpc/api.root"
 import { eq } from "drizzle-orm"
 import { User } from "~/drizzle/drizzle.schema"
 import data_seed_fakeRandomized from "./data.seed.fakeRandomized/data.fr.seed"
+
+require('dotenv').config()
 
 async function api_create(db: Drizzle_instance) {
   const user = await db.query.User.findFirst({ where: eq(User.canMutate, true) }).then(
@@ -22,9 +23,7 @@ const command = cli_command_base({
     dbInstance: z.string().optional().default("dev"),
   }),
   async base_resolve({ dbInstance }) {
-    const db_connectionString = cli_getConnectionString(dbInstance || "dev")
-    process.env.DATABASE_URL = db_connectionString
-    return { db_connectionString }
+    return { }
   },
 })
 
@@ -39,8 +38,8 @@ const commands = [
   }),
   command({
     name: "db.reset",
-    async resolve({ db_connectionString, run }) {
-      await run(`psql ${db_connectionString} --file=./db.truncate.sql`)
+    async resolve({ run }) {
+      await run(`psql ${process.env.DATABASE_URL} --file=./db.truncate.sql`)
       await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
       await run("prisma db pull")
       await run("prisma generate")
@@ -51,8 +50,8 @@ const commands = [
   }),
   command({
     name: "db.psql",
-    async resolve({ db_connectionString, run }) {
-      await run(`psql ${db_connectionString}`)
+    async resolve({ run }) {
+      await run(`psql ${process.env.DATABASE_URL}`)
     },
   }),
   command({

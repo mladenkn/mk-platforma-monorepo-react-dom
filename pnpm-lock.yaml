@@ -10,7 +10,7 @@ importers:
     devDependencies:
       prettier:
         specifier: latest
-        version: 3.0.3
+        version: 3.1.1
       turbo:
         specifier: latest
         version: 1.10.15
@@ -190,6 +190,9 @@ importers:
       cookie:
         specifier: ^0.5.0
         version: 0.5.0
+      dotenv:
+        specifier: ^16.3.1
+        version: 16.3.1
       drizzle-orm:
         specifier: ^0.28.6
         version: 0.28.6(@vercel/postgres@0.4.0)(postgres@3.4.0)
@@ -2324,6 +2327,11 @@ packages:
       csstype: 3.1.2
     dev: false
 
+  /dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
+    dev: false
+
   /dreamopt@0.8.0:
     resolution: {integrity: sha512-vyJTp8+mC+G+5dfgsY+r3ckxlz+QMX40VjPQsZc5gxVAxLmi64TBoVkP54A/pRAXMXsbu2GMMBrZPxNv23waMg==}
     engines: {node: '>=0.4.0'}
@@ -3429,8 +3437,8 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
-  /prettier@3.0.3:
-    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
+  /prettier@3.1.1:
+    resolution: {integrity: sha512-22UbSzg8luF4UuZtzgiUOfcGM8s4tjBv6dJRT7j275NXsy2jb4aJa4NNveul5x4eqlF1wuhuR2RElK71RvmVaw==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
