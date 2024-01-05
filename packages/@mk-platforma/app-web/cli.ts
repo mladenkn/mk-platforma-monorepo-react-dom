@@ -22,9 +22,6 @@ const command = cli_command_base({
   base_params: z.object({
     dbInstance: z.string().optional().default("dev"),
   }),
-  async base_resolve({ dbInstance }) {
-    return { }
-  },
 })
 
 const commands = [

@@ -24,7 +24,7 @@ export function cli_command_base<
   TBaseResolve_result extends object = {},
 >(command_base: {
   base_params?: z.ZodType<TBase_params>
-  base_resolve: (params_base: TBase_params) => Promise<TBaseResolve_result>
+  // base_resolve: (params_base: TBase_params) => Promise<TBaseResolve_result>
 }) {
   return function cli_command<TName extends string = string, TParams extends object = {}>(
     command: cli_Command<
@@ -39,8 +39,8 @@ export function cli_command_base<
     >
     async function resolve() {
       const params_resolved = params_zod.parse(yargs.argv)
-      const base_resolved = await command_base.base_resolve(params_resolved)
-      await command.resolve({ ...base_resolved, run: cli_runCommand }, params_resolved)
+      // const base_resolved = await command_base.base_resolve(params_resolved)
+      await command.resolve({ run: cli_runCommand } as any, params_resolved)
     }
     return { name: command.name, resolve }
   }
