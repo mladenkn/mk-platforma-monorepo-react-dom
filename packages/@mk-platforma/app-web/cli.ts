@@ -25,14 +25,6 @@ const command = cli_command_base({
 })
 
 const commands = [
-  command({ name: "dev", resolve: ({ run }) => run("next dev") }),
-  command({ name: "start", resolve: ({ run }) => run("next start") }),
-  command({
-    name: "dev.test",
-    async resolve() {
-      console.log("hello from dev.test")
-    },
-  }),
   command({
     name: "db.reset",
     async resolve({ run }) {
