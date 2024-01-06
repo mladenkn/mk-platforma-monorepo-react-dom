@@ -74,7 +74,9 @@ const theme_elements_default = {
     moreMenu: {
       color: mkPalette.primary.main,
     },
-    moreMenu_bottomSheet: {},
+    moreMenu_bottomSheet: {
+      background: "#E4E6EB",
+    },
   },
   postListPage: {
     postList: {

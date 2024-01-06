@@ -130,7 +130,7 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
       </Menu>
       {moreOptionsActive && (
         <BottomSheet
-          sx={{ px: 2, pt: 1.7, pb: 2.5, background: theme.other.background }}
+          sx={{ px: 2, pt: 1.7, pb: 2.5, ...elements.header.moreMenu_bottomSheet }}
           onClose={() => set_moreOptionsActive(false)}
         >
           <Typography sx={{ color: theme.other.font.color }} variant="h3">
