@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme, IconButton, Menu, MenuItem } from "@mui/material"
+import { Box, Typography, IconButton, Menu, MenuItem } from "@mui/material"
 import React, { ComponentProps, useState } from "react"
 import { SxProps } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
@@ -17,6 +17,7 @@ import { difference } from "lodash"
 import { styled } from "@mui/material/styles"
 import { use_currentUser } from "~/utils.client"
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew"
+import useTheme from "~/theme"
 
 type Option =
   | "post.create"
@@ -49,12 +50,15 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
 
   const theme = {
     font: {
-      color: palette.primary.main,
+      color: palette.header.moreMenu.color,
+    },
+    body: {
+      background: "#E4E6EB"
     },
     other: {
-      background: "#E4E6EB",
+      background: palette.body.background,
       font: {
-        color: palette.primary.main,
+        color: palette.header.moreMenu.color,
       },
     },
   }

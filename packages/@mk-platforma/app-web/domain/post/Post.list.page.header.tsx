@@ -4,7 +4,7 @@ import SearchIcon from "@mui/icons-material/Search"
 import CloseIcon from "@mui/icons-material/Close"
 import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined"
-import { Box, Typography, IconButton, useTheme, Input, Dialog } from "@mui/material"
+import { Box, Typography, IconButton, Input, Dialog } from "@mui/material"
 import { UseQueryResult } from "@tanstack/react-query"
 import Api from "~/api.trpc/api.client"
 import { eva } from "@mk-libs/common/common"
@@ -13,6 +13,7 @@ import { LogoLink } from "~/domain/common"
 import { Header_moreOptions } from "~/domain/Header"
 import Location_select_page from "~/domain/Location.select.page"
 import type { Category_code } from "~/domain/category/Category.types"
+import useTheme from "~/theme"
 
 type Props = {
   onShowCategories(): void
@@ -89,7 +90,7 @@ export default function Post_list_page_header({
           pt: 1.2,
           pb: 1,
           pl: 2,
-          background: palette.primary.main,
+          ...palette.header.root
         }}
       >
         <Box

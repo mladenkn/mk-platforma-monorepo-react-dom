@@ -1,10 +1,11 @@
 import RemoveIcon from "@mui/icons-material/Close"
-import { IconButton, Box, useTheme, Checkbox, Typography } from "@mui/material"
+import { IconButton, Box, Checkbox, Typography } from "@mui/material"
 import { UploadButton } from "~/file.upload"
 import "@uploadthing/react/styles.css"
 import { enqueueSnackbar } from "notistack"
 import Api from "~/api.trpc/api.client"
 import Image from "next/image"
+import useTheme from "~/theme"
 
 type Image = {
   id: number

@@ -1,4 +1,4 @@
-import { IconButton, Paper, TextField, Typography, Box, useTheme } from "@mui/material"
+import { IconButton, Paper, TextField, Typography, Box } from "@mui/material"
 import Api from "~/api.trpc/api.client"
 import { Api_outputs } from "~/api.trpc/api.infer"
 import Layout from "../Layout"
@@ -8,6 +8,7 @@ import DoneIcon from "@mui/icons-material/Done"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import { useState } from "react"
 import { useRouter } from "next/router"
+import useTheme from "~/theme"
 
 type User = NonNullable<Api_outputs["user"]["single"]>
 
@@ -62,7 +63,7 @@ export default function User_profile_edit({ user_initial }: Props) {
             onChange={e => set__user_name(e.target.value)}
           />
           {mutation.isError && (
-            <Typography sx={{ color: palette.error.main }}>{mutation.error.message}</Typography>
+            <Typography sx={{ color: palette.generic.error.main }}>{mutation.error.message}</Typography>
           )}
         </Paper>
       }

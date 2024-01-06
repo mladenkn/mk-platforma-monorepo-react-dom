@@ -1,4 +1,4 @@
-import { Box, Drawer, Fab, Typography, useTheme } from "@mui/material"
+import { Box, Drawer, Fab, Typography } from "@mui/material"
 import React, { useState } from "react"
 import ManageSearchIcon from "@mui/icons-material/ManageSearch"
 import Post_list_page_header from "./Post.list.page.header"
@@ -92,8 +92,6 @@ export default function Post_list_page({
     }
     setUrlParams_shallow({ category: category.code })
   }
-
-  const {} = useTheme()
 
   return (
     <>

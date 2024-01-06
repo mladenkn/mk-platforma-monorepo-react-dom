@@ -61,6 +61,9 @@ const primary = {
 }
 
 const defaultPalette = {
+  body: {
+    background: "#E4E6EB"
+  },
   header: {
     root: {
       color: "white",
@@ -73,9 +76,6 @@ const defaultPalette = {
     }
   },
   postListPage: {
-    body: {
-      background: "#E4E6EB"
-    },
     postList: {
       item: {
         root: {
@@ -124,6 +124,14 @@ export default function useTheme(){
   return {
     typography: muiTheme.typography,
     breakpoints: muiTheme.breakpoints,
-    palette: defaultPalette
+    spacing: muiTheme.spacing,
+    palette: {
+      ...defaultPalette,
+      generic: {
+        warning: muiTheme.palette.warning,
+        primary: muiTheme.palette.primary,
+        error: muiTheme.palette.error,
+      }
+    }
   }
 }

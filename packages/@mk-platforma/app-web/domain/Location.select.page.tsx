@@ -1,4 +1,4 @@
-import { IconButton, Typography, Input, useTheme } from "@mui/material"
+import { IconButton, Typography, Input } from "@mui/material"
 import { Box } from "@mui/system"
 import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined"
 import ArrowRightIcon from "@mui/icons-material/ArrowRight"
@@ -14,6 +14,7 @@ import { match, P } from "ts-pattern"
 import Layout from "./Layout"
 import { Header } from "./Header"
 import { Header_back } from "./Header"
+import useTheme from "~/theme"
 
 type Props = {
   location_initial: number | null

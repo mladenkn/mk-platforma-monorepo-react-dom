@@ -1,6 +1,6 @@
 import { FieldArray, FormikProps, ErrorMessage } from "formik"
 import React, { useEffect } from "react"
-import { TextField, Box, SxProps, useTheme } from "@mui/material"
+import { TextField, Box, SxProps } from "@mui/material"
 import { z } from "zod"
 import Post_form_images from "./Post.form.images"
 import Location_Dropdown from "~/domain/Location.dropdown"
@@ -37,8 +37,6 @@ export default function Post_form_fields<TValues extends Values>({
       setFieldValue("expertEndorsement", undefined)
     }
   }, [isExpert])
-
-  const { palette } = useTheme()
 
   return (
     <Box sx={sx}>

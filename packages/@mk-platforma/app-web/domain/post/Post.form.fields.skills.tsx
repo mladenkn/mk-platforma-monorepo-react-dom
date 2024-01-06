@@ -1,8 +1,9 @@
-import { Box, SxProps, TextField, Typography, useTheme, IconButton } from "@mui/material"
+import { Box, SxProps, TextField, Typography, IconButton } from "@mui/material"
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import RemoveIcon from "@mui/icons-material/Remove"
 import { useState } from "react"
+import useTheme from "~/theme"
 
 type Skill = {
   id?: number

@@ -1,8 +1,9 @@
-import { SxProps, styled, useTheme } from "@mui/material/styles"
+import { SxProps, styled } from "@mui/material/styles"
 import { Box, Typography, Dialog, Button } from "@mui/material"
 import React from "react"
 import Link from "next/link"
 import { use_currentUser } from "~/utils.client"
+import useTheme from "~/theme"
 
 export const Backdrop: typeof Box = styled(Box)({
   backgroundColor: "rgba(0, 0, 0, 0.3)",
@@ -40,7 +41,7 @@ export function Warning_noUsername({
 }) {
   const { typography, palette } = useTheme()
   return (
-    <Typography sx={{ fontSize: typography.h6, color: palette.warning.light, ...sx }}>
+    <Typography sx={{ fontSize: typography.h6, color: palette.generic.warning.light, ...sx }}>
       Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj.{" "}
       {withSetAction && (
         <Link href="/profile/edit" style={{ color: "inherit" }}>

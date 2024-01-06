@@ -1,4 +1,4 @@
-import { Box, Paper, Avatar, Typography, IconButton, useTheme } from "@mui/material"
+import { Box, Paper, Avatar, Typography, IconButton } from "@mui/material"
 import React from "react"
 import Link from "next/link"
 import { groupBy } from "lodash"
@@ -19,7 +19,6 @@ export default function User_profile({ user_initial }: Props) {
   const user = Api.user.single_withPosts.useQuery(user_initial.id, { initialData: user_initial })
   const posts_byCategories = Object.entries(groupBy(user.data?.posts, p => p.categories[0].id))
 
-  const {} = useTheme()
   const noUsername_isDisplayed = use_noUsername_isDisplayed()
 
   return (

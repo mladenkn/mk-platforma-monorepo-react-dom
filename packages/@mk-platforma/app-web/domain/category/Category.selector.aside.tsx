@@ -4,7 +4,6 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  useTheme,
   Box,
   IconButton,
   Collapse,
@@ -17,6 +16,7 @@ import { eva } from "@mk-libs/common/common"
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
 import type { Api_outputs } from "~/api.trpc/api.infer"
 import { LogoLink } from "~/domain/common"
+import useTheme from "~/theme"
 
 type Category_model = Api_outputs["category"]["many"][number]
 
@@ -33,7 +33,7 @@ export default function Categories_selector_aside({
   onBack,
   categories,
 }: Props) {
-  const { palette, typography, breakpoints } = useTheme()
+  const { palette, typography } = useTheme()
 
   const selectedItem = eva(() => {
     const selectedItem = categories.find(c => c.id === selectedItem_id)
@@ -77,7 +77,7 @@ export default function Categories_selector_aside({
   })
 
   return (
-    <Box sx={{ background: palette.primary.main, height: "100%", p: 3 }}>
+    <Box sx={{ height: "100%", p: 3, ...palette.postListPage.browseMenu, }}>
       <LogoLink />
       <List sx={{ mt: 4 }} disablePadding>
         {rootItem ? (

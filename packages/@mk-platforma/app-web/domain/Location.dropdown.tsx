@@ -1,4 +1,4 @@
-import { Autocomplete, Box, TextField, SxProps, useTheme } from "@mui/material"
+import { Autocomplete, Box, TextField, SxProps } from "@mui/material"
 import React, { ReactElement, useState } from "react"
 import Api from "../api.trpc/api.client"
 import LocationOnIcon from "@mui/icons-material/LocationOnOutlined"
@@ -19,8 +19,6 @@ export default function Location_Dropdown({
   onChange,
   ...props
 }: CategoriesDropdown_Props): ReactElement {
-  const {} = useTheme()
-
   const [search, setSearch] = useState("")
   const suggestions = Api.location.many.useQuery({ query: search })
   const selectedLocation = Api.location.single.useQuery({ id: value! }, { enabled: !!value })

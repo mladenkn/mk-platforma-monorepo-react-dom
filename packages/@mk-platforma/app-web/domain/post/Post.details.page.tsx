@@ -1,4 +1,4 @@
-import { Avatar, Box, IconButton, Link, Paper, Typography, useTheme } from "@mui/material"
+import { Avatar, Box, IconButton, Link, Paper, Typography } from "@mui/material"
 import Api from "~/api.trpc/api.client"
 import { asNonNil } from "@mk-libs/common/common"
 import React, { useState } from "react"
@@ -16,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { Api_outputs } from "~/api.trpc/api.infer"
 import Comment_list from "../Comment.list"
+import useTheme from "~/theme"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 
@@ -42,7 +43,6 @@ export default function Post_details_page({
     isDeleted,
   } = post
 
-  const {} = useTheme()
   const { typography } = useTheme()
 
   const [deleteInitiated, setDeleteInitiated] = useState(false)

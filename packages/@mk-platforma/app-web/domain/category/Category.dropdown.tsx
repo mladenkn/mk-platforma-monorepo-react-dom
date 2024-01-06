@@ -1,4 +1,4 @@
-import { Autocomplete, Box, TextField, useTheme } from "@mui/material"
+import { Autocomplete, Box, TextField } from "@mui/material"
 import { CategoryIcon } from "./Category.common"
 import React, { ComponentProps, ReactElement } from "react"
 import Api from "~/api.trpc/api.client"
@@ -40,7 +40,6 @@ export default function Category_dropdown({
   textFieldProps,
   ...props
 }: CategoriesDropdown_Props): ReactElement {
-  const {} = useTheme()
   const options_premap = Api.category.many.useQuery()
 
   const options = options_premap.data?.map(category_to_option).sort((a, b) => {

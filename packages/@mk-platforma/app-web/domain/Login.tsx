@@ -1,9 +1,10 @@
-import { Button, Container, Box, TextField, Paper, useTheme } from "@mui/material"
+import { Button, Container, Box, TextField, Paper } from "@mui/material"
 import { LogoLink } from "./common"
 import { ErrorMessage, Formik } from "formik"
 import { z } from "zod"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import Api from "~/api.trpc/api.client"
+import useTheme from "~/theme"
 
 type Props = {
   csrfToken?: string
@@ -15,7 +16,7 @@ const initialValues = {
 }
 
 export default function Login({ csrfToken }: Props) {
-  const theme = useTheme()
+  const { palette } = useTheme()
 
   const auth_checkPass = Api.auth.checkPass.useMutation().mutateAsync
 
@@ -31,7 +32,7 @@ export default function Login({ csrfToken }: Props) {
 
   return (
     <Container maxWidth="md">
-      <Box sx={{ background: theme.palette.primary.main, px: 2, py: 1 }}>
+      <Box sx={{ background: palette.generic.primary.main, px: 2, py: 1 }}>
         <LogoLink />
       </Box>
       <Paper sx={{ py: 4, px: 2 }}>
