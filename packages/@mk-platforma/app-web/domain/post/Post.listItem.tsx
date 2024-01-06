@@ -11,7 +11,7 @@ type Post_common_listItem_props = {
 }
 
 export function Post_listItem({ id, title, location, image }: Post_common_listItem_props) {
-  const { typography } = useTheme()
+  const { typography, ...theme } = useTheme()
 
   return (
     <Paper
@@ -41,7 +41,7 @@ export function Post_listItem({ id, title, location, image }: Post_common_listIt
         </Typography>
 
         {location && (
-          <Box sx={{ color: "text.secondary", mt: 0.75 }}>
+          <Box sx={{ mt: 0.75, color: theme.elements.postListPage.postList.item.location.color }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <LocationIcon sx={{ fontSize: typography.h6, mr: 1 }} />
               <Typography variant="h6">{location}</Typography>

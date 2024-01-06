@@ -86,7 +86,7 @@ const theme_elements_default = {
           // TODO: bold
         },
         location: {
-          color: "_TODO_",
+          color: "rgba(0, 0, 0, 0.6)",
         },
       },
     },
@@ -104,7 +104,7 @@ const theme_elements_default = {
       // TODO: bold
     },
     location: {
-      color: "_TODO_",
+      color: "rgba(0, 0, 0, 0.6)",
     },
     content: {},
     commentList: {
