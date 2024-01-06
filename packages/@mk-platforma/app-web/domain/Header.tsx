@@ -200,7 +200,7 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
 //   background: theme.palette.primary.main,
 // }))
 
-export function Header(props: BoxProps) {
+export function Header({ sx, ...props }: BoxProps) {
   const theme = useTheme()
   return (
     <Box
@@ -210,6 +210,7 @@ export function Header(props: BoxProps) {
         alignItems: "center",
         justifyContent: "start",
         padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
+        ...sx,
         ...theme.elements.header.root,
       }}
       {...props}
