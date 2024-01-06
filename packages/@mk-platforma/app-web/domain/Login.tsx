@@ -4,7 +4,7 @@ import { ErrorMessage, Formik } from "formik"
 import { z } from "zod"
 import { toFormikValidationSchema } from "zod-formik-adapter"
 import Api from "~/api.trpc/api.client"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type Props = {
   csrfToken?: string

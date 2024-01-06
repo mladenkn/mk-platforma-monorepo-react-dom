@@ -17,7 +17,7 @@ import { Post_listItem_personEndorsement } from "./Post.listItem.personEndorseme
 import { Category_code_zod, type Category_code } from "../category/Category.types"
 import { useSearchParams } from "next/navigation"
 import { eva } from "@mk-libs/common/common"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type Category_model = Api_outputs["category"]["many"][number]
 

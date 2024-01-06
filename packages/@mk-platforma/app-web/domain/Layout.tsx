@@ -1,7 +1,7 @@
 import { Box, Container, SxProps } from "@mui/material"
 import { omit } from "lodash"
 import React, { ComponentProps, ReactNode } from "react"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type WithSx = {
   sx?: SxProps

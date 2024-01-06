@@ -1,7 +1,7 @@
 import { Box, Typography, Paper } from "@mui/material"
 import LocationIcon from "@mui/icons-material/LocationOn"
 import React from "react"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type Post_common_listItem_props = {
   id: number

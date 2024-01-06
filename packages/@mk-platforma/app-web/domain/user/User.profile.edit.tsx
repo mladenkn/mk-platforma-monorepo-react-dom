@@ -8,7 +8,7 @@ import DoneIcon from "@mui/icons-material/Done"
 import { asNonNil } from "~/../../@mk-libs/common/common"
 import { useState } from "react"
 import { useRouter } from "next/router"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type User = NonNullable<Api_outputs["user"]["single"]>
 

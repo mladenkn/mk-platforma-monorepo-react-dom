@@ -14,7 +14,7 @@ import { match, P } from "ts-pattern"
 import Layout from "./Layout"
 import { Header } from "./Header"
 import { Header_back } from "./Header"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type Props = {
   location_initial: number | null

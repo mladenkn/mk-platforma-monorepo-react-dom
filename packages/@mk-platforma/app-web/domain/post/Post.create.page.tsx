@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import React from "react"
 import Post_form from "./Post.form"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 import { Header, Header_moreOptions, Header_back } from "../Header"
 import Layout from "../Layout"
 import { LogoLink } from "../common"

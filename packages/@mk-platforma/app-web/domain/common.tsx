@@ -3,7 +3,7 @@ import { Box, Typography, Dialog, Button } from "@mui/material"
 import React from "react"
 import Link from "next/link"
 import { use_currentUser } from "~/utils.client"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 export const Backdrop: typeof Box = styled(Box)({
   backgroundColor: "rgba(0, 0, 0, 0.3)",

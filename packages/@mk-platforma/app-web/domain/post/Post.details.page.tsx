@@ -16,7 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import EditIcon from "@mui/icons-material/Edit"
 import { Api_outputs } from "~/api.trpc/api.infer"
 import Comment_list from "../Comment.list"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 export type Post_single_details_PostModel = NonNullable<Api_outputs["post"]["single"]>
 

@@ -8,7 +8,7 @@ import { Api_outputs } from "~/api.trpc/api.infer"
 import Api from "~/api.trpc/api.client"
 import { match } from "ts-pattern"
 import ConfirmModal from "./common"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type Comment = Api_outputs["comment"]["many"][number]
 

@@ -3,7 +3,7 @@ import LocationIcon from "@mui/icons-material/LocationOn"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import React from "react"
 import { Api_outputs } from "~/api.trpc/api.infer"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type Props = NonNullable<Api_outputs["post"]["single"]>["expertEndorsement"] & {
   location?: {

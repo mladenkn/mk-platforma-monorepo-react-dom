@@ -13,7 +13,7 @@ import { LogoLink } from "~/domain/common"
 import { Header_moreOptions } from "~/domain/Header"
 import Location_select_page from "~/domain/Location.select.page"
 import type { Category_code } from "~/domain/category/Category.types"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type Props = {
   onShowCategories(): void

@@ -3,7 +3,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline"
 import HandymanIcon from "@mui/icons-material/Handyman"
 import RemoveIcon from "@mui/icons-material/Remove"
 import { useState } from "react"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type Skill = {
   id?: number

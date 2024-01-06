@@ -17,7 +17,7 @@ import { difference } from "lodash"
 import { styled } from "@mui/material/styles"
 import { use_currentUser } from "~/utils.client"
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew"
-import useTheme from "~/theme"
+import useTheme from "~/theme/theme"
 
 type Option =
   | "post.create"
