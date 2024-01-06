@@ -116,6 +116,9 @@ const theme_elements_default = {
       },
     },
   },
+  logoLink: {
+    color: "white",
+  },
 }
 
 export default function useTheme() {

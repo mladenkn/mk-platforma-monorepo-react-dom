@@ -42,10 +42,12 @@ export default function Post_list_page_header({
   const heading_size = typeof heading === "string" ? heading.length : 100
   const searchAndMore_position = heading_size > 13 ? "down" : "up"
 
+  const textColor = theme.elements.postListPage.browseMenu.color
+
   const searchAndMore = (
     <Box sx={{ display: "flex" }}>
       <IconButton onClick={() => set_search(search === null ? "" : null)}>
-        <SearchIcon sx={{ color: "white", fontSize: typography.h4 }} />
+        <SearchIcon sx={{ color: textColor, fontSize: typography.h4 }} />
       </IconButton>
       <Header_moreOptions exclude={["post.list"]} />
     </Box>
@@ -90,7 +92,7 @@ export default function Post_list_page_header({
           pt: 1.2,
           pb: 1,
           pl: 2,
-          ...theme.elements.header.root
+          ...theme.elements.header.root,
         }}
       >
         <Box
@@ -105,7 +107,7 @@ export default function Post_list_page_header({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              color: "white",
+              color: textColor,
               width: "100%",
             }}
             onClick={onShowCategories}
@@ -150,7 +152,7 @@ export default function Post_list_page_header({
           >
             <Box sx={{ display: "flex" }}>
               <IconButton
-                sx={{ color: "white", fontSize: typography.h6 }}
+                sx={{ color: textColor, fontSize: typography.h6 }}
                 onClick={() => set_locationSelect_isActive(true)}
               >
                 <LocationOnIcon sx={{ mr: 0.75 }} /> {location_text}
@@ -158,7 +160,7 @@ export default function Post_list_page_header({
               </IconButton>
               {location_radius && (
                 <IconButton
-                  sx={{ color: "white", fontSize: typography.h6 }}
+                  sx={{ color: textColor, fontSize: typography.h6 }}
                   onClick={() => set_locationSelect_isActive(true)}
                 >
                   {location_radius} km
@@ -171,7 +173,7 @@ export default function Post_list_page_header({
           {search !== null && (
             <Box sx={{ mt: 1, mb: 1 }}>
               <Input
-                sx={{ color: "white", fontSize: typography.h5, width: "100%" }}
+                sx={{ color: textColor, fontSize: typography.h5, width: "100%" }}
                 value={search}
                 onChange={e => set_search(e.target.value)}
                 placeholder="Pretraži"
@@ -179,11 +181,11 @@ export default function Post_list_page_header({
                 startAdornment={<SearchIcon sx={{ mr: 2 }} />}
                 endAdornment={
                   <IconButton onClick={() => set_search(null)}>
-                    <CloseIcon sx={{ color: "white" }} />
+                    <CloseIcon sx={{ color: textColor }} />
                   </IconButton>
                 }
               />
-              <Box sx={{ background: "white", height: spacing(0.1), color: "white" }} />
+              <Box sx={{ background: "white", height: spacing(0.1), color: textColor }} />
             </Box>
           )}
         </Box>

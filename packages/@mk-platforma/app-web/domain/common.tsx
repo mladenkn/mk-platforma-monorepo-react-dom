@@ -18,16 +18,12 @@ export const Backdrop: typeof Box = styled(Box)({
 })
 
 export function LogoLink() {
+  const theme = useTheme()
   return (
-    <Link style={{ color: "white", textDecoration: "none" }} href="/">
+    <Link style={{ textDecoration: "none", ...theme.elements.logoLink }} href="/">
       <Typography variant="h2" fontWeight={400}>
         Pametni oglasi
       </Typography>
-      {/* <Box sx={{ color: "white" }}>
-        <Typography variant="h4" fontWeight={400}>
-          Pod naslov
-        </Typography>
-      </Box> */}
     </Link>
   )
 }

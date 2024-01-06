@@ -66,7 +66,7 @@ export default function Location_select_page({
     { enabled: !!form.values.location },
   )
 
-  const { typography } = useTheme()
+  const { typography, ...theme } = useTheme()
 
   function handle_location_unselect() {
     form.setValues({ location: null, radius: null })
@@ -84,11 +84,11 @@ export default function Location_select_page({
       header={
         <Header sx={{ display: "flex", justifyContent: "space-between" }}>
           <Header_back onClick={onBack} />
-          <Typography sx={{ color: "white" }} variant="h4">
+          <Typography sx={{ color: theme.elements.header.root.color }} variant="h4">
             Odaberi lokaciju
           </Typography>
           <IconButton onClick={handleDone}>
-            <DoneIcon sx={{ color: "white" }} />
+            <DoneIcon sx={{ color: theme.elements.header.root.color }} />
           </IconButton>
         </Header>
       }

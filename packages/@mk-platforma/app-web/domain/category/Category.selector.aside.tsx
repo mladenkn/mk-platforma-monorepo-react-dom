@@ -49,6 +49,8 @@ export default function Categories_selector_aside({
     return categories.filter(c => c.parent?.id === id)
   }
 
+  const textColor = theme.elements.postListPage.browseMenu.color
+
   function renderCategory(
     category: Category_model,
     startAdornament?: ReactNode,
@@ -59,10 +61,13 @@ export default function Categories_selector_aside({
         <ListItemButton sx={{ px: 0 }} onClick={() => onSelect && onSelect(category)}>
           {startAdornament}
           <ListItemIcon>
-            <CategoryIcon sx={{ fontSize: typography.h3, color: "white" }} name={category.icon} />
+            <CategoryIcon sx={{ fontSize: typography.h3, color: textColor }} name={category.icon} />
           </ListItemIcon>
           <ListItemText
-            sx={{ color: "white", ".MuiListItemText-primary": { fontSize: typography.h5 } }}
+            sx={{
+              color: textColor,
+              ".MuiListItemText-primary": { fontSize: typography.h5 },
+            }}
             primary={category.label}
           />
         </ListItemButton>
@@ -77,7 +82,7 @@ export default function Categories_selector_aside({
   })
 
   return (
-    <Box sx={{ height: "100%", p: 3, ...theme.elements.postListPage.browseMenu, }}>
+    <Box sx={{ height: "100%", p: 3, ...theme.elements.postListPage.browseMenu }}>
       <LogoLink />
       <List sx={{ mt: 4 }} disablePadding>
         {rootItem ? (
@@ -89,9 +94,9 @@ export default function Categories_selector_aside({
                 e.stopPropagation()
               }}
             >
-              <ArrowBackIosOutlinedIcon sx={{ color: "white", mr: 2 }} />
+              <ArrowBackIosOutlinedIcon sx={{ color: textColor, mr: 2 }} />
             </IconButton>,
-            <ExpandMoreIcon sx={{ color: "white" }} />,
+            <ExpandMoreIcon sx={{ color: textColor }} />,
           )
         ) : (
           <></>
@@ -105,7 +110,7 @@ export default function Categories_selector_aside({
                     category,
                     undefined,
                     selectedItem?.id === category.id ? (
-                      <RadioButtonCheckedIcon sx={{ color: "white" }} />
+                      <RadioButtonCheckedIcon sx={{ color: textColor }} />
                     ) : (
                       <></>
                     ),
@@ -136,7 +141,7 @@ export default function Categories_selector_aside({
                 category,
                 undefined,
                 selectedItem?.id === category.id ? (
-                  <RadioButtonCheckedIcon sx={{ color: "white" }} />
+                  <RadioButtonCheckedIcon sx={{ color: textColor }} />
                 ) : undefined,
               ),
             )

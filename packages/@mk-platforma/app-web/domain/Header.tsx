@@ -77,7 +77,7 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
         sx={sx}
         onClick={e => set_optionsAnchorEl(e.target as any)}
       >
-        <MoreVertIcon sx={{ color: "white", fontSize: typography.h3 }} />
+        <MoreVertIcon sx={{ fontSize: typography.h3, color: elements.header.root.color }} />
       </IconButton>
       <Menu
         open={!!optionsAnchorEl}
@@ -218,18 +218,23 @@ export function Header(props: BoxProps) {
 }
 
 export function Header_back(props: ComponentProps<typeof IconButton>) {
+  const theme = useTheme()
   return (
-    <IconButton sx={{ color: "white", mr: 1.5 }} onClick={useRouter().back} {...props}>
+    <IconButton
+      sx={{ mr: 1.5, color: theme.elements.header.root.color }}
+      onClick={useRouter().back}
+      {...props}
+    >
       <ArrowBackIosOutlinedIcon />
     </IconButton>
   )
 }
 
 export function Header_home() {
-  const { typography } = useTheme()
+  const { typography, ...theme } = useTheme()
   return (
     <Link href="/" style={{ textDecoration: "none" }}>
-      <IconButton sx={{ color: "white", mr: 1.5 }}>
+      <IconButton sx={{ mr: 1.5, color: theme.elements.header.root.color }}>
         <HomeIcon sx={{ fontSize: typography.h3 }} />
       </IconButton>
     </Link>
