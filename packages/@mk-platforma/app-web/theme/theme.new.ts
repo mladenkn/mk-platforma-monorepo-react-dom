@@ -1,6 +1,8 @@
+import { blue } from "@mui/material/colors"
+
 const colors = {
-  primary: {
-    main: "#1976d2",
+  main: {
+    500: blue[700],
   },
 }
 
@@ -20,17 +22,17 @@ const font = {
   },
 }
 
-const theme_new_elements = {
+const theme_default_elements = {
   body: {
     background: backgrounds.body,
   },
   header: {
     root: {
       ...font.primary,
-      background: colors.primary.main,
+      background: colors.main[500],
     },
     moreMenu: {
-      color: colors.primary.main,
+      color: colors.main[500],
     },
     moreMenu_bottomSheet: {
       background: backgrounds.body,
@@ -51,11 +53,11 @@ const theme_new_elements = {
       },
     },
     browseButton: {
-      background: colors.primary.main,
+      background: colors.main[500],
       ...font.primary,
     },
     browseMenu: {
-      background: colors.primary.main,
+      background: colors.main[500],
       ...font.primary,
     },
   },
@@ -81,4 +83,4 @@ const theme_new_elements = {
   },
 }
 
-export default theme_new_elements
+export default theme_default_elements
