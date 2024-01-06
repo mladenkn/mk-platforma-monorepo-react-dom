@@ -56,8 +56,10 @@ const themeExample = {
   },
 }
 
-const primary = {
-  main: "#1976d2"
+const mkPalette = {
+  primary: {
+    main: "#1976d2"
+  }
 }
 
 const defaultElements = {
@@ -67,10 +69,10 @@ const defaultElements = {
   header: {
     root: {
       color: "white",
-      background: primary.main,
+      background: mkPalette.primary.main,
     },
     moreMenu: {
-      color: primary.main
+      color: mkPalette.primary.main
     },
     moreMenu_bottomSheet: {
     }
@@ -90,11 +92,11 @@ const defaultElements = {
       }
     },
     browseButton: {
-      background: primary.main,
+      background: mkPalette.primary.main,
       color: "white"
     },
     browseMenu: {
-      background: primary.main,
+      background: mkPalette.primary.main,
       color: "white"
     }
   },
