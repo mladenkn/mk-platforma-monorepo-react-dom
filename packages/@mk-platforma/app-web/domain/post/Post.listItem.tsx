@@ -23,6 +23,7 @@ export function Post_listItem({ id, title, location, image }: Post_common_listIt
         p: 1.5,
         cursor: "pointer",
         borderRadius: 2,
+        ...theme.elements.postListPage.postList.item.root,
       }}
     >
       {image && (
@@ -36,12 +37,16 @@ export function Post_listItem({ id, title, location, image }: Post_common_listIt
       )}
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Typography variant="h5" fontWeight={500}>
+        <Typography
+          sx={{ ...theme.elements.postListPage.postList.item.title }}
+          variant="h5"
+          fontWeight={500}
+        >
           {title}
         </Typography>
 
         {location && (
-          <Box sx={{ mt: 0.75, color: theme.elements.postListPage.postList.item.location.color }}>
+          <Box sx={{ mt: 0.75, ...theme.elements.postListPage.postList.item.location }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <LocationIcon sx={{ fontSize: typography.h6, mr: 1 }} />
               <Typography variant="h6">{location}</Typography>
