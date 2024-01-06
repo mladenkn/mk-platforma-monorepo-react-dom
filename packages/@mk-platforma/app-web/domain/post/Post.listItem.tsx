@@ -23,7 +23,7 @@ export function Post_listItem({ id, title, location, image }: Post_common_listIt
         p: 1.5,
         cursor: "pointer",
         borderRadius: 2,
-        ...theme.elements.post_list.postList.item.root,
+        ...theme.elements.post_list_page.list.item.root,
       }}
     >
       {image && (
@@ -38,7 +38,7 @@ export function Post_listItem({ id, title, location, image }: Post_common_listIt
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Typography
-          sx={{ ...theme.elements.post_list.postList.item.title }}
+          sx={{ ...theme.elements.post_list_page.list.item.title }}
           variant="h5"
           fontWeight={500}
         >
@@ -46,7 +46,7 @@ export function Post_listItem({ id, title, location, image }: Post_common_listIt
         </Typography>
 
         {location && (
-          <Box sx={{ mt: 0.75, ...theme.elements.post_list.postList.item.location }}>
+          <Box sx={{ mt: 0.75, ...theme.elements.post_list_page.list.item.location }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <LocationIcon sx={{ fontSize: typography.h6, mr: 1 }} />
               <Typography variant="h6">{location}</Typography>

@@ -58,7 +58,7 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
           <Link style={{ textDecoration: "none" }} href={`/profile/${comment.author.id}`}>
             <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name?.[0]} />
           </Link>
-          <Typography sx={{ ...theme.elements.commentList.item.userName }} fontWeight={500}>
+          <Typography sx={{ ...theme.elements.comment_list.item.userName }} fontWeight={500}>
             {comment.author.name}
           </Typography>
         </Box>
@@ -107,7 +107,7 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
           </Box>
         ))
         .with(false, () => (
-          <Box sx={{ mt: 0.5, ml: 0.5, ...theme.elements.commentList.item.content }}>
+          <Box sx={{ mt: 0.5, ml: 0.5, ...theme.elements.comment_list.item.content }}>
             {comment.content}
           </Box>
         ))

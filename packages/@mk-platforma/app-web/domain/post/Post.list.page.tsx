@@ -156,7 +156,7 @@ export default function Post_list_page({
         })}
         fab={({ sx }) => (
           <Fab
-            sx={{ ...sx, ...theme.elements.post_list.browseButton }}
+            sx={{ ...sx, ...theme.elements.post_list_page.browseButton }}
             onClick={() => set_SectionsDrawer_isActive(true)}
           >
             <ManageSearchIcon />

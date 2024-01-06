@@ -42,7 +42,7 @@ export default function Post_list_page_header({
   const heading_size = typeof heading === "string" ? heading.length : 100
   const searchAndMore_position = heading_size > 13 ? "down" : "up"
 
-  const textColor = theme.elements.post_list.browseMenu.color
+  const textColor = theme.elements.post_list_page.browseMenu.color
 
   const searchAndMore = (
     <Box sx={{ display: "flex" }}>
