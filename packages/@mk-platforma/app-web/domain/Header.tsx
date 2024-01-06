@@ -1,4 +1,4 @@
-import { Box, Typography, IconButton, Menu, MenuItem } from "@mui/material"
+import { Box, Typography, IconButton, Menu, MenuItem, BoxProps } from "@mui/material"
 import React, { ComponentProps, useState } from "react"
 import { SxProps } from "@mui/material/styles"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
@@ -53,7 +53,7 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
       color: elements.header.moreMenu.color,
     },
     body: {
-      background: elements.body.background
+      background: elements.body.background,
     },
     other: {
       background: elements.body.background,
@@ -191,14 +191,31 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
   )
 }
 
-export const Header: typeof Box = styled(Box)(({ theme }) => ({
-  display: "grid",
-  gridTemplateColumns: "min-content 1fr min-content",
-  alignItems: "center",
-  justifyContent: "start",
-  padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
-  background: theme.palette.primary.main,
-}))
+// export const Header: typeof Box = styled(Box)(({ theme }) => ({
+//   display: "grid",
+//   gridTemplateColumns: "min-content 1fr min-content",
+//   alignItems: "center",
+//   justifyContent: "start",
+//   padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
+//   background: theme.palette.primary.main,
+// }))
+
+export function Header(props: BoxProps) {
+  const theme = useTheme()
+  return (
+    <Box
+      sx={{
+        display: "grid",
+        gridTemplateColumns: "min-content 1fr min-content",
+        alignItems: "center",
+        justifyContent: "start",
+        padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
+        ...theme.elements.header.root,
+      }}
+      {...props}
+    />
+  )
+}
 
 export function Header_back(props: ComponentProps<typeof IconButton>) {
   return (
