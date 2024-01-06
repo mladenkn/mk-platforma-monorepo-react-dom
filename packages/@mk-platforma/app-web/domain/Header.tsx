@@ -53,7 +53,7 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
       color: elements.header.moreMenu.color,
     },
     body: {
-      background: "#E4E6EB"
+      background: elements.body.background
     },
     other: {
       background: elements.body.background,
