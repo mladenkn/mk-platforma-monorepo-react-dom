@@ -78,7 +78,7 @@ const theme_elements_default = {
       background: "#E4E6EB",
     },
   },
-  postListPage: {
+  post_list: {
     postList: {
       item: {
         root: {
@@ -101,7 +101,7 @@ const theme_elements_default = {
       color: "white",
     },
   },
-  postPage: {
+  post_single: {
     title: {
       // TODO: bold
     },

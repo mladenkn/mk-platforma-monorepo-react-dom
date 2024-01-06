@@ -49,7 +49,7 @@ export default function Categories_selector_aside({
     return categories.filter(c => c.parent?.id === id)
   }
 
-  const textColor = theme.elements.postListPage.browseMenu.color
+  const textColor = theme.elements.post_list.browseMenu.color
 
   function renderCategory(
     category: Category_model,
@@ -82,7 +82,7 @@ export default function Categories_selector_aside({
   })
 
   return (
-    <Box sx={{ height: "100%", p: 3, ...theme.elements.postListPage.browseMenu }}>
+    <Box sx={{ height: "100%", p: 3, ...theme.elements.post_list.browseMenu }}>
       <LogoLink />
       <List sx={{ mt: 4 }} disablePadding>
         {rootItem ? (
