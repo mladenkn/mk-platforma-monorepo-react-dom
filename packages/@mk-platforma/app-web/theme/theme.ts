@@ -1,5 +1,5 @@
 import { useTheme as useThemeMaterial } from "@mui/material"
-import theme_default_elements from "./theme.default"
+import theme_new_elements from "./theme.new"
 
 export default function useTheme() {
   const muiTheme = useThemeMaterial()
@@ -7,7 +7,7 @@ export default function useTheme() {
     typography: muiTheme.typography,
     breakpoints: muiTheme.breakpoints,
     spacing: muiTheme.spacing,
-    elements: theme_default_elements,
+    elements: theme_new_elements,
     palette: {
       warning: muiTheme.palette.warning,
       error: muiTheme.palette.error,
