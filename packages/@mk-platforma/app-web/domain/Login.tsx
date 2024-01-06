@@ -16,7 +16,7 @@ const initialValues = {
 }
 
 export default function Login({ csrfToken }: Props) {
-  const { paletteGeneric, ...theme } = useTheme()
+  const { palette: paletteGeneric, ...theme } = useTheme()
 
   const auth_checkPass = Api.auth.checkPass.useMutation().mutateAsync
 

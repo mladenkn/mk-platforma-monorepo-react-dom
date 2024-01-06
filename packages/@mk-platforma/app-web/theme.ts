@@ -74,7 +74,7 @@ export default function useTheme() {
     breakpoints: muiTheme.breakpoints,
     spacing: muiTheme.spacing,
     elements: theme_elements_default,
-    paletteGeneric: {
+    palette: {
       warning: muiTheme.palette.warning,
       error: muiTheme.palette.error,
     },

@@ -35,7 +35,7 @@ export function Warning_noUsername({
   sx?: SxProps
   withSetAction?: boolean
 }) {
-  const { typography, paletteGeneric } = useTheme()
+  const { typography, palette: paletteGeneric } = useTheme()
   return (
     <Typography sx={{ fontSize: typography.h6, color: paletteGeneric.warning.light, ...sx }}>
       Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj.{" "}
