@@ -6,12 +6,12 @@ const themeExample = {
     // text color
     moreMenu: {
       // background
-      // text color      
+      // text color
     },
     moreMenu_bottomSheet: {
       // background
-      // text color      
-    }
+      // text color
+    },
   },
   postListPage: {
     body: {
@@ -22,7 +22,7 @@ const themeExample = {
         // background
         // title
         // location
-      }
+      },
     },
     browseButton: {
       // background
@@ -31,7 +31,7 @@ const themeExample = {
     browseMenu: {
       // background
       // text color
-    }
+    },
   },
   postPage: {
     title: {
@@ -49,22 +49,22 @@ const themeExample = {
         // background
         // user name
         content: {
-          // text color          
-        }
-      }
-    }
+          // text color
+        },
+      },
+    },
   },
 }
 
 const mkPalette = {
   primary: {
-    main: "#1976d2"
-  }
+    main: "#1976d2",
+  },
 }
 
-const defaultElements = {
+const theme_elements_default = {
   body: {
-    background: "#E4E6EB"
+    background: "#E4E6EB",
   },
   header: {
     root: {
@@ -72,66 +72,64 @@ const defaultElements = {
       background: mkPalette.primary.main,
     },
     moreMenu: {
-      color: mkPalette.primary.main
+      color: mkPalette.primary.main,
     },
-    moreMenu_bottomSheet: {
-    }
+    moreMenu_bottomSheet: {},
   },
   postListPage: {
     postList: {
       item: {
         root: {
-          background: "white"
+          background: "white",
         },
         title: {
           // TODO: bold
         },
         location: {
-          color: "_TODO_"
-        }
-      }
+          color: "_TODO_",
+        },
+      },
     },
     browseButton: {
       background: mkPalette.primary.main,
-      color: "white"
+      color: "white",
     },
     browseMenu: {
       background: mkPalette.primary.main,
-      color: "white"
-    }
+      color: "white",
+    },
   },
   postPage: {
     title: {
       // TODO: bold
     },
     location: {
-      color: "_TODO_"
+      color: "_TODO_",
     },
-    content: {
-    },
+    content: {},
     commentList: {
       item: {
         userName: {
           // TODO: bold
         },
-        content: {      
-        }
-      }
-    }
+        content: {},
+      },
+    },
   },
 }
 
-export default function useTheme(){
+export default function useTheme() {
   const muiTheme = useThemeMaterial()
   return {
     typography: muiTheme.typography,
     breakpoints: muiTheme.breakpoints,
     spacing: muiTheme.spacing,
-    elements: defaultElements,
+    elements: theme_elements_default,
     paletteGeneric: {
       warning: muiTheme.palette.warning,
-      primary: muiTheme.palette.primary,
       error: muiTheme.palette.error,
-    }
+    },
   }
 }
+
+export type Theme = ReturnType<typeof useTheme>
