@@ -33,7 +33,7 @@ export default function Categories_selector_aside({
   onBack,
   categories,
 }: Props) {
-  const { palette, typography } = useTheme()
+  const { typography, ...theme } = useTheme()
 
   const selectedItem = eva(() => {
     const selectedItem = categories.find(c => c.id === selectedItem_id)
@@ -77,7 +77,7 @@ export default function Categories_selector_aside({
   })
 
   return (
-    <Box sx={{ height: "100%", p: 3, ...palette.postListPage.browseMenu, }}>
+    <Box sx={{ height: "100%", p: 3, ...theme.elements.postListPage.browseMenu, }}>
       <LogoLink />
       <List sx={{ mt: 4 }} disablePadding>
         {rootItem ? (

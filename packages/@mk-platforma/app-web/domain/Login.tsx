@@ -16,7 +16,7 @@ const initialValues = {
 }
 
 export default function Login({ csrfToken }: Props) {
-  const { palette } = useTheme()
+  const { paletteGeneric } = useTheme()
 
   const auth_checkPass = Api.auth.checkPass.useMutation().mutateAsync
 
@@ -32,7 +32,7 @@ export default function Login({ csrfToken }: Props) {
 
   return (
     <Container maxWidth="md">
-      <Box sx={{ background: palette.generic.primary.main, px: 2, py: 1 }}>
+      <Box sx={{ background: paletteGeneric.primary.main, px: 2, py: 1 }}>
         <LogoLink />
       </Box>
       <Paper sx={{ py: 4, px: 2 }}>

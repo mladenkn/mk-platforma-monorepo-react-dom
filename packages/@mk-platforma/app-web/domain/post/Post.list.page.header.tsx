@@ -36,7 +36,7 @@ export default function Post_list_page_header({
   selectedLocation_radius_km,
   set__selectedLocation_radius_km,
 }: Props) {
-  const { typography, spacing, palette } = useTheme()
+  const { typography, spacing, ...theme } = useTheme()
 
   const heading = selectedCategory ? selectedCategory.label : <LogoLink />
   const heading_size = typeof heading === "string" ? heading.length : 100
@@ -90,7 +90,7 @@ export default function Post_list_page_header({
           pt: 1.2,
           pb: 1,
           pl: 2,
-          ...palette.header.root
+          ...theme.elements.header.root
         }}
       >
         <Box

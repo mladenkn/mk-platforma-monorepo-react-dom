@@ -60,7 +60,7 @@ const primary = {
   main: "#1976d2"
 }
 
-const defaultPalette = {
+const defaultElements = {
   body: {
     background: "#E4E6EB"
   },
@@ -125,13 +125,11 @@ export default function useTheme(){
     typography: muiTheme.typography,
     breakpoints: muiTheme.breakpoints,
     spacing: muiTheme.spacing,
-    palette: {
-      ...defaultPalette,
-      generic: {
-        warning: muiTheme.palette.warning,
-        primary: muiTheme.palette.primary,
-        error: muiTheme.palette.error,
-      }
+    elements: defaultElements,
+    paletteGeneric: {
+      warning: muiTheme.palette.warning,
+      primary: muiTheme.palette.primary,
+      error: muiTheme.palette.error,
     }
   }
 }

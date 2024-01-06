@@ -32,7 +32,7 @@ export default function User_profile_edit({ user_initial }: Props) {
     router.push(`/profile/${user_data.id}`)
   }
 
-  const { palette, typography } = useTheme()
+  const { typography, paletteGeneric } = useTheme()
   const noUsername_isDisplayed = use_noUsername_isDisplayed()
 
   return (
@@ -63,7 +63,7 @@ export default function User_profile_edit({ user_initial }: Props) {
             onChange={e => set__user_name(e.target.value)}
           />
           {mutation.isError && (
-            <Typography sx={{ color: palette.generic.error.main }}>{mutation.error.message}</Typography>
+            <Typography sx={{ color: paletteGeneric.error.main }}>{mutation.error.message}</Typography>
           )}
         </Paper>
       }

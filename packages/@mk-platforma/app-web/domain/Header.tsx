@@ -41,7 +41,7 @@ type Header_moreOptions_props = {
 }
 
 export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
-  const { typography, palette } = useTheme()
+  const { typography, elements } = useTheme()
   const [optionsAnchorEl, set_optionsAnchorEl] = useState<HTMLButtonElement | null>(null)
   const [moreOptionsActive, set_moreOptionsActive] = useState(false)
 
@@ -50,15 +50,15 @@ export function Header_moreOptions({ sx, exclude }: Header_moreOptions_props) {
 
   const theme = {
     font: {
-      color: palette.header.moreMenu.color,
+      color: elements.header.moreMenu.color,
     },
     body: {
       background: "#E4E6EB"
     },
     other: {
-      background: palette.body.background,
+      background: elements.body.background,
       font: {
-        color: palette.header.moreMenu.color,
+        color: elements.header.moreMenu.color,
       },
     },
   }

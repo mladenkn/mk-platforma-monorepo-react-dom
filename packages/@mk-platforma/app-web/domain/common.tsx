@@ -39,9 +39,9 @@ export function Warning_noUsername({
   sx?: SxProps
   withSetAction?: boolean
 }) {
-  const { typography, palette } = useTheme()
+  const { typography, paletteGeneric } = useTheme()
   return (
-    <Typography sx={{ fontSize: typography.h6, color: palette.generic.warning.light, ...sx }}>
+    <Typography sx={{ fontSize: typography.h6, color: paletteGeneric.warning.light, ...sx }}>
       Moraš postaviti korisničko ime prije nego što počneš objavljivati sadržaj.{" "}
       {withSetAction && (
         <Link href="/profile/edit" style={{ color: "inherit" }}>
