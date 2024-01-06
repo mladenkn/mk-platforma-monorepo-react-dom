@@ -6,9 +6,7 @@ const colors = {
   },
 }
 
-const backgrounds = {
-  body: "#E4E6EB",
-}
+const bodyColor = "#E4E6EB"
 
 const font = {
   primary: {
@@ -24,7 +22,7 @@ const font = {
 
 const theme_default_elements = {
   body: {
-    background: backgrounds.body,
+    background: bodyColor,
   },
   header: {
     root: {
@@ -35,7 +33,7 @@ const theme_default_elements = {
       color: colors.main[500],
     },
     moreMenu_bottomSheet: {
-      background: backgrounds.body,
+      background: bodyColor,
     },
   },
   post_list_page: {
