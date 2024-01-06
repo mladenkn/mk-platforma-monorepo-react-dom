@@ -109,17 +109,17 @@ const theme_elements_default = {
       color: "rgba(0, 0, 0, 0.6)",
     },
     description: {},
-    commentList: {
-      item: {
-        userName: {
-          // TODO: bold
-        },
-        content: {},
-      },
-    },
   },
   logoLink: {
     color: "white",
+  },
+  commentList: {
+    item: {
+      userName: {
+        // TODO: bold
+      },
+      content: {},
+    },
   },
 }
 

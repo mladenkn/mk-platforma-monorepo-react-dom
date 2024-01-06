@@ -8,6 +8,7 @@ import { Api_outputs } from "~/api.trpc/api.infer"
 import Api from "~/api.trpc/api.client"
 import { match } from "ts-pattern"
 import ConfirmModal from "./common"
+import useTheme from "~/theme"
 
 type Comment = Api_outputs["comment"]["many"][number]
 
@@ -41,6 +42,8 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
     ctx.comment.invalidate()
   }
 
+  const theme = useTheme()
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", ...sx }}>
       <Box
@@ -55,7 +58,9 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
           <Link style={{ textDecoration: "none" }} href={`/profile/${comment.author.id}`}>
             <Avatar sx={comment.author.avatarStyle as object} children={comment.author.name?.[0]} />
           </Link>
-          <Typography fontWeight={500}>{comment.author.name}</Typography>
+          <Typography sx={{ ...theme.elements.commentList.item.userName }} fontWeight={500}>
+            {comment.author.name}
+          </Typography>
         </Box>
         {deleteInitiated ? (
           <ConfirmModal
@@ -101,7 +106,11 @@ export function Comment_list_item({ sx, comment, isSelected }: Props) {
             </IconButton>
           </Box>
         ))
-        .with(false, () => <Box sx={{ mt: 0.5, ml: 0.5 }}>{comment.content}</Box>)
+        .with(false, () => (
+          <Box sx={{ mt: 0.5, ml: 0.5, ...theme.elements.commentList.item.content }}>
+            {comment.content}
+          </Box>
+        ))
         .exhaustive()}
     </Box>
   )
