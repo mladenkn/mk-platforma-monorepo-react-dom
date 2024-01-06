@@ -17,6 +17,7 @@ import { Post_listItem_personEndorsement } from "./Post.listItem.personEndorseme
 import { Category_code_zod, type Category_code } from "../category/Category.types"
 import { useSearchParams } from "next/navigation"
 import { eva } from "@mk-libs/common/common"
+import useTheme from "~/theme"
 
 type Category_model = Api_outputs["category"]["many"][number]
 
@@ -93,6 +94,8 @@ export default function Post_list_page({
     setUrlParams_shallow({ category: category.code })
   }
 
+  const theme = useTheme()
+
   return (
     <>
       <Layout
@@ -152,7 +155,10 @@ export default function Post_list_page({
           return <Typography>Nema objava koje odgovaraju ovom upitu.</Typography>
         })}
         fab={({ sx }) => (
-          <Fab color="primary" sx={sx} onClick={() => set_SectionsDrawer_isActive(true)}>
+          <Fab
+            sx={{ ...sx, ...theme.elements.post_list.browseButton }}
+            onClick={() => set_SectionsDrawer_isActive(true)}
+          >
             <ManageSearchIcon />
           </Fab>
         )}
