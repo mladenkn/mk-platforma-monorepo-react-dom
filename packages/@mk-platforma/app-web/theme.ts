@@ -1,25 +1,41 @@
 import { useTheme as useThemeMaterial } from "@mui/material"
 
-const mkPalette = {
+const colors = {
   primary: {
     main: "#1976d2",
   },
 }
 
+const backgrounds = {
+  body: "#E4E6EB",
+}
+
+const font = {
+  primary: {
+    color: "white",
+  },
+  secondary: {
+    color: "rgba(0, 0, 0, 0.6)",
+  },
+  blackBold: {
+    fontWeight: 500,
+  },
+}
+
 const theme_elements_default = {
   body: {
-    background: "#E4E6EB",
+    background: backgrounds.body,
   },
   header: {
     root: {
-      color: "white",
-      background: mkPalette.primary.main,
+      ...font.primary,
+      background: colors.primary.main,
     },
     moreMenu: {
-      color: mkPalette.primary.main,
+      color: colors.primary.main,
     },
     moreMenu_bottomSheet: {
-      background: "#E4E6EB",
+      background: backgrounds.body,
     },
   },
   post_list_page: {
@@ -29,38 +45,38 @@ const theme_elements_default = {
           background: "white",
         },
         title: {
-          fontWeight: 500,
+          ...font.blackBold,
         },
         location: {
-          color: "rgba(0, 0, 0, 0.6)",
+          ...font.secondary,
         },
       },
     },
     browseButton: {
-      background: mkPalette.primary.main,
-      color: "white",
+      background: colors.primary.main,
+      ...font.primary,
     },
     browseMenu: {
-      background: mkPalette.primary.main,
-      color: "white",
+      background: colors.primary.main,
+      ...font.primary,
     },
   },
   post_details: {
     title: {
-      fontWeight: 500,
+      ...font.blackBold,
     },
     location: {
-      color: "rgba(0, 0, 0, 0.6)",
+      ...font.secondary,
     },
     description: {},
   },
   logoLink: {
-    color: "white",
+    ...font.primary,
   },
   comment_list: {
     item: {
       userName: {
-        fontWeight: 500,
+        ...font.blackBold,
       },
       content: {},
     },
