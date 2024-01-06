@@ -29,7 +29,7 @@ const theme_elements_default = {
           background: "white",
         },
         title: {
-          // TODO: bold
+          fontWeight: 500,
         },
         location: {
           color: "rgba(0, 0, 0, 0.6)",
@@ -47,7 +47,7 @@ const theme_elements_default = {
   },
   post_details: {
     title: {
-      // TODO: bold
+      fontWeight: 500,
     },
     location: {
       color: "rgba(0, 0, 0, 0.6)",
@@ -60,7 +60,7 @@ const theme_elements_default = {
   comment_list: {
     item: {
       userName: {
-        // TODO: bold
+        fontWeight: 500,
       },
       content: {},
     },

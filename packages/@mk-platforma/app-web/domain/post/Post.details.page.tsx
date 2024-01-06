@@ -74,11 +74,7 @@ export default function Post_details_page({
                   <Avatar sx={{ mr: 2, ...author.avatarStyle }} children={author.name?.[0]} />
                 </Link>
                 <Box>
-                  <Typography
-                    sx={{ ...theme.elements.post_details.title }}
-                    fontWeight={500}
-                    variant="h4"
-                  >
+                  <Typography sx={{ ...theme.elements.post_details.title }} variant="h4">
                     {title}
                   </Typography>
                   {location && (

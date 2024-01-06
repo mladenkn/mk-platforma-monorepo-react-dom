@@ -37,11 +37,7 @@ export function Post_listItem({ id, title, location, image }: Post_common_listIt
       )}
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
-        <Typography
-          sx={{ ...theme.elements.post_list_page.list.item.title }}
-          variant="h5"
-          fontWeight={500}
-        >
+        <Typography sx={{ ...theme.elements.post_list_page.list.item.title }} variant="h5">
           {title}
         </Typography>
 
