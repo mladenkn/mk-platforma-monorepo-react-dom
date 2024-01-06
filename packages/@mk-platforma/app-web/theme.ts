@@ -101,14 +101,14 @@ const theme_elements_default = {
       color: "white",
     },
   },
-  post_single: {
+  post_details: {
     title: {
       // TODO: bold
     },
     location: {
       color: "rgba(0, 0, 0, 0.6)",
     },
-    content: {},
+    description: {},
     commentList: {
       item: {
         userName: {

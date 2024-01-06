@@ -43,7 +43,7 @@ export default function Post_details_page({
     isDeleted,
   } = post
 
-  const { typography } = useTheme()
+  const { typography, ...theme } = useTheme()
 
   const [deleteInitiated, setDeleteInitiated] = useState(false)
 
@@ -74,11 +74,15 @@ export default function Post_details_page({
                   <Avatar sx={{ mr: 2, ...author.avatarStyle }} children={author.name?.[0]} />
                 </Link>
                 <Box>
-                  <Typography fontWeight={500} variant="h4">
+                  <Typography
+                    sx={{ ...theme.elements.post_details.title }}
+                    fontWeight={500}
+                    variant="h4"
+                  >
                     {title}
                   </Typography>
                   {location && (
-                    <Box sx={{ color: "text.secondary", mt: 1 }}>
+                    <Box sx={{ mt: 1, ...theme.elements.post_details.location }}>
                       <Box sx={{ display: "flex", alignItems: "center", mb: 0.3 }}>
                         <LocationIcon fontSize="medium" sx={{ mr: 1 }} />
                         <Typography fontSize="large">{location.name}</Typography>
@@ -134,7 +138,9 @@ export default function Post_details_page({
                 ))}
               </Carousel>
             ) : undefined}
-            <Typography>{description}</Typography>
+            <Typography sx={{ ...theme.elements.post_details.description }}>
+              {description}
+            </Typography>
             {expertEndorsement?.skills?.length ? (
               <Box sx={{ mt: 4 }}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
