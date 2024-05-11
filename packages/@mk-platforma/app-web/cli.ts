@@ -20,7 +20,7 @@ async function api_create(db: Drizzle_instance) {
 
 const command = cli_command_base({
   base_params: z.object({
-    dbInstance: z.string().optional().default("dev"),
+    // dbInstance: z.string().optional().default("dev"),
   }),
 })
 
@@ -28,7 +28,7 @@ const commands = [
   command({
     name: "db.reset",
     async resolve({ run }) {
-      await run(`psql ${process.env.DATABASE_URL} --file=./db.truncate.sql`)
+      await run(`psql ${process.env.DATABASE_URL} --file=./db.drop.sql`)
       await run("drizzle-kit push:pg --config=./drizzle/drizzle.config.ts")
       await run("prisma db pull")
       await run("prisma generate")
